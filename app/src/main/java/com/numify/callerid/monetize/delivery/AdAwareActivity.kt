@@ -278,7 +278,11 @@ open class AdAwareActivity : AppCompatActivity() {
                 "HD_VBC_Native", "is_preload_ads",
                 "InterAds", "AppopenAds",
                 "NativeAd", "is_rateus",
-                "screen_wise_ad", "screen_wise_default"
+                "screen_wise_ad", "screen_wise_default",
+                // Ask AI. Absent from the config means "leave the compiled
+                // default alone" — the root.has() guard below sees to that — so
+                // an older config never force-disables the assistant.
+                "ai_assistant_enabled", "ai_assistant_home_tooltip"
             ).forEach { key -> if (root.has(key)) putBoolean(key, root.optBoolean(key, false)) }
 
             // --- Strings ---
@@ -299,7 +303,9 @@ open class AdAwareActivity : AppCompatActivity() {
                 // Nested JSON objects stored as text (read back via JSONObject) —
                 // the Onboarding Dynamic Flow (replaces intro_display + permission_engine),
                 // and the lookup API endpoints (see EndpointConfig).
-                "screen", "exit", "ScreenAds", "api_config", "rate_us"
+                "screen", "exit", "ScreenAds", "api_config", "rate_us",
+                // Base URL of the AI proxy. Blank keeps the assistant on-device.
+                "ai_assistant_endpoint"
             ).forEach { key -> if (root.has(key)) putString(key, root.optString(key, "")) }
 
             // screen_order is a JSON array, stored as text like the objects above
@@ -311,7 +317,8 @@ open class AdAwareActivity : AppCompatActivity() {
                 "InterCounter", "InterBackCounter", "MarketInterCounter", "MarketBackCounter",
                 "NativeCounter", "MarketNativeCounter", "MidNativeCounter", "BannerCounter",
                 "MarketBannerCounter", "MarketAppopenCounter", "AppopenCounter",
-                "HD_VBC_Hrs"
+                "HD_VBC_Hrs",
+                "ai_assistant_free_queries"
             ).forEach { key -> if (root.has(key)) putInt(key, root.optInt(key, 0)) }
 
             applyNativeTheme(context, root) // DEFAULT theme

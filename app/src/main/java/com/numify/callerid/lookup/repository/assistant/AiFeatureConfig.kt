@@ -39,7 +39,7 @@ object AiFeatureConfig {
      */
     fun freeQueryLimit(context: Context): Int =
         AdPreferenceStore.getInstance(context)
-            .getLong("${BLOCK}_free_queries", DEFAULT_FREE_QUERIES).toInt()
+            .getInt("${BLOCK}_free_queries", DEFAULT_FREE_QUERIES)
 
     /**
      * Base URL of the AI proxy. Blank until the endpoint exists, which is the
@@ -52,5 +52,5 @@ object AiFeatureConfig {
     fun showHomeTooltip(context: Context): Boolean =
         AdPreferenceStore.getInstance(context).getBoolean("${BLOCK}_home_tooltip", true)
 
-    private const val DEFAULT_FREE_QUERIES = 5L
+    private const val DEFAULT_FREE_QUERIES = 5
 }
