@@ -11,5 +11,5 @@
         android:endColor="@color/splash_sl_brand_2"
         android:startColor="@color/splash_sl_brand"
         android:type="linear" />
-    <corners android:radius="@dimen/_23sdp" />
+    <corners android:radius="@dimen/_28sdp" />
 </shape>

@@ -7,5 +7,5 @@
         android:startColor="@color/splash_icon_tile_top"
         android:endColor="@color/splash_icon_tile_bottom"
         android:type="linear" />
-    <corners android:radius="@dimen/_24sdp" />
+    <corners android:radius="@dimen/_30sdp" />
 </shape>

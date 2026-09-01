@@ -5,6 +5,7 @@
     the small glyph, not by a whole filled disc, so a grid of ten stays calm.
 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
+    android:shape="rectangle">
     <solid android:color="#243B82F6" />
+    <corners android:radius="@dimen/_13sdp" />
 </shape>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Blocklist neutral row · circular avatar tint. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
+    android:shape="rectangle">
     <solid android:color="@color/surface_2" />
+    <corners android:radius="@dimen/_16sdp" />
 </shape>

@@ -7,5 +7,5 @@
         android:startColor="@color/splash_grad_start"
         android:endColor="@color/splash_accent_2"
         android:type="linear" />
-    <corners android:radius="@dimen/_16sdp" />
+    <corners android:radius="@dimen/_21sdp" />
 </shape>
