@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".screen.utility.BubbleLevelActivity">
+        tools:context=".screen.utility.SpiritLevelActivity">
 
         <LinearLayout
             android:id="@+id/crownBar"
@@ -113,7 +113,7 @@
                     android:outlineAmbientShadowColor="@color/card_shadow"
                     android:outlineSpotShadowColor="@color/card_shadow">
 
-                    <com.numify.callerid.numberlookup.screen.utility.LevelDialView
+                    <com.numify.callerid.numberlookup.screen.utility.LevelIndicatorView
                         android:id="@+id/bubbleVw"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

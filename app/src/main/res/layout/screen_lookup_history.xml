@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".screen.search.SearchTrailActivity">
+        tools:context=".screen.search.SearchHistoryActivity">
 
         <!-- Top bar -->
         <LinearLayout
@@ -84,14 +84,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/crownBar">
 
-            <com.numify.callerid.numberlookup.screen.shared.PulseIconView
+            <com.numify.callerid.numberlookup.screen.shared.RippleIconView
                 android:layout_width="@dimen/_76sdp"
                 android:layout_height="@dimen/_76sdp"
-                app:pulse_disc="@drawable/shape_empty_circle_tools"
-                app:pulse_icon="@drawable/glyph_search_plus"
-                app:pulse_iconSize="@dimen/_32sdp"
-                app:pulse_iconTint="@color/on_primary_container"
-                app:pulse_ring="@drawable/shape_ring_tools" />
+                app:ripple_disc="@drawable/shape_empty_circle_tools"
+                app:ripple_icon="@drawable/glyph_search_plus"
+                app:ripple_iconSize="@dimen/_32sdp"
+                app:ripple_iconTint="@color/on_primary_container"
+                app:ripple_ring="@drawable/shape_ring_tools" />
 
             <TextView
                 android:layout_width="match_parent"

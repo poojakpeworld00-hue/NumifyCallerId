@@ -2,11 +2,11 @@
 <network-security-config>
     <!-- Cleartext is denied everywhere by default (Android 9+); each exception
          below must have a live caller. Removed: apilayer.net (numverify) — that
-         online lookup was replaced by the offline LocalNumberIndex, so the rule
+         online lookup was replaced by the offline OfflineNumberIndex, so the rule
          was permitting unencrypted traffic to a domain the app never contacts. -->
 
     <!-- ip-api.com IP geolocation free tier serves over HTTP only.
-         Caller: GeoIpLookup.resolveGeoFromIp(). -->
+         Caller: RegionIpResolver.resolveGeoFromIp(). -->
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">ip-api.com</domain>
     </domain-config>

@@ -107,9 +107,9 @@
 -dontwarn com.facebook.**
 # LightHouse push SDK ships its own consumer ProGuard rules in the AAR; the
 # Firebase + Gson keeps below cover its FCM + JSON needs. (Replaced OneSignal.)
-# Ad module — AdHostActivity is an open base (subclassed) that drives Remote
+# Ad module — AdAwareActivity is an open base (subclassed) that drives Remote
 # Config init/ad loading; keep it and its members intact.
--keep class com.numify.callerid.adkit.runtime.AdHostActivity { *; }
+-keep class com.numify.callerid.adkit.runtime.AdAwareActivity { *; }
 
 # -------------------------------------------------------------
 # Firebase / Crashlytics / Remote Config
@@ -174,12 +174,12 @@
 # (com.numify.callerid.numberlookup.access.**)
 #
 # Most of this package needs NO rules:
-#  • FullScreenAccessActivity / FullScreenWatchService are declared in the manifest, so
+#  • LockScreenAlertActivity / LockScreenWatchService are declared in the manifest, so
 #    R8 keeps them (and their entry points) automatically.
-#  • FullScreenConfig / PermissionModels / the RC parsers read org.json with literal
+#  • LockScreenConfig / PermissionModels / the RC parsers read org.json with literal
 #    string keys — no Gson, no reflection — so field/class names may be
 #    obfuscated freely.
-#  • AccessEngine, AccessRepository, FullScreenReturnWatcher, etc. are called /
+#  • PermissionCoordinator, PermissionRepository, LockScreenReturnWatcher, etc. are called /
 #    registered directly in code and kept as reachable.
 #
 # The ONLY reflective surface is the FragmentManager re-instantiating the
@@ -187,9 +187,9 @@
 # process death. Keep their no-arg constructors so that path can never
 # NoSuchMethod-crash under R8 full mode.
 # -------------------------------------------------------------
--keepclassmembers class com.numify.callerid.numberlookup.access.AccessLauncher {
+-keepclassmembers class com.numify.callerid.numberlookup.access.PermissionLauncher {
     <init>();
 }
--keepclassmembers class com.numify.callerid.numberlookup.access.AccessSheetDialog {
+-keepclassmembers class com.numify.callerid.numberlookup.access.PermissionSheetDialog {
     <init>();
 }

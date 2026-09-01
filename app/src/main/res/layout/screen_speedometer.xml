@@ -5,7 +5,7 @@
     Header (back · title · history) over the dial, the carrier chip, three stat
     tiles, and a full-width "Test again".
 
-    The dial is SpeedGaugeView. Its scale is non-linear on purpose (see the view)
+    The dial is SpeedometerView. Its scale is non-linear on purpose (see the view)
     and its ticks are drawn rather than laid out, because the design's markup
     hard-codes seventeen positioned spans that cannot re-proportion for a smaller
     dial. Ad slots are unchanged from the previous layout.
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".screen.utility.SpeedGaugeActivity">
+        tools:context=".screen.utility.SpeedometerActivity">
 
         <LinearLayout
             android:id="@+id/crownBar"
@@ -89,7 +89,7 @@
                     android:outlineAmbientShadowColor="@color/card_shadow"
                     android:outlineSpotShadowColor="@color/card_shadow">
 
-                    <com.numify.callerid.numberlookup.screen.utility.SpeedGaugeView
+                    <com.numify.callerid.numberlookup.screen.utility.SpeedometerView
                         android:id="@+id/gaugeVw"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

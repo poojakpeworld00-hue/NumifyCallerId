@@ -5,7 +5,7 @@ ad placement, and a fully dynamic onboarding flow (screen order, permissions,
 country gating, exit behaviour) — **per audience** (`marketing` / `organic`).
 
 > **Status: IMPLEMENTED.** The screen router, per-screen permissions,
-> splash `ad_type`, managed exit, and the FSI/`AdsPrefStore`/`NativeTheme`
+> splash `ad_type`, managed exit, and the FSI/`AdPreferenceStore`/`NativeTheme`
 > fixes below are live code (`compileDebugKotlin` and `assembleDebug` both
 > pass). See §8 for exactly what changed, file by file, and the couple of
 > gaps intentionally left unwired (documented there rather than silently
@@ -31,8 +31,8 @@ flowchart LR
     SEL{"OnMaketing?"}
     MKT["marketing{}"]
     ORG["organic{}"]
-    INGEST["AdHostActivity.ingestConfig()<br/>(flat-key copy)"]
-    PREFS["AdsPrefStore<br/>(SharedPreferences)"]
+    INGEST["AdAwareActivity.ingestConfig()<br/>(flat-key copy)"]
+    PREFS["AdPreferenceStore<br/>(SharedPreferences)"]
     RC --> SEL
     SEL -- true --> MKT --> INGEST
     SEL -- false --> ORG --> INGEST
@@ -77,7 +77,7 @@ moves previously-hardcoded endpoints into config (credentials stay out — §3.7
 ### 3.2 Ads Counter
 
 Each counter is an integer throttle: an in-memory call counter
-(`AdFrequencyManager`) increments on every ad request; the ad only shows once
+(`DisplayCadenceManager`) increments on every ad request; the ad only shows once
 the counter reaches the configured value, then resets to 0.
 
 | Key | Throttles |
@@ -87,7 +87,7 @@ the counter reaches the configured value, then resets to 0.
 | `NativeCounter` | Native ad |
 | `MidNativeCounter` | Mid-native ad |
 | `BannerCounter` | Banner ad |
-| `AppopenCounter` | App-open ad (stored, **not currently read** by `OpenAdManager`) |
+| `AppopenCounter` | App-open ad (stored, **not currently read** by `AppOpenAdManager`) |
 
 ### 3.3 Ad Id
 
@@ -110,8 +110,8 @@ the counter reaches the configured value, then resets to 0.
 
 ### 3.5 ScreenWise Ad Id (`ScreenAds`)
 
-Keyed by the exact Kotlin **Activity class name** — `CoreActivity.kt:128` calls
-`ScreenAdPlan.showAd(this::class.java.simpleName, ...)`, so a key that doesn't
+Keyed by the exact Kotlin **Activity class name** — `BaseActivity.kt:128` calls
+`ScreenPlacementPlan.showAd(this::class.java.simpleName, ...)`, so a key that doesn't
 match a real `simpleName` never resolves. Resolution is Activity-only; there's
 no Fragment-level granularity today. Each entry:
 
@@ -123,18 +123,18 @@ no Fragment-level granularity today. Each entry:
 | `native` | String | Native ad-unit id (blank → inherits `googleNative`). |
 | `nativeType` | String | `"small"` \| `"mid"` |
 
-Current entries: `default`, `LocalePickerActivity`, `HomeShellActivity`.
+Current entries: `default`, `LanguagePickerActivity`, `MainShellActivity`.
 
 > **Fixed a stale-key bug**: the JSON originally had `LanguageActivity` and
 > `MainActivity` — neither is a real class in this codebase (verified against
 > `find ... | xargs grep "^class.*Activity"`). The real classes, confirmed to
-> extend `CoreActivity`, are `LocalePickerActivity` (language screen) and
-> `HomeShellActivity` (home shell). A third original key, `HomeFragment`, was
+> extend `BaseActivity`, are `LanguagePickerActivity` (language screen) and
+> `MainShellActivity` (home shell). A third original key, `HomeFragment`, was
 > **dropped** — it never resolves (screen-name resolution is Activity-only)
-> and there's no such class; `HomeShellActivity`'s own entry already covers
-> Home. If per-tab ad control (`CallHistoryFragment`, `PhonebookFragment`,
-> `BlocklistFragment`, `ToolsFragment`, `NumberSearchFragment`) is wanted
-> later, `CoreActivity`/`ScreenAdPlan` need Fragment-level resolution added —
+> and there's no such class; `MainShellActivity`'s own entry already covers
+> Home. If per-tab ad control (`CallLogFragment`, `ContactListFragment`,
+> `BlockedNumbersFragment`, `ToolboxFragment`, `NumberFinderFragment`) is wanted
+> later, `BaseActivity`/`ScreenPlacementPlan` need Fragment-level resolution added —
 > that's a code change, not a JSON one.
 
 > **Gap:** `ScreenAds` has no field to override `IsAdType` (Google vs
@@ -149,14 +149,14 @@ Links (`DirectLink`, `PrivacyPolicy`, `TermLink`), country-counter gate
 `custom_ads` (house ad card).
 
 **What `Iscountry_Counter` / `CountryList_Counter_NShow` actually gates:**
-IP-geolocation (matched against `GeoInfo.country`/`regionName`/`city` — **full
+IP-geolocation (matched against `RegionDetails.country`/`regionName`/`city` — **full
 names**, e.g. `"India"`/`"Indore"`, not the ISO code used elsewhere — see
 §4.3) sets `HD_VBC_Show=false` when the location is in the allow-list. That
 one flag then gates two things:
 
-- **`phone_state` permission row** in the Access sheet (`AccessSheetDialog.kt:174`)
-- **The Callback (post-call) screen** — `PhoneStateReceiver.kt:161` skips it
-  entirely (`OpenAdManager.callbackshow`, `FloatingBubbleManager.presentCallbackScreen()`)
+- **`phone_state` permission row** in the Access sheet (`PermissionSheetDialog.kt:174`)
+- **The Callback (post-call) screen** — `CallStateReceiver.kt:161` skips it
+  entirely (`AppOpenAdManager.callbackshow`, `FloatingWidgetManager.presentCallbackScreen()`)
   when `HD_VBC_Show=false`
 
 It gates the **overlay** permission ask too. Overlay permission is only used
@@ -164,11 +164,11 @@ It gates the **overlay** permission ask too. Overlay permission is only used
 full-screen-notification display), so asking for it when the Callback screen
 can never appear was pointless — that row used to be added unconditionally and
 is now wrapped in the same `HD_VBC_Show` check as `phone_state` right above it
-(`AccessSheetDialog.kt` ~189-192). See §8.
+(`PermissionSheetDialog.kt` ~189-192). See §8.
 
 ### 3.7 `api_config` — lookup API endpoints
 
-Drives the callerid.kpeworld.com calls in `LookupApi` (parsed by `ApiConfig.kt`).
+Drives the callerid.kpeworld.com calls in `NumberLookupService` (parsed by `EndpointConfig.kt`).
 Lives **inside each audience block**, like every other key — `ingestConfig()`
 only ever sees the resolved audience object, so put the **same value in both**
 `marketing` and `organic` unless you genuinely want them on different backends.
@@ -176,7 +176,7 @@ only ever sees the resolved audience object, so put the **same value in both**
 | Field | Fallback | Meaning |
 |---|---|---|
 | `lookup_base_url` | `https://callerid.kpeworld.com/` | Retrofit base URL. A missing trailing slash is added automatically. |
-| `lookup_api_id` | `ApiSecrets.API_ID` (local.properties) | Account path id for the lookup endpoint. |
+| `lookup_api_id` | `CredentialProvider.API_ID` (local.properties) | Account path id for the lookup endpoint. |
 | `lookup_path_similar` | `api/similar-phone-number/` | Number-lookup path; `lookup_api_id` is appended. |
 | `lookup_path_save_contact` | `/api/save_contact2` | Contact-upload path. |
 
@@ -186,7 +186,7 @@ behaviour exactly as it was. That fallback is what runs on a first cold launch,
 since Remote Config arrives asynchronously.
 
 > **Credentials are deliberately NOT here.** `hash_key` and the bearer token stay
-> in `local.properties` → obfuscated `BuildConfig` (`ApiSecrets`). Remote Config
+> in `local.properties` → obfuscated `BuildConfig` (`CredentialProvider`). Remote Config
 > is **publicly readable** — the whole payload can be fetched over HTTPS using
 > only the values in `google-services.json`, with no authentication. Putting auth
 > material in RC would make it *easier* to obtain than decompiling the APK. See
@@ -255,7 +255,7 @@ that is never edited is just another thing to keep in sync:
 >    **passes every session**. `session: "never"` therefore does the exact
 >    opposite of what it reads. Use `isEnable: false` to switch a screen off.
 > 2. `"<N>"` checks `appLaunchCount % N == 0`, and `0 % N == 0` is true.
->    `LaunchActivity` bumps the counter to 1 before any gate runs so the normal
+>    `SplashActivity` bumps the counter to 1 before any gate runs so the normal
 >    path is safe, but a cold start that reaches a screen without going through
 >    Splash (a push-launched entry) is not.
 >
@@ -292,8 +292,8 @@ different questions, so they stay separate fields — a `session` of `"3"` with 
 > **Compliance, verified in this app.** The docs forbid a call-to-action button
 > that triggers the API ("users might have hit their quota, creating a broken
 > experience — redirect to the Play Store instead"). The Settings **Rate us** row
-> calls `ScreenUtils.rateApp()`, which opens `market://details?id=…` with a web
-> fallback, and never touches `ReviewManager`; `RateUsGate` is the only file in
+> calls `DisplayUtils.rateApp()`, which opens `market://details?id=…` with a web
+> fallback, and never touches `ReviewManager`; `AppRatingPrompt` is the only file in
 > the app that references the review API at all. The other prohibitions — no
 > pre-prompt question, no restyling, overlaying or programmatically dismissing the
 > card — are satisfied by construction, since nothing here draws its own UI.
@@ -310,8 +310,8 @@ variant of the same key:
 
 | Removed | Kept | Code note |
 |---|---|---|
-| `MarketLink` | `DirectLink` | Not needed in a split config — the `MarketLink → DirectLink` copy in `AdHostActivity.kt` is gated `if (isMarketingOn && !isSplitConfig)`, so it never runs for one. **`MarketLink` still has to stay in the `ingestConfig()` whitelist**, though: dropping it while leaving the copy in place meant a legacy *flat* config would blank `DirectLink` (which drives the house-ad click-through) for the marketing audience. The copy is now additionally guarded on a non-blank value. See §8. |
-| `Iscountry_Marketing_Counter`, `CountryList_Marketing_Counter_NShow` | `Iscountry_Counter`, `CountryList_Counter_NShow` | **Not yet safe** — `AdHostActivity.kt:462-465` picks between the two key names based on `isMarketingOn` *without* an `!isSplitConfig` guard (unlike the counter-copy block right below it). Needs the same guard added, or it'll silently read a missing key for the marketing audience. See §8. |
+| `MarketLink` | `DirectLink` | Not needed in a split config — the `MarketLink → DirectLink` copy in `AdAwareActivity.kt` is gated `if (isMarketingOn && !isSplitConfig)`, so it never runs for one. **`MarketLink` still has to stay in the `ingestConfig()` whitelist**, though: dropping it while leaving the copy in place meant a legacy *flat* config would blank `DirectLink` (which drives the house-ad click-through) for the marketing audience. The copy is now additionally guarded on a non-blank value. See §8. |
+| `Iscountry_Marketing_Counter`, `CountryList_Marketing_Counter_NShow` | `Iscountry_Counter`, `CountryList_Counter_NShow` | **Not yet safe** — `AdAwareActivity.kt:462-465` picks between the two key names based on `isMarketingOn` *without* an `!isSplitConfig` guard (unlike the counter-copy block right below it). Needs the same guard added, or it'll silently read a missing key for the marketing audience. See §8. |
 
 > `NativeTheme.default.{NativeLight,NativeDark}` was **not** touched —
 > `NativeLight`/`NativeDark` select the *phone's* OS light/dark mode
@@ -415,7 +415,7 @@ behaviour, not a sequenced screen.
 ### 4.7 `screen.permission_sheet`
 
 Not part of `screen_order` (it's not a sequenced screen) — the Home
-permission bottom sheet's auto-show gate (`AccessSheetDialog.shouldAutoShow()`).
+permission bottom sheet's auto-show gate (`PermissionSheetDialog.shouldAutoShow()`).
 Only `isEnable` and `session` are read; the rest of the shared `screen.<key>`
 shape doesn't apply here.
 
@@ -435,7 +435,7 @@ flowchart TD
     LANG["language<br/>(session/autonext/country/permissions)"]
     ONB["onboarding<br/>(isSkipShow, isInterShow)"]
     FSI["fsi_permission<br/>(android_min_sdk 34, prompt+dialog, country PK/BD)"]
-    HOME["HomeShellActivity"]
+    HOME["MainShellActivity"]
     EXIT["exit<br/>(double_back / dialog)"]
 
     SPLASH --> ORDER
@@ -487,25 +487,25 @@ these changes in place.
 
 | File | What changed |
 |---|---|
-| `numberlookup/screen/gate/OnboardingFlowConfig.kt` (**new**) | Parses `screen_order`/`screen.<key>`/`exit` from `AdsPrefStore`; `isEligible()` (isEnable + session `once`\|`every`\|`<N>`\|`<N>d` + country gate, `fsi_permission` deferred to `FullScreenAccess`), `nextEligibleAfter()`/`firstEligible()` (the router), `classFor()`, `markShown()`. Replaces `IntroGateConfig.kt`/`IntroGatePolicy.kt` (**deleted**). |
-| `numberlookup/screen/launch/LaunchActivity.kt` | `nextScreen()` now calls `OnboardingFlowConfig.firstEligible()`; dead `route()` deleted. |
-| `numberlookup/screen/locale/LocalePickerActivity.kt` | `onContinue()` uses `AccessEngine.checkScreenPermissions(this, "language")`, routes via `nextEligibleAfter("language")`, gates the interstitial on `screen.language.isInterShow`. The back-press "advance like Continue" callback now only registers when `onBackPerformNext=true`. Dropped its own Terms/Onboarding/FSI-wrap logic entirely — the router owns that. |
-| `numberlookup/screen/welcome/WelcomeActivity.kt` | `finishOnboarding()` same pattern: `checkScreenPermissions(this, "onboarding")`, routes via `nextEligibleAfter("onboarding")` instead of hardcoding `HomeShellActivity`, gates the interstitial on `isInterShow`. |
-| `numberlookup/access/AccessEngine.kt` (+ `AccessUtils.kt`) | New `checkScreenPermissions(activity, screenKey, onComplete)` — reads `screen.<screenKey>.permissions[]`, applies each entry's own country gate, resolves `permission_name` → `AccessSpec` via new `AccessUtils.specForAndroidPermission()` (matches `CATALOG` by `androidPermission`; same extension model as the rest of the engine — add a `CATALOG` line for a permission string that isn't there yet). Reuses `AccessQueue`/`AccessScheduler`/`AccessLauncher` unchanged. The old Activity-name-matched `check()`/`request()` are untouched and still used by `AccessSheetDialog`'s Home-level rows (see below). |
-| `access/fullscreen/FullScreenConfig.kt` | Reads `screen.fsi_permission` instead of `permission_engine.fullscreen_permission` (same direct-RC-read + `audienceRoot()` pattern). Field mapping: `isEnable`→`enabled`/`Screen.enabled`, `session=="once"`→`Screen.showOnce`, `prompt.*`→`Screen` copy, `is_screenListCountryCheck`/`screen_excluded_countries`→country gate, `dialog.*` 1:1 (`delay_ms`, `show_after_days`, `max_show_count`). Dropped the inner `organic{}` override (redundant now the outer split already resolves audience) and the unused `screen`/`dialog` `priority`/screen `delay` fields (confirmed dead in `FullScreenAccess.kt` — never read). |
-| `access/fullscreen/FullScreenAccessActivity.kt` | Drops `EXTRA_NEXT`/`pendingNext`/`newIntent(context, next)` entirely — `continueToNext()` now computes `OnboardingFlowConfig.nextEligibleAfter(this, "fsi_permission")` fresh each time (works identically whether the instance was reused or recreated across the Settings round-trip). The "Enable" button primes via `AccessEngine.checkScreenPermissions(this, "fsi_permission")` instead of the hardcoded `request(this, "notification")`. |
-| `adkit/runtime/AdHostActivity.kt` | **Splash ad gate + `warmUpAds()`**: reads `OnboardingFlowConfig.splashConfig(activity).adType` (`"none"` skips the splash ad entirely; `"inter"` loads the interstitial; else App Open) instead of `is_splash_ads`/`is_splash_inter_show`. **`ingestConfig()` whitelist**: removed `is_splash_ads`, `is_splash_inter_show`, `intro_display`, `Iscountry_Marketing_Counter`, `CountryList_Marketing_Counter_NShow`, the never-read `Perm_Sheet_Show`/`Perm_Sheet_Mode`, and the never-read `Perm_Sheet_Interval_Days` (the permission sheet's cadence is now `screen.permission_sheet.session`); added `screen`, `exit`, `screen_order` (array, stored as text like the objects). `MarketLink` was removed here too at first and has since been **restored** — see §3.6. **`funOnAdsLoad()` country-counter keys** (was line 462-465): now gated `!isSplitConfig && isMarketingOn` — matches the guard the counter-copy block already had, so a split config always reads the plain `Iscountry_Counter`/`CountryList_Counter_NShow`. **`applyNativeTheme()`**: `marketingObj` now falls back to `defaultObj` when there's no nested `"marketing"` key (the split-config case) — previously resolved to `{}` and silently dropped theme colors for the marketing audience. |
-| `screen/HomeShellActivity.kt` (`handleBack()`) | Reads `exit.*` via `OnboardingFlowConfig.exitConfig()`. `exitType="dialog"` (+ `dialog.isEnable`) and country-allowed → `MaterialAlertDialogBuilder` with the configured title/desc/button text; Exit optionally fronts an interstitial (`isInterShow`) before `exitToHome()`. Otherwise (or when disabled/country-excluded) falls back to the original double-back-within-`doubleBackIntervalSec`-toast behaviour, using the configured interval/text when managed, or the original hardcoded 2s/string resource as a safe default. |
-| `numberlookup/access/AccessSheetDialog.kt` | **Newly discovered consumer, not in the original checklist**: the Home permission sheet's auto-show gate used `IntroGateConfig.PERMISSION_SHEET`/`IntroGatePolicy.shouldShowPermissionSheet()` against `intro_display.permission_sheet` — which had no equivalent in the new schema, and would have broken once `intro_display` was removed. Added `screen.permission_sheet: {isEnable, session}` to the schema (§6.1) and pointed `shouldAutoShow()`/`show()` at `OnboardingFlowConfig.isEligible/markShown(..., PERMISSION_SHEET_KEY)`. |
-| `numberlookup/screen/consent/` — Terms flow (**deleted**) | The `terms` screen was dropped from the schema (§7) and isn't in `screen_order`, leaving `ConsentActivity.kt`, `BubbleAccessActivity.kt` and `BubbleWatchService.kt` unreachable. All three are now deleted, along with their layouts (`screen_terms.xml`, `screen_overlay_permission.xml`) and their three `<activity>`/`<service>` manifest entries. `BubbleUtils.kt` **stays** — `AccessSheetDialog` and `HomeShellActivity` still use it for the overlay permission check/intent. Overlay grant polling lives in `HomeShellActivity.startOverlayPermissionFlow()` (a main-thread Handler poll), which is what `BubbleWatchService` had already been superseded by. |
-| `LocalePickerActivity.kt` / `WelcomeActivity.kt` / `FullScreenAccessActivity.kt` — `autonext` | Nothing read `autonext`. | Each screen now schedules a `Handler.postDelayed(autonextSec * 1000L)` that fires the same action as Continue/Skip (idempotent — guarded by the existing `forwarding`/`navigated` one-shot flags, now also covering the Continue/Skip button taps, not just back-press). `FullScreenAccessActivity` additionally cancels its autonext the moment "Enable Now" is tapped, so it can't fire out from under the user while they're away on the system Settings page. Cancelled in each Activity's `onDestroy()`. |
-| `AdHostActivity.kt` `primeSplashPermissions()` | Manually chained `AccessEngine.request()` for `"notification"`→`"phone_state"`, gated by `targetsScreen()` against the old `permission_engine` rules (working only via `AccessRepository`'s compiled-in fallback once `permission_engine` was removed). `targetsScreen()`/the `AccessRepository` import are now dead. | Replaced with a single `AccessEngine.checkScreenPermissions(activity, "splash")` call — reads `screen.splash.permissions[]` directly, gets the per-permission country gate for free. `targetsScreen()` deleted; unused `AccessRepository` import removed. |
-| `AccessSheetDialog.kt` `buildRows()` — `overlay` row | Added unconditionally. | Now wrapped in the same `HD_VBC_Show` check as `phone_state`, matching the Callback screen's gate. |
+| `numberlookup/screen/gate/OnboardingStepConfig.kt` (**new**) | Parses `screen_order`/`screen.<key>`/`exit` from `AdPreferenceStore`; `isEligible()` (isEnable + session `once`\|`every`\|`<N>`\|`<N>d` + country gate, `fsi_permission` deferred to `LockScreenPermission`), `nextEligibleAfter()`/`firstEligible()` (the router), `classFor()`, `markShown()`. Replaces `IntroGateConfig.kt`/`IntroGatePolicy.kt` (**deleted**). |
+| `numberlookup/screen/launch/SplashActivity.kt` | `nextScreen()` now calls `OnboardingStepConfig.firstEligible()`; dead `route()` deleted. |
+| `numberlookup/screen/locale/LanguagePickerActivity.kt` | `onContinue()` uses `PermissionCoordinator.checkScreenPermissions(this, "language")`, routes via `nextEligibleAfter("language")`, gates the interstitial on `screen.language.isInterShow`. The back-press "advance like Continue" callback now only registers when `onBackPerformNext=true`. Dropped its own Terms/Onboarding/FSI-wrap logic entirely — the router owns that. |
+| `numberlookup/screen/welcome/IntroActivity.kt` | `finishOnboarding()` same pattern: `checkScreenPermissions(this, "onboarding")`, routes via `nextEligibleAfter("onboarding")` instead of hardcoding `MainShellActivity`, gates the interstitial on `isInterShow`. |
+| `numberlookup/access/PermissionCoordinator.kt` (+ `PermissionUtils.kt`) | New `checkScreenPermissions(activity, screenKey, onComplete)` — reads `screen.<screenKey>.permissions[]`, applies each entry's own country gate, resolves `permission_name` → `PermissionSpec` via new `PermissionUtils.specForAndroidPermission()` (matches `CATALOG` by `androidPermission`; same extension model as the rest of the engine — add a `CATALOG` line for a permission string that isn't there yet). Reuses `PermissionRequestQueue`/`PermissionScheduler`/`PermissionLauncher` unchanged. The old Activity-name-matched `check()`/`request()` are untouched and still used by `PermissionSheetDialog`'s Home-level rows (see below). |
+| `access/fullscreen/LockScreenConfig.kt` | Reads `screen.fsi_permission` instead of `permission_engine.fullscreen_permission` (same direct-RC-read + `audienceRoot()` pattern). Field mapping: `isEnable`→`enabled`/`Screen.enabled`, `session=="once"`→`Screen.showOnce`, `prompt.*`→`Screen` copy, `is_screenListCountryCheck`/`screen_excluded_countries`→country gate, `dialog.*` 1:1 (`delay_ms`, `show_after_days`, `max_show_count`). Dropped the inner `organic{}` override (redundant now the outer split already resolves audience) and the unused `screen`/`dialog` `priority`/screen `delay` fields (confirmed dead in `LockScreenPermission.kt` — never read). |
+| `access/fullscreen/LockScreenAlertActivity.kt` | Drops `EXTRA_NEXT`/`pendingNext`/`newIntent(context, next)` entirely — `continueToNext()` now computes `OnboardingStepConfig.nextEligibleAfter(this, "fsi_permission")` fresh each time (works identically whether the instance was reused or recreated across the Settings round-trip). The "Enable" button primes via `PermissionCoordinator.checkScreenPermissions(this, "fsi_permission")` instead of the hardcoded `request(this, "notification")`. |
+| `adkit/runtime/AdAwareActivity.kt` | **Splash ad gate + `warmUpAds()`**: reads `OnboardingStepConfig.splashConfig(activity).adType` (`"none"` skips the splash ad entirely; `"inter"` loads the interstitial; else App Open) instead of `is_splash_ads`/`is_splash_inter_show`. **`ingestConfig()` whitelist**: removed `is_splash_ads`, `is_splash_inter_show`, `intro_display`, `Iscountry_Marketing_Counter`, `CountryList_Marketing_Counter_NShow`, the never-read `Perm_Sheet_Show`/`Perm_Sheet_Mode`, and the never-read `Perm_Sheet_Interval_Days` (the permission sheet's cadence is now `screen.permission_sheet.session`); added `screen`, `exit`, `screen_order` (array, stored as text like the objects). `MarketLink` was removed here too at first and has since been **restored** — see §3.6. **`funOnAdsLoad()` country-counter keys** (was line 462-465): now gated `!isSplitConfig && isMarketingOn` — matches the guard the counter-copy block already had, so a split config always reads the plain `Iscountry_Counter`/`CountryList_Counter_NShow`. **`applyNativeTheme()`**: `marketingObj` now falls back to `defaultObj` when there's no nested `"marketing"` key (the split-config case) — previously resolved to `{}` and silently dropped theme colors for the marketing audience. |
+| `screen/MainShellActivity.kt` (`handleBack()`) | Reads `exit.*` via `OnboardingStepConfig.exitConfig()`. `exitType="dialog"` (+ `dialog.isEnable`) and country-allowed → `MaterialAlertDialogBuilder` with the configured title/desc/button text; Exit optionally fronts an interstitial (`isInterShow`) before `exitToHome()`. Otherwise (or when disabled/country-excluded) falls back to the original double-back-within-`doubleBackIntervalSec`-toast behaviour, using the configured interval/text when managed, or the original hardcoded 2s/string resource as a safe default. |
+| `numberlookup/access/PermissionSheetDialog.kt` | **Newly discovered consumer, not in the original checklist**: the Home permission sheet's auto-show gate used `IntroGateConfig.PERMISSION_SHEET`/`IntroGatePolicy.shouldShowPermissionSheet()` against `intro_display.permission_sheet` — which had no equivalent in the new schema, and would have broken once `intro_display` was removed. Added `screen.permission_sheet: {isEnable, session}` to the schema (§6.1) and pointed `shouldAutoShow()`/`show()` at `OnboardingStepConfig.isEligible/markShown(..., PERMISSION_SHEET_KEY)`. |
+| `numberlookup/screen/consent/` — Terms flow (**deleted**) | The `terms` screen was dropped from the schema (§7) and isn't in `screen_order`, leaving `ConsentActivity.kt`, `BubbleAccessActivity.kt` and `BubbleWatchService.kt` unreachable. All three are now deleted, along with their layouts (`screen_terms.xml`, `screen_overlay_permission.xml`) and their three `<activity>`/`<service>` manifest entries. `OverlayPermissionUtils.kt` **stays** — `PermissionSheetDialog` and `MainShellActivity` still use it for the overlay permission check/intent. Overlay grant polling lives in `MainShellActivity.startOverlayPermissionFlow()` (a main-thread Handler poll), which is what `BubbleWatchService` had already been superseded by. |
+| `LanguagePickerActivity.kt` / `IntroActivity.kt` / `LockScreenAlertActivity.kt` — `autonext` | Nothing read `autonext`. | Each screen now schedules a `Handler.postDelayed(autonextSec * 1000L)` that fires the same action as Continue/Skip (idempotent — guarded by the existing `forwarding`/`navigated` one-shot flags, now also covering the Continue/Skip button taps, not just back-press). `LockScreenAlertActivity` additionally cancels its autonext the moment "Enable Now" is tapped, so it can't fire out from under the user while they're away on the system Settings page. Cancelled in each Activity's `onDestroy()`. |
+| `AdAwareActivity.kt` `primeSplashPermissions()` | Manually chained `PermissionCoordinator.request()` for `"notification"`→`"phone_state"`, gated by `targetsScreen()` against the old `permission_engine` rules (working only via `PermissionRepository`'s compiled-in fallback once `permission_engine` was removed). `targetsScreen()`/the `PermissionRepository` import are now dead. | Replaced with a single `PermissionCoordinator.checkScreenPermissions(activity, "splash")` call — reads `screen.splash.permissions[]` directly, gets the per-permission country gate for free. `targetsScreen()` deleted; unused `PermissionRepository` import removed. |
+| `PermissionSheetDialog.kt` `buildRows()` — `overlay` row | Added unconditionally. | Now wrapped in the same `HD_VBC_Show` check as `phone_state`, matching the Callback screen's gate. |
 
 ### Still not wired
 
-- **`isBottomAds`/`isBottomAdsType`** (a bottom ad slot on language/onboarding/fsi_permission) is parsed into `OnboardingFlowConfig.ScreenStep` but nothing renders it — needs a new ad container added to layouts that don't have one today, which is real UI work, not config plumbing.
-- **Per-screen `IsAdType` override** (§5 gap) and **`isSkipShow`** (WelcomeActivity's Skip button is already unconditionally visible, matching the current `true` value in both audiences) — no code change needed for the current JSON values.
+- **`isBottomAds`/`isBottomAdsType`** (a bottom ad slot on language/onboarding/fsi_permission) is parsed into `OnboardingStepConfig.ScreenStep` but nothing renders it — needs a new ad container added to layouts that don't have one today, which is real UI work, not config plumbing.
+- **Per-screen `IsAdType` override** (§5 gap) and **`isSkipShow`** (IntroActivity's Skip button is already unconditionally visible, matching the current `true` value in both audiences) — no code change needed for the current JSON values.
 
 ---
 
@@ -564,14 +564,14 @@ Remote Config console once implementation lands.
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "LocalePickerActivity": {
+      "LanguagePickerActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "HomeShellActivity": {
+      "MainShellActivity": {
         "show": false,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
@@ -742,14 +742,14 @@ Remote Config console once implementation lands.
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "LocalePickerActivity": {
+      "LanguagePickerActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "HomeShellActivity": {
+      "MainShellActivity": {
         "show": false,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",

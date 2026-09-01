@@ -165,7 +165,7 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <!-- Favourites. Hidden by PhonebookFragment when nobody is starred, so the
+        <!-- Favourites. Hidden by ContactListFragment when nobody is starred, so the
              section header never sits over an empty rail. -->
         <LinearLayout
             android:id="@+id/favSectionVw"

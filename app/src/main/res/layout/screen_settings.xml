@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".screen.prefs.PreferencesActivity">
+        tools:context=".screen.prefs.SettingsActivity">
 
         <!-- Top bar -->
         <LinearLayout
@@ -183,7 +183,7 @@
 
                 <!-- ===== Caller protection =====
                      Header + card are hidden together with panelCallScreening
-                     (PreferencesActivity.refreshCallScreeningCard) — the card is
+                     (SettingsActivity.refreshCallScreeningCard) — the card is
                      the section's only row, so leaving them behind renders an
                      empty white bar under the heading once Caller ID is on. -->
                 <LinearLayout

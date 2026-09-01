@@ -3,12 +3,12 @@
 
     <!-- Reusable breathing empty-state icon: a disc that gently pulses (scale
          1 → 1.05) behind a centered glyph, wrapped by an expanding, fading ring. -->
-    <declare-styleable name="PulseIconView">
-        <attr name="pulse_icon" format="reference" />
-        <attr name="pulse_iconTint" format="color" />
-        <attr name="pulse_iconSize" format="dimension" />
-        <attr name="pulse_disc" format="reference" />
-        <attr name="pulse_ring" format="reference" />
+    <declare-styleable name="RippleIconView">
+        <attr name="ripple_icon" format="reference" />
+        <attr name="ripple_iconTint" format="color" />
+        <attr name="ripple_iconSize" format="dimension" />
+        <attr name="ripple_disc" format="reference" />
+        <attr name="ripple_ring" format="reference" />
     </declare-styleable>
 
 </resources>

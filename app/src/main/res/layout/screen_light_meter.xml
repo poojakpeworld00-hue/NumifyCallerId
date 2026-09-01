@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".screen.utility.LuxMeterActivity">
+        tools:context=".screen.utility.LightMeterActivity">
 
         <LinearLayout
             android:id="@+id/crownBar"
@@ -96,7 +96,7 @@
                     android:layout_height="@dimen/_180sdp"
                     android:layout_marginTop="@dimen/_4sdp">
 
-                    <com.numify.callerid.numberlookup.screen.utility.SunburstView
+                    <com.numify.callerid.numberlookup.screen.utility.RadiantBurstView
                         android:id="@+id/burstVw"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
@@ -153,7 +153,7 @@
                     android:textStyle="bold"
                     tools:text="Good for reading" />
 
-                <!-- Five bands; the active one is lit by LuxMeterActivity. -->
+                <!-- Five bands; the active one is lit by LightMeterActivity. -->
                 <LinearLayout
                     android:id="@+id/bandsVw"
                     android:layout_width="match_parent"

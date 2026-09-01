@@ -11,7 +11,7 @@
     Wordmark + tagline rise in under the composition and the ad disclosure sits
     at the bottom. Geometry is lifted from the design's 412×892 frame, so the
     badge offsets and bar heights below are the design's own numbers in sdp.
-    All motion is driven from LaunchActivity (UI only — navigation is owned by
+    All motion is driven from SplashActivity (UI only — navigation is owned by
     getData()).
 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -27,7 +27,7 @@
         android:background="@drawable/shape_splash_sl_bg"
         android:clipChildren="false"
         android:clipToPadding="false"
-        tools:context=".screen.launch.LaunchActivity">
+        tools:context=".screen.launch.SplashActivity">
 
         <!-- ===== Ambient layer: four drifting bubbles + two sparkles =====
              Every element is constrained on BOTH axes (start+end, top+bottom) —
@@ -136,7 +136,7 @@
                  and leaves at the ends of the wave instead of floating past the
                  badges — but `android:clipChildren` cannot do that here, because
                  compositionVw above switches clipping off for this whole subtree.
-                 LaunchActivity.startScan() applies the outline clip instead. -->
+                 SplashActivity.startScan() applies the outline clip instead. -->
             <FrameLayout
                 android:id="@+id/waveWrapVw"
                 android:layout_width="wrap_content"
@@ -475,7 +475,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Seeded to a small nub so the bar never reads as empty; LaunchActivity
+        <!-- Seeded to a small nub so the bar never reads as empty; SplashActivity
              animates its real width (not scaleX, which would stretch the rounded
              caps into a lens). -->
         <View
@@ -506,7 +506,7 @@
                 android:contentDescription="@null"
                 android:src="@drawable/glyph_sl_shield_check" />
 
-            <!-- Text is set from BuildConfig in LaunchActivity, so it tracks the
+            <!-- Text is set from BuildConfig in SplashActivity, so it tracks the
                  real build instead of a hardcoded string. -->
             <TextView
                 android:id="@+id/lblSecureVersion"

@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".screen.utility.BearingActivity">
+        tools:context=".screen.utility.CompassActivity">
 
         <LinearLayout
             android:id="@+id/crownBar"
@@ -118,7 +118,7 @@
                     android:outlineAmbientShadowColor="@color/card_shadow"
                     android:outlineSpotShadowColor="@color/card_shadow">
 
-                    <com.numify.callerid.numberlookup.screen.utility.CompassDialView
+                    <com.numify.callerid.numberlookup.screen.utility.CompassRoseView
                         android:id="@+id/picNeedle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

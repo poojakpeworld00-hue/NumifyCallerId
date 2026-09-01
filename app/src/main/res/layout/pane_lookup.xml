@@ -212,7 +212,7 @@
     </LinearLayout>
 
     <!-- Native-banner ad slot, directly under the flag/paste row. Filled by
-         CoreFragment.showScreenAd() from this fragment's own `ScreenAds` entry;
+         BaseFragment.showScreenAd() from this fragment's own `ScreenAds` entry;
          stays GONE when ads are off or `show:false`. Outside the scroll view so
          it holds its position at the top of the tab. -->
     <FrameLayout
@@ -413,7 +413,7 @@
                     </LinearLayout>
 
                     <!-- Verdict pill. Text, colours and icon are all set from
-                         NumberSearchFragment.bindStatusPill(). -->
+                         NumberFinderFragment.bindStatusPill(). -->
                     <TextView
                         android:id="@+id/lblResValid"
                         android:layout_width="wrap_content"
@@ -570,15 +570,15 @@
                         android:clipChildren="false"
                         android:clipToPadding="false">
 
-                        <com.numify.callerid.numberlookup.screen.shared.PulseIconView
+                        <com.numify.callerid.numberlookup.screen.shared.RippleIconView
                             android:layout_width="@dimen/_82sdp"
                             android:layout_height="@dimen/_82sdp"
                             android:layout_gravity="center"
-                            app:pulse_disc="@drawable/shape_empty_circle_tools"
-                            app:pulse_icon="@drawable/glyph_search_plus"
-                            app:pulse_iconSize="@dimen/_34sdp"
-                            app:pulse_iconTint="@color/on_primary_container"
-                            app:pulse_ring="@drawable/shape_ring_tools" />
+                            app:ripple_disc="@drawable/shape_empty_circle_tools"
+                            app:ripple_icon="@drawable/glyph_search_plus"
+                            app:ripple_iconSize="@dimen/_34sdp"
+                            app:ripple_iconTint="@color/on_primary_container"
+                            app:ripple_ring="@drawable/shape_ring_tools" />
 
                         <ImageView
                             android:id="@+id/badgeNamedVw"

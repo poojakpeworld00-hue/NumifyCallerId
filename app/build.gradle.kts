@@ -22,7 +22,7 @@ val lhApiKey: String = localProps.getProperty("lighthouse.apiKey", "")
 val lhBaseUrl: String = localProps.getProperty("lighthouse.baseUrl", "")
 
 // Number lookup API. Same treatment as the LightHouse key: kept
-// out of source, XOR-obfuscated into BuildConfig, decoded at runtime by CipherVeil.
+// out of source, XOR-obfuscated into BuildConfig, decoded at runtime by SecretDecoder.
 val lookupApiId: String = localProps.getProperty("lookup.apiId", "")
 val lookupApiHash: String = localProps.getProperty("lookup.apiHash", "")
 val lookupApiToken: String = localProps.getProperty("lookup.apiToken", "")
@@ -72,11 +72,11 @@ android {
         multiDexEnabled = true
 
         // LightHouse credentials → obfuscated BuildConfig byte[] (decoded at runtime
-        // by CipherVeil.s). buildConfig = true is enabled below.
+        // by SecretDecoder.s). buildConfig = true is enabled below.
         buildConfigField("byte[]", "LH_API_KEY", xorByteArrayLiteral(lhApiKey))
         buildConfigField("byte[]", "LH_BASE_URL", xorByteArrayLiteral(lhBaseUrl))
 
-        // Lookup API credentials — same mechanism (see ApiSecrets.kt).
+        // Lookup API credentials — same mechanism (see CredentialProvider.kt).
         buildConfigField("byte[]", "LOOKUP_API_ID", xorByteArrayLiteral(lookupApiId))
         buildConfigField("byte[]", "LOOKUP_API_HASH", xorByteArrayLiteral(lookupApiHash))
         buildConfigField("byte[]", "LOOKUP_API_TOKEN", xorByteArrayLiteral(lookupApiToken))

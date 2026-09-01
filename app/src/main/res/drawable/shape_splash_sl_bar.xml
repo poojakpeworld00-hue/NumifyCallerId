@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    One waveform bar. Drawn in the unlit track colour; LaunchActivity tints it
+    One waveform bar. Drawn in the unlit track colour; SplashActivity tints it
     to `splash_sl_bar_lit` as the sweep passes, so the tint is what animates.
 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"

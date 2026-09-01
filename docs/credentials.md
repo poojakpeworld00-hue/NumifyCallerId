@@ -30,12 +30,12 @@ WARNING: lookup.apiToken is missing from local.properties — the feature it pow
 ## How the obfuscation works
 
 `local.properties` → `xorByteArrayLiteral()` in `app/build.gradle.kts` →
-`BuildConfig` `byte[]` → `CipherVeil.s()` at runtime.
+`BuildConfig` `byte[]` → `SecretDecoder.s()` at runtime.
 
 The `byte[]` step matters. A `static final String` is **inlined by the compiler
 at every call site**, so it reappears verbatim in a decompiled APK no matter how
 the field is declared. A `static final byte[]` is not inlined. That is also why
-`ApiSecrets` uses `val ... by lazy` rather than `const val` — `const` would
+`CredentialProvider` uses `val ... by lazy` rather than `const val` — `const` would
 reintroduce the inlining.
 
 **This raises the bar; it does not make the secret secret.** Anything shipped in
@@ -67,7 +67,7 @@ build until they each add it locally — coordinate before moving it.
 ### Known exposure: the lookup JWT
 
 `lookup.apiToken` decodes to `{"user_id": 1433, "iat": ...}` with **no `exp`
-claim** — it never expires. It was previously plaintext in `ApiSecrets.kt` and is
+claim** — it never expires. It was previously plaintext in `CredentialProvider.kt` and is
 therefore in git history and in every APK already released. Moving it to
 `local.properties` stops *future* leakage but does not un-leak it.
 

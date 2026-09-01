@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:paddingTop="@dimen/_10sdp"
         android:background="@color/background"
-        tools:context=".screen.locale.LocalePickerActivity">
+        tools:context=".screen.locale.LanguagePickerActivity">
 
         <!-- ===== Toolbar ===== -->
         <ImageView
@@ -51,7 +51,7 @@
             app:layout_constraintStart_toEndOf="@id/padBack"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Which language is live right now — set from LocalePickerActivity, so the
+        <!-- Which language is live right now — set from LanguagePickerActivity, so the
              row the user is about to change is named before they change it. -->
         <TextView
             android:id="@+id/lblSubtitle"

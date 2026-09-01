@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     One-time coach-mark under the lookup card. The caret points up at the
-    spotlit card; tapping anywhere dismisses it (handled by SpotlightOverlay).
+    spotlit card; tapping anywhere dismisses it (handled by CoachMarkOverlay).
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".screen.spamlist.BlocklistFragment">
+        tools:context=".screen.spamlist.BlockedNumbersFragment">
 
         <!-- Top bar -->
         <LinearLayout
@@ -184,15 +184,15 @@
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/_20sdp">
 
-                <com.numify.callerid.numberlookup.screen.shared.PulseIconView
+                <com.numify.callerid.numberlookup.screen.shared.RippleIconView
                     android:id="@+id/emptyIconVw"
                     android:layout_width="@dimen/_74sdp"
                     android:layout_height="@dimen/_74sdp"
                     android:layout_marginTop="@dimen/_20sdp"
-                    app:pulse_disc="@drawable/shape_empty_circle_spam"
-                    app:pulse_icon="@drawable/glyph_block_circle"
-                    app:pulse_iconSize="@dimen/_32sdp"
-                    app:pulse_ring="@drawable/shape_ring_spam" />
+                    app:ripple_disc="@drawable/shape_empty_circle_spam"
+                    app:ripple_icon="@drawable/glyph_block_circle"
+                    app:ripple_iconSize="@dimen/_32sdp"
+                    app:ripple_ring="@drawable/shape_ring_spam" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -247,7 +247,7 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <!-- Hosted as a tab: HomeShellActivity owns the app-wide bottom banner, so
+        <!-- Hosted as a tab: MainShellActivity owns the app-wide bottom banner, so
              this screen carries no banner slot of its own. -->
         <View
             android:id="@+id/adBannerDividerVw"

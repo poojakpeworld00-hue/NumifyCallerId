@@ -7,7 +7,7 @@
     block badge pops onto it (obChip · obPop) and the AUTO-BLOCKED stamp lands
     (obStamp).
 
-    Ids are the contract with WelcomeAnimations.attach() — renaming one silently
+    Ids are the contract with IntroAnimations.attach() — renaming one silently
     drops that loop.
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"

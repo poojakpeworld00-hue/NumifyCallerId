@@ -9,9 +9,9 @@
         android:id="@+id/mainVw"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screen.HomeShellActivity">
+        tools:context=".screen.MainShellActivity">
 
-        <com.numify.callerid.numberlookup.screen.shared.SwipeNavFrameLayout
+        <com.numify.callerid.numberlookup.screen.shared.SwipeNavigationLayout
             android:id="@+id/fragContainer"
             android:layout_width="0dp"
             android:layout_height="0dp"

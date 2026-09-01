@@ -6,7 +6,7 @@
     of duration presets, three round transport controls, and an alert card pinned
     to the foot of the content.
 
-    The dial is TimerRingView rather than a stack of shapes: the design's arc is a
+    The dial is TimerArcView rather than a stack of shapes: the design's arc is a
     partial sweep with a knob riding its leading end, which a <shape> ring cannot
     express. Ad slots are unchanged from the previous layout.
 -->
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".screen.utility.CountdownActivity">
+        tools:context=".screen.utility.TimerActivity">
 
         <LinearLayout
             android:id="@+id/crownBar"
@@ -110,7 +110,7 @@
                     android:layout_height="@dimen/_210sdp"
                     android:layout_marginTop="@dimen/_8sdp">
 
-                    <com.numify.callerid.numberlookup.screen.utility.TimerRingView
+                    <com.numify.callerid.numberlookup.screen.utility.TimerArcView
                         android:id="@+id/ringVw"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

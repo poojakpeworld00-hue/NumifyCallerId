@@ -32,7 +32,7 @@
                 android:textSize="@dimen/_20ssp"
                 android:textStyle="bold" />
 
-            <!-- Live counts, set from CallHistoryFragment. -->
+            <!-- Live counts, set from CallLogFragment. -->
             <TextView
                 android:id="@+id/lblRecentsCount"
                 android:layout_width="wrap_content"

@@ -5,7 +5,7 @@
     Header (back · title · Stopwatch/Timer segmented) over an analog face with the
     readout inside it, three round transport controls, then the lap list.
 
-    The dial is StopwatchFaceView: the design lays its sixty ticks out as sixty
+    The dial is StopwatchDialView: the design lays its sixty ticks out as sixty
     absolutely-positioned spans, which cannot re-proportion for a smaller dial.
     Ad slots are unchanged from the previous layout.
 -->
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".screen.utility.ChronoActivity">
+        tools:context=".screen.utility.StopwatchActivity">
 
         <LinearLayout
             android:id="@+id/crownBar"
@@ -109,7 +109,7 @@
                     android:outlineAmbientShadowColor="@color/card_shadow"
                     android:outlineSpotShadowColor="@color/card_shadow">
 
-                    <com.numify.callerid.numberlookup.screen.utility.StopwatchFaceView
+                    <com.numify.callerid.numberlookup.screen.utility.StopwatchDialView
                         android:id="@+id/faceVw"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

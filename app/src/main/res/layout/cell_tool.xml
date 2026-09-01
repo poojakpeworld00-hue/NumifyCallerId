@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     Tool card — a circular tinted icon chip over a centred name, three to a row.
-    The chip tint and glyph colour are set per tool in ToolsFragment's table and
-    applied by UtilityAdapter (controlled 6-hue palette).
+    The chip tint and glyph colour are set per tool in ToolboxFragment's table and
+    applied by ToolboxAdapter (controlled 6-hue palette).
 
     There is no one-line hint here: at three columns a subtitle either wraps to
     two lines or ellipsises to nothing useful, and the tool names already say

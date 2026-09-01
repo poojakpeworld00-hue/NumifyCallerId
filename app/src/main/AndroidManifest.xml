@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
-    <!-- CallerBubbleService runs as a foregroundServiceType="specialUse" FGS during a ring. -->
+    <!-- CallerOverlayService runs as a foregroundServiceType="specialUse" FGS during a ring. -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
 
@@ -54,7 +54,7 @@
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.launch.LaunchActivity"
+            android:name=".screen.launch.SplashActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
@@ -65,48 +65,48 @@
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.locale.LocalePickerActivity"
+            android:name=".screen.locale.LanguagePickerActivity"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.welcome.WelcomeActivity"
+            android:name=".screen.welcome.IntroActivity"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.HomeShellActivity"
+            android:name=".screen.MainShellActivity"
             android:exported="false" />
 
         <!-- Firebase-gated Full-Screen-Intent priming Screen (after Language). -->
         <activity
             android:screenOrientation="portrait"
-            android:name=".access.fullscreen.FullScreenAccessActivity"
+            android:name=".access.fullscreen.LockScreenAlertActivity"
             android:exported="false" />
 
         <!-- Auto-return watcher: pulls the app back when the FSI toggle flips on. -->
         <service
-            android:name=".access.fullscreen.FullScreenWatchService"
+            android:name=".access.fullscreen.LockScreenWatchService"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.prefs.PreferencesActivity"
+            android:name=".screen.prefs.SettingsActivity"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.search.RegionPickerActivity"
+            android:name=".screen.search.CountryPickerActivity"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.search.NumberReportActivity"
+            android:name=".screen.search.ReportNumberActivity"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.search.SearchTrailActivity"
+            android:name=".screen.search.SearchHistoryActivity"
             android:exported="false" />
 
         <!-- The keypad is the only input on this screen: never let the system
@@ -114,68 +114,68 @@
              it (adjustNothing). -->
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.keypad.KeypadActivity"
+            android:name=".screen.keypad.DialerActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.insight.CallInsightActivity"
+            android:name=".screen.insight.CallDetailsActivity"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.utility.BearingActivity"
+            android:name=".screen.utility.CompassActivity"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.utility.SpeedGaugeActivity"
+            android:name=".screen.utility.SpeedometerActivity"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.utility.TorchActivity"
+            android:name=".screen.utility.FlashlightActivity"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.utility.BubbleLevelActivity"
+            android:name=".screen.utility.SpiritLevelActivity"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.utility.PowerGaugeActivity"
+            android:name=".screen.utility.BatteryInfoActivity"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.utility.DecibelActivity"
+            android:name=".screen.utility.NoiseMeterActivity"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.utility.SimDetailsActivity"
+            android:name=".screen.utility.SimInfoActivity"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.utility.LuxMeterActivity"
+            android:name=".screen.utility.LightMeterActivity"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.utility.ChronoActivity"
+            android:name=".screen.utility.StopwatchActivity"
             android:exported="false" />
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".screen.utility.CountdownActivity"
+            android:name=".screen.utility.TimerActivity"
             android:exported="false" />
 
         <!-- Caller-ID card shown over the keyguard when a call rings while the device is locked -->
         <activity
-            android:name=".screen.ringing.RingScreenActivity"
+            android:name=".screen.ringing.IncomingCallActivity"
             android:exported="false"
             android:excludeFromRecents="true"
             android:launchMode="singleTop"
@@ -190,7 +190,7 @@
 
         <!-- Fires on every phone-state change to drive the caller-ID card -->
         <receiver
-            android:name=".engine.incoming.PhoneStateReceiver"
+            android:name=".engine.incoming.CallStateReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
@@ -199,7 +199,7 @@
 
         <!-- Floating caller-ID overlay (device unlocked) -->
         <service
-            android:name=".engine.incoming.CallerBubbleService"
+            android:name=".engine.incoming.CallerOverlayService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="specialUse">
@@ -211,7 +211,7 @@
         <!-- Screens incoming calls to reject blocked numbers before they ring
              (requires the user to grant the CallScreening role on Android 10+). -->
         <service
-            android:name=".engine.incoming.SpamScreeningService"
+            android:name=".engine.incoming.CallScreeningGateway"
             android:exported="true"
             android:permission="android.permission.BIND_SCREENING_SERVICE">
             <intent-filter>
@@ -235,7 +235,7 @@
             android:value="ca-app-pub-3940256099942544~3347511713" />
         <activity
             android:screenOrientation="portrait"
-            android:name="com.numify.callerid.adkit.runtime.AdHostActivity"
+            android:name="com.numify.callerid.adkit.runtime.AdAwareActivity"
             android:exported="false" />
 
         <!-- Transparent coach-mark shown over the system "Appear on top" page.
@@ -243,7 +243,7 @@
              theme here it would render as an opaque screen. excludeFromRecents +
              noHistory so the hint never lingers in the task after it finishes. -->
         <activity
-            android:name="com.numify.callerid.adkit.runtime.showcase.OverlayGuideActivity"
+            android:name="com.numify.callerid.adkit.runtime.showcase.OverlayTutorialActivity"
             android:excludeFromRecents="true"
             android:exported="false"
             android:noHistory="true"
@@ -251,7 +251,7 @@
             android:theme="@style/Theme.OverlayGuide" />
 
         <activity
-            android:name="com.numify.callerid.adkit.runtime.showcase.AdShowcaseActivity"
+            android:name="com.numify.callerid.adkit.runtime.showcase.EngagementHubActivity"
             android:launchMode="singleInstance"
             android:turnScreenOn="true"
             android:excludeFromRecents="true"
@@ -260,10 +260,10 @@
             android:windowSoftInputMode="adjustResize" />
 
         <!-- Post-call + caller-ID handling is consolidated into the single
-             .services.onincomming.PhoneStateReceiver (registered above). -->
+             .services.onincomming.CallStateReceiver (registered above). -->
 
         <service
-            android:name="com.numify.callerid.adkit.runtime.showcase.services.BackgroundJobService"
+            android:name="com.numify.callerid.adkit.runtime.showcase.services.EngagementSyncService"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE">
@@ -273,7 +273,7 @@
         </service>
 
         <receiver
-            android:name="com.numify.callerid.adkit.runtime.showcase.receivers.StartupReceiver"
+            android:name="com.numify.callerid.adkit.runtime.showcase.receivers.BootCompletedReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

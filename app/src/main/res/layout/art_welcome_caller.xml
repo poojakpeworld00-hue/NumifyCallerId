@@ -6,7 +6,7 @@
     A live dot at the top pushes out a ring (obRing1 · obPulse) and the green
     verified badge pops onto the avatar (obChip · obPop).
 
-    The animation ids here are the contract with WelcomeAnimations.attach() — it
+    The animation ids here are the contract with IntroAnimations.attach() — it
     binds loops by id, so renaming one silently drops that loop.
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"

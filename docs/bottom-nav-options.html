@@ -242,11 +242,11 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;ba
     <h4>Destination map · 4 destinations, down from 4 + a Home that duplicated them</h4>
     <div class="r">
       <div class="d"><div class="t">Calls</div><div class="s">Recent history + phonebook merged</div>
-        <span class="n ok">CallHistoryFragment + PhonebookFragment</span></div>
+        <span class="n ok">CallLogFragment + ContactListFragment</span></div>
       <div class="d"><div class="t">Blocked</div><div class="s">Blocked &amp; spam numbers</div>
         <span class="n ok">SpamListActivity → fragment</span></div>
       <div class="d"><div class="t">Search</div><div class="s">Number lookup</div>
-        <span class="n ok">NumberSearchFragment</span></div>
+        <span class="n ok">NumberFinderFragment</span></div>
       <div class="d"><div class="t">Tools</div><div class="s">Utilities &amp; settings</div>
         <span class="n nw">new — from screen/utility</span></div>
     </div>
@@ -515,7 +515,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;ba
     <div class="grid3">
       <div class="note"><div class="tag">Way 1</div><h3>Segmented inside</h3>
         <p>Smallest build. Keep both existing fragments and swap them behind a segmented control — no ViewPager2, no adapter merge.</p>
-        <ul><li>Reuses <code>CallHistoryFragment</code> and <code>PhonebookFragment</code> untouched</li>
+        <ul><li>Reuses <code>CallLogFragment</code> and <code>ContactListFragment</code> untouched</li>
         <li>Segment state is trivial to persist across tab switches</li>
         <li>Every nav label stays visible — best for first-time users</li></ul>
         <p><b>Cost:</b> the segmented control eats ~44dp on every visit, and it's a second row of navigation directly above the first. Two nav layers stacked.</p></div>
@@ -544,7 +544,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;ba
       <div class="note"><div class="tag">Way 5</div><h3>Tools as sheet</h3>
         <p>Tools is a grab-bag, not a place you dwell — a sheet fits its actual use better than a full destination, and it can hold 8+ entries without a scrolling screen.</p>
         <ul><li>Only 3 real fragments to build and keep in memory</li>
-        <li>Sheet dismisses back to wherever you were — no tab-history bookkeeping in <code>HomeShellActivity</code></li>
+        <li>Sheet dismisses back to wherever you were — no tab-history bookkeeping in <code>MainShellActivity</code></li>
         <li>Collapsible Recent/Contacts sections mean no sub-nav and no merged adapter</li></ul>
         <p><b>Cost:</b> the fourth nav item behaves differently from the other three, which is a small inconsistency. Your existing back-stack logic (<code>onBackPressed</code> retraces visited tabs) needs a special case for it.</p></div>
     </div>

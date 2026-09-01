@@ -41,182 +41,182 @@
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "LaunchActivity": {
+      "SplashActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "LocalePickerActivity": {
+      "LanguagePickerActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "WelcomeActivity": {
+      "IntroActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "HomeShellActivity": {
+      "MainShellActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "small"
       },
-      "NumberReportActivity": {
+      "ReportNumberActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "SearchTrailActivity": {
+      "SearchHistoryActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "RegionPickerActivity": {
+      "CountryPickerActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "small"
       },
-      "CallInsightActivity": {
+      "CallDetailsActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "KeypadActivity": {
+      "DialerActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "small"
       },
-      "PreferencesActivity": {
+      "SettingsActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "AdShowcaseActivity": {
+      "EngagementHubActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "BearingActivity": {
+      "CompassActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "BubbleLevelActivity": {
+      "SpiritLevelActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "ChronoActivity": {
+      "StopwatchActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "CountdownActivity": {
+      "TimerActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "DecibelActivity": {
+      "NoiseMeterActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "LuxMeterActivity": {
+      "LightMeterActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "PowerGaugeActivity": {
+      "BatteryInfoActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "SimDetailsActivity": {
+      "SimInfoActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "SpeedGaugeActivity": {
+      "SpeedometerActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "TorchActivity": {
+      "FlashlightActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "CallHistoryFragment": {
+      "CallLogFragment": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "small"
       },
-      "PhonebookFragment": {
+      "ContactListFragment": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "small"
       },
-      "NumberSearchFragment": {
+      "NumberFinderFragment": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "small"
       },
-      "ToolsFragment": {
+      "ToolboxFragment": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "BlocklistFragment": {
+      "BlockedNumbersFragment": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
@@ -359,8 +359,8 @@
     "IsCustomADS": false,
     "isLoaderForFB": false,
     "IsBack": true,
-    "NativeBannerAd": true,
-    "BannerAdLoader": true,
+    "NativeBannerPresenter": true,
+    "BannerAdPresenter": true,
     "NativeAd": true,
     "InterAds": true,
     "AppopenAds": true,
@@ -450,182 +450,182 @@
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "LaunchActivity": {
+      "SplashActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "LocalePickerActivity": {
+      "LanguagePickerActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "WelcomeActivity": {
+      "IntroActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "HomeShellActivity": {
+      "MainShellActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "small"
       },
-      "NumberReportActivity": {
+      "ReportNumberActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "SearchTrailActivity": {
+      "SearchHistoryActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "RegionPickerActivity": {
+      "CountryPickerActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "small"
       },
-      "CallInsightActivity": {
+      "CallDetailsActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "KeypadActivity": {
+      "DialerActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "small"
       },
-      "PreferencesActivity": {
+      "SettingsActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "AdShowcaseActivity": {
+      "EngagementHubActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "BearingActivity": {
+      "CompassActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "BubbleLevelActivity": {
+      "SpiritLevelActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "ChronoActivity": {
+      "StopwatchActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "CountdownActivity": {
+      "TimerActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "DecibelActivity": {
+      "NoiseMeterActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "LuxMeterActivity": {
+      "LightMeterActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "PowerGaugeActivity": {
+      "BatteryInfoActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "SimDetailsActivity": {
+      "SimInfoActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "SpeedGaugeActivity": {
+      "SpeedometerActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "TorchActivity": {
+      "FlashlightActivity": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "CallHistoryFragment": {
+      "CallLogFragment": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "small"
       },
-      "PhonebookFragment": {
+      "ContactListFragment": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "small"
       },
-      "NumberSearchFragment": {
+      "NumberFinderFragment": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "small"
       },
-      "ToolsFragment": {
+      "ToolboxFragment": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
       },
-      "BlocklistFragment": {
+      "BlockedNumbersFragment": {
         "show": true,
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
@@ -759,8 +759,8 @@
     "IsCustomADS": false,
     "isLoaderForFB": false,
     "IsBack": false,
-    "NativeBannerAd": true,
-    "BannerAdLoader": true,
+    "NativeBannerPresenter": true,
+    "BannerAdPresenter": true,
     "NativeAd": true,
     "InterAds": true,
     "AppopenAds": false,

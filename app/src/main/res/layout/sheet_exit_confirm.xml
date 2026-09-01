@@ -4,7 +4,7 @@
     Title/description/button labels are remote-driven from the `exit.dialog`
     block; the ad slot honours `dialog.isNativeAdShow` + `dialog.isBottomAdsType`.
 
-    The shimmer placeholder is intentionally EMPTY here — ExitDialog inflates the
+    The shimmer placeholder is intentionally EMPTY here — ExitConfirmDialog inflates the
     matching gads_* layout into it at runtime, since the ad format is chosen by
     Remote Config rather than fixed at build time.
 -->

@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context=".screen.utility.SimDetailsActivity">
+        tools:context=".screen.utility.SimInfoActivity">
 
         <LinearLayout
             android:id="@+id/crownBar"
@@ -132,7 +132,7 @@
                             tools:text="5G SA · connected" />
                     </LinearLayout>
 
-                    <!-- Signal bars. Tinted per level in SimDetailsActivity. -->
+                    <!-- Signal bars. Tinted per level in SimInfoActivity. -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

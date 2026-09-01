@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     Tools grid · rose icon chip. A soft tint of the hue, with the glyph drawn in
-    the hue itself (tinted by UtilityAdapter) — the saturated colour is carried by
+    the hue itself (tinted by ToolboxAdapter) — the saturated colour is carried by
     the small glyph, not by a whole filled disc, so a grid of ten stays calm.
 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
