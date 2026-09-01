@@ -767,4 +767,20 @@
     <string name="ai_verdict_missed_streak">आपने इनकी पिछली %1$d कॉल मिस कीं</string>
     <string name="ai_verdict_answer_rate">%1$d बार कॉल किया, आपने %2$d बार उठाया</string>
     <string name="ai_verdict_frequent">आप अक्सर संपर्क में हैं — इस महीने %1$d कॉल</string>
+    <!-- ===== Assistant tools ===== -->
+    <string name="tools_cat_assistant">असिस्टेंट</string>
+    <string name="tools_spam_scan">स्पैम स्कैनर</string>
+    <string name="tools_spam_scan_sub">ब्लॉक करने लायक नंबर खोजें</string>
+    <string name="tools_unsaved">बिना सहेजे नंबर</string>
+    <string name="tools_unsaved_sub">जिनसे आप बात करते हैं पर सहेजा नहीं</string>
+    <string name="scan_action_block">ब्लॉक</string>
+    <string name="scan_action_save">सहेजें</string>
+    <string name="scan_found_spam">%1$d नंबर ब्लॉक करने लायक</string>
+    <string name="scan_found_unsaved">%1$d नंबर सहेजने लायक</string>
+    <string name="scan_empty_spam">ब्लॉक करने लायक कुछ नहीं। आपका लॉग साफ़ है।</string>
+    <string name="scan_empty_unsaved">जिनसे आप अक्सर बात करते हैं, सब सहेजे जा चुके हैं।</string>
+    <string name="scan_reason_never_answered">%1$d बार घंटी बजी, कभी नहीं उठाई</string>
+    <string name="scan_reason_streak">पिछली %2$d में से %1$d कॉल अनुत्तरित</string>
+    <string name="scan_reason_unsaved">%1$d कॉल, आपने %2$d उठाईं</string>
+    <string name="scan_no_contacts_app">कोई संपर्क ऐप नहीं मिला</string>
 </resources>

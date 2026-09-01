@@ -23,15 +23,26 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
     override val screenAdFormat = ScreenAdFormat.MID_NATIVE
 
     private val adapter = ToolboxAdapter { tool ->
-        requireActivity().openActivity(Intent(requireContext(), tool.target))
+        requireActivity().openActivity(
+            Intent(requireContext(), tool.target).apply {
+                tool.mode?.let { putExtra(AiScanActivity.EXTRA_MODE, it) }
+            }
+        )
     }
 
     /** Full tool set, in display order, with the controlled 6-hue palette. */
     private val tools: List<UtilityUi> by lazy {
+        val assistant = getString(R.string.tools_cat_assistant)
         val measure = getString(R.string.tools_cat_measure)
         val device = getString(R.string.tools_cat_device)
         val time = getString(R.string.tools_cat_time)
         listOf(
+            UtilityUi(getString(R.string.tools_spam_scan), getString(R.string.tools_spam_scan_sub),
+                R.drawable.ic_ai_sparkle, R.drawable.bg_tool_chip_rose, R.color.tool_rose,
+                assistant, AiScanActivity::class.java, AiScanActivity.MODE_SPAM),
+            UtilityUi(getString(R.string.tools_unsaved), getString(R.string.tools_unsaved_sub),
+                R.drawable.ic_ai_sparkle, R.drawable.bg_tool_chip_teal, R.color.tool_teal,
+                assistant, AiScanActivity::class.java, AiScanActivity.MODE_UNSAVED),
             UtilityUi(getString(R.string.tools_compass), getString(R.string.tools_compass_sub),
                 R.drawable.ic_tool_compass, R.drawable.bg_tool_chip_green, R.color.tool_green,
                 measure, CompassActivity::class.java),
@@ -68,6 +79,7 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
     /** Category display order for grouping. */
     private val categoryOrder: List<String> by lazy {
         listOf(
+            getString(R.string.tools_cat_assistant),
             getString(R.string.tools_cat_measure),
             getString(R.string.tools_cat_device),
             getString(R.string.tools_cat_time),

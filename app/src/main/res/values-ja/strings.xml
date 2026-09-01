@@ -722,4 +722,20 @@
     <string name="ai_verdict_missed_streak">直近 %1$d 件の着信に応答していません</string>
     <string name="ai_verdict_answer_rate">%1$d 回の着信のうち %2$d 回に応答</string>
     <string name="ai_verdict_frequent">よく連絡を取り合っています — 今月 %1$d 件</string>
+    <!-- ===== Assistant tools ===== -->
+    <string name="tools_cat_assistant">アシスタント</string>
+    <string name="tools_spam_scan">迷惑電話スキャン</string>
+    <string name="tools_spam_scan_sub">ブロックすべき番号を探す</string>
+    <string name="tools_unsaved">未登録の相手</string>
+    <string name="tools_unsaved_sub">よく話すのに登録していない相手</string>
+    <string name="scan_action_block">ブロック</string>
+    <string name="scan_action_save">保存</string>
+    <string name="scan_found_spam">ブロック候補 %1$d 件</string>
+    <string name="scan_found_unsaved">登録候補 %1$d 件</string>
+    <string name="scan_empty_spam">ブロックすべきものはありません。履歴はきれいです。</string>
+    <string name="scan_empty_unsaved">よく話す相手はすべて登録済みです。</string>
+    <string name="scan_reason_never_answered">%1$d 回着信、一度も応答なし</string>
+    <string name="scan_reason_streak">直近 %2$d 件中 %1$d 件が未応答</string>
+    <string name="scan_reason_unsaved">%1$d 件の着信、%2$d 件に応答</string>
+    <string name="scan_no_contacts_app">連絡先アプリが見つかりません</string>
 </resources>

@@ -722,4 +722,20 @@
     <string name="ai_verdict_missed_streak">Bạn đã lỡ %1$d cuộc gọi gần nhất của họ</string>
     <string name="ai_verdict_answer_rate">Đã gọi %1$d lần, bạn nghe %2$d lần</string>
     <string name="ai_verdict_frequent">Hai bên liên lạc thường xuyên — %1$d cuộc gọi tháng này</string>
+    <!-- ===== Assistant tools ===== -->
+    <string name="tools_cat_assistant">Trợ lý</string>
+    <string name="tools_spam_scan">Quét spam</string>
+    <string name="tools_spam_scan_sub">Tìm số nên chặn</string>
+    <string name="tools_unsaved">Số chưa lưu</string>
+    <string name="tools_unsaved_sub">Những người bạn hay nói chuyện nhưng chưa lưu</string>
+    <string name="scan_action_block">Chặn</string>
+    <string name="scan_action_save">Lưu</string>
+    <string name="scan_found_spam">%1$d số nên chặn</string>
+    <string name="scan_found_unsaved">%1$d số nên lưu</string>
+    <string name="scan_empty_spam">Không có gì để chặn. Nhật ký của bạn sạch.</string>
+    <string name="scan_empty_unsaved">Những người bạn hay liên lạc đều đã được lưu.</string>
+    <string name="scan_reason_never_answered">Đổ chuông %1$d lần, chưa từng nghe</string>
+    <string name="scan_reason_streak">%1$d trong %2$d cuộc gọi gần nhất không nghe</string>
+    <string name="scan_reason_unsaved">%1$d cuộc gọi, bạn nghe %2$d</string>
+    <string name="scan_no_contacts_app">Không tìm thấy ứng dụng danh bạ</string>
 </resources>

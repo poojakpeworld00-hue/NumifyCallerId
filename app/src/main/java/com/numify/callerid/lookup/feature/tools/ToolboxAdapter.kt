@@ -28,6 +28,12 @@ data class UtilityUi(
     val tintRes: Int,
     val category: String,
     val target: Class<*>,
+    /**
+     * Optional extra for tools that share one Activity. The two assistant tools
+     * are the same screen in two modes, so the grid carries the mode rather than
+     * the app gaining a near-duplicate Activity for a one-word difference.
+     */
+    val mode: String? = null,
 )
 
 /** A row in the tools grid — a category header (full width) or a tool card. */

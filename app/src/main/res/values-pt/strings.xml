@@ -769,4 +769,20 @@
     <string name="ai_verdict_missed_streak">Você perdeu as últimas %1$d chamadas dele</string>
     <string name="ai_verdict_answer_rate">Ligou %1$d vezes, você atendeu %2$d</string>
     <string name="ai_verdict_frequent">Vocês se falam bastante — %1$d chamadas este mês</string>
+    <!-- ===== Assistant tools ===== -->
+    <string name="tools_cat_assistant">Assistente</string>
+    <string name="tools_spam_scan">Detector de spam</string>
+    <string name="tools_spam_scan_sub">Encontre números para bloquear</string>
+    <string name="tools_unsaved">Números não salvos</string>
+    <string name="tools_unsaved_sub">Pessoas com quem você fala e nunca salvou</string>
+    <string name="scan_action_block">Bloquear</string>
+    <string name="scan_action_save">Salvar</string>
+    <string name="scan_found_spam">%1$d números para bloquear</string>
+    <string name="scan_found_unsaved">%1$d números para salvar</string>
+    <string name="scan_empty_spam">Nada para bloquear. Seu registro está limpo.</string>
+    <string name="scan_empty_unsaved">Todos com quem você fala com frequência já estão salvos.</string>
+    <string name="scan_reason_never_answered">Tocou %1$d vezes, nunca atendida</string>
+    <string name="scan_reason_streak">As últimas %1$d de %2$d chamadas sem resposta</string>
+    <string name="scan_reason_unsaved">%1$d chamadas, você atendeu %2$d</string>
+    <string name="scan_no_contacts_app">Nenhum app de contatos encontrado</string>
 </resources>

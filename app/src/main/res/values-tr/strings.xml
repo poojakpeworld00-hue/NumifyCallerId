@@ -727,4 +727,20 @@
     <string name="ai_verdict_missed_streak">Son %1$d aramasını kaçırdınız</string>
     <string name="ai_verdict_answer_rate">%1$d kez aradı, %2$d kez yanıtladınız</string>
     <string name="ai_verdict_frequent">Sık görüşüyorsunuz — bu ay %1$d arama</string>
+    <!-- ===== Assistant tools ===== -->
+    <string name="tools_cat_assistant">Asistan</string>
+    <string name="tools_spam_scan">Spam tarayıcı</string>
+    <string name="tools_spam_scan_sub">Engellenecek numaraları bul</string>
+    <string name="tools_unsaved">Kaydedilmemiş arayanlar</string>
+    <string name="tools_unsaved_sub">Konuştuğunuz ama kaydetmediğiniz kişiler</string>
+    <string name="scan_action_block">Engelle</string>
+    <string name="scan_action_save">Kaydet</string>
+    <string name="scan_found_spam">Engellenecek %1$d numara</string>
+    <string name="scan_found_unsaved">Kaydedilecek %1$d numara</string>
+    <string name="scan_empty_spam">Engellenecek bir şey yok. Kaydınız temiz.</string>
+    <string name="scan_empty_unsaved">Sık konuştuğunuz herkes zaten kayıtlı.</string>
+    <string name="scan_reason_never_answered">%1$d kez çaldı, hiç yanıtlanmadı</string>
+    <string name="scan_reason_streak">Son %2$d aramanın %1$d tanesi yanıtsız</string>
+    <string name="scan_reason_unsaved">%1$d arama, %2$d tanesini yanıtladınız</string>
+    <string name="scan_no_contacts_app">Rehber uygulaması bulunamadı</string>
 </resources>

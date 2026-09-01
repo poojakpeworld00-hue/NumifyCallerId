@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One scanned number: who, why it is here, and the single action for it. -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@drawable/bg_card"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_11sdp">
+
+        <TextView
+            android:id="@+id/textScanAvatar"
+            android:layout_width="@dimen/_34sdp"
+            android:layout_height="@dimen/_34sdp"
+            android:background="@drawable/bg_avatar_neutral"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/_11ssp"
+            android:textStyle="bold"
+            tools:text="?" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textScanNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_11ssp"
+                android:textStyle="bold"
+                tools:text="+91 88264 51120" />
+
+            <TextView
+                android:id="@+id/textScanReason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:includeFontPadding="false"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_9ssp"
+                tools:text="Rang 6 times, never answered" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/buttonScanAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:background="@drawable/bg_btn_outline"
+            android:foreground="?attr/selectableItemBackground"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="@dimen/_14sdp"
+            android:paddingVertical="@dimen/_8sdp"
+            android:textColor="@color/on_surface"
+            android:textSize="@dimen/_9ssp"
+            android:textStyle="bold"
+            tools:text="Block" />
+    </LinearLayout>
+</layout>

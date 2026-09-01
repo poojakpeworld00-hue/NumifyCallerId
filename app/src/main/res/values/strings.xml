@@ -801,4 +801,20 @@
     <string name="ai_verdict_missed_streak">You have missed their last %1$d calls</string>
     <string name="ai_verdict_answer_rate">Called %1$d times, you answered %2$d</string>
     <string name="ai_verdict_frequent">You are in touch often — %1$d calls this month</string>
+    <!-- ===== Assistant tools ===== -->
+    <string name="tools_cat_assistant">Assistant</string>
+    <string name="tools_spam_scan">Spam scanner</string>
+    <string name="tools_spam_scan_sub">Find numbers worth blocking</string>
+    <string name="tools_unsaved">Unsaved callers</string>
+    <string name="tools_unsaved_sub">People you talk to but never saved</string>
+    <string name="scan_action_block">Block</string>
+    <string name="scan_action_save">Save</string>
+    <string name="scan_found_spam">%1$d numbers worth blocking</string>
+    <string name="scan_found_unsaved">%1$d numbers worth saving</string>
+    <string name="scan_empty_spam">Nothing worth blocking. Your call log looks clean.</string>
+    <string name="scan_empty_unsaved">Everyone you speak to often is already saved.</string>
+    <string name="scan_reason_never_answered">Rang %1$d times, never answered</string>
+    <string name="scan_reason_streak">Last %1$d of %2$d calls unanswered</string>
+    <string name="scan_reason_unsaved">%1$d calls, you answered %2$d</string>
+    <string name="scan_no_contacts_app">No contacts app found</string>
 </resources>
