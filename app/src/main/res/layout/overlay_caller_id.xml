@@ -200,6 +200,12 @@
                 tools:text="JIO 4G" />
         </LinearLayout>
     </LinearLayout>
+    <!-- NOTE: nothing in this file may use a `?attr/` theme reference. The card is
+         inflated from CallerOverlayService with LayoutInflater.from(service), and a
+         Service has no theme, so a theme attribute throws InflateException and takes
+         the whole caller-ID overlay down on every incoming call. That is why the
+         Block button below has no `?attr/selectableItemBackground` ripple. -->
+
     <!-- Ask AI verdict. Shown only when the app has something to say about an
          unknown number: a line that appears on every call is a line nobody
          reads. Deliberately a statement plus one action rather than a link into
@@ -241,7 +247,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:background="@drawable/bg_btn_danger"
-            android:foreground="?attr/selectableItemBackground"
             android:includeFontPadding="false"
             android:paddingHorizontal="@dimen/_12sdp"
             android:paddingVertical="@dimen/_6sdp"
