@@ -738,4 +738,8 @@
     <string name="scan_reason_streak">直近 %2$d 件中 %1$d 件が未応答</string>
     <string name="scan_reason_unsaved">%1$d 件の着信、%2$d 件に応答</string>
     <string name="scan_no_contacts_app">連絡先アプリが見つかりません</string>
+    <string name="incall_identified">識別済み</string>
+    <string name="incall_spam">迷惑電話</string>
+    <string name="ai_verdict_network_spam">他のユーザーがこの番号を迷惑電話として報告しています</string>
+    <string name="ai_verdict_network_spam_count">%1$d人が迷惑電話として報告しています</string>
 </resources>

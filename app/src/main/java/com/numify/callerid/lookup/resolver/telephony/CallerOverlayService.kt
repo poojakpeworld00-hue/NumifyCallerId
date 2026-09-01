@@ -117,15 +117,15 @@ class CallerOverlayService : Service() {
             val info = withContext(Dispatchers.IO) { CallerLabel.resolve(this@CallerOverlayService, number) }
             overlayView?.let { CallerLabel.bind(this@CallerOverlayService, it, number, info) }
 
-            // The card is already up; a name from the caller-ID API lands on it
-            // when (and only if) it arrives in time. Skipped for a saved contact,
+            // The card is already up; the caller-ID API's answer lands on it when
+            // (and only if) it arrives in time. Skipped for a saved contact,
             // whose own name should never be replaced.
             if (!info.known) {
-                val networkName = withContext(Dispatchers.IO) {
-                    CallerLabel.lookupNetworkName(this@CallerOverlayService, number)
+                val facts = withContext(Dispatchers.IO) {
+                    CallerLabel.lookupNetworkFacts(this@CallerOverlayService, number)
                 }
                 overlayView?.let {
-                    CallerLabel.applyNetworkName(this@CallerOverlayService, it, info, networkName)
+                    CallerLabel.applyNetworkFacts(this@CallerOverlayService, it, info, facts)
                 }
             }
         }

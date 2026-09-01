@@ -787,4 +787,8 @@
     <string name="scan_reason_streak">Las últimas %1$d de %2$d llamadas sin responder</string>
     <string name="scan_reason_unsaved">%1$d llamadas, respondiste %2$d</string>
     <string name="scan_no_contacts_app">No se encontró app de contactos</string>
+    <string name="incall_identified">Identificado</string>
+    <string name="incall_spam">Spam</string>
+    <string name="ai_verdict_network_spam">Otras personas han denunciado este número como spam</string>
+    <string name="ai_verdict_network_spam_count">Denunciado como spam por %1$d personas</string>
 </resources>

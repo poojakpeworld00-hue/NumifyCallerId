@@ -795,4 +795,8 @@
     <string name="scan_reason_streak">Последние %1$d из %2$d звонков без ответа</string>
     <string name="scan_reason_unsaved">Звонков: %1$d, вы ответили %2$d</string>
     <string name="scan_no_contacts_app">Приложение контактов не найдено</string>
+    <string name="incall_identified">Определён</string>
+    <string name="incall_spam">Спам</string>
+    <string name="ai_verdict_network_spam">Другие пользователи пожаловались на этот номер</string>
+    <string name="ai_verdict_network_spam_count">На этот номер пожаловались %1$d человек</string>
 </resources>

@@ -16,6 +16,7 @@ import com.numify.callerid.lookup.repository.ContactRepository
 import com.numify.callerid.lookup.repository.SettingsRepository
 import com.numify.callerid.lookup.repository.assistant.AiFeatureConfig
 import com.numify.callerid.lookup.repository.assistant.CallerInsight
+import com.numify.callerid.lookup.entity.CallerFacts
 import com.numify.callerid.lookup.repository.assistant.CallerRisk
 import kotlinx.coroutines.withTimeoutOrNull
 import com.numify.callerid.lookup.feature.widgets.CallActionHandler
@@ -180,11 +181,24 @@ object CallerLabel {
 
     /** Green "Known Contact" vs neutral "Unknown" pill. */
     private fun bindStatusPill(context: Context, pill: TextView, known: Boolean) {
-        val textRes = if (known) R.string.incall_known else R.string.incall_unknown
-        val fgRes = if (known) R.color.success else R.color.on_surface_variant
-        val bgRes = if (known) R.color.success_soft else R.color.neutral_soft
-        val iconRes = if (known) R.drawable.ic_verified else R.drawable.ic_info
+        if (known) {
+            stylePill(context, pill, R.string.incall_known, R.color.success,
+                R.color.success_soft, R.drawable.ic_verified)
+        } else {
+            stylePill(context, pill, R.string.incall_unknown, R.color.on_surface_variant,
+                R.color.neutral_soft, R.drawable.ic_info)
+        }
+    }
 
+    /** Every state of the status pill differs only in text, colours and icon. */
+    private fun stylePill(
+        context: Context,
+        pill: TextView,
+        textRes: Int,
+        fgRes: Int,
+        bgRes: Int,
+        iconRes: Int
+    ) {
         val fg = ContextCompat.getColor(context, fgRes)
         pill.setText(textRes)
         pill.setTextColor(fg)
@@ -198,14 +212,19 @@ object CallerLabel {
      *
      * Deliberately separate from [resolve] and never on its critical path: the
      * phone is ringing, so the card goes up immediately from local data and this
-     * fills the name in afterwards if it arrives. A slow or unreachable API costs
-     * the user nothing but a card that keeps saying "Unknown".
+     * fills in afterwards if it arrives. A slow or unreachable API costs the user
+     * nothing but a card that keeps saying "Unknown".
      *
-     * Returns null when the network has no name, the credentials are unset, or
-     * the call does not finish inside [TIMEOUT_MS]. Callers must treat a null as
-     * "leave what is already on screen".
+     * Returns the whole [CallerFacts] rather than just the name. The response
+     * already carries the spam verdict, the caller's own carrier and their city,
+     * and throwing all of that away to keep one string was the reason an
+     * identified spammer still showed up as an anonymous "Unknown" card.
+     *
+     * Null when the network knows nothing, the credentials are unset, or the call
+     * does not finish inside [TIMEOUT_MS]. Callers must treat null as "leave what
+     * is already on screen".
      */
-    suspend fun lookupNetworkName(context: Context, number: String): String? {
+    suspend fun lookupNetworkFacts(context: Context, number: String): CallerFacts? {
         if (CredentialProvider.API_HASH.isBlank() || CredentialProvider.API_TOKEN.isBlank()) {
             return null
         }
@@ -218,25 +237,83 @@ object CallerLabel {
                     token = CredentialProvider.API_TOKEN
                 )
                 if (!response.isSuccessful) return@withTimeoutOrNull null
-                response.body()?.data.orEmpty()
-                    .firstNotNullOfOrNull { it.name?.trim()?.takeIf(String::isNotBlank) }
+                // The endpoint is "similar-phone-number", so it can answer with
+                // several rows. Prefer the first that actually carries a name;
+                // fall back to the first row so a nameless spam verdict is still
+                // applied rather than silently dropped.
+                val rows = response.body()?.data.orEmpty()
+                rows.firstOrNull { !it.name.isNullOrBlank() } ?: rows.firstOrNull()
             }
         }.getOrNull()
     }
 
     /**
-     * Puts a network-resolved name on an already-bound card.
+     * Puts network-resolved facts on an already-bound card.
      *
      * The user's own contact name always wins — replacing "Mum" with whatever the
      * network calls that number would be a downgrade, however authoritative it
      * is. This only fills the gap where the card is showing "Unknown".
      */
-    fun applyNetworkName(context: Context, root: View, info: Info, networkName: String?) {
-        if (info.known || networkName.isNullOrBlank()) return
-        root.findViewById<TextView>(R.id.textIncallName).text = networkName
-        root.findViewById<TextView>(R.id.textIncallAvatar).text =
-            CallActionHandler.initials(networkName, "")
+    fun applyNetworkFacts(context: Context, root: View, info: Info, facts: CallerFacts?) {
+        if (info.known || facts == null) return
+
+        val networkName = facts.name?.trim()?.takeIf(String::isNotBlank)
+        if (networkName != null) {
+            root.findViewById<TextView>(R.id.textIncallName).text = networkName
+            root.findViewById<TextView>(R.id.textIncallAvatar).text =
+                CallActionHandler.initials(networkName, "")
+        }
+
+        // The caller's own carrier, when the network knows it, in place of the
+        // SIM operator this device happens to be camped on — which said nothing
+        // about the person calling.
+        facts.carrierOrNull?.let {
+            root.findViewById<TextView>(R.id.textIncallNetwork).text = it
+        }
+
+        val spam = facts.is_spam || facts.is_user_spam
+        when {
+            spam -> bindSpamPill(context, root.findViewById(R.id.textIncallStatus))
+            networkName != null -> bindIdentifiedPill(context, root.findViewById(R.id.textIncallStatus))
+        }
+        if (spam) applyNetworkSpamVerdict(context, root, facts)
     }
+
+    /**
+     * A network spam verdict overrides whatever the on-device insight said.
+     *
+     * Local history only knows this phone; "first time this number has called
+     * you" is true and useless next to other people having reported the number.
+     * The row is forced visible because the insight may have hidden it.
+     */
+    private fun applyNetworkSpamVerdict(context: Context, root: View, facts: CallerFacts) {
+        val label = root.findViewById<TextView>(R.id.textIncallVerdict) ?: return
+        val row = root.findViewById<View>(R.id.rowIncallVerdict) ?: return
+        if (row.visibility != View.VISIBLE && !AiFeatureConfig.isEnabled(context)) return
+
+        val reports = facts.spamReportCounter
+        label.text = if (reports > 0) {
+            context.getString(R.string.ai_verdict_network_spam_count, reports)
+        } else {
+            context.getString(R.string.ai_verdict_network_spam)
+        }
+        val danger = ContextCompat.getColor(context, R.color.danger)
+        label.setTextColor(danger)
+        root.findViewById<ImageView>(R.id.imageIncallVerdict)?.imageTintList =
+            ColorStateList.valueOf(danger)
+        root.findViewById<TextView>(R.id.buttonIncallBlock)?.visibility = View.VISIBLE
+        row.visibility = View.VISIBLE
+    }
+
+    /** Neutral "Identified" pill — named by the network, not by the address book. */
+    private fun bindIdentifiedPill(context: Context, pill: TextView) =
+        stylePill(context, pill, R.string.incall_identified, R.color.success,
+            R.color.success_soft, R.drawable.ic_verified)
+
+    /** Red "Spam" pill for a number the network has flagged. */
+    private fun bindSpamPill(context: Context, pill: TextView) =
+        stylePill(context, pill, R.string.incall_spam, R.color.danger,
+            R.color.danger_soft, R.drawable.ic_info)
 
     /** Short enough that the name lands while the phone is still ringing. */
     private const val TIMEOUT_MS = 2_500L

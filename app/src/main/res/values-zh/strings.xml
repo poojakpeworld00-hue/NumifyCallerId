@@ -738,4 +738,8 @@
     <string name="scan_reason_streak">最近 %2$d 通中有 %1$d 通未接</string>
     <string name="scan_reason_unsaved">%1$d 通电话，你接了 %2$d 通</string>
     <string name="scan_no_contacts_app">未找到通讯录应用</string>
+    <string name="incall_identified">已识别</string>
+    <string name="incall_spam">骚扰电话</string>
+    <string name="ai_verdict_network_spam">其他用户已将此号码举报为骚扰电话</string>
+    <string name="ai_verdict_network_spam_count">%1$d 人举报为骚扰电话</string>
 </resources>

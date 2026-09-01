@@ -743,4 +743,8 @@
     <string name="scan_reason_streak">Son %2$d aramanın %1$d tanesi yanıtsız</string>
     <string name="scan_reason_unsaved">%1$d arama, %2$d tanesini yanıtladınız</string>
     <string name="scan_no_contacts_app">Rehber uygulaması bulunamadı</string>
+    <string name="incall_identified">Tanımlandı</string>
+    <string name="incall_spam">Spam</string>
+    <string name="ai_verdict_network_spam">Diğer kullanıcılar bu numarayı spam olarak bildirdi</string>
+    <string name="ai_verdict_network_spam_count">%1$d kişi spam olarak bildirdi</string>
 </resources>

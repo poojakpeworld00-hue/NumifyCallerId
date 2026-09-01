@@ -743,4 +743,8 @@
     <string name="scan_reason_streak">%1$d des %2$d derniers appels sans réponse</string>
     <string name="scan_reason_unsaved">%1$d appels, vous avez répondu %2$d fois</string>
     <string name="scan_no_contacts_app">Aucune application de contacts trouvée</string>
+    <string name="incall_identified">Identifié</string>
+    <string name="incall_spam">Spam</string>
+    <string name="ai_verdict_network_spam">D\'autres personnes ont signalé ce numéro comme spam</string>
+    <string name="ai_verdict_network_spam_count">Signalé comme spam par %1$d personnes</string>
 </resources>

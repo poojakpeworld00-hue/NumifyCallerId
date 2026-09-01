@@ -783,4 +783,8 @@
     <string name="scan_reason_streak">पिछली %2$d में से %1$d कॉल अनुत्तरित</string>
     <string name="scan_reason_unsaved">%1$d कॉल, आपने %2$d उठाईं</string>
     <string name="scan_no_contacts_app">कोई संपर्क ऐप नहीं मिला</string>
+    <string name="incall_identified">पहचाना गया</string>
+    <string name="incall_spam">स्पैम</string>
+    <string name="ai_verdict_network_spam">अन्य लोगों ने इस नंबर को स्पैम बताया है</string>
+    <string name="ai_verdict_network_spam_count">%1$d लोगों ने इसे स्पैम बताया है</string>
 </resources>

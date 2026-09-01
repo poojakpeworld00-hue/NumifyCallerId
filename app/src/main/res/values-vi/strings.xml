@@ -738,4 +738,8 @@
     <string name="scan_reason_streak">%1$d trong %2$d cuộc gọi gần nhất không nghe</string>
     <string name="scan_reason_unsaved">%1$d cuộc gọi, bạn nghe %2$d</string>
     <string name="scan_no_contacts_app">Không tìm thấy ứng dụng danh bạ</string>
+    <string name="incall_identified">Đã nhận diện</string>
+    <string name="incall_spam">Spam</string>
+    <string name="ai_verdict_network_spam">Người khác đã báo cáo số này là spam</string>
+    <string name="ai_verdict_network_spam_count">%1$d người đã báo cáo là spam</string>
 </resources>

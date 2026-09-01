@@ -467,6 +467,8 @@
     <string name="incall_incoming">Incoming Call</string>
     <string name="incall_known">Known Contact</string>
     <string name="incall_unknown">Unknown</string>
+    <string name="incall_identified">Identified</string>
+    <string name="incall_spam">Spam</string>
     <string name="incall_now">Now</string>
     <string name="incall_calls">%1$d calls</string>
     <string name="incall_service_active">Caller ID active</string>
@@ -801,6 +803,8 @@
     <string name="ai_verdict_missed_streak">You have missed their last %1$d calls</string>
     <string name="ai_verdict_answer_rate">Called %1$d times, you answered %2$d</string>
     <string name="ai_verdict_frequent">You are in touch often — %1$d calls this month</string>
+    <string name="ai_verdict_network_spam">Other people have reported this number as spam</string>
+    <string name="ai_verdict_network_spam_count">Reported as spam by %1$d people</string>
     <!-- ===== Assistant tools ===== -->
     <string name="tools_cat_assistant">Assistant</string>
     <string name="tools_spam_scan">Spam scanner</string>

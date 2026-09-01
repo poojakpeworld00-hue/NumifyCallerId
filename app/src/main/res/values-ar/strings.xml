@@ -789,4 +789,8 @@
     <string name="scan_reason_streak">%1$d من آخر %2$d مكالمات دون رد</string>
     <string name="scan_reason_unsaved">%1$d مكالمة، أجبت على %2$d</string>
     <string name="scan_no_contacts_app">لم يتم العثور على تطبيق جهات اتصال</string>
+    <string name="incall_identified">تم التعرف عليه</string>
+    <string name="incall_spam">مزعج</string>
+    <string name="ai_verdict_network_spam">أبلغ مستخدمون آخرون عن هذا الرقم كرقم مزعج</string>
+    <string name="ai_verdict_network_spam_count">أبلغ %1$d أشخاص عنه كرقم مزعج</string>
 </resources>

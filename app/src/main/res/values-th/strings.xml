@@ -738,4 +738,8 @@
     <string name="scan_reason_streak">%1$d จาก %2$d สายล่าสุดไม่ได้รับ</string>
     <string name="scan_reason_unsaved">%1$d สาย คุณรับ %2$d</string>
     <string name="scan_no_contacts_app">ไม่พบแอปรายชื่อ</string>
+    <string name="incall_identified">ระบุตัวตนแล้ว</string>
+    <string name="incall_spam">สแปม</string>
+    <string name="ai_verdict_network_spam">มีผู้ใช้รายอื่นรายงานหมายเลขนี้ว่าเป็นสแปม</string>
+    <string name="ai_verdict_network_spam_count">มีผู้รายงานว่าเป็นสแปม %1$d คน</string>
 </resources>
