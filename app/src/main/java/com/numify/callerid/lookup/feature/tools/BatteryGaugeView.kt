@@ -48,9 +48,9 @@ class BatteryGaugeView @JvmOverloads constructor(
         color = ContextCompat.getColor(context, R.color.on_surface)
     }
 
-    /** The unfilled part of the cell. Deliberately NOT `surface`: the page behind
+    /** The unfilled portion of the cell. Deliberately not `surface`: the page behind
      *  it is almost the same near-white, so a surface-filled cell would read as a
-     *  hole in the page rather than an empty battery. */
+     *  hole in the page rather than as an empty battery. */
     private val cellPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
         color = ContextCompat.getColor(context, R.color.surface_2)
@@ -77,9 +77,9 @@ class BatteryGaugeView @JvmOverloads constructor(
     private var levelAnimator: ValueAnimator? = null
 
     /**
-     * True once the fill has reached the cell's vertical centre — i.e. once the
-     * readout printed over the middle is sitting on the fill rather than on the
-     * empty cell. The caller uses it to pick a legible text colour.
+     * True once the fill has passed the cell's vertical centre, meaning the
+     * readout printed across the middle now sits on the fill rather than on the
+     * empty cell. Callers use it to choose a legible text colour.
      */
     fun fillCoversCentre(percent: Int): Boolean = percent >= 50
 

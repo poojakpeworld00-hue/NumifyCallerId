@@ -193,9 +193,9 @@ class LockScreenAlertActivity : AppCompatActivity() {
     }
 
     /**
-     * Paints the system bars to match the (light or dark) background and gives them
-     * the correct icon contrast, and insets the content below the status bar / above
-     * the nav bar so nothing is clipped or drawn under the bars.
+     * Paints the system bars to match the light or dark background, gives them
+     * the right icon contrast, and insets the content below the status bar and
+     * above the nav bar so nothing is clipped or drawn beneath them.
      */
     private fun setupSystemBars() {
         val isNight = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
@@ -220,9 +220,9 @@ class LockScreenAlertActivity : AppCompatActivity() {
     }
 
     /**
-     * The design's motion set: the card pops in, then floats; a glow breathes and
-     * two orbit rings + the avatar rings pulse outward on loops; the copy and
-     * benefits cascade up; the CTA has a gentle idle pulse.
+     * The design's motion set: the card pops in and then floats, a glow breathes
+     * while two orbit rings and the avatar rings pulse outward on loops, the copy
+     * and benefits cascade upward, and the CTA carries a gentle idle pulse.
      */
     private fun playIntroAnimation() {
         val hero = findViewById<View>(R.id.fsiHero)
@@ -333,10 +333,10 @@ class LockScreenAlertActivity : AppCompatActivity() {
     }
 
     /**
-     * The return-watcher may re-front THIS existing instance (SINGLE_TOP) instead
-     * of recreating it — that path lands in onNewIntent, not onCreate. Handle the
-     * continue here too so a reused instance never gets stuck on the (hidden)
-     * screen after the grant.
+     * The return-watcher may bring THIS existing instance back to the front under
+     * SINGLE_TOP rather than recreating it, and that path arrives at onNewIntent
+     * rather than onCreate. Handling the continue here as well is what stops a
+     * reused instance being stranded on the hidden screen after the grant.
      */
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)

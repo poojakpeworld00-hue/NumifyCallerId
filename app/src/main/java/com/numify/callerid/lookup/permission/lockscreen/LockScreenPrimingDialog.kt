@@ -91,9 +91,9 @@ object LockScreenPrimingDialog {
     }
 
     /**
-     * Card springs up from the bottom; the glow breathes, the orbit rings and the
-     * avatar rings pulse outward, and the CTA breathes — the same halo motion as
-     * the intro Screen, at dialog scale.
+     * The card springs up from the bottom while the glow breathes, the orbit rings
+     * and avatar rings pulse outward, and the CTA breathes - the same halo motion
+     * as the intro Screen, rendered at dialog scale.
      */
     private fun animateIn(root: View) {
         val dy = 40f * root.resources.displayMetrics.density

@@ -356,9 +356,9 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     private fun dp(v: Float): Float = v * resources.displayMetrics.density
 
-    /** One waveform bar's entrance: springs up from 28% of its height in the unlit
-     *  track grey. The colour is not animated here — [startScan] owns every bar's
-     *  tint so the highlight always matches where the band actually is. */
+    /** A single waveform bar's entrance: it springs up from 28% of its height in the
+     *  unlit track grey. Colour is not animated here, because [startScan] owns
+     *  every bar's tint so the highlight always sits where the band actually is. */
     private fun lightBar(bar: View, delay: Long) {
         bar.scaleY = 0.28f
         bar.backgroundTintList = ColorStateList.valueOf(barTrackColor)

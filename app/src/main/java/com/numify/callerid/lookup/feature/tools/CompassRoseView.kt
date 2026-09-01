@@ -91,10 +91,10 @@ class CompassRoseView @JvmOverloads constructor(
     private var roseAngle = 0f
 
     /**
-     * Eases the rose toward [heading] the short way round the circle.
+     * Eases the rose towards [heading], taking the short way round the circle.
      *
-     * The sensor is noisy enough that drawing it raw jitters by a degree or two
-     * even on a still table, so this low-pass is what makes the dial sit calm.
+     * The sensor is noisy enough that drawing it raw jitters a degree or two even
+     * on a still table, so this low-pass is what keeps the dial calm.
      */
     fun setHeading(heading: Float) {
         var delta = (-heading) - roseAngle

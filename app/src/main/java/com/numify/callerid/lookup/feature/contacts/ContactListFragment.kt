@@ -217,8 +217,8 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
 
     /**
      * The strip only earns its space on the unfiltered list. On the Favorites tab
-     * it would repeat the list underneath it, and on Recents/Groups it would show
-     * people who are not in the list at all.
+     * it would simply repeat the list beneath it, and on Recents or Groups it
+     * would show people who are not in that list at all.
      */
     private fun showFavoritesStrip() {
         val onAll = viewModel.filter.value == ContactFilter.ALL

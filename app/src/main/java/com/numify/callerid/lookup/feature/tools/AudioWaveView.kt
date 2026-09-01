@@ -10,9 +10,9 @@ import com.numify.callerid.lookup.R
 import java.util.Random
 
 /**
- * Lightweight audio-level visualizer: a row of bars whose heights react to the
- * current sound level. Not a true FFT — there's no PCM/frequency data from the
- * amplitude meter — so it's a stylized spectrum.
+ * Lightweight audio-level visualiser: a row of bars whose heights respond to the
+ * current sound level. It is not a true FFT, since the amplitude meter yields no
+ * PCM or frequency data, so what it draws is a stylised spectrum.
  */
 class AudioWaveView @JvmOverloads constructor(
     context: Context,

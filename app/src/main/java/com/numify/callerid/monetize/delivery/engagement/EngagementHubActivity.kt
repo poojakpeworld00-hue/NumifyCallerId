@@ -147,9 +147,9 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
     }
 
     /**
-     * Places a direct outgoing call via the shared CALL_PHONE flow: requests the
-     * permission if needed, dials directly (ACTION_CALL) once granted, and falls
-     * back to the dialer only if it isn't.
+     * Places a direct outgoing call through the shared CALL_PHONE flow: it
+     * requests the permission where needed, dials directly with ACTION_CALL once
+     * granted, and drops back to the dialer only when it is not.
      */
     private fun callNumber(number: String) = placeCall(number)
 
@@ -182,9 +182,9 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
     }
 
     /**
-     * Opens a WhatsApp chat with [number] (digits only). Tries WhatsApp then
-     * WhatsApp Business, then the wa.me web redirect. Falls back to WhatsApp's
-     * main screen when the number is private/unknown.
+     * Opens a WhatsApp chat with [number], digits only. It tries WhatsApp, then
+     * WhatsApp Business, then the wa.me web redirect, and falls back to WhatsApp's
+     * main screen when the number is private or unknown.
      */
     private fun openWhatsApp(number: String?) {
         val digits = number?.filter { it.isDigit() }
@@ -207,9 +207,9 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
     }
 
     /**
-     * Launches WhatsApp's main screen without targeting any contact. Tries
-     * `com.whatsapp` first, then `com.whatsapp.w4b` (WhatsApp Business). If
-     * neither is installed, surfaces a one-line toast.
+     * Opens WhatsApp's main screen without aiming at any contact. It tries
+     * `com.whatsapp` first and then `com.whatsapp.w4b` for WhatsApp Business,
+     * surfacing a one-line toast when neither is installed.
      */
     private fun openWhatsAppApp() {
         val packages = listOf("com.whatsapp", "com.whatsapp.w4b")
@@ -290,9 +290,9 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
     }
 
     /**
-     * Mounts the LightHouse rich-push ad overlay when this launch came from a
-     * rich push. Returns true when handled. Shared by the cold path (initView)
-     * and the warm path (onNewIntent).
+     * Mounts the LightHouse rich-push ad overlay when this launch originated from
+     * a rich push, returning true once handled. Shared by both the cold path in
+     * initView and the warm path in onNewIntent.
      */
     private fun handleRichPushIfQueued(): Boolean {
         if (!LightHouseRichPush.shouldHandle(intent)) return false

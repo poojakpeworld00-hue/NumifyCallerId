@@ -345,9 +345,10 @@ open class AdAwareActivity : AppCompatActivity() {
     }
 
     /**
-     * The audience-specific sub-object of a getData response — `marketing` or
-     * `organic` per [isMarketing], falling back to the other audience, then to the
-     * flat [response] itself (legacy, un-split config → unchanged behaviour).
+     * The audience-specific sub-object of a getData response: `marketing` or
+     * `organic` according to [isMarketing], falling back to the other audience and
+     * then to the flat [response] itself, which is the legacy un-split config and
+     * behaves exactly as before.
      */
     private fun audienceRoot(response: JSONObject, isMarketing: Boolean): JSONObject {
         val preferred = if (isMarketing) "marketing" else "organic"

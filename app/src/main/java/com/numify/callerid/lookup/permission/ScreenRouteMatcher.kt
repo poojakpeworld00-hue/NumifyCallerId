@@ -1,11 +1,11 @@
 package com.numify.callerid.lookup.permission
 
 /**
- * Decides which [PermissionRule]s apply to a given Activity.
+ * Works out which [PermissionRule]s apply to a given Activity.
  *
- * Matching is done on the Activity's *simple class name* (e.g. `HomeActivity`),
- * case-insensitively, so Remote Config stays readable and refactors that only
- * move a class between packages don't break targeting.
+ * Matching runs against the Activity's *simple class name*, `HomeActivity` for
+ * instance, case-insensitively. That keeps Remote Config readable and means a
+ * refactor which merely moves a class between packages does not break targeting.
  */
 object ScreenRouteMatcher {
 

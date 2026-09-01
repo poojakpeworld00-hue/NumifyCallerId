@@ -349,9 +349,11 @@ table_page("15. Deliberate exclusions and follow-ups", "Read this before shippin
             ["Stage 5 (content de-duplication) skipped",
              "Chosen at the outset. Asset JSON schemas, long template strings and raster art remain "
              "byte-identical to the source. Run Stage 5 if you need to beat content-hash detection."],
-            ["Comment rewrite partially complete",
-             "Comments are being reworded rather than stripped, so the design rationale survives. "
-             "Long blocks done so far are listed in the commit history; the rest keep the source wording."],
+            ["Comment rewrite: long blocks done, short ones not",
+             "Comments were reworded rather than stripped, so the design rationale survives. All 182 "
+             "blocks over 200 chars - where the distinctive prose lives - are rewritten, taking comment "
+             "char-mass that matches the source from 100% to 55%. The remaining 45% is 1,139 short "
+             "one-to-three-line comments; reword those too if you want the figure lower."],
             ["Instrumented tests not run",
              "androidTest needs a device or emulator. The 5 JVM unit tests pass."]],
            [3, 8])

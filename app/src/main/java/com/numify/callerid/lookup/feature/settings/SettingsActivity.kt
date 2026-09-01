@@ -183,11 +183,11 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
     }
 
     /**
-     * Puts a glyph on a tinted chip.
+     * Places a glyph on a tinted chip.
      *
-     * setBackgroundResource() replaces the view's padding with the new drawable's
-     * (i.e. none), so the padding has to be re-applied afterwards — without it the
-     * glyph fills the whole chip and reads as a solid coloured square.
+     * setBackgroundResource() swaps the view's padding for the new drawable's own,
+     * which is none, so the padding has to be put back afterwards. Without that
+     * the glyph fills the entire chip and reads as a solid coloured square.
      */
     private fun chipIcon(view: ImageView, @DrawableRes chip: Int, @ColorRes tint: Int) {
         val pad = view.paddingLeft.takeIf { it > 0 }
@@ -273,9 +273,10 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
     }
 
     /**
-     * Shows/hides the whole "Caller protection" section — its heading row and the
-     * group card, not just the row inside it. The card is the section's only row,
-     * so hiding the row alone leaves the heading above an empty white card.
+     * Shows or hides the entire "Caller protection" section - its heading row and
+     * the group card together, not merely the row inside. The card holds the
+     * section's only row, so hiding just that row would leave the heading sitting
+     * above an empty white card.
      */
     private fun showCallScreeningSection(show: Boolean) {
         val visibility = if (show) View.VISIBLE else View.GONE

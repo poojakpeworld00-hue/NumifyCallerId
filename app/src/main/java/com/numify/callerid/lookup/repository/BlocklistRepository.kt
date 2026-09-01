@@ -33,9 +33,9 @@ class BlocklistRepository(context: Context) {
     }
 
     /**
-     * True if [number] is blocked. Matches exactly first, then by normalized
-     * digits (last 10) so different formats of the same number still match
-     * (e.g. "+91 70164 14568" vs "7016414568").
+     * True when [number] is blocked. It matches exactly first and then on
+     * normalised digits, the last ten, so different formats of the same number
+     * still match - "+91 70164 14568" against "7016414568", for example.
      */
     fun isNumberBlocked(number: String): Boolean {
         val set = prefs.getStringSet(KEY, emptySet()).orEmpty()

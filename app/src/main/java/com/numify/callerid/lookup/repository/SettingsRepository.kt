@@ -49,9 +49,10 @@ class SettingsRepository(context: Context) {
         set(value) = prefs.edit().putBoolean(KEY_CONTACTS_UPLOADED, value).apply()
 
     /**
-     * Epoch-millis of the last time the permission bottom sheet was shown (0 =
-     * never). Drives the auto-launch frequency gate: `once` uses "== 0", and
-     * `interval` measures elapsed days from this stamp. Set on every show.
+     * Epoch milliseconds of the last time the permission bottom sheet appeared,
+     * with 0 meaning never. It drives the auto-launch frequency gate: `once`
+     * compares against 0, and `interval` measures elapsed days from this stamp.
+     * Written on every show.
      */
     var permSheetLastShownMs: Long
         get() = prefs.getLong(KEY_PERM_SHEET_LAST_SHOWN, 0L)
@@ -78,9 +79,10 @@ class SettingsRepository(context: Context) {
         set(value) = prefs.edit().putString(KEY_HOME_COUNTRY_ISO, value).apply()
 
     /**
-     * ISO-3166 alpha-2 country resolved once from IP geolocation, cached so the
-     * network call is made a single time app-wide. Unlike [homeCountryIso] this is
-     * never a user pick, so writing it can't be mistaken for an explicit choice.
+     * ISO-3166 alpha-2 country resolved once from IP geolocation and cached, so
+     * the network call happens a single time across the whole app. Unlike
+     * [homeCountryIso] this is never a user's own pick, so writing it can never be
+     * mistaken for an explicit choice.
      */
     var geoCountryIso: String
         get() = prefs.getString(KEY_GEO_COUNTRY_ISO, "") ?: ""

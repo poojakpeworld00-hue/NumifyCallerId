@@ -86,9 +86,10 @@ class SwipeNavigationLayout @JvmOverloads constructor(
     }
 
     /**
-     * True when any visible descendant under ([x], [y]) — screen coordinates — can
-     * still scroll horizontally in [direction]. Deepest child wins, so a chip strip
-     * already at its end releases the gesture and the tab change goes through.
+     * True when any visible descendant beneath ([x], [y]), given in screen
+     * coordinates, can still scroll horizontally in [direction]. The deepest child
+     * wins, so a chip strip already at its end releases the gesture and lets the
+     * tab change through.
      */
     private fun childCanScroll(group: ViewGroup, direction: Int, x: Int, y: Int): Boolean {
         val location = IntArray(2)

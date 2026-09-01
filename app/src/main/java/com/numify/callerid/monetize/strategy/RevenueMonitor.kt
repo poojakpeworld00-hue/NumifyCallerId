@@ -63,9 +63,9 @@ fun Context.recordEvent(key: String) {
 }
 
 /**
- * Logs a runtime-permission outcome as `Permission_<NAME>_Allow` / `_Deny`,
- * e.g. `Permission_READ_CALL_LOG_Allow`. [permission] is a full
- * `android.permission.*` string; only the short name is used in the event.
+ * Records a runtime-permission outcome as `Permission_<NAME>_Allow` or `_Deny` -
+ * `Permission_READ_CALL_LOG_Allow`, for instance. [permission] arrives as a full
+ * `android.permission.*` string, and only the short name reaches the event.
  */
 fun Context.recordPermissionOutcome(permission: String, granted: Boolean) {
     val shortName = permission.substringAfterLast('.')

@@ -126,9 +126,9 @@ class StopwatchDialView @JvmOverloads constructor(
 
     private companion object {
         /**
-         * The design's dial is 262dp; ours is smaller on most phones, so tick
-         * lengths are scaled to keep the same proportion of the radius rather
-         * than reaching too far toward the centre.
+         * The design's dial is 262dp, while ours is smaller on most phones, so
+         * tick lengths are scaled to hold the same proportion of the radius rather
+         * than reaching too far in towards the centre.
          */
         const val SCALE = 0.86f
     }

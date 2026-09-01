@@ -69,9 +69,10 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
     private var enableCallerIdDialog: Dialog? = null
 
     /**
-     * The block action the user tried to run while Caller ID was still off (e.g.
-     * "Add number"). Held so that the instant the role is granted we resume *that*
-     * action — opening its dialog — instead of stranding the user on the list.
+     * The block action the user attempted while Caller ID was still off - "Add
+     * number", for example. It is held so that the moment the role is granted we
+     * resume *that* action by opening its dialog, rather than leaving the user
+     * stranded on the list.
      */
     private var pendingCallerIdAction: (() -> Unit)? = null
 
@@ -87,16 +88,17 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
     ) { refreshCallerIdGate() }
 
     /**
-     * Where a number picked from contacts/recents should go. Null means "block it
-     * straight away", which is what the empty-state rows want; the add dialog sets
-     * it so a pick fills its field instead and the user still confirms with Block.
+     * Where a number picked from contacts or recents should end up. Null means
+     * block it immediately, which is what the empty-state rows want. The add
+     * dialog sets it so a pick populates its field instead, leaving the user to
+     * confirm with Block.
      */
     private var onNumberPicked: ((String) -> Unit)? = null
 
     /**
-     * The form whose country chip was tapped. There are two live forms — the
-     * dialog's and the empty state's — so the picker result has to come back to
-     * the one that asked, not to "the" form.
+     * The form whose country chip was tapped. Two forms are live at once - the
+     * dialog's and the empty state's - so the picker result has to return to
+     * whichever one asked, rather than to "the" form.
      */
     private var pickingCountryFor: AddForm? = null
 
@@ -155,10 +157,10 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
         }
 
         /**
-         * Joins the country chip with what was typed. A number that already
-         * carries its own "+" — anything picked from contacts or the call log
-         * usually does — is left as it is, so we never prefix a second country
-         * code onto it.
+         * Combines the country chip with whatever was typed. A number that already
+         * carries its own "+", as anything picked from contacts or the call log
+         * usually does, is left untouched, so a second country code is never
+         * prefixed onto it.
          */
         fun compose(): String {
             val n = view.inputNumber.text?.toString()?.trim().orEmpty()
@@ -269,8 +271,8 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
 
     /**
      * The add-to-blocklist dialog: type a number, or fill it from contacts or the
-     * call log without leaving the dialog. Confirming is always the Block button,
-     * so a mis-tap in a picker never blocks someone outright.
+     * call log without leaving the dialog. Confirmation is always the Block
+     * button, so a mis-tap inside a picker never blocks somebody outright.
      */
     private fun showAddDialog() {
         val view = DialogBlockAddBinding.inflate(layoutInflater)
@@ -435,9 +437,9 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
     }
 
     /**
-     * Drives the dialog's motion once it's shown: the shield pops in with an
-     * overshoot, a ring pulses out, the checkmark draws itself (AVD), the hint
-     * strip reveals, the CTA breathes, and the demo toggle loops off→on.
+     * Drives the dialog's motion once it is on screen: the shield pops in with an
+     * overshoot, a ring pulses outward, the checkmark draws itself as an AVD, the
+     * hint strip reveals, the CTA breathes, and the demo toggle loops off to on.
      */
     private fun animateEnableCallerIdDialog(v: DialogEnableCallerIdBinding) {
         v.shieldTile.alpha = 0f
@@ -571,8 +573,8 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
     }
 
     /**
-     * Re-evaluates the gate. Once Caller ID is on, the enable-prompt is dismissed
-     * and block management is immediately usable again. Called after the role
+     * Re-evaluates the gate. Once Caller ID is on, the enable prompt is dismissed
+     * and block management becomes usable again immediately. Called after the role
      * round-trip and on every resume.
      */
     private fun refreshCallerIdGate() {

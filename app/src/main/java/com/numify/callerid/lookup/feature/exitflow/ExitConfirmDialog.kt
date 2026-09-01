@@ -103,9 +103,9 @@ object ExitConfirmDialog {
     }
 
     /**
-     * Fills the dialog's ad slot per `dialog.isBottomAdsType`. The slot stays
-     * `GONE` unless an ad is actually requested — an empty framed gap under the
-     * message would look broken.
+     * Fills the dialog's ad slot according to `dialog.isBottomAdsType`. The slot
+     * stays `GONE` unless an ad has actually been requested, since an empty framed
+     * gap beneath the message would just look broken.
      */
     private fun renderAd(activity: Activity, view: View, cfg: OnboardingStepConfig.ExitConfig) {
         if (!cfg.dialogAdShow) return

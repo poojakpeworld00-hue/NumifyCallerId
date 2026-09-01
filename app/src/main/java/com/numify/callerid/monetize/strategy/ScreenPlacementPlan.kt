@@ -117,9 +117,9 @@ object ScreenPlacementPlan {
     }
 
     /**
-     * Global native ad-unit id, screen-wise aware. The native ad pool is
-     * preloaded once with no screen context, so it resolves to the `default`
-     * entry's native id (or the global `googleNative` when screen-wise is off).
+     * The global native ad-unit id, aware of screen-wise mode. The native ad pool
+     * is preloaded once with no screen context, so this resolves to the `default`
+     * entry's native id, or to the global `googleNative` when screen-wise is off.
      */
     fun nativeAdUnitId(context: Context): String {
         val pref = AdPreferenceStore.getInstance(context)
@@ -150,8 +150,9 @@ object ScreenPlacementPlan {
 
     /**
      * Loads the bottom on-load banner into [container] for [screenName]. Banner
-     * first; if it fails, a native banner is shown in the same container.
-     * Hidden when ads are globally off or the screen's `show` flag is false.
+     * first, and if that fails a native banner takes its place in the same
+     * container. It stays hidden when ads are off globally or the screen's `show`
+     * flag is false.
      */
     fun showAd(
         screenName: String,

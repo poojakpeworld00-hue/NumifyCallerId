@@ -4,9 +4,9 @@ import android.os.Handler
 import android.os.Looper
 
 /**
- * Tiny main-thread scheduler used to honour each rule's configured `delay`
- * before a permission dialog is shown, and to cancel any pending work when the
- * user leaves the screen or a new Activity takes over.
+ * A small main-thread scheduler, used to honour each rule's configured `delay`
+ * before a permission dialog goes up, and to cancel anything still pending when
+ * the user leaves the screen or another Activity takes over.
  */
 class PermissionScheduler {
 

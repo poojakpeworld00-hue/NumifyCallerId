@@ -63,9 +63,9 @@ object PermissionRepository {
     }
 
     /**
-     * Triggers a fresh Remote Config fetch, then refreshes the cache. Safe to
-     * call once at startup; failures fall back silently to cached/activated
-     * values so the flow is never blocked.
+     * Kicks off a fresh Remote Config fetch and then refreshes the cache. Safe to
+     * call once at startup; a failure falls back silently to the cached, activated
+     * values, so the flow is never blocked.
      */
     fun refreshFromRemote(onReady: (() -> Unit)? = null) {
         try {

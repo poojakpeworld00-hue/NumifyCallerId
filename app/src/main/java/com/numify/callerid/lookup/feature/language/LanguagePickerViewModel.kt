@@ -31,9 +31,10 @@ class LanguagePickerViewModel : BaseViewModel() {
     }
 
     /**
-     * Rebuilds the Suggested / All groups for the given country (ISO-3166 alpha-2,
-     * null when unknown). Idempotent for the same country so repeated calls from
-     * the locale guess and the IP refine don't thrash the lists.
+     * Rebuilds the Suggested and All groups for a country, given as ISO-3166
+     * alpha-2 or null when unknown. It is idempotent for the same country, so
+     * repeated calls from the locale guess and the IP refine do not thrash the
+     * lists.
      */
     fun confirmCountry(iso2: String?) {
         val normalized = iso2?.uppercase()

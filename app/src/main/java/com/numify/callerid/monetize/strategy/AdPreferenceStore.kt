@@ -38,9 +38,10 @@ class AdPreferenceStore constructor(context: Context) {
         }
 
         /**
-         * The already-initialised instance, or null if [getInstance] was never
-         * called. Lets context-less callers (e.g. PermissionRepository) read a
-         * flag such as `OnMaketing` — it's initialised early in the launch flow.
+         * The already-initialised instance, or null when [getInstance] has never
+         * been called. It lets context-less callers such as PermissionRepository
+         * read a flag like `OnMaketing`, which is safe because initialisation
+         * happens early in the launch flow.
          */
         fun getOrNull(): AdPreferenceStore? = instance
     }

@@ -43,9 +43,9 @@ class BlocklistViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     /**
-     * A blocked number the user added has no spam classification, so it renders
-     * with the neutral treatment; the label is the contact name when we can
-     * resolve one, otherwise a friendly fallback.
+     * A number the user blocked by hand carries no spam classification, so it
+     * renders with the neutral treatment. The label is the contact name wherever
+     * one can be resolved, and a friendly fallback otherwise.
      */
     private fun BlockedNumber.toRow(): BlockedNumberState {
         val name = contacts.lookupNameByNumber(number)?.takeIf { it.isNotBlank() }

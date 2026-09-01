@@ -142,9 +142,9 @@ object AppRatingPrompt {
         }
 
     /**
-     * Re-arms the lifetime cap on every new `versionCode`. Without this a user who
-     * declines through the cap is never asked again — not a year and five releases
-     * later — because the count only ever grows.
+     * Re-arms the lifetime cap on each new `versionCode`. Without it a user who
+     * declines their way through the cap is never asked again - not a year and
+     * five releases later - because the count only ever climbs.
      */
     private fun rearmOnAppUpdate(prefs: SettingsRepository) {
         val current = BuildConfig.VERSION_CODE

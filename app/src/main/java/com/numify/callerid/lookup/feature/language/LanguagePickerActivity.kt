@@ -179,9 +179,9 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
     }
 
     /**
-     * The device's region as an ISO-3166 alpha-2 code, preferring the SIM/network
-     * country (strongest offline geo signal) and falling back to the app locale.
-     * Null when nothing usable is available.
+     * The device's region as an ISO-3166 alpha-2 code, preferring the SIM or
+     * network country as the strongest offline geo signal and falling back to the
+     * app locale. Null when nothing usable is available.
      */
     private fun deviceCountry(): String? {
         val tm = getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager

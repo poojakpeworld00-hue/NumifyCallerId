@@ -20,9 +20,9 @@ import com.numify.callerid.lookup.repository.CallLogRepository
 import com.numify.callerid.monetize.strategy.recordPermissionOutcome
 
 /**
- * Default ("first") tab of the post-call screen: a recent-call list. Each row's
- * call button places a direct outgoing call (ACTION_CALL), falling back to the
- * dialer only when CALL_PHONE isn't granted.
+ * The default, first tab of the post-call screen: a recent-call list. Each row's
+ * call button places a direct outgoing call with ACTION_CALL, falling back to the
+ * dialer only where CALL_PHONE has not been granted.
  */
 class CallTimelineFragment : Fragment() {
 
@@ -77,9 +77,9 @@ class CallTimelineFragment : Fragment() {
     }
 
     /**
-     * Places a direct outgoing call (ACTION_CALL) — no dialer. Requests CALL_PHONE
-     * first if it isn't granted; falls back to the dialer only if the user denies,
-     * so the action never crashes.
+     * Places a direct outgoing call with ACTION_CALL, bypassing the dialer. It
+     * requests CALL_PHONE first when that is not already granted, and falls back
+     * to the dialer only on a refusal, so the action can never crash.
      */
     private fun callNumber(number: String) {
         if (!isAdded || number.isBlank()) return

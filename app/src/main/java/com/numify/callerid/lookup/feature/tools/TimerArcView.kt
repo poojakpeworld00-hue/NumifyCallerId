@@ -74,8 +74,8 @@ class TimerArcView @JvmOverloads constructor(
     /**
      * Moves the ring to [target].
      *
-     * A reset (or any jump backwards) is applied immediately: animating the arc
-     * all the way back round would read as the timer counting up.
+     * A reset, or any jump backwards, is applied at once: animating the arc all
+     * the way back round would read as the timer counting up.
      */
     fun setProgress(target: Float, animate: Boolean = true) {
         val clamped = target.coerceIn(0f, 1f)
@@ -129,10 +129,10 @@ class TimerArcView @JvmOverloads constructor(
         const val TICK_MS = 100L
 
         /**
-         * The design's ring is 262dp wide but the layout gives it less on small
-         * screens, so its 14px stroke is scaled by how much of the design width
-         * we actually got. Without this the stroke swallows the dial on compact
-         * devices.
+         * The design's ring is 262dp across, but the layout hands it less than
+         * that on small screens, so its 14px stroke is scaled by however much of
+         * the design width we actually received. Without that scaling the stroke
+         * swallows the dial on compact devices.
          */
         const val DESIGN_SCALE = 0.86f
     }

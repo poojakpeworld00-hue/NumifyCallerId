@@ -46,8 +46,9 @@ object EndpointConfig {
 
     /**
      * Relative URL for the number lookup, resolved against [baseUrl] by Retrofit's
-     * `@Url`. Falls back to [CredentialProvider.API_ID] when RC carries no override, so the
-     * account id still has a single source of truth in local.properties.
+     * `@Url`. It falls back to [CredentialProvider.API_ID] when Remote Config
+     * carries no override, so the account id keeps a single source of truth in
+     * local.properties.
      */
     fun similarPhonePath(context: Context): String {
         val obj = root(context)

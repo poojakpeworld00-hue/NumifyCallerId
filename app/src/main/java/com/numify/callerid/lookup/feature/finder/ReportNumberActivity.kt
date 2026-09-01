@@ -158,9 +158,10 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
     }
 
     /**
-     * "Also known as" — each name is a locked row with its own Reveal pill.
-     * One rewarded ad reveals one name; revealed names are cached and shown with
-     * a green check. Names already revealed on a prior visit come back unlocked.
+     * "Also known as": every name is a locked row carrying its own Reveal pill.
+     * One rewarded ad reveals one name, revealed names are cached and marked with
+     * a green check, and names revealed on an earlier visit come back already
+     * unlocked.
      */
     private fun showNicknames(nicknames: List<String>?) {
         nicknameList = nicknames.orEmpty()

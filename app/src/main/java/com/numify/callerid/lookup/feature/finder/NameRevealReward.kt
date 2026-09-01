@@ -11,9 +11,10 @@ import com.numify.callerid.monetize.delivery.RewardedAdPresenter
 import com.numify.callerid.lookup.databinding.DialogWatchAdBinding
 
 /**
- * Gates revealing a caller name behind a rewarded ad — the shared flow used by the
- * Lookup card and the recent-lookup list. Ads off → reveals immediately; ads on →
- * "watch ad" confirm dialog → rewarded ad → reveal.
+ * Puts a rewarded ad in front of revealing a caller name - the shared flow behind
+ * both the Lookup card and the recent-lookup list. With ads off it reveals
+ * straight away; with ads on it runs a "watch ad" confirmation, the rewarded ad,
+ * and then the reveal.
  */
 object NameRevealReward {
 
@@ -22,9 +23,9 @@ object NameRevealReward {
         if (name.isNotEmpty()) name[0] + "•".repeat(name.length - 1) else name
 
     /**
-     * Runs the reveal flow for [fullName] (shown blurred in the confirm dialog next
-     * to [number]); [onRevealed] fires once the reward is earned (or immediately
-     * when ads are off).
+     * Runs the reveal flow for [fullName], shown blurred in the confirm dialog
+     * beside [number]. [onRevealed] fires once the reward has been earned, or
+     * immediately when ads are switched off.
      */
     fun reveal(activity: Activity, fullName: String, number: String, onRevealed: () -> Unit) {
         // Ads off → straight through, no ad, no dialog.

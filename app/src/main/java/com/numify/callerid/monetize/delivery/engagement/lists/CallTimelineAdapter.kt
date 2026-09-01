@@ -14,9 +14,10 @@ import com.numify.callerid.lookup.repository.CallRecord
 import com.numify.callerid.lookup.repository.CallType
 
 /**
- * Recent-call list for the post-call screen. Each row shows the caller and a
- * call button; tapping the button (or the row) reports the number back via
- * [onCall] (blank numbers are ignored), which the host places as a direct call.
+ * Recent-call list for the post-call screen. Each row shows the caller and a call
+ * button, and tapping either the button or the row reports the number back
+ * through [onCall], ignoring blank ones, which the host then places as a direct
+ * call.
  */
 class CallTimelineAdapter(
     private val onCall: (String) -> Unit

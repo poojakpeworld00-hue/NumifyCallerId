@@ -26,9 +26,10 @@ object RegionDetector {
     private const val TAG = "RegionDetector"
 
     /**
-     * TEST ONLY — force a country in debug builds, bypassing cache and network.
-     * Set to an ISO-3166 alpha-2 code (e.g. "JP" for Japan) to test that region's
-     * suggestions; set back to null for normal IP detection. No effect in release.
+     * TEST ONLY - pins a country in debug builds, skipping both cache and network.
+     * Set it to an ISO-3166 alpha-2 code, "JP" for Japan say, to exercise that
+     * region's suggestions, and back to null for normal IP detection. It has no
+     * effect in release.
      */
     private val DEBUG_FORCE_ISO: String? = "JP"
 

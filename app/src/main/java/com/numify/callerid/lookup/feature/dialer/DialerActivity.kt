@@ -25,9 +25,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
- * Dialer screen: the on-screen keypad builds the number shown in
- * [ActivityDialerBinding.tvDialNumber] (dialed by Call, saved by "Add to contacts")
- * and filters the most-used list into the "Matches" section above the keypad sheet.
+ * Dialer screen. The on-screen keypad assembles the number displayed in
+ * [ActivityDialerBinding.textDialNumber] - dialled by Call, saved by "Add to
+ * contacts" - and filters the most-used list into the "Matches" section above the
+ * keypad sheet.
  */
 class DialerActivity : BaseActivity<ActivityDialerBinding>() {
 
@@ -96,10 +97,10 @@ class DialerActivity : BaseActivity<ActivityDialerBinding>() {
     }
 
     /**
-     * The keypad is the only input here, so the IME is dismissed whenever this
-     * window takes focus — including on return from Contacts/the call screen,
-     * where a keyboard left open by the previous screen would otherwise cover
-     * the dialpad.
+     * The keypad is the only input on this screen, so the IME is dismissed
+     * whenever the window takes focus. That includes returning from Contacts or
+     * the call screen, where a keyboard left open by the previous screen would
+     * otherwise sit over the dialpad.
      */
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
@@ -193,9 +194,9 @@ class DialerActivity : BaseActivity<ActivityDialerBinding>() {
     }
 
     /**
-     * "Add to contacts" shows only for an unknown number: there is a dialed number,
-     * it isn't a saved contact, and it doesn't match any named contact in the list.
-     * Uses INVISIBLE (not GONE) so the keypad never reflows.
+     * "Add to contacts" appears only for an unknown number: a number has been
+     * dialled, it is not a saved contact, and it matches no named contact in the
+     * list. It uses INVISIBLE rather than GONE so the keypad never reflows.
      */
     private fun applyAddContactVisibility() {
         val show = dialedNumber().isNotEmpty() && !savedExact && !hasNamedMatch

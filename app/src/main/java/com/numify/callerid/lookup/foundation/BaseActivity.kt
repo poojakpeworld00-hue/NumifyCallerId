@@ -97,9 +97,9 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
     }
 
     /**
-     * Shows the back interstitial (when the remote-config gates allow it) and
-     * then runs [performBack]. Toolbar back buttons can call this instead of
-     * `finish()` to also surface a back ad.
+     * Shows the back interstitial, where the Remote Config gates permit it, and
+     * then runs [performBack]. Toolbar back buttons can call this in place of
+     * `finish()` when they should surface a back ad too.
      */
     protected fun goBack() {
         ExitInterstitialAd().showExitInterstitial(this) { performBack() }
@@ -140,9 +140,9 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
     // --- Shared runtime-permission handling ---
 
     /**
-     * Requests [permission] through [launcher], but once the user has denied it twice
-     * (permanently denied — the system no longer shows its dialog), opens the app's
-     * settings page so they can enable it manually.
+     * Requests [permission] through [launcher]. Once the user has refused twice -
+     * the permanently-denied state where the system stops showing its dialog - it
+     * opens the app's settings page so they can enable it by hand.
      */
     protected fun requestPermissionManaged(
         permission: String,

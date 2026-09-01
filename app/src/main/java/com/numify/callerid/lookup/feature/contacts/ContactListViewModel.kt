@@ -24,9 +24,9 @@ class ContactListViewModel(app: Application) : AndroidViewModel(app) {
     private val _filter = MutableLiveData(ContactFilter.ALL)
     val filter: LiveData<ContactFilter> = _filter
 
-    /** Starred contacts, for the strip above the list. Deliberately NOT filtered
-     *  by the search query: the strip is a shortcut to people you always call,
-     *  and emptying it while typing would just make the list jump. */
+    /** Starred contacts, for the strip above the list. Deliberately left unfiltered
+     *  by the search query: the strip is a shortcut to the people you always call,
+     *  and emptying it as the user types would only make the list jump. */
     private val _favorites = MutableLiveData<List<ContactRecord>>(emptyList())
     val favorites: LiveData<List<ContactRecord>> = _favorites
 

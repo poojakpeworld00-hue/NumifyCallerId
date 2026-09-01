@@ -177,9 +177,10 @@ object LockScreenPermission {
             )
 
     /**
-     * Opens the system "Manage full-screen intents" page **in the host's task**
-     * via [launcher] (matching the working overlay flow) and arms the auto-return
-     * watcher. The App Open ad is suppressed for the return.
+     * Opens the system "Manage full-screen intents" page **inside the host's own
+     * task** through [launcher], mirroring the overlay flow that already works,
+     * and arms the auto-return watcher. The App Open ad is suppressed for the
+     * return trip.
      */
     fun openSettings(activity: Activity, launcher: ActivityResultLauncher<Intent>) {
         AppOpenAdManager.skipNextAppOpenAd = true

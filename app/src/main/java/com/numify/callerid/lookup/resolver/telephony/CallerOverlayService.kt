@@ -125,9 +125,10 @@ class CallerOverlayService : Service() {
     }
 
     /**
-     * Keep the service alive during the ring. startForeground can be refused when the
-     * PHONE_STATE broadcast's exemption has elapsed — that's fine, the WindowManager
-     * overlay does not depend on the foreground service, so we swallow it.
+     * Keeps the service alive for the duration of the ring. startForeground can be
+     * refused once the PHONE_STATE broadcast's exemption has lapsed, which is
+     * harmless: the WindowManager overlay does not rely on the foreground service,
+     * so the failure is swallowed.
      */
     private fun startAsForeground() {
         val channelId = "caller_id_overlay"

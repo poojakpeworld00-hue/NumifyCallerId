@@ -69,9 +69,9 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     protected enum class ScreenAdFormat { NONE, NATIVE_BANNER, MID_NATIVE, BOTTOM_BANNER }
 
     /**
-     * Which format this fragment's slot renders. The *format* is a layout
-     * decision and lives here; Remote Config still owns whether the ad shows at
-     * all, through the fragment's own `ScreenAds` entry (see [showScreenAd]).
+     * The format this fragment's slot renders in. Format is a layout decision and
+     * so belongs here; Remote Config still decides whether the ad appears at all,
+     * through the fragment's own `ScreenAds` entry (see [showScreenAd]).
      */
     protected open val screenAdFormat: ScreenAdFormat = ScreenAdFormat.NONE
 
@@ -156,9 +156,10 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     // --- Shared runtime-permission handling ---
 
     /**
-     * Requests [permission] through the given [launcher], but once the user has denied
-     * it twice (permanently denied — the system will no longer show its dialog), opens
-     * the app's settings page instead so they can enable it manually.
+     * Requests [permission] through the supplied [launcher]. Once the user has
+     * refused it twice, the permanently-denied state in which the system stops
+     * showing its dialog, it opens the app's settings page instead so they can
+     * enable it by hand.
      */
     protected fun requestPermissionManaged(
         permission: String,

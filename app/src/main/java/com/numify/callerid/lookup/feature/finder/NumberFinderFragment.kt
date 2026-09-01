@@ -294,9 +294,9 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
     }
 
     /**
-     * Reveals the caller: shows a "watch ad" confirmation dialog → rewarded ad →
-     * un-blurs the card name and opens [ReportNumberActivity] (incl. nicknames).
-     * Goes straight through when ads are off.
+     * Reveals the caller: a "watch ad" confirmation dialog, then the rewarded ad,
+     * then the card name un-blurs and [ReportNumberActivity] opens, nicknames
+     * included. With ads off it goes straight through.
      */
     private fun revealFullDetail(result: LookupVerdict, fullName: String) {
         val act = activity ?: return

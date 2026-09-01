@@ -32,8 +32,10 @@ object OfflineNumberIndex {
     private val carrierMapper: PhoneNumberToCarrierMapper by lazy { PhoneNumberToCarrierMapper.getInstance() }
 
     /**
-     * @param normalized   the number, ideally in E.164 ("+…"); bare numbers use [fallbackRegion].
-     * @param fallbackRegion ISO-3166 alpha-2 region (e.g. "IN") used when [normalized] has no "+".
+     * @param normalized     the number, ideally in E.164 form starting "+"; bare
+     *                       numbers fall back to [fallbackRegion].
+     * @param fallbackRegion ISO-3166 alpha-2 region, "IN" for example, applied when
+     *                       [normalized] carries no "+".
      */
     fun lookup(normalized: String, fallbackRegion: String?): LocalNumberFacts? {
         // Parse first; bail only if parsing fails. A bare (no "+") number needs a

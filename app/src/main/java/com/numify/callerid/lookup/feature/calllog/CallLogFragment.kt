@@ -233,9 +233,9 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
     }
 
     /**
-     * Requests the [corePermissions] (skipping any already granted) and then runs
-     * [action]. A permanently-denied permission is skipped rather than bouncing the
-     * user to App Settings, so the action still runs.
+     * Asks for the [corePermissions], skipping any already granted, and then runs
+     * [action]. A permanently-denied permission is skipped rather than bouncing
+     * the user out to App Settings, so the action still runs.
      */
     private fun withCorePermissions(action: () -> Unit) {
         corePermQueue.clear()

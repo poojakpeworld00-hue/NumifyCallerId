@@ -330,9 +330,10 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
         const val TAG = "permission_sheet"
 
         /**
-         * True when at least one of the sheet's permissions still needs granting
-         * — use it to decide whether to trigger the sheet at all (avoids showing
-         * an empty sheet once everything is granted). Mirrors [buildRows]' gating.
+         * True while at least one of the sheet's permissions is still ungranted.
+         * Use it to decide whether to raise the sheet at all, which avoids showing
+         * an empty one after everything has been granted. It mirrors the gating in
+         * [buildRows].
          */
         @JvmStatic
         fun hasPending(activity: FragmentActivity): Boolean {

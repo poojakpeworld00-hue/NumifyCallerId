@@ -63,11 +63,11 @@ object AppUpdateCoordinator {
     }
 
     /**
-     * Initializes and starts checking for updates.
+     * Initialises the flow and begins checking for updates.
      *
-     * @param activity The host activity.
-     * @param isForceUpdate true = IMMEDIATE (mandatory), false = FLEXIBLE (optional).
-     * @param callback Receives update events.
+     * @param activity      the host Activity.
+     * @param isForceUpdate true for IMMEDIATE (mandatory), false for FLEXIBLE.
+     * @param callback      receives the update events.
      */
     fun init(
         activity: Activity,

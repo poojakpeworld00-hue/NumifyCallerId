@@ -8,10 +8,10 @@ import com.numify.callerid.lookup.databinding.ItemContactFavoriteBinding
 import com.numify.callerid.lookup.repository.ContactRecord
 
 /**
- * The horizontal strip of starred contacts above the contact list.
+ * The horizontal strip of starred contacts sitting above the contact list.
  *
- * It shows the same people the "Favorites" tab does, but without costing a tab
- * switch — the tab still exists for when the list itself needs filtering.
+ * It surfaces the same people the "Favorites" tab does, but without costing a tab
+ * switch. The tab remains for when the list itself needs filtering.
  */
 class SpeedDialStripAdapter(
     private val onPick: (ContactRecord) -> Unit,

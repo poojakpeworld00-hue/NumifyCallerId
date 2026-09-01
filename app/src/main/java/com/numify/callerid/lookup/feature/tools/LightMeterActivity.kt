@@ -90,9 +90,9 @@ class LightMeterActivity : BaseActivity<ActivityLightMeterBinding>(), SensorEven
     }
 
     /**
-     * Lights the band the reading sits in. The thresholds are the everyday
-     * lighting conditions the labels name, not an even split of the scale —
-     * "dark" and "sunlight" are orders of magnitude apart.
+     * Lights up the band the current reading falls into. The thresholds follow the
+     * everyday lighting conditions the labels name rather than splitting the scale
+     * evenly - "dark" and "sunlight" are orders of magnitude apart.
      */
     private fun showBand(lux: Float) {
         val active = when {

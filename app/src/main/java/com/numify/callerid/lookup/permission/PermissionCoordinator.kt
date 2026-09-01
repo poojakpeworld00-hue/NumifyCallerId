@@ -49,9 +49,9 @@ object PermissionCoordinator {
     private var pendingOnComplete: (() -> Unit)? = null
 
     /**
-     * One-time startup hook. Kicks a fresh Remote Config fetch so the newest
-     * configuration is active as early as possible. Safe to call from
-     * `Application.onCreate` (after `FirebaseApp.initializeApp`).
+     * One-time startup hook. It kicks off a fresh Remote Config fetch so the newest
+     * configuration becomes active as early as it can. Safe to call from
+     * `Application.onCreate`, after `FirebaseApp.initializeApp`.
      */
     fun init(context: Context) {
         try {

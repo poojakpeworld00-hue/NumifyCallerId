@@ -12,9 +12,10 @@ import com.numify.callerid.lookup.repository.BlockedNumber
 import com.numify.callerid.lookup.databinding.ItemBlocklistBinding
 
 /**
- * Renders the blocklist as a flat list of blocked numbers. Each row carries a
- * red-tinted "spam" or a neutral treatment, an avatar, the number and a direct
- * Unblock pill. Tapping the row opens details; the pill unblocks in one step.
+ * Renders the blocklist as a flat list of blocked numbers. Every row carries
+ * either a red-tinted "spam" treatment or a neutral one, plus an avatar, the
+ * number and a direct Unblock pill. Tapping the row opens details, while the pill
+ * unblocks in a single step.
  */
 class BlockedNumberAdapter(
     private val onUnblock: (BlockedNumber) -> Unit,
