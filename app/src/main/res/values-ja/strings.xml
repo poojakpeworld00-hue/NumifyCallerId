@@ -520,7 +520,7 @@
     <string name="home_protection_manage">管理</string>
     <string name="home_whos_calling">誰からの電話？</string>
     <string name="home_whos_calling_sub">不明な発信者を特定するには番号を検索</string>
-    <string name="home_search_any">番号を検索</string>
+    <string name="home_search_any">番号</string>
     <string name="home_recent_label">履歴</string>
     <string name="nav_blocklist">ブロック</string>
     <string name="nav_tools">ツール</string>
@@ -695,7 +695,7 @@
     <string name="notif_action_reply">返信</string>
     <string name="notif_channel_missed">不在着信</string>
     <string name="ai_summary_first">%1$s との初めての通話です。</string>
-    <string name="ai_summary_frequency">今月は %1$s と %2$d 回話しています。</string>
+    <string name="ai_summary_frequency">今月は %1$s との通話が %2$d 件あります。</string>
     <string name="ai_summary_longest">これまでで最も長い通話でした。</string>
     <string name="ai_summary_unanswered">この番号からの過去 %1$d 件は未応答です。</string>
     <!-- ===== Post-call notification ===== -->

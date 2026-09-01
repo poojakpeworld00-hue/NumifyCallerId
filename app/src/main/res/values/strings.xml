@@ -98,7 +98,7 @@
     <string name="home_protection_manage">Manage</string>
     <string name="home_whos_calling">Who\'s calling?</string>
     <string name="home_whos_calling_sub">Search any number to identify unknown callers</string>
-    <string name="home_search_any">Search any number</string>
+    <string name="home_search_any">Number</string>
     <string name="home_recent_label">Recent</string>
     <string name="see_all">See all</string>
 
@@ -774,7 +774,7 @@
     <string name="notif_action_reply">Reply</string>
     <string name="notif_channel_missed">Missed calls</string>
     <string name="ai_summary_first">First call with %1$s.</string>
-    <string name="ai_summary_frequency">You have spoken to %1$s %2$d times this month.</string>
+    <string name="ai_summary_frequency">You have %2$d calls with %1$s this month.</string>
     <string name="ai_summary_longest">This was your longest call yet.</string>
     <string name="ai_summary_unanswered">%1$d earlier calls from this number went unanswered.</string>
     <!-- ===== Post-call notification ===== -->

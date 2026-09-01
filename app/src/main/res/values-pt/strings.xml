@@ -567,7 +567,7 @@
     <string name="home_protection_manage">Gerir</string>
     <string name="home_whos_calling">Quem está a ligar?</string>
     <string name="home_whos_calling_sub">Pesquise qualquer número para identificar chamadas desconhecidas</string>
-    <string name="home_search_any">Pesquisar qualquer número</string>
+    <string name="home_search_any">Número</string>
     <string name="home_recent_label">Recentes</string>
     <string name="nav_blocklist">Bloqueios</string>
     <string name="nav_tools">Ferramentas</string>
@@ -742,7 +742,7 @@
     <string name="notif_action_reply">Responder</string>
     <string name="notif_channel_missed">Chamadas perdidas</string>
     <string name="ai_summary_first">Primeira chamada com %1$s.</string>
-    <string name="ai_summary_frequency">Você falou com %1$s %2$d vezes este mês.</string>
+    <string name="ai_summary_frequency">Você tem %2$d chamadas com %1$s este mês.</string>
     <string name="ai_summary_longest">Foi sua chamada mais longa até agora.</string>
     <string name="ai_summary_unanswered">%1$d chamadas anteriores deste número não foram atendidas.</string>
     <!-- ===== Post-call notification ===== -->

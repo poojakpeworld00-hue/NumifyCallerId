@@ -525,7 +525,7 @@
     <string name="home_protection_manage">Yönet</string>
     <string name="home_whos_calling">Kim arıyor?</string>
     <string name="home_whos_calling_sub">Bilinmeyen arayanları tanımak için herhangi bir numarayı arayın</string>
-    <string name="home_search_any">Herhangi bir numarayı ara</string>
+    <string name="home_search_any">Numara</string>
     <string name="home_recent_label">Son aramalar</string>
     <string name="nav_blocklist">Engellenenler</string>
     <string name="nav_tools">Araçlar</string>
@@ -700,7 +700,7 @@
     <string name="notif_action_reply">Yanıtla</string>
     <string name="notif_channel_missed">Cevapsız aramalar</string>
     <string name="ai_summary_first">%1$s ile ilk görüşme.</string>
-    <string name="ai_summary_frequency">Bu ay %1$s ile %2$d kez konuştunuz.</string>
+    <string name="ai_summary_frequency">Bu ay %1$s ile %2$d aramanız var.</string>
     <string name="ai_summary_longest">Bu şimdiye kadarki en uzun görüşmenizdi.</string>
     <string name="ai_summary_unanswered">Bu numaradan gelen %1$d önceki arama yanıtsız kaldı.</string>
     <!-- ===== Post-call notification ===== -->

@@ -520,7 +520,7 @@
     <string name="home_protection_manage">จัดการ</string>
     <string name="home_whos_calling">ใครโทรมา?</string>
     <string name="home_whos_calling_sub">ค้นหาหมายเลขใดก็ได้เพื่อระบุผู้โทรที่ไม่รู้จัก</string>
-    <string name="home_search_any">ค้นหาหมายเลขใดก็ได้</string>
+    <string name="home_search_any">เบอร์</string>
     <string name="home_recent_label">ล่าสุด</string>
     <string name="nav_blocklist">รายการบล็อก</string>
     <string name="nav_tools">เครื่องมือ</string>
@@ -695,7 +695,7 @@
     <string name="notif_action_reply">ตอบกลับ</string>
     <string name="notif_channel_missed">สายที่ไม่ได้รับ</string>
     <string name="ai_summary_first">สายแรกกับ %1$s</string>
-    <string name="ai_summary_frequency">เดือนนี้คุณคุยกับ %1$s ไปแล้ว %2$d ครั้ง</string>
+    <string name="ai_summary_frequency">เดือนนี้คุณมีสาย %2$d สายกับ %1$s</string>
     <string name="ai_summary_longest">นี่เป็นสายที่ยาวที่สุดของคุณ</string>
     <string name="ai_summary_unanswered">สายก่อนหน้าจากเบอร์นี้ %1$d สายไม่ได้รับ</string>
     <!-- ===== Post-call notification ===== -->

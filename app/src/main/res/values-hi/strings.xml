@@ -565,7 +565,7 @@
     <string name="home_protection_manage">प्रबंधित करें</string>
     <string name="home_whos_calling">कौन कॉल कर रहा है?</string>
     <string name="home_whos_calling_sub">अनजान कॉलर पहचानने के लिए कोई भी नंबर खोजें</string>
-    <string name="home_search_any">कोई भी नंबर खोजें</string>
+    <string name="home_search_any">नंबर</string>
     <string name="home_recent_label">हाल की</string>
     <string name="nav_blocklist">ब्लॉकलिस्ट</string>
     <string name="nav_tools">टूल</string>
@@ -740,7 +740,7 @@
     <string name="notif_action_reply">जवाब दें</string>
     <string name="notif_channel_missed">मिस्ड कॉल</string>
     <string name="ai_summary_first">%1$s के साथ पहली कॉल।</string>
-    <string name="ai_summary_frequency">इस महीने आपने %1$s से %2$d बार बात की।</string>
+    <string name="ai_summary_frequency">इस महीने %1$s के साथ आपकी %2$d कॉल हैं।</string>
     <string name="ai_summary_longest">यह अब तक की आपकी सबसे लंबी कॉल थी।</string>
     <string name="ai_summary_unanswered">इस नंबर की %1$d पिछली कॉल अनुत्तरित रहीं।</string>
     <!-- ===== Post-call notification ===== -->

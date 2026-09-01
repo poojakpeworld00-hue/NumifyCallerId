@@ -520,7 +520,7 @@
     <string name="home_protection_manage">管理</string>
     <string name="home_whos_calling">谁在来电？</string>
     <string name="home_whos_calling_sub">搜索任意号码即可识别陌生来电</string>
-    <string name="home_search_any">搜索任意号码</string>
+    <string name="home_search_any">号码</string>
     <string name="home_recent_label">最近</string>
     <string name="nav_blocklist">黑名单</string>
     <string name="nav_tools">工具</string>
@@ -695,7 +695,7 @@
     <string name="notif_action_reply">回复</string>
     <string name="notif_channel_missed">未接来电</string>
     <string name="ai_summary_first">与 %1$s 的第一通电话。</string>
-    <string name="ai_summary_frequency">本月你和 %1$s 通话 %2$d 次。</string>
+    <string name="ai_summary_frequency">本月你与 %1$s 有 %2$d 通电话。</string>
     <string name="ai_summary_longest">这是你们迄今最长的一通电话。</string>
     <string name="ai_summary_unanswered">该号码此前有 %1$d 通电话未被接听。</string>
     <!-- ===== Post-call notification ===== -->

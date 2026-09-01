@@ -577,7 +577,7 @@
     <string name="home_protection_manage">Настроить</string>
     <string name="home_whos_calling">Кто звонит?</string>
     <string name="home_whos_calling_sub">Найдите любой номер, чтобы узнать неизвестного абонента</string>
-    <string name="home_search_any">Найти любой номер</string>
+    <string name="home_search_any">Номер</string>
     <string name="home_recent_label">Недавние</string>
     <string name="nav_blocklist">Блокировка</string>
     <string name="nav_tools">Инструменты</string>
@@ -752,7 +752,7 @@
     <string name="notif_action_reply">Ответить</string>
     <string name="notif_channel_missed">Пропущенные вызовы</string>
     <string name="ai_summary_first">Первый разговор с %1$s.</string>
-    <string name="ai_summary_frequency">Вы говорили с %1$s %2$d раз за месяц.</string>
+    <string name="ai_summary_frequency">У вас %2$d звонков с %1$s за этот месяц.</string>
     <string name="ai_summary_longest">Это был ваш самый длинный разговор.</string>
     <string name="ai_summary_unanswered">%1$d предыдущих звонка с этого номера остались без ответа.</string>
     <!-- ===== Post-call notification ===== -->

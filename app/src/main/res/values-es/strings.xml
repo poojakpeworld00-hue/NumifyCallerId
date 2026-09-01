@@ -569,7 +569,7 @@
     <string name="home_protection_manage">Gestionar</string>
     <string name="home_whos_calling">¿Quién llama?</string>
     <string name="home_whos_calling_sub">Busca cualquier número para identificar llamadas desconocidas</string>
-    <string name="home_search_any">Busca cualquier número</string>
+    <string name="home_search_any">Número</string>
     <string name="home_recent_label">Recientes</string>
     <string name="nav_blocklist">Bloqueados</string>
     <string name="nav_tools">Herramientas</string>
@@ -744,7 +744,7 @@
     <string name="notif_action_reply">Responder</string>
     <string name="notif_channel_missed">Llamadas perdidas</string>
     <string name="ai_summary_first">Primera llamada con %1$s.</string>
-    <string name="ai_summary_frequency">Has hablado con %1$s %2$d veces este mes.</string>
+    <string name="ai_summary_frequency">Tienes %2$d llamadas con %1$s este mes.</string>
     <string name="ai_summary_longest">Fue tu llamada más larga hasta ahora.</string>
     <string name="ai_summary_unanswered">%1$d llamadas anteriores de este número quedaron sin responder.</string>
     <!-- ===== Post-call notification ===== -->

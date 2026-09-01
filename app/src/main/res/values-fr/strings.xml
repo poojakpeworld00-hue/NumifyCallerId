@@ -525,7 +525,7 @@
     <string name="home_protection_manage">Gérer</string>
     <string name="home_whos_calling">Qui appelle ?</string>
     <string name="home_whos_calling_sub">Recherchez un numéro pour identifier les appelants inconnus</string>
-    <string name="home_search_any">Rechercher un numéro</string>
+    <string name="home_search_any">Numéro</string>
     <string name="home_recent_label">Récents</string>
     <string name="nav_blocklist">Blocage</string>
     <string name="nav_tools">Outils</string>
@@ -700,7 +700,7 @@
     <string name="notif_action_reply">Répondre</string>
     <string name="notif_channel_missed">Appels manqués</string>
     <string name="ai_summary_first">Premier appel avec %1$s.</string>
-    <string name="ai_summary_frequency">Vous avez parlé à %1$s %2$d fois ce mois-ci.</string>
+    <string name="ai_summary_frequency">Vous avez %2$d appels avec %1$s ce mois-ci.</string>
     <string name="ai_summary_longest">C\'était votre plus long appel à ce jour.</string>
     <string name="ai_summary_unanswered">%1$d appels précédents de ce numéro sont restés sans réponse.</string>
     <!-- ===== Post-call notification ===== -->

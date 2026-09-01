@@ -12,7 +12,7 @@
     <LinearLayout
         android:id="@+id/column_1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_90sdp"
+        android:layout_height="@dimen/_70sdp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,8 +32,7 @@
                 android:layout_height="@dimen/_28sdp"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
-                android:src="@drawable/ic_profile"
-                tools:tint="@color/primary" />
+               />
         </FrameLayout>
 
 

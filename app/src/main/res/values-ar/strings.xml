@@ -571,7 +571,7 @@
     <string name="home_protection_manage">إدارة</string>
     <string name="home_whos_calling">مَن المتصل؟</string>
     <string name="home_whos_calling_sub">ابحث عن أي رقم للتعرّف على المتصلين المجهولين</string>
-    <string name="home_search_any">ابحث عن أي رقم</string>
+    <string name="home_search_any">الرقم</string>
     <string name="home_recent_label">الأخيرة</string>
     <string name="nav_blocklist">قائمة الحظر</string>
     <string name="nav_tools">الأدوات</string>
@@ -746,7 +746,7 @@
     <string name="notif_action_reply">رد</string>
     <string name="notif_channel_missed">المكالمات الفائتة</string>
     <string name="ai_summary_first">أول مكالمة مع %1$s.</string>
-    <string name="ai_summary_frequency">تحدثت مع %1$s %2$d مرة هذا الشهر.</string>
+    <string name="ai_summary_frequency">لديك %2$d مكالمة مع %1$s هذا الشهر.</string>
     <string name="ai_summary_longest">كانت أطول مكالمة لك حتى الآن.</string>
     <string name="ai_summary_unanswered">%1$d مكالمات سابقة من هذا الرقم لم يُرد عليها.</string>
     <!-- ===== Post-call notification ===== -->
