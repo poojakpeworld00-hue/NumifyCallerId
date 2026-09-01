@@ -42,7 +42,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import io.lighthouse.push.LightHouse
 import com.numify.callerid.monetize.model.AdPlacementType
 import com.numify.callerid.monetize.model.ResultCallback
-import com.numify.callerid.monetize.model.resolveGeoFromIp
+import com.numify.callerid.monetize.model.lookupRegionByIp
 import com.numify.callerid.monetize.strategy.RevenueMonitor
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.monetize.strategy.PrivacyConsentGate
@@ -99,7 +99,7 @@ open class AdAwareActivity : AppCompatActivity() {
             try {
                 // We defer MobileAds.initialize() until after consent is obtained.
 
-                if (!hasInternetAccess(this@AdAwareActivity)) {
+                if (!isInternetReachable(this@AdAwareActivity)) {
                     withContext(Dispatchers.Main) {
                         onGetData?.onError()
                     }
@@ -154,7 +154,7 @@ open class AdAwareActivity : AppCompatActivity() {
         }
     }
 
-    fun hasInternetAccess(context: Context): Boolean {
+    fun isInternetReachable(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
 
@@ -364,7 +364,7 @@ open class AdAwareActivity : AppCompatActivity() {
         return response
     }
 
-    fun resolveNativeThemeKey(context: Context): String {
+    fun selectNativeTheme(context: Context): String {
 
         return when (PreferenceStore.selectedTheme(this)) {
             THEME_DARK -> {
@@ -394,7 +394,7 @@ open class AdAwareActivity : AppCompatActivity() {
 
         val nativeThemeRoot = response.optJSONObject("NativeTheme") ?: return
 
-        val modeKey = resolveNativeThemeKey(context)
+        val modeKey = selectNativeTheme(context)
 
         nativeThemeRoot?.let {
             val defaultObj = it.optJSONObject("default")
@@ -429,7 +429,7 @@ open class AdAwareActivity : AppCompatActivity() {
         }
 
         val referrerClient = InstallReferrerClient.newBuilder(activity).build()
-        backgroundExecutor.execute(Runnable { readInstallReferrer(referrerClient) })
+        backgroundExecutor.execute(Runnable { fetchInstallReferrer(referrerClient) })
     }
 
     private fun funOnAdsLoad() {
@@ -440,7 +440,7 @@ open class AdAwareActivity : AppCompatActivity() {
                 // Fetch IP geo once. Use the ISO country code to set the app's
                 // country (Home search chip + Lookup country picker) unless the
                 // user already picked one, then feed the ads country-counter logic.
-                val location = resolveGeoFromIp()
+                val location = lookupRegionByIp()
                 location?.countryCode?.takeIf { it.isNotBlank() }?.let { iso ->
                     val prefs = SettingsRepository(activity)
                     if (prefs.homeCountryIso.isBlank()) {
@@ -572,7 +572,7 @@ open class AdAwareActivity : AppCompatActivity() {
 
                 // Decide theme source
                 val themeSource = if (isMarketingOn) marketingObj else defaultObj
-                val modeKey = resolveNativeThemeKey(activity)
+                val modeKey = selectNativeTheme(activity)
                 // Get the correct modeKey (e.g., "NativeDark" or "NativeLight")
                 val themeJson = themeSource.optJSONObject(modeKey)
 
@@ -599,7 +599,7 @@ open class AdAwareActivity : AppCompatActivity() {
                         if (isAdsOn && isSplash == false) {
                             Log.d(APPOPEN_TAG, "isSplash=false → BS Native path (splash AppOpen is NOT attempted here)")
                             launch(Dispatchers.Main) {
-                                BottomSheetNativeAds().BS_loadNativeADs(activity)
+                                BottomSheetNativeAds().loadSheetNativeAds(activity)
                                 onGetData?.onSuccess()
                             }
                             return@withContext
@@ -621,10 +621,10 @@ open class AdAwareActivity : AppCompatActivity() {
                                 onGetData?.onSuccess()
                             } else {
                                 if (isGoogleAdsEnabled) {
-                                    NativeAdPresenter().fetchNativeAds(activity)
-                                    NativeBannerPresenter().fetchNativeBannerAds(activity)
-                                    TransitionInterstitialAd().fetchInterstitials(activity)
-                                    ExitInterstitialAd().fetchBackInterstitials(activity)
+                                    NativeAdPresenter().loadNativeAds(activity)
+                                    NativeBannerPresenter().loadNativeBannerAds(activity)
+                                    TransitionInterstitialAd().loadInterstitials(activity)
+                                    ExitInterstitialAd().loadExitInterstitials(activity)
                                 }
 
                                 // Splash ad gated by `screen.splash.ad_type` ("app_open" |
@@ -642,8 +642,8 @@ open class AdAwareActivity : AppCompatActivity() {
                                     onGetData?.onSuccess()
                                 } else {
                                     // Ads ON + splash enabled + gate passed → preload → show → continue
-                                    warmUpAds(adsPreference, activity) {
-                                        presentWarmAd(activity, adsPreference) {
+                                    prefetchAds(adsPreference, activity) {
+                                        showPreloadedAd(activity, adsPreference) {
                                             onGetData?.onSuccess()
                                         }
                                     }
@@ -697,7 +697,7 @@ open class AdAwareActivity : AppCompatActivity() {
     // AppOpenAd
     // ------------------------
     // Preload all ads in sequence or parallel
-    fun warmUpAds(adsPreference: AdPreferenceStore, activity: Activity, onComplete: () -> Unit) {
+    fun prefetchAds(adsPreference: AdPreferenceStore, activity: Activity, onComplete: () -> Unit) {
         bindCustomTabs(activity)
         val adType = AdPlacementType.fromString(adsPreference.getString("IsAdType"))
         Log.d(APPOPEN_TAG, "preload() → IsAdType=$adType, googleAdsEnabled=$isGoogleAdsEnabled")
@@ -722,7 +722,7 @@ open class AdAwareActivity : AppCompatActivity() {
             AdPlacementType.FACEBOOK -> {
                 if (adsPreference.getBoolean("IsFail_FB")) {
                     val fbId = adsPreference.getString("faceB_InterAds")!!
-                    fetchMetaInterstitial(
+                    loadMetaInterstitial(
                         activity,
                         fbId,
                         onLoaded = { onComplete() },
@@ -740,15 +740,15 @@ open class AdAwareActivity : AppCompatActivity() {
         }
     }
 
-    fun presentWarmAd(activity: Activity, adsPreference: AdPreferenceStore, onDismissed: () -> Unit) {
+    fun showPreloadedAd(activity: Activity, adsPreference: AdPreferenceStore, onDismissed: () -> Unit) {
         when (AdPlacementType.fromString(adsPreference.getString("IsAdType"))) {
             AdPlacementType.GOOGLE -> {
                 Log.d(APPOPEN_TAG, "showPreloaded() → appOpenReady=${appOpenAd != null}, interstitialReady=${interstitialAd != null}")
                 if (isGoogleAdsEnabled && (appOpenAd != null || interstitialAd != null)) {
                     if (appOpenAd != null) {
-                        presentAppOpenAd(activity) { onDismissed() }
+                        showAppOpenAd(activity) { onDismissed() }
                     } else if (interstitialAd != null) {
-                        presentAdMobInterstitial(activity) {
+                        showAdMobInterstitial(activity) {
                             onDismissed()
                         }
                     }
@@ -756,7 +756,7 @@ open class AdAwareActivity : AppCompatActivity() {
                     if (adsPreference.getBoolean("IsFail_FB")) {
                         val fbId = adsPreference.getString("faceB_InterAds")
                         if (!fbId.isNullOrEmpty() && fbInterstitial != null) {
-                            presentMetaInterstitial { onDismissed() }
+                            showMetaInterstitial { onDismissed() }
                         } else if (adsPreference.getBoolean("IsCustomADS")) {
                             // All failed + custom ads ON → fallback to custom link
                             launchCustomAdLink(
@@ -781,7 +781,7 @@ open class AdAwareActivity : AppCompatActivity() {
             }
 
             AdPlacementType.FACEBOOK -> {
-                if (fbInterstitial != null) presentMetaInterstitial { onDismissed() }
+                if (fbInterstitial != null) showMetaInterstitial { onDismissed() }
                 else onDismissed()
             }
 
@@ -804,7 +804,7 @@ open class AdAwareActivity : AppCompatActivity() {
         activity: Activity, adsPreference: AdPreferenceStore, onComplete: () -> Unit
     ) {
         val googleId = adsPreference.getString("googleS_Inter") ?: run { onComplete(); return }
-        fetchAdMobInterstitial(activity, googleId, onLoaded = { onComplete() }, onFailed = {
+        loadAdMobInterstitial(activity, googleId, onLoaded = { onComplete() }, onFailed = {
             loadFacebookFallback(activity, adsPreference, onComplete)
         })
     }
@@ -817,7 +817,7 @@ open class AdAwareActivity : AppCompatActivity() {
             Log.w(APPOPEN_TAG, "no/blank 'googleAppopen' unit id in Remote Config → skipping AppOpen, continuing")
             onComplete(); return
         }
-        fetchAppOpenAd(activity, appOpenId, onLoaded = { onComplete() }, onFailed = {
+        loadAppOpenAd(activity, appOpenId, onLoaded = { onComplete() }, onFailed = {
             Log.w(APPOPEN_TAG, "AppOpen load failed → falling back to Google interstitial")
             loadGoogleInterstitialWithFallback(activity, adsPreference, onComplete)
         })
@@ -829,7 +829,7 @@ open class AdAwareActivity : AppCompatActivity() {
         if (adsPreference.getBoolean("IsFail_FB")) {
             val fbId = adsPreference.getString("faceB_InterAds")
             if (!fbId.isNullOrEmpty()) {
-                fetchMetaInterstitial(
+                loadMetaInterstitial(
                     activity,
                     fbId,
                     onLoaded = { onComplete() },
@@ -839,7 +839,7 @@ open class AdAwareActivity : AppCompatActivity() {
         } else onComplete()
     }
 
-    fun fetchAppOpenAd(
+    fun loadAppOpenAd(
         activity: Activity,
         adUnitId: String,
         onLoaded: (() -> Unit)? = null,
@@ -871,7 +871,7 @@ open class AdAwareActivity : AppCompatActivity() {
             })
     }
 
-    fun presentAppOpenAd(activity: Activity, onDismissed: (() -> Unit)? = null) {
+    fun showAppOpenAd(activity: Activity, onDismissed: (() -> Unit)? = null) {
         appOpenAd?.let { ad ->
             Log.d(APPOPEN_TAG, "show() → displaying AppOpen ad")
             ad.fullScreenContentCallback = object : FullScreenContentCallback() {
@@ -891,10 +891,10 @@ open class AdAwareActivity : AppCompatActivity() {
             // Log load
             activity.logKeyEvent("AppOpen_Loaded")
 
-            if (BuildConfig.DEBUG) RevenueMonitor.emitDebugRevenue(activity)
+            if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(activity)
 
             appOpenAd?.setOnPaidEventListener {
-                RevenueMonitor.trackPaidEvent(activity, it)
+                RevenueMonitor.reportPaidEvent(activity, it)
             }
             ad.show(activity)
         } ?: run {
@@ -909,7 +909,7 @@ open class AdAwareActivity : AppCompatActivity() {
 // ------------------------
     private var interstitialAd: InterstitialAd? = null
 
-    fun fetchAdMobInterstitial(
+    fun loadAdMobInterstitial(
         activity: Activity,
         adUnitId: String,
         onLoaded: (() -> Unit)? = null,
@@ -929,7 +929,7 @@ open class AdAwareActivity : AppCompatActivity() {
             })
     }
 
-    fun presentAdMobInterstitial(activity: Activity, onDismissed: (() -> Unit)? = null) {
+    fun showAdMobInterstitial(activity: Activity, onDismissed: (() -> Unit)? = null) {
         interstitialAd?.let { ad ->
             ad.fullScreenContentCallback = object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
@@ -947,10 +947,10 @@ open class AdAwareActivity : AppCompatActivity() {
             // Log load
             activity.logKeyEvent("Interstitial_Splash_Loaded")
 
-            if (BuildConfig.DEBUG) RevenueMonitor.emitDebugRevenue(activity)
+            if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(activity)
 
             interstitialAd?.setOnPaidEventListener {
-                RevenueMonitor.trackPaidEvent(activity, it)
+                RevenueMonitor.reportPaidEvent(activity, it)
             }
             ad.show(activity)
         } ?: run { onDismissed?.invoke() }
@@ -961,7 +961,7 @@ open class AdAwareActivity : AppCompatActivity() {
 // ------------------------
     private var fbInterstitial: com.facebook.ads.InterstitialAd? = null
 
-    fun fetchMetaInterstitial(
+    fun loadMetaInterstitial(
         activity: Activity,
         adUnitId: String,
         onLoaded: (() -> Unit)? = null,
@@ -990,7 +990,7 @@ open class AdAwareActivity : AppCompatActivity() {
         )
     }
 
-    fun presentMetaInterstitial(onDismissed: (() -> Unit)? = null) {
+    fun showMetaInterstitial(onDismissed: (() -> Unit)? = null) {
         val ad = fbInterstitial
 
         if (ad != null && ad.isAdLoaded) {
@@ -1073,7 +1073,7 @@ open class AdAwareActivity : AppCompatActivity() {
         handleCustomTabClose()
     }
 
-    fun readInstallReferrer(referrerClient: InstallReferrerClient) {
+    fun fetchInstallReferrer(referrerClient: InstallReferrerClient) {
         // Every exit below routes through this one handoff. It used to be called from
         // some branches only: DEVELOPER_ERROR / PERMISSION_ERROR fell through an
         // unlisted `when`, and a disconnect before setup finished went nowhere at all —

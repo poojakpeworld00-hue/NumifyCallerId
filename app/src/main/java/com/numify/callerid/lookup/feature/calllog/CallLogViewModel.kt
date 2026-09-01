@@ -49,19 +49,19 @@ class CallLogViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun setFilter(filter: CallLogFilter) {
+    fun applyFilter(filter: CallLogFilter) {
         if (_filter.value == filter) return
         _filter.value = filter
         rebuild()
     }
 
-    fun setSort(sort: CallLogSort) {
+    fun applySort(sort: CallLogSort) {
         if (_sort.value == sort) return
         _sort.value = sort
         rebuild()
     }
 
-    fun setQuery(text: String) {
+    fun applyQuery(text: String) {
         val trimmed = text.trim()
         if (trimmed == query) return
         query = trimmed

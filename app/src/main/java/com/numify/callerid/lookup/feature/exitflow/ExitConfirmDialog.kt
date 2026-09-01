@@ -125,9 +125,9 @@ object ExitConfirmDialog {
         container.visibility = View.VISIBLE
 
         when (cfg.dialogAdType.lowercase()) {
-            "bignative" -> NativeAdPresenter().renderBigNative(activity, container, shimmer)
-            "banner" -> BottomSheetNativeAds().renderBannerAd(activity, container)
-            else -> NativeAdPresenter().renderMidNative(activity, container, shimmer)
+            "bignative" -> NativeAdPresenter().displayLargeNative(activity, container, shimmer)
+            "banner" -> BottomSheetNativeAds().displayBannerAd(activity, container)
+            else -> NativeAdPresenter().displayMediumNative(activity, container, shimmer)
         }
     }
 }

@@ -49,7 +49,7 @@ class SimInfoActivity : BaseActivity<ActivitySimInfoBinding>() {
         }
 
         // Mid native, scrolls with the tool content.
-        NativeAdPresenter().renderMidNative(this, binding.adNativeFrame, binding.adShimmer)
+        NativeAdPresenter().displayMediumNative(this, binding.adNativeFrame, binding.adShimmer)
     }
 
     override fun onResume() {

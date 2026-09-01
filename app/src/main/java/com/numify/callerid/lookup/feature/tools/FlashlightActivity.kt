@@ -61,7 +61,7 @@ class FlashlightActivity : BaseActivity<ActivityFlashlightBinding>() {
         binding.buttonBack.setOnClickListener { goBack() }
 
         // Mid native, scrolls with the tool content.
-        NativeAdPresenter().renderMidNative(this, binding.adNativeFrame, binding.adShimmer)
+        NativeAdPresenter().displayMediumNative(this, binding.adNativeFrame, binding.adShimmer)
 
         cameraManager = getSystemService(CAMERA_SERVICE) as CameraManager
         cameraId = findFlashCamera()

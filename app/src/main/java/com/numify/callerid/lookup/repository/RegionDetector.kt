@@ -1,7 +1,7 @@
 package com.numify.callerid.lookup.repository
 
 import android.content.Context
-import com.numify.callerid.monetize.model.resolveGeoFromIp
+import com.numify.callerid.monetize.model.lookupRegionByIp
 import com.numify.callerid.lookup.BuildConfig
 import com.numify.callerid.lookup.feature.finder.CountryCatalog
 import com.numify.callerid.lookup.common.WindowInsetsHelper
@@ -12,7 +12,7 @@ import kotlinx.coroutines.withContext
  * Single source of truth for the user's IP-resolved country.
  *
  * The country is detected **once** — AdAwareActivity resolves it early via
- * [resolveGeoFromIp] and stores it in [SettingsRepository.homeCountryIso]. Every other
+ * [lookupRegionByIp] and stores it in [SettingsRepository.homeCountryIso]. Every other
  * caller (Language, Home, Lookup) goes through [detectCountry], which reuses that
  * cached value and only touches the network if nothing has resolved it yet — so
  * the geo endpoint is never hit multiple times.
@@ -76,12 +76,12 @@ object RegionDetector {
         return iso.takeIf { CountryCatalog.dialOf(it) != null }
     }
 
-    /** One-shot IP lookup via the app's shared [resolveGeoFromIp] source (ip-api.com). */
+    /** One-shot IP lookup via the app's shared [lookupRegionByIp] source (ip-api.com). */
     private suspend fun detectCountryFromIp(): GeoCountry? = withContext(Dispatchers.IO) {
-        WindowInsetsHelper.log(TAG, "no cache → resolveGeoFromIp()")
-        val location = resolveGeoFromIp()
+        WindowInsetsHelper.log(TAG, "no cache → lookupRegionByIp()")
+        val location = lookupRegionByIp()
         if (location == null) {
-            WindowInsetsHelper.log(TAG, "resolveGeoFromIp() returned null → null")
+            WindowInsetsHelper.log(TAG, "lookupRegionByIp() returned null → null")
             return@withContext null
         }
         WindowInsetsHelper.log(TAG, "location: country=${location.country} code=${location.countryCode}")

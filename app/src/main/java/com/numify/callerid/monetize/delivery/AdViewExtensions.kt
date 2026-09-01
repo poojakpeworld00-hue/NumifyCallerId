@@ -26,7 +26,7 @@ import kotlin.apply
 import kotlin.let
 import kotlin.text.isNullOrEmpty
 
-fun hasNetworkAccess(context: Context): Boolean {
+fun isNetworkAvailable(context: Context): Boolean {
     val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val network = cm.activeNetworkInfo
     return network != null && network.isConnected
@@ -212,7 +212,7 @@ inline fun <reified T : Activity> Context.openActivity(
     }
 
     // Show interstitial first, open activity in the close callback
-    TransitionInterstitialAd().presentInterstitial(activity) {
+    TransitionInterstitialAd().showInterstitial(activity) {
         activity.startActivity(intent)
     }
 }

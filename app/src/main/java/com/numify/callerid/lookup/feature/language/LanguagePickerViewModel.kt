@@ -35,7 +35,7 @@ class LanguagePickerViewModel : BaseViewModel() {
      * null when unknown). Idempotent for the same country so repeated calls from
      * the locale guess and the IP refine don't thrash the lists.
      */
-    fun commitCountry(iso2: String?) {
+    fun confirmCountry(iso2: String?) {
         val normalized = iso2?.uppercase()
         if (normalized == appliedCountry) return
         appliedCountry = normalized

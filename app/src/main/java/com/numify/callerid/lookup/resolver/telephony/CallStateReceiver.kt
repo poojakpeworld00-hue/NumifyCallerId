@@ -59,7 +59,7 @@ class CallStateReceiver : BroadcastReceiver() {
                 callStartTime = System.currentTimeMillis()
 
                 // Reject blocked numbers immediately — no ring-through, no caller-ID card.
-                if (!number.isNullOrBlank() && BlocklistRepository(context).isBlocked(number)) {
+                if (!number.isNullOrBlank() && BlocklistRepository(context).isNumberBlocked(number)) {
                     wasBlocked = true
                     Log.d(TAG, "blocked number rejected: $number")
                     endCall(context)
@@ -179,7 +179,7 @@ class CallStateReceiver : BroadcastReceiver() {
                     // Android 14+ blocks direct background startActivity (BAL); add an
                     // invisible overlay window first, then launch and remove it.
                     try {
-                        FloatingWidgetManager(context).presentCallbackScreen(phoneNumber, startTime, endTime, type)
+                        FloatingWidgetManager(context).showCallbackScreen(phoneNumber, startTime, endTime, type)
                     } catch (e: Exception) {
                         showFullScreenNotification(context, phoneNumber, startTime, endTime, type)
                     }

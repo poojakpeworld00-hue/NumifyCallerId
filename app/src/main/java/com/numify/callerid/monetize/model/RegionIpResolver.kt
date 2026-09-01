@@ -17,7 +17,7 @@ private val locationClient: OkHttpClient by lazy {
         .build()
 }
 
-fun resolveGeoFromIp(): RegionDetails? {
+fun lookupRegionByIp(): RegionDetails? {
     return try {
         val client = locationClient
         val request = Request.Builder()

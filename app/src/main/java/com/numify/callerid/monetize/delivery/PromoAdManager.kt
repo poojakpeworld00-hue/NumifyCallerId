@@ -35,7 +35,7 @@ class PromoAdManager {
         FULLSCREEN_NATIVE
     }
 
-    fun fetchHouseAd(
+    fun loadPromoAd(
         context: Context,
         container: FrameLayout,
         type: CustomAdType,

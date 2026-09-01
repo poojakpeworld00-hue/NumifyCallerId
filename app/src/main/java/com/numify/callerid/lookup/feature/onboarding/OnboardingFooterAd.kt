@@ -14,8 +14,8 @@ import com.facebook.shimmer.ShimmerFrameLayout
  * fsi_permission) from that screen's `isBottomAds` + `isBottomAdsType`.
  *
  * These two fields were in the Remote Config schema from the start but nothing
- * read them — each screen hard-coded its own renderer (`renderBigNative` on
- * Language, `renderMidNativeAlt` on Onboarding, `renderMidNative` on FSI), so
+ * read them — each screen hard-coded its own renderer (`displayLargeNative` on
+ * Language, `displayMediumNativeAlt` on Onboarding, `displayMediumNative` on FSI), so
  * the format could not be changed without shipping a build, and the ad could not
  * be switched off at all.
  *
@@ -59,10 +59,10 @@ object OnboardingFooterAd {
 
         container.visibility = View.VISIBLE
         when ((step?.isBottomAdsType ?: fallbackType).lowercase()) {
-            "bignative" -> NativeAdPresenter().renderBigNative(activity, container, shimmer)
-            "mediumnativealt" -> NativeAdPresenter().renderMidNativeAlt(activity, container, shimmer)
-            "banner" -> BottomSheetNativeAds().renderBannerAd(activity, container)
-            else -> NativeAdPresenter().renderMidNative(activity, container, shimmer)
+            "bignative" -> NativeAdPresenter().displayLargeNative(activity, container, shimmer)
+            "mediumnativealt" -> NativeAdPresenter().displayMediumNativeAlt(activity, container, shimmer)
+            "banner" -> BottomSheetNativeAds().displayBannerAd(activity, container)
+            else -> NativeAdPresenter().displayMediumNative(activity, container, shimmer)
         }
         divider?.followAdContainer(container)
     }

@@ -63,7 +63,7 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
             val iso = data.getStringExtra(CountryPickerActivity.EXTRA_ISO) ?: return@registerForActivityResult
             val dial = data.getStringExtra(CountryPickerActivity.EXTRA_DIAL).orEmpty()
             SettingsRepository(requireContext()).homeCountryIso = iso // keep Home + Lookup in sync
-            commitCountry(iso, dial)
+            confirmCountry(iso, dial)
         }
     }
 
@@ -167,7 +167,7 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
             if (hasFocus) maybeShowPasteChip()
         }
 
-        binding.textHistoryClearAll.setOnClickListener { viewModel.wipeSearchTrail() }
+        binding.textHistoryClearAll.setOnClickListener { viewModel.clearSearchHistory() }
 
         consumePendingSearch()
     }
@@ -176,7 +176,7 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
         super.onResume()
         // The standalone history screen may have cleared/changed entries while away.
         if (view != null) {
-            viewModel.reloadSearchTrail()
+            viewModel.refreshSearchHistory()
             maybeShowPasteChip(autoFocusIfUsed = true)
         }
     }
@@ -349,19 +349,19 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
         // 1) Honour an explicit choice from the country picker.
         val saved = SettingsRepository(requireContext()).homeCountryIso
         if (saved.length == 2) {
-            commitCountry(saved, dialFor(saved))
+            confirmCountry(saved, dialFor(saved))
             return
         }
         // 2) SIM/network country — the most accurate source for a phone.
         val sim = simCountryIso()
         if (sim != null) {
-            commitCountry(sim, dialFor(sim))
+            confirmCountry(sim, dialFor(sim))
             return
         }
         // 3) No SIM → device region immediately (never the globe), refined via IP.
         val region = Locale.getDefault().country
         val fallbackIso = if (region.length == 2) region else "US"
-        commitCountry(fallbackIso, dialFor(fallbackIso))
+        confirmCountry(fallbackIso, dialFor(fallbackIso))
         detectCountryByIp()
     }
 
@@ -391,14 +391,14 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
             val dial = dialFor(iso)
             if (dial.isBlank()) return@launch
             // Don't persist an auto-detected country — only the picker records a choice.
-            commitCountry(iso, dial)
+            confirmCountry(iso, dial)
         }
     }
 
-    private fun commitCountry(iso: String, dial: String) {
+    private fun confirmCountry(iso: String, dial: String) {
         binding.textFlagSearch.text = CountryCatalog.flag(iso)
         binding.textCountrySearch.text = if (dial.isBlank()) iso else "+$dial"
-        viewModel.updateRegion(iso, dial)
+        viewModel.changeRegion(iso, dial)
     }
 
     /** Styles the status pill (text, text/icon color, soft background) for one lookup state. */

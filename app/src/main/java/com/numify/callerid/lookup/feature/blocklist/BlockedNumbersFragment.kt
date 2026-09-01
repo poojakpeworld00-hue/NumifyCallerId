@@ -371,7 +371,7 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
     private fun blockNumber(raw: String) {
         val number = raw.trim()
         if (number.isEmpty()) return
-        if (viewModel.isBlocked(number)) {
+        if (viewModel.isNumberBlocked(number)) {
             Toast.makeText(requireContext(), R.string.blocklist_already_blocked, Toast.LENGTH_SHORT).show()
             return
         }

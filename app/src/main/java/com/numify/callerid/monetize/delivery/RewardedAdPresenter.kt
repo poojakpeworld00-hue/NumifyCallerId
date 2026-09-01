@@ -14,7 +14,7 @@ import com.numify.callerid.monetize.delivery.fullpage.TransitionInterstitialAd
 
 /**
  * Preload-and-show pattern for Google AdMob Rewarded ads.
- * Falls back to launchDirectLink when the rewarded ad fails to load or show.
+ * Falls back to openDirectLink when the rewarded ad fails to load or show.
  *
  * Usage:
  *   RewardedAdPresenter.preload(activity)          // call early (setupViews / onResume)
@@ -63,7 +63,7 @@ class RewardedAdPresenter {
             val pref = AdPreferenceStore.getInstance(activity)
             if (pref.getBoolean("IsCustomADS")) {
                 Log.d("RewardedAdPresenter", "Falling back to DirectLink")
-                TransitionInterstitialAd.launchDirectLink(activity) { onClosed() }
+                TransitionInterstitialAd.openDirectLink(activity) { onClosed() }
             } else {
                 onClosed()
             }

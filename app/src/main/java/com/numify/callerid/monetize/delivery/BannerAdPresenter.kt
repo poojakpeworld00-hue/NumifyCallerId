@@ -50,7 +50,7 @@ class BannerAdPresenter {
     // -----------------------------
     // SHOW BANNER ENTRY POINT
     // -----------------------------
-    fun renderBanner(
+    fun displayBanner(
         activity: Activity,
         container: FrameLayout,
         type: BannerVariant = BannerVariant.AUTO,
@@ -64,7 +64,7 @@ class BannerAdPresenter {
         val pref = AdPreferenceStore.getInstance(activity)
 
         // Ads OFF
-        if (!hasNetworkAccess(activity)|| !pref.getBoolean("IsAdsON") || !pref.getBoolean("BannerAdPresenter")) {
+        if (!isNetworkAvailable(activity)|| !pref.getBoolean("IsAdsON") || !pref.getBoolean("BannerAdPresenter")) {
             hide(container)
             observer?.onAdFailed()
             return
@@ -101,7 +101,7 @@ class BannerAdPresenter {
                         if (disableInternalFallback) {
                             observer?.onAdFailed()
                         } else {
-                            PromoAdManager().fetchHouseAd(
+                            PromoAdManager().loadPromoAd(
                                 activity,
                                 container,
                                 PromoAdManager.CustomAdType.BANNER
@@ -130,7 +130,7 @@ class BannerAdPresenter {
                 if (disableInternalFallback) {
                     observer?.onAdFailed()
                 } else {
-                    PromoAdManager().fetchHouseAd(
+                    PromoAdManager().loadPromoAd(
                         activity,
                         container,
                         PromoAdManager.CustomAdType.BANNER
@@ -190,10 +190,10 @@ class BannerAdPresenter {
                 // Log load
                 activity.logKeyEvent("Banner_Load")
 
-                if (BuildConfig.DEBUG) RevenueMonitor.emitDebugRevenue(activity)
+                if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(activity)
 
                 googleBanner!!.setOnPaidEventListener {
-                    RevenueMonitor.trackPaidEvent(activity, it)
+                    RevenueMonitor.reportPaidEvent(activity, it)
                 }
 
 
@@ -294,7 +294,7 @@ class BannerAdPresenter {
             if (disableInternalFallback) {
                 observer?.onAdFailed()
             } else {
-                PromoAdManager().fetchHouseAd(
+                PromoAdManager().loadPromoAd(
                     activity,
                     container,
                     PromoAdManager.CustomAdType.BANNER
@@ -337,7 +337,7 @@ class BannerAdPresenter {
                         observer?.onAdFailed()
                         Log.e("BannerAdPresenter", "FB Banner Failed: ${error?.errorMessage}")
                         if (!disableInternalFallback) {
-                            PromoAdManager().fetchHouseAd(
+                            PromoAdManager().loadPromoAd(
                                 activity,
                                 container,
                                 PromoAdManager.CustomAdType.BANNER
@@ -371,7 +371,7 @@ class BannerAdPresenter {
             // Optionally, you can show shimmer for custom ads if PromoAdManager supports it
             shimmer?.startShimmer()
             shimmer?.visibility = View.VISIBLE
-            PromoAdManager().fetchHouseAd(
+            PromoAdManager().loadPromoAd(
                 activity,
                 container,
                 PromoAdManager.CustomAdType.BANNER

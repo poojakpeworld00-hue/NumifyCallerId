@@ -19,7 +19,7 @@ object RevenueMonitor {
     private const val TAG = "RevenueMonitor"
 
     /** Real revenue handler */
-    fun trackPaidEvent(context: Context, adValue: AdValue?) {
+    fun reportPaidEvent(context: Context, adValue: AdValue?) {
         if (adValue == null) {
             Log.e(TAG, "🔥 REAL PAID EVENT → $adValue ")
             return
@@ -33,7 +33,7 @@ object RevenueMonitor {
     }
 
     /** Debug/Test mode revenue simulation */
-    fun emitDebugRevenue(context: Context) {
+    fun logDebugRevenue(context: Context) {
         if (!BuildConfig.DEBUG) return   // 🚫 safety
 
         val revenue = 1.00

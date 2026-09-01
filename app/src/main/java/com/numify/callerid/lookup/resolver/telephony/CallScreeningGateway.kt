@@ -21,7 +21,7 @@ class CallScreeningGateway : CallScreeningService() {
 
         val number = callDetails.handle?.schemeSpecificPart // tel: number
         val block = isIncoming && !number.isNullOrBlank() &&
-                BlocklistRepository(this).isBlocked(number)
+                BlocklistRepository(this).isNumberBlocked(number)
 
         if (block) Log.d(TAG, "blocked incoming call screened: $number")
 

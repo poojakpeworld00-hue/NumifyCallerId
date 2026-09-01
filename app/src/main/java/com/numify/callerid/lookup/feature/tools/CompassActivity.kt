@@ -54,7 +54,7 @@ class CompassActivity : BaseActivity<ActivityCompassBinding>(), SensorEventListe
         binding.buttonBack.setOnClickListener { goBack() }
 
         // Mid native, scrolls with the tool content.
-        NativeAdPresenter().renderMidNative(this, binding.adNativeFrame, binding.adShimmer)
+        NativeAdPresenter().displayMediumNative(this, binding.adNativeFrame, binding.adShimmer)
 
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         rotationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)

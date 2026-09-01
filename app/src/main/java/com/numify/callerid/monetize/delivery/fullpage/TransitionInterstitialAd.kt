@@ -21,7 +21,7 @@ import com.numify.callerid.monetize.strategy.DisplayCadenceManager.interCounter
 import com.numify.callerid.monetize.strategy.RevenueMonitor
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.monetize.strategy.logKeyEvent
-import com.numify.callerid.monetize.delivery.hasNetworkAccess
+import com.numify.callerid.monetize.delivery.isNetworkAvailable
 import com.numify.callerid.lookup.BuildConfig
 import com.numify.callerid.lookup.R
 class TransitionInterstitialAd {
@@ -42,20 +42,20 @@ class TransitionInterstitialAd {
         private var fbOnFail: (() -> Unit)? = null
         var isOpened = false
         var onTabClosed: (() -> Unit)? = null
-        fun resumeAfterSettings(context: Context) {
+        fun handleSettingsReturn(context: Context) {
             if (!isOpened) return
 
             isOpened = false
             onTabClosed?.invoke()
             onTabClosed = null
 
-            releaseSession(context) // 🔥 ADD THIS
+            closeSession(context) // 🔥 ADD THIS
         }
         private var customTabsClient: CustomTabsClient? = null
         private var customTabsSession: CustomTabsSession? = null
         private var serviceConnection: CustomTabsServiceConnection? = null
 
-        fun releaseSession(context: Context) {
+        fun closeSession(context: Context) {
             serviceConnection?.let {
                 try {
                     context.unbindService(it)
@@ -66,7 +66,7 @@ class TransitionInterstitialAd {
             customTabsSession = null
         }
 
-        fun warmUpMetaAd(context: Context) {
+        fun prefetchMetaAd(context: Context) {
             val pref = AdPreferenceStore.getInstance(context)
             if (!pref.getBoolean("IsAdsON")) return
             if (isFbPreloading || preloadedFbAd != null) return
@@ -87,7 +87,7 @@ class TransitionInterstitialAd {
                             fbOnDismissed = null
                         }
                         override fun onInterstitialDismissed(ad: com.facebook.ads.Ad?) {
-                            warmUpMetaAd(context)   // replenish
+                            prefetchMetaAd(context)   // replenish
                             fbOnDismissed?.invoke()
                             fbOnDismissed = null
                             fbOnFail = null
@@ -99,7 +99,7 @@ class TransitionInterstitialAd {
             )
         }
 
-        fun launchDirectLink(context: Activity, onClosed: () -> Unit) {
+        fun openDirectLink(context: Activity, onClosed: () -> Unit) {
             val url = AdPreferenceStore.getInstance(context).getString("DirectLink")
 
             if (url.isNullOrEmpty()) {
@@ -190,7 +190,7 @@ class TransitionInterstitialAd {
     // ----------------------------------------------------------------------
     // LOAD INTER AD (Google)
     // ----------------------------------------------------------------------
-    fun fetchInterstitials(activity: Activity) {
+    fun loadInterstitials(activity: Activity) {
         val pref = AdPreferenceStore.getInstance(activity)
         if (!pref.getBoolean("IsAdsON")) return
         // Firebase "InterAds" master switch — disable interstitial loading entirely
@@ -220,14 +220,14 @@ class TransitionInterstitialAd {
         }
 
         if (adType == AdPlacementType.FACEBOOK || pref.getBoolean("IsFail_FB")) {
-            warmUpMetaAd(activity)
+            prefetchMetaAd(activity)
         }
     }
 
     // ----------------------------------------------------------------------
     // PUBLIC SHOW METHOD
     // ----------------------------------------------------------------------
-    fun presentInterstitial(activity: Activity?, adsClose: () -> Unit) {
+    fun showInterstitial(activity: Activity?, adsClose: () -> Unit) {
         showAdInternal(activity, adsClose)
     }
 
@@ -249,7 +249,7 @@ class TransitionInterstitialAd {
         }
 
         // Network check
-        if (!hasNetworkAccess(act)) return closeQuietly("no_network")
+        if (!isNetworkAvailable(act)) return closeQuietly("no_network")
         if (!pref.getBoolean("IsAdsON")) return closeQuietly("ads_off")
         // Firebase "InterAds" master switch — skip showing interstitials entirely
         if (!pref.getBoolean("InterAds")) return closeQuietly("inter_ads_disabled")
@@ -270,7 +270,7 @@ class TransitionInterstitialAd {
             AdPlacementType.GOOGLE -> {
                 act.safeLog("inter_type_google")
                 if (isPreload) {
-                    presentAdMobInterstitial(act, pref, ::closeQuietly)
+                    showAdMobInterstitial(act, pref, ::closeQuietly)
                 } else {
                     loadAndShowGoogleOnDemand(act, pref, ::closeQuietly)
                 }
@@ -284,7 +284,7 @@ class TransitionInterstitialAd {
                         onDismissed = { closeQuietly("fb_dismiss") },
                         onFail = {
                             act.safeLog("fb_preload_fail_fallback")
-                            runMetaInterstitial(
+                            startMetaInterstitial(
                                 act,
                                 onDismissed = { closeQuietly("fb_dismiss") },
                                 onFail = { showCustomAfterFacebookFail(act, pref) { closeQuietly("fb_fail_custom") } }
@@ -292,7 +292,7 @@ class TransitionInterstitialAd {
                         }
                     )
                 } else {
-                    runMetaInterstitial(
+                    startMetaInterstitial(
                         act,
                         onDismissed = { closeQuietly("fb_dismiss") },
                         onFail = {
@@ -306,7 +306,7 @@ class TransitionInterstitialAd {
             AdPlacementType.CUSTOM, AdPlacementType.UNKNOWN -> {
                 act.safeLog("inter_type_custom")
                 if (pref.getBoolean("IsCustomADS"))
-                    launchDirectLink(act) { closeQuietly("custom_opened") }
+                    openDirectLink(act) { closeQuietly("custom_opened") }
                 else closeQuietly("custom_disabled")
             }
         }
@@ -315,7 +315,7 @@ class TransitionInterstitialAd {
     // ----------------------------------------------------------------------
     // GOOGLE INTERSTITIAL
     // ----------------------------------------------------------------------
-    private fun presentAdMobInterstitial(
+    private fun showAdMobInterstitial(
         activity: Activity,
         pref: AdPreferenceStore,
         closeQuietly: (String) -> Unit
@@ -330,10 +330,10 @@ class TransitionInterstitialAd {
         // Log load
         activity.logKeyEvent("google_inter_show_attempt")
 
-        if (BuildConfig.DEBUG) RevenueMonitor.emitDebugRevenue(activity)
+        if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(activity)
 
         inter.setOnPaidEventListener {
-            RevenueMonitor.trackPaidEvent(activity, it)
+            RevenueMonitor.reportPaidEvent(activity, it)
         }
 
         inter.fullScreenContentCallback = object : FullScreenContentCallback() {
@@ -348,14 +348,14 @@ class TransitionInterstitialAd {
                 googleInterAd = null
                 activity.safeLog("google_inter_dismiss")
                 closeQuietly("google_dismiss")
-                if (pref.getBoolean("is_preload_ads")) fetchInterstitials(activity)
+                if (pref.getBoolean("is_preload_ads")) loadInterstitials(activity)
             }
 
             override fun onAdFailedToShowFullScreenContent(error: AdError) {
                 googleInterAd = null
                 activity.safeLog("google_inter_failed_show_${error.code}")
                 handleGoogleFail(activity, pref, closeQuietly)
-                if (pref.getBoolean("is_preload_ads")) fetchInterstitials(activity)
+                if (pref.getBoolean("is_preload_ads")) loadInterstitials(activity)
             }
         }
 
@@ -365,7 +365,7 @@ class TransitionInterstitialAd {
             googleInterAd = null
             activity.safeLog("google_inter_exception")
             handleGoogleFail(activity, pref, closeQuietly)
-            fetchInterstitials(activity)
+            loadInterstitials(activity)
         }
     }
 
@@ -390,7 +390,7 @@ class TransitionInterstitialAd {
                     InterstitialAdCache.hide()
                     googleInterAd = ad
                     activity.safeLog("google_inter_ondemand_loaded")
-                    presentAdMobInterstitial(activity, pref, closeQuietly)
+                    showAdMobInterstitial(activity, pref, closeQuietly)
                 }
                 override fun onAdFailedToLoad(error: LoadAdError) {
                     InterstitialAdCache.hide()
@@ -417,7 +417,7 @@ class TransitionInterstitialAd {
             return
         }
         preloadedFbAd = null
-        // Wire forwarding callbacks (listener was set at load time in warmUpMetaAd)
+        // Wire forwarding callbacks (listener was set at load time in prefetchMetaAd)
         fbOnDismissed = onDismissed
         fbOnFail = onFail
         try {
@@ -445,7 +445,7 @@ class TransitionInterstitialAd {
 
             activity.safeLog("google_fail_try_facebook")
 
-            runMetaInterstitial(
+            startMetaInterstitial(
                 activity,
                 onDismissed = { closeQuietly("fb_dismiss") },
                 onFail = {
@@ -456,7 +456,7 @@ class TransitionInterstitialAd {
         } else {
             if (customEnabled) {
                 activity.safeLog("google_fail_open_custom")
-                launchDirectLink(activity) { closeQuietly("google_fail_custom") }
+                openDirectLink(activity) { closeQuietly("google_fail_custom") }
             } else closeQuietly("google_fail_no_fb_no_custom")
         }
     }
@@ -464,7 +464,7 @@ class TransitionInterstitialAd {
     // ----------------------------------------------------------------------
     // FACEBOOK INTERSTITIAL
     // ----------------------------------------------------------------------
-    fun runMetaInterstitial(
+    fun startMetaInterstitial(
         context: Context,
         onDismissed: () -> Unit,
         onFail: () -> Unit
@@ -535,7 +535,7 @@ class TransitionInterstitialAd {
         activity.safeLog("custom_after_fb_fail")
 
         if (pref.getBoolean("IsCustomADS"))
-            launchDirectLink(activity) { closeQuietly("fb_fail_custom") }
+            openDirectLink(activity) { closeQuietly("fb_fail_custom") }
         else closeQuietly("fb_fail_no_custom")
     }
 

@@ -102,7 +102,7 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
      * `finish()` to also surface a back ad.
      */
     protected fun goBack() {
-        ExitInterstitialAd().presentBackInterstitial(this) { performBack() }
+        ExitInterstitialAd().showExitInterstitial(this) { performBack() }
     }
 
     /** What "back" does after the ad — defaults to finishing. Override for custom nav. */
@@ -212,7 +212,7 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
     override fun onResume() {
         super.onResume()
         applyLocale()
-        TransitionInterstitialAd.resumeAfterSettings(this)
+        TransitionInterstitialAd.handleSettingsReturn(this)
         // NOTE: no LightHouse.syncPermissionsAsync() here — the SDK syncs
         // permissions internally (≥0.6.4), so an explicit call is redundant.
     }

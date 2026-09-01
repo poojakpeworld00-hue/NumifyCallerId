@@ -46,7 +46,7 @@ class BottomSheetNativeAds {
     // ------------------------------------------------------------------------------------------
     // SHOW BANNER
     // ------------------------------------------------------------------------------------------
-    fun renderBannerAd(
+    fun displayBannerAd(
         activity: Activity,
         adContainer: FrameLayout,
         isCollapsible: Boolean = false
@@ -65,7 +65,7 @@ class BottomSheetNativeAds {
                 val BanneradUnitId = adsPref.getString("HD_VBC_Banner_ID").orEmpty()
                 if (BanneradUnitId.isEmpty()) {
                     if (isFbFallback) showFbBanner(activity, adContainer)
-                    else PromoAdManager().fetchHouseAd(
+                    else PromoAdManager().loadPromoAd(
                         activity,
                         adContainer,
                         PromoAdManager.CustomAdType.BIG_NATIVE
@@ -76,7 +76,7 @@ class BottomSheetNativeAds {
                 loadGoogleBanner(activity, adContainer, BanneradUnitId, isCollapsible) { success ->
                     if (!success) {
                         if (isFbFallback) showFbBanner(activity, adContainer)
-                        else PromoAdManager().fetchHouseAd(
+                        else PromoAdManager().loadPromoAd(
                             activity,
                             adContainer,
                             PromoAdManager.CustomAdType.BIG_NATIVE
@@ -87,7 +87,7 @@ class BottomSheetNativeAds {
 
             AdPlacementType.FACEBOOK -> showFbBanner(activity, adContainer)
 
-            AdPlacementType.CUSTOM, AdPlacementType.UNKNOWN -> PromoAdManager().fetchHouseAd(
+            AdPlacementType.CUSTOM, AdPlacementType.UNKNOWN -> PromoAdManager().loadPromoAd(
                 activity,
                 adContainer,
                 PromoAdManager.CustomAdType.BIG_NATIVE
@@ -204,7 +204,7 @@ class BottomSheetNativeAds {
         val fbId = AdPreferenceStore.getInstance(activity)
             .getString("faceB_BannerAds") ?: run {
 
-            PromoAdManager().fetchHouseAd(
+            PromoAdManager().loadPromoAd(
                 activity,
                 layout,
                 PromoAdManager.CustomAdType.BIG_NATIVE
@@ -221,7 +221,7 @@ class BottomSheetNativeAds {
 
                     override fun onError(ad: Ad?, err: AdError?) {
                         Log.e("FBBanner", "Fail:${err?.errorMessage}")
-                        PromoAdManager().fetchHouseAd(
+                        PromoAdManager().loadPromoAd(
                             activity,
                             layout,
                             PromoAdManager.CustomAdType.BIG_NATIVE
@@ -256,7 +256,7 @@ class BottomSheetNativeAds {
         private var BCnativeAd: NativeAd? = null
     }
 
-    fun BS_loadNativeADs(context: Activity) {
+    fun loadSheetNativeAds(context: Activity) {
         val adsPreference = AdPreferenceStore.getInstance(context)
         if (!adsPreference.getBoolean("IsAdsON")) {
             return
@@ -306,7 +306,7 @@ class BottomSheetNativeAds {
         adLoader?.loadAd(AdRequest.Builder().build())
     }
 
-    fun BS_showBigNative(
+    fun showSheetLargeNative(
         context: Activity,
         layout: FrameLayout,
         imageView: ImageView? = null,
@@ -317,7 +317,7 @@ class BottomSheetNativeAds {
         val adsPreference = AdPreferenceStore.getInstance(context)
 
         // --- No Internet ---
-        if (!hasNetworkAccess(context)) {
+        if (!isNetworkAvailable(context)) {
             Log.w("987654321", "Native No Internet")
             layout.removeAllViews()
             layout.invisible()
@@ -388,12 +388,12 @@ class BottomSheetNativeAds {
                                     Log.w("987654321", "Native Ads Null")
                                     layout.post {
                                         if (context.isActivityDestroyedCompat()) return@post
-                                        presentMetaNativeFallback(context, layout, imageView)
+                                        showMetaNativeFallback(context, layout, imageView)
                                     }
                                 } else {
                                     layout.post {
                                         if (context.isActivityDestroyedCompat()) return@post
-                                        PromoAdManager().fetchHouseAd(
+                                        PromoAdManager().loadPromoAd(
                                             context, layout,
                                             PromoAdManager.CustomAdType.BIG_NATIVE,
                                             imageView
@@ -424,12 +424,12 @@ class BottomSheetNativeAds {
                                         Log.w("987654321", "Native Ads Null")
                                         layout.post {
                                             if (context.isActivityDestroyedCompat()) return@post
-                                            presentMetaNativeFallback(context, layout, imageView)
+                                            showMetaNativeFallback(context, layout, imageView)
                                         }
                                     } else {
                                         layout.post {
                                             if (context.isActivityDestroyedCompat()) return@post
-                                            PromoAdManager().fetchHouseAd(
+                                            PromoAdManager().loadPromoAd(
                                                 context, layout,
                                                 PromoAdManager.CustomAdType.BIG_NATIVE,
                                                 imageView
@@ -448,12 +448,12 @@ class BottomSheetNativeAds {
             }
 
             AdPlacementType.FACEBOOK -> {
-                presentMetaNativeFallback(context, layout, imageView)
+                showMetaNativeFallback(context, layout, imageView)
             }
 
             AdPlacementType.UNKNOWN,
             AdPlacementType.CUSTOM -> {
-                PromoAdManager().fetchHouseAd(
+                PromoAdManager().loadPromoAd(
                     context, layout,
                     PromoAdManager.CustomAdType.BIG_NATIVE,
                     imageView
@@ -525,7 +525,7 @@ class BottomSheetNativeAds {
 
 
     // Helper function for FB fallback
-    fun presentMetaNativeFallback(
+    fun showMetaNativeFallback(
         context: Activity,
         layout: FrameLayout,
         imageView: ImageView? = null
@@ -535,7 +535,7 @@ class BottomSheetNativeAds {
 
         if (fbId.isNullOrEmpty()) {
             // FB not configured → show custom
-            PromoAdManager().fetchHouseAd(
+            PromoAdManager().loadPromoAd(
                 context, layout,
                 PromoAdManager.CustomAdType.BIG_NATIVE,
                 imageView
@@ -562,7 +562,7 @@ class BottomSheetNativeAds {
                     // fallback to Custom
                     layout.post {
                         if (context.isActivityDestroyedCompat()) return@post
-                        PromoAdManager().fetchHouseAd(
+                        PromoAdManager().loadPromoAd(
                             context, layout,
                             PromoAdManager.CustomAdType.BIG_NATIVE,
                             imageView
@@ -618,10 +618,10 @@ class BottomSheetNativeAds {
         binding.nativeAdBody.setTextColor(Color.parseColor(txtColor))
 
         binding.nativview.backgroundTintList =
-            ColorStateList.valueOf(parseColorOrFallback(bgColor, "#FFFFFF"))
+            ColorStateList.valueOf(colorOrDefault(bgColor, "#FFFFFF"))
 
         binding.nativeAdCallToAction.backgroundTintList =
-            ColorStateList.valueOf(parseColorOrFallback(btnColor, "#000000"))
+            ColorStateList.valueOf(colorOrDefault(btnColor, "#000000"))
         (binding.nativeAdCallToAction as TextView).apply {
             setTextColor(Color.parseColor(btntxtColor))
         }
@@ -646,7 +646,7 @@ class BottomSheetNativeAds {
         )
     }
 
-    fun parseColorOrFallback(colorString: String?, defaultColor: String): Int {
+    fun colorOrDefault(colorString: String?, defaultColor: String): Int {
         return try {
             if (!colorString.isNullOrBlank()) {
                 Color.parseColor(colorString)

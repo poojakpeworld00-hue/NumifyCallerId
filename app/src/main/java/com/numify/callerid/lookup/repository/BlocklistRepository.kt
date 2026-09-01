@@ -37,7 +37,7 @@ class BlocklistRepository(context: Context) {
      * digits (last 10) so different formats of the same number still match
      * (e.g. "+91 70164 14568" vs "7016414568").
      */
-    fun isBlocked(number: String): Boolean {
+    fun isNumberBlocked(number: String): Boolean {
         val set = prefs.getStringSet(KEY, emptySet()).orEmpty()
         if (set.contains(number.trim())) return true
         val target = normalizeDigits(number)

@@ -72,7 +72,7 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
         binding.buttonBack.setOnClickListener { goBack() }
 
         // Native ad at the top of the settings list (bottom adaptive banner auto-loads via BaseActivity).
-        NativeAdPresenter().renderMidNative(this, binding.adNativeFrame, binding.adShimmer)
+        NativeAdPresenter().displayMediumNative(this, binding.adNativeFrame, binding.adShimmer)
 
         // Preferences grid — Theme is an inline segmented toggle.
         setupThemeToggle()

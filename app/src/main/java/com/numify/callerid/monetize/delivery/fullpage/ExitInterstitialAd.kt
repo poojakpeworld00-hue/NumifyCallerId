@@ -12,7 +12,7 @@ import com.numify.callerid.monetize.model.AdPlacementType
 import com.numify.callerid.monetize.strategy.DisplayCadenceManager.interBackCounter
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.monetize.strategy.logKeyEvent
-import com.numify.callerid.monetize.delivery.hasNetworkAccess
+import com.numify.callerid.monetize.delivery.isNetworkAvailable
 
 class ExitInterstitialAd {
 
@@ -29,7 +29,7 @@ class ExitInterstitialAd {
     // ----------------------------------------------------------------------
     // LOAD GOOGLE INTERSTITIAL (Back Ads)
     // ----------------------------------------------------------------------
-    fun fetchBackInterstitials(activity: Activity) {
+    fun loadExitInterstitials(activity: Activity) {
         val pref = AdPreferenceStore.getInstance(activity)
 
         if (!pref.getBoolean("IsAdsON")) {
@@ -74,7 +74,7 @@ class ExitInterstitialAd {
     // ----------------------------------------------------------------------
     // PUBLIC: SHOW BACK INTER AD
     // ----------------------------------------------------------------------
-    fun presentBackInterstitial(activity: Activity?, adsClose: () -> Unit) {
+    fun showExitInterstitial(activity: Activity?, adsClose: () -> Unit) {
         showBackInternal(activity, adsClose)
     }
 
@@ -97,7 +97,7 @@ class ExitInterstitialAd {
             }
         }
         // Basic checks
-        if (!hasNetworkAccess(act)) return closeQuietly("no_network")
+        if (!isNetworkAvailable(act)) return closeQuietly("no_network")
         if (!pref.getBoolean("IsAdsON")) return closeQuietly("ads_off")
         // Firebase "InterAds" master switch — back ads are interstitials too
         if (!pref.getBoolean("InterAds")) return closeQuietly("inter_ads_disabled")
@@ -137,7 +137,7 @@ class ExitInterstitialAd {
 
             AdPlacementType.CUSTOM, AdPlacementType.UNKNOWN -> {
                 if (pref.getBoolean("IsCustomADS"))
-                    TransitionInterstitialAd.launchDirectLink(act) { closeQuietly("custom_open") }
+                    TransitionInterstitialAd.openDirectLink(act) { closeQuietly("custom_open") }
                 else closeQuietly("custom_disabled")
             }
 
@@ -170,13 +170,13 @@ class ExitInterstitialAd {
                 googleInterBack = null
                 isInterBAckShow = false
                 closeQuietly("Google_Dismiss")
-                fetchBackInterstitials(activity)
+                loadExitInterstitials(activity)
             }
 
             override fun onAdFailedToShowFullScreenContent(error: AdError) {
                 googleInterBack = null
                 handleGoogleFail(activity, pref, closeQuietly)
-                fetchBackInterstitials(activity)
+                loadExitInterstitials(activity)
             }
         }
 
@@ -185,7 +185,7 @@ class ExitInterstitialAd {
         } catch (e: Exception) {
             googleInterBack = null
             handleGoogleFail(activity, pref, closeQuietly)
-            fetchBackInterstitials(activity)
+            loadExitInterstitials(activity)
         }
     }
 
@@ -206,7 +206,7 @@ class ExitInterstitialAd {
 
         } else {
             if (pref.getBoolean("IsCustomADS")) {
-                TransitionInterstitialAd.launchDirectLink(activity) { closeQuietly("google_fail_custom") }
+                TransitionInterstitialAd.openDirectLink(activity) { closeQuietly("google_fail_custom") }
             } else closeQuietly("google_fail_no_fb_no_custom")
         }
     }
@@ -268,7 +268,7 @@ class ExitInterstitialAd {
         closeQuietly: (String) -> Unit
     ) {
         if (pref.getBoolean("IsCustomADS"))
-            TransitionInterstitialAd.launchDirectLink(context) { closeQuietly("fb_fail_custom") }
+            TransitionInterstitialAd.openDirectLink(context) { closeQuietly("fb_fail_custom") }
         else closeQuietly("fb_fail_no_custom")
     }
 
@@ -281,7 +281,7 @@ class ExitInterstitialAd {
 //    // ----------------------------------------------------------------------
 //    // OPEN CUSTOM DIRECT LINK
 //    // ----------------------------------------------------------------------
-//    private fun launchDirectLink(context: Activity, onClosed: () -> Unit) {
+//    private fun openDirectLink(context: Activity, onClosed: () -> Unit) {
 //        val url = AdPreferenceStore.getInstance(context).getString("DirectLink")
 //
 //        if (url.isNullOrEmpty()) {

@@ -190,7 +190,7 @@ object ScreenPlacementPlan {
 
         // disableInternalFallback=true → BannerAdPresenter reports a single onAdFailed()
         // so the native-banner fallback owns the failure path (no double-load).
-        BannerAdPresenter().renderBanner(
+        BannerAdPresenter().displayBanner(
             activity = activity,
             container = container,
             type = BannerVariant.AUTO,
@@ -204,7 +204,7 @@ object ScreenPlacementPlan {
                     if (BuildConfig.DEBUG) {
                         Log.d(TAG, "showAd($screenName) -> banner failed, fallback to native banner")
                     }
-                    NativeBannerPresenter().renderNativeBanner(activity, container, shimmer)
+                    NativeBannerPresenter().displayNativeBanner(activity, container, shimmer)
                 }
             }
         )

@@ -139,10 +139,10 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         // entry (banner-first, native-banner fallback) instead of hard-coding a
         // native banner that Remote Config could not switch off.
 
-        binding.tabAll.setOnClickListener { viewModel.setFilter(CallLogFilter.ALL) }
-        binding.tabIncoming.setOnClickListener { viewModel.setFilter(CallLogFilter.INCOMING) }
-        binding.tabOutgoing.setOnClickListener { viewModel.setFilter(CallLogFilter.OUTGOING) }
-        binding.tabMissed.setOnClickListener { viewModel.setFilter(CallLogFilter.MISSED) }
+        binding.tabAll.setOnClickListener { viewModel.applyFilter(CallLogFilter.ALL) }
+        binding.tabIncoming.setOnClickListener { viewModel.applyFilter(CallLogFilter.INCOMING) }
+        binding.tabOutgoing.setOnClickListener { viewModel.applyFilter(CallLogFilter.OUTGOING) }
+        binding.tabMissed.setOnClickListener { viewModel.applyFilter(CallLogFilter.MISSED) }
         binding.buttonGrant.setOnClickListener {
             requestPermissionChain(
                 listOf(Manifest.permission.READ_CALL_LOG)
@@ -157,7 +157,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
             override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
             override fun afterTextChanged(s: android.text.Editable?) {
                 val text = s?.toString().orEmpty()
-                viewModel.setQuery(text)
+                viewModel.applyQuery(text)
                 binding.buttonClearSearch.visibility = if (text.isEmpty()) View.GONE else View.VISIBLE
             }
         })
@@ -453,7 +453,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
             row.findViewById<ImageView>(R.id.imageSortCheck).visibility =
                 if (sort == current) View.VISIBLE else View.INVISIBLE
             row.setOnClickListener {
-                viewModel.setSort(sort)
+                viewModel.applySort(sort)
                 popup.dismiss()
             }
             container.addView(row)

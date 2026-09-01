@@ -36,7 +36,7 @@ class NumberFinderViewModel(app: Application) : AndroidViewModel(app) {
     private var selectedIso: String? = null
     private var selectedDial: String? = null
 
-    fun updateRegion(iso: String, dial: String) {
+    fun changeRegion(iso: String, dial: String) {
         selectedIso = iso
         selectedDial = dial
     }
@@ -150,13 +150,13 @@ class NumberFinderViewModel(app: Application) : AndroidViewModel(app) {
         _history.value = historyStore.all()
     }
 
-    fun wipeSearchTrail() {
+    fun clearSearchHistory() {
         historyStore.clear()
         _history.value = emptyList()
     }
 
     /** Re-reads the persisted history (e.g. after the standalone history screen edits it). */
-    fun reloadSearchTrail() {
+    fun refreshSearchHistory() {
         _history.value = historyStore.all()
     }
 

@@ -34,7 +34,7 @@ class BlocklistViewModel(app: Application) : AndroidViewModel(app) {
         refresh()
     }
 
-    fun isBlocked(number: String): Boolean = manager.isBlocked(number)
+    fun isNumberBlocked(number: String): Boolean = manager.isNumberBlocked(number)
 
     private fun refresh() {
         val entries = manager.getEntries()

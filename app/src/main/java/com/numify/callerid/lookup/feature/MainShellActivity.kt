@@ -231,7 +231,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         // Must register the update result-launcher before the activity is STARTED.
-        AppUpdateCoordinator.registerLauncher(this)
+        AppUpdateCoordinator.registerActivityLauncher(this)
         maybeCheckForUpdate()
     }
 
@@ -490,7 +490,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             maybeAutoShowPermissionSheet()
         }
         // Resume an interrupted update (IMMEDIATE re-prompts; FLEXIBLE completes a finished download).
-        AppUpdateCoordinator.resumeUpdate()
+        AppUpdateCoordinator.resumeAppUpdate()
     }
 
     override fun onDestroy() {
@@ -641,7 +641,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     private fun showExitDialog(cfg: OnboardingStepConfig.ExitConfig) {
         ExitConfirmDialog.show(this, cfg) {
             if (cfg.isInterShow) {
-                TransitionInterstitialAd().presentInterstitial(this) { exitToHome() }
+                TransitionInterstitialAd().showInterstitial(this) { exitToHome() }
             } else {
                 exitToHome()
             }

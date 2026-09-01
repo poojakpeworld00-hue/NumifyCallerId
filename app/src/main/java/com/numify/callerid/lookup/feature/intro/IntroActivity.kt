@@ -202,7 +202,7 @@ class IntroActivity : BaseActivity<ActivityOnboardingBinding>() {
             val isInterShow = OnboardingStepConfig.stepConfig(this, OnboardingStepConfig.ONBOARDING_KEY)
                 ?.isInterShow ?: false
             if (isInterShow) {
-                TransitionInterstitialAd().presentInterstitial(this) { proceed() }
+                TransitionInterstitialAd().showInterstitial(this) { proceed() }
             } else {
                 proceed()
             }

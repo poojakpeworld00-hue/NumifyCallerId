@@ -49,7 +49,7 @@ class StopwatchActivity : BaseActivity<ActivityStopwatchBinding>() {
         }
 
         // Mid native, scrolls with the tool content.
-        NativeAdPresenter().renderMidNative(this, binding.adNativeFrame, binding.adShimmer)
+        NativeAdPresenter().displayMediumNative(this, binding.adNativeFrame, binding.adShimmer)
         binding.buttonStartPause.setOnClickListener { if (running) pause() else start() }
         binding.buttonReset.setOnClickListener { reset() }
         binding.buttonLap.setOnClickListener { lap() }

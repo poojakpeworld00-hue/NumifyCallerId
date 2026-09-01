@@ -168,12 +168,12 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
      *  1. Seed synchronously from the device (SIM/network/locale) — offline, instant,
      *     so the first rendered list is already region-correct.
      *  2. Refine asynchronously from IP geo; updates the lists only if it differs
-     *     (commitCountry is idempotent per country).
+     *     (confirmCountry is idempotent per country).
      */
     private fun resolveRegion() {
         val device = deviceCountry()
         WindowInsetsHelper.log(TAG, "resolveRegion: device=$device (sync seed)")
-        viewModel.commitCountry(device)
+        viewModel.confirmCountry(device)
         detectCountryByIp()
     }
 
@@ -198,7 +198,7 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
                 return@launch
             }
             WindowInsetsHelper.log(TAG, "IP refine → country=${geo.iso}")
-            viewModel.commitCountry(geo.iso)
+            viewModel.confirmCountry(geo.iso)
         }
     }
 
@@ -264,7 +264,7 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
             val isInterShow = OnboardingStepConfig.stepConfig(this, OnboardingStepConfig.LANGUAGE_KEY)
                 ?.isInterShow ?: false
             if (isInterShow) {
-                TransitionInterstitialAd().presentInterstitial(this) { proceed() }
+                TransitionInterstitialAd().showInterstitial(this) { proceed() }
             } else {
                 proceed()
             }

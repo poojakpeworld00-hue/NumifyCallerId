@@ -58,7 +58,7 @@ class TimerActivity : BaseActivity<ActivityTimerBinding>() {
         }
 
         // Mid native, scrolls with the tool content.
-        NativeAdPresenter().renderMidNativeAlt(this, binding.adNativeFrame, binding.adShimmer)
+        NativeAdPresenter().displayMediumNativeAlt(this, binding.adNativeFrame, binding.adShimmer)
 
         buildPresets()
         binding.buttonStartPause.setOnClickListener { if (running) pause() else start() }

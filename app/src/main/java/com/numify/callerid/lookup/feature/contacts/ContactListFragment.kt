@@ -70,7 +70,7 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
             override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 val text = s?.toString().orEmpty()
-                viewModel.setQuery(text)
+                viewModel.applyQuery(text)
                 binding.buttonClearSearch.visibility = if (text.isEmpty()) View.GONE else View.VISIBLE
             }
         })
@@ -79,10 +79,10 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
 
         binding.listFavorites.adapter = favoritesAdapter
 
-        binding.tabAll.setOnClickListener { viewModel.setFilter(ContactFilter.ALL) }
-        binding.tabFavorites.setOnClickListener { viewModel.setFilter(ContactFilter.FAVORITES) }
-        binding.tabRecents.setOnClickListener { viewModel.setFilter(ContactFilter.RECENTS) }
-        binding.tabGroups.setOnClickListener { viewModel.setFilter(ContactFilter.GROUPS) }
+        binding.tabAll.setOnClickListener { viewModel.applyFilter(ContactFilter.ALL) }
+        binding.tabFavorites.setOnClickListener { viewModel.applyFilter(ContactFilter.FAVORITES) }
+        binding.tabRecents.setOnClickListener { viewModel.applyFilter(ContactFilter.RECENTS) }
+        binding.tabGroups.setOnClickListener { viewModel.applyFilter(ContactFilter.GROUPS) }
 
         setupAlphaIndexTouch()
         binding.buttonGrant.setOnClickListener {

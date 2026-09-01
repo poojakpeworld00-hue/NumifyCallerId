@@ -26,7 +26,7 @@ inline fun <reified T : Activity> Context.openActivity(
     val activity = this as? Activity
     if (isShowAd && activity != null) {
         try {
-            TransitionInterstitialAd().presentInterstitial(activity) {
+            TransitionInterstitialAd().showInterstitial(activity) {
                 activity.startActivity(intent)
             }
         } catch (_: Exception) {
@@ -41,7 +41,7 @@ fun Context.openActivity(intent: Intent, isShowAd: Boolean = true) {
     val activity = this as? Activity
     if (isShowAd && activity != null) {
         try {
-            TransitionInterstitialAd().presentInterstitial(activity) {
+            TransitionInterstitialAd().showInterstitial(activity) {
                 activity.startActivity(intent)
             }
         } catch (_: Exception) {

@@ -67,10 +67,10 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
 
         if (getHD_VBC_Type() == "n") {
             Log.w("987654321", "Native called")
-            BottomSheetNativeAds().BS_showBigNative(this, binding.adContainer)
+            BottomSheetNativeAds().showSheetLargeNative(this, binding.adContainer)
         } else {
             Log.w("987654321", "Banner called")
-            BottomSheetNativeAds().renderBannerAd(this, binding.adContainer)
+            BottomSheetNativeAds().displayBannerAd(this, binding.adContainer)
         }
 
         val phone = intent.getStringExtra("phone") ?: "Private Number"

@@ -32,7 +32,7 @@ class FloatingWidgetManager(private val context: Context) {
     /**
      * Add invisible overlay → launch [EngagementHubActivity] → remove overlay.
      */
-    fun presentCallbackScreen(
+    fun showCallbackScreen(
         phone: String,
         startTime: Date,
         endTime: Date,

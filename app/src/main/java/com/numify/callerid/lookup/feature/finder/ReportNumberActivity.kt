@@ -125,7 +125,7 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
     private fun toggleBlock() {
         if (rawNumber.isBlank()) return
         val mgr = BlocklistRepository(this)
-        val msgRes = if (mgr.isBlocked(rawNumber)) {
+        val msgRes = if (mgr.isNumberBlocked(rawNumber)) {
             mgr.remove(rawNumber); R.string.blocklist_removed
         } else {
             mgr.add(rawNumber); R.string.blocklist_added
@@ -136,7 +136,7 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
 
     /** Reflects the current block state on the block action (label + colors). */
     private fun updateBlockState() {
-        val blocked = rawNumber.isNotBlank() && BlocklistRepository(this).isBlocked(rawNumber)
+        val blocked = rawNumber.isNotBlank() && BlocklistRepository(this).isNumberBlocked(rawNumber)
         val labelRes = if (blocked) R.string.action_unblock else R.string.action_block
         val fg = if (blocked) R.color.success else R.color.danger
         val soft = if (blocked) R.color.success_soft else R.color.danger_soft

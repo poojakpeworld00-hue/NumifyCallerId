@@ -142,7 +142,7 @@ class NumifyApplication : Application() , Application.ActivityLifecycleCallbacks
 
                 WindowInsetsHelper.log("AppOpen", "🚀 Showing App Open Ad")
 
-                AppOpenAdManager.presentAdIfReady(
+                AppOpenAdManager.showAdIfReady(
                     activity,
                     object : AppOpenAdManager.OnShowAdCompleteListener {
                         override fun onShowAdComplete() {

@@ -44,7 +44,7 @@ class SpeedometerActivity : BaseActivity<ActivitySpeedometerBinding>() {
         binding.buttonBack.setOnClickListener { goBack() }
 
         // Mid native, scrolls with the tool content.
-        NativeAdPresenter().renderMidNativeAlt(this, binding.adNativeFrame, binding.adShimmer)
+        NativeAdPresenter().displayMediumNativeAlt(this, binding.adNativeFrame, binding.adShimmer)
         binding.buttonRetest.setOnClickListener { runTest() }
         showCarrier()
     }

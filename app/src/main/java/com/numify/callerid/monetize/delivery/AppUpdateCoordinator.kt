@@ -35,7 +35,7 @@ object AppUpdateCoordinator {
      * Call this in onCreate() BEFORE the activity is STARTED.
      * Registers the ActivityResultLauncher.
      */
-    fun registerLauncher(activity: ComponentActivity) {
+    fun registerActivityLauncher(activity: ComponentActivity) {
         updateLauncher = activity.registerForActivityResult(
             ActivityResultContracts.StartIntentSenderForResult()
         ) { result ->
@@ -130,7 +130,7 @@ object AppUpdateCoordinator {
                             AppUpdateOptions.newBuilder(updateType).build()
                         )
                     } else {
-                        // Fallback — deprecated but works if registerLauncher wasn't called
+                        // Fallback — deprecated but works if registerActivityLauncher wasn't called
                         activityRef?.get()?.let { activity ->
                             @Suppress("DEPRECATION")
                             manager.startUpdateFlowForResult(
@@ -154,7 +154,7 @@ object AppUpdateCoordinator {
      * - IMMEDIATE: resumes the mandatory update screen.
      * - FLEXIBLE: completes install if already downloaded.
      */
-    fun resumeUpdate() {
+    fun resumeAppUpdate() {
         val manager = updateManager ?: return
         manager.appUpdateInfo.addOnSuccessListener { info ->
             if (updateType == AppUpdateType.IMMEDIATE &&

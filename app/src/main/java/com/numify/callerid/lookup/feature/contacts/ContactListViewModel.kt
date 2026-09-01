@@ -38,14 +38,14 @@ class ContactListViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun setQuery(text: String) {
+    fun applyQuery(text: String) {
         val trimmed = text.trim()
         if (trimmed == query) return
         query = trimmed
         rebuild()
     }
 
-    fun setFilter(filter: ContactFilter) {
+    fun applyFilter(filter: ContactFilter) {
         if (_filter.value == filter) return
         _filter.value = filter
         rebuild()

@@ -88,7 +88,7 @@ object AppOpenAdManager {
         }
     }
 
-    fun presentAdIfReady(
+    fun showAdIfReady(
         activity: Activity, onShowAdCompleteListener: OnShowAdCompleteListener
     ) {
         if (!AdPreferenceStore.getInstance(activity).getBoolean("IsAdsON")) {
@@ -184,10 +184,10 @@ object AppOpenAdManager {
         // Log load
         activity.logKeyEvent("appopen_ad_shown")
 
-        if (BuildConfig.DEBUG) RevenueMonitor.emitDebugRevenue(activity)
+        if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(activity)
 
         appOpenAd!!.setOnPaidEventListener {
-            RevenueMonitor.trackPaidEvent(activity, it)
+            RevenueMonitor.reportPaidEvent(activity, it)
         }
 
         isShowingAd = true

@@ -57,7 +57,7 @@ class NoiseMeterActivity : BaseActivity<ActivitySoundMeterBinding>() {
         binding.buttonBack.setOnClickListener { goBack() }
 
         // Mid native, scrolls with the tool content.
-        NativeAdPresenter().renderMidNativeAlt(this, binding.adNativeFrame, binding.adShimmer)
+        NativeAdPresenter().displayMediumNativeAlt(this, binding.adNativeFrame, binding.adShimmer)
         binding.buttonHold.setOnClickListener {
             held = !held
             binding.buttonHold.setText(if (held) R.string.meter_resume else R.string.meter_pause)

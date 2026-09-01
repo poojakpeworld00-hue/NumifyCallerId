@@ -109,8 +109,8 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
         container.visibility = View.VISIBLE
         when (screenAdFormat) {
-            ScreenAdFormat.NATIVE_BANNER -> NativeBannerPresenter().renderNativeBanner(act, container, shimmer)
-            ScreenAdFormat.MID_NATIVE -> NativeAdPresenter().renderMidNative(act, container, shimmer)
+            ScreenAdFormat.NATIVE_BANNER -> NativeBannerPresenter().displayNativeBanner(act, container, shimmer)
+            ScreenAdFormat.MID_NATIVE -> NativeAdPresenter().displayMediumNative(act, container, shimmer)
             ScreenAdFormat.BOTTOM_BANNER -> ScreenPlacementPlan.showAd(screen, act, container, shimmer)
             ScreenAdFormat.NONE -> Unit
         }

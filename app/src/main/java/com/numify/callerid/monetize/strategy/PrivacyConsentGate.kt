@@ -48,7 +48,7 @@ class PrivacyConsentGate private constructor(context: Context) {
         })
     }
 
-    fun presentPrivacyOptions(
+    fun showPrivacyOptions(
         activity: Activity, onConsentFormDismissedListener: OnConsentFormDismissedListener
     ) {
         UserMessagingPlatform.showPrivacyOptionsForm(activity, onConsentFormDismissedListener)

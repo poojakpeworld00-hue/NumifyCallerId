@@ -37,7 +37,7 @@ class NativeBannerPresenter {
         private var nativeAdBanner: NativeAd? = null
     }
 
-    fun fetchNativeBannerAds(activity: Activity) {
+    fun loadNativeBannerAds(activity: Activity) {
         val adsPref = AdPreferenceStore.getInstance(activity)
         if (!adsPref.getBoolean("IsAdsON")) return
         // Firebase "NativeBannerPresenter" master switch — disable native banner loading
@@ -89,7 +89,7 @@ class NativeBannerPresenter {
 
     }
 
-    fun renderNativeBanner(
+    fun displayNativeBanner(
         context: Activity, layout: FrameLayout, shimmer: ShimmerFrameLayout? = null
     ) {
         Log.e("NativeAds", "Google Show: nativeAd")
@@ -99,7 +99,7 @@ class NativeBannerPresenter {
         if (context.isFinishing || context.isDestroyed) return
 
 
-        if (!hasNetworkAccess(context)
+        if (!isNetworkAvailable(context)
             || !adsPref.getBoolean("IsAdsON")
             || !adsPref.getBoolean("NativeBannerPresenter")
         ) {
@@ -141,7 +141,7 @@ class NativeBannerPresenter {
 
                             layout.addView(binding.root)
                             nativeAdBanner = null
-                            fetchNativeBannerAds(context)
+                            loadNativeBannerAds(context)
                             return@post
                         } else {
                             // Google failed → FB fallback or Custom
@@ -151,7 +151,7 @@ class NativeBannerPresenter {
                                 layout.removeAllViews()
                                 shimmer?.stopShimmer()
                                 shimmer?.isVisible = false
-                                PromoAdManager().fetchHouseAd(
+                                PromoAdManager().loadPromoAd(
                                     context, layout, PromoAdManager.CustomAdType.BANNER
                                 )
                             }
@@ -170,7 +170,7 @@ class NativeBannerPresenter {
                 layout.removeAllViews()
                 shimmer?.stopShimmer()
                 shimmer?.isVisible = false
-                PromoAdManager().fetchHouseAd(
+                PromoAdManager().loadPromoAd(
                     context, layout, PromoAdManager.CustomAdType.BANNER
                 )
             }
@@ -183,10 +183,10 @@ class NativeBannerPresenter {
         // Log load
         context.logKeyEvent("NativeBanner_Show_Google")
 
-        if (BuildConfig.DEBUG) RevenueMonitor.emitDebugRevenue(context)
+        if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(context)
 
         nativeAd.setOnPaidEventListener {
-            RevenueMonitor.trackPaidEvent(context, it)
+            RevenueMonitor.reportPaidEvent(context, it)
         }
 
         binding.apply {
@@ -220,10 +220,10 @@ class NativeBannerPresenter {
             }
 
             mainNativeadView.backgroundTintList =
-                ColorStateList.valueOf(parseColorOrFallback(bgColor, "#FFFFFF"))
+                ColorStateList.valueOf(colorOrDefault(bgColor, "#FFFFFF"))
 
             adCallToAction.backgroundTintList =
-                ColorStateList.valueOf(parseColorOrFallback(btnColor, "#000000"))
+                ColorStateList.valueOf(colorOrDefault(btnColor, "#000000"))
 
 
             if (nativeAd.body != null) {
@@ -252,7 +252,7 @@ class NativeBannerPresenter {
         }
     }
 
-    fun parseColorOrFallback(colorString: String?, defaultColor: String): Int {
+    fun colorOrDefault(colorString: String?, defaultColor: String): Int {
         return try {
             if (!colorString.isNullOrBlank()) {
                 Color.parseColor(colorString)
@@ -274,7 +274,7 @@ class NativeBannerPresenter {
         if (fbId.isNullOrEmpty()) {
             shimmer?.stopShimmer()
             shimmer?.isVisible = false
-            PromoAdManager().fetchHouseAd(
+            PromoAdManager().loadPromoAd(
                 context, layout, PromoAdManager.CustomAdType.BANNER
             )
             return
@@ -295,7 +295,7 @@ class NativeBannerPresenter {
                     shimmer?.stopShimmer()
                     shimmer?.isVisible = false
                     Log.e("NativeAds", "FB MidNative failed: ${adError?.errorMessage}")
-                    PromoAdManager().fetchHouseAd(
+                    PromoAdManager().loadPromoAd(
                         context, layout, PromoAdManager.CustomAdType.BANNER
                     )
                 }
@@ -352,10 +352,10 @@ class NativeBannerPresenter {
         binding.nativeAdSponsoredLabel.setTextColor(Color.parseColor(txtColor))
 
         binding.nativview.backgroundTintList =
-            ColorStateList.valueOf(parseColorOrFallback(bgColor, "#FFFFFF"))
+            ColorStateList.valueOf(colorOrDefault(bgColor, "#FFFFFF"))
 
         binding.nativeAdCallToAction.backgroundTintList =
-            ColorStateList.valueOf(parseColorOrFallback(btnColor, "#000000"))
+            ColorStateList.valueOf(colorOrDefault(btnColor, "#000000"))
         (binding.nativeAdCallToAction as TextView).apply {
             setTextColor(Color.parseColor(btntxtColor))
         }

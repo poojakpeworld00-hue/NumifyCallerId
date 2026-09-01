@@ -6,7 +6,7 @@
          was permitting unencrypted traffic to a domain the app never contacts. -->
 
     <!-- ip-api.com IP geolocation free tier serves over HTTP only.
-         Caller: RegionIpResolver.resolveGeoFromIp(). -->
+         Caller: RegionIpResolver.lookupRegionByIp(). -->
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">ip-api.com</domain>
     </domain-config>
