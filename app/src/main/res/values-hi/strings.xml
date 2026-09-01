@@ -764,4 +764,7 @@
     <string name="ai_settings_privacy_body">जवाब आपके फ़ोन पर ही आपके कॉल लॉग, संपर्कों और ब्लॉक सूची से निकाले जाते हैं। कॉल कभी रिकॉर्ड नहीं होतीं, और जब तक आप खुद भेजें नहीं दबाते, कुछ नहीं भेजा जाता।</string>
     <string name="settings_ai">AI से पूछें</string>
     <string name="settings_ai_sub">असिस्टेंट और कॉलर आकलन</string>
+    <string name="ai_verdict_missed_streak">आपने इनकी पिछली %1$d कॉल मिस कीं</string>
+    <string name="ai_verdict_answer_rate">%1$d बार कॉल किया, आपने %2$d बार उठाया</string>
+    <string name="ai_verdict_frequent">आप अक्सर संपर्क में हैं — इस महीने %1$d कॉल</string>
 </resources>

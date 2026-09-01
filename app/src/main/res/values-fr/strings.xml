@@ -724,4 +724,7 @@
     <string name="ai_settings_privacy_body">Les réponses sont calculées sur votre téléphone à partir de votre journal d\'appels, vos contacts et votre liste de blocage. Les appels ne sont jamais enregistrés et rien n\'est envoyé tant que vous n\'appuyez pas sur envoyer.</string>
     <string name="settings_ai">Demander à l\'IA</string>
     <string name="settings_ai_sub">Assistant et verdicts sur les appelants</string>
+    <string name="ai_verdict_missed_streak">Vous avez manqué ses %1$d derniers appels</string>
+    <string name="ai_verdict_answer_rate">%1$d appels, vous avez répondu %2$d fois</string>
+    <string name="ai_verdict_frequent">Vous êtes souvent en contact — %1$d appels ce mois-ci</string>
 </resources>

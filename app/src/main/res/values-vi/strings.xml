@@ -719,4 +719,7 @@
     <string name="ai_settings_privacy_body">Câu trả lời được tính ngay trên máy bạn từ nhật ký cuộc gọi, danh bạ và danh sách chặn. Cuộc gọi không bao giờ được ghi âm, và không gì được gửi đi cho tới khi chính bạn nhấn gửi.</string>
     <string name="settings_ai">Hỏi AI</string>
     <string name="settings_ai_sub">Trợ lý và đánh giá người gọi</string>
+    <string name="ai_verdict_missed_streak">Bạn đã lỡ %1$d cuộc gọi gần nhất của họ</string>
+    <string name="ai_verdict_answer_rate">Đã gọi %1$d lần, bạn nghe %2$d lần</string>
+    <string name="ai_verdict_frequent">Hai bên liên lạc thường xuyên — %1$d cuộc gọi tháng này</string>
 </resources>

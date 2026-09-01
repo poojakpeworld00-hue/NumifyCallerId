@@ -719,4 +719,7 @@
     <string name="ai_settings_privacy_body">回答は端末内で通話履歴・連絡先・ブロックリストから作成されます。通話が録音されることはなく、ご自身が送信を押すまで何も送信されません。</string>
     <string name="settings_ai">AI に聞く</string>
     <string name="settings_ai_sub">アシスタントと発信者の判定</string>
+    <string name="ai_verdict_missed_streak">直近 %1$d 件の着信に応答していません</string>
+    <string name="ai_verdict_answer_rate">%1$d 回の着信のうち %2$d 回に応答</string>
+    <string name="ai_verdict_frequent">よく連絡を取り合っています — 今月 %1$d 件</string>
 </resources>

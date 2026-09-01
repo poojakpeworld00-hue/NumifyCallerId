@@ -766,4 +766,7 @@
     <string name="ai_settings_privacy_body">As respostas são calculadas no seu telefone a partir do registro de chamadas, contatos e lista de bloqueio. As chamadas nunca são gravadas e nada é enviado até você tocar em enviar.</string>
     <string name="settings_ai">Perguntar à IA</string>
     <string name="settings_ai_sub">Assistente e vereditos de chamadores</string>
+    <string name="ai_verdict_missed_streak">Você perdeu as últimas %1$d chamadas dele</string>
+    <string name="ai_verdict_answer_rate">Ligou %1$d vezes, você atendeu %2$d</string>
+    <string name="ai_verdict_frequent">Vocês se falam bastante — %1$d chamadas este mês</string>
 </resources>

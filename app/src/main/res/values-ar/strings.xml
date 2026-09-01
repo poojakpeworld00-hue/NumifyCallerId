@@ -770,4 +770,7 @@
     <string name="ai_settings_privacy_body">تُحسب الإجابات على هاتفك من سجل مكالماتك وجهات اتصالك وقائمة الحظر. لا تُسجّل المكالمات أبدًا، ولا يُرسل أي شيء حتى تضغط إرسال بنفسك.</string>
     <string name="settings_ai">اسأل الذكاء الاصطناعي</string>
     <string name="settings_ai_sub">المساعد وتقييمات المتصلين</string>
+    <string name="ai_verdict_missed_streak">فاتتك آخر %1$d مكالمات منه</string>
+    <string name="ai_verdict_answer_rate">اتصل %1$d مرة، وأجبت %2$d</string>
+    <string name="ai_verdict_frequent">تتواصلان كثيرًا — %1$d مكالمة هذا الشهر</string>
 </resources>

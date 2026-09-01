@@ -776,4 +776,7 @@
     <string name="ai_settings_privacy_body">Ответы вычисляются на вашем телефоне по журналу вызовов, контактам и списку блокировки. Звонки никогда не записываются, и ничего не отправляется, пока вы сами не нажмёте «Отправить».</string>
     <string name="settings_ai">Спросить ИИ</string>
     <string name="settings_ai_sub">Ассистент и оценки звонящих</string>
+    <string name="ai_verdict_missed_streak">Вы пропустили последние %1$d звонка</string>
+    <string name="ai_verdict_answer_rate">Звонил %1$d раз, вы ответили %2$d</string>
+    <string name="ai_verdict_frequent">Вы часто на связи — %1$d звонков за месяц</string>
 </resources>

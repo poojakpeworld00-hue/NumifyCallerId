@@ -719,4 +719,7 @@
     <string name="ai_settings_privacy_body">คำตอบคำนวณบนเครื่องของคุณจากประวัติการโทร รายชื่อติดต่อ และรายการบล็อก ไม่มีการบันทึกเสียงสาย และจะไม่ส่งอะไรจนกว่าคุณจะกดส่งเอง</string>
     <string name="settings_ai">ถาม AI</string>
     <string name="settings_ai_sub">ผู้ช่วยและคำตัดสินผู้โทร</string>
+    <string name="ai_verdict_missed_streak">คุณพลาดสายล่าสุดของเขา %1$d สาย</string>
+    <string name="ai_verdict_answer_rate">โทรมา %1$d ครั้ง คุณรับ %2$d ครั้ง</string>
+    <string name="ai_verdict_frequent">คุณติดต่อกันบ่อย — %1$d สายเดือนนี้</string>
 </resources>

@@ -798,4 +798,7 @@
     <string name="ai_settings_privacy_body">Answers are worked out on your phone from your call log, contacts and blocklist. Calls are never recorded, and nothing is sent to anyone until you tap send yourself.</string>
     <string name="settings_ai">Ask AI</string>
     <string name="settings_ai_sub">Assistant and caller verdicts</string>
+    <string name="ai_verdict_missed_streak">You have missed their last %1$d calls</string>
+    <string name="ai_verdict_answer_rate">Called %1$d times, you answered %2$d</string>
+    <string name="ai_verdict_frequent">You are in touch often — %1$d calls this month</string>
 </resources>

@@ -719,4 +719,7 @@
     <string name="ai_settings_privacy_body">答案在你的手机上根据通话记录、通讯录和黑名单得出。通话从不被录音，在你亲自点击发送前不会发出任何内容。</string>
     <string name="settings_ai">问 AI</string>
     <string name="settings_ai_sub">助手与来电判断</string>
+    <string name="ai_verdict_missed_streak">你未接他们最近的 %1$d 通电话</string>
+    <string name="ai_verdict_answer_rate">来电 %1$d 次，你接了 %2$d 次</string>
+    <string name="ai_verdict_frequent">你们联系频繁 — 本月 %1$d 通电话</string>
 </resources>

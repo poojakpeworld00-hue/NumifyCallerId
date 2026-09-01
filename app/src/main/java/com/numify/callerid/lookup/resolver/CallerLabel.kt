@@ -15,6 +15,7 @@ import com.numify.callerid.lookup.repository.CallType
 import com.numify.callerid.lookup.repository.ContactRepository
 import com.numify.callerid.lookup.repository.SettingsRepository
 import com.numify.callerid.lookup.repository.assistant.AiFeatureConfig
+import com.numify.callerid.lookup.repository.assistant.CallerInsight
 import com.numify.callerid.lookup.repository.assistant.CallerRisk
 import kotlinx.coroutines.withTimeoutOrNull
 import com.numify.callerid.lookup.feature.widgets.CallActionHandler
@@ -38,7 +39,8 @@ object CallerLabel {
         val network: String?,
         /** How many of [callCount] were never picked up — drives [risk]. */
         val unanswered: Int = 0,
-        val risk: CallerRisk = CallerRisk.ORDINARY
+        val risk: CallerRisk = CallerRisk.ORDINARY,
+        val insight: CallerInsight = CallerInsight.None
     )
 
     /**
@@ -72,7 +74,8 @@ object CallerLabel {
             callCount = callCount,
             network = network,
             unanswered = unanswered,
-            risk = CallerRisk.assess(blocked, known, callCount, unanswered)
+            risk = CallerRisk.assess(blocked, known, callCount, unanswered),
+            insight = CallerInsight.of(history, blocked, known)
         )
     }
 
@@ -133,12 +136,18 @@ object CallerLabel {
         val icon = root.findViewById<ImageView>(R.id.imageIncallVerdict)
         val block = root.findViewById<TextView>(R.id.buttonIncallBlock)
 
-        val text = when (info.risk) {
-            CallerRisk.NUISANCE ->
-                context.getString(R.string.ai_verdict_nuisance, info.callCount)
-            CallerRisk.BLOCKED -> context.getString(R.string.ai_verdict_blocked)
-            CallerRisk.FIRST_TIME -> context.getString(R.string.ai_verdict_first_time)
-            CallerRisk.KNOWN, CallerRisk.ORDINARY -> null
+        val text = when (val insight = info.insight) {
+            CallerInsight.Blocked -> context.getString(R.string.ai_verdict_blocked)
+            is CallerInsight.Nuisance ->
+                context.getString(R.string.ai_verdict_nuisance, insight.calls)
+            is CallerInsight.MissedStreak ->
+                context.getString(R.string.ai_verdict_missed_streak, insight.count)
+            CallerInsight.FirstTime -> context.getString(R.string.ai_verdict_first_time)
+            is CallerInsight.AnswerRate ->
+                context.getString(R.string.ai_verdict_answer_rate, insight.total, insight.answered)
+            is CallerInsight.Frequent ->
+                context.getString(R.string.ai_verdict_frequent, insight.callsThisMonth)
+            CallerInsight.None -> null
         }
         if (text == null) {
             row.visibility = View.GONE
@@ -150,7 +159,7 @@ object CallerLabel {
 
         // Only the nuisance verdict is coloured. Tinting "first time this number
         // has called" red would make every new caller look dangerous.
-        val alarming = info.risk == CallerRisk.NUISANCE
+        val alarming = info.insight is CallerInsight.Nuisance
         val tint = ContextCompat.getColor(
             context,
             if (alarming) R.color.danger else R.color.on_surface_variant

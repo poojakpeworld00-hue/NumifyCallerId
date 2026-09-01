@@ -724,4 +724,7 @@
     <string name="ai_settings_privacy_body">Yanıtlar telefonunuzda arama kaydınız, kişileriniz ve engelleme listenizden hesaplanır. Aramalar asla kaydedilmez ve siz gönder\'e basana kadar kimseye hiçbir şey gönderilmez.</string>
     <string name="settings_ai">Yapay zekâya sor</string>
     <string name="settings_ai_sub">Asistan ve arayan değerlendirmeleri</string>
+    <string name="ai_verdict_missed_streak">Son %1$d aramasını kaçırdınız</string>
+    <string name="ai_verdict_answer_rate">%1$d kez aradı, %2$d kez yanıtladınız</string>
+    <string name="ai_verdict_frequent">Sık görüşüyorsunuz — bu ay %1$d arama</string>
 </resources>
