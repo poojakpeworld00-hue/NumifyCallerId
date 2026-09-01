@@ -12,13 +12,13 @@ import com.numify.callerid.lookup.databinding.ItemToolBinding
 import com.numify.callerid.lookup.databinding.ItemToolHeaderBinding
 
 /**
- * One tool tile: a glyph on a softly tinted chip, plus a launch target.
+ * A single tool tile: a glyph on a softly tinted chip, plus somewhere to launch.
  *
- * [tileRes] is the chip's tint and [tintRes] the glyph's colour; they are two
- * strengths of the same hue, so they always travel together.
+ * [tileRes] tints the chip and [tintRes] colours the glyph. They are two
+ * strengths of one hue, so they always travel as a pair.
  *
- * [hint] is not shown on the card any more (see cell_tool.xml) but is still what
- * the search box matches on, so a user can find "Compass" by typing "north".
+ * [hint] no longer appears on the card - see item_tool.xml - but it is still what
+ * the search box matches against, so typing "north" finds "Compass".
  */
 data class UtilityUi(
     val name: String,

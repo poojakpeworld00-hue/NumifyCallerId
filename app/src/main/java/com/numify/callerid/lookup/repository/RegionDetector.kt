@@ -36,12 +36,13 @@ object RegionDetector {
     data class GeoCountry(val iso: String, val dial: String)
 
     /**
-     * The user's country, cache-first:
-     *  1. [SettingsRepository.homeCountryIso] — user pick or AdAwareActivity's detection.
-     *  2. [SettingsRepository.geoCountryIso]  — our own previously-cached IP result.
-     *  3. Only if both are empty, hit the network once and cache the result.
+     * The user's country, cache first:
+     *  1. [SettingsRepository.homeCountryIso], being the user's own pick or
+     *     AdAwareActivity's detection.
+     *  2. [SettingsRepository.geoCountryIso], our previously cached IP result.
+     *  3. Only when both are empty, one network call, whose result is cached.
      *
-     * Returns null only when there's no cache and the IP lookup fails.
+     * It returns null solely when there is no cache and the IP lookup fails.
      */
     suspend fun detectCountry(context: Context): GeoCountry? {
         // Debug override wins over everything so a forced region is deterministic.

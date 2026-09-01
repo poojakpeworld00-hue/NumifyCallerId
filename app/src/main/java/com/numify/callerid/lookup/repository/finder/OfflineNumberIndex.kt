@@ -16,13 +16,14 @@ data class LocalNumberFacts(
 )
 
 /**
- * Offline number lookup using Google's libphonenumber:
- *  - [PhoneNumberOfflineGeocoder] → location description
- *  - [PhoneNumberToCarrierMapper] → carrier name
- *  - [PhoneNumberUtil] → validity, line type, country.
+ * Offline number lookup built on Google's libphonenumber:
+ *  - [PhoneNumberOfflineGeocoder] for the location description,
+ *  - [PhoneNumberToCarrierMapper] for the carrier name,
+ *  - [PhoneNumberUtil] for validity, line type and country.
  *
- * Replaces the old numverify (apilayer.net) online call. Safe to run off the
- * main thread; instances are reused (the metadata loads lazily).
+ * This took over from the old numverify (apilayer.net) online call. It is safe to
+ * run off the main thread, and the instances are reused because the metadata
+ * loads lazily.
  */
 object OfflineNumberIndex {
 

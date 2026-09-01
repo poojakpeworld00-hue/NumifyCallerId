@@ -16,12 +16,12 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 /**
- * Transparent hint screen shown alongside the system "Appear on top" Settings
- * page. Sits in the caller's task and presents a bottom card pointing at the
- * toggle. Auto-finishes the moment overlay permission is granted, so the user
- * lands cleanly back on the caller without an extra tap.
+ * Transparent hint screen shown next to the system "Appear on top" Settings page.
+ * It lives in the caller's task and puts up a bottom card pointing at the toggle.
+ * The moment overlay permission is granted it finishes itself, so the user drops
+ * cleanly back to the caller without an extra tap.
  *
- * Tapping anywhere outside the card also dismisses the hint.
+ * Tapping anywhere outside the card dismisses the hint too.
  */
 class OverlayTutorialActivity : AppCompatActivity() {
 

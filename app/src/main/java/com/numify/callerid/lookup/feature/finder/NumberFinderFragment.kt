@@ -377,11 +377,12 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
         (CountryCatalog.byIso(iso)?.dial ?: CountryCatalog.dialOf(iso)).orEmpty()
 
     /**
-     * Resolves the country from the user's IP via the shared, cache-first
-     * [RegionDetector] and updates the chip (best-effort). The country is detected
-     * once app-wide (AdAwareActivity) and reused here — no repeat network call.
-     * The resolved ISO maps to its dial code so the chip shows the flag 🇮🇳 and
-     * "+91". Failures leave the fallback.
+     * Resolves the country from the user's IP through the shared, cache-first
+     * [RegionDetector] and updates the chip on a best-effort basis. The country is
+     * detected once for the whole app, in AdAwareActivity, and reused here, so no
+     * repeat network call is made. The resolved ISO maps onto its dialling code,
+     * which is how the chip shows both the flag and "+91". A failure simply leaves
+     * the fallback in place.
      */
     private fun detectCountryByIp() {
         viewLifecycleOwner.lifecycleScope.launch {

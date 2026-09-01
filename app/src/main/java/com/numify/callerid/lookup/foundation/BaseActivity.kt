@@ -42,10 +42,10 @@ import kotlin.and
 import kotlin.sequences.ifEmpty
 
 /**
- * Base class for every Activity in the app.
+ * Base class behind every Activity in the app.
  *
- * Handles DataBinding inflation, binds the lifecycle owner and exposes
- * [initView] / [initObservers] hooks so subclasses stay lean.
+ * It inflates the DataBinding, binds the lifecycle owner, and offers [initView]
+ * and [initObservers] hooks so subclasses stay small.
  *
  * Usage:
  * ```
