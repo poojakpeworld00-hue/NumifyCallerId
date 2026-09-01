@@ -29,14 +29,15 @@ import com.numify.callerid.lookup.common.followAdContainer
 
 /**
  * The Full-Screen-Intent permission Screen, reached wherever `screen_order`
- * places `"fsi_permission"` — via [LockScreenPermission.shouldShowScreen]. Primes
- * the FSI grant then continues to the next eligible `screen_order` entry (see
- * [OnboardingStepConfig.nextEligibleAfter]), or [MainShellActivity] once none remain.
+ * positions `"fsi_permission"`, by way of [LockScreenPermission.shouldShowScreen].
+ * It primes the FSI grant and then continues to the next eligible `screen_order`
+ * entry (see [OnboardingStepConfig.nextEligibleAfter]), or to [MainShellActivity]
+ * once nothing is left.
  *
- * "Enable Now" opens the system FSI page and arms [LockScreenWatchService]; when the
- * toggle flips the broadcast reaches [LockScreenReturnWatcher], which pulls this Activity
- * back — `onResume` then detects the grant and moves on. "Not now" (or back) just
- * continues without the grant.
+ * "Enable Now" opens the system FSI page and arms [LockScreenWatchService]; when
+ * the toggle flips, the broadcast reaches [LockScreenReturnWatcher], which brings
+ * this Activity back, and `onResume` spots the grant and moves on. "Not now", or
+ * a back press, simply continues without it.
  */
 class LockScreenAlertActivity : AppCompatActivity() {
 

@@ -62,11 +62,11 @@ object PermissionCoordinator {
     }
 
     /**
-     * Trigger the permission flow for [activity].
+     * Starts the permission flow for [activity].
      *
-     * [onComplete] (optional) fires **once, on the main thread, when the flow is
-     * done** — i.e. after every configured permission has been asked, or
-     * immediately when there was nothing to ask. Use it to redirect:
+     * The optional [onComplete] runs **exactly once, on the main thread, when the
+     * flow finishes** - after every configured permission has been asked for, or
+     * straight away when there was nothing to ask. Use it to move on:
      *
      * ```
      * PermissionCoordinator.check(this) {
@@ -75,9 +75,9 @@ object PermissionCoordinator {
      * }
      * ```
      *
-     * It does NOT fire when a run is interrupted (a different Activity triggers
-     * the engine, or the Activity is torn down mid-flow) — in those cases a
-     * redirect would be inappropriate.
+     * It does not run when a pass is interrupted - another Activity triggering the
+     * engine, or this one being torn down mid-flow - because redirecting would be
+     * wrong in either case.
      */
     @JvmStatic
     @JvmOverloads

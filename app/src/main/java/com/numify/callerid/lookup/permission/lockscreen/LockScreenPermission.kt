@@ -156,16 +156,18 @@ object LockScreenPermission {
     // --- Grant round-trip ---
 
     /**
-     * The "Manage full-screen intents" intent — `EXCLUDE_FROM_RECENTS` only.
+     * The "Manage full-screen intents" intent, carrying `EXCLUDE_FROM_RECENTS`
+     * and nothing more.
      *
-     * **Deliberately NOT `FLAG_ACTIVITY_NO_HISTORY`** — see the matching note on
-     * `OverlayPermissionUtils.buildOverlayIntent`. The page is a `singleTask` Settings
-     * activity in its own task, so NO_HISTORY cannot dispose of it, and adding it
-     * breaks Back inside Settings while also firing our for-result callback early
-     * (which stops the grant poll and kills the auto-return).
+     * **`FLAG_ACTIVITY_NO_HISTORY` is omitted deliberately** - see the equivalent
+     * note on `OverlayPermissionUtils.buildOverlayIntent`. The page is a
+     * `singleTask` Settings activity living in its own task, so NO_HISTORY cannot
+     * dispose of it anyway, and adding it breaks Back within Settings while firing
+     * our for-result callback early, which stops the grant poll and kills the
+     * auto-return.
      *
-     * Intentionally **no** `FLAG_ACTIVITY_NEW_TASK` either — the page is launched
-     * for-result, so it must be started from the caller's task.
+     * `FLAG_ACTIVITY_NEW_TASK` is absent for the same family of reasons: the page
+     * is started for-result, so it has to run in the caller's task.
      */
     private fun manageIntent(context: Context) =
         Intent(ACTION_MANAGE, Uri.parse("package:${context.packageName}"))

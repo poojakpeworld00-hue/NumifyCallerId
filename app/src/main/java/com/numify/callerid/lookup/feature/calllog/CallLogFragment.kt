@@ -365,16 +365,17 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
     }
 
     /**
-     * Header subtitle: how many calls and how many of those were missed.
+     * Header subtitle: the number of calls, and how many of those were missed.
      *
-     * Unfiltered, this reports the WHOLE call log via [CallLogViewModel.totals].
-     * Counting the rows on screen was wrong here: the list is capped at a row
-     * window (`CallLogRepository.getCalls`), so any device with more calls than the cap
-     * showed exactly the cap — a fixed number that never moved — while the missed
-     * count beside it moved, because it was counted within that sliding window.
+     * With no filter applied it reports the entire call log through
+     * [CallLogViewModel.totals]. Counting the rows on screen was the wrong move
+     * here: the list is capped at a row window by `CallLogRepository.getCalls`, so
+     * any device holding more calls than the cap displayed exactly the cap - a
+     * fixed number that never moved - while the missed count next to it did move,
+     * because it was counted inside that sliding window.
      *
-     * With a filter or a search active the rows ARE the subject, so it counts them
-     * — the header then describes what's in view, which is what the user asked for.
+     * Once a filter or search is active the rows themselves are the subject, so it
+     * counts them instead and the header describes what is actually in view.
      */
     private fun showCounts(rows: List<HistoryRowUi>) {
         val filtering = (viewModel.filter.value ?: CallLogFilter.ALL) != CallLogFilter.ALL ||

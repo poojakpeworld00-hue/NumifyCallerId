@@ -3,17 +3,17 @@ package com.numify.callerid.lookup.permission
 import android.content.Context
 
 /**
- * SharedPreferences-backed persistence for the Permission Engine.
+ * SharedPreferences-backed persistence for the permission engine.
  *
- * Kept intentionally tiny and independent of the rest of the app's prefs so the
- * engine stays self-contained. Tracks:
- *  - `shown`   → whether a "show once" permission has already been offered.
- *  - `asked`   → whether the OS request has ever been fired (useful for
- *                 rationale / permanently-denied handling by callers).
+ * Kept deliberately small and separate from the rest of the app's preferences so
+ * the engine remains self-contained. It tracks two things:
+ *  - `shown` - whether a "show once" permission has already been offered.
+ *  - `asked` - whether the OS request has ever been raised, which callers need
+ *              for rationale and permanently-denied handling.
  *
- * (SharedPreferences is used rather than DataStore to match the rest of this
- * project and to keep the reads synchronous on the main thread — the values are
- * a handful of booleans.)
+ * SharedPreferences rather than DataStore, both to match the rest of this project
+ * and to keep the reads synchronous on the main thread; the values amount to a
+ * handful of booleans.
  */
 class PermissionPreferences(context: Context) {
 

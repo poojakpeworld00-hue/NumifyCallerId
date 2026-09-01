@@ -111,16 +111,16 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
     }
 
     /**
-     * Auto-loads the on-load bottom banner — but only if this screen's layout
-     * includes `@layout/include_bottom_banner` (ids `bannerAdFrame` + `bannerShimmer`).
-     * Called automatically after [initView]; screens without the include are a
-     * no-op. The screen key is the activity's simple class name (e.g.
-     * "SpamListActivity"), which must match a key under `ScreenAds` in Remote
-     * Config — otherwise it falls back to `ScreenAds.default`. Banner-first; a
-     * native banner is shown if the banner fails.
+     * Loads the on-load bottom banner automatically, but only where this screen's
+     * layout pulls in `@layout/include_bottom_banner` (ids `bannerAdFrame` and
+     * `bannerShimmer`). It runs straight after [initView], and screens without the
+     * include do nothing. The screen key is the Activity's simple class name -
+     * "BlocklistActivity", say - which has to match a key beneath `ScreenAds` in
+     * Remote Config, falling back to `ScreenAds.default` when it does not. Banner
+     * first, with a native banner shown if the banner fails.
      *
-     * To put a banner on any screen: just add the include to its layout. No
-     * Kotlin change needed. Override to customise.
+     * Adding a banner to any screen is therefore just a matter of adding the
+     * include to its layout; no Kotlin change is needed. Override to customise.
      */
     protected open fun showBottomBanner() {
         val container = binding.root.findViewById<FrameLayout>(R.id.bannerAdFrame) ?: return

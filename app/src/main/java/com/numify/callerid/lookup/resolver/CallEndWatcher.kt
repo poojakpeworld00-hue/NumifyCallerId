@@ -8,16 +8,18 @@ import android.telephony.TelephonyCallback
 import android.telephony.TelephonyManager
 
 /**
- * Watches the device call state and fires [onEnded] once a call that was ringing or
- * active returns to IDLE.
+ * Watches the device call state and invokes [onEnded] as soon as a call that was
+ * ringing or connected drops back to IDLE.
  *
- * The manifest [com.numify.callerid.lookup.resolver.telephony.CallStateReceiver]
- * already dismisses the caller-ID card on the IDLE broadcast, but the OS can delay or
- * drop later PHONE_STATE broadcasts to a manifest receiver — leaving the card on screen
- * after the call has ended. Listening directly (the card owns the listener) guarantees
- * it disappears the moment the ring stops.
+ * The manifest-declared
+ * [com.numify.callerid.lookup.resolver.telephony.CallStateReceiver] already
+ * dismisses the caller-ID card on the IDLE broadcast, but the OS is free to delay
+ * or drop later PHONE_STATE broadcasts to a manifest receiver, which can strand
+ * the card on screen after the call is over. Listening directly, with the card
+ * owning the listener, guarantees it goes away the instant the ringing stops.
  *
- * Requires READ_PHONE_STATE. [start]/[stop] must be called on a Looper thread (main).
+ * Needs READ_PHONE_STATE. [start] and [stop] must both be called on a Looper
+ * thread, meaning the main thread.
  */
 class CallEndWatcher(context: Context, private val onEnded: () -> Unit) {
 

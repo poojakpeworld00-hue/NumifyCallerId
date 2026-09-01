@@ -11,18 +11,17 @@ import com.numify.callerid.lookup.common.WindowInsetsHelper
 import com.numify.callerid.monetize.strategy.recordPermissionOutcome
 
 /**
- * Performs a single runtime-permission request without requiring any code
- * inside the host Activity.
+ * Issues one runtime-permission request without needing any code in the host
+ * Activity.
  *
- * It works by attaching an invisible [Fragment] to the Activity's
- * FragmentManager (the same battle-tested approach used by libraries like
- * RxPermissions). The fragment owns a proper `registerForActivityResult`
- * launcher, so results are delivered reliably and survive configuration
- * changes, then it detaches itself.
+ * It attaches an invisible [Fragment] to the Activity's FragmentManager - the
+ * same well-worn technique libraries such as RxPermissions rely on. That fragment
+ * owns a real `registerForActivityResult` launcher, so results arrive reliably
+ * and survive configuration changes, and it detaches itself afterwards.
  *
- * If the host is somehow not a [FragmentActivity], it falls back to
- * [ActivityCompat.requestPermissions] (best-effort — the grant state is then
- * re-checked by the engine on the next resume).
+ * Should the host somehow not be a [FragmentActivity], it falls back to
+ * [ActivityCompat.requestPermissions] on a best-effort basis; the engine then
+ * re-checks the grant state on the next resume.
  */
 class PermissionLauncher : Fragment() {
 

@@ -137,14 +137,16 @@ data class LockScreenConfig(
         }
 
         /**
-         * Maps the `screen.fsi_permission` shape onto [LockScreenConfig]:
-         * `isEnable` → [enabled]; `prompt.*` → [Screen] copy; `session == "once"` →
-         * [Screen.showOnce] (any other value repeats every launch, matching
-         * [com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig]'s
-         * generic session gate); `is_screenListCountryCheck` / `screen_excluded_countries`
-         * → the country gate; `dialog.*` maps 1:1. `screen`/`dialog` priority and the
-         * screen's own delay are unused by [LockScreenPermission] today — kept as fixed
-         * defaults rather than parsed.
+         * Projects the `screen.fsi_permission` shape onto [LockScreenConfig]:
+         * `isEnable` becomes [enabled]; `prompt.*` becomes the [Screen] copy;
+         * `session == "once"` becomes [Screen.showOnce], while any other value
+         * repeats every launch, matching the generic session gate in
+         * [com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig];
+         * `is_screenListCountryCheck` and `screen_excluded_countries` become the
+         * country gate; and `dialog.*` maps across one to one. The `screen` and
+         * `dialog` priorities and the screen's own delay are not consumed by
+         * [LockScreenPermission] today, so they are held as fixed defaults rather
+         * than parsed.
          */
         private fun parse(o: JSONObject): LockScreenConfig {
             val promptObj = o.optJSONObject("prompt") ?: JSONObject()

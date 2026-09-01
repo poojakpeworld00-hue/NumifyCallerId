@@ -8,18 +8,19 @@ import com.numify.callerid.lookup.common.WindowInsetsHelper
 import org.json.JSONObject
 
 /**
- * Single access point for the engine's configuration.
+ * The engine's one access point for its configuration.
  *
- * Reads the `permission_engine` block from Firebase Remote Config and caches the
- * parsed [PermissionRule]s in memory. Remote Config already persists activated
- * values to disk, so the last-known config is available immediately on the next
- * cold start — the engine works even before a fresh fetch completes.
+ * It reads the `permission_engine` block out of Firebase Remote Config and holds
+ * the parsed [PermissionRule]s in memory. Remote Config already persists
+ * activated values to disk, so the last known configuration is on hand
+ * immediately at the next cold start and the engine keeps working before any
+ * fresh fetch completes.
  *
- * Config resolution order (first non-empty wins):
- *  1. A dedicated Remote Config parameter named `permission_engine`.
- *  2. The `permission_engine` key inside the app's existing data blob
- *     (`GET_DATA_LIST` / `DEBUG_GET_DATA_LIST`), so no new RC parameter is
- *     strictly required.
+ * Configuration is resolved in order, first non-empty result winning:
+ *  1. a Remote Config parameter named `permission_engine`, or
+ *  2. the `permission_engine` key inside the app's existing data blob
+ *     (`GET_DATA_LIST` / `DEBUG_GET_DATA_LIST`), so a new RC parameter is not
+ *     strictly required at all.
  */
 object PermissionRepository {
 
@@ -27,16 +28,16 @@ object PermissionRepository {
     private const val RC_KEY = "permission_engine"
 
     /**
-     * Compiled-in safety-net configuration. Used **only** when Remote Config
-     * supplies no `permission_engine` value (before the first successful fetch,
-     * or if the parameter is never set on the server). Any Remote Config value
-     * completely overrides this.
+     * Compiled-in fallback configuration, used **only** while Remote Config has
+     * no `permission_engine` value - before the first successful fetch, or if the
+     * parameter is never set server-side. Any Remote Config value replaces this
+     * entirely.
      *
-     * Notification + phone state are driven by the engine and triggered
-     * explicitly — from the splash flow (AdAwareActivity) and from the permission
-     * bottom sheet's Continue button on MainShellActivity. So the default targets
-     * both `SplashActivity` and `MainShellActivity` with no delay (the trigger point
-     * already picks the moment). Remote Config fully overrides this.
+     * Notification and phone state are engine-driven but triggered explicitly,
+     * from the splash flow in AdAwareActivity and from the Continue button on the
+     * permission bottom sheet in MainShellActivity. The default therefore targets
+     * both `SplashActivity` and `MainShellActivity` with no delay, since the
+     * trigger point has already chosen the moment.
      */
     private const val DEFAULT_CONFIG = """
         {

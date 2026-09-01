@@ -9,16 +9,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /**
- * Single source of truth for the user's IP-resolved country.
+ * The single source of truth for the user's IP-resolved country.
  *
- * The country is detected **once** — AdAwareActivity resolves it early via
- * [lookupRegionByIp] and stores it in [SettingsRepository.homeCountryIso]. Every other
- * caller (Language, Home, Lookup) goes through [detectCountry], which reuses that
- * cached value and only touches the network if nothing has resolved it yet — so
- * the geo endpoint is never hit multiple times.
+ * Detection happens **once**: AdAwareActivity resolves it early through
+ * [lookupRegionByIp] and stores it in [SettingsRepository.homeCountryIso]. Every
+ * other caller - Language, Home, Lookup - comes through [detectCountry], which
+ * reuses that cached value and only reaches for the network when nothing has
+ * resolved it yet, so the geo endpoint is never hit more than once.
  *
- * Best-effort: returns null when there's no cache and the network call fails.
- * ip-api returns only the ISO code, so the dialing code is derived from [CountryCatalog].
+ * It is best-effort, returning null when there is no cache and the network call
+ * fails. ip-api yields only the ISO code, so the dialling code is derived from
+ * [CountryCatalog].
  */
 object RegionDetector {
 
