@@ -16,6 +16,7 @@ import com.numify.callerid.lookup.repository.ContactRepository
 import com.numify.callerid.lookup.repository.SettingsRepository
 import com.numify.callerid.lookup.repository.assistant.AiFeatureConfig
 import com.numify.callerid.lookup.repository.assistant.CallerInsight
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.numify.callerid.lookup.entity.CallerFacts
 import com.numify.callerid.lookup.repository.assistant.CallerRisk
 import kotlinx.coroutines.withTimeoutOrNull
@@ -103,6 +104,13 @@ object CallerLabel {
         root.findViewById<TextView>(R.id.textIncallNumber).text = number
 
         bindStatusPill(context, root.findViewById(R.id.textIncallStatus), info.known)
+
+        // A number the address book cannot name is about to be looked up, so the
+        // name and the pill are held back rather than shown as a confident
+        // "Unknown" that a network answer would then contradict. Callers that
+        // start a lookup must pair this with applyNetworkFacts, which clears it
+        // on every outcome including failure.
+        if (!info.known) showNameLoading(root)
 
         root.findViewById<TextView>(R.id.textIncallWhen).text =
             context.getString(R.string.incall_now)
@@ -255,11 +263,20 @@ object CallerLabel {
      * is. This only fills the gap where the card is showing "Unknown".
      */
     fun applyNetworkFacts(context: Context, root: View, info: Info, facts: CallerFacts?) {
-        if (info.known || facts == null) return
+        if (info.known) return
+
+        // Cleared first and unconditionally. An unreachable API, a timeout and a
+        // number nobody knows all land here with a null, and a shimmer left
+        // running forever is a worse card than the "Unknown" it replaced.
+        val named = !facts?.name?.trim().isNullOrBlank()
+        clearNameLoading(context, root, revealName = !named)
+        if (facts == null) return
 
         val networkName = facts.name?.trim()?.takeIf(String::isNotBlank)
         if (networkName != null) {
-            root.findViewById<TextView>(R.id.textIncallName).text = networkName
+            val nameView = root.findViewById<TextView>(R.id.textIncallName)
+            nameView.text = networkName
+            nameView.visibility = View.VISIBLE
             root.findViewById<TextView>(R.id.textIncallAvatar).text =
                 CallActionHandler.initials(networkName, "")
         }
@@ -276,7 +293,11 @@ object CallerLabel {
             spam -> bindSpamPill(context, root.findViewById(R.id.textIncallStatus))
             networkName != null -> bindIdentifiedPill(context, root.findViewById(R.id.textIncallStatus))
         }
-        if (spam) applyNetworkSpamVerdict(context, root, facts)
+        if (spam) {
+            applyNetworkSpamVerdict(context, root, facts)
+        } else if (networkName != null) {
+            relaxNuisanceVerdict(context, root, info)
+        }
     }
 
     /**
@@ -303,6 +324,63 @@ object CallerLabel {
             ColorStateList.valueOf(danger)
         root.findViewById<TextView>(R.id.buttonIncallBlock)?.visibility = View.VISIBLE
         row.visibility = View.VISIBLE
+    }
+
+    /** Swaps the name line for a shimmering bar and hides the status pill. */
+    private fun showNameLoading(root: View) {
+        val shimmer = root.findViewById<ShimmerFrameLayout>(R.id.shimmerIncallName) ?: return
+        root.findViewById<TextView>(R.id.textIncallName).visibility = View.GONE
+        root.findViewById<TextView>(R.id.textIncallStatus).visibility = View.INVISIBLE
+        shimmer.visibility = View.VISIBLE
+        shimmer.startShimmer()
+    }
+
+    /**
+     * Ends the loading state.
+     *
+     * [revealName] puts back whatever [bind] had already written — the local
+     * "Unknown" — for the case where the lookup came back with nothing. When the
+     * network did supply a name the caller writes it and reveals the view itself,
+     * so the old text is never shown even for a frame.
+     */
+    private fun clearNameLoading(context: Context, root: View, revealName: Boolean) {
+        root.findViewById<ShimmerFrameLayout>(R.id.shimmerIncallName)?.let {
+            it.stopShimmer()
+            it.visibility = View.GONE
+        }
+        root.findViewById<TextView>(R.id.textIncallStatus)?.visibility = View.VISIBLE
+        if (revealName) {
+            root.findViewById<TextView>(R.id.textIncallName)?.visibility = View.VISIBLE
+        }
+    }
+
+    /**
+     * Drops the local spam accusation once the network has named the caller.
+     *
+     * [CallerInsight.Nuisance] only exempts numbers in the address book, so a
+     * caller the network identifies by name was still being accused purely for
+     * going unanswered three times — the card read "Kp Jiya Bharti · Identified"
+     * directly above "Likely spam", offering to block them. The network returned
+     * no spam flag in that case, so the accusation was the app's alone.
+     *
+     * The underlying facts are kept, just stated rather than judged: the same
+     * counts, in neutral colour, with no Block button. A number the network
+     * *does* flag never reaches here — that goes to [applyNetworkSpamVerdict].
+     */
+    private fun relaxNuisanceVerdict(context: Context, root: View, info: Info) {
+        val insight = info.insight as? CallerInsight.Nuisance ?: return
+        val label = root.findViewById<TextView>(R.id.textIncallVerdict) ?: return
+
+        label.text = context.getString(
+            R.string.ai_verdict_answer_rate,
+            insight.calls,
+            insight.calls - info.unanswered
+        )
+        val neutral = ContextCompat.getColor(context, R.color.on_surface_variant)
+        label.setTextColor(neutral)
+        root.findViewById<ImageView>(R.id.imageIncallVerdict)?.imageTintList =
+            ColorStateList.valueOf(neutral)
+        root.findViewById<TextView>(R.id.buttonIncallBlock)?.visibility = View.GONE
     }
 
     /** Neutral "Identified" pill — named by the network, not by the address book. */

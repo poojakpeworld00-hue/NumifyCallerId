@@ -87,6 +87,24 @@
                 android:textStyle="bold"
                 tools:text="Unknown" />
 
+            <!-- Stands in for the name while the caller-ID API is being asked.
+                 The card goes up the instant the phone rings, so without this the
+                 name area showed a confident "Unknown" and then swapped to the
+                 real name a second later, which read as the app correcting a
+                 mistake rather than finishing a lookup. -->
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerIncallName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <View
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_13sdp"
+                    android:alpha="0.18"
+                    android:background="@drawable/bg_shimmer_placeholder" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
             <TextView
                 android:id="@+id/textIncallNumber"
                 android:layout_width="wrap_content"
@@ -200,62 +218,64 @@
                 tools:text="JIO 4G" />
         </LinearLayout>
 
-        <!-- NOTE: nothing in this file may use a `?attr/` theme reference. The card is
-             inflated from CallerOverlayService with LayoutInflater.from(service), and a
-             Service has no theme, so a theme attribute throws InflateException and takes
-             the whole caller-ID overlay down on every incoming call. That is why the
-             Block button below has no `?attr/selectableItemBackground` ripple. -->
+    </LinearLayout>
 
-        <!-- Ask AI verdict. Shown only when the app has something to say about an
-             unknown number: a line that appears on every call is a line nobody
-             reads. Deliberately a statement plus one action rather than a link into
-             another screen — the phone is ringing, so navigating away is not an
-             option the user has time for. -->
-        <LinearLayout
-            android:id="@+id/rowIncallVerdict"
-            android:layout_width="match_parent"
+    <!-- NOTE: nothing in this file may use a `?attr/` theme reference. The card is
+         inflated from CallerOverlayService with LayoutInflater.from(service), and a
+         Service has no theme, so a theme attribute throws InflateException and takes
+         the whole caller-ID overlay down on every incoming call. That is why the
+         Block button below has no `?attr/selectableItemBackground` ripple. -->
+
+    <!-- Ask AI verdict. Shown only when the app has something to say about an
+         unknown number: a line that appears on every call is a line nobody
+         reads. Deliberately a statement plus one action rather than a link into
+         another screen — the phone is ringing, so navigating away is not an
+         option the user has time for. -->
+    <LinearLayout
+        android:id="@+id/rowIncallVerdict"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_14sdp"
+        android:paddingBottom="@dimen/_14sdp"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/imageIncallVerdict"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_ai_sparkle"
+            app:tint="@color/on_surface_variant" />
+
+        <TextView
+            android:id="@+id/textIncallVerdict"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:baselineAligned="false"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_weight="1"
+            android:includeFontPadding="false"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/_9ssp"
+            tools:text="Likely spam — rang 4 times, never answered" />
+
+        <TextView
+            android:id="@+id/buttonIncallBlock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:background="@drawable/bg_btn_danger"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_6sdp"
+            android:text="@string/ai_action_block"
+            android:textColor="@color/on_primary"
+            android:textSize="@dimen/_9ssp"
+            android:textStyle="bold"
             android:visibility="gone"
-            tools:visibility="visible">
-
-            <ImageView
-                android:id="@+id/imageIncallVerdict"
-                android:layout_width="@dimen/_14sdp"
-                android:layout_height="@dimen/_14sdp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_ai_sparkle"
-                app:tint="@color/on_surface_variant" />
-
-            <TextView
-                android:id="@+id/textIncallVerdict"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_6sdp"
-                android:layout_weight="1"
-                android:includeFontPadding="false"
-                android:textColor="@color/on_surface_variant"
-                android:textSize="@dimen/_9ssp"
-                tools:text="Likely spam — rang 4 times, never answered" />
-
-            <TextView
-                android:id="@+id/buttonIncallBlock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:background="@drawable/bg_btn_danger"
-                android:includeFontPadding="false"
-                android:paddingHorizontal="@dimen/_12sdp"
-                android:paddingVertical="@dimen/_6sdp"
-                android:text="@string/ai_action_block"
-                android:textColor="@color/on_primary"
-                android:textSize="@dimen/_9ssp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                tools:visibility="visible" />
-        </LinearLayout>
+            tools:visibility="visible" />
     </LinearLayout>
 </LinearLayout>
