@@ -14,15 +14,15 @@ import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 
 /**
- * Full-screen modal coach-mark. Darkens the screen, leaves a rounded "spotlight"
- * hole over [target] so it stays visible, and shows [bubbleRes] just beneath it.
- * Tapping anywhere dismisses it.
+ * Full-screen modal coach-mark. It dims the screen, cuts a rounded "spotlight"
+ * hole over [target] so that view stays visible, and places [bubbleRes] just
+ * below it. A tap anywhere dismisses it.
  *
- * The hole and the bubble are re-positioned on every layout pass, not measured
- * once at show time. The screen underneath keeps moving after the coach-mark
- * appears — a permission strip resolves, an ad loads — and a one-shot
- * measurement leaves the hole highlighting whatever has since slid into that
- * spot, with the bubble sitting over the thing it was meant to point at.
+ * Both the hole and the bubble are repositioned on every layout pass rather than
+ * measured once when shown. Whatever is underneath carries on moving after the
+ * coach-mark appears - a permission strip resolves, an ad loads - and a one-shot
+ * measurement ends up highlighting whichever view has since slid into that spot,
+ * with the bubble hovering over something it was never pointing at.
  */
 class CoachMarkOverlay private constructor(context: Context) : FrameLayout(context) {
 

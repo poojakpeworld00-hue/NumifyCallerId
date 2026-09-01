@@ -4,22 +4,22 @@ import com.numify.callerid.lookup.common.WindowInsetsHelper
 import org.json.JSONObject
 
 /**
- * Parses the `permission_engine` Remote Config JSON into [PermissionRule]s.
+ * Turns the `permission_engine` Remote Config JSON into [PermissionRule]s.
  *
- * Accepts either shape, so it works whether the value is stored as its own
- * Remote Config parameter or nested inside a larger config blob:
+ * It accepts either shape, so it works whether the value is its own Remote Config
+ * parameter or sits nested inside a larger config blob.
  *
  * Wrapped:
  * ```
  * { "permission_engine": { "notification": { ... }, "phone_state": { ... } } }
  * ```
- * Unwrapped (the object itself):
+ * Unwrapped, being the object itself:
  * ```
  * { "notification": { ... }, "phone_state": { ... } }
  * ```
  *
- * Malformed input never throws — it logs and returns an empty list so the app
- * simply behaves as if no permissions were configured.
+ * Malformed input never throws. It is logged and an empty list comes back, so the
+ * app simply behaves as though no permissions had been configured.
  */
 object RemotePermissionParser {
 

@@ -26,16 +26,16 @@ data class CallLogTotals(val total: Int, val missed: Int)
 class CallLogRepository(private val context: Context) {
 
     /**
-     * True counts for the whole call log.
+     * Accurate counts for the entire call log.
      *
-     * [getCalls] deliberately stops at a row cap, so counting its result reports
-     * the cap rather than the log — a device with more calls than the cap always
-     * reads exactly the cap. These come straight from the provider instead: the
-     * projection is a single id column and nothing is materialised, so the cost
-     * is the cursor's own row count, not one object per call.
+     * [getCalls] intentionally stops at a row cap, so counting its result reports
+     * the cap instead of the log, and any device holding more calls than the cap
+     * always reads back exactly the cap. These figures come from the provider
+     * directly: the projection is a lone id column and nothing is materialised, so
+     * the cost is the cursor's row count rather than one object per call.
      *
-     * `missed` covers MISSED and REJECTED, matching how [getCalls] maps both onto
-     * [CallType.MISSED].
+     * `missed` spans MISSED and REJECTED, mirroring the way [getCalls] folds both
+     * onto [CallType.MISSED].
      */
     fun getTotals(): CallLogTotals = CallLogTotals(
         total = countWhere(null, null),

@@ -1,16 +1,16 @@
 package com.numify.callerid.lookup.permission
 
 /**
- * Immutable data models for the global Permission Engine.
+ * Immutable data models for the global permission engine.
  *
- * A [PermissionRule] is one entry parsed out of the `permission_engine`
+ * A [PermissionRule] is a single entry parsed from the `permission_engine`
  * Firebase Remote Config object. A [PermissionSpec] is the engine's static
- * knowledge of *how* to request a given OS permission (its Android permission
- * string and the SDK level below which it is implicitly granted).
+ * knowledge of *how* a given OS permission is requested: its Android permission
+ * string, and the SDK level below which the system grants it implicitly.
  *
- * To support a brand-new permission in the future you only add a
- * [PermissionSpec] to [PermissionUtils.CATALOG] and reference its key from
- * Remote Config — no other code changes are required.
+ * Supporting an entirely new permission later means adding a [PermissionSpec] to
+ * [PermissionUtils.CATALOG] and referencing its key from Remote Config. No other
+ * code has to change.
  */
 
 /** One permission requirement, exactly as declared in Remote Config. */

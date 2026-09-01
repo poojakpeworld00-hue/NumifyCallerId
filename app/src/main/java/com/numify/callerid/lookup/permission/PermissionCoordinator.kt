@@ -126,14 +126,15 @@ object PermissionCoordinator {
     }
 
     /**
-     * Trigger the permission flow for the onboarding screen keyed [screenKey]
-     * (`"language"`, `"onboarding"`, `"splash"`, `"fsi_permission"`) — sourced
-     * directly from that screen's `screen.<screenKey>.permissions[]` in the
-     * Onboarding Dynamic Flow config, instead of [check]'s Activity-name
-     * matching against the (now retired) `permission_engine` block.
+     * Starts the permission flow for the onboarding screen identified by
+     * [screenKey] - `"language"`, `"onboarding"`, `"splash"` or
+     * `"fsi_permission"` - reading straight from that screen's
+     * `screen.<screenKey>.permissions[]` in the Onboarding Dynamic Flow config,
+     * rather than using [check]'s Activity-name matching against the now-retired
+     * `permission_engine` block.
      *
-     * Each permission entry's own country gate is applied before it's queued.
-     * Sequencing, dedup, and completion semantics are identical to [check].
+     * Every permission entry's own country gate is applied before it is queued.
+     * Ordering, de-duplication and completion semantics match [check] exactly.
      */
     @JvmStatic
     @JvmOverloads

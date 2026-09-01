@@ -12,16 +12,17 @@ import androidx.core.content.ContextCompat
 import com.numify.callerid.lookup.R
 
 /**
- * The countdown ring: a full-circle track, the elapsed arc drawn over it, and a
- * knob riding the arc's leading end.
+ * The countdown ring: a full-circle track, the elapsed arc painted over it, and a
+ * knob riding the arc's leading edge.
  *
- * The design draws this with two stacked CSS circles and a rotated dot; here it
- * is one [onDraw] because a CSS border-arc cannot express a partial sweep — the
- * prototype fakes it by colouring two borders and rotating the whole element.
+ * The design realises this with two stacked CSS circles and a rotated dot. Here
+ * it is a single [onDraw], because a CSS border-arc cannot express a partial
+ * sweep - the prototype only fakes one by colouring two borders and rotating the
+ * whole element.
  *
- * [setProgress] animates so the ring glides between the 100ms ticks the timer
- * posts rather than stepping, which is what keeps it reading as continuous at
- * 60fps off a 10fps data source.
+ * [setProgress] animates, so the ring glides between the 100ms ticks the timer
+ * posts instead of stepping. That is what keeps it reading as continuous at 60fps
+ * from a 10fps data source.
  */
 class TimerArcView @JvmOverloads constructor(
     context: Context,

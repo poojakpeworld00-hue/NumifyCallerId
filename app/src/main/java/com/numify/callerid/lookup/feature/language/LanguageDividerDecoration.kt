@@ -8,16 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.numify.callerid.lookup.R
 
 /**
- * Hairline between language rows.
+ * Hairline separating language rows.
  *
- * Drawn as a decoration rather than a view in [R.layout.item_language] so the
- * last row does not carry a trailing line — a row-level divider would need the
- * adapter to know its own position just to hide one edge.
+ * It is drawn as a decoration rather than a view inside
+ * [R.layout.item_language] so the last row carries no trailing line; a row-level
+ * divider would force the adapter to know its own position purely to hide one
+ * edge.
  *
- * The line is inset to where the row's text starts, not the card edge, so it
- * separates the rows without cutting across the flag column. It is also skipped
- * around the selected row: that row draws a filled rounded pill, and a hairline
- * running into its rounded corner reads as a rendering artefact.
+ * The line is inset to where the row's text begins rather than to the card edge,
+ * so it divides the rows without slicing through the flag column. It is also
+ * omitted around the selected row, which draws a filled rounded pill - a hairline
+ * running into that rounded corner just reads as a rendering artefact.
  */
 class LanguageDividerDecoration(
     recyclerView: RecyclerView,

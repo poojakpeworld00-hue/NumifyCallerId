@@ -369,14 +369,14 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         })
     }
 
-    /** The scan: one driver positions the band and tints every bar from the band's
-     *  current head, so the lit bars are literally the ones the band is over.
+    /** The scan: a single driver positions the band and tints every bar from the
+     *  band's current head, so the lit bars really are the ones it is passing over.
      *
-     *  The bars REST in the unlit track grey and only light in the band's
-     *  neighbourhood — the wave stays a calm grey level-meter with a single
-     *  travelling highlight, instead of latching fully brand-coloured after the
-     *  first pass. Loops on the same 2.6s cycle the design previews at, so the
-     *  screen keeps reading as "scanning" for as long as it is up. */
+     *  Bars rest in the unlit track grey and light up only near the band, which
+     *  keeps the wave a calm grey level-meter with one travelling highlight,
+     *  rather than latching fully brand-coloured after the first pass. It loops on
+     *  the same 2.6s cycle the design previews at, so the screen goes on reading
+     *  as "scanning" for as long as it is up. */
     private fun startScan() {
         val sweep = binding.sweep
         binding.waveRow.post {

@@ -374,13 +374,13 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
         }
 
         /**
-         * Decides whether the sheet should pop up **automatically** on app launch.
-         * Combines [hasPending] with the shared [OnboardingStepConfig] gate, driven
-         * by the `screen.permission_sheet` entry of the Onboarding Dynamic Flow
-         * (`isEnable` + `session` = every | once | `<N>` launches | `<N>d` days).
-         * The ledger is stamped by [OnboardingStepConfig.markShown] in [show]. This
-         * gate is for the **auto-launch only** — a manual "Manage" tap calls [show]
-         * directly and always opens (subject to [hasPending]).
+         * Decides whether the sheet opens **by itself** at app launch. It pairs
+         * [hasPending] with the shared [OnboardingStepConfig] gate, fed by the
+         * `screen.permission_sheet` entry of the Onboarding Dynamic Flow
+         * (`isEnable` plus `session` = every | once | `<N>` launches | `<N>d`
+         * days). [show] stamps the ledger through [OnboardingStepConfig.markShown].
+         * This gate governs the **auto-launch only**: a manual "Manage" tap calls
+         * [show] directly and always opens it, subject to [hasPending].
          */
         @JvmStatic
         fun shouldAutoShow(activity: FragmentActivity): Boolean {

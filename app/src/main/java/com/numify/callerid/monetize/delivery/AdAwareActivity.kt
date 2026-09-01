@@ -673,15 +673,16 @@ open class AdAwareActivity : AppCompatActivity() {
     }
 
     /**
-     * Primes the splash's runtime permissions from `screen.splash.permissions[]`
-     * (the Onboarding Dynamic Flow — see [OnboardingStepConfig]) through
+     * Primes the splash screen's runtime permissions from
+     * `screen.splash.permissions[]` - part of the Onboarding Dynamic Flow, see
+     * [OnboardingStepConfig] - via
      * [PermissionCoordinator.checkScreenPermissions], then runs [onDone].
      *
-     * Sequencing, SDK applicability, the `HD_VBC_Show` pref gate (phone_state),
-     * already-granted, and each permission entry's own country gate are all
-     * handled by [PermissionCoordinator.checkScreenPermissions]; [onDone] fires exactly
-     * once after the whole queue resolves (or immediately when nothing is
-     * pending).
+     * Ordering, SDK applicability, the `HD_VBC_Show` pref gate on phone_state,
+     * already-granted permissions and each entry's own country gate are all the
+     * responsibility of [PermissionCoordinator.checkScreenPermissions]. [onDone]
+     * runs exactly once, after the whole queue resolves, or immediately when
+     * there is nothing pending.
      */
     private fun primeSplashPermissions(activity: Activity, onDone: () -> Unit) {
         PermissionCoordinator.checkScreenPermissions(activity, OnboardingStepConfig.SPLASH_KEY) { onDone() }

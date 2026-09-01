@@ -15,16 +15,18 @@ import com.numify.callerid.lookup.BuildConfig
 import org.json.JSONObject
 
 /**
- * Per-screen on-load ad configuration, driven by Remote Config.
+ * Per-screen on-load ad configuration, sourced from Remote Config.
  *
- * Resolution order:
- *  - `screen_wise_ad = false` → global `googleBanner` / `googleNative`.
- *  - `screen_wise_ad = true` + `screen_wise_default = true` → `ScreenAds.default`.
- *  - `screen_wise_ad = true` + `screen_wise_default = false` → `ScreenAds.<Screen>`
- *    (falling back to `default`). A per-entry empty id inherits the global id.
+ * Resolved in this order:
+ *  - `screen_wise_ad = false` gives the global `googleBanner` / `googleNative`.
+ *  - `screen_wise_ad = true` with `screen_wise_default = true` gives
+ *    `ScreenAds.default`.
+ *  - `screen_wise_ad = true` with `screen_wise_default = false` gives
+ *    `ScreenAds.<Screen>`, falling back to `default`. An empty id on any entry
+ *    inherits the global one.
  *
- * In DEBUG builds every resolution is logged under the tag `ScreenPlacementPlan`
- * (filter logcat by that tag to verify which id/type each screen uses).
+ * DEBUG builds log every resolution under the `ScreenPlacementPlan` tag; filter
+ * logcat on it to confirm which id and type each screen ends up with.
  */
 object ScreenPlacementPlan {
 

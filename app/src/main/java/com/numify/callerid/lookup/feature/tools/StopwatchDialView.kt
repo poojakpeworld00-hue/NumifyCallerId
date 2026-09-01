@@ -11,15 +11,17 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 /**
- * Analog stopwatch face: a disc, sixty ticks, and a sweep hand over a centre hub.
+ * Analogue stopwatch face: a disc, sixty ticks and a sweep hand above a centre hub.
  *
- * The design lays the ticks out as sixty absolutely-positioned elements. Drawing
- * them is not just shorter — a tick's length and weight depend on whether it is a
- * five-second mark, which as markup means sixty hand-written spans that cannot be
- * re-proportioned when the dial is a different size on a different phone.
+ * Laying the ticks out as sixty absolutely-positioned elements is the obvious
+ * alternative, and drawing them is not merely shorter. A tick's length and weight
+ * depend on whether it falls on a five-second mark, which in markup means sixty
+ * hand-written spans that cannot be re-proportioned when the dial renders at a
+ * different size on a different phone.
  *
- * The hand is driven by [setSeconds] rather than an internal animator: the
- * stopwatch already ticks, and a second clock here would drift against the digits.
+ * The hand follows [setSeconds] instead of an internal animator, because the
+ * stopwatch is already ticking and a second clock here would drift against the
+ * digits.
  */
 class StopwatchDialView @JvmOverloads constructor(
     context: Context,
