@@ -229,20 +229,20 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
     private val tabIcons by lazy {
         mapOf(
             binding.picRecent to Pair(
-                R.drawable.cbk_recent_selected,
-                R.drawable.cbk_recent_unselected
+                R.drawable.callback_recent_selected,
+                R.drawable.callback_recent_unselected
             ),
             binding.picMes to Pair(
-                R.drawable.cbk_message_selected,
-                R.drawable.cbk_message_unselected
+                R.drawable.callback_message_selected,
+                R.drawable.callback_message_unselected
             ),
             binding.picReminder to Pair(
-                R.drawable.cbk_reminder_selected,
-                R.drawable.cbk_reminder_unselected
+                R.drawable.callback_reminder_selected,
+                R.drawable.callback_reminder_unselected
             ),
             binding.picWhatsapp to Pair(
-                R.drawable.cbk_wa_selected,
-                R.drawable.cbk_wa_unselected
+                R.drawable.callback_wa_selected,
+                R.drawable.callback_wa_unselected
             )
         )
     }

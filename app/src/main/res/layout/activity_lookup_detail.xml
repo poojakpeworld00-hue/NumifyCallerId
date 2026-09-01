@@ -29,7 +29,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/onboarding_skip"
                 android:padding="@dimen/_5sdp"
-                android:src="@drawable/glyph_arrow_back"
+                android:src="@drawable/ic_arrow_back"
                 app:tint="@color/on_surface" />
 
             <TextView
@@ -67,14 +67,14 @@
                     <FrameLayout
                         android:layout_width="@dimen/_64sdp"
                         android:layout_height="@dimen/_64sdp"
-                        android:background="@drawable/shape_detail_avatar_ring"
+                        android:background="@drawable/bg_detail_avatar_ring"
                         android:padding="@dimen/_3sdp">
 
                         <TextView
                             android:id="@+id/lblAvatar"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/shape_avatar"
+                            android:background="@drawable/bg_avatar"
                             android:gravity="center"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_20ssp"
@@ -110,7 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
-                        android:background="@drawable/shape_pill"
+                        android:background="@drawable/bg_pill"
                         android:backgroundTint="@color/success_soft"
                         android:drawablePadding="@dimen/_5sdp"
                         android:gravity="center_vertical"
@@ -136,7 +136,7 @@
                             style="@style/DetailActionIcon"
                             android:backgroundTint="@color/primary"
                             android:contentDescription="@string/action_call"
-                            android:src="@drawable/glyph_call"
+                            android:src="@drawable/ic_call"
                             app:tint="@color/white" />
 
                         <TextView
@@ -150,7 +150,7 @@
                             style="@style/DetailActionIcon"
                             android:backgroundTint="@color/primary_container"
                             android:contentDescription="@string/action_message"
-                            android:src="@drawable/glyph_message_square_alt"
+                            android:src="@drawable/ic_message_square_alt"
                             app:tint="@color/primary"  />
 
                         <TextView
@@ -164,7 +164,7 @@
                             style="@style/DetailActionIcon"
                             android:backgroundTint="@color/primary_container"
                             android:contentDescription="@string/settings_share"
-                            android:src="@drawable/glyph_share"
+                            android:src="@drawable/ic_share"
                             app:tint="@color/primary" />
 
                         <TextView
@@ -179,7 +179,7 @@
                             style="@style/DetailActionIcon"
                             android:backgroundTint="@color/cid_clay_100"
                             android:contentDescription="@string/action_block"
-                            android:src="@drawable/glyph_block"
+                            android:src="@drawable/ic_block"
                             app:tint="@color/cid_clay" />
 
                         <TextView
@@ -194,7 +194,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_14sdp"
-                    android:background="@drawable/shape_row_neutral"
+                    android:background="@drawable/bg_row_neutral"
                     android:orientation="vertical"
                     android:paddingHorizontal="@dimen/_14sdp">
 
@@ -210,7 +210,7 @@
                             android:layout_width="@dimen/_15sdp"
                             android:layout_height="@dimen/_15sdp"
                             android:contentDescription="@string/lookup_country"
-                            android:src="@drawable/glyph_row_country" />
+                            android:src="@drawable/ic_row_country" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -248,7 +248,7 @@
                             android:layout_width="@dimen/_15sdp"
                             android:layout_height="@dimen/_15sdp"
                             android:contentDescription="@string/lookup_carrier"
-                            android:src="@drawable/glyph_row_carrier" />
+                            android:src="@drawable/ic_row_carrier" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -286,7 +286,7 @@
                             android:layout_width="@dimen/_15sdp"
                             android:layout_height="@dimen/_15sdp"
                             android:contentDescription="@string/lookup_line_type"
-                            android:src="@drawable/glyph_row_line" />
+                            android:src="@drawable/ic_row_line" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -324,7 +324,7 @@
                             android:layout_width="@dimen/_15sdp"
                             android:layout_height="@dimen/_15sdp"
                             android:contentDescription="@string/lookup_city"
-                            android:src="@drawable/glyph_row_city" />
+                            android:src="@drawable/ic_row_city" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -352,7 +352,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/shape_cid_card"
+                    android:background="@drawable/bg_cid_card"
                     android:orientation="vertical"
                     android:padding="@dimen/_14sdp"
                     android:visibility="gone">
@@ -372,7 +372,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/shape_row_neutral"
+                    android:background="@drawable/bg_row_neutral"
                     android:orientation="vertical"
                     android:padding="@dimen/_14sdp"
                     android:visibility="gone">

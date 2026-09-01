@@ -22,14 +22,14 @@
         android:layout_height="@dimen/_150sdp"
         android:layout_gravity="center"
         android:contentDescription="@null"
-        android:src="@drawable/shape_onb_halo_blue" />
+        android:src="@drawable/bg_onb_halo_blue" />
 
     <LinearLayout
         android:id="@+id/obCardVw"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_182sdp"
         android:layout_gravity="center"
-        android:background="@drawable/shape_onb_card_brand"
+        android:background="@drawable/bg_onb_card_brand"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:elevation="@dimen/_8sdp"
@@ -45,7 +45,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_22sdp"
-            android:background="@drawable/shape_onb_field_white"
+            android:background="@drawable/bg_onb_field_white"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/_9sdp">
@@ -54,7 +54,7 @@
                 android:layout_width="@dimen/_9sdp"
                 android:layout_height="@dimen/_9sdp"
                 android:contentDescription="@null"
-                android:src="@drawable/glyph_ob_search"
+                android:src="@drawable/ic_ob_search"
                 app:tint="@color/on_surface_variant" />
 
             <TextView
@@ -79,26 +79,26 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/shape_onb_ring_scan" />
+                android:background="@drawable/bg_onb_ring_scan" />
 
             <View
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_gravity="center"
-                android:background="@drawable/shape_onb_ring_scan" />
+                android:background="@drawable/bg_onb_ring_scan" />
 
             <ImageView
                 android:id="@+id/obSweepVw"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@null"
-                android:src="@drawable/glyph_ob_sweep" />
+                android:src="@drawable/ic_ob_sweep" />
 
             <TextView
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_gravity="center"
-                android:background="@drawable/shape_onb_avatar_brand"
+                android:background="@drawable/bg_onb_avatar_brand"
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:text="@string/onb_match_initials"
@@ -113,7 +113,7 @@
                 android:layout_gravity="top|end"
                 android:layout_marginTop="@dimen/_9sdp"
                 android:layout_marginEnd="@dimen/_4sdp"
-                android:background="@drawable/shape_onb_blip" />
+                android:background="@drawable/bg_onb_blip" />
         </FrameLayout>
 
         <TextView
@@ -145,7 +145,7 @@
             android:id="@+id/obStampVw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_onb_chip_found"
+            android:background="@drawable/bg_onb_chip_found"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/_11sdp"
@@ -155,7 +155,7 @@
                 android:layout_width="@dimen/_9sdp"
                 android:layout_height="@dimen/_9sdp"
                 android:contentDescription="@null"
-                android:src="@drawable/glyph_check"
+                android:src="@drawable/ic_check"
                 app:tint="@color/identified_on" />
 
             <TextView

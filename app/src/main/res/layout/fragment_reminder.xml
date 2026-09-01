@@ -30,7 +30,7 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="@dimen/_80sdp"
                 android:contentDescription="@null"
-                android:src="@drawable/cbk_reminder_unselected"
+                android:src="@drawable/callback_reminder_unselected"
                 android:tint="@color/text_secondary" />
 
             <TextView
@@ -49,7 +49,7 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center|right"
-            android:background="@drawable/shape_btn"
+            android:background="@drawable/bg_btn"
             android:fontFamily="@font/figtree_medium"
             android:gravity="center|right"
             android:padding="@dimen/_13sdp"

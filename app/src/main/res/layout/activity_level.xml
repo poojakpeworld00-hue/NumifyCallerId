@@ -36,7 +36,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/onboarding_skip"
                 android:padding="@dimen/_9sdp"
-                android:src="@drawable/glyph_arrow_back"
+                android:src="@drawable/ic_arrow_back"
                 app:tint="@color/on_surface" />
 
             <TextView
@@ -54,7 +54,7 @@
                 android:id="@+id/padCalibrate"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_32sdp"
-                android:background="@drawable/shape_cid_pill_neutral"
+                android:background="@drawable/bg_cid_pill_neutral"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/_12sdp"
@@ -95,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_7sdp"
-                    android:background="@drawable/shape_cid_pill_neutral"
+                    android:background="@drawable/bg_cid_pill_neutral"
                     android:includeFontPadding="false"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingVertical="@dimen/_5sdp"
@@ -130,7 +130,7 @@
                         android:layout_width="@dimen/_13sdp"
                         android:layout_height="@dimen/_13sdp"
                         android:contentDescription="@null"
-                        android:src="@drawable/glyph_hand_tap"
+                        android:src="@drawable/ic_hand_tap"
                         app:tint="@color/primary" />
 
                     <TextView
@@ -161,7 +161,7 @@
 
                             <ImageView
                                 style="@style/SpeedStatIcon"
-                                android:src="@drawable/glyph_arrow_forward"
+                                android:src="@drawable/ic_arrow_forward"
                                 app:tint="@color/cid_teal" />
 
                             <TextView
@@ -188,7 +188,7 @@
                             <ImageView
                                 style="@style/SpeedStatIcon"
                                 android:rotation="90"
-                                android:src="@drawable/glyph_arrow_forward"
+                                android:src="@drawable/ic_arrow_forward"
                                 app:tint="@color/cid_amber" />
 
                             <TextView

@@ -5,7 +5,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_overlay_sheet"
+    android:background="@drawable/bg_overlay_sheet"
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/_16sdp"
     android:paddingTop="@dimen/_8sdp"
@@ -16,7 +16,7 @@
         android:layout_height="@dimen/_4sdp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/_10sdp"
-        android:background="@drawable/shape_sheet_grabber" />
+        android:background="@drawable/bg_sheet_grabber" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
-        android:background="@drawable/shape_btn_primary"
+        android:background="@drawable/bg_btn_primary"
         android:gravity="center"
         android:paddingVertical="@dimen/_11sdp"
         android:text="@string/perm_sheet_continue"

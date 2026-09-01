@@ -77,13 +77,13 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
         // Preferences grid — Theme is an inline segmented toggle.
         setupThemeToggle()
         bindPanel(
-            binding.panelLanguage, R.drawable.glyph_language, R.drawable.shape_cid_chip_teal,
+            binding.panelLanguage, R.drawable.ic_language, R.drawable.bg_cid_chip_teal,
             R.color.cid_teal, R.string.settings_language, currentLanguageName()
         ) {
             openActivity(LanguagePickerActivity.newIntent(this, standalone = true))
         }
         bindPanel(
-            binding.panelBlocklist, R.drawable.prefs_blocklist, R.drawable.shape_cid_chip_clay,
+            binding.panelBlocklist, R.drawable.settings_blocklist, R.drawable.bg_cid_chip_clay,
             R.color.cid_clay, R.string.settings_blocklist, getString(R.string.settings_blocklist_sub)
         ) {
             openActivity(
@@ -93,7 +93,7 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
             )
         }
         bindPanel(
-            binding.panelSim, R.drawable.glyph_sim_card, R.drawable.shape_cid_chip_amber,
+            binding.panelSim, R.drawable.ic_sim_card, R.drawable.bg_cid_chip_amber,
             R.color.cid_amber, R.string.settings_sim, getString(R.string.settings_sim_sub)
         ) { openSimManagement() }
 
@@ -109,8 +109,8 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
         if (showRate) {
             bindRow(
                 binding.rowRateVw,
-                R.drawable.glyph_star,
-                R.drawable.shape_cid_chip_amber,
+                R.drawable.ic_star,
+                R.drawable.bg_cid_chip_amber,
                 R.color.cid_amber,
                 R.string.settings_rate,
                 R.string.settings_rate_sub
@@ -120,8 +120,8 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
         }
         bindRow(
             binding.rowShareVw,
-            R.drawable.prefs_share,
-            R.drawable.shape_cid_chip_teal,
+            R.drawable.settings_share,
+            R.drawable.bg_cid_chip_teal,
             R.color.cid_teal,
             R.string.settings_share,
             R.string.settings_share_sub
@@ -130,12 +130,12 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
         }
 
         // Legal
-        binding.rowPrivacyVw.picIcon.setImageResource(R.drawable.glyph_policy)
-        chipIcon(binding.rowPrivacyVw.picIcon, R.drawable.shape_cid_chip_brand, R.color.primary)
+        binding.rowPrivacyVw.picIcon.setImageResource(R.drawable.ic_policy)
+        chipIcon(binding.rowPrivacyVw.picIcon, R.drawable.bg_cid_chip_brand, R.color.primary)
         binding.rowPrivacyVw.lblTitle.setText(R.string.settings_privacy)
         binding.rowPrivacyVw.root.setOnClickListener { openPolicyLink() }
-        binding.rowTermsVw.picIcon.setImageResource(R.drawable.glyph_terms)
-        chipIcon(binding.rowTermsVw.picIcon, R.drawable.shape_cid_chip_clay, R.color.cid_clay)
+        binding.rowTermsVw.picIcon.setImageResource(R.drawable.ic_terms)
+        chipIcon(binding.rowTermsVw.picIcon, R.drawable.bg_cid_chip_clay, R.color.cid_clay)
         binding.rowTermsVw.lblTitle.setText(R.string.settings_terms)
         binding.rowTermsVw.root.setOnClickListener { openTermLink() }
 
@@ -361,7 +361,7 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
     private fun highlightTheme(cells: List<ImageView>, selected: Int) {
         cells.forEachIndexed { i, cell ->
             val active = i == selected
-            cell.setBackgroundResource(if (active) R.drawable.shape_theme_selected else 0)
+            cell.setBackgroundResource(if (active) R.drawable.bg_theme_selected else 0)
             val color = ContextCompat.getColor(
                 this, if (active) R.color.white else R.color.on_surface_variant
             )

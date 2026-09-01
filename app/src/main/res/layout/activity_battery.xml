@@ -41,7 +41,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/onboarding_skip"
                 android:padding="@dimen/_9sdp"
-                android:src="@drawable/glyph_arrow_back"
+                android:src="@drawable/ic_arrow_back"
                 app:tint="@color/on_surface" />
 
             <TextView
@@ -62,7 +62,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/battery_saver"
                 android:padding="@dimen/_9sdp"
-                android:src="@drawable/glyph_settings"
+                android:src="@drawable/ic_settings"
                 app:tint="@color/primary" />
         </LinearLayout>
 
@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/shape_cid_pill_neutral"
+                    android:background="@drawable/bg_cid_pill_neutral"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingVertical="@dimen/_6sdp"
                     android:gravity="center_vertical"
@@ -135,7 +135,7 @@
                         android:layout_width="@dimen/_13sdp"
                         android:layout_height="@dimen/_13sdp"
                         android:contentDescription="@null"
-                        android:src="@drawable/glyph_battery_charging"
+                        android:src="@drawable/ic_battery_charging"
                         app:tint="@color/on_surface" />
 
                     <TextView
@@ -156,7 +156,7 @@
                     <View
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_5sdp"
-                        android:background="@drawable/shape_section_dot" />
+                        android:background="@drawable/bg_section_dot" />
 
                     <TextView
                         style="@style/NetSectionLabel"
@@ -188,7 +188,7 @@
 
                             <ImageView
                                 style="@style/SpeedStatIcon"
-                                android:src="@drawable/glyph_thermometer"
+                                android:src="@drawable/ic_thermometer"
                                 app:tint="@color/cid_clay" />
 
                             <TextView
@@ -213,7 +213,7 @@
 
                             <ImageView
                                 style="@style/SpeedStatIcon"
-                                android:src="@drawable/glyph_bolt"
+                                android:src="@drawable/ic_bolt"
                                 app:tint="@color/cid_amber" />
 
                             <TextView
@@ -246,7 +246,7 @@
 
                             <ImageView
                                 style="@style/SpeedStatIcon"
-                                android:src="@drawable/glyph_heartbeat"
+                                android:src="@drawable/ic_heartbeat"
                                 app:tint="@color/cid_teal" />
 
                             <TextView
@@ -271,7 +271,7 @@
 
                             <ImageView
                                 style="@style/SpeedStatIcon"
-                                android:src="@drawable/glyph_battery"
+                                android:src="@drawable/ic_battery"
                                 app:tint="@color/primary" />
 
                             <TextView
@@ -292,7 +292,7 @@
                     <View
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_5sdp"
-                        android:background="@drawable/shape_section_dot" />
+                        android:background="@drawable/bg_section_dot" />
 
                     <TextView
                         style="@style/NetSectionLabel"
@@ -310,8 +310,8 @@
 
                     <ImageView
                         style="@style/NetRowIcon"
-                        android:background="@drawable/shape_cid_chip_brand"
-                        android:src="@drawable/glyph_battery_charging"
+                        android:background="@drawable/bg_cid_chip_brand"
+                        android:src="@drawable/ic_battery_charging"
                         app:tint="@color/primary" />
 
                     <TextView
@@ -328,8 +328,8 @@
 
                     <ImageView
                         style="@style/NetRowIcon"
-                        android:background="@drawable/shape_cid_chip_teal"
-                        android:src="@drawable/glyph_plug"
+                        android:background="@drawable/bg_cid_chip_teal"
+                        android:src="@drawable/ic_plug"
                         app:tint="@color/cid_teal" />
 
                     <TextView
@@ -346,8 +346,8 @@
 
                     <ImageView
                         style="@style/NetRowIcon"
-                        android:background="@drawable/shape_cid_chip_amber"
-                        android:src="@drawable/glyph_view"
+                        android:background="@drawable/bg_cid_chip_amber"
+                        android:src="@drawable/ic_view"
                         app:tint="@color/cid_amber" />
 
                     <TextView
@@ -365,7 +365,7 @@
                     style="@style/ToolCta"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:text="@string/battery_saver"
-                    app:icon="@drawable/glyph_settings" />
+                    app:icon="@drawable/ic_settings" />
 
                 <FrameLayout
                     android:id="@+id/adNativeFrameVw"

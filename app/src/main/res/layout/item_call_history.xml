@@ -13,10 +13,10 @@
         android:id="@+id/picDir"
         android:layout_width="@dimen/_36sdp"
         android:layout_height="@dimen/_36sdp"
-        android:background="@drawable/shape_circle_surface"
+        android:background="@drawable/bg_circle_surface"
         android:contentDescription="@string/detail_call_history"
         android:padding="@dimen/_9sdp"
-        android:src="@drawable/glyph_call_received"
+        android:src="@drawable/ic_call_received"
         app:tint="@color/primary" />
 
     <TextView

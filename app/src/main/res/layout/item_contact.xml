@@ -18,7 +18,7 @@
             android:id="@+id/lblAvatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/shape_avatar"
+            android:background="@drawable/bg_avatar"
             android:backgroundTint="@color/primary_container"
             android:gravity="center"
             android:textColor="@color/on_primary_container"
@@ -68,9 +68,9 @@
         android:id="@+id/padCall"
         android:layout_width="@dimen/_32sdp"
         android:layout_height="@dimen/_32sdp"
-        android:background="@drawable/shape_circle_surface"
+        android:background="@drawable/bg_circle_surface"
         android:contentDescription="@string/action_call"
         android:padding="@dimen/_7sdp"
-        android:src="@drawable/glyph_call"
+        android:src="@drawable/ic_call"
         app:tint="@color/primary" />
 </LinearLayout>

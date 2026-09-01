@@ -33,34 +33,34 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
         val time = getString(R.string.tools_cat_time)
         listOf(
             UtilityUi(getString(R.string.tools_compass), getString(R.string.tools_compass_sub),
-                R.drawable.glyph_tool_compass, R.drawable.shape_tool_chip_green, R.color.tool_green,
+                R.drawable.ic_tool_compass, R.drawable.bg_tool_chip_green, R.color.tool_green,
                 measure, CompassActivity::class.java),
             UtilityUi(getString(R.string.tools_level), getString(R.string.tools_level_sub),
-                R.drawable.glyph_tool_level, R.drawable.shape_tool_chip_sky, R.color.tool_sky,
+                R.drawable.ic_tool_level, R.drawable.bg_tool_chip_sky, R.color.tool_sky,
                 measure, SpiritLevelActivity::class.java),
             UtilityUi(getString(R.string.tools_sound), getString(R.string.tools_sound_sub),
-                R.drawable.glyph_tool_sound, R.drawable.shape_tool_chip_rose, R.color.tool_rose,
+                R.drawable.ic_tool_sound, R.drawable.bg_tool_chip_rose, R.color.tool_rose,
                 measure, NoiseMeterActivity::class.java),
             UtilityUi(getString(R.string.tools_light), getString(R.string.tools_light_sub),
-                R.drawable.glyph_tool_light, R.drawable.shape_tool_chip_amber, R.color.tool_amber,
+                R.drawable.ic_tool_light, R.drawable.bg_tool_chip_amber, R.color.tool_amber,
                 measure, LightMeterActivity::class.java),
             UtilityUi(getString(R.string.tools_flashlight), getString(R.string.tools_flashlight_sub),
-                R.drawable.glyph_tool_flashlight, R.drawable.shape_tool_chip_amber, R.color.tool_amber,
+                R.drawable.ic_tool_flashlight, R.drawable.bg_tool_chip_amber, R.color.tool_amber,
                 device, FlashlightActivity::class.java),
             UtilityUi(getString(R.string.tools_battery), getString(R.string.tools_battery_sub),
-                R.drawable.glyph_tool_battery, R.drawable.shape_tool_chip_green, R.color.tool_green,
+                R.drawable.ic_tool_battery, R.drawable.bg_tool_chip_green, R.color.tool_green,
                 device, BatteryInfoActivity::class.java),
             UtilityUi(getString(R.string.tools_sim), getString(R.string.tools_sim_sub),
-                R.drawable.glyph_tool_network, R.drawable.shape_tool_chip_teal, R.color.tool_teal,
+                R.drawable.ic_tool_network, R.drawable.bg_tool_chip_teal, R.color.tool_teal,
                 device, SimInfoActivity::class.java),
             UtilityUi(getString(R.string.tools_speedometer), getString(R.string.tools_speedometer_sub),
-                R.drawable.glyph_tool_speedometer, R.drawable.shape_tool_chip_rose, R.color.tool_rose,
+                R.drawable.ic_tool_speedometer, R.drawable.bg_tool_chip_rose, R.color.tool_rose,
                 device, SpeedometerActivity::class.java),
             UtilityUi(getString(R.string.tools_stopwatch), getString(R.string.tools_stopwatch_sub),
-                R.drawable.glyph_tool_stopwatch, R.drawable.shape_tool_chip_green, R.color.tool_green,
+                R.drawable.ic_tool_stopwatch, R.drawable.bg_tool_chip_green, R.color.tool_green,
                 time, StopwatchActivity::class.java),
             UtilityUi(getString(R.string.timer_tool), getString(R.string.timer_tool_sub),
-                R.drawable.glyph_tool_timer, R.drawable.shape_tool_chip_sky, R.color.tool_sky,
+                R.drawable.ic_tool_timer, R.drawable.bg_tool_chip_sky, R.color.tool_sky,
                 time, TimerActivity::class.java),
         )
     }
@@ -116,7 +116,7 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
     private fun updateSearchChrome(query: String) {
         val active = query.isNotEmpty() || binding.inpSearch.hasFocus()
         binding.searchBarVw.setBackgroundResource(
-            if (active) R.drawable.shape_search_bar_active else R.drawable.shape_search_bar
+            if (active) R.drawable.bg_search_bar_active else R.drawable.bg_search_bar
         )
     }
 

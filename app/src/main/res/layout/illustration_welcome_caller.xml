@@ -23,14 +23,14 @@
         android:layout_height="@dimen/_150sdp"
         android:layout_gravity="center"
         android:contentDescription="@null"
-        android:src="@drawable/shape_onb_halo_blue" />
+        android:src="@drawable/bg_onb_halo_blue" />
 
     <LinearLayout
         android:id="@+id/obCardVw"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_182sdp"
         android:layout_gravity="center"
-        android:background="@drawable/shape_onb_card_brand"
+        android:background="@drawable/bg_onb_card_brand"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:elevation="@dimen/_8sdp"
@@ -64,20 +64,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:background="@drawable/shape_onb_pulse_brand" />
+                    android:background="@drawable/bg_onb_pulse_brand" />
 
                 <View
                     android:id="@+id/obRing2Vw"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:background="@drawable/shape_onb_pulse_brand" />
+                    android:background="@drawable/bg_onb_pulse_brand" />
 
                 <View
                     android:layout_width="@dimen/_5sdp"
                     android:layout_height="@dimen/_5sdp"
                     android:layout_gravity="center"
-                    android:background="@drawable/shape_onb_dot_brand" />
+                    android:background="@drawable/bg_onb_dot_brand" />
             </FrameLayout>
 
             <TextView
@@ -104,7 +104,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/shape_onb_avatar_brand"
+                android:background="@drawable/bg_onb_avatar_brand"
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:text="@string/onb_caller_initials"
@@ -117,14 +117,14 @@
                 android:layout_width="@dimen/_21sdp"
                 android:layout_height="@dimen/_21sdp"
                 android:layout_gravity="bottom|end"
-                android:background="@drawable/shape_onb_badge_verified">
+                android:background="@drawable/bg_onb_badge_verified">
 
                 <ImageView
                     android:layout_width="@dimen/_10sdp"
                     android:layout_height="@dimen/_10sdp"
                     android:layout_gravity="center"
                     android:contentDescription="@null"
-                    android:src="@drawable/glyph_check"
+                    android:src="@drawable/ic_check"
                     app:tint="@color/white" />
             </FrameLayout>
         </FrameLayout>
@@ -144,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:background="@drawable/shape_onb_chip_brand"
+            android:background="@drawable/bg_onb_chip_brand"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/_7sdp"
@@ -154,7 +154,7 @@
                 android:layout_width="@dimen/_8sdp"
                 android:layout_height="@dimen/_8sdp"
                 android:contentDescription="@null"
-                android:src="@drawable/glyph_verified"
+                android:src="@drawable/ic_verified"
                 app:tint="@color/on_primary_container" />
 
             <TextView
@@ -186,20 +186,20 @@
                 android:layout_width="@dimen/_28sdp"
                 android:layout_height="@dimen/_28sdp"
                 android:layout_marginEnd="@dimen/_18sdp"
-                android:background="@drawable/shape_onb_circle_spam"
+                android:background="@drawable/bg_onb_circle_spam"
                 android:contentDescription="@null"
                 android:padding="@dimen/_7sdp"
                 android:rotation="135"
-                android:src="@drawable/glyph_phone_solid"
+                android:src="@drawable/ic_phone_solid"
                 app:tint="@color/danger" />
 
             <ImageView
                 android:layout_width="@dimen/_28sdp"
                 android:layout_height="@dimen/_28sdp"
-                android:background="@drawable/shape_onb_circle_green"
+                android:background="@drawable/bg_onb_circle_green"
                 android:contentDescription="@null"
                 android:padding="@dimen/_7sdp"
-                android:src="@drawable/glyph_phone_solid"
+                android:src="@drawable/ic_phone_solid"
                 app:tint="@color/white" />
         </LinearLayout>
     </LinearLayout>

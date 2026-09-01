@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/_14sdp"
     android:layout_marginTop="@dimen/_10sdp"
-    android:background="@drawable/shape_card"
+    android:background="@drawable/bg_card"
     android:clickable="true"
     android:focusable="true"
     android:gravity="center_vertical"
@@ -17,9 +17,9 @@
         android:id="@+id/picIcon"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
-        android:background="@drawable/shape_icon_box"
+        android:background="@drawable/bg_icon_box"
         android:padding="@dimen/_9sdp"
-        android:src="@drawable/glyph_language"
+        android:src="@drawable/ic_language"
         app:tint="@color/primary"
         tools:ignore="ContentDescription" />
 
@@ -52,7 +52,7 @@
     <ImageView
         android:layout_width="@dimen/_18sdp"
         android:layout_height="@dimen/_18sdp"
-        android:src="@drawable/glyph_chevron_right"
+        android:src="@drawable/ic_chevron_right"
         app:tint="@color/on_surface_variant"
         tools:ignore="ContentDescription" />
 </LinearLayout>

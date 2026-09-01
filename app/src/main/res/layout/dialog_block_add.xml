@@ -14,7 +14,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_card"
+    android:background="@drawable/bg_card"
     android:orientation="vertical"
     android:padding="@dimen/_16sdp">
 
@@ -36,7 +36,7 @@
             android:layout_height="@dimen/_44sdp"
             android:layout_marginEnd="@dimen/_5sdp"
             android:layout_weight="1"
-            android:background="@drawable/shape_btn_outline"
+            android:background="@drawable/bg_btn_outline"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:text="@string/action_cancel"
@@ -50,7 +50,7 @@
             android:layout_height="@dimen/_44sdp"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_weight="1.4"
-            android:background="@drawable/shape_btn_danger"
+            android:background="@drawable/bg_btn_danger"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:text="@string/action_block"

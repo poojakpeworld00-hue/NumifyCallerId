@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginVertical="@dimen/_5sdp"
-        android:background="@drawable/shape_btn"
+        android:background="@drawable/bg_btn"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="@dimen/_8sdp">
@@ -30,7 +30,7 @@
         <ImageView
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
-            android:src="@drawable/opt_rename" />
+            android:src="@drawable/option_rename" />
 
         <EditText
             android:id="@+id/inpCustomMessage"
@@ -49,11 +49,11 @@
             android:id="@+id/padSendMessage"
             android:layout_width="@dimen/_32sdp"
             android:layout_height="@dimen/_32sdp"
-            android:background="@drawable/shape_main_btn"
+            android:background="@drawable/bg_main_btn"
             android:backgroundTint="@color/primary"
             android:padding="@dimen/_5sdp"
             android:rotation="180"
-            android:src="@drawable/glyph_back"
+            android:src="@drawable/ic_back"
             android:tint="@android:color/white" />
     </LinearLayout>
 

@@ -10,7 +10,7 @@
     android:id="@+id/fsScreenRootVw"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_fsi_intro"
+    android:background="@drawable/bg_fsi_intro"
     android:orientation="vertical">
 
     <androidx.core.widget.NestedScrollView
@@ -38,7 +38,7 @@
                     android:layout_height="@dimen/_185sdp"
                     android:layout_gravity="center"
                     android:contentDescription="@null"
-                    android:src="@drawable/shape_fsi_glow" />
+                    android:src="@drawable/bg_fsi_glow" />
 
                 <ImageView
                     android:id="@+id/fsOrbit1Vw"
@@ -46,7 +46,7 @@
                     android:layout_height="@dimen/_160sdp"
                     android:layout_gravity="center"
                     android:contentDescription="@null"
-                    android:src="@drawable/shape_fsi_orbit_ring" />
+                    android:src="@drawable/bg_fsi_orbit_ring" />
 
                 <ImageView
                     android:id="@+id/fsOrbit2Vw"
@@ -54,7 +54,7 @@
                     android:layout_height="@dimen/_160sdp"
                     android:layout_gravity="center"
                     android:contentDescription="@null"
-                    android:src="@drawable/shape_fsi_orbit_ring" />
+                    android:src="@drawable/bg_fsi_orbit_ring" />
 
                 <include
                     layout="@layout/include_fsi_call_preview"
@@ -94,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_13sdp"
-                android:background="@drawable/shape_fsi_benefit_card"
+                android:background="@drawable/bg_fsi_benefit_card"
                 android:orientation="vertical"
                 android:padding="@dimen/_4sdp">
 
@@ -109,11 +109,11 @@
                     <ImageView
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:background="@drawable/shape_fsi_tile"
+                        android:background="@drawable/bg_fsi_tile"
                         android:backgroundTint="@color/fsi_tile_blue"
                         android:contentDescription="@null"
                         android:padding="@dimen/_7sdp"
-                        android:src="@drawable/glyph_search"
+                        android:src="@drawable/ic_search"
                         app:tint="@color/fsi_icon_blue" />
 
                     <TextView
@@ -144,11 +144,11 @@
                     <ImageView
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:background="@drawable/shape_fsi_tile"
+                        android:background="@drawable/bg_fsi_tile"
                         android:backgroundTint="@color/fsi_tile_red"
                         android:contentDescription="@null"
                         android:padding="@dimen/_7sdp"
-                        android:src="@drawable/glyph_fraud_block"
+                        android:src="@drawable/ic_fraud_block"
                         app:tint="@color/fsi_icon_red" />
 
                     <TextView
@@ -179,11 +179,11 @@
                     <ImageView
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:background="@drawable/shape_fsi_tile"
+                        android:background="@drawable/bg_fsi_tile"
                         android:backgroundTint="@color/fsi_tile_green"
                         android:contentDescription="@null"
                         android:padding="@dimen/_7sdp"
-                        android:src="@drawable/glyph_history"
+                        android:src="@drawable/ic_history"
                         app:tint="@color/fsi_icon_green" />
 
                     <TextView
@@ -234,7 +234,7 @@
         android:layout_height="@dimen/_44sdp"
         android:layout_marginHorizontal="@dimen/_22sdp"
         android:layout_marginTop="@dimen/_4sdp"
-        android:background="@drawable/shape_fsi_cta"
+        android:background="@drawable/bg_fsi_cta"
         android:gravity="center"
         android:text="@string/fsi_enable_now"
         android:textColor="#FFFFFF"

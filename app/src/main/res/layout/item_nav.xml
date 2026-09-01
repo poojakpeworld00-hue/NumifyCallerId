@@ -19,7 +19,7 @@
             android:id="@+id/navIndicatorVw"
             android:layout_width="@dimen/_22sdp"
             android:layout_height="@dimen/_3sdp"
-            android:background="@drawable/shape_nav_indicator"
+            android:background="@drawable/bg_nav_indicator"
             android:visibility="invisible" />
 
         <ImageView
@@ -28,7 +28,7 @@
             android:layout_height="@dimen/_24sdp"
             android:layout_marginTop="@dimen/_7sdp"
             android:paddingHorizontal="@dimen/_14sdp"
-            android:src="@drawable/welc_home_unselected"
+            android:src="@drawable/navtab_home_unselected"
             app:tint="@color/on_surface_variant"
             tools:ignore="ContentDescription" />
 

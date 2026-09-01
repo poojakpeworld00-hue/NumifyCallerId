@@ -9,7 +9,7 @@
         android:id="@+id/nativview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_ads_backdrop"
+        android:background="@drawable/bg_ads_backdrop"
         android:padding="@dimen/_5sdp">
 
         <LinearLayout
@@ -85,7 +85,7 @@
                     android:layout_height="50dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/shape_btn_primary"
+                    android:background="@drawable/bg_btn_primary"
                     android:gravity="center"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"

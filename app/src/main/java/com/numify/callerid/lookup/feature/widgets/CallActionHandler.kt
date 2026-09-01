@@ -42,10 +42,10 @@ object CallActionHandler {
     }
 
     fun typeIconRes(type: CallType): Int = when (type) {
-        CallType.INCOMING -> R.drawable.glyph_call_received
-        CallType.OUTGOING -> R.drawable.glyph_call_made
-        CallType.MISSED -> R.drawable.glyph_call_missed
-        CallType.SPAM -> R.drawable.glyph_warning
+        CallType.INCOMING -> R.drawable.ic_call_received
+        CallType.OUTGOING -> R.drawable.ic_call_made
+        CallType.MISSED -> R.drawable.ic_call_missed
+        CallType.SPAM -> R.drawable.ic_warning
     }
 
     fun typeColorRes(type: CallType): Int = when (type) {

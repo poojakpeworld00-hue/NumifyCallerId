@@ -8,7 +8,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_row_neutral"
+    android:background="@drawable/bg_row_neutral"
     android:orientation="vertical"
     android:padding="@dimen/_2sdp">
 
@@ -26,10 +26,10 @@
         <ImageView
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:background="@drawable/shape_block_method_chip"
+            android:background="@drawable/bg_block_method_chip"
             android:contentDescription="@string/blocklist_method_add_title"
             android:padding="@dimen/_10sdp"
-            android:src="@drawable/glyph_add"
+            android:src="@drawable/ic_add"
             app:tint="@color/primary" />
 
         <LinearLayout
@@ -60,7 +60,7 @@
             android:layout_width="@dimen/_18sdp"
             android:layout_height="@dimen/_18sdp"
             android:contentDescription="@string/blocklist_method_add_title"
-            android:src="@drawable/glyph_chevron_right"
+            android:src="@drawable/ic_chevron_right"
             app:tint="@color/radio_unselected" />
     </LinearLayout>
 
@@ -84,10 +84,10 @@
         <ImageView
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:background="@drawable/shape_block_method_chip"
+            android:background="@drawable/bg_block_method_chip"
             android:contentDescription="@string/blocklist_method_contacts_title"
             android:padding="@dimen/_10sdp"
-            android:src="@drawable/glyph_person"
+            android:src="@drawable/ic_person"
             app:tint="@color/primary" />
 
         <LinearLayout
@@ -118,7 +118,7 @@
             android:layout_width="@dimen/_18sdp"
             android:layout_height="@dimen/_18sdp"
             android:contentDescription="@string/blocklist_method_contacts_title"
-            android:src="@drawable/glyph_chevron_right"
+            android:src="@drawable/ic_chevron_right"
             app:tint="@color/radio_unselected" />
     </LinearLayout>
 
@@ -142,10 +142,10 @@
         <ImageView
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:background="@drawable/shape_block_method_chip"
+            android:background="@drawable/bg_block_method_chip"
             android:contentDescription="@string/blocklist_method_recents_title"
             android:padding="@dimen/_10sdp"
-            android:src="@drawable/glyph_call"
+            android:src="@drawable/ic_call"
             app:tint="@color/primary" />
 
         <LinearLayout
@@ -176,7 +176,7 @@
             android:layout_width="@dimen/_18sdp"
             android:layout_height="@dimen/_18sdp"
             android:contentDescription="@string/blocklist_method_recents_title"
-            android:src="@drawable/glyph_chevron_right"
+            android:src="@drawable/ic_chevron_right"
             app:tint="@color/radio_unselected" />
     </LinearLayout>
 </LinearLayout>

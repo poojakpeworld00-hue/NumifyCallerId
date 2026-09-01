@@ -24,7 +24,7 @@
         android:id="@+id/overlayCardVw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_overlay_sheet"
+        android:background="@drawable/bg_overlay_sheet"
         android:elevation="@dimen/_12sdp"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/_18sdp"
@@ -35,7 +35,7 @@
             android:layout_width="@dimen/_34sdp"
             android:layout_height="@dimen/_4sdp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/shape_sheet_grabber" />
+            android:background="@drawable/bg_sheet_grabber" />
 
         <TextView
             android:fontFamily="@font/figtree_bold"
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_14sdp"
-            android:background="@drawable/shape_overlay_row"
+            android:background="@drawable/bg_overlay_row"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/_12sdp"
@@ -106,7 +106,7 @@
                 android:layout_height="@dimen/_50sdp"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/toggleonoff" />
+                app:lottie_rawRes="@raw/lottie_toggle" />
         </LinearLayout>
 
         <TextView

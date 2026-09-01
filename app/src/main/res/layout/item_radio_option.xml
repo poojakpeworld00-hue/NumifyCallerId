@@ -13,7 +13,7 @@
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"
         android:contentDescription="@null"
-        android:src="@drawable/shape_radio_unselected" />
+        android:src="@drawable/bg_radio_unselected" />
 
     <TextView
         android:id="@+id/lblOption"

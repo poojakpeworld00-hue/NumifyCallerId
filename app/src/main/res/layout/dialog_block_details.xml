@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_card"
+    android:background="@drawable/bg_card"
     android:orientation="vertical"
     android:padding="@dimen/_20sdp">
 
@@ -17,11 +17,11 @@
         <ImageView
             android:layout_width="@dimen/_42sdp"
             android:layout_height="@dimen/_42sdp"
-            android:background="@drawable/shape_pill"
+            android:background="@drawable/bg_pill"
             android:backgroundTint="@color/danger_soft"
             android:contentDescription="@string/blocklist_status_blocked"
             android:padding="@dimen/_10sdp"
-            android:src="@drawable/glyph_block"
+            android:src="@drawable/ic_block"
             app:tint="@color/danger" />
 
         <LinearLayout
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:background="@drawable/shape_pill"
+                android:background="@drawable/bg_pill"
                 android:backgroundTint="@color/danger_soft"
                 android:paddingHorizontal="@dimen/_8sdp"
                 android:paddingVertical="@dimen/_3sdp"
@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
-            android:background="@drawable/shape_btn_primary"
+            android:background="@drawable/bg_btn_primary"
             android:gravity="center"
             android:minWidth="@dimen/_70sdp"
             android:paddingHorizontal="@dimen/_18sdp"

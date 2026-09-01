@@ -30,7 +30,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/action_back"
                 android:padding="@dimen/_8sdp"
-                android:src="@drawable/glyph_arrow_back"
+                android:src="@drawable/ic_arrow_back"
                 app:tint="@color/on_surface" />
 
             <TextView
@@ -99,10 +99,10 @@
             <ImageView
                 android:layout_width="@dimen/_64sdp"
                 android:layout_height="@dimen/_64sdp"
-                android:background="@drawable/shape_circle_surface"
+                android:background="@drawable/bg_circle_surface"
                 android:contentDescription="@null"
                 android:padding="@dimen/_18sdp"
-                android:src="@drawable/glyph_dialpad"
+                android:src="@drawable/ic_dialpad"
                 app:tint="@color/on_surface_variant" />
 
             <TextView
@@ -131,7 +131,7 @@
             android:id="@+id/dialpadPanelVw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_dialer_sheet"
+            android:background="@drawable/bg_dialer_sheet"
             android:elevation="@dimen/_6sdp"
             android:orientation="vertical"
             android:outlineAmbientShadowColor="@color/card_shadow"
@@ -174,7 +174,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:layout_marginBottom="@dimen/_8sdp"
-                android:background="@drawable/shape_pill_lavender"
+                android:background="@drawable/bg_pill_lavender"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
@@ -188,7 +188,7 @@
                     android:layout_height="@dimen/_13sdp"
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:contentDescription="@string/add_to_contacts"
-                    android:src="@drawable/glyph_person_add"
+                    android:src="@drawable/ic_person_add"
                     app:tint="@color/on_primary_container" />
 
                 <TextView
@@ -295,7 +295,7 @@
                     android:textStyle="bold"
                     app:backgroundTint="@color/primary"
                     app:cornerRadius="@dimen/_24sdp"
-                    app:icon="@drawable/glyph_call"
+                    app:icon="@drawable/ic_call"
                     app:iconGravity="textStart"
                     app:iconSize="@dimen/_18sdp"
                     app:iconTint="@color/white" />
@@ -313,7 +313,7 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/dialer_backspace"
                         android:padding="@dimen/_11sdp"
-                        android:src="@drawable/glyph_backspace"
+                        android:src="@drawable/ic_backspace"
                         android:visibility="invisible"
                         app:tint="@color/on_surface_variant" />
                 </FrameLayout>

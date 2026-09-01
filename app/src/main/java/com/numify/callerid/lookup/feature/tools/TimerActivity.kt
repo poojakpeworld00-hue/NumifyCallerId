@@ -115,7 +115,7 @@ class TimerActivity : BaseActivity<ActivityTimerBinding>() {
             val chip = row.getChildAt(i) as TextView
             val isOn = chip.tag == selected
             chip.setBackgroundResource(
-                if (isOn) R.drawable.shape_cid_chip_active else R.drawable.shape_cid_chip_outline
+                if (isOn) R.drawable.bg_cid_chip_active else R.drawable.bg_cid_chip_outline
             )
             chip.setTextColor(
                 ContextCompat.getColor(this, if (isOn) R.color.on_primary else R.color.on_surface)
@@ -138,7 +138,7 @@ class TimerActivity : BaseActivity<ActivityTimerBinding>() {
         if (remainingMs <= 0L) return
         running = true
         endRealtime = SystemClock.elapsedRealtime() + remainingMs
-        binding.padStartPause.setImageResource(R.drawable.glyph_pause)
+        binding.padStartPause.setImageResource(R.drawable.ic_pause)
         binding.padStartPause.contentDescription = getString(R.string.action_pause)
         setPresetsEnabled(false)
         handler.post(tick)
@@ -161,7 +161,7 @@ class TimerActivity : BaseActivity<ActivityTimerBinding>() {
     }
 
     private fun showStartAffordance() {
-        binding.padStartPause.setImageResource(R.drawable.glyph_play)
+        binding.padStartPause.setImageResource(R.drawable.ic_play)
         binding.padStartPause.contentDescription = getString(R.string.action_start)
         setPresetsEnabled(true)
     }

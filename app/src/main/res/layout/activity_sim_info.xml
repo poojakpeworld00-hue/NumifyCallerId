@@ -41,7 +41,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/onboarding_skip"
                 android:padding="@dimen/_9sdp"
-                android:src="@drawable/glyph_arrow_back"
+                android:src="@drawable/ic_arrow_back"
                 app:tint="@color/on_surface" />
 
             <TextView
@@ -62,7 +62,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/sim_refresh"
                 android:padding="@dimen/_9sdp"
-                android:src="@drawable/glyph_refresh"
+                android:src="@drawable/ic_refresh"
                 app:tint="@color/primary" />
         </LinearLayout>
 
@@ -84,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:background="@drawable/shape_cid_hero_dark"
+                    android:background="@drawable/bg_cid_hero_dark"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingHorizontal="@dimen/_14sdp"
@@ -93,10 +93,10 @@
                     <ImageView
                         android:layout_width="@dimen/_38sdp"
                         android:layout_height="@dimen/_38sdp"
-                        android:background="@drawable/shape_cid_hero_tile"
+                        android:background="@drawable/bg_cid_hero_tile"
                         android:contentDescription="@null"
                         android:padding="@dimen/_9sdp"
-                        android:src="@drawable/glyph_tool_network"
+                        android:src="@drawable/ic_tool_network"
                         app:tint="@color/cid_050" />
 
                     <LinearLayout
@@ -168,7 +168,7 @@
                     <View
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_5sdp"
-                        android:background="@drawable/shape_section_dot" />
+                        android:background="@drawable/bg_section_dot" />
 
                     <TextView
                         style="@style/NetSectionLabel"
@@ -186,8 +186,8 @@
 
                     <ImageView
                         style="@style/NetRowIcon"
-                        android:background="@drawable/shape_cid_chip_brand"
-                        android:src="@drawable/glyph_sim_card"
+                        android:background="@drawable/bg_cid_chip_brand"
+                        android:src="@drawable/ic_sim_card"
                         app:tint="@color/primary" />
 
                     <TextView
@@ -204,8 +204,8 @@
 
                     <ImageView
                         style="@style/NetRowIcon"
-                        android:background="@drawable/shape_cid_chip_teal"
-                        android:src="@drawable/glyph_radio"
+                        android:background="@drawable/bg_cid_chip_teal"
+                        android:src="@drawable/ic_radio"
                         app:tint="@color/cid_teal" />
 
                     <TextView
@@ -222,8 +222,8 @@
 
                     <ImageView
                         style="@style/NetRowIcon"
-                        android:background="@drawable/shape_cid_chip_amber"
-                        android:src="@drawable/glyph_language"
+                        android:background="@drawable/bg_cid_chip_amber"
+                        android:src="@drawable/ic_language"
                         app:tint="@color/cid_amber" />
 
                     <TextView
@@ -240,8 +240,8 @@
 
                     <ImageView
                         style="@style/NetRowIcon"
-                        android:background="@drawable/shape_cid_chip_clay"
-                        android:src="@drawable/glyph_tool_network"
+                        android:background="@drawable/bg_cid_chip_clay"
+                        android:src="@drawable/ic_tool_network"
                         app:tint="@color/cid_clay" />
 
                     <TextView
@@ -260,7 +260,7 @@
                     <View
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_5sdp"
-                        android:background="@drawable/shape_section_dot" />
+                        android:background="@drawable/bg_section_dot" />
 
                     <TextView
                         style="@style/NetSectionLabel"
@@ -278,8 +278,8 @@
 
                     <ImageView
                         style="@style/NetRowIcon"
-                        android:background="@drawable/shape_cid_chip_brand"
-                        android:src="@drawable/glyph_profile"
+                        android:background="@drawable/bg_cid_chip_brand"
+                        android:src="@drawable/ic_profile"
                         app:tint="@color/primary" />
 
                     <TextView
@@ -296,8 +296,8 @@
 
                     <ImageView
                         style="@style/NetRowIcon"
-                        android:background="@drawable/shape_cid_chip_teal"
-                        android:src="@drawable/glyph_sim_card_alt"
+                        android:background="@drawable/bg_cid_chip_teal"
+                        android:src="@drawable/ic_sim_card_alt"
                         app:tint="@color/cid_teal" />
 
                     <TextView
@@ -314,8 +314,8 @@
 
                     <ImageView
                         style="@style/NetRowIcon"
-                        android:background="@drawable/shape_cid_chip_amber"
-                        android:src="@drawable/glyph_call"
+                        android:background="@drawable/bg_cid_chip_amber"
+                        android:src="@drawable/ic_call"
                         app:tint="@color/cid_amber" />
 
                     <TextView
@@ -332,8 +332,8 @@
 
                     <ImageView
                         style="@style/NetRowIcon"
-                        android:background="@drawable/shape_cid_chip_clay"
-                        android:src="@drawable/glyph_compass"
+                        android:background="@drawable/bg_cid_chip_clay"
+                        android:src="@drawable/ic_compass"
                         app:tint="@color/cid_clay" />
 
                     <TextView
@@ -351,7 +351,7 @@
                     style="@style/ToolCta"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:text="@string/sim_run_speed_test"
-                    app:icon="@drawable/glyph_speed" />
+                    app:icon="@drawable/ic_speed" />
 
                 <FrameLayout
                     android:id="@+id/adNativeFrameVw"

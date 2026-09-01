@@ -140,7 +140,7 @@ class IntroActivity : BaseActivity<ActivityOnboardingBinding>() {
             // Active dot stretches into a pill; the others shrink back — spring settle.
             animateDotWidth(dot, if (i == active) activeWidth else size)
             dot.setBackgroundResource(
-                if (i == active) R.drawable.shape_dot_active else R.drawable.shape_dot
+                if (i == active) R.drawable.bg_dot_active else R.drawable.bg_dot
             )
         }
         // Final step: the CTA morphs to "Get Started" on the hero gradient — the
@@ -148,7 +148,7 @@ class IntroActivity : BaseActivity<ActivityOnboardingBinding>() {
         val last = active == pages.lastIndex
         binding.padNext.setText(if (last) R.string.onboarding_get_started else R.string.onboarding_next)
         binding.padNext.setBackgroundResource(
-            if (last) R.drawable.shape_btn_gradient else R.drawable.shape_btn_primary
+            if (last) R.drawable.bg_btn_gradient else R.drawable.bg_btn_primary
         )
         if (last != wasLast) {
             wasLast = last

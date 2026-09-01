@@ -81,12 +81,12 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
         val inContacts = intent.getBooleanExtra(EXTRA_IN_CONTACTS, false)
 
         val (textRes, fg, bg, icon) = when {
-            isSpam -> Quad(R.string.lookup_spam_risk, R.color.danger, R.color.danger_soft, R.drawable.glyph_warning)
-            valid == 1 -> Quad(R.string.lookup_valid_number, R.color.success, R.color.success_soft, R.drawable.glyph_verified)
-            valid == 0 -> Quad(R.string.lookup_invalid_number, R.color.danger, R.color.danger_soft, R.drawable.glyph_warning)
+            isSpam -> Quad(R.string.lookup_spam_risk, R.color.danger, R.color.danger_soft, R.drawable.ic_warning)
+            valid == 1 -> Quad(R.string.lookup_valid_number, R.color.success, R.color.success_soft, R.drawable.ic_verified)
+            valid == 0 -> Quad(R.string.lookup_invalid_number, R.color.danger, R.color.danger_soft, R.drawable.ic_warning)
             else -> Quad(
                 if (inContacts) R.string.lookup_in_contacts else R.string.lookup_not_in_contacts,
-                R.color.on_surface_variant, R.color.neutral_soft, R.drawable.glyph_info
+                R.color.on_surface_variant, R.color.neutral_soft, R.drawable.ic_info
             )
         }
         val color = ContextCompat.getColor(this, fg)
@@ -175,14 +175,14 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
         for (nick in nicknameList) {
             val row = ItemNicknameBinding.inflate(layoutInflater, binding.rowNicknames, false)
             if (revealed.contains(nick)) {
-                row.picNickIcon.setImageResource(R.drawable.glyph_verified)
+                row.picNickIcon.setImageResource(R.drawable.ic_verified)
                 row.picNickIcon.imageTintList = ColorStateList.valueOf(color(R.color.success))
                 row.lblNickName.text = nick
                 row.lblNickName.setTextColor(color(R.color.on_surface))
                 row.lblNickRevealed.visibility = View.VISIBLE
                 row.padNickReveal.visibility = View.GONE
             } else {
-                row.picNickIcon.setImageResource(R.drawable.glyph_lock)
+                row.picNickIcon.setImageResource(R.drawable.ic_lock)
                 row.picNickIcon.imageTintList = ColorStateList.valueOf(color(R.color.on_surface_variant))
                 row.lblNickName.text = blurName(nick)
                 row.lblNickName.setTextColor(color(R.color.on_surface_variant))

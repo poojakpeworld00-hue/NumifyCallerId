@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@drawable/shape_ads_backdrop"
+    android:background="@drawable/bg_ads_backdrop"
     android:padding="5dp">
 
     <LinearLayout
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/shape_btn_primary"
+            android:background="@drawable/bg_btn_primary"
             android:fontFamily="@font/figtree_medium"
             android:gravity="center"
             android:padding="@dimen/_13sdp"
@@ -64,7 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/glyph_ad" />
+                        android:src="@drawable/ic_ad" />
 
                     <TextView
                         android:id="@+id/ad_headline"

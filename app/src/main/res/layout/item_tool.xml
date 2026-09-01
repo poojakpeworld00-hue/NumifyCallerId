@@ -14,7 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_4sdp"
-    android:background="@drawable/shape_row_neutral"
+    android:background="@drawable/bg_row_neutral"
     android:clickable="true"
     android:focusable="true"
     android:gravity="center_horizontal"
@@ -27,9 +27,9 @@
         android:id="@+id/picToolIcon"
         android:layout_width="@dimen/_38sdp"
         android:layout_height="@dimen/_38sdp"
-        android:background="@drawable/shape_tool_chip_violet"
+        android:background="@drawable/bg_tool_chip_violet"
         android:padding="@dimen/_9sdp"
-        tools:src="@drawable/glyph_tool_compass"
+        tools:src="@drawable/ic_tool_compass"
         tools:ignore="ContentDescription" />
 
     <TextView

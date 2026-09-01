@@ -24,7 +24,7 @@
         android:id="@+id/splashRootVw"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/shape_splash_sl_bg"
+        android:background="@drawable/bg_splash_sl_bg"
         android:clipChildren="false"
         android:clipToPadding="false"
         tools:context=".screen.launch.SplashActivity">
@@ -39,7 +39,7 @@
             android:id="@+id/bubbleLgVw"
             android:layout_width="@dimen/_58sdp"
             android:layout_height="@dimen/_58sdp"
-            android:background="@drawable/shape_splash_sl_bubble"
+            android:background="@drawable/bg_splash_sl_bubble"
             android:backgroundTint="@color/splash_sl_bubble_lg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +52,7 @@
             android:id="@+id/bubbleSmVw"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
-            android:background="@drawable/shape_splash_sl_bubble"
+            android:background="@drawable/bg_splash_sl_bubble"
             android:backgroundTint="@color/splash_sl_bubble_sm"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +65,7 @@
             android:id="@+id/bubbleMdVw"
             android:layout_width="@dimen/_42sdp"
             android:layout_height="@dimen/_42sdp"
-            android:background="@drawable/shape_splash_sl_bubble"
+            android:background="@drawable/bg_splash_sl_bubble"
             android:backgroundTint="@color/splash_sl_bubble_md"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +78,7 @@
             android:id="@+id/bubbleXsVw"
             android:layout_width="@dimen/_22sdp"
             android:layout_height="@dimen/_22sdp"
-            android:background="@drawable/shape_splash_sl_bubble"
+            android:background="@drawable/bg_splash_sl_bubble"
             android:backgroundTint="@color/splash_sl_bubble_sm"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +92,7 @@
             android:layout_width="@dimen/_18sdp"
             android:layout_height="@dimen/_18sdp"
             android:contentDescription="@null"
-            android:src="@drawable/glyph_sl_sparkle"
+            android:src="@drawable/ic_sl_sparkle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.80"
@@ -106,7 +106,7 @@
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
             android:contentDescription="@null"
-            android:src="@drawable/glyph_sl_sparkle"
+            android:src="@drawable/ic_sl_sparkle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.14"
@@ -155,84 +155,84 @@
                         android:id="@+id/bar1Vw"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_14sdp"
-                        android:background="@drawable/shape_splash_sl_bar" />
+                        android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
                         android:id="@+id/bar2Vw"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_27sdp"
                         android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/shape_splash_sl_bar" />
+                        android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
                         android:id="@+id/bar3Vw"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_22sdp"
                         android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/shape_splash_sl_bar" />
+                        android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
                         android:id="@+id/bar4Vw"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_38sdp"
                         android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/shape_splash_sl_bar" />
+                        android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
                         android:id="@+id/bar5Vw"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_58sdp"
                         android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/shape_splash_sl_bar" />
+                        android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
                         android:id="@+id/bar6Vw"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_34sdp"
                         android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/shape_splash_sl_bar" />
+                        android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
                         android:id="@+id/bar7Vw"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_64sdp"
                         android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/shape_splash_sl_bar" />
+                        android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
                         android:id="@+id/bar8Vw"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/shape_splash_sl_bar" />
+                        android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
                         android:id="@+id/bar9Vw"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_46sdp"
                         android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/shape_splash_sl_bar" />
+                        android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
                         android:id="@+id/bar10Vw"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/shape_splash_sl_bar" />
+                        android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
                         android:id="@+id/bar11Vw"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_33sdp"
                         android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/shape_splash_sl_bar" />
+                        android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
                         android:id="@+id/bar12Vw"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_15sdp"
                         android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/shape_splash_sl_bar" />
+                        android:background="@drawable/bg_splash_sl_bar" />
                 </LinearLayout>
 
                 <!-- Scan band. Taller than the row so it overhangs top and
@@ -243,7 +243,7 @@
                     android:layout_height="@dimen/_76sdp"
                     android:layout_gravity="start|center_vertical"
                     android:alpha="0"
-                    android:background="@drawable/shape_splash_sl_sweep" />
+                    android:background="@drawable/bg_splash_sl_sweep" />
             </FrameLayout>
 
             <!-- Centred app-icon tile -->
@@ -253,7 +253,7 @@
                 android:layout_height="@dimen/_76sdp"
                 android:layout_gravity="center"
                 android:alpha="0"
-                android:background="@drawable/shape_splash_sl_tile"
+                android:background="@drawable/bg_splash_sl_tile"
                 android:elevation="@dimen/_12sdp"
                 android:outlineAmbientShadowColor="@color/splash_sl_tile_shadow"
                 android:outlineSpotShadowColor="@color/splash_sl_tile_shadow"
@@ -264,7 +264,7 @@
                     android:layout_height="@dimen/_38sdp"
                     android:layout_gravity="center"
                     android:contentDescription="@null"
-                    android:src="@drawable/glyph_phone_solid"
+                    android:src="@drawable/ic_phone_solid"
                     app:tint="@color/white" />
             </FrameLayout>
 
@@ -278,7 +278,7 @@
                 android:layout_marginStart="@dimen/_6sdp"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:alpha="0"
-                android:background="@drawable/shape_splash_sl_badge"
+                android:background="@drawable/bg_splash_sl_badge"
                 android:elevation="@dimen/_6sdp"
                 android:outlineAmbientShadowColor="@color/splash_sl_shadow"
                 android:outlineSpotShadowColor="@color/splash_sl_shadow"
@@ -289,7 +289,7 @@
                     android:layout_height="@dimen/_18sdp"
                     android:layout_gravity="center"
                     android:contentDescription="@null"
-                    android:src="@drawable/glyph_block_circle"
+                    android:src="@drawable/ic_block_circle"
                     app:tint="@color/splash_sl_icon_red" />
             </FrameLayout>
 
@@ -301,7 +301,7 @@
                 android:layout_marginTop="@dimen/_2sdp"
                 android:layout_marginEnd="@dimen/_6sdp"
                 android:alpha="0"
-                android:background="@drawable/shape_splash_sl_badge"
+                android:background="@drawable/bg_splash_sl_badge"
                 android:elevation="@dimen/_6sdp"
                 android:outlineAmbientShadowColor="@color/splash_sl_shadow"
                 android:outlineSpotShadowColor="@color/splash_sl_shadow"
@@ -312,7 +312,7 @@
                     android:layout_height="@dimen/_18sdp"
                     android:layout_gravity="center"
                     android:contentDescription="@null"
-                    android:src="@drawable/glyph_sl_spam"
+                    android:src="@drawable/ic_sl_spam"
                     app:tint="@color/splash_sl_icon_amber" />
             </FrameLayout>
 
@@ -324,7 +324,7 @@
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:layout_marginBottom="@dimen/_4sdp"
                 android:alpha="0"
-                android:background="@drawable/shape_splash_sl_badge"
+                android:background="@drawable/bg_splash_sl_badge"
                 android:elevation="@dimen/_6sdp"
                 android:outlineAmbientShadowColor="@color/splash_sl_shadow"
                 android:outlineSpotShadowColor="@color/splash_sl_shadow"
@@ -335,7 +335,7 @@
                     android:layout_height="@dimen/_18sdp"
                     android:layout_gravity="center"
                     android:contentDescription="@null"
-                    android:src="@drawable/glyph_search"
+                    android:src="@drawable/ic_search"
                     app:tint="@color/splash_sl_icon_blue" />
             </FrameLayout>
 
@@ -347,7 +347,7 @@
                 android:layout_marginStart="@dimen/_16sdp"
                 android:layout_marginBottom="@dimen/_4sdp"
                 android:alpha="0"
-                android:background="@drawable/shape_splash_sl_badge"
+                android:background="@drawable/bg_splash_sl_badge"
                 android:elevation="@dimen/_6sdp"
                 android:outlineAmbientShadowColor="@color/splash_sl_shadow"
                 android:outlineSpotShadowColor="@color/splash_sl_shadow"
@@ -358,7 +358,7 @@
                     android:layout_height="@dimen/_18sdp"
                     android:layout_gravity="center"
                     android:contentDescription="@null"
-                    android:src="@drawable/glyph_sl_protection"
+                    android:src="@drawable/ic_sl_protection"
                     app:tint="@color/splash_sl_icon_green" />
             </FrameLayout>
 
@@ -370,7 +370,7 @@
                 android:layout_marginStart="@dimen/_2sdp"
                 android:layout_marginTop="@dimen/_50sdp"
                 android:alpha="0"
-                android:background="@drawable/shape_splash_sl_badge"
+                android:background="@drawable/bg_splash_sl_badge"
                 android:elevation="@dimen/_6sdp"
                 android:outlineAmbientShadowColor="@color/splash_sl_shadow"
                 android:outlineSpotShadowColor="@color/splash_sl_shadow"
@@ -381,7 +381,7 @@
                     android:layout_height="@dimen/_18sdp"
                     android:layout_gravity="center"
                     android:contentDescription="@null"
-                    android:src="@drawable/glyph_sl_contact"
+                    android:src="@drawable/ic_sl_contact"
                     app:tint="@color/splash_sl_icon_blue" />
             </FrameLayout>
 
@@ -393,7 +393,7 @@
                 android:layout_marginTop="@dimen/_50sdp"
                 android:layout_marginEnd="@dimen/_2sdp"
                 android:alpha="0"
-                android:background="@drawable/shape_splash_sl_badge"
+                android:background="@drawable/bg_splash_sl_badge"
                 android:elevation="@dimen/_6sdp"
                 android:outlineAmbientShadowColor="@color/splash_sl_shadow"
                 android:outlineSpotShadowColor="@color/splash_sl_shadow"
@@ -404,7 +404,7 @@
                     android:layout_height="@dimen/_18sdp"
                     android:layout_gravity="center"
                     android:contentDescription="@null"
-                    android:src="@drawable/glyph_row_city"
+                    android:src="@drawable/ic_row_city"
                     app:tint="@color/splash_sl_icon_blue" />
             </FrameLayout>
         </FrameLayout>
@@ -470,7 +470,7 @@
             android:layout_height="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_12sdp"
             android:alpha="0"
-            android:background="@drawable/shape_splash_sl_prog_track"
+            android:background="@drawable/bg_splash_sl_prog_track"
             app:layout_constraintBottom_toTopOf="@id/secureRowVw"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -483,7 +483,7 @@
             android:layout_width="@dimen/_8sdp"
             android:layout_height="@dimen/_4sdp"
             android:alpha="0"
-            android:background="@drawable/shape_splash_sl_prog_fill"
+            android:background="@drawable/bg_splash_sl_prog_fill"
             app:layout_constraintBottom_toBottomOf="@id/progTrack"
             app:layout_constraintStart_toStartOf="@id/progTrack"
             app:layout_constraintTop_toTopOf="@id/progTrack" />
@@ -504,7 +504,7 @@
                 android:layout_width="@dimen/_11sdp"
                 android:layout_height="@dimen/_11sdp"
                 android:contentDescription="@null"
-                android:src="@drawable/glyph_sl_shield_check" />
+                android:src="@drawable/ic_sl_shield_check" />
 
             <!-- Text is set from BuildConfig in SplashActivity, so it tracks the
                  real build instead of a hardcoded string. -->

@@ -164,7 +164,7 @@ class FlashlightActivity : BaseActivity<ActivityFlashlightBinding>() {
 
     private fun updatePowerUi() {
         binding.padToggle.setBackgroundResource(
-            if (active) R.drawable.shape_cid_torch_on else R.drawable.shape_cid_torch_off
+            if (active) R.drawable.bg_cid_torch_on else R.drawable.bg_cid_torch_off
         )
         binding.padToggle.imageTintList = ColorStateList.valueOf(
             ContextCompat.getColor(this, if (active) R.color.white else R.color.on_surface_variant)
@@ -194,7 +194,7 @@ class FlashlightActivity : BaseActivity<ActivityFlashlightBinding>() {
 
     private fun setMode(container: View, icon: ImageView, label: TextView, selected: Boolean) {
         container.setBackgroundResource(
-            if (selected) R.drawable.shape_cid_mode_on else R.drawable.shape_cid_mode_off
+            if (selected) R.drawable.bg_cid_mode_on else R.drawable.bg_cid_mode_off
         )
         val ink = ContextCompat.getColor(this, if (selected) R.color.white else R.color.on_surface)
         icon.imageTintList = ColorStateList.valueOf(ink)

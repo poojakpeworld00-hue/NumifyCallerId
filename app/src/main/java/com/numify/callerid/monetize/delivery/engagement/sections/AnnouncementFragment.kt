@@ -87,12 +87,12 @@ class AnnouncementFragment : Fragment() {
 
             if (i == selectedIndex) {
                 tvOption.setTextColor(requireContext().getColor(R.color.primary))
-                imgCheck.setImageResource(R.drawable.glyph_radio)
+                imgCheck.setImageResource(R.drawable.ic_radio)
             } else {
                 val textColor = context.getThemeTextColor()
                 Log.d("ThemeCheck", "Option $i textColor: $textColor")
                 tvOption.setTextColor(textColor)
-                imgCheck.setImageResource(R.drawable.shape_radio_unselected)
+                imgCheck.setImageResource(R.drawable.bg_radio_unselected)
             }
         }
     }

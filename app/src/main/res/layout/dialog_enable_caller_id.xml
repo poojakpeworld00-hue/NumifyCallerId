@@ -10,7 +10,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_cid_sheet"
+    android:background="@drawable/bg_cid_sheet"
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/_22sdp"
     android:paddingTop="@dimen/_22sdp"
@@ -26,14 +26,14 @@
             android:layout_width="@dimen/_52sdp"
             android:layout_height="@dimen/_52sdp"
             android:layout_gravity="center"
-            android:background="@drawable/shape_cid_ring" />
+            android:background="@drawable/bg_cid_ring" />
 
         <FrameLayout
             android:id="@+id/shieldTileVw"
             android:layout_width="@dimen/_52sdp"
             android:layout_height="@dimen/_52sdp"
             android:layout_gravity="center"
-            android:background="@drawable/shape_cid_shield_tile">
+            android:background="@drawable/bg_cid_shield_tile">
 
             <ImageView
                 android:id="@+id/shieldIconVw"
@@ -41,7 +41,7 @@
                 android:layout_height="@dimen/_26sdp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/blocklist_enable_cid_title"
-                android:src="@drawable/glyph_cid_shield" />
+                android:src="@drawable/ic_cid_shield" />
         </FrameLayout>
     </FrameLayout>
 
@@ -72,7 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
-        android:background="@drawable/shape_cid_hint"
+        android:background="@drawable/bg_cid_hint"
         android:orientation="vertical">
 
         <TextView
@@ -100,14 +100,14 @@
             <FrameLayout
                 android:layout_width="@dimen/_34sdp"
                 android:layout_height="@dimen/_34sdp"
-                android:background="@drawable/shape_cid_app_icon">
+                android:background="@drawable/bg_cid_app_icon">
 
                 <ImageView
                     android:layout_width="@dimen/_16sdp"
                     android:layout_height="@dimen/_16sdp"
                     android:layout_gravity="center"
                     android:contentDescription="@string/app_name"
-                    android:src="@drawable/glyph_call"
+                    android:src="@drawable/ic_call"
                     app:tint="@color/white" />
             </FrameLayout>
 
@@ -147,14 +147,14 @@
                     android:layout_width="@dimen/_44sdp"
                     android:layout_height="@dimen/_44sdp"
                     android:layout_gravity="center"
-                    android:background="@drawable/shape_cid_toggle_ripple" />
+                    android:background="@drawable/bg_cid_toggle_ripple" />
 
                 <View
                     android:id="@+id/flipTrack"
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_24sdp"
                     android:layout_gravity="center"
-                    android:background="@drawable/shape_cid_toggle_track"
+                    android:background="@drawable/bg_cid_toggle_track"
                     android:backgroundTint="@color/cid_toggle_off" />
 
                 <View
@@ -163,7 +163,7 @@
                     android:layout_height="@dimen/_18sdp"
                     android:layout_gravity="start|center_vertical"
                     android:layout_marginStart="@dimen/_3sdp"
-                    android:background="@drawable/shape_cid_toggle_thumb" />
+                    android:background="@drawable/bg_cid_toggle_thumb" />
             </FrameLayout>
         </LinearLayout>
     </LinearLayout>
@@ -193,7 +193,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_44sdp"
             android:layout_marginStart="@dimen/_8sdp"
-            android:background="@drawable/shape_cid_cta"
+            android:background="@drawable/bg_cid_cta"
             android:gravity="center"
             android:paddingHorizontal="@dimen/_22sdp"
             android:text="@string/blocklist_enable_cid_confirm"

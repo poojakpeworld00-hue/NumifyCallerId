@@ -9,7 +9,7 @@
         android:id="@+id/nativview"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/_192sdp"
-        android:background="@drawable/shape_ads_backdrop"
+        android:background="@drawable/bg_ads_backdrop"
         android:padding="@dimen/_5sdp">
 
         <LinearLayout
@@ -77,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/shape_ads_backdrop"
+                    android:background="@drawable/bg_ads_backdrop"
 
                     android:gravity="end"
                     android:orientation="vertical" />
@@ -139,7 +139,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:background="@drawable/shape_btn_primary"
+                    android:background="@drawable/bg_btn_primary"
                     android:backgroundTint="@color/white"
                     android:gravity="center"
                     android:includeFontPadding="false"

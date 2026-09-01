@@ -40,7 +40,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/onboarding_skip"
                 android:padding="@dimen/_9sdp"
-                android:src="@drawable/glyph_arrow_back"
+                android:src="@drawable/ic_arrow_back"
                 app:tint="@color/on_surface" />
 
             <TextView
@@ -127,7 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_14sdp"
-                    android:background="@drawable/shape_cid_pill_neutral"
+                    android:background="@drawable/bg_cid_pill_neutral"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingVertical="@dimen/_5sdp"
                     android:gravity="center_vertical"
@@ -137,7 +137,7 @@
                         android:layout_width="@dimen/_13sdp"
                         android:layout_height="@dimen/_13sdp"
                         android:contentDescription="@null"
-                        android:src="@drawable/glyph_compass"
+                        android:src="@drawable/ic_compass"
                         app:tint="@color/on_surface" />
 
                     <TextView

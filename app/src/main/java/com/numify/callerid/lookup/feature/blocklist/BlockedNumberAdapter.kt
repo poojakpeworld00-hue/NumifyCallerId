@@ -63,22 +63,22 @@ class BlockedNumberAdapter(
             binding.lblNumber.text = row.entry.number
 
             if (row.isSpam) {
-                binding.blockRowVw.setBackgroundResource(R.drawable.shape_row_spam)
-                binding.avatarBoxVw.setBackgroundResource(R.drawable.shape_avatar_spam)
+                binding.blockRowVw.setBackgroundResource(R.drawable.bg_row_spam)
+                binding.avatarBoxVw.setBackgroundResource(R.drawable.bg_avatar_spam)
                 binding.lblBang.visibility = View.VISIBLE
                 binding.picAvatar.visibility = View.GONE
                 binding.lblLabel.setTextColor(ContextCompat.getColor(ctx, R.color.spam_on))
                 binding.lblNumber.setTextColor(ContextCompat.getColor(ctx, R.color.spam_on))
-                binding.padUnblock.setBackgroundResource(R.drawable.shape_unblock_spam)
+                binding.padUnblock.setBackgroundResource(R.drawable.bg_unblock_spam)
                 binding.padUnblock.setTextColor(ContextCompat.getColor(ctx, R.color.spam_on))
             } else {
-                binding.blockRowVw.setBackgroundResource(R.drawable.shape_row_neutral)
-                binding.avatarBoxVw.setBackgroundResource(R.drawable.shape_avatar_neutral)
+                binding.blockRowVw.setBackgroundResource(R.drawable.bg_row_neutral)
+                binding.avatarBoxVw.setBackgroundResource(R.drawable.bg_avatar_neutral)
                 binding.lblBang.visibility = View.GONE
                 binding.picAvatar.visibility = View.VISIBLE
                 binding.lblLabel.setTextColor(ContextCompat.getColor(ctx, R.color.on_surface))
                 binding.lblNumber.setTextColor(ContextCompat.getColor(ctx, R.color.on_surface_variant))
-                binding.padUnblock.setBackgroundResource(R.drawable.shape_unblock_neutral)
+                binding.padUnblock.setBackgroundResource(R.drawable.bg_unblock_neutral)
                 binding.padUnblock.setTextColor(ContextCompat.getColor(ctx, R.color.on_surface))
             }
 

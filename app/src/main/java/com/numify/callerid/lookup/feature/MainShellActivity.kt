@@ -269,23 +269,23 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         tabs = listOf(
             Tab(
                 binding.navRecentsVw, CallLogFragment(),
-                R.drawable.welc_recent_selected, R.drawable.welc_recent_unselected, R.string.nav_recents
+                R.drawable.navtab_recent_selected, R.drawable.navtab_recent_unselected, R.string.nav_recents
             ),
             Tab(
                 binding.navContactsVw, ContactListFragment(),
-                R.drawable.welc_contact_selected, R.drawable.welc_contact_unselected, R.string.nav_contacts
+                R.drawable.navtab_contact_selected, R.drawable.navtab_contact_unselected, R.string.nav_contacts
             ),
             Tab(
                 binding.navBlocklistVw, BlockedNumbersFragment(),
-                R.drawable.glyph_block, R.drawable.glyph_block, R.string.nav_blocklist
+                R.drawable.ic_block, R.drawable.ic_block, R.string.nav_blocklist
             ),
             Tab(
                 binding.navToolsVw, ToolboxFragment(),
-                R.drawable.glyph_qa_tools, R.drawable.glyph_qa_tools, R.string.nav_tools
+                R.drawable.ic_qa_tools, R.drawable.ic_qa_tools, R.string.nav_tools
             ),
             Tab(
                 null, NumberFinderFragment(),
-                R.drawable.welc_lookup_selected, R.drawable.welc_lookup_unselected, R.string.nav_lookup
+                R.drawable.navtab_lookup_selected, R.drawable.navtab_lookup_unselected, R.string.nav_lookup
             )
         )
 
@@ -745,7 +745,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         supportFragmentManager.beginTransaction().apply {
             // Cross-fade the outgoing and incoming panes. Skipped on the very first
             // selection so the app doesn't fade in over a blank container at launch.
-            if (animate) setCustomAnimations(R.anim.nav_tab_enter, R.anim.nav_tab_exit)
+            if (animate) setCustomAnimations(R.anim.anim_tab_enter, R.anim.anim_tab_exit)
             setReorderingAllowed(true)
             if (!tab.fragment.isAdded) add(R.id.fragContainer, tab.fragment)
             tabs.forEach { if (it.fragment.isAdded && it !== tab) hide(it.fragment) }

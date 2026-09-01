@@ -7,7 +7,7 @@
     android:id="@+id/incallCardVw"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_card"
+    android:background="@drawable/bg_card"
     android:elevation="@dimen/_8sdp"
     android:orientation="vertical">
 
@@ -15,7 +15,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_incall_header"
+        android:background="@drawable/bg_incall_header"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="@dimen/_14sdp"
@@ -27,7 +27,7 @@
             android:layout_width="@dimen/_16sdp"
             android:layout_height="@dimen/_16sdp"
             android:contentDescription="@string/incall_incoming"
-            android:src="@drawable/glyph_phone_in_talk"
+            android:src="@drawable/ic_phone_in_talk"
             app:tint="@color/primary" />
 
         <TextView
@@ -46,7 +46,7 @@
             android:layout_height="@dimen/_28sdp"
             android:contentDescription="@string/action_close"
             android:padding="@dimen/_5sdp"
-            android:src="@drawable/glyph_close"
+            android:src="@drawable/ic_close"
             android:tint="@color/white" />
     </LinearLayout>
 
@@ -62,7 +62,7 @@
             android:id="@+id/lblIncallAvatar"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
-            android:background="@drawable/shape_avatar"
+            android:background="@drawable/bg_avatar"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/_17ssp"
@@ -101,7 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:background="@drawable/shape_pill"
+                android:background="@drawable/bg_pill"
                 android:backgroundTint="@color/success_soft"
                 android:drawablePadding="@dimen/_4sdp"
                 android:gravity="center_vertical"
@@ -139,7 +139,7 @@
             <ImageView
                 android:layout_width="@dimen/_14sdp"
                 android:layout_height="@dimen/_14sdp"
-                android:src="@drawable/glyph_history"
+                android:src="@drawable/ic_history"
                 android:tint="@color/on_surface_variant" />
 
             <TextView
@@ -162,7 +162,7 @@
             <ImageView
                 android:layout_width="@dimen/_14sdp"
                 android:layout_height="@dimen/_14sdp"
-                android:src="@drawable/glyph_call_received"
+                android:src="@drawable/ic_call_received"
                 android:tint="@color/on_surface_variant" />
 
             <TextView
@@ -185,7 +185,7 @@
             <ImageView
                 android:layout_width="@dimen/_14sdp"
                 android:layout_height="@dimen/_14sdp"
-                android:src="@drawable/glyph_sim_card_alt"
+                android:src="@drawable/ic_sim_card_alt"
                 android:tint="@color/on_surface_variant" />
 
             <TextView

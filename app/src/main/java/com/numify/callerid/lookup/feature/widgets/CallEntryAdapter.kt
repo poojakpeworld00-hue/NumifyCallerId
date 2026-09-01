@@ -48,7 +48,7 @@ class CallEntryAdapter(
             // Verdict container: spam rows read red before the text does; everything
             // else sits on a neutral surface card with a primary-container avatar.
             rowCallVw.setBackgroundResource(
-                if (isSpam) R.drawable.shape_home_tile_spam else R.drawable.shape_home_tile
+                if (isSpam) R.drawable.bg_home_tile_spam else R.drawable.bg_home_tile
             )
             lblAvatar.backgroundTintList =
                 tint(if (isSpam) R.color.spam_avatar_bg else R.color.primary_container)
@@ -56,10 +56,10 @@ class CallEntryAdapter(
             lblName.setTextColor(color(if (isSpam) R.color.spam_on else R.color.on_surface))
 
             val (iconRes, subColorRes) = when (item.type) {
-                CallType.INCOMING -> R.drawable.glyph_call_received to R.color.on_surface_variant
-                CallType.OUTGOING -> R.drawable.glyph_call_made to R.color.on_surface_variant
-                CallType.MISSED -> R.drawable.glyph_call_missed to R.color.danger
-                CallType.SPAM -> R.drawable.glyph_warning to R.color.spam_on
+                CallType.INCOMING -> R.drawable.ic_call_received to R.color.on_surface_variant
+                CallType.OUTGOING -> R.drawable.ic_call_made to R.color.on_surface_variant
+                CallType.MISSED -> R.drawable.ic_call_missed to R.color.danger
+                CallType.SPAM -> R.drawable.ic_warning to R.color.spam_on
             }
             picType.setImageResource(iconRes)
             picType.imageTintList = tint(subColorRes)

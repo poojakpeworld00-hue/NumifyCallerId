@@ -16,7 +16,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_theme_track"
+            android:background="@drawable/bg_theme_track"
             android:orientation="horizontal"
             android:padding="@dimen/_4sdp">
 
@@ -28,7 +28,7 @@
                 android:contentDescription="@string/theme_light"
                 android:focusable="true"
                 android:padding="@dimen/_9sdp"
-                android:src="@drawable/glyph_light_mode" />
+                android:src="@drawable/ic_light_mode" />
 
             <ImageView
                 android:id="@+id/segDarkVw"
@@ -39,7 +39,7 @@
                 android:contentDescription="@string/theme_dark"
                 android:focusable="true"
                 android:padding="@dimen/_9sdp"
-                android:src="@drawable/glyph_dark_mode" />
+                android:src="@drawable/ic_dark_mode" />
 
             <ImageView
                 android:id="@+id/segSystemVw"
@@ -50,7 +50,7 @@
                 android:contentDescription="@string/theme_system"
                 android:focusable="true"
                 android:padding="@dimen/_9sdp"
-                android:src="@drawable/glyph_theme_system" />
+                android:src="@drawable/ic_theme_system" />
         </LinearLayout>
 
     </LinearLayout>

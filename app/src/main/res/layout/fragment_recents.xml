@@ -48,11 +48,11 @@
             android:id="@+id/padRecentsFilter"
             android:layout_width="@dimen/_36sdp"
             android:layout_height="@dimen/_36sdp"
-            android:background="@drawable/shape_cid_pill_neutral"
+            android:background="@drawable/bg_cid_pill_neutral"
             android:contentDescription="@string/filter_all"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:padding="@dimen/_9sdp"
-            android:src="@drawable/glyph_filter_list"
+            android:src="@drawable/ic_filter_list"
             app:tint="@color/on_surface" />
 
         <ImageView
@@ -60,11 +60,11 @@
             android:layout_width="@dimen/_36sdp"
             android:layout_height="@dimen/_36sdp"
             android:layout_marginStart="@dimen/_8sdp"
-            android:background="@drawable/shape_cid_pill_neutral"
+            android:background="@drawable/bg_cid_pill_neutral"
             android:contentDescription="@string/nav_settings"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:padding="@dimen/_9sdp"
-            android:src="@drawable/glyph_settings"
+            android:src="@drawable/ic_settings"
             app:tint="@color/on_surface" />
     </LinearLayout>
 
@@ -102,7 +102,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/shape_cid_card"
+                android:background="@drawable/bg_cid_card"
                 android:elevation="@dimen/_1sdp"
                 android:outlineAmbientShadowColor="@color/card_shadow"
                 android:outlineSpotShadowColor="@color/card_shadow"
@@ -117,10 +117,10 @@
                     android:id="@+id/picProtection"
                     android:layout_width="@dimen/_36sdp"
                     android:layout_height="@dimen/_36sdp"
-                    android:background="@drawable/shape_cid_chip_brand"
+                    android:background="@drawable/bg_cid_chip_brand"
                     android:contentDescription="@null"
                     android:padding="@dimen/_7sdp"
-                    android:src="@drawable/glyph_shield_check"
+                    android:src="@drawable/ic_shield_check"
                     app:tint="@color/on_surface_variant" />
 
                 <LinearLayout
@@ -154,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
-                    android:background="@drawable/shape_cid_cta_pill"
+                    android:background="@drawable/bg_cid_cta_pill"
                     android:foreground="?attr/selectableItemBackground"
                     android:paddingHorizontal="@dimen/_14sdp"
                     android:paddingVertical="@dimen/_7sdp"
@@ -172,7 +172,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/shape_card"
+            android:background="@drawable/bg_card"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingStart="@dimen/_12sdp"
@@ -185,7 +185,7 @@
                 android:layout_width="@dimen/_18sdp"
                 android:layout_height="@dimen/_18sdp"
                 android:contentDescription="@null"
-                android:src="@drawable/glyph_shield_check"
+                android:src="@drawable/ic_shield_check"
                 app:tint="@color/primary" />
 
             <TextView
@@ -202,7 +202,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:background="@drawable/shape_btn_primary"
+                android:background="@drawable/bg_btn_primary"
                 android:paddingHorizontal="@dimen/_14sdp"
                 android:paddingVertical="@dimen/_6sdp"
                 android:text="@string/home_perm_manage"
@@ -217,7 +217,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/shape_lookup_card"
+            android:background="@drawable/bg_lookup_card"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/_14sdp"
             android:paddingVertical="@dimen/_13sdp">
@@ -243,7 +243,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_11sdp"
-                android:background="@drawable/shape_lookup_field"
+                android:background="@drawable/bg_lookup_field"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/_6sdp"
@@ -294,7 +294,7 @@
                         android:layout_height="@dimen/_11sdp"
                         android:layout_marginStart="@dimen/_3sdp"
                         android:contentDescription="@null"
-                        android:src="@drawable/glyph_caret_down"
+                        android:src="@drawable/ic_caret_down"
                         app:tint="@color/on_surface_variant" />
                 </LinearLayout>
 
@@ -327,7 +327,7 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/action_cancel"
                     android:padding="@dimen/_5sdp"
-                    android:src="@drawable/glyph_close"
+                    android:src="@drawable/ic_close"
                     android:visibility="gone"
                     app:tint="@color/on_surface_variant" />
 
@@ -336,10 +336,10 @@
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
                     android:layout_marginStart="@dimen/_4sdp"
-                    android:background="@drawable/shape_circle_primary"
+                    android:background="@drawable/bg_circle_primary"
                     android:contentDescription="@string/lookup_hint"
                     android:padding="@dimen/_8sdp"
-                    android:src="@drawable/glyph_search"
+                    android:src="@drawable/ic_search"
                     app:tint="@color/on_primary" />
             </LinearLayout>
         </LinearLayout>
@@ -397,26 +397,26 @@
                 <TextView
                     android:id="@+id/segAll"
                     style="@style/RecentFilterTab"
-                    android:drawableStart="@drawable/glyph_recent_all"
+                    android:drawableStart="@drawable/ic_recent_all"
                     android:text="@string/filter_all" />
 
                 <TextView
                     android:id="@+id/segIncoming"
                     style="@style/RecentFilterTab"
-                    android:drawableStart="@drawable/sift_incoming"
+                    android:drawableStart="@drawable/filter_incoming"
                     android:text="@string/filter_incoming" />
 
                 <TextView
                     android:id="@+id/segOutgoing"
                     style="@style/RecentFilterTab"
-                    android:drawableStart="@drawable/sift_outgoing"
+                    android:drawableStart="@drawable/filter_outgoing"
                     android:text="@string/filter_outgoing" />
 
                 <TextView
                     android:id="@+id/segMissed"
                     style="@style/RecentFilterTab"
                     android:layout_marginEnd="0dp"
-                    android:drawableStart="@drawable/glyph_call_missed"
+                    android:drawableStart="@drawable/ic_call_missed"
                     android:text="@string/filter_missed" />
             </LinearLayout>
         </HorizontalScrollView>
@@ -455,7 +455,7 @@
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="@dimen/_16sdp"
             android:layout_marginBottom="@dimen/_16sdp"
-            android:background="@drawable/shape_home_protection"
+            android:background="@drawable/bg_home_protection"
             android:clickable="true"
             android:elevation="@dimen/_6sdp"
             android:focusable="true"
@@ -470,7 +470,7 @@
                 android:layout_width="@dimen/_16sdp"
                 android:layout_height="@dimen/_16sdp"
                 android:contentDescription="@string/quick_dialer"
-                android:src="@drawable/glyph_dialpad"
+                android:src="@drawable/ic_dialpad"
                 app:tint="@color/white" />
 
             <TextView
@@ -495,10 +495,10 @@
             <ImageView
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
-                android:background="@drawable/shape_icon_box"
+                android:background="@drawable/bg_icon_box"
                 android:contentDescription="@string/perm_calllog_title"
                 android:padding="@dimen/_16sdp"
-                android:src="@drawable/glyph_history"
+                android:src="@drawable/ic_history"
                 app:tint="@color/primary" />
 
             <TextView
@@ -524,7 +524,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_16sdp"
-                android:background="@drawable/shape_btn_primary"
+                android:background="@drawable/bg_btn_primary"
                 android:paddingHorizontal="@dimen/_24sdp"
                 android:paddingVertical="@dimen/_10sdp"
                 android:text="@string/action_grant"

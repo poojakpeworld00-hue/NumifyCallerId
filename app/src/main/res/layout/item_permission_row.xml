@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/_7sdp"
-    android:background="@drawable/shape_overlay_row"
+    android:background="@drawable/bg_overlay_row"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingHorizontal="@dimen/_10sdp"
@@ -18,7 +18,7 @@
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"
         android:contentDescription="@null"
-        android:src="@drawable/glyph_notifications"
+        android:src="@drawable/ic_notifications"
         app:tint="@color/primary" />
 
     <LinearLayout
@@ -52,7 +52,7 @@
         android:id="@+id/padAllow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_btn_primary"
+        android:background="@drawable/bg_btn_primary"
         android:paddingHorizontal="@dimen/_14sdp"
         android:paddingVertical="@dimen/_6sdp"
         android:text="@string/permsheet_allow"

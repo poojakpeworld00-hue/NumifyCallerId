@@ -21,7 +21,7 @@
             android:layout_width="@dimen/_34sdp"
             android:layout_height="@dimen/_34sdp"
 
-            tools:src="@drawable/glyph_star"
+            tools:src="@drawable/ic_star"
             tools:ignore="ContentDescription" />
 
         <LinearLayout
@@ -56,7 +56,7 @@
             android:id="@+id/picTrailing"
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
-            android:src="@drawable/glyph_chevron_right"
+            android:src="@drawable/ic_chevron_right"
             app:tint="@color/on_surface_variant"
             tools:ignore="ContentDescription" />
     </LinearLayout>

@@ -108,7 +108,7 @@ class SimInfoActivity : BaseActivity<ActivitySimInfoBinding>() {
         listOf(binding.bar1Vw, binding.bar2Vw, binding.bar3Vw, binding.bar4Vw)
             .forEachIndexed { i, bar ->
                 bar.setBackgroundResource(
-                    if (i < level) R.drawable.shape_cid_bar_on else R.drawable.shape_cid_bar_off
+                    if (i < level) R.drawable.bg_cid_bar_on else R.drawable.bg_cid_bar_off
                 )
             }
     }

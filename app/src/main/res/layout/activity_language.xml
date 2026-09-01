@@ -31,7 +31,7 @@
             android:visibility="gone"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/onboarding_skip"
-            android:src="@drawable/glyph_arrow_back"
+            android:src="@drawable/ic_arrow_back"
             app:layout_constraintBottom_toBottomOf="@id/lblTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/lblTitle"
@@ -73,7 +73,7 @@
             android:contentDescription="@string/language_info_title"
             android:padding="@dimen/_6sdp"
             android:visibility="gone"
-            android:src="@drawable/glyph_info"
+            android:src="@drawable/ic_info"
             app:layout_constraintBottom_toBottomOf="@id/padContinue"
             app:layout_constraintEnd_toStartOf="@id/padContinue"
             app:layout_constraintTop_toTopOf="@id/padContinue"
@@ -86,8 +86,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:background="@drawable/shape_btn_primary"
-            android:drawableStart="@drawable/glyph_check"
+            android:background="@drawable/bg_btn_primary"
+            android:drawableStart="@drawable/ic_check"
             android:drawablePadding="@dimen/_4sdp"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
@@ -141,7 +141,7 @@
                     <View
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_5sdp"
-                        android:background="@drawable/shape_section_dot" />
+                        android:background="@drawable/bg_section_dot" />
 
                     <TextView
                         android:id="@+id/lblSuggested"
@@ -171,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:background="@drawable/shape_search_pill"
+                    android:background="@drawable/bg_search_pill"
                     android:clipToOutline="true"
                     android:clipToPadding="false"
                     android:elevation="@dimen/_1sdp"
@@ -204,7 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:background="@drawable/shape_search_pill"
+                    android:background="@drawable/bg_search_pill"
                     android:clipToOutline="true"
                     android:clipToPadding="false"
                     android:elevation="@dimen/_1sdp"

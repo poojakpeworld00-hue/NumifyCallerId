@@ -65,7 +65,7 @@ class StopwatchActivity : BaseActivity<ActivityStopwatchBinding>() {
     private fun start() {
         running = true
         startRealtime = SystemClock.elapsedRealtime()
-        binding.padStartPause.setImageResource(R.drawable.glyph_pause)
+        binding.padStartPause.setImageResource(R.drawable.ic_pause)
         binding.padStartPause.contentDescription = getString(R.string.action_pause)
         setLapEnabled(true)
         handler.post(tick)
@@ -122,7 +122,7 @@ class StopwatchActivity : BaseActivity<ActivityStopwatchBinding>() {
     }
 
     private fun showStartAffordance() {
-        binding.padStartPause.setImageResource(R.drawable.glyph_play)
+        binding.padStartPause.setImageResource(R.drawable.ic_play)
         binding.padStartPause.contentDescription = getString(R.string.action_start)
         setLapEnabled(false)
     }

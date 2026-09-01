@@ -112,7 +112,7 @@ class LightMeterActivity : BaseActivity<ActivityLightMeterBinding>(), SensorEven
         )
         bars.forEachIndexed { i, bar ->
             bar.setBackgroundResource(
-                if (i == active) R.drawable.shape_cid_band_on else R.drawable.shape_cid_band_off
+                if (i == active) R.drawable.bg_cid_band_on else R.drawable.bg_cid_band_off
             )
         }
         labels.forEachIndexed { i, label ->

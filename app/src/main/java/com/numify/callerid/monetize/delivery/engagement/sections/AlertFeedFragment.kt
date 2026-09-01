@@ -83,7 +83,7 @@ class AlertFeedFragment : Fragment() {
         val etTitle = dialogView.findViewById<EditText>(R.id.edit_reminderVw).apply {
             hint = "e.g. Birthday, Meeting, Call back..."
             setHintTextColor(Color.parseColor("#999999"))
-            setBackgroundResource(R.drawable.shape_btn)
+            setBackgroundResource(R.drawable.bg_btn)
             setPadding(32, 24, 32, 24)
             requestFocus()
         }

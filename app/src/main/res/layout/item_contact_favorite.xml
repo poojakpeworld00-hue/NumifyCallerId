@@ -20,7 +20,7 @@
         android:id="@+id/lblFavInitial"
         android:layout_width="@dimen/_46sdp"
         android:layout_height="@dimen/_46sdp"
-        android:background="@drawable/shape_cid_pill_neutral"
+        android:background="@drawable/bg_cid_pill_neutral"
         android:gravity="center"
         android:includeFontPadding="false"
         android:textColor="@color/primary"

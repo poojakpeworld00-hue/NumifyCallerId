@@ -24,7 +24,7 @@
             android:layout_height="@dimen/_56sdp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/_12sdp"
-            android:background="@drawable/glyph_profile">
+            android:background="@drawable/ic_profile">
 
             <ImageView
                 android:id="@+id/picUser"
@@ -32,7 +32,7 @@
                 android:layout_height="@dimen/_28sdp"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
-                android:src="@drawable/glyph_profile"
+                android:src="@drawable/ic_profile"
                 tools:tint="@color/primary" />
         </FrameLayout>
 
@@ -125,7 +125,7 @@
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:padding="@dimen/_2sdp"
             android:tint="@color/primary"
-            android:src="@drawable/glyph_call" />
+            android:src="@drawable/ic_call" />
     </LinearLayout>
 
     <LinearLayout
@@ -133,7 +133,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_5sdp"
-        android:background="@drawable/shape_btn"
+        android:background="@drawable/bg_btn"
         android:orientation="horizontal"
         android:paddingVertical="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -157,7 +157,7 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_gravity="center"
-                android:src="@drawable/cbk_recent_unselected" />
+                android:src="@drawable/callback_recent_unselected" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -186,7 +186,7 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_gravity="center"
-                android:src="@drawable/cbk_message_unselected" />
+                android:src="@drawable/callback_message_unselected" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -215,7 +215,7 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_gravity="center"
-                android:src="@drawable/cbk_reminder_unselected" />
+                android:src="@drawable/callback_reminder_unselected" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -251,7 +251,7 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_gravity="center"
-                android:src="@drawable/cbk_wa_unselected" />
+                android:src="@drawable/callback_wa_unselected" />
 
             <TextView
                 android:layout_width="wrap_content"

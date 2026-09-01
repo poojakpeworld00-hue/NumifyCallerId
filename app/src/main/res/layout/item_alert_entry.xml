@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_5sdp"
-    android:background="@drawable/shape_btn"
+    android:background="@drawable/bg_btn"
     android:orientation="horizontal"
     android:padding="@dimen/_10sdp">
 
@@ -42,6 +42,6 @@
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"
         android:layout_gravity="bottom"
-        android:src="@drawable/opt_trash_can" />
+        android:src="@drawable/option_trash_can" />
 
 </LinearLayout>

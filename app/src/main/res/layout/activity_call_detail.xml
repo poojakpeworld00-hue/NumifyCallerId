@@ -30,7 +30,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/onboarding_skip"
                 android:padding="@dimen/_7sdp"
-                android:src="@drawable/glyph_arrow_back"
+                android:src="@drawable/ic_arrow_back"
                 app:tint="@color/on_surface" />
 
             <TextView
@@ -69,14 +69,14 @@
                         android:id="@+id/avatarRingVw"
                         android:layout_width="@dimen/_70sdp"
                         android:layout_height="@dimen/_70sdp"
-                        android:background="@drawable/shape_detail_avatar_ring"
+                        android:background="@drawable/bg_detail_avatar_ring"
                         android:padding="@dimen/_3sdp">
 
                         <TextView
                             android:id="@+id/lblAvatar"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/shape_avatar"
+                            android:background="@drawable/bg_avatar"
                             android:gravity="center"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_20ssp"
@@ -113,7 +113,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
-                        android:background="@drawable/shape_pill"
+                        android:background="@drawable/bg_pill"
                         android:backgroundTint="@color/neutral_soft"
                         android:gravity="center_vertical"
                         android:paddingHorizontal="@dimen/_12sdp"
@@ -131,7 +131,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_12sdp"
-                        android:background="@drawable/shape_btn_gradient"
+                        android:background="@drawable/bg_btn_gradient"
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
@@ -145,7 +145,7 @@
                             android:layout_width="@dimen/_15sdp"
                             android:layout_height="@dimen/_15sdp"
                             android:contentDescription="@null"
-                            android:src="@drawable/glyph_search"
+                            android:src="@drawable/ic_search"
                             app:tint="@color/white" />
 
                         <TextView
@@ -175,7 +175,7 @@
                             style="@style/DetailActionIcon"
                             android:backgroundTint="@color/primary"
                             android:contentDescription="@string/action_call"
-                            android:src="@drawable/glyph_call"
+                            android:src="@drawable/ic_call"
                             app:tint="@color/white" />
 
                         <TextView
@@ -191,7 +191,7 @@
                             style="@style/DetailActionIcon"
                             android:backgroundTint="@color/primary_container"
                             android:contentDescription="@string/action_message"
-                            android:src="@drawable/glyph_message_square_alt"
+                            android:src="@drawable/ic_message_square_alt"
                             app:tint="@color/primary" />
 
                         <TextView
@@ -207,7 +207,7 @@
                             style="@style/DetailActionIcon"
                             android:backgroundTint="@color/primary_container"
                             android:contentDescription="@string/action_whatsapp"
-                            android:src="@drawable/glyph_whatsapp"
+                            android:src="@drawable/ic_whatsapp"
                             app:tint="@color/primary" />
 
                         <TextView
@@ -223,7 +223,7 @@
                             style="@style/DetailActionIcon"
                             android:backgroundTint="@color/cid_clay_100"
                             android:contentDescription="@string/action_block"
-                            android:src="@drawable/glyph_block"
+                            android:src="@drawable/ic_block"
                             app:tint="@color/cid_clay" />
 
                         <TextView
@@ -238,7 +238,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:background="@drawable/shape_cid_summary_pill"
+                    android:background="@drawable/bg_cid_summary_pill"
                     android:elevation="@dimen/_1sdp"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -303,7 +303,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/shape_cid_card"
+                    android:background="@drawable/bg_cid_card"
                     android:elevation="@dimen/_1sdp"
                     android:outlineAmbientShadowColor="@color/card_shadow"
                     android:outlineSpotShadowColor="@color/card_shadow"
@@ -375,10 +375,10 @@
                     <ImageView
                         android:layout_width="@dimen/_56sdp"
                         android:layout_height="@dimen/_56sdp"
-                        android:background="@drawable/shape_circle_surface"
+                        android:background="@drawable/bg_circle_surface"
                         android:contentDescription="@null"
                         android:padding="@dimen/_15sdp"
-                        android:src="@drawable/glyph_phone_solid"
+                        android:src="@drawable/ic_phone_solid"
                         app:tint="@color/on_surface_variant" />
 
                     <TextView

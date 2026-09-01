@@ -43,10 +43,10 @@ class RippleIconView @JvmOverloads constructor(
         val a = context.obtainStyledAttributes(attrs, R.styleable.RippleIconView)
         val iconRes = a.getResourceId(R.styleable.RippleIconView_ripple_icon, 0)
         val discRes = a.getResourceId(
-            R.styleable.RippleIconView_ripple_disc, R.drawable.shape_empty_circle_tools
+            R.styleable.RippleIconView_ripple_disc, R.drawable.bg_empty_circle_tools
         )
         val ringRes = a.getResourceId(
-            R.styleable.RippleIconView_ripple_ring, R.drawable.shape_ring_tools
+            R.styleable.RippleIconView_ripple_ring, R.drawable.bg_ring_tools
         )
         val iconSize = a.getDimensionPixelSize(R.styleable.RippleIconView_ripple_iconSize, 0)
         val hasTint = a.hasValue(R.styleable.RippleIconView_ripple_iconTint)

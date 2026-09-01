@@ -21,7 +21,7 @@
             android:layout_width="@dimen/_34sdp"
             android:layout_height="@dimen/_34sdp"
             android:padding="@dimen/_8sdp"
-            tools:src="@drawable/glyph_policy"
+            tools:src="@drawable/ic_policy"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -38,7 +38,7 @@
         <ImageView
             android:layout_width="@dimen/_15sdp"
             android:layout_height="@dimen/_15sdp"
-            android:src="@drawable/glyph_open_in_new"
+            android:src="@drawable/ic_open_in_new"
             app:tint="@color/on_surface_variant"
             tools:ignore="ContentDescription" />
     </LinearLayout>

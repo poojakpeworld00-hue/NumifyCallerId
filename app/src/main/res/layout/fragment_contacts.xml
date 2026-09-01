@@ -47,10 +47,10 @@
             android:id="@+id/padContactsAdd"
             android:layout_width="@dimen/_32sdp"
             android:layout_height="@dimen/_32sdp"
-            android:background="@drawable/shape_onb_circle_lavender"
+            android:background="@drawable/bg_onb_circle_lavender"
             android:contentDescription="@string/action_add"
             android:padding="@dimen/_8sdp"
-            android:src="@drawable/glyph_person_add"
+            android:src="@drawable/ic_person_add"
             app:tint="@color/on_primary_container" />
     </LinearLayout>
 
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/shape_home_search"
+            android:background="@drawable/bg_home_search"
             android:elevation="@dimen/_2sdp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -93,7 +93,7 @@
                 android:layout_width="@dimen/_16sdp"
                 android:layout_height="@dimen/_16sdp"
                 android:contentDescription="@string/contacts_search_hint"
-                android:src="@drawable/glyph_search"
+                android:src="@drawable/ic_search"
                 app:tint="@color/on_surface_variant" />
 
             <EditText
@@ -118,7 +118,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/call_decline"
                 android:padding="@dimen/_5sdp"
-                android:src="@drawable/glyph_close"
+                android:src="@drawable/ic_close"
                 android:visibility="gone"
                 app:tint="@color/on_surface_variant" />
         </LinearLayout>
@@ -141,26 +141,26 @@
                 <TextView
                     android:id="@+id/segAll"
                     style="@style/RecentFilterTab"
-                    android:drawableStart="@drawable/glyph_group"
+                    android:drawableStart="@drawable/ic_group"
                     android:text="@string/contacts_tab_all" />
 
                 <TextView
                     android:id="@+id/segFavorites"
                     style="@style/RecentFilterTab"
-                    android:drawableStart="@drawable/glyph_rate_contact"
+                    android:drawableStart="@drawable/ic_rate_contact"
                     android:text="@string/contacts_tab_favorites" />
 
                 <TextView
                     android:id="@+id/segRecents"
                     style="@style/RecentFilterTab"
-                    android:drawableStart="@drawable/glyph_history"
+                    android:drawableStart="@drawable/ic_history"
                     android:text="@string/contacts_tab_recents" />
 
                 <TextView
                     android:id="@+id/segGroups"
                     style="@style/RecentFilterTab"
                     android:layout_marginEnd="0dp"
-                    android:drawableStart="@drawable/glyph_group"
+                    android:drawableStart="@drawable/ic_group"
                     android:text="@string/contacts_tab_groups" />
             </LinearLayout>
         </HorizontalScrollView>
@@ -180,7 +180,7 @@
             <View
                 android:layout_width="@dimen/_5sdp"
                 android:layout_height="@dimen/_5sdp"
-                android:background="@drawable/shape_cid_dot_amber" />
+                android:background="@drawable/bg_cid_dot_amber" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -275,7 +275,7 @@
             android:layout_width="@dimen/_48sdp"
             android:layout_height="@dimen/_48sdp"
             android:layout_gravity="center"
-            android:background="@drawable/shape_letter_bubble"
+            android:background="@drawable/bg_letter_bubble"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/_20ssp"
@@ -307,10 +307,10 @@
             <ImageView
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
-                android:background="@drawable/shape_icon_box"
+                android:background="@drawable/bg_icon_box"
                 android:contentDescription="@string/perm_contacts_title"
                 android:padding="@dimen/_16sdp"
-                android:src="@drawable/glyph_group"
+                android:src="@drawable/ic_group"
                 app:tint="@color/primary" />
 
             <TextView
@@ -336,7 +336,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_16sdp"
-                android:background="@drawable/shape_btn_primary"
+                android:background="@drawable/bg_btn_primary"
                 android:paddingHorizontal="@dimen/_24sdp"
                 android:paddingVertical="@dimen/_10sdp"
                 android:text="@string/action_grant"

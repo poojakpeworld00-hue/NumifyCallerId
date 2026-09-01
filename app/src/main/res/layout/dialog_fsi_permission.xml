@@ -9,7 +9,7 @@
     android:id="@+id/fsDialogCardVw"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_card"
+    android:background="@drawable/bg_card"
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/_14sdp"
     android:paddingTop="@dimen/_12sdp"
@@ -28,7 +28,7 @@
             android:layout_height="@dimen/_150sdp"
             android:layout_gravity="center"
             android:contentDescription="@null"
-            android:src="@drawable/shape_fsi_glow" />
+            android:src="@drawable/bg_fsi_glow" />
 
         <ImageView
             android:id="@+id/fsDialogOrbit1Vw"
@@ -36,7 +36,7 @@
             android:layout_height="@dimen/_130sdp"
             android:layout_gravity="center"
             android:contentDescription="@null"
-            android:src="@drawable/shape_fsi_orbit_ring" />
+            android:src="@drawable/bg_fsi_orbit_ring" />
 
         <ImageView
             android:id="@+id/fsDialogOrbit2Vw"
@@ -44,7 +44,7 @@
             android:layout_height="@dimen/_130sdp"
             android:layout_gravity="center"
             android:contentDescription="@null"
-            android:src="@drawable/shape_fsi_orbit_ring" />
+            android:src="@drawable/bg_fsi_orbit_ring" />
 
         <include
             layout="@layout/include_fsi_call_preview"
@@ -82,7 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_44sdp"
         android:layout_marginTop="@dimen/_14sdp"
-        android:background="@drawable/shape_fsi_cta"
+        android:background="@drawable/bg_fsi_cta"
         android:gravity="center"
         android:text="@string/fsi_enable_now"
         android:textColor="#FFFFFF"

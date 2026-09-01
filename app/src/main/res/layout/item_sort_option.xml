@@ -25,7 +25,7 @@
         android:layout_height="@dimen/_16sdp"
         android:layout_marginStart="@dimen/_8sdp"
         android:contentDescription="@string/sort_title"
-        android:src="@drawable/glyph_check"
+        android:src="@drawable/ic_check"
         android:visibility="invisible"
         app:tint="@color/primary" />
 </LinearLayout>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_popup"
+    android:background="@drawable/bg_popup"
     android:minWidth="@dimen/_168sdp"
     android:orientation="vertical"
     android:paddingVertical="@dimen/_6sdp">
@@ -24,7 +24,7 @@
             android:layout_width="@dimen/_18sdp"
             android:layout_height="@dimen/_18sdp"
             android:contentDescription="@string/blocklist_view_details"
-            android:src="@drawable/glyph_info"
+            android:src="@drawable/ic_info"
             app:tint="@color/primary" />
 
         <TextView
@@ -52,7 +52,7 @@
             android:layout_width="@dimen/_18sdp"
             android:layout_height="@dimen/_18sdp"
             android:contentDescription="@string/blocklist_unblock"
-            android:src="@drawable/glyph_undo"
+            android:src="@drawable/ic_undo"
             app:tint="@color/primary" />
 
         <TextView

@@ -28,7 +28,7 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/onboarding_skip"
                         android:padding="@dimen/_5sdp"
-                        android:src="@drawable/glyph_arrow_back"
+                        android:src="@drawable/ic_arrow_back"
                         app:tint="@color/on_surface" />
 
                     <TextView
@@ -66,7 +66,7 @@
                     android:layout_height="@dimen/_38sdp"
                     android:layout_marginHorizontal="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/shape_search_bar"
+                    android:background="@drawable/bg_search_bar"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingHorizontal="@dimen/_14sdp">
@@ -75,7 +75,7 @@
                         android:layout_width="@dimen/_15sdp"
                         android:layout_height="@dimen/_15sdp"
                         android:contentDescription="@string/tools_search_hint"
-                        android:src="@drawable/glyph_search"
+                        android:src="@drawable/ic_search"
                         app:tint="@color/on_surface_variant" />
 
                     <EditText
@@ -104,7 +104,7 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/tools_clear_search"
                         android:padding="@dimen/_3sdp"
-                        android:src="@drawable/glyph_close"
+                        android:src="@drawable/ic_close"
                         android:visibility="gone"
                         app:tint="@color/on_surface_variant" />
                 </LinearLayout>
@@ -156,11 +156,11 @@
                     android:id="@+id/emptyToolsIconVw"
                     android:layout_width="@dimen/_78sdp"
                     android:layout_height="@dimen/_78sdp"
-                    app:ripple_disc="@drawable/shape_empty_circle_tools"
-                    app:ripple_icon="@drawable/glyph_tool_wrench"
+                    app:ripple_disc="@drawable/bg_empty_circle_tools"
+                    app:ripple_icon="@drawable/ic_tool_wrench"
                     app:ripple_iconSize="@dimen/_34sdp"
                     app:ripple_iconTint="@color/on_primary_container"
-                    app:ripple_ring="@drawable/shape_ring_tools" />
+                    app:ripple_ring="@drawable/bg_ring_tools" />
 
                 <TextView
                     android:id="@+id/lblEmptyTitle"
@@ -187,7 +187,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginTop="@dimen/_16sdp"
-                    android:background="@drawable/shape_reset_pill"
+                    android:background="@drawable/bg_reset_pill"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
@@ -198,7 +198,7 @@
                         android:layout_width="@dimen/_14sdp"
                         android:layout_height="@dimen/_14sdp"
                         android:contentDescription="@string/tools_reset_search"
-                        android:src="@drawable/glyph_close"
+                        android:src="@drawable/ic_close"
                         app:tint="@color/on_primary_container" />
 
                     <TextView

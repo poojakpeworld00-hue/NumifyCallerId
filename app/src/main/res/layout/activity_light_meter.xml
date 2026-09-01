@@ -36,7 +36,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/onboarding_skip"
                 android:padding="@dimen/_9sdp"
-                android:src="@drawable/glyph_arrow_back"
+                android:src="@drawable/ic_arrow_back"
                 app:tint="@color/on_surface" />
 
             <TextView
@@ -57,7 +57,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/action_reset"
                 android:padding="@dimen/_9sdp"
-                android:src="@drawable/glyph_undo"
+                android:src="@drawable/ic_undo"
                 app:tint="@color/primary" />
         </LinearLayout>
 
@@ -106,7 +106,7 @@
                         android:layout_height="@dimen/_46sdp"
                         android:layout_gravity="center"
                         android:contentDescription="@null"
-                        android:src="@drawable/glyph_tool_light"
+                        android:src="@drawable/ic_tool_light"
                         app:tint="@color/cid_amber" />
                 </FrameLayout>
 
@@ -144,7 +144,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@drawable/shape_cid_chip_amber"
+                    android:background="@drawable/bg_cid_chip_amber"
                     android:includeFontPadding="false"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingVertical="@dimen/_5sdp"
@@ -159,7 +159,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_18sdp"
-                    android:background="@drawable/shape_cid_panel"
+                    android:background="@drawable/bg_cid_panel"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:paddingHorizontal="@dimen/_12sdp"
@@ -246,7 +246,7 @@
                             <ImageView
                                 style="@style/SpeedStatIcon"
                                 android:rotation="90"
-                                android:src="@drawable/glyph_arrow_forward"
+                                android:src="@drawable/ic_arrow_forward"
                                 app:tint="@color/cid_teal" />
 
                             <TextView
@@ -273,7 +273,7 @@
                             <ImageView
                                 style="@style/SpeedStatIcon"
                                 android:rotation="-90"
-                                android:src="@drawable/glyph_arrow_forward"
+                                android:src="@drawable/ic_arrow_forward"
                                 app:tint="@color/cid_amber" />
 
                             <TextView
@@ -293,7 +293,7 @@
                     style="@style/ToolCta"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:text="@string/meter_pause"
-                    app:icon="@drawable/glyph_pause" />
+                    app:icon="@drawable/ic_pause" />
 
                 <FrameLayout
                     android:id="@+id/adNativeFrameVw"

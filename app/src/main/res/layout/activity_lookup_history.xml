@@ -30,7 +30,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/action_back"
                 android:padding="@dimen/_7sdp"
-                android:src="@drawable/glyph_arrow_back"
+                android:src="@drawable/ic_arrow_back"
                 app:tint="@color/on_surface" />
 
             <TextView
@@ -87,11 +87,11 @@
             <com.numify.callerid.lookup.feature.widgets.RippleIconView
                 android:layout_width="@dimen/_76sdp"
                 android:layout_height="@dimen/_76sdp"
-                app:ripple_disc="@drawable/shape_empty_circle_tools"
-                app:ripple_icon="@drawable/glyph_search_plus"
+                app:ripple_disc="@drawable/bg_empty_circle_tools"
+                app:ripple_icon="@drawable/ic_search_plus"
                 app:ripple_iconSize="@dimen/_32sdp"
                 app:ripple_iconTint="@color/on_primary_container"
-                app:ripple_ring="@drawable/shape_ring_tools" />
+                app:ripple_ring="@drawable/bg_ring_tools" />
 
             <TextView
                 android:layout_width="match_parent"

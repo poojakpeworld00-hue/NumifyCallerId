@@ -23,14 +23,14 @@
         android:layout_height="@dimen/_150sdp"
         android:layout_gravity="center"
         android:contentDescription="@null"
-        android:src="@drawable/shape_onb_halo_red" />
+        android:src="@drawable/bg_onb_halo_red" />
 
     <LinearLayout
         android:id="@+id/obCardVw"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_182sdp"
         android:layout_gravity="center"
-        android:background="@drawable/shape_onb_card_spam"
+        android:background="@drawable/bg_onb_card_spam"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:elevation="@dimen/_8sdp"
@@ -63,20 +63,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:background="@drawable/shape_onb_pulse_spam" />
+                    android:background="@drawable/bg_onb_pulse_spam" />
 
                 <View
                     android:id="@+id/obRing2Vw"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:background="@drawable/shape_onb_pulse_spam" />
+                    android:background="@drawable/bg_onb_pulse_spam" />
 
                 <View
                     android:layout_width="@dimen/_5sdp"
                     android:layout_height="@dimen/_5sdp"
                     android:layout_gravity="center"
-                    android:background="@drawable/shape_onb_dot_spam" />
+                    android:background="@drawable/bg_onb_dot_spam" />
             </FrameLayout>
 
             <TextView
@@ -104,14 +104,14 @@
                 android:id="@+id/obShieldVw"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/shape_onb_circle_spam">
+                android:background="@drawable/bg_onb_circle_spam">
 
                 <ImageView
                     android:layout_width="@dimen/_27sdp"
                     android:layout_height="@dimen/_27sdp"
                     android:layout_gravity="center"
                     android:contentDescription="@null"
-                    android:src="@drawable/glyph_ob_shield_spam" />
+                    android:src="@drawable/ic_ob_shield_spam" />
             </FrameLayout>
 
             <FrameLayout
@@ -119,14 +119,14 @@
                 android:layout_width="@dimen/_21sdp"
                 android:layout_height="@dimen/_21sdp"
                 android:layout_gravity="bottom|end"
-                android:background="@drawable/shape_onb_badge_spam">
+                android:background="@drawable/bg_onb_badge_spam">
 
                 <ImageView
                     android:layout_width="@dimen/_10sdp"
                     android:layout_height="@dimen/_10sdp"
                     android:layout_gravity="center"
                     android:contentDescription="@null"
-                    android:src="@drawable/glyph_ob_x" />
+                    android:src="@drawable/ic_ob_x" />
             </FrameLayout>
         </FrameLayout>
 
@@ -144,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:background="@drawable/shape_onb_chip_spam"
+            android:background="@drawable/bg_onb_chip_spam"
             android:includeFontPadding="false"
             android:letterSpacing="0.03"
             android:paddingHorizontal="@dimen/_7sdp"
@@ -164,7 +164,7 @@
             android:id="@+id/obStampVw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_onb_pill_spam"
+            android:background="@drawable/bg_onb_pill_spam"
             android:includeFontPadding="false"
             android:letterSpacing="0.04"
             android:paddingHorizontal="@dimen/_12sdp"

@@ -36,7 +36,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/onboarding_skip"
                 android:padding="@dimen/_9sdp"
-                android:src="@drawable/glyph_arrow_back"
+                android:src="@drawable/ic_arrow_back"
                 app:tint="@color/on_surface" />
 
             <TextView
@@ -57,7 +57,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/action_reset"
                 android:padding="@dimen/_9sdp"
-                android:src="@drawable/glyph_undo"
+                android:src="@drawable/ic_undo"
                 app:tint="@color/primary" />
         </LinearLayout>
 
@@ -115,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@drawable/shape_cid_pill_neutral"
+                    android:background="@drawable/bg_cid_pill_neutral"
                     android:includeFontPadding="false"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingVertical="@dimen/_5sdp"
@@ -139,7 +139,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_16sdp"
-                    android:background="@drawable/shape_cid_panel"
+                    android:background="@drawable/bg_cid_panel"
                     android:orientation="vertical"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingVertical="@dimen/_12sdp">
@@ -232,7 +232,7 @@
                     style="@style/ToolCta"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:text="@string/meter_pause"
-                    app:icon="@drawable/glyph_pause" />
+                    app:icon="@drawable/ic_pause" />
 
                 <FrameLayout
                     android:id="@+id/adNativeFrameVw"

@@ -15,7 +15,7 @@
     <View
         android:layout_width="@dimen/_5sdp"
         android:layout_height="@dimen/_5sdp"
-        android:background="@drawable/shape_section_dot" />
+        android:background="@drawable/bg_section_dot" />
 
     <TextView
         android:id="@+id/lblHeader"

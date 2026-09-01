@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:background="@drawable/shape_btn_primary"
+                android:background="@drawable/bg_btn_primary"
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:paddingVertical="@dimen/_5sdp"
                 android:text="@string/perm_allow"
@@ -131,7 +131,7 @@
             android:id="@+id/fabLookupVw"
             android:layout_width="@dimen/_52sdp"
             android:layout_height="@dimen/_52sdp"
-            android:background="@drawable/shape_fab_lookup"
+            android:background="@drawable/bg_fab_lookup"
             android:clickable="true"
             android:contentDescription="@string/nav_lookup"
             android:elevation="@dimen/_12sdp"
@@ -149,7 +149,7 @@
                 android:layout_height="@dimen/_22sdp"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
-                android:src="@drawable/glyph_search"
+                android:src="@drawable/ic_search"
                 app:tint="@color/on_primary" />
         </FrameLayout>
 

@@ -445,7 +445,7 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
             .setInterpolator(OvershootInterpolator(2.4f))
             .start()
 
-        AnimatedVectorDrawableCompat.create(requireContext(), R.drawable.anim_cid_shield)?.let { avd ->
+        AnimatedVectorDrawableCompat.create(requireContext(), R.drawable.motion_shield)?.let { avd ->
             v.shieldIconVw.setImageDrawable(avd)
             avd.start()
         }

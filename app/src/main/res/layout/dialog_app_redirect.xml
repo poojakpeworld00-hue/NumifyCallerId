@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_margin="@dimen/_10sdp"
-    android:background="@drawable/shape_btn"
+    android:background="@drawable/bg_btn"
     android:gravity="center"
     android:padding="@dimen/_15sdp">
 
@@ -28,7 +28,7 @@
             android:layout_marginHorizontal="@dimen/_45sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:adjustViewBounds="true"
-            android:src="@drawable/glyph_app_redirect" />
+            android:src="@drawable/ic_app_redirect" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="@dimen/_10sdp"
-                android:background="@drawable/shape_btn"
+                android:background="@drawable/bg_btn"
                 android:backgroundTint="@color/primary"
                 android:fontFamily="@font/figtree_medium"
                 android:gravity="center"
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@drawable/shape_btn"
+                android:background="@drawable/bg_btn"
                 android:backgroundTint="@color/primary"
                 android:fontFamily="@font/figtree_medium"
                 android:gravity="center"

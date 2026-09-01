@@ -15,13 +15,13 @@
         android:layout_height="@dimen/_8sdp"
         android:layout_marginStart="@dimen/_24sdp"
         android:contentDescription="@null"
-        android:src="@drawable/glyph_hint_caret"
+        android:src="@drawable/ic_hint_caret"
         app:tint="@color/surface" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_hint_bubble"
+        android:background="@drawable/bg_hint_bubble"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="@dimen/_12sdp"
@@ -31,10 +31,10 @@
         <ImageView
             android:layout_width="@dimen/_32sdp"
             android:layout_height="@dimen/_32sdp"
-            android:background="@drawable/shape_cid_chip_brand"
+            android:background="@drawable/bg_cid_chip_brand"
             android:contentDescription="@null"
             android:padding="@dimen/_8sdp"
-            android:src="@drawable/glyph_hand_tap"
+            android:src="@drawable/ic_hand_tap"
             app:tint="@color/primary" />
 
         <TextView
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_32sdp"
             android:layout_marginStart="@dimen/_8sdp"
-            android:background="@drawable/shape_cid_cta_pill"
+            android:background="@drawable/bg_cid_cta_pill"
             android:gravity="center"
             android:paddingHorizontal="@dimen/_14sdp"
             android:text="@string/got_it"

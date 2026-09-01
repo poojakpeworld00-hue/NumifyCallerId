@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_card"
+    android:background="@drawable/bg_card"
     android:orientation="vertical"
     android:padding="@dimen/_20sdp">
 
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_marginTop="@dimen/_18sdp"
-        android:background="@drawable/shape_btn_primary"
+        android:background="@drawable/bg_btn_primary"
         android:minWidth="@dimen/_70sdp"
         android:paddingHorizontal="@dimen/_18sdp"
         android:paddingVertical="@dimen/_9sdp"

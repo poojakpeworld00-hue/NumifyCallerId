@@ -8,7 +8,7 @@
     android:layout_marginTop="@dimen/_5sdp"
     android:layout_marginRight="@dimen/_5sdp"
     android:layout_marginBottom="@dimen/_5sdp"
-    android:background="@drawable/shape_ads_backdrop">
+    android:background="@drawable/bg_ads_backdrop">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/img_promo" />
+                    android:src="@drawable/image_promo" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/glyph_ad" />
+                            android:src="@drawable/ic_ad" />
 
                         <TextView
                             android:id="@+id/titileText"
@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:padding="@dimen/_10sdp"
-                        android:background="@drawable/shape_btn_primary"
+                        android:background="@drawable/bg_btn_primary"
                         android:backgroundTint="@color/primary"
                         android:gravity="center"
                         android:fontFamily="@font/figtree_medium"

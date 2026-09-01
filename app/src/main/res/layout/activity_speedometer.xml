@@ -41,7 +41,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/onboarding_skip"
                 android:padding="@dimen/_9sdp"
-                android:src="@drawable/glyph_arrow_back"
+                android:src="@drawable/ic_arrow_back"
                 app:tint="@color/on_surface" />
 
             <TextView
@@ -62,7 +62,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/speedtest_history"
                 android:padding="@dimen/_9sdp"
-                android:src="@drawable/glyph_history"
+                android:src="@drawable/ic_history"
                 app:tint="@color/primary" />
         </LinearLayout>
 
@@ -133,7 +133,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_7sdp"
-                            android:background="@drawable/shape_cid_pill_neutral"
+                            android:background="@drawable/bg_cid_pill_neutral"
                             android:includeFontPadding="false"
                             android:paddingHorizontal="@dimen/_10sdp"
                             android:paddingVertical="@dimen/_4sdp"
@@ -149,7 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:background="@drawable/shape_cid_pill_teal"
+                    android:background="@drawable/bg_cid_pill_teal"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingVertical="@dimen/_6sdp"
                     android:gravity="center_vertical"
@@ -159,7 +159,7 @@
                         android:layout_width="@dimen/_13sdp"
                         android:layout_height="@dimen/_13sdp"
                         android:contentDescription="@null"
-                        android:src="@drawable/glyph_tool_network"
+                        android:src="@drawable/ic_tool_network"
                         app:tint="@color/cid_teal" />
 
                     <TextView
@@ -188,7 +188,7 @@
 
                         <ImageView
                             style="@style/SpeedStatIcon"
-                            android:src="@drawable/glyph_arrow_forward"
+                            android:src="@drawable/ic_arrow_forward"
                             android:rotation="-90"
                             app:tint="@color/cid_teal" />
 
@@ -208,7 +208,7 @@
 
                         <ImageView
                             style="@style/SpeedStatIcon"
-                            android:src="@drawable/glyph_timer"
+                            android:src="@drawable/ic_timer"
                             app:tint="@color/cid_amber" />
 
                         <TextView
@@ -227,7 +227,7 @@
 
                         <ImageView
                             style="@style/SpeedStatIcon"
-                            android:src="@drawable/glyph_tool_sound"
+                            android:src="@drawable/ic_tool_sound"
                             app:tint="@color/cid_clay" />
 
                         <TextView
@@ -247,7 +247,7 @@
                     style="@style/ToolCta"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:text="@string/speedtest_again"
-                    app:icon="@drawable/glyph_play" />
+                    app:icon="@drawable/ic_play" />
 
                 <FrameLayout
                     android:id="@+id/adNativeFrameVw"

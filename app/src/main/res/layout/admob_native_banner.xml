@@ -3,7 +3,7 @@
     android:id="@+id/mainNativeadView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_ads_backdrop"
+    android:background="@drawable/bg_ads_backdrop"
     android:padding="5dp">
 
     <LinearLayout
@@ -65,7 +65,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/glyph_ad" />
+                            android:src="@drawable/ic_ad" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -155,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:background="@drawable/shape_btn_primary"
+            android:background="@drawable/bg_btn_primary"
             android:backgroundTint="@color/white"
             android:gravity="center"
             android:padding="14dp"

@@ -30,7 +30,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/onboarding_skip"
                 android:padding="@dimen/_7sdp"
-                android:src="@drawable/glyph_arrow_back"
+                android:src="@drawable/ic_arrow_back"
                 app:tint="@color/on_surface" />
 
             <TextView
@@ -56,7 +56,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layoutAnimation="@anim/tool_layout_in"
+                android:layoutAnimation="@anim/anim_tool_grid"
                 android:orientation="vertical">
 
                 <!-- Native ad at the top of the settings list -->
@@ -97,7 +97,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape_settings_group"
+                    android:background="@drawable/bg_settings_group"
                     android:orientation="horizontal"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingVertical="@dimen/_12sdp">
@@ -112,10 +112,10 @@
                         <ImageView
                             android:layout_width="@dimen/_34sdp"
                             android:layout_height="@dimen/_34sdp"
-                            android:background="@drawable/shape_cid_chip_brand"
+                            android:background="@drawable/bg_cid_chip_brand"
                             android:contentDescription="@null"
                             android:padding="@dimen/_8sdp"
-                            android:src="@drawable/glyph_theme_system"
+                            android:src="@drawable/ic_theme_system"
                             app:tint="@color/primary" />
 
                         <LinearLayout
@@ -218,10 +218,10 @@
                         <ImageView
                             android:layout_width="@dimen/_34sdp"
                             android:layout_height="@dimen/_34sdp"
-                            android:background="@drawable/shape_cid_chip_teal"
+                            android:background="@drawable/bg_cid_chip_teal"
                             android:contentDescription="@null"
                             android:padding="@dimen/_8sdp"
-                            android:src="@drawable/glyph_phone_in_talk"
+                            android:src="@drawable/ic_phone_in_talk"
                             app:tint="@color/cid_teal" />
 
                         <LinearLayout

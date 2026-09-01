@@ -17,13 +17,13 @@
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
             android:padding="@dimen/_4sdp"
-            android:src="@drawable/img_promo" />
+            android:src="@drawable/image_promo" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/glyph_ad" />
+            android:src="@drawable/ic_ad" />
     </RelativeLayout>
 
     <LinearLayout
@@ -74,7 +74,7 @@
         android:layout_width="@dimen/_80sdp"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
-        android:background="@drawable/shape_btn_primary"
+        android:background="@drawable/bg_btn_primary"
         android:backgroundTint="@color/primary"
         android:fontFamily="@font/figtree_medium"
         android:gravity="center"

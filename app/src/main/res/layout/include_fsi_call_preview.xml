@@ -8,7 +8,7 @@
     android:id="@+id/fsCallPreviewVw"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_fsi_dialog_card"
+    android:background="@drawable/bg_fsi_dialog_card"
     android:elevation="@dimen/_2sdp"
     android:orientation="vertical">
 
@@ -16,7 +16,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_fsi_dialog_header"
+        android:background="@drawable/bg_fsi_dialog_header"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="@dimen/_11sdp"
@@ -25,14 +25,14 @@
         <FrameLayout
             android:layout_width="@dimen/_19sdp"
             android:layout_height="@dimen/_19sdp"
-            android:background="@drawable/shape_fsi_header_icon">
+            android:background="@drawable/bg_fsi_header_icon">
 
             <ImageView
                 android:layout_width="@dimen/_11sdp"
                 android:layout_height="@dimen/_11sdp"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
-                android:src="@drawable/glyph_phone_solid"
+                android:src="@drawable/ic_phone_solid"
                 app:tint="@color/fsi_blue" />
         </FrameLayout>
 
@@ -50,7 +50,7 @@
             android:layout_width="@dimen/_11sdp"
             android:layout_height="@dimen/_11sdp"
             android:contentDescription="@null"
-            android:src="@drawable/glyph_close"
+            android:src="@drawable/ic_close"
             app:tint="#FFFFFF" />
     </LinearLayout>
 
@@ -73,7 +73,7 @@
                 android:layout_height="@dimen/_48sdp"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
-                android:src="@drawable/shape_fsi_avatar_ring" />
+                android:src="@drawable/bg_fsi_avatar_ring" />
 
             <ImageView
                 android:id="@+id/fsAvatarRing2Vw"
@@ -81,13 +81,13 @@
                 android:layout_height="@dimen/_48sdp"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
-                android:src="@drawable/shape_fsi_avatar_ring" />
+                android:src="@drawable/bg_fsi_avatar_ring" />
 
             <TextView
                 android:layout_width="@dimen/_38sdp"
                 android:layout_height="@dimen/_38sdp"
                 android:layout_gravity="center"
-                android:background="@drawable/shape_fsi_avatar"
+                android:background="@drawable/bg_fsi_avatar"
                 android:gravity="center"
                 android:text="@string/fsi_avatar_initials"
                 android:textColor="#FFFFFF"
@@ -123,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/shape_fsi_chip_known"
+                android:background="@drawable/bg_fsi_chip_known"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/_8sdp"
@@ -133,7 +133,7 @@
                     android:layout_width="@dimen/_9sdp"
                     android:layout_height="@dimen/_9sdp"
                     android:contentDescription="@null"
-                    android:src="@drawable/glyph_verified"
+                    android:src="@drawable/ic_verified"
                     app:tint="#1E8E5A" />
 
                 <TextView
@@ -175,7 +175,7 @@
                 android:layout_width="@dimen/_9sdp"
                 android:layout_height="@dimen/_9sdp"
                 android:contentDescription="@null"
-                android:src="@drawable/glyph_history"
+                android:src="@drawable/ic_history"
                 app:tint="#6A7285" />
 
             <TextView
@@ -199,7 +199,7 @@
                 android:layout_width="@dimen/_9sdp"
                 android:layout_height="@dimen/_9sdp"
                 android:contentDescription="@null"
-                android:src="@drawable/glyph_call_received"
+                android:src="@drawable/ic_call_received"
                 app:tint="#6A7285" />
 
             <TextView
@@ -223,7 +223,7 @@
                 android:layout_width="@dimen/_9sdp"
                 android:layout_height="@dimen/_9sdp"
                 android:contentDescription="@null"
-                android:src="@drawable/glyph_sim_card_alt"
+                android:src="@drawable/ic_sim_card_alt"
                 app:tint="#6A7285" />
 
             <TextView
