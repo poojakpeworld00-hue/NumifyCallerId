@@ -109,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="lblSubtitle,padContinue" />
+            app:constraint_referenced_ids="textSubtitle,buttonContinue" />
 
         <!-- ===== Suggested + All languages — one continuous scroll ===== -->
         <androidx.core.widget.NestedScrollView

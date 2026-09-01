@@ -164,7 +164,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="summaryStripVw,lblHeaderBlocked,rollBlocklist,fabAddVw" />
+            app:constraint_referenced_ids="summaryStrip,textHeaderBlocked,listBlocklist,fabAdd" />
 
         <!-- ===== EMPTY STATE: breathing icon + headline + the three methods ===== -->
         <androidx.core.widget.NestedScrollView
