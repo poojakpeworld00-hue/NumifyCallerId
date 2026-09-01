@@ -711,7 +711,7 @@
     <string name="ai_settings_verdict_title">คำตัดสินผู้โทร</string>
     <string name="ai_settings_verdict_sub">ข้อความสั้นเกี่ยวกับเบอร์ที่ไม่รู้จักขณะสายเข้า</string>
     <string name="ai_settings_summary_title">สรุปหลังวางสาย</string>
-    <string name="ai_settings_summary_sub">คุณคุยกันบ่อยแค่ไหน แสดงเมื่อวางสาย</string>
+    <string name="ai_settings_summary_sub">คุณโทรหากันบ่อยแค่ไหน แสดงเมื่อวางสาย</string>
     <string name="ai_settings_reply_title">ตอบสายที่ไม่ได้รับ</string>
     <string name="ai_settings_reply_sub">การแจ้งเตือนพร้อมข้อความที่เตรียมไว้</string>
     <string name="ai_settings_questions_asked">จำนวนคำถาม</string>

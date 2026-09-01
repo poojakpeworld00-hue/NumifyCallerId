@@ -756,7 +756,7 @@
     <string name="ai_settings_verdict_title">कॉलर का आकलन</string>
     <string name="ai_settings_verdict_sub">घंटी बजते समय अनजान नंबरों के बारे में एक पंक्ति</string>
     <string name="ai_settings_summary_title">कॉल के बाद सारांश</string>
-    <string name="ai_settings_summary_sub">आप कितनी बार बात करते हैं, कॉल खत्म होने पर</string>
+    <string name="ai_settings_summary_sub">आप कितनी बार कॉल करते हैं, कॉल खत्म होने पर</string>
     <string name="ai_settings_reply_title">मिस्ड कॉल के जवाब</string>
     <string name="ai_settings_reply_sub">भेजने के लिए तैयार संदेश वाली सूचना</string>
     <string name="ai_settings_questions_asked">पूछे गए सवाल</string>

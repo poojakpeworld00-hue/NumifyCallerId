@@ -711,7 +711,7 @@
     <string name="ai_settings_verdict_title">Đánh giá người gọi</string>
     <string name="ai_settings_verdict_sub">Một dòng về số lạ trong lúc máy đổ chuông</string>
     <string name="ai_settings_summary_title">Tóm tắt sau cuộc gọi</string>
-    <string name="ai_settings_summary_sub">Bạn nói chuyện thường xuyên ra sao, hiện khi cuộc gọi kết thúc</string>
+    <string name="ai_settings_summary_sub">Bạn gọi nhau thường xuyên ra sao, hiện khi cuộc gọi kết thúc</string>
     <string name="ai_settings_reply_title">Trả lời cuộc gọi nhỡ</string>
     <string name="ai_settings_reply_sub">Thông báo kèm tin nhắn sẵn sàng gửi</string>
     <string name="ai_settings_questions_asked">Số câu đã hỏi</string>

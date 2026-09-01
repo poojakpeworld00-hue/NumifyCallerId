@@ -716,7 +716,7 @@
     <string name="ai_settings_verdict_title">Verdict sur l\'appelant</string>
     <string name="ai_settings_verdict_sub">Une ligne sur les numéros inconnus pendant que le téléphone sonne</string>
     <string name="ai_settings_summary_title">Résumé après les appels</string>
-    <string name="ai_settings_summary_sub">La fréquence de vos échanges, à la fin d\'un appel</string>
+    <string name="ai_settings_summary_sub">La fréquence de vos appels, à la fin d\'un appel</string>
     <string name="ai_settings_reply_title">Réponses aux appels manqués</string>
     <string name="ai_settings_reply_sub">Une notification avec un message prêt à envoyer</string>
     <string name="ai_settings_questions_asked">Questions posées</string>

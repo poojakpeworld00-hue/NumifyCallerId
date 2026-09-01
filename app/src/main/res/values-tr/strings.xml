@@ -716,7 +716,7 @@
     <string name="ai_settings_verdict_title">Arayan değerlendirmesi</string>
     <string name="ai_settings_verdict_sub">Telefon çalarken bilinmeyen numaralar hakkında bir satır</string>
     <string name="ai_settings_summary_title">Aramalardan sonra özet</string>
-    <string name="ai_settings_summary_sub">Ne sıklıkta konuştuğunuz, arama bitince gösterilir</string>
+    <string name="ai_settings_summary_sub">Ne sıklıkta aradığınız, arama bitince gösterilir</string>
     <string name="ai_settings_reply_title">Cevapsız arama yanıtları</string>
     <string name="ai_settings_reply_sub">Göndermeye hazır mesajlı bir bildirim</string>
     <string name="ai_settings_questions_asked">Sorulan sorular</string>

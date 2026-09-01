@@ -790,7 +790,7 @@
     <string name="ai_settings_verdict_title">Caller verdict</string>
     <string name="ai_settings_verdict_sub">A line about unknown numbers while your phone rings</string>
     <string name="ai_settings_summary_title">Summary after calls</string>
-    <string name="ai_settings_summary_sub">How often you speak, shown when a call ends</string>
+    <string name="ai_settings_summary_sub">How often you call, shown when a call ends</string>
     <string name="ai_settings_reply_title">Missed call replies</string>
     <string name="ai_settings_reply_sub">A notification with a message ready to send</string>
     <string name="ai_settings_questions_asked">Questions asked</string>

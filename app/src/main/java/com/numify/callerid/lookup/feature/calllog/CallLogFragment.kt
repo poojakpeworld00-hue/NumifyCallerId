@@ -180,6 +180,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
             if (hasCallLogPermission()) onPermissionGranted() else showPermissionState()
             refreshProtectionState()
             refreshPermissionHint()
+            applyAskAiVisibility()
         }
     }
 
@@ -191,6 +192,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
             if (hasCallLogPermission()) onPermissionGranted() else showPermissionState()
             refreshProtectionState()
             refreshPermissionHint()
+            applyAskAiVisibility()
         }
     }
 
@@ -388,15 +390,26 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
      * and is switched on per audience without a release.
      */
     private fun setupAskAi() {
-        val enabled = AiFeatureConfig.isEnabled(requireContext()) &&
-            SettingsRepository(requireContext()).aiHomeButtonEnabled
-        binding.buttonAskAi.isVisible = enabled
-        if (!enabled) return
-
         binding.buttonAskAi.setOnClickListener {
             startActivity(AiHubActivity.newIntent(requireContext()))
         }
-        maybeShowAskAiTooltip()
+        if (applyAskAiVisibility()) maybeShowAskAiTooltip()
+    }
+
+    /**
+     * Re-read on every entry, not just when the fragment is built.
+     *
+     * The switch that controls this lives in AI settings, two screens away, and
+     * Home is a show/hide tab that is not recreated on the way back — so a
+     * one-shot read in [initView] left the button on screen after the user had
+     * just turned it off.
+     */
+    private fun applyAskAiVisibility(): Boolean {
+        val enabled = AiFeatureConfig.isEnabled(requireContext()) &&
+            SettingsRepository(requireContext()).aiHomeButtonEnabled
+        binding.buttonAskAi.isVisible = enabled
+        if (!enabled) binding.textAskAiTooltip.isVisible = false
+        return enabled
     }
 
     /**

@@ -758,7 +758,7 @@
     <string name="ai_settings_verdict_title">Veredito do chamador</string>
     <string name="ai_settings_verdict_sub">Uma linha sobre números desconhecidos enquanto o telefone toca</string>
     <string name="ai_settings_summary_title">Resumo após as chamadas</string>
-    <string name="ai_settings_summary_sub">Com que frequência vocês falam, ao fim de uma chamada</string>
+    <string name="ai_settings_summary_sub">Com que frequência vocês se ligam, ao fim de uma chamada</string>
     <string name="ai_settings_reply_title">Respostas a chamadas perdidas</string>
     <string name="ai_settings_reply_sub">Uma notificação com uma mensagem pronta para enviar</string>
     <string name="ai_settings_questions_asked">Perguntas feitas</string>

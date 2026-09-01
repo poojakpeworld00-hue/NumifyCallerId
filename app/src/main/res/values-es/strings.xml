@@ -760,7 +760,7 @@
     <string name="ai_settings_verdict_title">Veredicto del llamante</string>
     <string name="ai_settings_verdict_sub">Una línea sobre números desconocidos mientras suena el teléfono</string>
     <string name="ai_settings_summary_title">Resumen tras las llamadas</string>
-    <string name="ai_settings_summary_sub">Con qué frecuencia hablas, al terminar una llamada</string>
+    <string name="ai_settings_summary_sub">Con qué frecuencia llamas, al terminar una llamada</string>
     <string name="ai_settings_reply_title">Respuestas a llamadas perdidas</string>
     <string name="ai_settings_reply_sub">Una notificación con un mensaje listo para enviar</string>
     <string name="ai_settings_questions_asked">Preguntas realizadas</string>

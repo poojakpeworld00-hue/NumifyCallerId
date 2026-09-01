@@ -711,7 +711,7 @@
     <string name="ai_settings_verdict_title">発信者の判定</string>
     <string name="ai_settings_verdict_sub">着信中に不明な番号について一行で表示</string>
     <string name="ai_settings_summary_title">通話後の概要</string>
-    <string name="ai_settings_summary_sub">通話終了時に、やり取りの頻度を表示</string>
+    <string name="ai_settings_summary_sub">通話終了時に、通話の頻度を表示</string>
     <string name="ai_settings_reply_title">不在着信への返信</string>
     <string name="ai_settings_reply_sub">本文入りの通知を表示</string>
     <string name="ai_settings_questions_asked">質問した回数</string>

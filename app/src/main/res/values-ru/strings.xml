@@ -768,7 +768,7 @@
     <string name="ai_settings_verdict_title">Оценка звонящего</string>
     <string name="ai_settings_verdict_sub">Строка о неизвестных номерах, пока телефон звонит</string>
     <string name="ai_settings_summary_title">Сводка после звонков</string>
-    <string name="ai_settings_summary_sub">Как часто вы общаетесь — по завершении вызова</string>
+    <string name="ai_settings_summary_sub">Как часто вы созваниваетесь — по завершении вызова</string>
     <string name="ai_settings_reply_title">Ответы на пропущенные</string>
     <string name="ai_settings_reply_sub">Уведомление с готовым сообщением</string>
     <string name="ai_settings_questions_asked">Задано вопросов</string>

@@ -762,7 +762,7 @@
     <string name="ai_settings_verdict_title">تقييم المتصل</string>
     <string name="ai_settings_verdict_sub">سطر عن الأرقام المجهولة أثناء رنين هاتفك</string>
     <string name="ai_settings_summary_title">ملخص بعد المكالمات</string>
-    <string name="ai_settings_summary_sub">عدد مرات تحدثكما، يظهر عند انتهاء المكالمة</string>
+    <string name="ai_settings_summary_sub">عدد مرات اتصالكما، يظهر عند انتهاء المكالمة</string>
     <string name="ai_settings_reply_title">ردود المكالمات الفائتة</string>
     <string name="ai_settings_reply_sub">إشعار برسالة جاهزة للإرسال</string>
     <string name="ai_settings_questions_asked">الأسئلة المطروحة</string>
