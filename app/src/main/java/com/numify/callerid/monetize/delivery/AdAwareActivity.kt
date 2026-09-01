@@ -39,6 +39,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.ump.FormError
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import io.lighthouse.push.Attribution
 import io.lighthouse.push.LightHouse
 import com.numify.callerid.monetize.model.AdPlacementType
 import com.numify.callerid.monetize.model.ResultCallback
@@ -60,7 +61,9 @@ import com.numify.callerid.lookup.common.PreferenceStore.THEME_LIGHT
 import com.numify.callerid.lookup.common.PreferenceStore.THEME_SYSTEM
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import kotlin.coroutines.resume
 import org.json.JSONObject
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -469,7 +472,13 @@ open class AdAwareActivity : AppCompatActivity() {
                 // coroutine here, so this suspends rather than blocking the main thread.
                 // The result is persisted so every other reader of OnMaketing (FSI /
                 // intro / permission audience split) sees the same value.
-                val isMarketingOn = !LightHouse.isOrganicUser(awaitReferrerMs = 5_000L)
+                val isMarketingOn = suspendCancellableCoroutine { continuation ->
+                    LightHouse.resolveAttribution { attribution ->
+                        if (continuation.isActive) {
+                            continuation.resume(attribution == Attribution.PAID)
+                        }
+                    }
+                }
                 adsPreference.putBoolean("OnMaketing", isMarketingOn)
 
                 // Top-level audience split only: OnMaketing is now final (referrer
