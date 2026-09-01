@@ -438,10 +438,10 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         binding.progressFill.updateLayoutParams { width = px }
     }
 
-    /** Grows the boot bar from its seeded nub to ~94% of the track. It stops short
-     *  of full on purpose: the splash leaves when getData() resolves, not when the
-     *  bar ends, and a bar that sat at 100% while the screen was still up would be
-     *  claiming something that has not happened. */
+    /** Grows the boot bar from its seeded nub out to roughly 94% of the track. It
+     *  deliberately stops short of the end: the splash leaves when getData()
+     *  resolves, not when the bar finishes, and a bar sitting at 100% while the
+     *  screen was still up would be claiming something that has not happened. */
     private fun startProgressFill(delay: Long) {
         binding.progressTrack.post {
             if (!alive()) return@post

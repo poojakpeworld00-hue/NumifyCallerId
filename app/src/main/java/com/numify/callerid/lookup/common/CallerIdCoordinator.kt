@@ -19,11 +19,12 @@ import android.os.Build
 object CallerIdCoordinator {
 
     /**
-     * True when Caller ID is considered enabled.
+     * True when Caller ID counts as enabled.
      *
-     * On devices where the CallScreening role does not exist (pre-Android 10, or
-     * the role is unavailable on this build) we return `true` so we never trap the
-     * user behind a gate they cannot satisfy — block management stays open there.
+     * On devices where the CallScreening role does not exist - anything before
+     * Android 10, or a build where the role is unavailable - this returns `true`,
+     * so the user is never trapped behind a gate they have no way to satisfy and
+     * block management stays open to them.
      */
     fun isCallerIdEnabled(context: Context): Boolean {
         if (!isRoleAvailable(context)) return true

@@ -115,11 +115,12 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
     }
 
     /**
-     * One live "block a number" form — the dialog's or the empty state's.
+     * A single live "block a number" form, belonging either to the dialog or to
+     * the empty state.
      *
-     * The dial code lives here rather than on the fragment because each form has
-     * its own country chip and its own field; a single shared value would let one
-     * form's country silently apply to the other's number.
+     * The dial code is held here rather than on the fragment because each form
+     * carries its own country chip and its own field; one shared value would let
+     * the country chosen in one form silently apply to the other form's number.
      */
     private inner class AddForm(private val view: IncludeBlockAddFormBinding) {
 

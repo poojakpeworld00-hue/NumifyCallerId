@@ -13,12 +13,12 @@ import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.monetize.delivery.fullpage.TransitionInterstitialAd
 
 /**
- * Preload-and-show pattern for Google AdMob Rewarded ads.
- * Falls back to openDirectLink when the rewarded ad fails to load or show.
+ * Preload-then-show handling for Google AdMob rewarded ads. When the rewarded ad
+ * cannot load or cannot show, it falls back to openDirectLink.
  *
  * Usage:
- *   RewardedAdPresenter.preload(activity)          // call early (setupViews / onResume)
- *   RewardedAdPresenter().show(activity) { ... }   // call on item click
+ *   RewardedAdPresenter.preload(activity)          // early on, in setupViews or onResume
+ *   RewardedAdPresenter().show(activity) { ... }   // on the item click
  */
 class RewardedAdPresenter {
 
@@ -71,11 +71,11 @@ class RewardedAdPresenter {
     }
 
     /**
-     * Show the preloaded rewarded ad.
-     * - Ads OFF → [onRewarded] called immediately.
-     * - No preloaded ad → DirectLink fallback, then [onRewarded].
-     * - Ad shown → [onRewarded] fires only after reward is earned.
-     * - Ad fails to show → DirectLink fallback, then [onRewarded].
+     * Shows the preloaded rewarded ad.
+     * - Ads off: [onRewarded] runs straight away.
+     * - Nothing preloaded: DirectLink fallback, then [onRewarded].
+     * - Ad shown: [onRewarded] runs only once the reward has been earned.
+     * - Ad fails to show: DirectLink fallback, then [onRewarded].
      */
     fun show(activity: Activity, onRewarded: () -> Unit) {
         val pref = AdPreferenceStore.getInstance(activity)

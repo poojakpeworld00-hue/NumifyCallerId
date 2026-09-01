@@ -14,10 +14,10 @@ import retrofit2.http.Query
 import retrofit2.http.Url
 
 /**
- * Paths come in as `@Url` rather than being baked into `@GET`/`@POST`, because
- * annotation arguments are compile-time constants and these are driven by the
- * `api_config` Remote Config block. Pass a **relative** URL from [EndpointConfig] —
- * Retrofit resolves it against the client's base URL.
+ * Paths arrive as `@Url` instead of being baked into `@GET` or `@POST`, because
+ * annotation arguments have to be compile-time constants and these are driven by
+ * the `api_config` Remote Config block. Pass a **relative** URL from
+ * [EndpointConfig] and Retrofit resolves it against the client's base URL.
  */
 interface NumberLookupService {
 

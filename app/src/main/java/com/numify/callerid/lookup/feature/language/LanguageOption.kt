@@ -3,10 +3,11 @@ package com.numify.callerid.lookup.feature.language
 import com.numify.callerid.lookup.feature.finder.CountryCatalog
 
 /**
- * A selectable language. [name] (English) and [nativeName] are proper nouns
- * shown the same regardless of the current locale, so they are constants here.
- * [flagIso] is the ISO-3166 alpha-2 of the country whose flag represents this
- * language in the list (emoji flag rendered via [CountryCatalog.flag]).
+ * A language the user can pick. [name], in English, and [nativeName] are proper
+ * nouns shown identically whatever the current locale is, so they are constants
+ * here. [flagIso] is the ISO-3166 alpha-2 code of the country whose flag stands
+ * for this language in the list, rendered as an emoji flag by
+ * [CountryCatalog.flag].
  */
 data class LanguageOption(
     val tag: String,        // BCP-47 tag, e.g. "en", "es"
@@ -43,10 +44,10 @@ object LocaleCatalog {
     private val DEFAULT_SUGGESTED = listOf("hi")
 
     /**
-     * Ordered *native* suggested-language tags per country (ISO-3166 alpha-2).
-     * English is added automatically by [suggestedFor], so list only the local
-     * language(s) here; anything not listed falls back to [DEFAULT_SUGGESTED].
-     * Only tags present in [all] end up on screen.
+     * Ordered *native* suggested-language tags per country, keyed by ISO-3166
+     * alpha-2. [suggestedFor] appends English itself, so list only the local
+     * language or languages here; any country not listed falls back to
+     * [DEFAULT_SUGGESTED]. Only tags that also appear in [all] reach the screen.
      */
     private val SUGGESTED_BY_COUNTRY: Map<String, List<String>> = mapOf(
         // Americas
@@ -88,10 +89,10 @@ object LocaleCatalog {
     )
 
     /**
-     * The languages to feature under "Suggested" for the given country: the region's
-     * native language(s) plus English, always. Falls back to Hindi + English when
-     * [iso2] is null/unknown. Order is preserved and duplicates are dropped, so an
-     * English-speaking country shows English once.
+     * The languages to feature under "Suggested" for a given country: the
+     * region's native language or languages, plus English, always. It falls back
+     * to Hindi and English when [iso2] is null or unrecognised. Order is preserved
+     * and duplicates dropped, so an English-speaking country lists English once.
      */
     fun suggestedFor(iso2: String?): List<LanguageOption> {
         val base = SUGGESTED_BY_COUNTRY[iso2?.uppercase()] ?: DEFAULT_SUGGESTED

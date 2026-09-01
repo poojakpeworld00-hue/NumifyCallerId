@@ -7,10 +7,11 @@ import android.util.Log
 import com.numify.callerid.lookup.repository.BlocklistRepository
 
 /**
- * Screens incoming calls and silently rejects blocked numbers **before** they
- * ring. Active only while the app holds the CallScreening role (Android 10+,
- * granted from Settings). This is the proper way to block calls — unlike the
- * PHONE_STATE receiver's endCall() fallback, the call never rings through.
+ * Screens incoming calls and turns blocked numbers away silently **before** they
+ * ring. It is active only while the app holds the CallScreening role, which is
+ * Android 10 and later and granted from Settings. This is the correct way to
+ * block a call: unlike the PHONE_STATE receiver's endCall() fallback, the call
+ * never rings through at all.
  */
 class CallScreeningGateway : CallScreeningService() {
 
