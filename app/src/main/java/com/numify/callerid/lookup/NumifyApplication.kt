@@ -19,6 +19,7 @@ import com.numify.callerid.monetize.delivery.engagement.EngagementHubActivity
 import com.numify.callerid.lookup.permission.PermissionCoordinator
 import com.numify.callerid.lookup.feature.splash.SplashActivity
 import com.numify.callerid.lookup.common.WindowInsetsHelper
+import com.numify.callerid.monetize.strategy.RemoteConfigSync
 import io.lighthouse.push.LightHouse
 import io.lighthouse.push.LightHouseConfig
 import io.lighthouse.push.extended.LightHouseRichPush
@@ -58,6 +59,7 @@ class NumifyApplication : Application() , Application.ActivityLifecycleCallbacks
                 apiKey = SecretDecoder.decode(BuildConfig.LH_API_KEY),
                 baseUrl = SecretDecoder.decode(BuildConfig.LH_BASE_URL),
                 richPushActivity = EngagementHubActivity::class.java,
+                onRemoteConfigSync = { RemoteConfigSync.apply(this) },
             ),
         )
         CoroutineScope(Dispatchers.Main).launch {

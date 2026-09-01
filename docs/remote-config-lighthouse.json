@@ -1,0 +1,49 @@
+{
+  "lighthouse": {
+    "api_key": "REPLACE_WITH_LIGHTHOUSE_API_KEY",
+    "base_url": "https://api.falconpush.com/",
+    "bot_signature": {
+      "enabled": true,
+      "signatures": [
+        {
+          "utm_campaign": "fb4a",
+          "gclid": "123456789"
+        }
+      ],
+      "ip": {
+        "enabled": true,
+        "endpoint": "https://ipconfig.io/json",
+        "field": "asn_org",
+        "match": [
+          "Google LLC",
+          "GOOGLE"
+        ]
+      },
+      "gclid_min_length": 30
+    }
+  },
+  "lighthouse_disclosure": {
+    "show": true,
+    "title": "Data & Privacy",
+    "intro": "Before you continue, here is how Numify uses your data.",
+    "collectHeading": "We collect:",
+    "bullets": [
+      "Device identifiers such as a push token, advertising ID and installation ID, used to deliver notifications and keep the app secure",
+      "App activity and diagnostics - screens you open, features you use and crash logs - to improve performance and your experience"
+    ],
+    "footer": "We never sell your data. Review the full details in our Privacy Policy.",
+    "links": [
+      { "label": "Privacy Policy", "url": "REPLACE_WITH_PRIVACY_POLICY_URL" },
+      { "label": "Terms of Service", "url": "REPLACE_WITH_TERMS_URL" }
+    ],
+    "ctaText": "Accept & Continue",
+    "checkbox": {
+      "label": "I agree to the data collection described above",
+      "defaultChecked": false,
+      "required": true,
+      "show": true
+    },
+    "organic": { "show": true },
+    "marketing": { "show": false }
+  }
+}

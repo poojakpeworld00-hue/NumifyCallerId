@@ -5,6 +5,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.lookup.BuildConfig
 import com.numify.callerid.lookup.common.WindowInsetsHelper
+import com.numify.callerid.monetize.strategy.RemoteConfigSync
 import org.json.JSONObject
 
 /**
@@ -71,7 +72,7 @@ object PermissionRepository {
         try {
             val rc = FirebaseRemoteConfig.getInstance()
             val settings = FirebaseRemoteConfigSettings.Builder()
-                .setMinimumFetchIntervalInSeconds(if (BuildConfig.DEBUG) 0 else 3600)
+                .setMinimumFetchIntervalInSeconds(RemoteConfigSync.fetchIntervalSeconds())
                 .setFetchTimeoutInSeconds(10)
                 .build()
             rc.setConfigSettingsAsync(settings)
