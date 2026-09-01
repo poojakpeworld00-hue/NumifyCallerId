@@ -32,12 +32,12 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">Пропустить</string>
     <string name="onboarding_next">Далее</string>
-    <string name="onboarding_title">Имя у каждого звонка</string>
-    <string name="onboarding_desc">Неизвестные номера получают имя, компанию и регион уже при первом гудке.</string>
-    <string name="onboarding_title_2">Заглушите мошенников</string>
-    <string name="onboarding_desc_2">Робозвонки, мошенники и телемаркетинг отсекаются ещё до первого гудка.</string>
-    <string name="onboarding_title_3">Проверьте любой номер</string>
-    <string name="onboarding_desc_3">Введите номер и за секунды узнайте имя, регион оператора и компанию.</string>
+    <string name="onboarding_title">Знайте, кто звонит</string>
+    <string name="onboarding_desc">Узнайте имя, компанию и регион неизвестного номера ещё до ответа.</string>
+    <string name="onboarding_title_2">Остановите мошенников</string>
+    <string name="onboarding_desc_2">Робозвонки, мошенничество и телемаркетинг распознаются и блокируются автоматически.</string>
+    <string name="onboarding_title_3">Поиск любого номера</string>
+    <string name="onboarding_desc_3">Введите цифры и получите владельца, регион сети и компанию за секунды.</string>
     <string name="onboarding_get_started">Начать</string>
 
     <!-- Home -->
@@ -85,7 +85,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">Показать историю звонков</string>
-    <string name="perm_calllog_message">Numify нужен доступ к журналу вызовов, чтобы показать ваши звонки.</string>
+    <string name="perm_calllog_message">Numify читает журнал вызовов, чтобы показывать здесь недавние звонки с именами.</string>
     <string name="action_grant">Разрешить доступ</string>
 
     <!-- Lookup -->
@@ -110,7 +110,7 @@
     <string name="contacts_search_hint">Поиск контактов</string>
     <string name="contacts_empty">Контакты не найдены</string>
     <string name="perm_contacts_title">Свяжите имена с номерами</string>
-    <string name="perm_contacts_message">Numify нужен доступ к контактам, чтобы подписывать звонки сохранёнными именами.</string>
+    <string name="perm_contacts_message">Numify читает контакты, чтобы показывать сохранённых людей по имени, а не номером.</string>
 
     <!-- Settings actions -->
     <string name="language_dialog_title">Выберите язык</string>
@@ -247,8 +247,8 @@
     <string name="common_no">Нет</string>
     <string name="common_unknown">Неизвестно</string>
     <string name="press_back_again">Нажмите «Назад» ещё раз для выхода</string>
-    <string name="exit_dialog_title">Закрыть приложение?</string>
-    <string name="exit_dialog_desc">Вы уверены, что хотите выйти?</string>
+    <string name="exit_dialog_title">Выйти из Numify?</string>
+    <string name="exit_dialog_desc">Вы всегда можете вернуться — список блокировки сохранится.</string>
     <string name="exit_dialog_positive">Выйти</string>
     <string name="exit_dialog_negative">Отмена</string>
     <string name="perm_allow">Включить</string>
@@ -533,8 +533,8 @@
     <string name="fsi_meta_now">Сейчас</string>
     <string name="fsi_meta_calls">68 вызовов</string>
     <string name="fsi_meta_sim">JIO 4G</string>
-    <string name="fsi_screen_title">Смотрите, кто звонит, на экране блокировки</string>
-    <string name="fsi_screen_desc">Numify выводит проверенные данные звонящего поверх экрана блокировки сразу при вызове.</string>
+    <string name="fsi_screen_title">Звонящие на экране блокировки</string>
+    <string name="fsi_screen_desc">Как только поступает вызов, Numify показывает проверенные данные на экране блокировки.</string>
     <string name="fsi_feature_identify">Дайте имя неизвестным номерам</string>
     <string name="fsi_feature_spam">Замечайте мошенников с первого взгляда</string>
     <string name="fsi_feature_missed">Перестаньте пропускать важные звонки</string>
@@ -668,22 +668,22 @@
     <string name="tools_empty_sub">Попробуйте \"уровень\" или \"компас\" — либо посмотрите весь список.</string>
     <string name="tools_reset_search">Сбросить поиск</string>
     <string name="tools_clear_search">Очистить поиск</string>
-    <string name="perm_sheet_title">Включите разрешения</string>
-    <string name="perm_sheet_subtitle">Определителю номера, предупреждениям о спаме и истории вызовов нужно по одному разрешению.</string>
+    <string name="perm_sheet_title">Осталось несколько разрешений</string>
+    <string name="perm_sheet_subtitle">Определитель, оповещения о спаме и история звонков зависят от этих разрешений.</string>
     <string name="perm_sheet_continue">Продолжить</string>
     <string name="perm_sheet_not_now">Не сейчас</string>
     <string name="permsheet_allow">Разрешить</string>
     <string name="perm_granted">Разрешено</string>
     <string name="perm_notification_title">Уведомления</string>
-    <string name="perm_notification_desc">Получайте оповещения о спаме и вызовах</string>
+    <string name="perm_notification_desc">Уведомления о спаме и звонках</string>
     <string name="perm_phone_title">Телефон</string>
-    <string name="perm_phone_desc">Определять входящие вызовы</string>
+    <string name="perm_phone_desc">Определять звонящих при вызове</string>
     <string name="permsheet_calllog_title">Журнал вызовов</string>
     <string name="perm_calllog_desc">Показывать недавние вызовы</string>
     <string name="permsheet_contacts_title">Контакты</string>
     <string name="perm_contacts_desc">Сопоставлять имена с номерами</string>
     <string name="perm_overlay_title">Поверх других приложений</string>
-    <string name="perm_overlay_desc">Показывать определитель во время вызова</string>
+    <string name="perm_overlay_desc">Данные абонента во время разговора</string>
 
     <!-- Light meter · sound meter · bubble level -->
     <string name="light_band_dark">Темно</string>

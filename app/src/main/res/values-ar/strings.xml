@@ -31,12 +31,12 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">تخطٍّ</string>
     <string name="onboarding_next">التالي</string>
-    <string name="onboarding_title">كل متصل باسمه</string>
-    <string name="onboarding_desc">تحصل الأرقام المجهولة على اسم ونشاط وموقع لحظة رنينها.</string>
-    <string name="onboarding_title_2">أسكت مكالمات الاحتيال</string>
-    <string name="onboarding_desc_2">تُرصد المكالمات الآلية والاحتيالية والتسويقية وتُوقف قبل أن يرن هاتفك.</string>
+    <string name="onboarding_title">اعرف من يتصل</string>
+    <string name="onboarding_desc">شاهد الاسم والشركة والمنطقة خلف أي رقم مجهول قبل أن ترد.</string>
+    <string name="onboarding_title_2">أوقف مكالمات الاحتيال</string>
+    <string name="onboarding_desc_2">المكالمات الآلية ومحاولات الاحتيال والتسويق الهاتفي تُكتشف وتُحظر تلقائيًا.</string>
     <string name="onboarding_title_3">ابحث عن أي رقم</string>
-    <string name="onboarding_desc_3">اكتب رقمًا واحصل خلال ثوانٍ على الاسم ومنطقة المشغّل والنشاط وراءه.</string>
+    <string name="onboarding_desc_3">أدخل الأرقام لتحصل على المالك ومنطقة الشبكة والنشاط التجاري خلال ثوانٍ.</string>
     <string name="onboarding_get_started">ابدأ الآن</string>
 
     <!-- Home -->
@@ -93,7 +93,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">عرض سجل مكالماتك</string>
-    <string name="perm_calllog_message">يحتاج Numify إلى الوصول لسجل المكالمات لعرض المكالمات التي أجريتها وتلقيتها.</string>
+    <string name="perm_calllog_message">يقرأ Numify سجل مكالماتك ليعرض هنا المكالمات الأخيرة مع الأسماء.</string>
     <string name="action_grant">منح الإذن</string>
 
     <!-- Lookup -->
@@ -118,7 +118,7 @@
     <string name="contacts_search_hint">ابحث في جهات الاتصال</string>
     <string name="contacts_empty">لم يتم العثور على جهات اتصال</string>
     <string name="perm_contacts_title">اربط الأسماء بالأرقام</string>
-    <string name="perm_contacts_message">يحتاج Numify إلى الوصول لجهات الاتصال لتسمية المكالمات بالأسماء المحفوظة لديك.</string>
+    <string name="perm_contacts_message">يقرأ Numify جهات اتصالك ليعرض من حفظتهم بالاسم بدلًا من الرقم.</string>
 
     <!-- Settings -->
     <string name="settings_language">اللغة</string>
@@ -246,8 +246,8 @@
     <string name="common_no">لا</string>
     <string name="common_unknown">غير معروف</string>
     <string name="press_back_again">اضغط رجوع مرة أخرى للخروج</string>
-    <string name="exit_dialog_title">إغلاق التطبيق؟</string>
-    <string name="exit_dialog_desc">هل أنت متأكد أنك تريد الخروج؟</string>
+    <string name="exit_dialog_title">الخروج من Numify؟</string>
+    <string name="exit_dialog_desc">يمكنك العودة في أي وقت — قائمة الحظر تبقى محفوظة.</string>
     <string name="exit_dialog_positive">خروج</string>
     <string name="exit_dialog_negative">إلغاء</string>
     <string name="perm_allow">تفعيل</string>
@@ -527,8 +527,8 @@
     <string name="fsi_meta_now">الآن</string>
     <string name="fsi_meta_calls">68 مكالمة</string>
     <string name="fsi_meta_sim">JIO 4G</string>
-    <string name="fsi_screen_title">شاهد المتصلين على شاشة القفل</string>
-    <string name="fsi_screen_desc">يعرض Numify بيانات المتصل الموثوقة فوق شاشة القفل لحظة وصول المكالمة.</string>
+    <string name="fsi_screen_title">المتصلون على شاشة القفل</string>
+    <string name="fsi_screen_desc">بمجرد وصول المكالمة، يعرض Numify بيانات المتصل الموثقة على شاشة القفل.</string>
     <string name="fsi_feature_identify">ضع اسمًا للأرقام المجهولة</string>
     <string name="fsi_feature_spam">اكتشف مكالمات الاحتيال بنظرة واحدة</string>
     <string name="fsi_feature_missed">لا تفوّت المكالمات المهمة بعد الآن</string>
@@ -662,22 +662,22 @@
     <string name="tools_empty_sub">جرّب \"ميزان\" أو \"بوصلة\" — أو تصفّح المجموعة كاملة.</string>
     <string name="tools_reset_search">إعادة تعيين البحث</string>
     <string name="tools_clear_search">مسح البحث</string>
-    <string name="perm_sheet_title">فعّل الأذونات</string>
-    <string name="perm_sheet_subtitle">تحتاج هوية المتصل وتحذيرات الإزعاج وسجل المكالمات إلى إذن واحد لكل منها.</string>
+    <string name="perm_sheet_title">بقيت بعض الأذونات</string>
+    <string name="perm_sheet_subtitle">هوية المتصل وتنبيهات الإزعاج وسجل المكالمات تعتمد جميعها على هذه الأذونات.</string>
     <string name="perm_sheet_continue">متابعة</string>
     <string name="perm_sheet_not_now">ليس الآن</string>
     <string name="permsheet_allow">السماح</string>
     <string name="perm_granted">ممنوح</string>
     <string name="perm_notification_title">الإشعارات</string>
-    <string name="perm_notification_desc">استقبل تنبيهات الإزعاج والمكالمات</string>
+    <string name="perm_notification_desc">تنبيهات الرسائل المزعجة والمكالمات</string>
     <string name="perm_phone_title">الهاتف</string>
-    <string name="perm_phone_desc">التعرّف على المتصلين الواردين</string>
+    <string name="perm_phone_desc">تحديد المتصل أثناء الرنين</string>
     <string name="permsheet_calllog_title">سجل المكالمات</string>
     <string name="perm_calllog_desc">عرض مكالماتك الأخيرة</string>
     <string name="permsheet_contacts_title">جهات الاتصال</string>
     <string name="perm_contacts_desc">مطابقة الأسماء بالأرقام</string>
     <string name="perm_overlay_title">العرض فوق التطبيقات</string>
-    <string name="perm_overlay_desc">إظهار هوية المتصل أثناء المكالمات</string>
+    <string name="perm_overlay_desc">بيانات المتصل أثناء المكالمة</string>
 
     <!-- Light meter · sound meter · bubble level -->
     <string name="light_band_dark">مظلم</string>

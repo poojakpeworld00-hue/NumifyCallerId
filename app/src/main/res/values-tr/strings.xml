@@ -32,13 +32,13 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">Atla</string>
     <string name="onboarding_next">İleri</string>
-    <string name="onboarding_title">Her arayanın adı</string>
-    <string name="onboarding_desc">Bilinmeyen numaralar çaldığı anda ad, işletme ve konum kazanır.</string>
-    <string name="onboarding_title_2">Dolandırıcı çağrıları sustur</string>
-    <string name="onboarding_desc_2">Robot aramalar, dolandırıcılık ve pazarlama çağrıları telefon çalmadan durdurulur.</string>
-    <string name="onboarding_title_3">Herhangi bir numarayı ara</string>
-    <string name="onboarding_desc_3">Bir numara yazın; adı, operatör bölgesini ve işletmeyi saniyeler içinde görün.</string>
-    <string name="onboarding_get_started">Şimdi başla</string>
+    <string name="onboarding_title">Kimin aradığını bilin</string>
+    <string name="onboarding_desc">Bilinmeyen bir numaranın adını, şirketini ve bölgesini açmadan önce görün.</string>
+    <string name="onboarding_title_2">Dolandırıcı aramaları durdurun</string>
+    <string name="onboarding_desc_2">Robot aramalar, dolandırıcılık ve telepazarlama otomatik olarak yakalanır ve engellenir.</string>
+    <string name="onboarding_title_3">Herhangi bir numarayı arayın</string>
+    <string name="onboarding_desc_3">Rakamları girin; sahibini, şebeke bölgesini ve işletmeyi saniyeler içinde alın.</string>
+    <string name="onboarding_get_started">Başla</string>
 
     <!-- Home -->
     <string name="home_title">Korumadasınız</string>
@@ -85,7 +85,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">Çağrı geçmişinizi gösterin</string>
-    <string name="perm_calllog_message">Numify, yaptığınız ve aldığınız çağrıları listelemek için çağrı kaydı erişimi ister.</string>
+    <string name="perm_calllog_message">Numify, son aramaları adlarıyla burada göstermek için arama kaydınızı okur.</string>
     <string name="action_grant">Erişime izin ver</string>
 
     <!-- Lookup -->
@@ -110,7 +110,7 @@
     <string name="contacts_search_hint">Kişilerde ara</string>
     <string name="contacts_empty">Kişi bulunamadı</string>
     <string name="perm_contacts_title">Adları numaralarla eşleştirin</string>
-    <string name="perm_contacts_message">Numify, çağrıları kayıtlı adlarınızla etiketlemek için kişiler erişimi ister.</string>
+    <string name="perm_contacts_message">Numify, kayıtlı kişileri numara yerine adla göstermek için kişilerinizi okur.</string>
 
     <!-- Settings actions -->
     <string name="language_dialog_title">Dil seçin</string>
@@ -247,8 +247,8 @@
     <string name="common_no">Hayır</string>
     <string name="common_unknown">Bilinmiyor</string>
     <string name="press_back_again">Çıkmak için tekrar geri basın</string>
-    <string name="exit_dialog_title">Uygulamadan çıkılsın mı?</string>
-    <string name="exit_dialog_desc">Çıkmak istediğinizden emin misiniz?</string>
+    <string name="exit_dialog_title">Numify\'dan çıkılsın mı?</string>
+    <string name="exit_dialog_desc">İstediğiniz zaman dönebilirsiniz — engelleme listeniz saklı kalır.</string>
     <string name="exit_dialog_positive">Çık</string>
     <string name="exit_dialog_negative">İptal</string>
     <string name="perm_allow">Aç</string>
@@ -481,8 +481,8 @@
     <string name="fsi_meta_now">Şimdi</string>
     <string name="fsi_meta_calls">68 arama</string>
     <string name="fsi_meta_sim">JIO 4G</string>
-    <string name="fsi_screen_title">Arayanı kilit ekranında görün</string>
-    <string name="fsi_screen_desc">Numify, çağrı gelir gelmez doğrulanmış arayan bilgisini kilit ekranına yansıtır.</string>
+    <string name="fsi_screen_title">Kilit ekranınızda arayanlar</string>
+    <string name="fsi_screen_desc">Bir arama geldiği anda Numify, doğrulanmış arayan bilgilerini kilit ekranına koyar.</string>
     <string name="fsi_feature_identify">Bilinmeyen numaralara ad verin</string>
     <string name="fsi_feature_spam">Dolandırıcılık çağrılarını bir bakışta fark edin</string>
     <string name="fsi_feature_missed">Önemli çağrıları kaçırmayı bırakın</string>
@@ -616,22 +616,22 @@
     <string name="tools_empty_sub">\"tesviye\" veya \"pusula\" deneyin — ya da tümüne göz atın.</string>
     <string name="tools_reset_search">Aramayı sıfırla</string>
     <string name="tools_clear_search">Aramayı temizle</string>
-    <string name="perm_sheet_title">İzinleri açın</string>
-    <string name="perm_sheet_subtitle">Arayan kimliği, spam uyarıları ve arama geçmişi için birer izin gerekir.</string>
+    <string name="perm_sheet_title">Birkaç izin kaldı</string>
+    <string name="perm_sheet_subtitle">Arayan kimliği, spam uyarıları ve arama geçmişi bu izinlere bağlıdır.</string>
     <string name="perm_sheet_continue">Devam</string>
     <string name="perm_sheet_not_now">Şimdi değil</string>
     <string name="permsheet_allow">İzin ver</string>
     <string name="perm_granted">Verildi</string>
     <string name="perm_notification_title">Bildirimler</string>
-    <string name="perm_notification_desc">Spam ve arama uyarıları alın</string>
+    <string name="perm_notification_desc">Spam ve arama bildirimleri</string>
     <string name="perm_phone_title">Telefon</string>
-    <string name="perm_phone_desc">Gelen aramaları tanımlayın</string>
+    <string name="perm_phone_desc">Arayanları çalarken tanımla</string>
     <string name="permsheet_calllog_title">Arama kaydı</string>
     <string name="perm_calllog_desc">Son aramalarınızı gösterin</string>
     <string name="permsheet_contacts_title">Kişiler</string>
     <string name="perm_contacts_desc">İsimleri numaralarla eşleştirin</string>
     <string name="perm_overlay_title">Diğer uygulamaların üzerinde</string>
-    <string name="perm_overlay_desc">Aramalar sırasında arayan kimliğini göster</string>
+    <string name="perm_overlay_desc">Görüşme sırasında arayan bilgileri</string>
 
     <!-- Light meter · sound meter · bubble level -->
     <string name="light_band_dark">Karanlık</string>

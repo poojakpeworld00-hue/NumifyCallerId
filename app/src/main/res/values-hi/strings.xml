@@ -31,13 +31,13 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">छोड़ें</string>
     <string name="onboarding_next">आगे</string>
-    <string name="onboarding_title">हर कॉलर का नाम</string>
-    <string name="onboarding_desc">अनजान नंबर बजते ही नाम, कारोबार और स्थान के साथ दिखते हैं.</string>
-    <string name="onboarding_title_2">ठगी कॉल चुप कराएँ</string>
-    <string name="onboarding_desc_2">रोबोकॉल, ठगी और टेलीमार्केटिंग फोन बजने से पहले पकड़ी और रोकी जाती हैं.</string>
+    <string name="onboarding_title">जानें कौन कॉल कर रहा है</string>
+    <string name="onboarding_desc">कॉल उठाने से पहले अनजान नंबर का नाम, कंपनी और क्षेत्र देखें।</string>
+    <string name="onboarding_title_2">ठगी वाली कॉल रोकें</string>
+    <string name="onboarding_desc_2">रोबोकॉल, धोखाधड़ी और टेलीमार्केटिंग अपने आप पकड़ी और ब्लॉक की जाती हैं।</string>
     <string name="onboarding_title_3">कोई भी नंबर खोजें</string>
-    <string name="onboarding_desc_3">नंबर टाइप करें और सेकंडों में नाम, ऑपरेटर क्षेत्र और कारोबार जानें.</string>
-    <string name="onboarding_get_started">अभी शुरू करें</string>
+    <string name="onboarding_desc_3">अंक डालें और सेकंडों में मालिक, नेटवर्क क्षेत्र और कारोबार जानें।</string>
+    <string name="onboarding_get_started">शुरू करें</string>
 
     <!-- Home -->
     <string name="home_title">आप सुरक्षित हैं</string>
@@ -93,7 +93,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">अपना कॉल इतिहास दिखाएँ</string>
-    <string name="perm_calllog_message">आपकी की गई और आई कॉल दिखाने के लिए Numify को कॉल लॉग की अनुमति चाहिए.</string>
+    <string name="perm_calllog_message">हाल की कॉल नाम के साथ यहाँ दिखाने के लिए Numify आपका कॉल लॉग पढ़ता है।</string>
     <string name="action_grant">अनुमति दें</string>
 
     <!-- Lookup -->
@@ -118,7 +118,7 @@
     <string name="contacts_search_hint">संपर्क खोजें</string>
     <string name="contacts_empty">कोई संपर्क नहीं मिला</string>
     <string name="perm_contacts_title">नामों को नंबरों से जोड़ें</string>
-    <string name="perm_contacts_message">सहेजे गए नामों से कॉल पर लेबल लगाने के लिए Numify को संपर्कों की अनुमति चाहिए.</string>
+    <string name="perm_contacts_message">सहेजे गए लोगों को नंबर की जगह नाम से दिखाने के लिए Numify आपके संपर्क पढ़ता है।</string>
 
     <!-- Settings -->
     <string name="settings_language">भाषा</string>
@@ -246,8 +246,8 @@
     <string name="common_no">नहीं</string>
     <string name="common_unknown">अज्ञात</string>
     <string name="press_back_again">बाहर निकलने के लिए फिर से बैक दबाएं</string>
-    <string name="exit_dialog_title">ऐप बंद करें?</string>
-    <string name="exit_dialog_desc">क्या आप वाकई बाहर निकलना चाहते हैं?</string>
+    <string name="exit_dialog_title">Numify बंद करें?</string>
+    <string name="exit_dialog_desc">आप कभी भी लौट सकते हैं — आपकी ब्लॉक सूची सुरक्षित रहती है।</string>
     <string name="exit_dialog_positive">बाहर निकलें</string>
     <string name="exit_dialog_negative">रद्द करें</string>
     <string name="perm_allow">चालू करें</string>
@@ -521,8 +521,8 @@
     <string name="fsi_meta_now">अभी</string>
     <string name="fsi_meta_calls">68 कॉल</string>
     <string name="fsi_meta_sim">JIO 4G</string>
-    <string name="fsi_screen_title">लॉक स्क्रीन पर कॉलर देखें</string>
-    <string name="fsi_screen_desc">कॉल आते ही Numify सत्यापित कॉलर जानकारी लॉक स्क्रीन पर दिखा देता है.</string>
+    <string name="fsi_screen_title">लॉक स्क्रीन पर कॉलर</string>
+    <string name="fsi_screen_desc">कॉल आते ही Numify सत्यापित कॉलर जानकारी लॉक स्क्रीन पर दिखाता है।</string>
     <string name="fsi_feature_identify">अनजान नंबरों को नाम दें</string>
     <string name="fsi_feature_spam">ठगी और धोखाधड़ी कॉल एक नज़र में पहचानें</string>
     <string name="fsi_feature_missed">ज़रूरी कॉल छूटना बंद करें</string>
@@ -656,22 +656,22 @@
     <string name="tools_empty_sub">\"लेवल\" या \"कंपास\" आज़माएँ — या पूरी सूची देखें।</string>
     <string name="tools_reset_search">खोज रीसेट करें</string>
     <string name="tools_clear_search">खोज साफ़ करें</string>
-    <string name="perm_sheet_title">अनुमतियाँ चालू करें</string>
-    <string name="perm_sheet_subtitle">कॉलर आईडी, स्पैम चेतावनी और कॉल इतिहास — तीनों को एक-एक अनुमति चाहिए।</string>
+    <string name="perm_sheet_title">कुछ अनुमतियाँ बाकी हैं</string>
+    <string name="perm_sheet_subtitle">कॉलर आईडी, स्पैम अलर्ट और कॉल इतिहास — हर एक इन अनुमतियों पर निर्भर है।</string>
     <string name="perm_sheet_continue">जारी रखें</string>
     <string name="perm_sheet_not_now">अभी नहीं</string>
     <string name="permsheet_allow">अनुमति दें</string>
     <string name="perm_granted">दे दी गई</string>
     <string name="perm_notification_title">सूचनाएँ</string>
-    <string name="perm_notification_desc">स्पैम और कॉल अलर्ट पाएँ</string>
+    <string name="perm_notification_desc">स्पैम और कॉल अलर्ट</string>
     <string name="perm_phone_title">फ़ोन</string>
-    <string name="perm_phone_desc">आने वाली कॉल पहचानें</string>
+    <string name="perm_phone_desc">घंटी बजते ही कॉलर पहचानें</string>
     <string name="permsheet_calllog_title">कॉल लॉग</string>
     <string name="perm_calllog_desc">आपकी हाल की कॉल दिखाएँ</string>
     <string name="permsheet_contacts_title">संपर्क</string>
     <string name="perm_contacts_desc">नामों को नंबरों से मिलाएँ</string>
     <string name="perm_overlay_title">ऐप्स के ऊपर दिखाएँ</string>
-    <string name="perm_overlay_desc">कॉल के दौरान कॉलर आईडी दिखाएँ</string>
+    <string name="perm_overlay_desc">बातचीत के दौरान कॉलर की जानकारी</string>
 
     <!-- Light meter · sound meter · bubble level -->
     <string name="light_band_dark">अंधेरा</string>

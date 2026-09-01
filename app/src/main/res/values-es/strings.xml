@@ -31,13 +31,13 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">Omitir</string>
     <string name="onboarding_next">Siguiente</string>
-    <string name="onboarding_title">Cada llamada, con nombre</string>
-    <string name="onboarding_desc">Los números desconocidos reciben nombre, empresa y ubicación al sonar.</string>
-    <string name="onboarding_title_2">Silencia las estafas</string>
-    <string name="onboarding_desc_2">Robollamadas, estafas y telemarketing se detectan y frenan antes de que suene.</string>
+    <string name="onboarding_title">Sabe quién llama</string>
+    <string name="onboarding_desc">Consulta el nombre, la empresa y la región de un número desconocido antes de contestar.</string>
+    <string name="onboarding_title_2">Frena las llamadas fraudulentas</string>
+    <string name="onboarding_desc_2">Las llamadas automáticas, los fraudes y el telemarketing se detectan y bloquean solos.</string>
     <string name="onboarding_title_3">Busca cualquier número</string>
-    <string name="onboarding_desc_3">Escribe un número y obtén en segundos el nombre, la región y la empresa detrás.</string>
-    <string name="onboarding_get_started">Empezar ahora</string>
+    <string name="onboarding_desc_3">Escribe unos dígitos y recibe el titular, la región de red y la empresa en segundos.</string>
+    <string name="onboarding_get_started">Empezar</string>
 
     <!-- Home -->
     <string name="home_title">Estás cubierto</string>
@@ -93,7 +93,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">Muestra tu historial de llamadas</string>
-    <string name="perm_calllog_message">Numify necesita acceso al registro de llamadas para listar las que hiciste y recibiste.</string>
+    <string name="perm_calllog_message">Numify lee tu registro de llamadas para mostrar aquí las recientes con su nombre.</string>
     <string name="action_grant">Conceder acceso</string>
 
     <!-- Lookup -->
@@ -118,7 +118,7 @@
     <string name="contacts_search_hint">Buscar contactos</string>
     <string name="contacts_empty">No se encontraron contactos</string>
     <string name="perm_contacts_title">Asocia nombres a números</string>
-    <string name="perm_contacts_message">Numify necesita acceso a contactos para etiquetar llamadas con los nombres guardados.</string>
+    <string name="perm_contacts_message">Numify lee tus contactos para mostrar por nombre a las personas que ya guardaste.</string>
 
     <!-- Settings -->
     <string name="settings_language">Idioma</string>
@@ -246,8 +246,8 @@
     <string name="common_no">No</string>
     <string name="common_unknown">Desconocido</string>
     <string name="press_back_again">Presiona atrás otra vez para salir</string>
-    <string name="exit_dialog_title">¿Salir de la app?</string>
-    <string name="exit_dialog_desc">¿Seguro que quieres salir?</string>
+    <string name="exit_dialog_title">¿Salir de Numify?</string>
+    <string name="exit_dialog_desc">Puedes volver cuando quieras: tu lista de bloqueo se conserva.</string>
     <string name="exit_dialog_positive">Salir</string>
     <string name="exit_dialog_negative">Cancelar</string>
     <string name="perm_allow">Activar</string>
@@ -525,8 +525,8 @@
     <string name="fsi_meta_now">Ahora</string>
     <string name="fsi_meta_calls">68 llamadas</string>
     <string name="fsi_meta_sim">JIO 4G</string>
-    <string name="fsi_screen_title">Ve quién llama en la pantalla de bloqueo</string>
-    <string name="fsi_screen_desc">Numify pinta los datos verificados del contacto sobre la pantalla de bloqueo al llegar la llamada.</string>
+    <string name="fsi_screen_title">Quién llama, en la pantalla de bloqueo</string>
+    <string name="fsi_screen_desc">En cuanto entra una llamada, Numify muestra los datos verificados en la pantalla de bloqueo.</string>
     <string name="fsi_feature_identify">Pon nombre a los números desconocidos</string>
     <string name="fsi_feature_spam">Detecta estafas y fraudes de un vistazo</string>
     <string name="fsi_feature_missed">Deja de perder las llamadas que importan</string>
@@ -660,22 +660,22 @@
     <string name="tools_empty_sub">Prueba con \"nivel\" o \"brújula\", o explora todas.</string>
     <string name="tools_reset_search">Restablecer búsqueda</string>
     <string name="tools_clear_search">Borrar búsqueda</string>
-    <string name="perm_sheet_title">Activa los permisos</string>
-    <string name="perm_sheet_subtitle">El identificador, los avisos de spam y el historial necesitan un permiso cada uno.</string>
+    <string name="perm_sheet_title">Faltan unos permisos</string>
+    <string name="perm_sheet_subtitle">El identificador, los avisos de spam y el historial dependen de estos permisos.</string>
     <string name="perm_sheet_continue">Continuar</string>
     <string name="perm_sheet_not_now">Ahora no</string>
     <string name="permsheet_allow">Permitir</string>
     <string name="perm_granted">Concedido</string>
     <string name="perm_notification_title">Notificaciones</string>
-    <string name="perm_notification_desc">Recibe avisos de spam y de llamadas</string>
+    <string name="perm_notification_desc">Avisos de spam y de llamadas</string>
     <string name="perm_phone_title">Teléfono</string>
-    <string name="perm_phone_desc">Identificar llamadas entrantes</string>
+    <string name="perm_phone_desc">Identifica a quien llama al sonar</string>
     <string name="permsheet_calllog_title">Registro de llamadas</string>
     <string name="perm_calllog_desc">Mostrar tus llamadas recientes</string>
     <string name="permsheet_contacts_title">Contactos</string>
     <string name="perm_contacts_desc">Asociar nombres con números</string>
     <string name="perm_overlay_title">Mostrar sobre otras apps</string>
-    <string name="perm_overlay_desc">Mostrar el identificador durante las llamadas</string>
+    <string name="perm_overlay_desc">Datos del contacto durante la llamada</string>
 
     <!-- Light meter · sound meter · bubble level -->
     <string name="light_band_dark">Oscuro</string>

@@ -32,13 +32,13 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">スキップ</string>
     <string name="onboarding_next">次へ</string>
-    <string name="onboarding_title">すべての発信者に名前を</string>
-    <string name="onboarding_desc">不明な番号は、鳴った瞬間に名前・事業者・地域が表示されます。</string>
-    <string name="onboarding_title_2">詐欺電話を黙らせる</string>
-    <string name="onboarding_desc_2">自動音声・詐欺・営業電話は、着信音が鳴る前に検出して止めます。</string>
+    <string name="onboarding_title">誰からの着信かわかる</string>
+    <string name="onboarding_desc">出る前に、不明な番号の名前・会社・地域を確認できます。</string>
+    <string name="onboarding_title_2">詐欺電話を遮断</string>
+    <string name="onboarding_desc_2">自動音声、詐欺、営業電話を自動で検出してブロックします。</string>
     <string name="onboarding_title_3">どんな番号も検索</string>
-    <string name="onboarding_desc_3">番号を入力すれば、名前・通信地域・事業者が数秒で分かります。</string>
-    <string name="onboarding_get_started">今すぐ開始</string>
+    <string name="onboarding_desc_3">数字を入力すれば、契約者・回線地域・事業者が数秒でわかります。</string>
+    <string name="onboarding_get_started">はじめる</string>
 
     <!-- Home -->
     <string name="home_title">守られています</string>
@@ -85,7 +85,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">通話履歴を表示</string>
-    <string name="perm_calllog_message">発着信の一覧を表示するため、Numify には通話履歴へのアクセスが必要です。</string>
+    <string name="perm_calllog_message">最近の着信を名前付きで表示するため、Numify は通話履歴を読み取ります。</string>
     <string name="action_grant">アクセスを許可</string>
 
     <!-- Lookup -->
@@ -110,7 +110,7 @@
     <string name="contacts_search_hint">連絡先を検索</string>
     <string name="contacts_empty">連絡先が見つかりません</string>
     <string name="perm_contacts_title">番号に名前を結び付ける</string>
-    <string name="perm_contacts_message">保存済みの名前で通話に名札を付けるため、連絡先へのアクセスが必要です。</string>
+    <string name="perm_contacts_message">保存済みの相手を番号ではなく名前で表示するため、Numify は連絡先を読み取ります。</string>
 
     <!-- Settings actions -->
     <string name="language_dialog_title">言語を選択</string>
@@ -247,8 +247,8 @@
     <string name="common_no">いいえ</string>
     <string name="common_unknown">不明</string>
     <string name="press_back_again">もう一度戻るで終了</string>
-    <string name="exit_dialog_title">アプリを終了しますか？</string>
-    <string name="exit_dialog_desc">本当に終了してもよろしいですか？</string>
+    <string name="exit_dialog_title">Numify を終了しますか？</string>
+    <string name="exit_dialog_desc">いつでも戻れます。ブロックリストは保存されたままです。</string>
     <string name="exit_dialog_positive">終了</string>
     <string name="exit_dialog_negative">キャンセル</string>
     <string name="perm_allow">オンにする</string>
@@ -476,8 +476,8 @@
     <string name="fsi_meta_now">今</string>
     <string name="fsi_meta_calls">68 件の通話</string>
     <string name="fsi_meta_sim">JIO 4G</string>
-    <string name="fsi_screen_title">ロック画面で発信者を確認</string>
-    <string name="fsi_screen_desc">着信の瞬間、Numify が確認済みの発信者情報をロック画面に重ねて表示します。</string>
+    <string name="fsi_screen_title">ロック画面に発信者を表示</string>
+    <string name="fsi_screen_desc">着信した瞬間に、Numify が確認済みの発信者情報をロック画面へ表示します。</string>
     <string name="fsi_feature_identify">不明な番号に名前を付ける</string>
     <string name="fsi_feature_spam">詐欺・不正な電話をひと目で判別</string>
     <string name="fsi_feature_missed">大切な電話を取り逃さない</string>
@@ -611,22 +611,22 @@
     <string name="tools_empty_sub">「水準器」や「コンパス」で検索するか、一覧を見てみてください。</string>
     <string name="tools_reset_search">検索をリセット</string>
     <string name="tools_clear_search">検索をクリア</string>
-    <string name="perm_sheet_title">権限をオンにする</string>
-    <string name="perm_sheet_subtitle">発信者番号、迷惑電話の警告、通話履歴には、それぞれ権限が必要です。</string>
+    <string name="perm_sheet_title">あと少し権限が必要です</string>
+    <string name="perm_sheet_subtitle">発信者番号表示・迷惑電話警告・通話履歴は、それぞれこの権限が必要です。</string>
     <string name="perm_sheet_continue">続ける</string>
     <string name="perm_sheet_not_now">後で</string>
     <string name="permsheet_allow">許可</string>
     <string name="perm_granted">許可済み</string>
     <string name="perm_notification_title">通知</string>
-    <string name="perm_notification_desc">迷惑電話と着信の通知を受け取る</string>
+    <string name="perm_notification_desc">迷惑電話と着信の通知</string>
     <string name="perm_phone_title">電話</string>
-    <string name="perm_phone_desc">着信相手を特定する</string>
+    <string name="perm_phone_desc">着信中に発信者を特定</string>
     <string name="permsheet_calllog_title">通話履歴</string>
     <string name="perm_calllog_desc">最近の通話を表示する</string>
     <string name="permsheet_contacts_title">連絡先</string>
     <string name="perm_contacts_desc">名前と番号を照合する</string>
     <string name="perm_overlay_title">他のアプリの上に表示</string>
-    <string name="perm_overlay_desc">通話中に発信者番号を表示する</string>
+    <string name="perm_overlay_desc">通話中に発信者情報を表示</string>
 
     <!-- Light meter · sound meter · bubble level -->
     <string name="light_band_dark">暗い</string>

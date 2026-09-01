@@ -48,13 +48,13 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">Skip</string>
     <string name="onboarding_next">Next</string>
-    <string name="onboarding_title">Every caller, named</string>
-    <string name="onboarding_desc">Unknown numbers get a name, a business and a location the moment they ring.</string>
-    <string name="onboarding_title_2">Silence scam calls</string>
-    <string name="onboarding_desc_2">Robocalls, scams and telemarketers are flagged and stopped before your phone rings.</string>
-    <string name="onboarding_title_3">Look up any number</string>
-    <string name="onboarding_desc_3">Type a number and get the name, carrier region and business behind it in seconds.</string>
-    <string name="onboarding_get_started">Start now</string>
+    <string name="onboarding_title">Know who\'s calling</string>
+    <string name="onboarding_desc">See the name, company and region behind an unknown number before you pick up.</string>
+    <string name="onboarding_title_2">Stop scam calls cold</string>
+    <string name="onboarding_desc_2">Robocalls, fraud attempts and telemarketers are caught and blocked automatically.</string>
+    <string name="onboarding_title_3">Search any number</string>
+    <string name="onboarding_desc_3">Enter any digits and get back the owner, network region and business in seconds.</string>
+    <string name="onboarding_get_started">Get started</string>
 
     <!-- Onboarding illustrations. These label a picture of the product, so the
          status labels translate; the sample caller, city and number are stand-in
@@ -149,7 +149,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">Show your call history</string>
-    <string name="perm_calllog_message">Numify needs call log access to list the calls you have made and received.</string>
+    <string name="perm_calllog_message">Numify reads your call log so recent calls appear here with names attached.</string>
     <string name="action_grant">Grant access</string>
 
     <!-- Lookup -->
@@ -458,8 +458,8 @@
     <string name="common_no">No</string>
     <string name="common_unknown">Unknown</string>
     <string name="press_back_again">Press back again to exit</string>
-    <string name="exit_dialog_title">Exit app?</string>
-    <string name="exit_dialog_desc">Are you sure you want to exit?</string>
+    <string name="exit_dialog_title">Leave Numify?</string>
+    <string name="exit_dialog_desc">You can always come back — your blocklist stays saved.</string>
     <string name="exit_dialog_positive">Exit</string>
     <string name="exit_dialog_negative">Cancel</string>
 
@@ -487,7 +487,7 @@
     <string name="contacts_tab_groups">Groups</string>
     <string name="contacts_empty">No contacts found</string>
     <string name="perm_contacts_title">Match names to numbers</string>
-    <string name="perm_contacts_message">Numify needs contacts access to label calls with the names you already saved.</string>
+    <string name="perm_contacts_message">Numify reads your contacts so saved people show up by name instead of a number.</string>
 
     <!-- Settings actions -->
     <string name="language_dialog_title">Choose language</string>
@@ -638,22 +638,22 @@
     <string name="tools_clear_search">Clear search</string>
 
     <!-- Permission priming bottom sheet -->
-    <string name="perm_sheet_title">Turn on permissions</string>
-    <string name="perm_sheet_subtitle">Caller ID, spam warnings and call history each need one permission to work.</string>
+    <string name="perm_sheet_title">A few permissions to go</string>
+    <string name="perm_sheet_subtitle">Caller ID, spam alerts and call history each depend on one of these.</string>
     <string name="perm_sheet_continue">Continue</string>
     <string name="perm_sheet_not_now">Not now</string>
     <string name="permsheet_allow">Allow</string>
     <string name="perm_granted">Granted</string>
     <string name="perm_notification_title">Notifications</string>
-    <string name="perm_notification_desc">Get spam and call alerts</string>
+    <string name="perm_notification_desc">Spam warnings and call alerts</string>
     <string name="perm_phone_title">Phone</string>
-    <string name="perm_phone_desc">Identify incoming callers</string>
+    <string name="perm_phone_desc">Name callers as they ring</string>
     <string name="permsheet_calllog_title">Call log</string>
     <string name="perm_calllog_desc">Show your recent calls</string>
     <string name="permsheet_contacts_title">Contacts</string>
     <string name="perm_contacts_desc">Match names to numbers</string>
     <string name="perm_overlay_title">Display over apps</string>
-    <string name="perm_overlay_desc">Show caller ID during calls</string>
+    <string name="perm_overlay_desc">Caller details while you talk</string>
 
     <!-- Home permission hint (shown after the permission sheet is dismissed with permissions still pending) -->
     <string name="home_perm_hint">A few permissions are still off. Turn them on for full caller ID.</string>
@@ -669,8 +669,8 @@
     <string name="fsi_meta_now">Now</string>
     <string name="fsi_meta_calls">68 calls</string>
     <string name="fsi_meta_sim">JIO 4G</string>
-    <string name="fsi_screen_title">See callers on your lock screen</string>
-    <string name="fsi_screen_desc">Numify paints verified caller details over the lock screen the moment a call arrives.</string>
+    <string name="fsi_screen_title">Callers on your lock screen</string>
+    <string name="fsi_screen_desc">The instant a call lands, Numify puts verified caller details on your lock screen.</string>
     <string name="fsi_feature_identify">Put a name on unknown numbers</string>
     <string name="fsi_feature_spam">Spot scam and fraud calls at a glance</string>
     <string name="fsi_feature_missed">Stop missing the calls that matter</string>

@@ -31,12 +31,12 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">Ignorer</string>
     <string name="onboarding_next">Suivant</string>
-    <string name="onboarding_title">Chaque appel, un nom</string>
-    <string name="onboarding_desc">Les numéros inconnus reçoivent un nom, une activité et un lieu dès la sonnerie.</string>
-    <string name="onboarding_title_2">Faites taire les arnaques</string>
-    <string name="onboarding_desc_2">Appels automatisés, arnaques et démarchage sont repérés et bloqués avant la sonnerie.</string>
-    <string name="onboarding_title_3">Recherchez tout numéro</string>
-    <string name="onboarding_desc_3">Saisissez un numéro et obtenez en quelques secondes le nom, la région et l\'activité.</string>
+    <string name="onboarding_title">Sachez qui appelle</string>
+    <string name="onboarding_desc">Découvrez le nom, l\'entreprise et la région derrière un numéro inconnu avant de répondre.</string>
+    <string name="onboarding_title_2">Bloquez les appels frauduleux</string>
+    <string name="onboarding_desc_2">Robocalls, tentatives d\'arnaque et démarchage sont repérés et bloqués automatiquement.</string>
+    <string name="onboarding_title_3">Recherchez un numéro</string>
+    <string name="onboarding_desc_3">Saisissez des chiffres et obtenez le titulaire, la région réseau et l\'entreprise en quelques secondes.</string>
     <string name="onboarding_get_started">Commencer</string>
 
     <!-- Home -->
@@ -93,7 +93,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">Afficher votre historique d\'appels</string>
-    <string name="perm_calllog_message">Numify a besoin du journal d\'appels pour lister les appels passés et reçus.</string>
+    <string name="perm_calllog_message">Numify lit votre journal d\'appels pour afficher ici vos appels récents avec leur nom.</string>
     <string name="action_grant">Autoriser l\'accès</string>
 
     <!-- Lookup -->
@@ -118,7 +118,7 @@
     <string name="contacts_search_hint">Rechercher des contacts</string>
     <string name="contacts_empty">Aucun contact trouvé</string>
     <string name="perm_contacts_title">Associer les noms aux numéros</string>
-    <string name="perm_contacts_message">Numify a besoin des contacts pour nommer les appels avec vos noms enregistrés.</string>
+    <string name="perm_contacts_message">Numify lit vos contacts pour afficher par leur nom les personnes déjà enregistrées.</string>
 
     <!-- Settings -->
     <string name="settings_language">Langue</string>
@@ -246,8 +246,8 @@
     <string name="common_no">Non</string>
     <string name="common_unknown">Inconnu</string>
     <string name="press_back_again">Appuyez à nouveau pour quitter</string>
-    <string name="exit_dialog_title">Quitter l’application ?</string>
-    <string name="exit_dialog_desc">Voulez-vous vraiment quitter ?</string>
+    <string name="exit_dialog_title">Quitter Numify ?</string>
+    <string name="exit_dialog_desc">Vous pouvez revenir quand vous voulez : votre liste de blocage est conservée.</string>
     <string name="exit_dialog_positive">Quitter</string>
     <string name="exit_dialog_negative">Annuler</string>
     <string name="perm_allow">Activer</string>
@@ -481,8 +481,8 @@
     <string name="fsi_meta_now">Maintenant</string>
     <string name="fsi_meta_calls">68 appels</string>
     <string name="fsi_meta_sim">JIO 4G</string>
-    <string name="fsi_screen_title">Voyez l\'appelant sur l\'écran de verrouillage</string>
-    <string name="fsi_screen_desc">Numify affiche les informations vérifiées de l\'appelant sur l\'écran de verrouillage dès l\'appel.</string>
+    <string name="fsi_screen_title">Les appelants sur votre écran verrouillé</string>
+    <string name="fsi_screen_desc">Dès qu\'un appel arrive, Numify affiche les informations vérifiées sur l\'écran verrouillé.</string>
     <string name="fsi_feature_identify">Donnez un nom aux numéros inconnus</string>
     <string name="fsi_feature_spam">Repérez arnaques et fraudes d\'un coup d\'œil</string>
     <string name="fsi_feature_missed">Ne ratez plus les appels importants</string>
@@ -616,22 +616,22 @@
     <string name="tools_empty_sub">Essayez \"niveau\" ou \"boussole\", ou parcourez la liste complète.</string>
     <string name="tools_reset_search">Réinitialiser la recherche</string>
     <string name="tools_clear_search">Effacer la recherche</string>
-    <string name="perm_sheet_title">Activer les autorisations</string>
-    <string name="perm_sheet_subtitle">L’identification, les alertes de spam et l’historique nécessitent chacun une autorisation.</string>
+    <string name="perm_sheet_title">Encore quelques autorisations</string>
+    <string name="perm_sheet_subtitle">L\'identification, les alertes spam et l\'historique dépendent chacun de ces accès.</string>
     <string name="perm_sheet_continue">Continuer</string>
     <string name="perm_sheet_not_now">Pas maintenant</string>
     <string name="permsheet_allow">Autoriser</string>
     <string name="perm_granted">Accordé</string>
     <string name="perm_notification_title">Notifications</string>
-    <string name="perm_notification_desc">Recevoir les alertes de spam et d’appel</string>
+    <string name="perm_notification_desc">Alertes spam et appels</string>
     <string name="perm_phone_title">Téléphone</string>
-    <string name="perm_phone_desc">Identifier les appels entrants</string>
+    <string name="perm_phone_desc">Identifier les appelants dès la sonnerie</string>
     <string name="permsheet_calllog_title">Journal d’appels</string>
     <string name="perm_calllog_desc">Afficher vos appels récents</string>
     <string name="permsheet_contacts_title">Contacts</string>
     <string name="perm_contacts_desc">Associer les noms aux numéros</string>
     <string name="perm_overlay_title">Affichage par-dessus les apps</string>
-    <string name="perm_overlay_desc">Afficher l’identification pendant les appels</string>
+    <string name="perm_overlay_desc">Infos sur l\'appelant pendant l\'appel</string>
 
     <!-- Light meter · sound meter · bubble level -->
     <string name="light_band_dark">Sombre</string>

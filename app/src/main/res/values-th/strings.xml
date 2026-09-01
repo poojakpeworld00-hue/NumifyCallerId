@@ -32,12 +32,12 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">ข้าม</string>
     <string name="onboarding_next">ถัดไป</string>
-    <string name="onboarding_title">ทุกสายมีชื่อ</string>
-    <string name="onboarding_desc">เบอร์ที่ไม่รู้จักจะมีชื่อ ธุรกิจ และพื้นที่ ทันทีที่โทรเข้า</string>
-    <string name="onboarding_title_2">ปิดเสียงสายหลอกลวง</string>
-    <string name="onboarding_desc_2">สายอัตโนมัติ สายหลอกลวง และเทเลมาร์เก็ตติ้ง ถูกจับและหยุดก่อนเครื่องจะดัง</string>
+    <string name="onboarding_title">รู้ว่าใครโทรมา</string>
+    <string name="onboarding_desc">ดูชื่อ บริษัท และภูมิภาคของเบอร์ที่ไม่รู้จักก่อนรับสาย</string>
+    <string name="onboarding_title_2">หยุดสายหลอกลวง</string>
+    <string name="onboarding_desc_2">สายอัตโนมัติ มิจฉาชีพ และการขายตรงถูกตรวจจับและบล็อกโดยอัตโนมัติ</string>
     <string name="onboarding_title_3">ค้นหาเบอร์ใดก็ได้</string>
-    <string name="onboarding_desc_3">พิมพ์เบอร์แล้วรู้ชื่อ พื้นที่เครือข่าย และธุรกิจเบื้องหลังในไม่กี่วินาที</string>
+    <string name="onboarding_desc_3">พิมพ์ตัวเลขแล้วรับชื่อเจ้าของ ภูมิภาคเครือข่าย และธุรกิจภายในไม่กี่วินาที</string>
     <string name="onboarding_get_started">เริ่มเลย</string>
 
     <!-- Home -->
@@ -85,7 +85,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">แสดงประวัติการโทรของคุณ</string>
-    <string name="perm_calllog_message">Numify ต้องเข้าถึงบันทึกการโทร เพื่อแสดงสายที่คุณโทรออกและรับ</string>
+    <string name="perm_calllog_message">Numify อ่านประวัติการโทรเพื่อแสดงสายล่าสุดพร้อมชื่อที่นี่</string>
     <string name="action_grant">อนุญาตการเข้าถึง</string>
 
     <!-- Lookup -->
@@ -110,7 +110,7 @@
     <string name="contacts_search_hint">ค้นหารายชื่อ</string>
     <string name="contacts_empty">ไม่พบรายชื่อ</string>
     <string name="perm_contacts_title">จับคู่ชื่อกับเบอร์</string>
-    <string name="perm_contacts_message">Numify ต้องเข้าถึงรายชื่อ เพื่อติดชื่อที่คุณบันทึกไว้ให้กับสายที่โทรเข้า</string>
+    <string name="perm_contacts_message">Numify อ่านรายชื่อติดต่อเพื่อแสดงคนที่บันทึกไว้เป็นชื่อแทนเบอร์</string>
 
     <!-- Settings actions -->
     <string name="language_dialog_title">เลือกภาษา</string>
@@ -247,8 +247,8 @@
     <string name="common_no">ไม่</string>
     <string name="common_unknown">ไม่ทราบ</string>
     <string name="press_back_again">กดย้อนกลับอีกครั้งเพื่อออก</string>
-    <string name="exit_dialog_title">ออกจากแอปหรือไม่</string>
-    <string name="exit_dialog_desc">คุณแน่ใจหรือไม่ว่าต้องการออก</string>
+    <string name="exit_dialog_title">ออกจาก Numify?</string>
+    <string name="exit_dialog_desc">กลับมาได้ทุกเมื่อ — รายการบล็อกของคุณยังถูกบันทึกไว้</string>
     <string name="exit_dialog_positive">ออก</string>
     <string name="exit_dialog_negative">ยกเลิก</string>
     <string name="perm_allow">เปิดใช้</string>
@@ -476,8 +476,8 @@
     <string name="fsi_meta_now">ตอนนี้</string>
     <string name="fsi_meta_calls">68 สาย</string>
     <string name="fsi_meta_sim">JIO 4G</string>
-    <string name="fsi_screen_title">ดูผู้โทรบนหน้าจอล็อก</string>
-    <string name="fsi_screen_desc">Numify วาดข้อมูลผู้โทรที่ยืนยันแล้วทับหน้าจอล็อกทันทีที่มีสายเข้า</string>
+    <string name="fsi_screen_title">ผู้โทรบนหน้าจอล็อก</string>
+    <string name="fsi_screen_desc">ทันทีที่มีสายเข้า Numify จะแสดงข้อมูลผู้โทรที่ยืนยันแล้วบนหน้าจอล็อก</string>
     <string name="fsi_feature_identify">ใส่ชื่อให้เบอร์ที่ไม่รู้จัก</string>
     <string name="fsi_feature_spam">เห็นสายหลอกลวงและฉ้อโกงได้ในพริบตา</string>
     <string name="fsi_feature_missed">เลิกพลาดสายที่สำคัญ</string>
@@ -611,22 +611,22 @@
     <string name="tools_empty_sub">ลอง \"ระดับน้ำ\" หรือ \"เข็มทิศ\" หรือดูทั้งหมด</string>
     <string name="tools_reset_search">ล้างการค้นหา</string>
     <string name="tools_clear_search">ล้างคำค้นหา</string>
-    <string name="perm_sheet_title">เปิดการอนุญาต</string>
-    <string name="perm_sheet_subtitle">ระบุผู้โทร คำเตือนสแปม และประวัติการโทร แต่ละอย่างต้องใช้หนึ่งการอนุญาต</string>
+    <string name="perm_sheet_title">เหลืออีกไม่กี่สิทธิ์</string>
+    <string name="perm_sheet_subtitle">ระบุผู้โทร แจ้งเตือนสแปม และประวัติการโทร ต่างต้องใช้สิทธิ์เหล่านี้</string>
     <string name="perm_sheet_continue">ดำเนินการต่อ</string>
     <string name="perm_sheet_not_now">ยังไม่ตอนนี้</string>
     <string name="permsheet_allow">อนุญาต</string>
     <string name="perm_granted">อนุญาตแล้ว</string>
     <string name="perm_notification_title">การแจ้งเตือน</string>
-    <string name="perm_notification_desc">รับการแจ้งเตือนสแปมและสายเรียกเข้า</string>
+    <string name="perm_notification_desc">แจ้งเตือนสแปมและสายเข้า</string>
     <string name="perm_phone_title">โทรศัพท์</string>
-    <string name="perm_phone_desc">ระบุผู้โทรเข้า</string>
+    <string name="perm_phone_desc">ระบุผู้โทรขณะสายเข้า</string>
     <string name="permsheet_calllog_title">ประวัติการโทร</string>
     <string name="perm_calllog_desc">แสดงสายล่าสุดของคุณ</string>
     <string name="permsheet_contacts_title">รายชื่อติดต่อ</string>
     <string name="perm_contacts_desc">จับคู่ชื่อกับหมายเลข</string>
     <string name="perm_overlay_title">แสดงทับแอปอื่น</string>
-    <string name="perm_overlay_desc">แสดงระบุผู้โทรระหว่างสาย</string>
+    <string name="perm_overlay_desc">ข้อมูลผู้โทรระหว่างสนทนา</string>
 
     <!-- Light meter · sound meter · bubble level -->
     <string name="light_band_dark">มืด</string>

@@ -32,13 +32,13 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">Bỏ qua</string>
     <string name="onboarding_next">Tiếp theo</string>
-    <string name="onboarding_title">Mọi cuộc gọi đều có tên</string>
-    <string name="onboarding_desc">Số lạ có ngay tên, doanh nghiệp và khu vực khi vừa đổ chuông.</string>
-    <string name="onboarding_title_2">Dập tắt cuộc gọi lừa đảo</string>
-    <string name="onboarding_desc_2">Cuộc gọi tự động, lừa đảo và tiếp thị bị chặn trước khi máy đổ chuông.</string>
+    <string name="onboarding_title">Biết ai đang gọi</string>
+    <string name="onboarding_desc">Xem tên, công ty và khu vực của số lạ trước khi bạn nghe máy.</string>
+    <string name="onboarding_title_2">Chặn đứng cuộc gọi lừa đảo</string>
+    <string name="onboarding_desc_2">Cuộc gọi tự động, lừa đảo và tiếp thị được phát hiện và chặn tự động.</string>
     <string name="onboarding_title_3">Tra cứu mọi số</string>
-    <string name="onboarding_desc_3">Nhập một số và biết ngay tên, vùng nhà mạng và doanh nghiệp phía sau.</string>
-    <string name="onboarding_get_started">Bắt đầu ngay</string>
+    <string name="onboarding_desc_3">Nhập dãy số và nhận lại chủ thuê bao, khu vực mạng và doanh nghiệp trong vài giây.</string>
+    <string name="onboarding_get_started">Bắt đầu</string>
 
     <!-- Home -->
     <string name="home_title">Bạn đã được bảo vệ</string>
@@ -85,7 +85,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">Hiện lịch sử cuộc gọi của bạn</string>
-    <string name="perm_calllog_message">Numify cần quyền nhật ký cuộc gọi để liệt kê cuộc gọi bạn đã gọi và nhận.</string>
+    <string name="perm_calllog_message">Numify đọc nhật ký cuộc gọi để hiển thị các cuộc gọi gần đây kèm tên tại đây.</string>
     <string name="action_grant">Cấp quyền truy cập</string>
 
     <!-- Lookup -->
@@ -110,7 +110,7 @@
     <string name="contacts_search_hint">Tìm danh bạ</string>
     <string name="contacts_empty">Không tìm thấy liên hệ</string>
     <string name="perm_contacts_title">Ghép tên với số</string>
-    <string name="perm_contacts_message">Numify cần quyền danh bạ để gắn tên bạn đã lưu cho các cuộc gọi.</string>
+    <string name="perm_contacts_message">Numify đọc danh bạ để hiển thị những người đã lưu bằng tên thay vì số.</string>
 
     <!-- Settings actions -->
     <string name="language_dialog_title">Chọn ngôn ngữ</string>
@@ -247,8 +247,8 @@
     <string name="common_no">Không</string>
     <string name="common_unknown">Không rõ</string>
     <string name="press_back_again">Nhấn quay lại lần nữa để thoát</string>
-    <string name="exit_dialog_title">Thoát ứng dụng?</string>
-    <string name="exit_dialog_desc">Bạn có chắc muốn thoát không?</string>
+    <string name="exit_dialog_title">Thoát Numify?</string>
+    <string name="exit_dialog_desc">Bạn có thể quay lại bất cứ lúc nào — danh sách chặn vẫn được lưu.</string>
     <string name="exit_dialog_positive">Thoát</string>
     <string name="exit_dialog_negative">Hủy</string>
     <string name="perm_allow">Bật</string>
@@ -476,8 +476,8 @@
     <string name="fsi_meta_now">Bây giờ</string>
     <string name="fsi_meta_calls">68 cuộc gọi</string>
     <string name="fsi_meta_sim">JIO 4G</string>
-    <string name="fsi_screen_title">Xem người gọi trên màn hình khoá</string>
-    <string name="fsi_screen_desc">Numify hiện thông tin người gọi đã xác minh đè lên màn hình khoá ngay khi có cuộc gọi.</string>
+    <string name="fsi_screen_title">Người gọi trên màn hình khóa</string>
+    <string name="fsi_screen_desc">Ngay khi có cuộc gọi, Numify hiển thị thông tin đã xác minh trên màn hình khóa.</string>
     <string name="fsi_feature_identify">Đặt tên cho số lạ</string>
     <string name="fsi_feature_spam">Nhận ra cuộc gọi lừa đảo chỉ trong nháy mắt</string>
     <string name="fsi_feature_missed">Không bỏ lỡ cuộc gọi quan trọng nữa</string>
@@ -611,22 +611,22 @@
     <string name="tools_empty_sub">Thử \"thước nivo\" hoặc \"la bàn\" — hoặc xem toàn bộ.</string>
     <string name="tools_reset_search">Đặt lại tìm kiếm</string>
     <string name="tools_clear_search">Xóa tìm kiếm</string>
-    <string name="perm_sheet_title">Bật quyền</string>
-    <string name="perm_sheet_subtitle">ID người gọi, cảnh báo spam và lịch sử cuộc gọi mỗi thứ cần một quyền.</string>
+    <string name="perm_sheet_title">Còn vài quyền nữa</string>
+    <string name="perm_sheet_subtitle">Nhận diện người gọi, cảnh báo spam và lịch sử cuộc gọi đều cần các quyền này.</string>
     <string name="perm_sheet_continue">Tiếp tục</string>
     <string name="perm_sheet_not_now">Để sau</string>
     <string name="permsheet_allow">Cho phép</string>
     <string name="perm_granted">Đã cấp</string>
     <string name="perm_notification_title">Thông báo</string>
-    <string name="perm_notification_desc">Nhận cảnh báo spam và cuộc gọi</string>
+    <string name="perm_notification_desc">Cảnh báo spam và cuộc gọi</string>
     <string name="perm_phone_title">Điện thoại</string>
-    <string name="perm_phone_desc">Nhận diện cuộc gọi đến</string>
+    <string name="perm_phone_desc">Nhận diện người gọi khi đổ chuông</string>
     <string name="permsheet_calllog_title">Nhật ký cuộc gọi</string>
     <string name="perm_calllog_desc">Hiển thị cuộc gọi gần đây</string>
     <string name="permsheet_contacts_title">Danh bạ</string>
     <string name="perm_contacts_desc">Khớp tên với số</string>
     <string name="perm_overlay_title">Hiển thị trên ứng dụng khác</string>
-    <string name="perm_overlay_desc">Hiện ID người gọi khi đang gọi</string>
+    <string name="perm_overlay_desc">Thông tin người gọi trong lúc nói chuyện</string>
 
     <!-- Light meter · sound meter · bubble level -->
     <string name="light_band_dark">Tối</string>
