@@ -113,7 +113,7 @@
                     android:outlineAmbientShadowColor="@color/card_shadow"
                     android:outlineSpotShadowColor="@color/card_shadow">
 
-                    <com.callora.callerid.numberlookup.screen.utility.LevelDialView
+                    <com.numify.callerid.numberlookup.screen.utility.LevelDialView
                         android:id="@+id/bubbleVw"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

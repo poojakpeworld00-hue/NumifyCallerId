@@ -96,7 +96,7 @@
                     android:layout_height="@dimen/_180sdp"
                     android:layout_marginTop="@dimen/_4sdp">
 
-                    <com.callora.callerid.numberlookup.screen.utility.SunburstView
+                    <com.numify.callerid.numberlookup.screen.utility.SunburstView
                         android:id="@+id/burstVw"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

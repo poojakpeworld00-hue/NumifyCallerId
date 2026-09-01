@@ -6,6 +6,6 @@
 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="#246D3BE8" />
+    <solid android:color="#242563EB" />
     <corners android:radius="@dimen/_12sdp" />
 </shape>

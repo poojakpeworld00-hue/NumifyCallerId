@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         tools:context=".screen.HomeShellActivity">
 
-        <com.callora.callerid.numberlookup.screen.shared.SwipeNavFrameLayout
+        <com.numify.callerid.numberlookup.screen.shared.SwipeNavFrameLayout
             android:id="@+id/fragContainer"
             android:layout_width="0dp"
             android:layout_height="0dp"

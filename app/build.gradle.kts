@@ -21,7 +21,7 @@ fun secret(propKey: String, envKey: String): String? =
 val lhApiKey: String = localProps.getProperty("lighthouse.apiKey", "")
 val lhBaseUrl: String = localProps.getProperty("lighthouse.baseUrl", "")
 
-// callerid.kpeworld.com lookup API. Same treatment as the LightHouse key: kept
+// Number lookup API. Same treatment as the LightHouse key: kept
 // out of source, XOR-obfuscated into BuildConfig, decoded at runtime by CipherVeil.
 val lookupApiId: String = localProps.getProperty("lookup.apiId", "")
 val lookupApiHash: String = localProps.getProperty("lookup.apiHash", "")
@@ -33,11 +33,11 @@ val lookupApiToken: String = localProps.getProperty("lookup.apiToken", "")
 // build stays unsigned rather than failing, so a fresh clone still builds.
 // rootProject.file() returns an absolute path unchanged, so this accepts either
 // an absolute path or one relative to the repo root.
-val releaseStoreFile = secret("release.storeFile", "callora")
+val releaseStoreFile = secret("release.storeFile", "NUMIFY_RELEASE_STOREFILE")
     ?.let { rootProject.file(it) }
-val releaseStorePassword = secret("release.storePassword", "callora")
-val releaseKeyAlias = secret("release.keyAlias", "callora")
-val releaseKeyPassword = secret("release.keyPassword", "callora")
+val releaseStorePassword = secret("release.storePassword", "NUMIFY_RELEASE_STOREPASSWORD")
+val releaseKeyAlias = secret("release.keyAlias", "NUMIFY_RELEASE_KEYALIAS")
+val releaseKeyPassword = secret("release.keyPassword", "NUMIFY_RELEASE_KEYPASSWORD")
 
 val canSignRelease: Boolean =
     releaseStoreFile?.exists() == true &&
@@ -55,7 +55,7 @@ fun xorByteArrayLiteral(value: String, key: Int = 0x5A): String {
 }
 
 android {
-    namespace = "com.callora.callerid.numberlookup"
+    namespace = "com.numify.callerid.numberlookup"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -63,7 +63,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.callora.callerid.numberlookup"
+        applicationId = "com.numify.callerid"
         minSdk = 24
         targetSdk = 36
         versionCode = 2
@@ -162,7 +162,7 @@ listOf(
 }
 
 base {
-    val appName = "Callora"
+    val appName = "Numify"
     val formattedDate: String =
         SimpleDateFormat("MMM.dd.yyyy", Locale.getDefault()).format(Date())
     val config = android.defaultConfig

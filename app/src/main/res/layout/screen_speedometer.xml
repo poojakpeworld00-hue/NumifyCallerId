@@ -89,7 +89,7 @@
                     android:outlineAmbientShadowColor="@color/card_shadow"
                     android:outlineSpotShadowColor="@color/card_shadow">
 
-                    <com.callora.callerid.numberlookup.screen.utility.SpeedGaugeView
+                    <com.numify.callerid.numberlookup.screen.utility.SpeedGaugeView
                         android:id="@+id/gaugeVw"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

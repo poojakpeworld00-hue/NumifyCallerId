@@ -331,7 +331,7 @@
                     android:gravity="center"
                     android:textColor="@color/on_surface_variant"
                     android:textSize="@dimen/_10ssp"
-                    tools:text="Callora · v1.2" />
+                    tools:text="Numify · v1.2" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

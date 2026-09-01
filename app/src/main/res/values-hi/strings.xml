@@ -1,6 +1,6 @@
 <resources>
     <!-- App -->
-    <string name="app_name">Callora: फ़ोन लुकअप</string>
+    <string name="app_name">Numify: फ़ोन लुकअप</string>
     <string name="app_name1">#CallerID</string>
     <string name="dash">&#8211;</string>
 
@@ -20,7 +20,7 @@
 
     <!-- Terms &amp; Conditions -->
     <string name="terms_title">उपयोग की शर्तें</string>
-    <string name="terms_body">जारी रखने से पहले ये शर्तें पढ़ें. सहमत दबाने पर आप निम्न स्वीकार करते हैं:\n\n• Callora कॉल के दौरान ही इनकमिंग, आउटगोइंग और अनजान कॉलर का नाम दिखाता है.\n• ऐप स्पैम, ठगी और धोखाधड़ी वाले नंबर चिह्नित करता है और ब्लॉक करने में मदद करता है.\n• आप किसी भी नंबर को खोजकर हमारे पास मौजूद कॉलर जानकारी देख सकते हैं.\n• कॉल लॉग और संपर्क की अनुमति से ऐप आपकी कॉल पर नाम लगाता है.\n• अन्य ऐप्स के ऊपर दिखाने की अनुमति से कॉल के दौरान कॉलर जानकारी दिखती है.\n• आपका डेटा आपके पास रहता है और सिर्फ कॉलर पहचान व स्पैम सुरक्षा के लिए है.\n\n“सहमत और जारी रखें” दबाने पर आप पुष्टि करते हैं कि आपने हमारी उपयोग की शर्तें और गोपनीयता नीति पढ़ी और स्वीकार की हैं.</string>
+    <string name="terms_body">जारी रखने से पहले ये शर्तें पढ़ें. सहमत दबाने पर आप निम्न स्वीकार करते हैं:\n\n• Numify कॉल के दौरान ही इनकमिंग, आउटगोइंग और अनजान कॉलर का नाम दिखाता है.\n• ऐप स्पैम, ठगी और धोखाधड़ी वाले नंबर चिह्नित करता है और ब्लॉक करने में मदद करता है.\n• आप किसी भी नंबर को खोजकर हमारे पास मौजूद कॉलर जानकारी देख सकते हैं.\n• कॉल लॉग और संपर्क की अनुमति से ऐप आपकी कॉल पर नाम लगाता है.\n• अन्य ऐप्स के ऊपर दिखाने की अनुमति से कॉल के दौरान कॉलर जानकारी दिखती है.\n• आपका डेटा आपके पास रहता है और सिर्फ कॉलर पहचान व स्पैम सुरक्षा के लिए है.\n\n“सहमत और जारी रखें” दबाने पर आप पुष्टि करते हैं कि आपने हमारी उपयोग की शर्तें और गोपनीयता नीति पढ़ी और स्वीकार की हैं.</string>
     <string name="terms_agree">मैंने उपयोग की शर्तें और गोपनीयता नीति पढ़ ली हैं और स्वीकार करता/करती हूँ.</string>
     <string name="terms_accept">सहमत और जारी रखें</string>
     <string name="terms_please_accept">जारी रखने के लिए बॉक्स पर टिक करें.</string>
@@ -93,7 +93,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">अपना कॉल इतिहास दिखाएँ</string>
-    <string name="perm_calllog_message">आपकी की गई और आई कॉल दिखाने के लिए Callora को कॉल लॉग की अनुमति चाहिए.</string>
+    <string name="perm_calllog_message">आपकी की गई और आई कॉल दिखाने के लिए Numify को कॉल लॉग की अनुमति चाहिए.</string>
     <string name="action_grant">अनुमति दें</string>
 
     <!-- Lookup -->
@@ -118,7 +118,7 @@
     <string name="contacts_search_hint">संपर्क खोजें</string>
     <string name="contacts_empty">कोई संपर्क नहीं मिला</string>
     <string name="perm_contacts_title">नामों को नंबरों से जोड़ें</string>
-    <string name="perm_contacts_message">सहेजे गए नामों से कॉल पर लेबल लगाने के लिए Callora को संपर्कों की अनुमति चाहिए.</string>
+    <string name="perm_contacts_message">सहेजे गए नामों से कॉल पर लेबल लगाने के लिए Numify को संपर्कों की अनुमति चाहिए.</string>
 
     <!-- Settings -->
     <string name="settings_language">भाषा</string>
@@ -148,8 +148,8 @@
     <string name="action_remove">हटाएं</string>
 
     <!-- Added translations -->
-    <string name="app_name_overlay">Callora</string>
-    <string name="overlay_guide_desc">नीचे दी गई सूची में Callora ढूँढें और उसका स्विच चालू करें।</string>
+    <string name="app_name_overlay">Numify</string>
+    <string name="overlay_guide_desc">नीचे दी गई सूची में Numify ढूँढें और उसका स्विच चालू करें।</string>
     <string name="overlay_guide_row_hint">चालू करने के लिए टैप करें</string>
     <string name="overlay_guide_dismiss">बंद करने के लिए कहीं भी टैप करें</string>
     <string name="onboarding_spam_id">स्पैम पहचान</string>
@@ -286,12 +286,12 @@
         <item quantity="one">%1$d कॉल</item>
         <item quantity="other">%1$d कॉल</item>
     </plurals>
-    <string name="splash_title">Callora</string>
+    <string name="splash_title">Numify</string>
     <string name="battery_activity_title">बैटरी जानकारी</string>
 
     <!-- Localization batch: missing keys -->
-    <string name="app_label"> Callora: फ़ोन लुकअप</string>
-    <string name="home_brand">Callora</string>
+    <string name="app_label"> Numify: फ़ोन लुकअप</string>
+    <string name="home_brand">Numify</string>
     <string name="home_brand_sub">कॉलर आईडी और स्पैम ब्लॉक</string>
     <string name="home_quick_actions">त्वरित क्रियाएँ</string>
     <string name="action_back">वापस</string>
@@ -522,7 +522,7 @@
     <string name="fsi_meta_calls">68 कॉल</string>
     <string name="fsi_meta_sim">JIO 4G</string>
     <string name="fsi_screen_title">लॉक स्क्रीन पर कॉलर देखें</string>
-    <string name="fsi_screen_desc">कॉल आते ही Callora सत्यापित कॉलर जानकारी लॉक स्क्रीन पर दिखा देता है.</string>
+    <string name="fsi_screen_desc">कॉल आते ही Numify सत्यापित कॉलर जानकारी लॉक स्क्रीन पर दिखा देता है.</string>
     <string name="fsi_feature_identify">अनजान नंबरों को नाम दें</string>
     <string name="fsi_feature_spam">ठगी और धोखाधड़ी कॉल एक नज़र में पहचानें</string>
     <string name="fsi_feature_missed">ज़रूरी कॉल छूटना बंद करें</string>

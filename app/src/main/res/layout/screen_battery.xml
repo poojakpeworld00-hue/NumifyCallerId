@@ -86,7 +86,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/_6sdp">
 
-                    <com.callora.callerid.numberlookup.screen.utility.BatteryLevelView
+                    <com.numify.callerid.numberlookup.screen.utility.BatteryLevelView
                         android:id="@+id/cellVw"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

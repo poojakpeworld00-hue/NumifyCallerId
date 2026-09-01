@@ -11,13 +11,13 @@
     "BannerCounter": 0,
     "AppopenCounter": 0,
     "_group_AdId": "----- Ad Unit IDs -----",
-    "googleInter": "/23365179584/com.callora.callerid.numberlookup_googleInter",
-    "googleS_Inter": "/23365179584/com.callora.callerid.numberlookup_googleS_Inter",
-    "googleBackInter": "/23365179584/com.callora.callerid.numberlookup_googleBackInter",
-    "googleNative": "/23365179584/com.callora.callerid.numberlookup_googleNative",
-    "googleBanner": "/23365179584/com.callora.callerid.numberlookup_googleBanner",
-    "googleAppopen": "/23365179584/com.callora.callerid.numberlookup_googleAppopen",
-    "googleRewarded": "/23365179584/com.callora.callerid.numberlookup_googleRewarded",
+    "googleInter": "/23365179584/com.numify.callerid.numberlookup_googleInter",
+    "googleS_Inter": "/23365179584/com.numify.callerid.numberlookup_googleS_Inter",
+    "googleBackInter": "/23365179584/com.numify.callerid.numberlookup_googleBackInter",
+    "googleNative": "/23365179584/com.numify.callerid.numberlookup_googleNative",
+    "googleBanner": "/23365179584/com.numify.callerid.numberlookup_googleBanner",
+    "googleAppopen": "/23365179584/com.numify.callerid.numberlookup_googleAppopen",
+    "googleRewarded": "/23365179584/com.numify.callerid.numberlookup_googleRewarded",
     "faceB_InterAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
     "faceB_NativeAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
     "faceB_NativeBannerAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
@@ -36,191 +36,191 @@
     "ScreenAds": {
       "default": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner1",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner1",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native1",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native1",
         "nativeType": "mid"
       },
       "LaunchActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner2",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner2",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native2",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native2",
         "nativeType": "mid"
       },
       "LocalePickerActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner2",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner2",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native2",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native2",
         "nativeType": "mid"
       },
       "WelcomeActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner2",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner2",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native2",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native2",
         "nativeType": "mid"
       },
       "HomeShellActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner3",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native3",
         "nativeType": "small"
       },
       "NumberReportActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner4",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native4",
         "nativeType": "mid"
       },
       "SearchTrailActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner4",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native4",
         "nativeType": "mid"
       },
       "RegionPickerActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner4",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native4",
         "nativeType": "small"
       },
       "CallInsightActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner4",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native4",
         "nativeType": "mid"
       },
       "KeypadActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner4",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native4",
         "nativeType": "small"
       },
       "PreferencesActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner4",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native4",
         "nativeType": "mid"
       },
       "AdShowcaseActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner4",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native4",
         "nativeType": "mid"
       },
       "BearingActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "BubbleLevelActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "ChronoActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "CountdownActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "DecibelActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "LuxMeterActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "PowerGaugeActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "SimDetailsActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "SpeedGaugeActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "TorchActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "CallHistoryFragment": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner3",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native3",
         "nativeType": "small"
       },
       "PhonebookFragment": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner3",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native3",
         "nativeType": "small"
       },
       "NumberSearchFragment": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner3",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native3",
         "nativeType": "small"
       },
       "ToolsFragment": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner3",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native3",
         "nativeType": "mid"
       },
       "BlocklistFragment": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner3",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native3",
         "nativeType": "mid"
       }
     },
@@ -378,20 +378,20 @@
     "HD_VBC_Native": true,
     "HD_VBC_Type": "b",
     "HD_VBC_Hrs": 0,
-    "HD_VBC_Native_ID": "/23365179584/com.callora.callerid.numberlookup_HD_VBC_Native_ID",
-    "HD_VBC_Banner_ID": "/23365179584/com.callora.callerid.numberlookup_HD_VBC_Banner_ID",
+    "HD_VBC_Native_ID": "/23365179584/com.numify.callerid.numberlookup_HD_VBC_Native_ID",
+    "HD_VBC_Banner_ID": "/23365179584/com.numify.callerid.numberlookup_HD_VBC_Banner_ID",
     "FbAppId": "dfgd",
     "FbClientToken": "fgfgfd",
     "NativeTheme": {
       "default": {
         "NativeLight": {
-          "btnColor": "#6D3BE8",
+          "btnColor": "#2563EB",
           "btnText": "#FFFFFF",
           "bgColor": "#F7F8FC",
           "textColor": "#101319"
         },
         "NativeDark": {
-          "btnColor": "#6D3BE8",
+          "btnColor": "#2563EB",
           "btnText": "#FFFFFF",
           "bgColor": "#121212",
           "textColor": "#FFFFFF"
@@ -420,13 +420,13 @@
     "BannerCounter": 0,
     "AppopenCounter": 0,
     "_group_AdId": "----- Ad Unit IDs -----",
-    "googleInter": "/23365179584/com.callora.callerid.numberlookup_googleInter",
-    "googleS_Inter": "/23365179584/com.callora.callerid.numberlookup_googleS_Inter",
-    "googleBackInter": "/23365179584/com.callora.callerid.numberlookup_googleBackInter",
-    "googleNative": "/23365179584/com.callora.callerid.numberlookup_googleNative",
-    "googleBanner": "/23365179584/com.callora.callerid.numberlookup_googleBanner",
-    "googleAppopen": "/23365179584/com.callora.callerid.numberlookup_googleAppopen",
-    "googleRewarded": "/23365179584/com.callora.callerid.numberlookup_googleRewarded",
+    "googleInter": "/23365179584/com.numify.callerid.numberlookup_googleInter",
+    "googleS_Inter": "/23365179584/com.numify.callerid.numberlookup_googleS_Inter",
+    "googleBackInter": "/23365179584/com.numify.callerid.numberlookup_googleBackInter",
+    "googleNative": "/23365179584/com.numify.callerid.numberlookup_googleNative",
+    "googleBanner": "/23365179584/com.numify.callerid.numberlookup_googleBanner",
+    "googleAppopen": "/23365179584/com.numify.callerid.numberlookup_googleAppopen",
+    "googleRewarded": "/23365179584/com.numify.callerid.numberlookup_googleRewarded",
     "faceB_InterAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
     "faceB_NativeAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
     "faceB_NativeBannerAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
@@ -445,191 +445,191 @@
     "ScreenAds": {
       "default": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner1",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner1",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native1",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native1",
         "nativeType": "mid"
       },
       "LaunchActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner2",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner2",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native2",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native2",
         "nativeType": "mid"
       },
       "LocalePickerActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner2",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner2",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native2",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native2",
         "nativeType": "mid"
       },
       "WelcomeActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner2",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner2",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native2",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native2",
         "nativeType": "mid"
       },
       "HomeShellActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner3",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native3",
         "nativeType": "small"
       },
       "NumberReportActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner4",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native4",
         "nativeType": "mid"
       },
       "SearchTrailActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner4",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native4",
         "nativeType": "mid"
       },
       "RegionPickerActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner4",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native4",
         "nativeType": "small"
       },
       "CallInsightActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner4",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native4",
         "nativeType": "mid"
       },
       "KeypadActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner4",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native4",
         "nativeType": "small"
       },
       "PreferencesActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner4",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native4",
         "nativeType": "mid"
       },
       "AdShowcaseActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner4",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native4",
         "nativeType": "mid"
       },
       "BearingActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "BubbleLevelActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "ChronoActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "CountdownActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "DecibelActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "LuxMeterActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "PowerGaugeActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "SimDetailsActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "SpeedGaugeActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "TorchActivity": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner5",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native5",
         "nativeType": "mid"
       },
       "CallHistoryFragment": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner3",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native3",
         "nativeType": "small"
       },
       "PhonebookFragment": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner3",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native3",
         "nativeType": "small"
       },
       "NumberSearchFragment": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner3",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native3",
         "nativeType": "small"
       },
       "ToolsFragment": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner3",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native3",
         "nativeType": "mid"
       },
       "BlocklistFragment": {
         "show": true,
-        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "banner": "/23365179584/com.numify.callerid.numberlookup_banner3",
         "bannerType": "adaptive",
-        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "native": "/23365179584/com.numify.callerid.numberlookup_native3",
         "nativeType": "mid"
       }
     },
@@ -778,8 +778,8 @@
     "HD_VBC_Native": true,
     "HD_VBC_Type": "b",
     "HD_VBC_Hrs": 0,
-    "HD_VBC_Native_ID": "/23365179584/com.callora.callerid.numberlookup_HD_VBC_Native_ID",
-    "HD_VBC_Banner_ID": "/23365179584/com.callora.callerid.numberlookup_HD_VBC_Banner_ID",
+    "HD_VBC_Native_ID": "/23365179584/com.numify.callerid.numberlookup_HD_VBC_Native_ID",
+    "HD_VBC_Banner_ID": "/23365179584/com.numify.callerid.numberlookup_HD_VBC_Banner_ID",
     "FbAppId": "dfgd",
     "FbClientToken": "fgfgfd",
     "NativeTheme": {

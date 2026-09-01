@@ -4,8 +4,8 @@ Every APK/AAB uploaded to Google Play must be signed with the **same** key for
 the life of the app. This document covers generating that key, wiring it into
 the build, and the CI path.
 
-> **The keystore is unrecoverable.** If you lose `callora-release.jks` or its
-> passwords, you can never publish an update to `com.callora.callerid.numberlookup`
+> **The keystore is unrecoverable.** If you lose `numify-release.jks` or its
+> passwords, you can never publish an update to `com.numify.callerid.numberlookup`
 > again — you'd have to ship a new listing under a new package name and lose every
 > install and review. Back it up somewhere off this machine before you ship.
 > (Play App Signing, §5, softens this — enrol.)
@@ -19,7 +19,7 @@ organisation details — nothing is passed on the command line, so nothing lands
 your shell history.
 
 ```bash
-keytool -genkeypair -v -keystore callora-release.jks -alias callora -keyalg RSA -keysize 4096 -validity 10000
+keytool -genkeypair -v -keystore numify-release.jks -alias numify -keyalg RSA -keysize 4096 -validity 10000
 ```
 
 Notes on the flags:
@@ -28,7 +28,7 @@ Notes on the flags:
 |---|---|
 | `-keysize 4096` | Play's minimum is 2048; 4096 costs nothing here. |
 | `-validity 10000` | ~27 years. Play **requires** a key valid past 2033-10-22, and a key that expires ends your ability to update. |
-| `-alias callora` | Must match `release.keyAlias` below. |
+| `-alias numify` | Must match `release.keyAlias` below. |
 
 When prompted for "first and last name" (CN) etc., any accurate value is fine —
 Play does not surface it. Use a **different** password for the store and the key,
@@ -45,9 +45,9 @@ Add four lines to `local.properties` (already gitignored, and already where the
 LightHouse credentials live):
 
 ```properties
-release.storeFile=callora-release.jks
+release.storeFile=numify-release.jks
 release.storePassword=<the store password you just chose>
-release.keyAlias=callora
+release.keyAlias=numify
 release.keyPassword=<the key password you just chose>
 ```
 
@@ -66,7 +66,7 @@ wants. For a signed APK to sideload or hand to a tester, use
 `./gradlew :app:assembleRelease` (`app/build/outputs/apk/release/`).
 
 Both are named via the `base { archivesName }` block, e.g.
-`Callora_com.callora.callerid.numberlookup_v1.0.0(1)_Aug.12.2026`.
+`Numify_com.numify.callerid.numberlookup_v1.0.0(1)_Aug.12.2026`.
 
 ### Verify the signature
 
@@ -114,8 +114,8 @@ In `app/build.gradle.kts`:
 Store the keystore as a base64 secret and decode it in the job:
 
 ```bash
-echo "$RELEASE_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/callora-release.jks"
-export RELEASE_STORE_FILE="$RUNNER_TEMP/callora-release.jks"
+echo "$RELEASE_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/numify-release.jks"
+export RELEASE_STORE_FILE="$RUNNER_TEMP/numify-release.jks"
 ```
 
 Set the other three as masked environment variables. Do **not** write them into

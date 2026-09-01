@@ -110,7 +110,7 @@
                     android:layout_height="@dimen/_210sdp"
                     android:layout_marginTop="@dimen/_8sdp">
 
-                    <com.callora.callerid.numberlookup.screen.utility.TimerRingView
+                    <com.numify.callerid.numberlookup.screen.utility.TimerRingView
                         android:id="@+id/ringVw"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

@@ -1,11 +1,11 @@
 <resources>
     <!-- App -->
-    <string name="app_name">Callora: 号码查询</string>
+    <string name="app_name">Numify: 号码查询</string>
     <string name="app_name1">#CallerID</string>
     <string name="dash">&#8211;</string>
 
     <!-- Splash -->
-    <string name="splash_title">Callora</string>
+    <string name="splash_title">Numify</string>
     <string name="splash_tagline">看清每一位来电者，屏蔽其余。</string>
     <string name="splash_footer">本应用可能显示广告</string>
 
@@ -21,7 +21,7 @@
 
     <!-- Terms &amp; Conditions -->
     <string name="terms_title">使用条款</string>
-    <string name="terms_body">继续之前请阅读以下条款。点按“同意”即表示您接受：\n\n• Callora 在通话进行时标出来电、去电和陌生号码的名称。\n• 应用会标记垃圾、诈骗和欺诈号码，并协助您拦截。\n• 您可以查询任意号码，查看我们掌握的来电者信息。\n• 通话记录和通讯录权限用于为您的通话标注名称。\n• 悬浮窗权限使来电信息能在通话过程中显示。\n• 您的数据留在您这一侧，仅用于来电识别与垃圾拦截。\n\n点按“同意并继续”即确认您已阅读并接受我们的使用条款和隐私政策。</string>
+    <string name="terms_body">继续之前请阅读以下条款。点按“同意”即表示您接受：\n\n• Numify 在通话进行时标出来电、去电和陌生号码的名称。\n• 应用会标记垃圾、诈骗和欺诈号码，并协助您拦截。\n• 您可以查询任意号码，查看我们掌握的来电者信息。\n• 通话记录和通讯录权限用于为您的通话标注名称。\n• 悬浮窗权限使来电信息能在通话过程中显示。\n• 您的数据留在您这一侧，仅用于来电识别与垃圾拦截。\n\n点按“同意并继续”即确认您已阅读并接受我们的使用条款和隐私政策。</string>
     <string name="terms_agree">我已阅读并接受使用条款与隐私政策。</string>
     <string name="terms_accept">同意并继续</string>
     <string name="terms_please_accept">勾选后继续。</string>
@@ -85,7 +85,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">显示您的通话记录</string>
-    <string name="perm_calllog_message">Callora 需要通话记录权限，才能列出您拨出和接听的电话。</string>
+    <string name="perm_calllog_message">Numify 需要通话记录权限，才能列出您拨出和接听的电话。</string>
     <string name="action_grant">授予访问权限</string>
 
     <!-- Lookup -->
@@ -110,7 +110,7 @@
     <string name="contacts_search_hint">搜索联系人</string>
     <string name="contacts_empty">未找到联系人</string>
     <string name="perm_contacts_title">为号码匹配姓名</string>
-    <string name="perm_contacts_message">Callora 需要通讯录权限，才能用您已保存的姓名标注来电。</string>
+    <string name="perm_contacts_message">Numify 需要通讯录权限，才能用您已保存的姓名标注来电。</string>
 
     <!-- Settings actions -->
     <string name="language_dialog_title">选择语言</string>
@@ -149,8 +149,8 @@
     <string name="label_verified">已认证</string>
 
     <!-- Added translations -->
-    <string name="app_name_overlay">Callora</string>
-    <string name="overlay_guide_desc">在下方列表中找到 Callora 并打开开关。</string>
+    <string name="app_name_overlay">Numify</string>
+    <string name="overlay_guide_desc">在下方列表中找到 Numify 并打开开关。</string>
     <string name="overlay_guide_row_hint">点按开启</string>
     <string name="overlay_guide_dismiss">点按任意处关闭</string>
     <string name="onboarding_spam_id">垃圾信息识别</string>
@@ -285,9 +285,9 @@
     <string name="battery_activity_title">电池信息</string>
 
     <!-- Localized (zh) - batch added -->
-    <string name="app_label"> Callora: 号码查询</string>
+    <string name="app_label"> Numify: 号码查询</string>
     <string name="overlay_banner_desc">在其他应用上层显示来电者信息</string>
-    <string name="home_brand">Callora</string>
+    <string name="home_brand">Numify</string>
     <string name="home_brand_sub">来电识别与垃圾拦截</string>
     <string name="home_quick_actions">快捷操作</string>
     <string name="recents_subtitle">您的通话记录</string>
@@ -477,7 +477,7 @@
     <string name="fsi_meta_calls">68 次通话</string>
     <string name="fsi_meta_sim">JIO 4G</string>
     <string name="fsi_screen_title">在锁屏上看清来电者</string>
-    <string name="fsi_screen_desc">来电瞬间，Callora 就把已核实的来电信息覆盖显示在锁屏上。</string>
+    <string name="fsi_screen_desc">来电瞬间，Numify 就把已核实的来电信息覆盖显示在锁屏上。</string>
     <string name="fsi_feature_identify">给陌生号码一个名字</string>
     <string name="fsi_feature_spam">一眼认出诈骗与欺诈来电</string>
     <string name="fsi_feature_missed">别再错过要紧的电话</string>

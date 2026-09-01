@@ -152,7 +152,7 @@
                 android:paddingHorizontal="@dimen/_44sdp"
                 android:visibility="gone">
 
-                <com.callora.callerid.numberlookup.screen.shared.PulseIconView
+                <com.numify.callerid.numberlookup.screen.shared.PulseIconView
                     android:id="@+id/emptyToolsIconVw"
                     android:layout_width="@dimen/_78sdp"
                     android:layout_height="@dimen/_78sdp"

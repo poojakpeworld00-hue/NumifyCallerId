@@ -1,6 +1,6 @@
 <resources>
     <!-- App -->
-    <string name="app_name">Callora: Búsqueda de Números</string>
+    <string name="app_name">Numify: Búsqueda de Números</string>
     <string name="app_name1">#CallerID</string>
     <string name="dash">&#8211;</string>
 
@@ -20,7 +20,7 @@
 
     <!-- Terms &amp; Conditions -->
     <string name="terms_title">Términos de uso</string>
-    <string name="terms_body">Lee estos términos antes de continuar. Al tocar Aceptar admites lo siguiente:\n\n• Callora nombra a quienes llaman, reciben llamadas o son desconocidos, en el momento.\n• La app marca números de spam, estafa y fraude y te ayuda a bloquearlos.\n• Puedes buscar cualquier número y ver los datos del titular que tengamos.\n• El acceso al registro de llamadas y contactos permite etiquetar tus llamadas.\n• El permiso de superposición muestra los datos del contacto durante la llamada.\n• Tus datos se quedan contigo y solo sirven para identificar llamadas y frenar spam.\n\nAl tocar “Aceptar y continuar” confirmas que leíste y aceptas nuestros Términos de uso y la Política de privacidad.</string>
+    <string name="terms_body">Lee estos términos antes de continuar. Al tocar Aceptar admites lo siguiente:\n\n• Numify nombra a quienes llaman, reciben llamadas o son desconocidos, en el momento.\n• La app marca números de spam, estafa y fraude y te ayuda a bloquearlos.\n• Puedes buscar cualquier número y ver los datos del titular que tengamos.\n• El acceso al registro de llamadas y contactos permite etiquetar tus llamadas.\n• El permiso de superposición muestra los datos del contacto durante la llamada.\n• Tus datos se quedan contigo y solo sirven para identificar llamadas y frenar spam.\n\nAl tocar “Aceptar y continuar” confirmas que leíste y aceptas nuestros Términos de uso y la Política de privacidad.</string>
     <string name="terms_agree">He leído y acepto los Términos de uso y la Política de privacidad.</string>
     <string name="terms_accept">Aceptar y continuar</string>
     <string name="terms_please_accept">Marca la casilla para continuar.</string>
@@ -93,7 +93,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">Muestra tu historial de llamadas</string>
-    <string name="perm_calllog_message">Callora necesita acceso al registro de llamadas para listar las que hiciste y recibiste.</string>
+    <string name="perm_calllog_message">Numify necesita acceso al registro de llamadas para listar las que hiciste y recibiste.</string>
     <string name="action_grant">Conceder acceso</string>
 
     <!-- Lookup -->
@@ -118,7 +118,7 @@
     <string name="contacts_search_hint">Buscar contactos</string>
     <string name="contacts_empty">No se encontraron contactos</string>
     <string name="perm_contacts_title">Asocia nombres a números</string>
-    <string name="perm_contacts_message">Callora necesita acceso a contactos para etiquetar llamadas con los nombres guardados.</string>
+    <string name="perm_contacts_message">Numify necesita acceso a contactos para etiquetar llamadas con los nombres guardados.</string>
 
     <!-- Settings -->
     <string name="settings_language">Idioma</string>
@@ -148,8 +148,8 @@
     <string name="action_remove">Quitar</string>
 
     <!-- Added translations -->
-    <string name="app_name_overlay">Callora</string>
-    <string name="overlay_guide_desc">Busca Callora en la lista y activa su interruptor.</string>
+    <string name="app_name_overlay">Numify</string>
+    <string name="overlay_guide_desc">Busca Numify en la lista y activa su interruptor.</string>
     <string name="overlay_guide_row_hint">Toca para activar</string>
     <string name="overlay_guide_dismiss">Toca en cualquier lugar para cerrar</string>
     <string name="onboarding_spam_id">ID de spam</string>
@@ -286,12 +286,12 @@
         <item quantity="one">%1$d llamada</item>
         <item quantity="other">%1$d llamadas</item>
     </plurals>
-    <string name="splash_title">Callora</string>
+    <string name="splash_title">Numify</string>
     <string name="battery_activity_title">Información de batería</string>
 
     <!-- Localized strings (es) -->
-    <string name="app_label"> Callora: Búsqueda de Números</string>
-    <string name="home_brand">Callora</string>
+    <string name="app_label"> Numify: Búsqueda de Números</string>
+    <string name="home_brand">Numify</string>
     <string name="home_brand_sub">ID de llamada y antispam</string>
     <string name="home_quick_actions">Acciones rápidas</string>
 
@@ -526,7 +526,7 @@
     <string name="fsi_meta_calls">68 llamadas</string>
     <string name="fsi_meta_sim">JIO 4G</string>
     <string name="fsi_screen_title">Ve quién llama en la pantalla de bloqueo</string>
-    <string name="fsi_screen_desc">Callora pinta los datos verificados del contacto sobre la pantalla de bloqueo al llegar la llamada.</string>
+    <string name="fsi_screen_desc">Numify pinta los datos verificados del contacto sobre la pantalla de bloqueo al llegar la llamada.</string>
     <string name="fsi_feature_identify">Pon nombre a los números desconocidos</string>
     <string name="fsi_feature_spam">Detecta estafas y fraudes de un vistazo</string>
     <string name="fsi_feature_missed">Deja de perder las llamadas que importan</string>

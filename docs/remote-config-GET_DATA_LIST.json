@@ -385,13 +385,13 @@
     "NativeTheme": {
       "default": {
         "NativeLight": {
-          "btnColor": "#6D3BE8",
+          "btnColor": "#2563EB",
           "btnText": "#FFFFFF",
           "bgColor": "#F7F8FC",
           "textColor": "#101319"
         },
         "NativeDark": {
-          "btnColor": "#6D3BE8",
+          "btnColor": "#2563EB",
           "btnText": "#FFFFFF",
           "bgColor": "#121212",
           "textColor": "#FFFFFF"

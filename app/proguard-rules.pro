@@ -1,5 +1,5 @@
 ##############################################################
-# Callora — R8 / ProGuard rules
+# Numify — R8 / ProGuard rules
 ##############################################################
 
 # Keep debug-friendly stack traces (Crashlytics de-obfuscation).
@@ -34,15 +34,15 @@
 -keepclassmembers class * { native <methods>; }
 
 # View/Data binding generated classes.
--keep class com.callora.callerid.numberlookup.databinding.** { *; }
+-keep class com.numify.callerid.numberlookup.databinding.** { *; }
 
 # -------------------------------------------------------------
 # App models — serialized by Gson (Retrofit) & parsed from
 # Firebase Remote Config JSON. Field names must survive.
 # -------------------------------------------------------------
--keep class com.callora.callerid.numberlookup.schema.** { *; }
--keep class com.callora.callerid.adkit.contract.** { *; }
--keepclassmembers class com.callora.callerid.numberlookup.schema.** { *; }
+-keep class com.numify.callerid.numberlookup.schema.** { *; }
+-keep class com.numify.callerid.adkit.contract.** { *; }
+-keepclassmembers class com.numify.callerid.numberlookup.schema.** { *; }
 
 # -------------------------------------------------------------
 # Kotlin
@@ -109,7 +109,7 @@
 # Firebase + Gson keeps below cover its FCM + JSON needs. (Replaced OneSignal.)
 # Ad module — AdHostActivity is an open base (subclassed) that drives Remote
 # Config init/ad loading; keep it and its members intact.
--keep class com.callora.callerid.adkit.runtime.AdHostActivity { *; }
+-keep class com.numify.callerid.adkit.runtime.AdHostActivity { *; }
 
 # -------------------------------------------------------------
 # Firebase / Crashlytics / Remote Config
@@ -171,7 +171,7 @@
 
 # -------------------------------------------------------------
 # Permission Engine + Full-Screen-Intent (FSI) flow
-# (com.callora.callerid.numberlookup.access.**)
+# (com.numify.callerid.numberlookup.access.**)
 #
 # Most of this package needs NO rules:
 #  • FullScreenAccessActivity / FullScreenWatchService are declared in the manifest, so
@@ -187,9 +187,9 @@
 # process death. Keep their no-arg constructors so that path can never
 # NoSuchMethod-crash under R8 full mode.
 # -------------------------------------------------------------
--keepclassmembers class com.callora.callerid.numberlookup.access.AccessLauncher {
+-keepclassmembers class com.numify.callerid.numberlookup.access.AccessLauncher {
     <init>();
 }
--keepclassmembers class com.callora.callerid.numberlookup.access.AccessSheetDialog {
+-keepclassmembers class com.numify.callerid.numberlookup.access.AccessSheetDialog {
     <init>();
 }

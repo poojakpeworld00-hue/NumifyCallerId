@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "165243806315",
-    "project_id": "callora-caller-id-spam-block",
-    "storage_bucket": "callora-caller-id-spam-block.firebasestorage.app"
+    "project_number": "000000000000",
+    "project_id": "numify-callerid-lookup",
+    "storage_bucket": "numify-callerid-lookup.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:165243806315:android:3aecad02bd06c1d359872e",
+        "mobilesdk_app_id": "1:000000000000:android:0000000000000000000000",
         "android_client_info": {
-          "package_name": "com.callora.callerid.numberlookup"
+          "package_name": "com.numify.callerid"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCfc1aGRsI6cnJDXp1TUC4IFDuGBEHcvLA"
+          "current_key": "AIzaSyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "services": {

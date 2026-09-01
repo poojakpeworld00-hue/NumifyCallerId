@@ -84,7 +84,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/crownBar">
 
-            <com.callora.callerid.numberlookup.screen.shared.PulseIconView
+            <com.numify.callerid.numberlookup.screen.shared.PulseIconView
                 android:layout_width="@dimen/_76sdp"
                 android:layout_height="@dimen/_76sdp"
                 app:pulse_disc="@drawable/shape_empty_circle_tools"

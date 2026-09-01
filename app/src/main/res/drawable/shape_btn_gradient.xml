@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Hero gradient CTA (Amethyst → Orchid) — the final "Get Started" button. -->
+<!-- Hero gradient CTA (Indigo → Orchid) — the final "Get Started" button. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <gradient
