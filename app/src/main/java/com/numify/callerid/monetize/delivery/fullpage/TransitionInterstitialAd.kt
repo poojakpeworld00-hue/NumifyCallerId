@@ -20,7 +20,7 @@ import com.numify.callerid.monetize.model.AdPlacementType
 import com.numify.callerid.monetize.strategy.DisplayCadenceManager.interCounter
 import com.numify.callerid.monetize.strategy.RevenueMonitor
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
-import com.numify.callerid.monetize.strategy.logKeyEvent
+import com.numify.callerid.monetize.strategy.recordEvent
 import com.numify.callerid.monetize.delivery.isNetworkAvailable
 import com.numify.callerid.lookup.BuildConfig
 import com.numify.callerid.lookup.R
@@ -328,7 +328,7 @@ class TransitionInterstitialAd {
         }
 
         // Log load
-        activity.logKeyEvent("google_inter_show_attempt")
+        activity.recordEvent("google_inter_show_attempt")
 
         if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(activity)
 
@@ -544,7 +544,7 @@ class TransitionInterstitialAd {
     // ----------------------------------------------------------------------
     private fun Context.safeLog(event: String) {
         try {
-            logKeyEvent(event)
+            recordEvent(event)
             Log.d("InterADsLog", event)
         } catch (_: Exception) {
         }

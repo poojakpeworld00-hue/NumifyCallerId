@@ -25,8 +25,8 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.numify.callerid.monetize.strategy.ScreenPlacementPlan
 import com.numify.callerid.lookup.R
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
-import com.numify.callerid.monetize.strategy.logKeyEvent
-import com.numify.callerid.monetize.strategy.logPermissionResult
+import com.numify.callerid.monetize.strategy.recordEvent
+import com.numify.callerid.monetize.strategy.recordPermissionOutcome
 import com.numify.callerid.monetize.delivery.AdAwareActivity
 import com.numify.callerid.monetize.delivery.fullpage.ExitInterstitialAd
 import com.numify.callerid.monetize.delivery.fullpage.TransitionInterstitialAd
@@ -70,7 +70,7 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutId)
 
-        logKeyEvent("screen_${this::class.java.simpleName.lowercase(Locale.ROOT)}")
+        recordEvent("screen_${this::class.java.simpleName.lowercase(Locale.ROOT)}")
         binding.lifecycleOwner = this
 
         // Keep native-ad colors in sync with the active light/dark mode.
@@ -179,7 +179,7 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
     private val callPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
-        logPermissionResult(Manifest.permission.CALL_PHONE, granted)
+        recordPermissionOutcome(Manifest.permission.CALL_PHONE, granted)
         val number = pendingCallNumber
         pendingCallNumber = null
         if (number != null) if (granted) startCall(number) else openDialer(number)

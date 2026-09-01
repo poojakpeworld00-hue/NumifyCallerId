@@ -2,8 +2,8 @@ package com.numify.callerid.lookup.permission
 
 import android.app.Activity
 import android.content.Context
-import com.numify.callerid.monetize.strategy.logKeyEvent
-import com.numify.callerid.monetize.strategy.logPermissionResult
+import com.numify.callerid.monetize.strategy.recordEvent
+import com.numify.callerid.monetize.strategy.recordPermissionOutcome
 import com.numify.callerid.lookup.common.WindowInsetsHelper
 import com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig
 import java.lang.ref.WeakReference
@@ -244,11 +244,11 @@ object PermissionCoordinator {
             if (rule?.showOnce == true) prefs.markShown(key)
 
             val shortName = spec.androidPermission.substringAfterLast('.')
-            activity.logKeyEvent("Permission_${shortName}_Show")
+            activity.recordEvent("Permission_${shortName}_Show")
             WindowInsetsHelper.log(TAG, "request(): asking '$key' on ${activity::class.java.simpleName}")
 
             PermissionLauncher.launch(activity, spec.androidPermission) { granted ->
-                activity.logPermissionResult(spec.androidPermission, granted)
+                activity.recordPermissionOutcome(spec.androidPermission, granted)
                 WindowInsetsHelper.log(TAG, "request(): '$key' granted=$granted")
                 fireComplete(onComplete)
             }
@@ -308,12 +308,12 @@ object PermissionCoordinator {
             // Analytics — mirrors the app's existing permission events
             // (Permission_<NAME>_Show / _Allow / _Deny).
             val shortName = spec.androidPermission.substringAfterLast('.')
-            act.logKeyEvent("Permission_${shortName}_Show")
+            act.recordEvent("Permission_${shortName}_Show")
 
             WindowInsetsHelper.log(TAG, "Requesting '${rule.key}' on ${act::class.java.simpleName}")
             PermissionLauncher.launch(act, spec.androidPermission) { granted ->
                 // Report on the same Activity context that launched the request.
-                (activeRef?.get() ?: act).logPermissionResult(spec.androidPermission, granted)
+                (activeRef?.get() ?: act).recordPermissionOutcome(spec.androidPermission, granted)
                 WindowInsetsHelper.log(TAG, "Result '${rule.key}' granted=$granted")
                 // Sequential: only now advance to the next permission.
                 processNext(queue)

@@ -9,7 +9,7 @@ import android.view.Window
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.OvershootInterpolator
 import android.widget.TextView
-import com.numify.callerid.monetize.strategy.logKeyEvent
+import com.numify.callerid.monetize.strategy.recordEvent
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.permission.PermissionCoordinator
 import com.numify.callerid.lookup.feature.MainShellActivity
@@ -59,7 +59,7 @@ object LockScreenPrimingDialog {
         var enableTapped = false
 
         view.findViewById<TextView>(R.id.fsiDialogButton).setOnClickListener {
-            activity.logKeyEvent("FSI_Dialog_Enable")
+            activity.recordEvent("FSI_Dialog_Enable")
             // Close the dialog first, then ask notification (targeted request), and
             // only after that launch FSI settings in-task via MainShellActivity's
             // launcher. The watcher + MainShellActivity.onResume handle the return.
@@ -70,7 +70,7 @@ object LockScreenPrimingDialog {
             }
         }
         view.findViewById<TextView>(R.id.fsiDialogLater).setOnClickListener {
-            activity.logKeyEvent("FSI_Dialog_NotNow")
+            activity.recordEvent("FSI_Dialog_NotNow")
             dialog.dismiss()
         }
 
@@ -85,7 +85,7 @@ object LockScreenPrimingDialog {
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
         animateIn(view)
-        activity.logKeyEvent("FSI_Dialog_Show")
+        activity.recordEvent("FSI_Dialog_Show")
     }
 
     /**

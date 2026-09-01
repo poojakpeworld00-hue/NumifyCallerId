@@ -20,6 +20,7 @@ import java.io.File
 import java.util.Locale
 import kotlin.math.log10
 import kotlin.math.roundToInt
+import com.numify.callerid.monetize.strategy.recordPermissionOutcome
 
 /** Approximate sound-level meter using [MediaRecorder.getMaxAmplitude]. */
 class NoiseMeterActivity : BaseActivity<ActivitySoundMeterBinding>() {
@@ -40,6 +41,7 @@ class NoiseMeterActivity : BaseActivity<ActivitySoundMeterBinding>() {
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
+        recordPermissionOutcome(Manifest.permission.RECORD_AUDIO, granted)
         if (granted) startMetering() else binding.textStatus.setText(R.string.sound_permission)
     }
 

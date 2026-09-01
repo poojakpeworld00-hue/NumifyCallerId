@@ -50,6 +50,7 @@ import com.numify.callerid.monetize.delivery.AppOpenAdManager
 import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
+import com.numify.callerid.monetize.strategy.recordPermissionOutcome
 
 class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
 
@@ -171,6 +172,7 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
     private val contactsPermLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
+        context?.recordPermissionOutcome(Manifest.permission.READ_CONTACTS, granted)
         if (granted) showContactsPicker()
         else Toast.makeText(requireContext(), R.string.blocklist_perm_contacts, Toast.LENGTH_SHORT).show()
     }
@@ -179,6 +181,7 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
     private val callLogPermLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
+        context?.recordPermissionOutcome(Manifest.permission.READ_CALL_LOG, granted)
         if (granted) showRecentsPicker()
         else Toast.makeText(requireContext(), R.string.blocklist_perm_calllog, Toast.LENGTH_SHORT).show()
     }

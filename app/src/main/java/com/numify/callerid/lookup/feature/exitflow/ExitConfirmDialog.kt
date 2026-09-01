@@ -9,7 +9,7 @@ import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
-import com.numify.callerid.monetize.strategy.logKeyEvent
+import com.numify.callerid.monetize.strategy.recordEvent
 import com.numify.callerid.monetize.delivery.NativeAdPresenter
 import com.numify.callerid.monetize.delivery.BottomSheetNativeAds
 import com.numify.callerid.lookup.R
@@ -80,12 +80,12 @@ object ExitConfirmDialog {
         var exitTapped = false
 
         view.findViewById<TextView>(R.id.exitDialogExit).setOnClickListener {
-            activity.logKeyEvent("Exit_Dialog_Exit")
+            activity.recordEvent("Exit_Dialog_Exit")
             exitTapped = true
             dialog.dismiss()
         }
         view.findViewById<TextView>(R.id.exitDialogCancel).setOnClickListener {
-            activity.logKeyEvent("Exit_Dialog_Cancel")
+            activity.recordEvent("Exit_Dialog_Cancel")
             dialog.dismiss()
         }
 

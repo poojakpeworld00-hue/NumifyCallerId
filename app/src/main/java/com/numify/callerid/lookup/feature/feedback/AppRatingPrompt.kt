@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
-import com.numify.callerid.monetize.strategy.logKeyEvent
+import com.numify.callerid.monetize.strategy.recordEvent
 import com.numify.callerid.lookup.BuildConfig
 import com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig
 import com.numify.callerid.lookup.repository.SettingsRepository
@@ -178,7 +178,7 @@ object AppRatingPrompt {
                     if (BuildConfig.DEBUG) {
                         Log.d(TAG, "request FAILED: ${request.exception?.message ?: "activity gone"}")
                     }
-                    activity.logKeyEvent("RateUs_Request_Failed")
+                    activity.recordEvent("RateUs_Request_Failed")
                     finish(); return@addOnCompleteListener
                 }
                 manager.launchReviewFlow(activity, request.result)
@@ -190,7 +190,7 @@ object AppRatingPrompt {
                             Log.d(TAG, "flow completed (success=${flow.isSuccessful}) — " +
                                 "attempt recorded; Play does NOT report whether the sheet showed")
                         }
-                        activity.logKeyEvent("RateUs_Flow_Launched")
+                        activity.recordEvent("RateUs_Flow_Launched")
                         finish()
                     }
             }

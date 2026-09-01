@@ -17,7 +17,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.numify.callerid.monetize.model.AdPlacementType
 import com.numify.callerid.monetize.strategy.RevenueMonitor
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
-import com.numify.callerid.monetize.strategy.logKeyEvent
+import com.numify.callerid.monetize.strategy.recordEvent
 import com.numify.callerid.lookup.BuildConfig
 import com.facebook.ads.AdView as FbAdView
 
@@ -188,7 +188,7 @@ class BannerAdPresenter {
                     "Ad loaded. adView.isCollapsible() is ${googleBanner?.isCollapsible}.",
                 )
                 // Log load
-                activity.logKeyEvent("Banner_Load")
+                activity.recordEvent("Banner_Load")
 
                 if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(activity)
 
@@ -211,7 +211,7 @@ class BannerAdPresenter {
                 shimmer?.stopShimmer()
                 shimmer?.visibility = View.GONE
                 try {
-                    activity.logKeyEvent("Banner_fail_Load")
+                    activity.recordEvent("Banner_fail_Load")
                 } catch (_: Exception) {
                 }
                 Log.e("BannerAdPresenter", "Google Banner Failed: ${error.message}")
@@ -222,7 +222,7 @@ class BannerAdPresenter {
             }
 
             override fun onAdClicked() {
-                activity.logKeyEvent("google_banner")
+                activity.recordEvent("google_banner")
             }
         }
 
@@ -325,7 +325,7 @@ class BannerAdPresenter {
                         container.addView(facebookBanner)
                         container.visibility = View.VISIBLE
                         observer?.onAdLoaded()
-                        activity.logKeyEvent("facebook_banner_load")
+                        activity.recordEvent("facebook_banner_load")
                     }
 
                     override fun onError(

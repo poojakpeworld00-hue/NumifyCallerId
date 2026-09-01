@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.monetize.strategy.ScreenPlacementPlan
-import com.numify.callerid.monetize.strategy.logKeyEvent
-import com.numify.callerid.monetize.strategy.logPermissionResult
+import com.numify.callerid.monetize.strategy.recordEvent
+import com.numify.callerid.monetize.strategy.recordPermissionOutcome
 import com.numify.callerid.monetize.delivery.NativeAdPresenter
 import com.numify.callerid.monetize.delivery.NativeBannerPresenter
 import com.numify.callerid.lookup.R
@@ -148,7 +148,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     }
 
     private fun logScreenView() {
-        context?.logKeyEvent("screen_${this::class.java.simpleName.lowercase(Locale.ROOT)}")
+        context?.recordEvent("screen_${this::class.java.simpleName.lowercase(Locale.ROOT)}")
     }
 
     // --- Shared runtime-permission handling ---
@@ -185,7 +185,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     private val chainLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
-        lastChainPermission?.let { context?.logPermissionResult(it, granted) }
+        lastChainPermission?.let { context?.recordPermissionOutcome(it, granted) }
         advancePermissionChain()
     }
 
@@ -256,7 +256,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     private val callPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
-        context?.logPermissionResult(Manifest.permission.CALL_PHONE, granted)
+        context?.recordPermissionOutcome(Manifest.permission.CALL_PHONE, granted)
         val number = pendingCallNumber
         pendingCallNumber = null
         if (number != null) if (granted) startCall(number) else openDialer(number)

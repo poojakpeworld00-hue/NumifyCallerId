@@ -31,7 +31,7 @@ import com.google.android.gms.ads.nativead.NativeAdOptions
 import com.numify.callerid.monetize.model.AdPlacementType
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.monetize.strategy.logAdRevenue
-import com.numify.callerid.monetize.strategy.logKeyEvent
+import com.numify.callerid.monetize.strategy.recordEvent
 import com.numify.callerid.lookup.databinding.AudienceNativeBinding
 import com.numify.callerid.lookup.databinding.AdmobBigNativeBinding
 
@@ -145,7 +145,7 @@ class BottomSheetNativeAds {
                         }
 
                         try {
-                            context.logKeyEvent("BS_ads_load")
+                            context.recordEvent("BS_ads_load")
                         } catch (_: Exception) {
                         }
 
@@ -170,14 +170,14 @@ class BottomSheetNativeAds {
 
                 override fun onAdClicked() {
                     try {
-                        activity.logKeyEvent("BS_banner_clicked")
+                        activity.recordEvent("BS_banner_clicked")
                     } catch (_: Exception) {
                     }
                 }
 
                 override fun onAdOpened() {
                     try {
-                        activity.logKeyEvent("BS_banner_opened")
+                        activity.recordEvent("BS_banner_opened")
                     } catch (_: Exception) {
                     }
                 }
@@ -280,7 +280,7 @@ class BottomSheetNativeAds {
                     BCnativeAd?.destroy()
                     BCnativeAd = nativeAds
                     try {
-                        context.logKeyEvent("NativeAds_BS_load")
+                        context.recordEvent("NativeAds_BS_load")
                     } catch (e: Exception) {
                     }
                     Log.e("NativeAds", "Google Load: nativeAd")
@@ -293,7 +293,7 @@ class BottomSheetNativeAds {
                             "Google onAdFailedToLoad:nativeAd ${loadAdError.message}"
                         )
                         try {
-                            context.logKeyEvent("NativeAds_BS_Fail")
+                            context.recordEvent("NativeAds_BS_Fail")
                         } catch (e: Exception) {
                         }
                         BCnativeAd = null
@@ -379,7 +379,7 @@ class BottomSheetNativeAds {
                                 } catch (_: Exception) {
                                 }
 
-                                context.logKeyEvent("NativeAds_BS_showBigNative_Google")
+                                context.recordEvent("NativeAds_BS_showBigNative_Google")
 
                             } catch (e: Exception) {
                                 Log.e("987654321", "Google ad failed: ${e.message}")
@@ -402,7 +402,7 @@ class BottomSheetNativeAds {
                                 }
                             }
                             try {
-                                context.logKeyEvent("NativeAds_BS_load")
+                                context.recordEvent("NativeAds_BS_load")
                             } catch (e: Exception) {
                             }
                             Log.e("987654321", "Google Load: nativeAd")
@@ -418,7 +418,7 @@ class BottomSheetNativeAds {
                                     "Google onAdFailedToLoad:nativeAd ${loadAdError.message}"
                                 )
                                 try {
-                                    context.logKeyEvent("NativeAds_BS_Fail")
+                                    context.recordEvent("NativeAds_BS_Fail")
                                     // Google failed → fallback
                                     if (adsPreference.getBoolean("IsFail_FB")) {
                                         Log.w("987654321", "Native Ads Null")
@@ -572,7 +572,7 @@ class BottomSheetNativeAds {
 
                 override fun onAdLoaded(ad: Ad?) {
                     if (fbNative !== ad) return
-                    context.logKeyEvent("NativeAds_showBigNative_FB_Load")
+                    context.recordEvent("NativeAds_showBigNative_FB_Load")
                     fbNative.downloadMedia()
                 }
 

@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.numify.callerid.lookup.common.WindowInsetsHelper
+import com.numify.callerid.monetize.strategy.recordPermissionOutcome
 
 /**
  * Performs a single runtime-permission request without requiring any code
@@ -38,6 +39,7 @@ class PermissionLauncher : Fragment() {
         launcher = registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { granted ->
+            androidPermission?.let { requireContext().recordPermissionOutcome(it, granted) }
             val cb = onResult
             onResult = null
             detach()

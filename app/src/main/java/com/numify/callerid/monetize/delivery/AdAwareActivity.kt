@@ -46,7 +46,7 @@ import com.numify.callerid.monetize.model.lookupRegionByIp
 import com.numify.callerid.monetize.strategy.RevenueMonitor
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.monetize.strategy.PrivacyConsentGate
-import com.numify.callerid.monetize.strategy.logKeyEvent
+import com.numify.callerid.monetize.strategy.recordEvent
 import com.numify.callerid.monetize.delivery.fullpage.ExitInterstitialAd
 import com.numify.callerid.monetize.delivery.fullpage.TransitionInterstitialAd
 import com.numify.callerid.lookup.BuildConfig
@@ -889,7 +889,7 @@ open class AdAwareActivity : AppCompatActivity() {
                 }
             }
             // Log load
-            activity.logKeyEvent("AppOpen_Loaded")
+            activity.recordEvent("AppOpen_Loaded")
 
             if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(activity)
 
@@ -945,7 +945,7 @@ open class AdAwareActivity : AppCompatActivity() {
             }
 
             // Log load
-            activity.logKeyEvent("Interstitial_Splash_Loaded")
+            activity.recordEvent("Interstitial_Splash_Loaded")
 
             if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(activity)
 

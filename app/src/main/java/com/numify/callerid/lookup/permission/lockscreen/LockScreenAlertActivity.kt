@@ -17,7 +17,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.facebook.shimmer.ShimmerFrameLayout
-import com.numify.callerid.monetize.strategy.logKeyEvent
+import com.numify.callerid.monetize.strategy.recordEvent
 import com.numify.callerid.monetize.delivery.NativeAdPresenter
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.permission.PermissionCoordinator
@@ -78,7 +78,7 @@ class LockScreenAlertActivity : AppCompatActivity() {
             if (LockScreenPermission.isGranted(this@LockScreenAlertActivity)) {
                 WindowInsetsHelper.log("FSI", "grant poll: GRANTED → continue to next")
                 grantPolling = false
-                logKeyEvent("FSI_Screen_Granted")
+                recordEvent("FSI_Screen_Granted")
                 continueToNext()
             } else {
                 grantPollHandler.postDelayed(this, POLL_INTERVAL_MS)
@@ -122,7 +122,7 @@ class LockScreenAlertActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.fsiScreenButton).text = config.screen.button
 
         LockScreenPermission.markScreenShown(this)
-        logKeyEvent("FSI_Screen_Show")
+        recordEvent("FSI_Screen_Show")
         returnWatcher.register()
 
         findViewById<TextView>(R.id.fsiScreenButton).setOnClickListener {
@@ -132,7 +132,7 @@ class LockScreenAlertActivity : AppCompatActivity() {
             // Ask this screen's configured permission(s) (`screen.fsi_permission.permissions`
             // — notification) FIRST, THEN open FSI.
             PermissionCoordinator.checkScreenPermissions(this, OnboardingStepConfig.FSI_PERMISSION_KEY) {
-                logKeyEvent("FSI_Screen_Enable")
+                recordEvent("FSI_Screen_Enable")
                 // Hide the content NOW, so when we come back (auto-back or the user
                 // pressing back) no FSI content is ever drawn — just the plain
                 // background for an instant — then we continue.
@@ -152,7 +152,7 @@ class LockScreenAlertActivity : AppCompatActivity() {
             }
         }
         findViewById<TextView>(R.id.fsiScreenSkip).setOnClickListener {
-            logKeyEvent("FSI_Screen_Skip")
+            recordEvent("FSI_Screen_Skip")
             continueToNext()
         }
 
@@ -163,7 +163,7 @@ class LockScreenAlertActivity : AppCompatActivity() {
             ?.autonextSec ?: 0
         if (autonextSec > 0) {
             autonextHandler.postDelayed({
-                logKeyEvent("FSI_Screen_Skip")
+                recordEvent("FSI_Screen_Skip")
                 continueToNext()
             }, autonextSec * 1000L)
         }
@@ -173,7 +173,7 @@ class LockScreenAlertActivity : AppCompatActivity() {
         // so the always-enabled callback is safe to re-fire.
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                logKeyEvent("FSI_Screen_Skip")
+                recordEvent("FSI_Screen_Skip")
                 continueToNext()
             }
         })
@@ -360,7 +360,7 @@ class LockScreenAlertActivity : AppCompatActivity() {
         val granted = LockScreenPermission.isGranted(this)
         if (returningFromSettings || granted) {
             WindowInsetsHelper.log("FSI", "Screen $where: back from settings, granted=$granted → continue")
-            if (granted) logKeyEvent("FSI_Screen_Granted")
+            if (granted) recordEvent("FSI_Screen_Granted")
             continueToNext()
         }
     }

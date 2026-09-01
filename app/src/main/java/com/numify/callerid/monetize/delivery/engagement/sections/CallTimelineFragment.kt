@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.numify.callerid.monetize.delivery.engagement.lists.CallTimelineAdapter
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.repository.CallLogRepository
+import com.numify.callerid.monetize.strategy.recordPermissionOutcome
 
 /**
  * Default ("first") tab of the post-call screen: a recent-call list. Each row's
@@ -69,6 +70,7 @@ class CallTimelineFragment : Fragment() {
     private val callPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
+        context?.recordPermissionOutcome(Manifest.permission.CALL_PHONE, granted)
         val number = pendingCallNumber
         pendingCallNumber = null
         if (number != null) if (granted) startDirectCall(number) else openDialer(number)

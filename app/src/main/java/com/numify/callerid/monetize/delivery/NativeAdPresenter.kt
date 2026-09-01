@@ -20,7 +20,7 @@ import com.numify.callerid.monetize.strategy.DisplayCadenceManager.nativeCounter
 import com.numify.callerid.monetize.strategy.RevenueMonitor
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.monetize.strategy.ScreenPlacementPlan
-import com.numify.callerid.monetize.strategy.logKeyEvent
+import com.numify.callerid.monetize.strategy.recordEvent
 import com.numify.callerid.lookup.BuildConfig
 import com.numify.callerid.lookup.databinding.AudienceMidNativeBinding
 import com.numify.callerid.lookup.databinding.AudienceNativeBinding
@@ -97,7 +97,7 @@ class NativeAdPresenter() {
 
                     observer?.onNativeAdLoaded()
                     try {
-                        context.logKeyEvent("NativeAds_load")
+                        context.recordEvent("NativeAds_load")
                     } catch (e: Exception) {
                     }
 
@@ -114,7 +114,7 @@ class NativeAdPresenter() {
                             "Google onAdFailedToLoad:nativeAd ${loadAdError.message}"
                         )
                         try {
-                            context.logKeyEvent("NativeAds_Fail")
+                            context.recordEvent("NativeAds_Fail")
                         } catch (e: Exception) {
                         }
                         nativeAd = null
@@ -203,7 +203,7 @@ class NativeAdPresenter() {
                             shimmer?.isVisible = false
                             layout.addView(rootView)
 
-                            context.logKeyEvent("NativeAds_showBigNative_Google")
+                            context.recordEvent("NativeAds_showBigNative_Google")
 
                             if (BuildConfig.DEBUG) {
                                 RevenueMonitor.logDebugRevenue(context)
@@ -412,7 +412,7 @@ class NativeAdPresenter() {
 
                 override fun onAdLoaded(ad: Ad?) {
                     if (fbNative !== ad) return
-                    context.logKeyEvent("NativeAds_showBigNative_FB_Load")
+                    context.recordEvent("NativeAds_showBigNative_FB_Load")
                     fbNative.downloadMedia()
                 }
 
@@ -553,7 +553,7 @@ class NativeAdPresenter() {
                             layout.addView(binding.root)
 
                             // Log load
-                            context.logKeyEvent("NativeAds_showMidNative_Google")
+                            context.recordEvent("NativeAds_showMidNative_Google")
 
                             if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(context)
 
@@ -637,7 +637,7 @@ class NativeAdPresenter() {
                         shimmer?.stopShimmer()
                         shimmer?.isVisible = false
                         bindMetaMediumNative(fbNative, layout, context)
-                        context.logKeyEvent("NativeAds_showMid_FB")
+                        context.recordEvent("NativeAds_showMid_FB")
                     }
                 }
 
@@ -861,7 +861,7 @@ class NativeAdPresenter() {
                             layout.addView(binding.root)
 
                             // Log load
-                            context.logKeyEvent("NativeAds_showMidNative2_Google")
+                            context.recordEvent("NativeAds_showMidNative2_Google")
 
                             if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(context)
 

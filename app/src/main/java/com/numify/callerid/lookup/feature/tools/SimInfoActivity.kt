@@ -19,6 +19,7 @@ import com.numify.callerid.lookup.databinding.ActivitySimInfoBinding
 import java.util.Locale
 import java.net.Inet4Address
 import java.net.NetworkInterface
+import com.numify.callerid.monetize.strategy.recordPermissionOutcome
 
 /** Carrier / SIM / network details from [TelephonyManager]. */
 class SimInfoActivity : BaseActivity<ActivitySimInfoBinding>() {
@@ -29,7 +30,10 @@ class SimInfoActivity : BaseActivity<ActivitySimInfoBinding>() {
 
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
-    ) { render() }
+    ) { granted ->
+        recordPermissionOutcome(Manifest.permission.READ_PHONE_STATE, granted)
+        render()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()

@@ -11,7 +11,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.numify.callerid.monetize.model.AdPlacementType
 import com.numify.callerid.monetize.strategy.DisplayCadenceManager.interBackCounter
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
-import com.numify.callerid.monetize.strategy.logKeyEvent
+import com.numify.callerid.monetize.strategy.recordEvent
 import com.numify.callerid.monetize.delivery.isNetworkAvailable
 
 class ExitInterstitialAd {
@@ -398,7 +398,7 @@ class ExitInterstitialAd {
 */
     private fun Context.safeLog(event: String) {
         try {
-            this.logKeyEvent(event)
+            this.recordEvent(event)
         } catch (_: Exception) {
         }
     }

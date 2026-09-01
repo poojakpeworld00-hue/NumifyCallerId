@@ -44,7 +44,7 @@ import com.numify.callerid.lookup.repository.CallType
 import com.numify.callerid.lookup.repository.CallLogTotals
 import com.numify.callerid.lookup.repository.RegionDetector
 import com.numify.callerid.lookup.repository.SettingsRepository
-import com.numify.callerid.monetize.strategy.logPermissionResult
+import com.numify.callerid.monetize.strategy.recordPermissionOutcome
 import com.numify.callerid.lookup.common.followAdContainer
 
 class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
@@ -70,7 +70,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
     private val corePermLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
-        lastCorePermission?.let { context?.logPermissionResult(it, granted) }
+        lastCorePermission?.let { context?.recordPermissionOutcome(it, granted) }
         advanceCorePermissions()
     }
 

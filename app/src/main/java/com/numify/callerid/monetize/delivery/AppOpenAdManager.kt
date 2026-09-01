@@ -13,7 +13,7 @@ import io.lighthouse.push.extended.LightHouseRichPush
 import com.numify.callerid.monetize.model.AdPlacementType
 import com.numify.callerid.monetize.strategy.RevenueMonitor
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
-import com.numify.callerid.monetize.strategy.logKeyEvent
+import com.numify.callerid.monetize.strategy.recordEvent
 import com.numify.callerid.monetize.delivery.fullpage.ExitInterstitialAd
 import com.numify.callerid.monetize.delivery.fullpage.TransitionInterstitialAd
 import com.numify.callerid.lookup.BuildConfig
@@ -59,7 +59,7 @@ object AppOpenAdManager {
                             override fun onAdLoaded(ad: AppOpenAd) {
 
                                 try {
-                                    context.logKeyEvent("appopen_ad_loaded")
+                                    context.recordEvent("appopen_ad_loaded")
                                 } catch (e: Exception) {
                                 }
 
@@ -74,7 +74,7 @@ object AppOpenAdManager {
                                 )
 
                                 try {
-                                    context.logKeyEvent("appopen_ad_fail")
+                                    context.recordEvent("appopen_ad_fail")
                                 } catch (e: Exception) {
                                 }
                                 isLoadingAd = false
@@ -145,7 +145,7 @@ object AppOpenAdManager {
                 )
 
                 try {
-                    activity.logKeyEvent("appopen_ad_dismissed")
+                    activity.recordEvent("appopen_ad_dismissed")
                 } catch (_: Exception) {
                 }
 
@@ -163,7 +163,7 @@ object AppOpenAdManager {
                     LOG_TAG, adError.message
                 )
                 try {
-                    activity.logKeyEvent("appopen_ad_fail")
+                    activity.recordEvent("appopen_ad_fail")
                 } catch (_: Exception) {
                 }
                 appOpenAd = null
@@ -182,7 +182,7 @@ object AppOpenAdManager {
         }
 
         // Log load
-        activity.logKeyEvent("appopen_ad_shown")
+        activity.recordEvent("appopen_ad_shown")
 
         if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(activity)
 

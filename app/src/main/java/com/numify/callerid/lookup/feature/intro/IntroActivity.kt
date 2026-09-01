@@ -11,7 +11,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager2.widget.ViewPager2
-import com.numify.callerid.monetize.strategy.logKeyEvent
+import com.numify.callerid.monetize.strategy.recordEvent
 import com.numify.callerid.monetize.delivery.NativeAdPresenter
 import com.numify.callerid.monetize.delivery.fullpage.TransitionInterstitialAd
 import com.numify.callerid.lookup.R
@@ -189,7 +189,7 @@ class IntroActivity : BaseActivity<ActivityOnboardingBinding>() {
         if (forwarding) return
         forwarding = true
         prefs.isOnboardingDone = true
-        logKeyEvent("onboarding_completed")
+        recordEvent("onboarding_completed")
         PermissionCoordinator.checkScreenPermissions(this, OnboardingStepConfig.ONBOARDING_KEY) {
             val nextKey = OnboardingStepConfig.nextEligibleAfter(this, OnboardingStepConfig.ONBOARDING_KEY)
             val nextClass = nextKey?.let { OnboardingStepConfig.classFor(it) } ?: MainShellActivity::class.java

@@ -20,8 +20,8 @@ import androidx.fragment.app.FragmentActivity
 import com.numify.callerid.lookup.repository.SettingsRepository
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.numify.callerid.monetize.strategy.logKeyEvent
-import com.numify.callerid.monetize.strategy.logPermissionResult
+import com.numify.callerid.monetize.strategy.recordEvent
+import com.numify.callerid.monetize.strategy.recordPermissionOutcome
 import com.numify.callerid.monetize.delivery.AppOpenAdManager
 import com.numify.callerid.monetize.delivery.openActivity
 import com.numify.callerid.monetize.delivery.engagement.OverlayTutorialActivity
@@ -74,7 +74,7 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
         ActivityResultContracts.RequestMultiplePermissions()
     ) { result ->
         result.forEach { (perm, granted) ->
-            context?.logPermissionResult(perm, granted)
+            context?.recordPermissionOutcome(perm, granted)
         }
         refreshRows()
         if (continueInProgress) {
@@ -87,7 +87,7 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
         ActivityResultContracts.StartActivityForResult()
     ) {
         val granted = context?.let { ctx -> OverlayPermissionUtils.isGranted(ctx) } ?: false
-        context?.logKeyEvent(if (granted) "Permission_OVERLAY_Allow" else "Permission_OVERLAY_Deny")
+        context?.recordEvent(if (granted) "Permission_OVERLAY_Allow" else "Permission_OVERLAY_Deny")
         refreshRows()
         if (finishAfterOverlay) {
             finishAfterOverlay = false
@@ -118,11 +118,11 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
 
         root.findViewById<TextView>(R.id.buttonContinue).setOnClickListener { onContinueClicked() }
         root.findViewById<TextView>(R.id.buttonNotNow).setOnClickListener {
-            context?.logKeyEvent("PermissionSheet_NotNow")
+            context?.recordEvent("PermissionSheet_NotNow")
             finishFlow()
         }
 
-        context?.logKeyEvent("PermissionSheet_Show")
+        context?.recordEvent("PermissionSheet_Show")
         return root
     }
 

@@ -51,7 +51,7 @@ object RevenueMonitor {
 --------------------------------------------------------------*/
 
 /** Log general key events */
-fun Context.logKeyEvent(key: String) {
+fun Context.recordEvent(key: String) {
     val bundle = Bundle().apply { putString(key, key) }
 
     if (isDebuggable()) {
@@ -67,9 +67,9 @@ fun Context.logKeyEvent(key: String) {
  * e.g. `Permission_READ_CALL_LOG_Allow`. [permission] is a full
  * `android.permission.*` string; only the short name is used in the event.
  */
-fun Context.logPermissionResult(permission: String, granted: Boolean) {
+fun Context.recordPermissionOutcome(permission: String, granted: Boolean) {
     val shortName = permission.substringAfterLast('.')
-    logKeyEvent("Permission_${shortName}_${if (granted) "Allow" else "Deny"}")
+    recordEvent("Permission_${shortName}_${if (granted) "Allow" else "Deny"}")
 }
 
 /** Check debug mode */

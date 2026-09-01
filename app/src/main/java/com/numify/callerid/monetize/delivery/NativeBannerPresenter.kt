@@ -16,7 +16,7 @@ import com.numify.callerid.monetize.strategy.DisplayCadenceManager.nativeBannerC
 import com.numify.callerid.monetize.strategy.RevenueMonitor
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.monetize.strategy.TAG_EVENT
-import com.numify.callerid.monetize.strategy.logKeyEvent
+import com.numify.callerid.monetize.strategy.recordEvent
 import com.numify.callerid.lookup.BuildConfig
 import com.numify.callerid.lookup.databinding.AudienceNativeBannerBinding
 import com.numify.callerid.lookup.databinding.AdmobSmallNativeBinding
@@ -52,7 +52,7 @@ class NativeBannerPresenter {
                     nativeAdBanner?.destroy()
                     nativeAdBanner = ad
                     try {
-                        activity.logKeyEvent("NativeBanner_Load")
+                        activity.recordEvent("NativeBanner_Load")
                     } catch (e: Exception) {
                     }
 
@@ -64,7 +64,7 @@ class NativeBannerPresenter {
                         // No retry logic
 
                         try {
-                            activity.logKeyEvent("NativeBanner_fail")
+                            activity.recordEvent("NativeBanner_fail")
                         } catch (e: Exception) {
                         }
                     }
@@ -181,7 +181,7 @@ class NativeBannerPresenter {
         nativeAd: NativeAd, binding: AdmobSmallNativeBinding, context: Activity
     ) {
         // Log load
-        context.logKeyEvent("NativeBanner_Show_Google")
+        context.recordEvent("NativeBanner_Show_Google")
 
         if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(context)
 
@@ -288,7 +288,7 @@ class NativeBannerPresenter {
                     shimmer?.isVisible = false
                     layout.removeAllViews()
                     bindMetaNativeBanner(fbNative, layout, context)
-                    context.logKeyEvent("NativeBAnner_FB")
+                    context.recordEvent("NativeBAnner_FB")
                 }
 
                 override fun onError(ad: Ad?, adError: AdError?) {

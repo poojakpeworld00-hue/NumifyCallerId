@@ -26,7 +26,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
-import com.numify.callerid.monetize.strategy.logPermissionResult
+import com.numify.callerid.monetize.strategy.recordPermissionOutcome
 import com.numify.callerid.monetize.delivery.AppOpenAdManager
 import com.numify.callerid.monetize.delivery.UpdateFlowCallback
 import com.numify.callerid.monetize.delivery.AppUpdateCoordinator
