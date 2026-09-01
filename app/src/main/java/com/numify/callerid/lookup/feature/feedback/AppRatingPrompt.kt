@@ -117,11 +117,11 @@ object AppRatingPrompt {
             "lastMs=${prefs.introLastShownMs(KEY)}"
 
     /**
-     * Unknown modes return **false**, not true.
+     * An unrecognised mode returns **false** rather than true.
      *
-     * `OnboardingStepConfig.sessionGatePasses()` ends in `else -> true`, which
-     * makes a typo — or a plausible-looking `"never"` — mean "every session".
-     * A prompt that fires because someone misspelled a config value is worse
+     * `OnboardingStepConfig.sessionGatePasses()` finishes with `else -> true`,
+     * which turns a typo, or a perfectly plausible-looking `"never"`, into "every
+     * session". A prompt firing because someone misspelled a config value is worse
      * than one that never fires, so this fails closed.
      */
     private fun cadencePasses(prefs: SettingsRepository, cfg: Config): Boolean =
@@ -156,12 +156,12 @@ object AppRatingPrompt {
     }
 
     /**
-     * Requests and launches the review flow. [onDone] always runs exactly once,
-     * on the main thread, whether the flow showed, failed, or was skipped — the
-     * caller uses it to continue whatever it was sequencing.
+     * Requests the review flow and launches it. [onDone] always runs exactly once
+     * on the main thread, whether the flow appeared, failed or was skipped, and
+     * the caller uses it to carry on with whatever it was sequencing.
      *
-     * The ledger is stamped when the flow is *launched*, since that is the only
-     * thing Play tells us.
+     * The ledger is stamped when the flow is *launched*, because that is the only
+     * event Play actually reports.
      */
     fun launch(activity: Activity, onDone: (() -> Unit)? = null) {
         val finish = { onDone?.invoke(); Unit }

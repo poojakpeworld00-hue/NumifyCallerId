@@ -53,10 +53,11 @@ object LockScreenPermission {
     // --- CountryItem gate (reuses the app's existing IP + SIM country signals) ---
 
     /**
-     * True when the device's country is NOT in the config's block-list. Fail-open:
-     * when the filter is off, the list is empty, or the country can't be resolved,
-     * the feature is shown. Matches the IP country ([AdPreferenceStore.userCountry]),
-     * the SIM/network ISO, and the locale country against the excluded list.
+     * True when the device's country is absent from the config's block-list. It
+     * fails open: with the filter off, an empty list, or a country that cannot be
+     * resolved, the feature is shown. It checks the IP country
+     * ([AdPreferenceStore.userCountry]), the SIM or network ISO, and the locale
+     * country against that excluded list.
      */
     fun isCountryAllowed(context: Context, config: LockScreenConfig): Boolean {
         if (!config.countryFilterEnabled || config.excludedCountries.isEmpty()) {

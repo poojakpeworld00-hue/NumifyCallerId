@@ -21,11 +21,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
- * Full-screen caller-ID card shown when a call rings while the device is **locked**.
- * Declared with showWhenLocked + turnScreenOn so it appears over the keyguard.
+ * Full-screen caller-ID card, shown when a call rings while the device is
+ * **locked**. It is declared with showWhenLocked and turnScreenOn so it surfaces
+ * over the keyguard.
  *
- * [CallerOverlayService] launches this instead of the floating overlay when the
- * keyguard is up; it self-dismisses when [CallStateReceiver] broadcasts call end.
+ * [CallerOverlayService] starts this rather than the floating overlay whenever the
+ * keyguard is up, and it dismisses itself when [CallStateReceiver] broadcasts the
+ * end of the call.
  */
 class IncomingCallActivity : AppCompatActivity() {
 

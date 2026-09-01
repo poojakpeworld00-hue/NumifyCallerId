@@ -226,11 +226,11 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
     }
 
     /**
-     * A row is hidden when its permission is already granted, and — for the
-     * engine-managed rows (notification / phone state) only — also once the user
-     * has denied it twice (Android's permanent-denial state, reached after the
-     * 2nd decline from *any* screen). Call log / contacts / overlay always stay
-     * visible until granted.
+     * A row disappears once its permission is granted and, for the
+     * engine-managed rows only - notification and phone state - also once the user
+     * has declined it twice, which is Android's permanent-denial state and is
+     * reached after the second refusal from *any* screen. Call log, contacts and
+     * overlay stay on screen until they are granted.
      */
     private fun shouldHideRow(row: Row): Boolean {
         if (isGranted(row)) return true

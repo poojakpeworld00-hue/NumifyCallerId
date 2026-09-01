@@ -104,12 +104,12 @@ fun View.triggerClick(onClick: (View?) -> Unit) {
  * recycled at a different size.
  */
 /**
- * Clips a view to its own bounds via the outline (hardware) clip.
+ * Clips a view to its own bounds using the outline, hardware clip.
  *
- * Needed when an ancestor sets `clipChildren="false"`: that switches clipping
- * off for the whole subtree below it, so setting `android:clipChildren="true"`
- * back on this view has no effect. The outline clip is applied by the renderer
- * regardless of what any ancestor asked for.
+ * It is needed whenever an ancestor sets `clipChildren="false"`, because that
+ * disables clipping for the entire subtree beneath it and setting
+ * `android:clipChildren="true"` back on this view achieves nothing. The renderer
+ * applies the outline clip regardless of what any ancestor asked for.
  */
 fun View.clipToRect() {
     outlineProvider = object : ViewOutlineProvider() {

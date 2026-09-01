@@ -1,12 +1,12 @@
 package com.numify.callerid.lookup.permission
 
 /**
- * An ordered, drainable queue of the permissions to request on one Activity.
+ * An ordered, drainable queue of the permissions to ask for on one Activity.
  *
- * Rules are ordered by [PermissionRule.priority] ascending (lower value first);
- * ties keep their incoming order (stable sort). The engine polls one rule at a
- * time and only advances after the previous request completes — giving the
- * required sequential flow.
+ * Rules sort by [PermissionRule.priority] ascending, lowest first, and ties hold
+ * their incoming order because the sort is stable. The engine takes one rule at a
+ * time and only moves on once the previous request has completed, which is what
+ * produces the required sequential flow.
  */
 class PermissionRequestQueue(rules: List<PermissionRule>) {
 

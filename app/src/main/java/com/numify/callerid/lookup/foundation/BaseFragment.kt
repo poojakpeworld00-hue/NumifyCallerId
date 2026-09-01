@@ -192,10 +192,11 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     }
 
     /**
-     * Requests [permissions] one after another (skipping any already granted), then
-     * runs [onComplete] once the whole sequence is finished — e.g. to kick off the
-     * overlay-permission step. A permanently-denied permission diverts to the app's
-     * Settings page and pauses the chain; calling this again restarts it.
+     * Asks for [permissions] one after another, skipping any already granted, then
+     * runs [onComplete] once the whole sequence has finished - to start the
+     * overlay-permission step, for instance. A permanently-denied permission sends
+     * the user to the app's Settings page and pauses the chain; calling this again
+     * restarts it.
      */
     protected fun requestPermissionChain(
         permissions: List<String>,
