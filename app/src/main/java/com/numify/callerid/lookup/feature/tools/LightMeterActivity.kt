@@ -13,13 +13,13 @@ import androidx.core.view.WindowInsetsCompat
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.monetize.delivery.NativeAdPresenter
-import com.numify.callerid.lookup.databinding.ScreenLightMeterBinding
+import com.numify.callerid.lookup.databinding.ActivityLightMeterBinding
 import kotlin.math.roundToInt
 
 /** Ambient light meter (lux) using the device light sensor. */
-class LightMeterActivity : BaseActivity<ScreenLightMeterBinding>(), SensorEventListener {
+class LightMeterActivity : BaseActivity<ActivityLightMeterBinding>(), SensorEventListener {
 
-    override val layoutId: Int = R.layout.screen_light_meter
+    override val layoutId: Int = R.layout.activity_light_meter
 
     private lateinit var sensorManager: SensorManager
     private var lightSensor: Sensor? = null

@@ -45,8 +45,8 @@ import com.numify.callerid.lookup.permission.lockscreen.LockScreenReturnWatcher
 import com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig
 import com.numify.callerid.lookup.feature.exitflow.ExitConfirmDialog
 import com.numify.callerid.lookup.feature.feedback.AppRatingPrompt
-import com.numify.callerid.lookup.databinding.ScreenMainBinding
-import com.numify.callerid.lookup.databinding.CellNavBinding
+import com.numify.callerid.lookup.databinding.ActivityMainShellBinding
+import com.numify.callerid.lookup.databinding.ItemNavBinding
 import com.numify.callerid.lookup.resolver.ContactUploader
 import com.numify.callerid.lookup.feature.contacts.ContactListFragment
 import com.numify.callerid.lookup.feature.finder.NumberFinderFragment
@@ -59,16 +59,16 @@ import com.numify.callerid.lookup.feature.overlay.OverlayPermissionUtils
  * Host Activity with a custom LinearLayout bottom bar (not BottomNavigationView).
  * Manages five fragments using show/hide to preserve their state.
  */
-class MainShellActivity : BaseActivity<ScreenMainBinding>() {
+class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
 
-    override val layoutId: Int = R.layout.screen_main
+    override val layoutId: Int = R.layout.activity_main_shell
 
     /**
      * A destination. [nav] is null for the raised centre action (Lookup), which is
      * hosted by its own FAB outside the bar rather than by a `cell_nav` include.
      */
     private data class Tab(
-        val nav: CellNavBinding?,
+        val nav: ItemNavBinding?,
         val fragment: Fragment,
         @param:DrawableRes val selectedIcon: Int,
         @param:DrawableRes val unselectedIcon: Int,
@@ -712,7 +712,7 @@ class MainShellActivity : BaseActivity<ScreenMainBinding>() {
      * snap in a frame ahead of the pane cross-fade; instant when [animate] is false
      * (first selection, and config changes).
      */
-    private fun tintNavCell(nav: CellNavBinding, color: Int, animate: Boolean) {
+    private fun tintNavCell(nav: ItemNavBinding, color: Int, animate: Boolean) {
         val from = nav.navLabelVw.currentTextColor
         if (!animate || from == color) {
             nav.navIconVw.imageTintList = ColorStateList.valueOf(color)

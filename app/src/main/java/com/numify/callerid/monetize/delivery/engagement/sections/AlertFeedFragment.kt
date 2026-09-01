@@ -42,7 +42,7 @@ class AlertFeedFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.pane_reminder, container, false)
+        val view = inflater.inflate(R.layout.fragment_reminder, container, false)
 
         recyclerView = view.findViewById(R.id.rollReminders)
         fab = view.findViewById(R.id.fabAddReminderVw)
@@ -78,7 +78,7 @@ class AlertFeedFragment : Fragment() {
     private val defaultColor: Int = Color.parseColor("#FFA500")
 
     private fun showAddReminderDialog() {
-        val dialogView = LayoutInflater.from(context).inflate(R.layout.sheet_add_reminder, null)
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_add_reminder, null)
 
         val etTitle = dialogView.findViewById<EditText>(R.id.edit_reminderVw).apply {
             hint = "e.g. Birthday, Meeting, Call back..."

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainVw"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screen.MainShellActivity">
+
+        <com.numify.callerid.lookup.feature.widgets.SwipeNavigationLayout
+            android:id="@+id/fragContainer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/overlayBannerVw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Overlay-permission prompt: sits above the lookup FAB once call-log &
+             contacts are granted but the overlay permission isn't. Anchored to the
+             FAB rather than to footerBar — the FAB straddles footerBar's top edge
+             and carries a 12sdp elevation, so a banner pinned to that same edge had
+             its middle drawn over and its text clipped. -->
+        <LinearLayout
+            android:id="@+id/overlayBannerVw"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/primary_container"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/fabLookupVw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@string/overlay_banner_desc"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="@dimen/_10ssp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/padEnableOverlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:background="@drawable/shape_btn_primary"
+                android:paddingHorizontal="@dimen/_16sdp"
+                android:paddingVertical="@dimen/_5sdp"
+                android:text="@string/perm_allow"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Custom bottom navigation built with LinearLayout -->
+        <LinearLayout
+            android:id="@+id/footerBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/surface"
+            android:baselineAligned="false"
+            android:elevation="@dimen/_8sdp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_4sdp"
+            android:paddingTop="0dp"
+            android:paddingBottom="@dimen/_4sdp"
+            app:layout_constraintBottom_toTopOf="@+id/bannerAdFrameVw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <include
+                android:id="@+id/navRecentsVw"
+                layout="@layout/item_nav"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <include
+                android:id="@+id/navContactsVw"
+                layout="@layout/item_nav"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <!-- Reserves the slot the raised Lookup action sits over. -->
+            <Space
+                android:id="@+id/navFabSlotVw"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <include
+                android:id="@+id/navBlocklistVw"
+                layout="@layout/item_nav"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <include
+                android:id="@+id/navToolsVw"
+                layout="@layout/item_nav"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <!-- Lookup, promoted to a raised centre action. Centred on the bar's top edge
+             and elevated above it so the disc overlaps rather than sits inside. -->
+        <FrameLayout
+            android:id="@+id/fabLookupVw"
+            android:layout_width="@dimen/_52sdp"
+            android:layout_height="@dimen/_52sdp"
+            android:background="@drawable/shape_fab_lookup"
+            android:clickable="true"
+            android:contentDescription="@string/nav_lookup"
+            android:elevation="@dimen/_12sdp"
+            android:focusable="true"
+            android:outlineAmbientShadowColor="@color/card_shadow"
+            android:outlineSpotShadowColor="@color/card_shadow"
+            app:layout_constraintBottom_toTopOf="@id/footerBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/footerBar">
+
+            <ImageView
+                android:id="@+id/fabLookupIconVw"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/glyph_search"
+                app:tint="@color/on_primary" />
+        </FrameLayout>
+
+        <!-- Full-bleed hairline separating app content from the ad below -->
+        <View
+            android:id="@+id/adBannerDividerVw"
+            style="@style/AdDivider"
+            android:layout_width="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Bottom adaptive banner (auto-loaded by BaseActivity, type from ScreenAds config). -->
+        <include
+            layout="@layout/include_bottom_banner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

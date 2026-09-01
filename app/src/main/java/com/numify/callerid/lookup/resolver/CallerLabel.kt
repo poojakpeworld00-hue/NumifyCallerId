@@ -13,7 +13,7 @@ import com.numify.callerid.lookup.repository.ContactRepository
 import com.numify.callerid.lookup.feature.widgets.CallActionHandler
 
 /**
- * Resolves caller details and renders them into [R.layout.bubble_caller_id].
+ * Resolves caller details and renders them into [R.layout.overlay_caller_id].
  *
  * Shared by [com.numify.callerid.lookup.resolver.telephony.CallerOverlayService] (floating window, device unlocked) and
  * IncomingCallActivity (full screen, device locked) so the card looks and reads

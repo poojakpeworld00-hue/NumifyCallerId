@@ -32,8 +32,8 @@ import com.numify.callerid.monetize.model.AdPlacementType
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.monetize.strategy.logAdRevenue
 import com.numify.callerid.monetize.strategy.logKeyEvent
-import com.numify.callerid.lookup.databinding.MetaNativeBinding
-import com.numify.callerid.lookup.databinding.GadsBigNativeBinding
+import com.numify.callerid.lookup.databinding.AudienceNativeBinding
+import com.numify.callerid.lookup.databinding.AdmobBigNativeBinding
 
 class BottomSheetNativeAds {
 
@@ -361,7 +361,7 @@ class BottomSheetNativeAds {
 //                            BCnativeAd?.destroy()
 //                            BCnativeAd = nativeAds
                             try {
-                                val binding = GadsBigNativeBinding.inflate(context.layoutInflater)
+                                val binding = AdmobBigNativeBinding.inflate(context.layoutInflater)
                                 bigNativeTemplate(nativeAds, binding, context)
                                 layout.post {
                                     if (context.isActivityDestroyedCompat()) return@post
@@ -464,7 +464,7 @@ class BottomSheetNativeAds {
 
     private fun bigNativeTemplate(
         nativeAd: NativeAd,
-        binding: GadsBigNativeBinding,
+        binding: AdmobBigNativeBinding,
         context: Activity
     ) {
         binding.apply {
@@ -595,7 +595,7 @@ class BottomSheetNativeAds {
         nativeAd.unregisterView()
 
         // ✅ Inflate layout with ViewBinding
-        val binding = MetaNativeBinding.inflate(LayoutInflater.from(activity), viewGroup, false)
+        val binding = AudienceNativeBinding.inflate(LayoutInflater.from(activity), viewGroup, false)
 
         // Clear old views and add new ad view
         viewGroup.removeAllViews()

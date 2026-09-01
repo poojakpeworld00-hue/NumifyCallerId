@@ -37,7 +37,7 @@ import com.numify.callerid.lookup.BuildConfig
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.lookup.repository.SettingsRepository
-import com.numify.callerid.lookup.databinding.ScreenSplashBinding
+import com.numify.callerid.lookup.databinding.ActivitySplashBinding
 import com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig
 import com.numify.callerid.lookup.common.clipToRect
 import com.numify.callerid.lookup.common.openActivity
@@ -48,9 +48,9 @@ import kotlin.math.abs
  * Entry point. Shows branding briefly, then routes to the correct screen
  * based on first-run / onboarding state.
  */
-class SplashActivity : BaseActivity<ScreenSplashBinding>() {
+class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
-    override val layoutId: Int = R.layout.screen_splash
+    override val layoutId: Int = R.layout.activity_splash
     private val handler = Handler(Looper.getMainLooper())
 
     /** Running splash animators, cancelled in onDestroy so nothing leaks. */

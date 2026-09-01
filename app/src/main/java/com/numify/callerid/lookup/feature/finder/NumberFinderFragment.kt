@@ -36,11 +36,11 @@ import kotlinx.coroutines.withContext
 import com.numify.callerid.lookup.foundation.BaseFragment
 import com.numify.callerid.lookup.repository.SettingsRepository
 import com.numify.callerid.lookup.common.openActivity
-import com.numify.callerid.lookup.databinding.SheetWatchAdBinding
-import com.numify.callerid.lookup.databinding.PaneLookupBinding
+import com.numify.callerid.lookup.databinding.DialogWatchAdBinding
+import com.numify.callerid.lookup.databinding.FragmentLookupBinding
 import java.util.Locale
 
-class NumberFinderFragment : BaseFragment<PaneLookupBinding>() {
+class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
 
     /** Lookup: native banner pinned under the flag/paste row. */
     override val screenAdFormat = ScreenAdFormat.NATIVE_BANNER
@@ -82,7 +82,7 @@ class NumberFinderFragment : BaseFragment<PaneLookupBinding>() {
     }
 
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
-        PaneLookupBinding.inflate(inflater, container, false)
+        FragmentLookupBinding.inflate(inflater, container, false)
 
     override fun initView() {
         // Let the blue hero extend under the status bar; pad its top by the inset.
@@ -315,7 +315,7 @@ class NumberFinderFragment : BaseFragment<PaneLookupBinding>() {
         }
 
         // Ads on → confirm with a dialog, then play the rewarded ad, then open.
-        val db = SheetWatchAdBinding.inflate(layoutInflater)
+        val db = DialogWatchAdBinding.inflate(layoutInflater)
         val dialog = Dialog(act).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             setContentView(db.root)

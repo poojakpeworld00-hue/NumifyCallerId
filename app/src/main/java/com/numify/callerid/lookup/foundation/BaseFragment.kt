@@ -35,9 +35,9 @@ import java.util.Locale
  *
  * Usage:
  * ```
- * class CallLogFragment : BaseFragment<PaneRecentsBinding>() {
+ * class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
  *     override fun inflateBinding(inflater, container) =
- *         PaneRecentsBinding.inflate(inflater, container, false)
+ *         FragmentRecentsBinding.inflate(inflater, container, false)
  * }
  * ```
  */

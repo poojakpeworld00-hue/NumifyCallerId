@@ -25,9 +25,9 @@ import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.lookup.feature.MainShellActivity
 import com.numify.callerid.lookup.repository.SettingsRepository
-import com.numify.callerid.lookup.databinding.ScreenSettingsBinding
-import com.numify.callerid.lookup.databinding.CellPrefCardBinding
-import com.numify.callerid.lookup.databinding.CellSettingRowBinding
+import com.numify.callerid.lookup.databinding.ActivitySettingsBinding
+import com.numify.callerid.lookup.databinding.ItemPrefCardBinding
+import com.numify.callerid.lookup.databinding.ItemSettingRowBinding
 import com.numify.callerid.lookup.feature.widgets.CoachMarkOverlay
 import com.numify.callerid.lookup.feature.language.LanguagePickerActivity
 import com.numify.callerid.lookup.feature.language.LocaleCatalog
@@ -40,9 +40,9 @@ import com.numify.callerid.lookup.common.openTermLink
 import com.numify.callerid.lookup.common.rateApp
 import com.numify.callerid.lookup.common.shareApp
 
-class SettingsActivity : BaseActivity<ScreenSettingsBinding>() {
+class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
 
-    override val layoutId: Int = R.layout.screen_settings
+    override val layoutId: Int = R.layout.activity_settings
 
     /** Theme segment order — must match cardTheme's segLight / segDark / segSystem. */
     private val themeOptions =
@@ -151,7 +151,7 @@ class SettingsActivity : BaseActivity<ScreenSettingsBinding>() {
      * background so a row can never end up with, say, a teal glyph on a clay chip.
      */
     private fun bindPanel(
-        row: CellSettingRowBinding,
+        row: ItemSettingRowBinding,
         @DrawableRes icon: Int,
         @DrawableRes chip: Int,
         @ColorRes tint: Int,
@@ -167,7 +167,7 @@ class SettingsActivity : BaseActivity<ScreenSettingsBinding>() {
     }
 
     private fun bindRow(
-        row: CellSettingRowBinding,
+        row: ItemSettingRowBinding,
         @DrawableRes icon: Int,
         @DrawableRes chip: Int,
         @ColorRes tint: Int,
@@ -247,7 +247,7 @@ class SettingsActivity : BaseActivity<ScreenSettingsBinding>() {
                 if (isFinishing || isDestroyed) return@post
                 if (binding.swcCallScreening.isChecked) return@post
                 prefs.isCallScreeningHintShown = true
-                CoachMarkOverlay.show(this, card, R.layout.part_call_screening_hint)
+                CoachMarkOverlay.show(this, card, R.layout.include_call_screening_hint)
             }
         }
     }

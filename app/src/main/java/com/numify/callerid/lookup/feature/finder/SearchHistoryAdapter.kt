@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.numify.callerid.lookup.databinding.CellSearchHistoryBinding
+import com.numify.callerid.lookup.databinding.ItemSearchHistoryBinding
 import com.numify.callerid.lookup.feature.widgets.CallActionHandler
 
 class SearchHistoryAdapter(
@@ -51,7 +51,7 @@ class SearchHistoryAdapter(
     private fun isLocked(item: SearchHistoryEntry): Boolean =
         item.name != null && item.rawNumber !in revealed
 
-    inner class VH(val binding: CellSearchHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class VH(val binding: ItemSearchHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
                 val p = bindingAdapterPosition
@@ -71,7 +71,7 @@ class SearchHistoryAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val binding = CellSearchHistoryBinding.inflate(
+        val binding = ItemSearchHistoryBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return VH(binding)

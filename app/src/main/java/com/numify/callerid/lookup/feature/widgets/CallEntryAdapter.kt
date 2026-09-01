@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.repository.CallLogEntry
 import com.numify.callerid.lookup.repository.CallType
-import com.numify.callerid.lookup.databinding.CellCallBinding
+import com.numify.callerid.lookup.databinding.ItemCallBinding
 
 class CallEntryAdapter(
     initial: List<CallLogEntry> = emptyList(),
@@ -25,10 +25,10 @@ class CallEntryAdapter(
         notifyDataSetChanged()
     }
 
-    inner class VH(val binding: CellCallBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class VH(val binding: ItemCallBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val binding = CellCallBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemCallBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return VH(binding)
     }
 

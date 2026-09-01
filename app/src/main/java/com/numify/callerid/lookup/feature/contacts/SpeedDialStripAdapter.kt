@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.numify.callerid.lookup.databinding.CellContactFavoriteBinding
+import com.numify.callerid.lookup.databinding.ItemContactFavoriteBinding
 import com.numify.callerid.lookup.repository.ContactRecord
 
 /**
@@ -26,13 +26,13 @@ class SpeedDialStripAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        VH(CellContactFavoriteBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        VH(ItemContactFavoriteBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun onBindViewHolder(holder: VH, position: Int) = holder.bind(items[position])
 
     override fun getItemCount(): Int = items.size
 
-    inner class VH(private val binding: CellContactFavoriteBinding) :
+    inner class VH(private val binding: ItemContactFavoriteBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(entry: ContactRecord) {

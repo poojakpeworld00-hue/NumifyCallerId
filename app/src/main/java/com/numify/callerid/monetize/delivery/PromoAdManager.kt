@@ -82,10 +82,10 @@ class PromoAdManager {
         val ad = ads.random()
 
         val layoutId = when (type) {
-            CustomAdType.BIG_NATIVE -> R.layout.house_native_one
-            CustomAdType.MID_NATIVE -> R.layout.house_native_two
-            CustomAdType.BANNER -> R.layout.house_banner_ad
-            CustomAdType.FULLSCREEN_NATIVE -> R.layout.house_native_full
+            CustomAdType.BIG_NATIVE -> R.layout.promo_native_one
+            CustomAdType.MID_NATIVE -> R.layout.promo_native_two
+            CustomAdType.BANNER -> R.layout.promo_banner_ad
+            CustomAdType.FULLSCREEN_NATIVE -> R.layout.promo_native_full
         }
         val view = try {
             LayoutInflater.from(container.context).inflate(layoutId, container, false)

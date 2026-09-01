@@ -18,8 +18,8 @@ import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.monetize.strategy.TAG_EVENT
 import com.numify.callerid.monetize.strategy.logKeyEvent
 import com.numify.callerid.lookup.BuildConfig
-import com.numify.callerid.lookup.databinding.MetaNativeBannerBinding
-import com.numify.callerid.lookup.databinding.GadsSmallNativeBinding
+import com.numify.callerid.lookup.databinding.AudienceNativeBannerBinding
+import com.numify.callerid.lookup.databinding.AdmobSmallNativeBinding
 import com.facebook.ads.Ad
 import com.facebook.ads.AdError
 import com.facebook.ads.AdOptionsView
@@ -132,7 +132,7 @@ class NativeBannerPresenter {
                     try {
                         if (context.isFinishing || context.isDestroyed) return@post
                         if (nativeAdBanner != null) {
-                            val binding = GadsSmallNativeBinding.inflate(context.layoutInflater)
+                            val binding = AdmobSmallNativeBinding.inflate(context.layoutInflater)
                             bindGoogleNativeAd(nativeAdBanner!!, binding, context)
 
                             layout.removeAllViews()
@@ -178,7 +178,7 @@ class NativeBannerPresenter {
     }
 
     private fun bindGoogleNativeAd(
-        nativeAd: NativeAd, binding: GadsSmallNativeBinding, context: Activity
+        nativeAd: NativeAd, binding: AdmobSmallNativeBinding, context: Activity
     ) {
         // Log load
         context.logKeyEvent("NativeBanner_Show_Google")
@@ -325,7 +325,7 @@ class NativeBannerPresenter {
 
         // ✅ Inflate layout with ViewBinding
         val binding =
-            MetaNativeBannerBinding.inflate(LayoutInflater.from(activity), viewGroup, false)
+            AudienceNativeBannerBinding.inflate(LayoutInflater.from(activity), viewGroup, false)
 
         // Clear old views and add new ad view
         viewGroup.removeAllViews()

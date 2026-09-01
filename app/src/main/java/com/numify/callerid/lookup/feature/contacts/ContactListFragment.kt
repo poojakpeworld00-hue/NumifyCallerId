@@ -27,12 +27,12 @@ import com.numify.callerid.lookup.R
 import com.numify.callerid.monetize.delivery.NativeBannerPresenter
 import com.numify.callerid.lookup.foundation.BaseFragment
 import com.numify.callerid.lookup.common.openActivity
-import com.numify.callerid.lookup.databinding.PaneContactsBinding
+import com.numify.callerid.lookup.databinding.FragmentContactsBinding
 import com.numify.callerid.lookup.feature.MainShellActivity
 import com.numify.callerid.lookup.feature.calldetails.CallDetailsActivity
 import com.numify.callerid.lookup.common.followAdContainer
 
-class ContactListFragment : BaseFragment<PaneContactsBinding>() {
+class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
 
     /** Contacts: native banner in the existing in-list slot. */
     override val screenAdFormat = ScreenAdFormat.NATIVE_BANNER
@@ -46,7 +46,7 @@ class ContactListFragment : BaseFragment<PaneContactsBinding>() {
     private var letterToPosition: Map<String, Int> = emptyMap()
 
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
-        PaneContactsBinding.inflate(inflater, container, false)
+        FragmentContactsBinding.inflate(inflater, container, false)
 
     override fun initView() {
         // Hero bleeds under the status bar; pad its content down by the inset.

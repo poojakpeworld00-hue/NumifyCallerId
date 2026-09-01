@@ -13,14 +13,14 @@ import androidx.core.view.WindowInsetsCompat
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.monetize.delivery.NativeAdPresenter
-import com.numify.callerid.lookup.databinding.ScreenStopwatchBinding
-import com.numify.callerid.lookup.databinding.CellLapBinding
+import com.numify.callerid.lookup.databinding.ActivityStopwatchBinding
+import com.numify.callerid.lookup.databinding.ItemLapBinding
 import java.util.Locale
 
 /** Stopwatch with lap recording. */
-class StopwatchActivity : BaseActivity<ScreenStopwatchBinding>() {
+class StopwatchActivity : BaseActivity<ActivityStopwatchBinding>() {
 
-    override val layoutId: Int = R.layout.screen_stopwatch
+    override val layoutId: Int = R.layout.activity_stopwatch
 
     private val handler = Handler(Looper.getMainLooper())
     private var running = false
@@ -100,7 +100,7 @@ class StopwatchActivity : BaseActivity<ScreenStopwatchBinding>() {
         lastLapTotal = total
         lapCount++
 
-        val row = CellLapBinding.inflate(LayoutInflater.from(this), binding.rowLaps, false)
+        val row = ItemLapBinding.inflate(LayoutInflater.from(this), binding.rowLaps, false)
         row.lblLapName.text = getString(R.string.stopwatch_lap_n, lapCount)
         row.lblLapSplit.text = format(split)
         row.lblLapTotal.text = format(total)

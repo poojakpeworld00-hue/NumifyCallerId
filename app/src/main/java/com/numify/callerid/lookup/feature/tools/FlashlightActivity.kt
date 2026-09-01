@@ -18,14 +18,14 @@ import androidx.core.view.WindowInsetsCompat
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.monetize.delivery.NativeAdPresenter
-import com.numify.callerid.lookup.databinding.ScreenFlashlightBinding
+import com.numify.callerid.lookup.databinding.ActivityFlashlightBinding
 import kotlin.math.max
 import kotlin.math.roundToInt
 
 /** Torch with Steady / Strobe / SOS modes and (where supported) brightness control. */
-class FlashlightActivity : BaseActivity<ScreenFlashlightBinding>() {
+class FlashlightActivity : BaseActivity<ActivityFlashlightBinding>() {
 
-    override val layoutId: Int = R.layout.screen_flashlight
+    override val layoutId: Int = R.layout.activity_flashlight
 
     private enum class Mode { STEADY, STROBE, SOS }
 

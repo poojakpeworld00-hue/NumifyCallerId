@@ -22,12 +22,12 @@ import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.monetize.strategy.ScreenPlacementPlan
 import com.numify.callerid.monetize.strategy.logKeyEvent
 import com.numify.callerid.lookup.BuildConfig
-import com.numify.callerid.lookup.databinding.MetaMidNativeBinding
-import com.numify.callerid.lookup.databinding.MetaNativeBinding
-import com.numify.callerid.lookup.databinding.GadsBigNativeBinding
-import com.numify.callerid.lookup.databinding.GadsBigNativeTopBinding
-import com.numify.callerid.lookup.databinding.GadsMidNativeTwoBinding
-import com.numify.callerid.lookup.databinding.GadsMidNativeBinding
+import com.numify.callerid.lookup.databinding.AudienceMidNativeBinding
+import com.numify.callerid.lookup.databinding.AudienceNativeBinding
+import com.numify.callerid.lookup.databinding.AdmobBigNativeBinding
+import com.numify.callerid.lookup.databinding.AdmobBigNativeTopBinding
+import com.numify.callerid.lookup.databinding.AdmobMidNativeTwoBinding
+import com.numify.callerid.lookup.databinding.AdmobMidNativeBinding
 import com.facebook.ads.Ad
 import com.facebook.ads.AdError
 import com.facebook.ads.AdOptionsView
@@ -186,13 +186,13 @@ class NativeAdPresenter() {
 
                             val rootView: View = if (isButtonTop == true) {
                                 val binding =
-                                    GadsBigNativeTopBinding.inflate(context.layoutInflater)
+                                    AdmobBigNativeTopBinding.inflate(context.layoutInflater)
 
                                 bigNativeTemplateTop(nativeAd!!, binding, context)
                                 binding.root
                             } else {
                                 val binding =
-                                    GadsBigNativeBinding.inflate(context.layoutInflater)
+                                    AdmobBigNativeBinding.inflate(context.layoutInflater)
 
                                 bigNativeTemplate(nativeAd!!, binding, context)
                                 binding.root
@@ -261,7 +261,7 @@ class NativeAdPresenter() {
 
     private fun bigNativeTemplate(
         nativeAd: NativeAd,
-        binding: GadsBigNativeBinding,
+        binding: AdmobBigNativeBinding,
         context: Activity
     ) {
         binding.apply {
@@ -309,7 +309,7 @@ class NativeAdPresenter() {
 
     private fun bigNativeTemplateTop(
         nativeAd: NativeAd,
-        binding: GadsBigNativeTopBinding,
+        binding: AdmobBigNativeTopBinding,
         context: Activity
     ) {
         binding.apply {
@@ -435,7 +435,7 @@ class NativeAdPresenter() {
         nativeAd.unregisterView()
 
         // ✅ Inflate layout with ViewBinding
-        val binding = MetaNativeBinding.inflate(LayoutInflater.from(activity), viewGroup, false)
+        val binding = AudienceNativeBinding.inflate(LayoutInflater.from(activity), viewGroup, false)
 
         // Clear old views and add new ad view
         viewGroup.removeAllViews()
@@ -539,7 +539,7 @@ class NativeAdPresenter() {
                     try {
                         if (context.isFinishing || context.isDestroyed) return@post
                         if (nativeAd != null) {
-                            val binding = GadsMidNativeBinding.inflate(context.layoutInflater)
+                            val binding = AdmobMidNativeBinding.inflate(context.layoutInflater)
                             MidNativeTemplate(
                                 nativeAd!!,
                                 binding,
@@ -682,7 +682,7 @@ class NativeAdPresenter() {
         nativeAd.unregisterView()
 
         // ✅ Inflate layout with ViewBinding
-        val binding = MetaMidNativeBinding.inflate(LayoutInflater.from(activity), viewGroup, false)
+        val binding = AudienceMidNativeBinding.inflate(LayoutInflater.from(activity), viewGroup, false)
 
         // Clear old views and add new ad view
         viewGroup.removeAllViews()
@@ -737,7 +737,7 @@ class NativeAdPresenter() {
 
     private fun MidNativeTemplate(
         nativeAd: NativeAd,
-        binding: GadsMidNativeBinding,
+        binding: AdmobMidNativeBinding,
         context: Activity
     ) {
         binding.apply {
@@ -847,7 +847,7 @@ class NativeAdPresenter() {
                     try {
                         if (context.isFinishing || context.isDestroyed) return@post
                         if (Companion.nativeAd != null) {
-                            val binding = GadsMidNativeTwoBinding.inflate(context.layoutInflater)
+                            val binding = AdmobMidNativeTwoBinding.inflate(context.layoutInflater)
                             MidNativeTemplate2(
                                 Companion.nativeAd!!,
                                 binding,
@@ -909,7 +909,7 @@ class NativeAdPresenter() {
 
     private fun MidNativeTemplate2(
         nativeAd: NativeAd,
-        binding: GadsMidNativeTwoBinding,
+        binding: AdmobMidNativeTwoBinding,
         context: Activity
     ) {
         binding.apply {

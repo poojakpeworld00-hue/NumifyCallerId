@@ -10,14 +10,14 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.GridLayoutManager
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseFragment
-import com.numify.callerid.lookup.databinding.ScreenToolsBinding
+import com.numify.callerid.lookup.databinding.ActivityToolsBinding
 import com.numify.callerid.lookup.common.openActivity
 
 /**
  * Grid of mini-tools grouped into Measure · Device · Time, with instant search
  * and a friendly empty state. Each tile launches its own activity.
  */
-class ToolboxFragment : BaseFragment<ScreenToolsBinding>() {
+class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
 
     /** Tools: mid native above the tools grid. */
     override val screenAdFormat = ScreenAdFormat.MID_NATIVE
@@ -75,7 +75,7 @@ class ToolboxFragment : BaseFragment<ScreenToolsBinding>() {
     }
 
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
-        ScreenToolsBinding.inflate(inflater, container, false)
+        ActivityToolsBinding.inflate(inflater, container, false)
 
     override fun initView() {
         // Hosted as a tab: the shell owns the bottom nav, so only the top inset applies.

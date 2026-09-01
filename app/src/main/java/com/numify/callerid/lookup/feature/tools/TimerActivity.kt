@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.numify.callerid.monetize.delivery.NativeAdPresenter
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseActivity
-import com.numify.callerid.lookup.databinding.ScreenTimerBinding
+import com.numify.callerid.lookup.databinding.ActivityTimerBinding
 import java.util.Locale
 
 /**
@@ -28,9 +28,9 @@ import java.util.Locale
  * the dial needs the original length to know what fraction has elapsed — with
  * only the remainder there is nothing to draw the arc against.
  */
-class TimerActivity : BaseActivity<ScreenTimerBinding>() {
+class TimerActivity : BaseActivity<ActivityTimerBinding>() {
 
-    override val layoutId: Int = R.layout.screen_timer
+    override val layoutId: Int = R.layout.activity_timer
 
     private val handler = Handler(Looper.getMainLooper())
     private var running = false

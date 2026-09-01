@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.numify.callerid.lookup.repository.FavoriteNumber
-import com.numify.callerid.lookup.databinding.CellFrequentBinding
+import com.numify.callerid.lookup.databinding.ItemFrequentBinding
 import com.numify.callerid.lookup.feature.widgets.CallActionHandler
 
 /** Favorite/most-used contacts shown as horizontal cards. Tapping a card fills the
@@ -24,10 +24,10 @@ class SpeedDialAdapter(
         notifyDataSetChanged()
     }
 
-    inner class VH(val binding: CellFrequentBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class VH(val binding: ItemFrequentBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH =
-        VH(CellFrequentBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        VH(ItemFrequentBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val item = items[position]

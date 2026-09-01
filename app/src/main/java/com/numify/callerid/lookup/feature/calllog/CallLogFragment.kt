@@ -32,7 +32,7 @@ import com.numify.callerid.lookup.R
 import com.numify.callerid.monetize.delivery.NativeBannerPresenter
 import com.numify.callerid.lookup.foundation.BaseFragment
 import com.numify.callerid.lookup.common.openActivity
-import com.numify.callerid.lookup.databinding.PaneRecentsBinding
+import com.numify.callerid.lookup.databinding.FragmentRecentsBinding
 import com.numify.callerid.lookup.feature.MainShellActivity
 import com.numify.callerid.lookup.feature.calldetails.CallDetailsActivity
 import com.numify.callerid.lookup.feature.dialer.DialerActivity
@@ -47,7 +47,7 @@ import com.numify.callerid.lookup.repository.SettingsRepository
 import com.numify.callerid.monetize.strategy.logPermissionResult
 import com.numify.callerid.lookup.common.followAdContainer
 
-class CallLogFragment : BaseFragment<PaneRecentsBinding>() {
+class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
 
     /** Recents: native banner in the existing in-list slot. */
     override val screenAdFormat = ScreenAdFormat.NATIVE_BANNER
@@ -87,7 +87,7 @@ class CallLogFragment : BaseFragment<PaneRecentsBinding>() {
     }
 
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
-        PaneRecentsBinding.inflate(inflater, container, false)
+        FragmentRecentsBinding.inflate(inflater, container, false)
 
     override fun initView() {
         // Hero bleeds under the status bar; pad its content down by the inset.
@@ -284,7 +284,7 @@ class CallLogFragment : BaseFragment<PaneRecentsBinding>() {
             if (!isAdded || view == null) return@post
             val act = activity ?: return@post
             prefs.isSearchHintShown = true
-            CoachMarkOverlay.show(act, anchor, R.layout.part_search_hint)
+            CoachMarkOverlay.show(act, anchor, R.layout.include_search_hint)
         }
     }
 
@@ -434,7 +434,7 @@ class CallLogFragment : BaseFragment<PaneRecentsBinding>() {
         val current = viewModel.sort.value ?: CallLogSort.NEWEST
 
         val inflater = LayoutInflater.from(requireContext())
-        val content = inflater.inflate(R.layout.flyout_sort, null) as LinearLayout
+        val content = inflater.inflate(R.layout.popup_sort, null) as LinearLayout
         val container = content.findViewById<LinearLayout>(R.id.sortContainerVw)
 
         val popup = PopupWindow(
@@ -448,7 +448,7 @@ class CallLogFragment : BaseFragment<PaneRecentsBinding>() {
         }
 
         options.forEach { (titleRes, sort) ->
-            val row = inflater.inflate(R.layout.cell_sort_option, container, false)
+            val row = inflater.inflate(R.layout.item_sort_option, container, false)
             row.findViewById<TextView>(R.id.lblSortLabel).setText(titleRes)
             row.findViewById<ImageView>(R.id.picSortCheck).visibility =
                 if (sort == current) View.VISIBLE else View.INVISIBLE

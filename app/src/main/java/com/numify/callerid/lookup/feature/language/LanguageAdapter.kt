@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.numify.callerid.lookup.R
-import com.numify.callerid.lookup.databinding.CellLanguageBinding
+import com.numify.callerid.lookup.databinding.ItemLanguageBinding
 
 class LanguageAdapter(
     private val onClick: (LanguageOption) -> Unit
@@ -36,7 +36,7 @@ class LanguageAdapter(
         currentTag = tag
     }
 
-    inner class VH(val binding: CellLanguageBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class VH(val binding: ItemLanguageBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
                 val position = bindingAdapterPosition
@@ -46,7 +46,7 @@ class LanguageAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val binding = CellLanguageBinding.inflate(
+        val binding = ItemLanguageBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return VH(binding)

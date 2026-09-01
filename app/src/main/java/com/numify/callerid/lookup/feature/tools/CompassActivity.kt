@@ -12,14 +12,14 @@ import androidx.core.view.WindowInsetsCompat
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.monetize.delivery.NativeAdPresenter
-import com.numify.callerid.lookup.databinding.ScreenCompassBinding
+import com.numify.callerid.lookup.databinding.ActivityCompassBinding
 import java.util.Locale
 import kotlin.math.roundToInt
 
 /** A magnetic compass driven by the device's rotation-vector sensor. */
-class CompassActivity : BaseActivity<ScreenCompassBinding>(), SensorEventListener {
+class CompassActivity : BaseActivity<ActivityCompassBinding>(), SensorEventListener {
 
-    override val layoutId: Int = R.layout.screen_compass
+    override val layoutId: Int = R.layout.activity_compass
 
     private lateinit var sensorManager: SensorManager
     private var rotationSensor: Sensor? = null

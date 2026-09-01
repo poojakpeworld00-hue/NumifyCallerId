@@ -21,7 +21,7 @@ class ShortcutFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.pane_third, container, false)
+        val view = inflater.inflate(R.layout.fragment_third, container, false)
         view.findViewById<LinearLayout>(R.id.btnmessageVw).triggerClick {
             messga()
         }

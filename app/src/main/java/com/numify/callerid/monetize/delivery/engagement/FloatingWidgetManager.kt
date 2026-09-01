@@ -39,7 +39,7 @@ class FloatingWidgetManager(private val context: Context) {
         callType: String
     ) {
         val inflater = LayoutInflater.from(context)
-        floatView = inflater.inflate(R.layout.bubble_call_panel, null)
+        floatView = inflater.inflate(R.layout.overlay_call_panel, null)
 
         val params = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,

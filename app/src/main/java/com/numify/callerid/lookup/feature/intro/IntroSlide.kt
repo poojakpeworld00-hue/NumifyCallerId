@@ -18,8 +18,8 @@ data class IntroSlide(
 
 object WelcomeSlides {
     val all: List<IntroSlide> = listOf(
-        IntroSlide(R.string.onboarding_title, R.string.onboarding_desc, customArtRes = R.layout.art_welcome_caller),
-        IntroSlide(R.string.onboarding_title_2, R.string.onboarding_desc_2, customArtRes = R.layout.art_welcome_spam),
-        IntroSlide(R.string.onboarding_title_3, R.string.onboarding_desc_3, customArtRes = R.layout.art_welcome_spam_alt)
+        IntroSlide(R.string.onboarding_title, R.string.onboarding_desc, customArtRes = R.layout.illustration_welcome_caller),
+        IntroSlide(R.string.onboarding_title_2, R.string.onboarding_desc_2, customArtRes = R.layout.illustration_welcome_spam),
+        IntroSlide(R.string.onboarding_title_3, R.string.onboarding_desc_3, customArtRes = R.layout.illustration_welcome_spam_alt)
     )
 }

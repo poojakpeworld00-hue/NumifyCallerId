@@ -17,16 +17,16 @@ import com.numify.callerid.monetize.delivery.fullpage.TransitionInterstitialAd
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.lookup.repository.SettingsRepository
-import com.numify.callerid.lookup.databinding.ScreenOnboardingBinding
+import com.numify.callerid.lookup.databinding.ActivityOnboardingBinding
 import com.numify.callerid.lookup.permission.PermissionCoordinator
 import com.numify.callerid.lookup.feature.MainShellActivity
 import com.numify.callerid.lookup.feature.onboarding.OnboardingFooterAd
 import com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig
 import com.numify.callerid.lookup.common.followAdContainer
 
-class IntroActivity : BaseActivity<ScreenOnboardingBinding>() {
+class IntroActivity : BaseActivity<ActivityOnboardingBinding>() {
 
-    override val layoutId: Int = R.layout.screen_onboarding
+    override val layoutId: Int = R.layout.activity_onboarding
 
     private val prefs by lazy { SettingsRepository(this) }
     private val pages = WelcomeSlides.all

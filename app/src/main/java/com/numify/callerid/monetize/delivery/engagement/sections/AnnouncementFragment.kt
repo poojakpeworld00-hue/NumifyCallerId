@@ -42,7 +42,7 @@ class AnnouncementFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.pane_message, container, false)
+        val view = inflater.inflate(R.layout.fragment_message, container, false)
 
         radioContainer = view.findViewById(R.id.rdoContainer)
         etCustomMessage = view.findViewById(R.id.inpCustomMessage)
@@ -58,7 +58,7 @@ class AnnouncementFragment : Fragment() {
         radioContainer.removeAllViews()
 
         options.forEachIndexed { index, text ->
-            val itemView = inflater.inflate(R.layout.cell_radio_option, radioContainer, false)
+            val itemView = inflater.inflate(R.layout.item_radio_option, radioContainer, false)
             val tvOption = itemView.findViewById<TextView>(R.id.lblOption)
             val imgCheck = itemView.findViewById<ImageView>(R.id.picCheck)
 

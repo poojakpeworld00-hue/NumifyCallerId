@@ -10,7 +10,7 @@ import com.numify.callerid.lookup.R
 /**
  * Hairline between language rows.
  *
- * Drawn as a decoration rather than a view in [R.layout.cell_language] so the
+ * Drawn as a decoration rather than a view in [R.layout.item_language] so the
  * last row does not carry a trailing line — a row-level divider would need the
  * adapter to know its own position just to hide one edge.
  *

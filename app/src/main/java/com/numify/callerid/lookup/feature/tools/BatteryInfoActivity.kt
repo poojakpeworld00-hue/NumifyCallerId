@@ -15,14 +15,14 @@ import androidx.core.view.WindowInsetsCompat
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.monetize.delivery.NativeAdPresenter
-import com.numify.callerid.lookup.databinding.ScreenBatteryBinding
+import com.numify.callerid.lookup.databinding.ActivityBatteryBinding
 import java.util.Locale
 import kotlin.math.roundToInt
 
 /** Live battery stats, read from sticky ACTION_BATTERY_CHANGED broadcasts. */
-class BatteryInfoActivity : BaseActivity<ScreenBatteryBinding>() {
+class BatteryInfoActivity : BaseActivity<ActivityBatteryBinding>() {
 
-    override val layoutId: Int = R.layout.screen_battery
+    override val layoutId: Int = R.layout.activity_battery
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {

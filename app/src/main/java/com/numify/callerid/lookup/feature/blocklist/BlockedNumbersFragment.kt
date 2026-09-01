@@ -37,12 +37,12 @@ import com.numify.callerid.lookup.repository.CallRecord
 import com.numify.callerid.lookup.repository.CallLogRepository
 import com.numify.callerid.lookup.repository.CallType
 import com.numify.callerid.lookup.repository.ContactRepository
-import com.numify.callerid.lookup.databinding.ScreenBlocklistBinding
-import com.numify.callerid.lookup.databinding.SheetBlockAddBinding
-import com.numify.callerid.lookup.databinding.SheetBlockDetailsBinding
-import com.numify.callerid.lookup.databinding.SheetBlockRecentsBinding
-import com.numify.callerid.lookup.databinding.SheetEnableCallerIdBinding
-import com.numify.callerid.lookup.databinding.PartBlockAddFormBinding
+import com.numify.callerid.lookup.databinding.ActivityBlocklistBinding
+import com.numify.callerid.lookup.databinding.DialogBlockAddBinding
+import com.numify.callerid.lookup.databinding.DialogBlockDetailsBinding
+import com.numify.callerid.lookup.databinding.DialogBlockRecentsBinding
+import com.numify.callerid.lookup.databinding.DialogEnableCallerIdBinding
+import com.numify.callerid.lookup.databinding.IncludeBlockAddFormBinding
 import com.numify.callerid.lookup.common.CallerIdCoordinator
 import com.numify.callerid.lookup.feature.finder.CountryCatalog
 import com.numify.callerid.lookup.feature.finder.CountryPickerActivity
@@ -51,7 +51,7 @@ import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
 
-class BlockedNumbersFragment : BaseFragment<ScreenBlocklistBinding>() {
+class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
 
     /** Blocklist: mid native at the top, under the summary strip. */
     override val screenAdFormat = ScreenAdFormat.MID_NATIVE
@@ -120,7 +120,7 @@ class BlockedNumbersFragment : BaseFragment<ScreenBlocklistBinding>() {
      * its own country chip and its own field; a single shared value would let one
      * form's country silently apply to the other's number.
      */
-    private inner class AddForm(private val view: PartBlockAddFormBinding) {
+    private inner class AddForm(private val view: IncludeBlockAddFormBinding) {
 
         private var dial: String = ""
 
@@ -184,7 +184,7 @@ class BlockedNumbersFragment : BaseFragment<ScreenBlocklistBinding>() {
     }
 
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
-        ScreenBlocklistBinding.inflate(inflater, container, false)
+        ActivityBlocklistBinding.inflate(inflater, container, false)
 
     override fun initView() {
         // Hosted as a tab: the shell owns the bottom nav, so only the top inset applies.
@@ -238,7 +238,7 @@ class BlockedNumbersFragment : BaseFragment<ScreenBlocklistBinding>() {
 
     /** Custom (non-system) details dialog with an Unblock action. */
     private fun showDetails(entry: BlockedNumber) {
-        val view = SheetBlockDetailsBinding.inflate(layoutInflater)
+        val view = DialogBlockDetailsBinding.inflate(layoutInflater)
         val dialog = customDialog(view.root)
 
         view.lblDetailNumber.text = entry.number
@@ -269,7 +269,7 @@ class BlockedNumbersFragment : BaseFragment<ScreenBlocklistBinding>() {
      * so a mis-tap in a picker never blocks someone outright.
      */
     private fun showAddDialog() {
-        val view = SheetBlockAddBinding.inflate(layoutInflater)
+        val view = DialogBlockAddBinding.inflate(layoutInflater)
         val dialog = customDialog(view.root)
         val form = AddForm(view.formVw)
 
@@ -345,7 +345,7 @@ class BlockedNumbersFragment : BaseFragment<ScreenBlocklistBinding>() {
         @StringRes emptyRes: Int,
         items: List<CallRecord>
     ) {
-        val view = SheetBlockRecentsBinding.inflate(layoutInflater)
+        val view = DialogBlockRecentsBinding.inflate(layoutInflater)
         val dialog = customDialog(view.root)
 
         view.lblTitle.setText(titleRes)
@@ -401,7 +401,7 @@ class BlockedNumbersFragment : BaseFragment<ScreenBlocklistBinding>() {
     private fun showEnableCallerIdDialog() {
         if (enableCallerIdDialog?.isShowing == true) return
 
-        val view = SheetEnableCallerIdBinding.inflate(layoutInflater)
+        val view = DialogEnableCallerIdBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext()).apply {
             setContentView(view.root)
             window?.apply {
@@ -435,7 +435,7 @@ class BlockedNumbersFragment : BaseFragment<ScreenBlocklistBinding>() {
      * overshoot, a ring pulses out, the checkmark draws itself (AVD), the hint
      * strip reveals, the CTA breathes, and the demo toggle loops off→on.
      */
-    private fun animateEnableCallerIdDialog(v: SheetEnableCallerIdBinding) {
+    private fun animateEnableCallerIdDialog(v: DialogEnableCallerIdBinding) {
         v.shieldTileVw.alpha = 0f
         v.shieldTileVw.scaleX = 0.4f
         v.shieldTileVw.scaleY = 0.4f
@@ -501,7 +501,7 @@ class BlockedNumbersFragment : BaseFragment<ScreenBlocklistBinding>() {
      * Loops the illustrative toggle in the hint strip: track fades grey→green, the
      * thumb slides across with a tap ripple, holds, then resets.
      */
-    private fun startToggleDemo(v: SheetEnableCallerIdBinding) {
+    private fun startToggleDemo(v: DialogEnableCallerIdBinding) {
         val marginStart = (v.flipThumb.layoutParams as? ViewGroup.MarginLayoutParams)?.marginStart ?: 0
         val travel = (v.flipTrack.width - v.flipThumb.width - 2 * marginStart).toFloat()
         if (travel <= 0f) return

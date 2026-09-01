@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.numify.callerid.lookup.databinding.CellOnboardingBinding
+import com.numify.callerid.lookup.databinding.ItemOnboardingBinding
 
 class IntroPagerAdapter(
     private val pages: List<IntroSlide>
 ) : RecyclerView.Adapter<IntroPagerAdapter.VH>() {
 
-    inner class VH(val binding: CellOnboardingBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class VH(val binding: ItemOnboardingBinding) : RecyclerView.ViewHolder(binding.root) {
 
         /** Looping animators for the current page's illustration; cancelled on recycle. */
         private val anims = mutableListOf<Animator>()
@@ -52,7 +52,7 @@ class IntroPagerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val binding = CellOnboardingBinding.inflate(
+        val binding = ItemOnboardingBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return VH(binding)

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.Window
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.monetize.delivery.RewardedAdPresenter
-import com.numify.callerid.lookup.databinding.SheetWatchAdBinding
+import com.numify.callerid.lookup.databinding.DialogWatchAdBinding
 
 /**
  * Gates revealing a caller name behind a rewarded ad — the shared flow used by the
@@ -33,7 +33,7 @@ object NameRevealReward {
             return
         }
 
-        val db = SheetWatchAdBinding.inflate(activity.layoutInflater)
+        val db = DialogWatchAdBinding.inflate(activity.layoutInflater)
         val dialog = Dialog(activity).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             setContentView(db.root)

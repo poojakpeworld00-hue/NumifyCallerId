@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.monetize.delivery.NativeAdPresenter
-import com.numify.callerid.lookup.databinding.ScreenSpeedometerBinding
+import com.numify.callerid.lookup.databinding.ActivitySpeedometerBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.isActive
@@ -24,9 +24,9 @@ import kotlin.math.abs
 import kotlin.math.roundToInt
 
 /** Internet speed test: download / upload throughput, latency and jitter over HTTP. */
-class SpeedometerActivity : BaseActivity<ScreenSpeedometerBinding>() {
+class SpeedometerActivity : BaseActivity<ActivitySpeedometerBinding>() {
 
-    override val layoutId: Int = R.layout.screen_speedometer
+    override val layoutId: Int = R.layout.activity_speedometer
 
     private var job: Job? = null
 

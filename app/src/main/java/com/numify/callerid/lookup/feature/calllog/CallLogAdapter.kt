@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.repository.CallRecord
 import com.numify.callerid.lookup.repository.CallType
-import com.numify.callerid.lookup.databinding.CellCallBinding
-import com.numify.callerid.lookup.databinding.CellSectionHeaderBinding
+import com.numify.callerid.lookup.databinding.ItemCallBinding
+import com.numify.callerid.lookup.databinding.ItemSectionHeaderBinding
 import com.numify.callerid.lookup.feature.widgets.CallActionHandler
 
 class CallLogAdapter(
@@ -34,9 +34,9 @@ class CallLogAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return if (viewType == TYPE_HEADER) {
-            HeaderVH(CellSectionHeaderBinding.inflate(inflater, parent, false))
+            HeaderVH(ItemSectionHeaderBinding.inflate(inflater, parent, false))
         } else {
-            CallVH(CellCallBinding.inflate(inflater, parent, false))
+            CallVH(ItemCallBinding.inflate(inflater, parent, false))
         }
     }
 
@@ -49,9 +49,9 @@ class CallLogAdapter(
 
     override fun getItemCount(): Int = rows.size
 
-    class HeaderVH(val binding: CellSectionHeaderBinding) : RecyclerView.ViewHolder(binding.root)
+    class HeaderVH(val binding: ItemSectionHeaderBinding) : RecyclerView.ViewHolder(binding.root)
 
-    inner class CallVH(val binding: CellCallBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class CallVH(val binding: ItemCallBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(row: HistoryRowUi.Call) {
             val e = row.entry
             val ctx = binding.root.context

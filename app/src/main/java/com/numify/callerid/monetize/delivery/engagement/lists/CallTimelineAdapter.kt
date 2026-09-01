@@ -32,7 +32,7 @@ class CallTimelineAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.cell_recent_call, parent, false)
+            .inflate(R.layout.item_recent_call, parent, false)
         return VH(view)
     }
 

@@ -100,12 +100,12 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        val root = inflater.inflate(R.layout.sheet_permission_sheet, container, false)
+        val root = inflater.inflate(R.layout.dialog_permission, container, false)
         rows = buildRows()
 
         val rowsContainer = root.findViewById<LinearLayout>(R.id.holderRows)
         rows.forEach { row ->
-            val rowView = inflater.inflate(R.layout.cell_permission_row, rowsContainer, false)
+            val rowView = inflater.inflate(R.layout.item_permission_row, rowsContainer, false)
             rowView.tag = row.key
             rowView.findViewById<ImageView>(R.id.picIcon).setImageResource(row.icon)
             rowView.findViewById<TextView>(R.id.lblTitle).setText(row.title)

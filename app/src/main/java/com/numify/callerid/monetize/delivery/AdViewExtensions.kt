@@ -21,7 +21,7 @@ import androidx.viewbinding.ViewBinding
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.monetize.delivery.fullpage.TransitionInterstitialAd
 import com.numify.callerid.lookup.R
-import com.numify.callerid.lookup.databinding.SheetAppRedirectBinding
+import com.numify.callerid.lookup.databinding.DialogAppRedirectBinding
 import kotlin.apply
 import kotlin.let
 import kotlin.text.isNullOrEmpty
@@ -97,7 +97,7 @@ fun Activity.showAppRedirectPopup(onDismiss: (() -> Unit)? = null) {
     val appUrl = AdPreferenceStore(this).getString("In_App_Update_Link")
     if (appUrl.isNullOrEmpty()) return
 
-    val dialogBinding = SheetAppRedirectBinding.inflate(layoutInflater)
+    val dialogBinding = DialogAppRedirectBinding.inflate(layoutInflater)
 
     val dialog = showDialog(
         activity = this,

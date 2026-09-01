@@ -17,14 +17,14 @@ import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.monetize.delivery.RewardedAdPresenter
 import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.lookup.repository.BlocklistRepository
-import com.numify.callerid.lookup.databinding.ScreenLookupDetailBinding
-import com.numify.callerid.lookup.databinding.CellNicknameBinding
+import com.numify.callerid.lookup.databinding.ActivityLookupDetailBinding
+import com.numify.callerid.lookup.databinding.ItemNicknameBinding
 import com.numify.callerid.lookup.feature.widgets.CallActionHandler
 
 /** Full detail of a looked-up number, opened from the Lookup result card. */
-class ReportNumberActivity : BaseActivity<ScreenLookupDetailBinding>() {
+class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
 
-    override val layoutId: Int = R.layout.screen_lookup_detail
+    override val layoutId: Int = R.layout.activity_lookup_detail
 
     private val number by lazy { intent.getStringExtra(EXTRA_NUMBER).orEmpty() }
     private val rawNumber by lazy { intent.getStringExtra(EXTRA_RAW).orEmpty().ifBlank { number } }
@@ -173,7 +173,7 @@ class ReportNumberActivity : BaseActivity<ScreenLookupDetailBinding>() {
         val revealed = revealedSet()
         binding.rowNicknames.removeAllViews()
         for (nick in nicknameList) {
-            val row = CellNicknameBinding.inflate(layoutInflater, binding.rowNicknames, false)
+            val row = ItemNicknameBinding.inflate(layoutInflater, binding.rowNicknames, false)
             if (revealed.contains(nick)) {
                 row.picNickIcon.setImageResource(R.drawable.glyph_verified)
                 row.picNickIcon.imageTintList = ColorStateList.valueOf(color(R.color.success))

@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.repository.ContactRecord
-import com.numify.callerid.lookup.databinding.CellContactBinding
-import com.numify.callerid.lookup.databinding.CellSectionHeaderBinding
+import com.numify.callerid.lookup.databinding.ItemContactBinding
+import com.numify.callerid.lookup.databinding.ItemSectionHeaderBinding
 
 class ContactListAdapter(
     private val onCall: (String) -> Unit,
@@ -32,9 +32,9 @@ class ContactListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return if (viewType == TYPE_HEADER) {
-            HeaderVH(CellSectionHeaderBinding.inflate(inflater, parent, false))
+            HeaderVH(ItemSectionHeaderBinding.inflate(inflater, parent, false))
         } else {
-            ContactVH(CellContactBinding.inflate(inflater, parent, false))
+            ContactVH(ItemContactBinding.inflate(inflater, parent, false))
         }
     }
 
@@ -47,7 +47,7 @@ class ContactListAdapter(
 
     override fun getItemCount(): Int = rows.size
 
-    class HeaderVH(private val binding: CellSectionHeaderBinding) :
+    class HeaderVH(private val binding: ItemSectionHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(letter: String) {
             binding.lblHeader.text = letter
@@ -57,7 +57,7 @@ class ContactListAdapter(
         }
     }
 
-    inner class ContactVH(val binding: CellContactBinding) :
+    inner class ContactVH(val binding: ItemContactBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(row: ContactRowUi.Item) {
             val c = row.contact

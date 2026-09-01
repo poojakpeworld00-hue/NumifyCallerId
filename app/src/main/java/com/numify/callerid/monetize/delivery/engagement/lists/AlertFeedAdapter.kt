@@ -27,7 +27,7 @@ class AlertFeedAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReminderViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.cell_reminder1, parent, false)
+            .inflate(R.layout.item_alert_entry, parent, false)
         return ReminderViewHolder(view)
     }
 

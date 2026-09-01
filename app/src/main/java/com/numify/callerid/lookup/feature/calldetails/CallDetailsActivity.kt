@@ -19,8 +19,8 @@ import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.lookup.repository.BlocklistRepository
 import com.numify.callerid.lookup.repository.CallRecord
 import com.numify.callerid.lookup.repository.CallType
-import com.numify.callerid.lookup.databinding.ScreenCallDetailBinding
-import com.numify.callerid.lookup.databinding.CellCallHistoryBinding
+import com.numify.callerid.lookup.databinding.ActivityCallDetailBinding
+import com.numify.callerid.lookup.databinding.ItemCallHistoryBinding
 import com.numify.callerid.lookup.feature.MainShellActivity
 import com.numify.callerid.lookup.feature.widgets.CallActionHandler
 import java.text.SimpleDateFormat
@@ -29,9 +29,9 @@ import java.util.Date
 import java.util.Locale
 
 /** Per-number call detail screen opened from a recents row. */
-class CallDetailsActivity : BaseActivity<ScreenCallDetailBinding>() {
+class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
 
-    override val layoutId: Int = R.layout.screen_call_detail
+    override val layoutId: Int = R.layout.activity_call_detail
 
     private val viewModel: CallDetailsViewModel by viewModels()
 
@@ -135,13 +135,13 @@ class CallDetailsActivity : BaseActivity<ScreenCallDetailBinding>() {
 
     private fun addHistoryHeader(text: String) {
         val header = layoutInflater
-            .inflate(R.layout.cell_call_history_header, binding.rowHistory, false) as TextView
+            .inflate(R.layout.item_call_history_header, binding.rowHistory, false) as TextView
         header.text = text
         binding.rowHistory.addView(header)
     }
 
     private fun addHistoryRow(e: CallRecord) {
-        val row = CellCallHistoryBinding.inflate(layoutInflater, binding.rowHistory, false)
+        val row = ItemCallHistoryBinding.inflate(layoutInflater, binding.rowHistory, false)
         val missed = e.type == CallType.MISSED || e.type == CallType.SPAM
 
         row.picDir.setImageResource(CallActionHandler.typeIconRes(e.type))

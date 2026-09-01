@@ -42,7 +42,7 @@ object LockScreenPrimingDialog {
         if (activity.isFinishing || isShowing()) return
 
         val view = LayoutInflater.from(activity)
-            .inflate(R.layout.sheet_fsi_permission, null, false)
+            .inflate(R.layout.dialog_fsi_permission, null, false)
         view.findViewById<TextView>(R.id.fsDialogTitleVw).text = config.dialog.title
         view.findViewById<TextView>(R.id.fsDialogDescVw).text = config.dialog.desc
         view.findViewById<TextView>(R.id.fsDialogButtonVw).text = config.dialog.button

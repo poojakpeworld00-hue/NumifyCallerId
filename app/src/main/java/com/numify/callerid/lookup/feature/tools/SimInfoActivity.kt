@@ -15,15 +15,15 @@ import androidx.core.view.WindowInsetsCompat
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.monetize.delivery.NativeAdPresenter
-import com.numify.callerid.lookup.databinding.ScreenSimInfoBinding
+import com.numify.callerid.lookup.databinding.ActivitySimInfoBinding
 import java.util.Locale
 import java.net.Inet4Address
 import java.net.NetworkInterface
 
 /** Carrier / SIM / network details from [TelephonyManager]. */
-class SimInfoActivity : BaseActivity<ScreenSimInfoBinding>() {
+class SimInfoActivity : BaseActivity<ActivitySimInfoBinding>() {
 
-    override val layoutId: Int = R.layout.screen_sim_info
+    override val layoutId: Int = R.layout.activity_sim_info
 
     private val tm by lazy { getSystemService(TELEPHONY_SERVICE) as TelephonyManager }
 

@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.numify.callerid.lookup.databinding.CellToolBinding
-import com.numify.callerid.lookup.databinding.CellToolHeaderBinding
+import com.numify.callerid.lookup.databinding.ItemToolBinding
+import com.numify.callerid.lookup.databinding.ItemToolHeaderBinding
 
 /**
  * One tool tile: a glyph on a softly tinted chip, plus a launch target.
@@ -58,9 +58,9 @@ class ToolboxAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return if (viewType == TYPE_HEADER) {
-            HeaderVH(CellToolHeaderBinding.inflate(inflater, parent, false))
+            HeaderVH(ItemToolHeaderBinding.inflate(inflater, parent, false))
         } else {
-            ToolVH(CellToolBinding.inflate(inflater, parent, false))
+            ToolVH(ItemToolBinding.inflate(inflater, parent, false))
         }
     }
 
@@ -89,10 +89,10 @@ class ToolboxAdapter(
             .start()
     }
 
-    private class HeaderVH(val binding: CellToolHeaderBinding) :
+    private class HeaderVH(val binding: ItemToolHeaderBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    private inner class ToolVH(val binding: CellToolBinding) :
+    private inner class ToolVH(val binding: ItemToolBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(tool: UtilityUi) {

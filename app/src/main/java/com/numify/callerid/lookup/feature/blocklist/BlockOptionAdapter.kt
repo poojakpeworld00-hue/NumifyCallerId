@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.numify.callerid.lookup.repository.CallRecord
-import com.numify.callerid.lookup.databinding.CellBlockPickBinding
+import com.numify.callerid.lookup.databinding.ItemBlockPickBinding
 
 /** Lists recent call-log numbers so the user can tap one to block it. */
 class BlockOptionAdapter(
@@ -21,13 +21,13 @@ class BlockOptionAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH =
-        VH(CellBlockPickBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        VH(ItemBlockPickBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun onBindViewHolder(holder: VH, position: Int) = holder.bind(items[position])
 
     override fun getItemCount(): Int = items.size
 
-    inner class VH(private val binding: CellBlockPickBinding) :
+    inner class VH(private val binding: ItemBlockPickBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(entry: CallRecord) {

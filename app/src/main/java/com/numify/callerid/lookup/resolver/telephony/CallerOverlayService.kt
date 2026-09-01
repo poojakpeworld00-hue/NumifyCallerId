@@ -81,7 +81,7 @@ class CallerOverlayService : Service() {
         removeOverlay()
 
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
-        val view = LayoutInflater.from(this).inflate(R.layout.bubble_caller_id, null)
+        val view = LayoutInflater.from(this).inflate(R.layout.overlay_caller_id, null)
         view.findViewById<View>(R.id.padIncallClose).setOnClickListener { stopSelf() }
 
         val type = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)

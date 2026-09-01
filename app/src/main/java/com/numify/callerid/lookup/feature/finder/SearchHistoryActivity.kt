@@ -13,15 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.numify.callerid.monetize.delivery.RewardedAdPresenter
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseActivity
-import com.numify.callerid.lookup.databinding.ScreenLookupHistoryBinding
+import com.numify.callerid.lookup.databinding.ActivityLookupHistoryBinding
 
 /**
  * Standalone list of recent number lookups. Tapping a row returns its number to the
  * caller (Lookup tab) to re-run the search; the phone icon dials directly.
  */
-class SearchHistoryActivity : BaseActivity<ScreenLookupHistoryBinding>() {
+class SearchHistoryActivity : BaseActivity<ActivityLookupHistoryBinding>() {
 
-    override val layoutId: Int = R.layout.screen_lookup_history
+    override val layoutId: Int = R.layout.activity_lookup_history
 
     private val viewModel: SearchHistoryViewModel by viewModels()
     private val adapter = SearchHistoryAdapter(

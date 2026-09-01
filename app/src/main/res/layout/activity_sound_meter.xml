@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Sound meter — CID03 redesign.
+
+    Half-dial, dB readout with a plain-language category, a rolling waveform of
+    the last half-minute, then min/avg/max and a pause control.
+-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/soundRootVw"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        tools:context=".screen.utility.NoiseMeterActivity">
+
+        <LinearLayout
+            android:id="@+id/crownBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/padBack"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/onboarding_skip"
+                android:padding="@dimen/_9sdp"
+                android:src="@drawable/glyph_arrow_back"
+                app:tint="@color/on_surface" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_weight="1"
+                android:letterSpacing="-0.02"
+                android:text="@string/tools_sound"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/padReset"
+                android:layout_width="@dimen/_38sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/action_reset"
+                android:padding="@dimen/_9sdp"
+                android:src="@drawable/glyph_undo"
+                app:tint="@color/primary" />
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintTop_toBottomOf="@id/crownBar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/_16sdp">
+
+                <com.numify.callerid.lookup.feature.tools.NoiseGaugeView
+                    android:id="@+id/gaugeVw"
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:baselineAligned="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lblDb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="-0.04"
+                        android:textColor="@color/on_surface"
+                        android:textSize="@dimen/_36ssp"
+                        android:textStyle="bold"
+                        tools:text="62" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:includeFontPadding="false"
+                        android:text="@string/sound_unit"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="@dimen/_12ssp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/lblCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@drawable/shape_cid_pill_neutral"
+                    android:includeFontPadding="false"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_5sdp"
+                    android:textColor="@color/on_surface"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold"
+                    tools:text="Normal conversation" />
+
+                <TextView
+                    android:id="@+id/lblStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:gravity="center"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="@dimen/_10ssp"
+                    tools:text="" />
+
+                <!-- Rolling window of recent levels. -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@drawable/shape_cid_panel"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_12sdp">
+
+                    <com.numify.callerid.lookup.feature.tools.AudioWaveView
+                        android:id="@+id/spectrumVw"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_62sdp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_7sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/sound_window"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="@dimen/_9ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sound_now"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="@dimen/_9ssp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        style="@style/SpeedStatCard"
+                        android:layout_marginEnd="@dimen/_4sdp">
+
+                        <TextView
+                            style="@style/SpeedStatLabel"
+                            android:layout_marginTop="0dp"
+                            android:text="@string/sound_min" />
+
+                        <TextView
+                            android:id="@+id/lblMin"
+                            style="@style/SpeedStatValue"
+                            android:textColor="@color/cid_teal"
+                            tools:text="41" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/SpeedStatCard"
+                        android:layout_marginHorizontal="@dimen/_4sdp">
+
+                        <TextView
+                            style="@style/SpeedStatLabel"
+                            android:layout_marginTop="0dp"
+                            android:text="@string/sound_avg" />
+
+                        <TextView
+                            android:id="@+id/lblAvg"
+                            style="@style/SpeedStatValue"
+                            tools:text="59" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/SpeedStatCard"
+                        android:layout_marginStart="@dimen/_4sdp">
+
+                        <TextView
+                            style="@style/SpeedStatLabel"
+                            android:layout_marginTop="0dp"
+                            android:text="@string/sound_max" />
+
+                        <TextView
+                            android:id="@+id/lblPeak"
+                            style="@style/SpeedStatValue"
+                            android:textColor="@color/cid_amber"
+                            tools:text="88" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/padHold"
+                    style="@style/ToolCta"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:text="@string/meter_pause"
+                    app:icon="@drawable/glyph_pause" />
+
+                <FrameLayout
+                    android:id="@+id/adNativeFrameVw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_10sdp">
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/adShimmerVw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#ccc">
+
+                        <include layout="@layout/admob_mid_native" />
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </FrameLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <View
+            android:id="@+id/adBannerDividerVw"
+            style="@style/AdDivider"
+            android:layout_width="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            layout="@layout/include_bottom_banner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

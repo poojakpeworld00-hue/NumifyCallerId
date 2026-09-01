@@ -54,7 +54,7 @@ object ExitConfirmDialog {
         if (activity.isFinishing || activity.isDestroyed || isShowing()) return
 
         val view = LayoutInflater.from(activity)
-            .inflate(R.layout.sheet_exit_confirm, null, false)
+            .inflate(R.layout.dialog_exit_confirm, null, false)
 
         // RC value when set, else this app's own translated string.
         fun bind(id: Int, remote: String, fallback: Int) {
@@ -116,9 +116,9 @@ object ExitConfirmDialog {
         // The format is remote-driven, so the shimmer placeholder is inflated to
         // match rather than baked into the layout.
         val placeholder = when (cfg.dialogAdType.lowercase()) {
-            "bignative" -> R.layout.gads_big_native
+            "bignative" -> R.layout.admob_big_native
             "banner" -> null
-            else -> R.layout.gads_mid_native
+            else -> R.layout.admob_mid_native
         }
         placeholder?.let { LayoutInflater.from(activity).inflate(it, shimmer, true) }
 

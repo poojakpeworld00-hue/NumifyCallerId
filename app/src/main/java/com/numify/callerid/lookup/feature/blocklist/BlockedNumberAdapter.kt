@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.repository.BlockedNumber
-import com.numify.callerid.lookup.databinding.CellBlocklistBinding
+import com.numify.callerid.lookup.databinding.ItemBlocklistBinding
 
 /**
  * Renders the blocklist as a flat list of blocked numbers. Each row carries a
@@ -31,7 +31,7 @@ class BlockedNumberAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH =
-        VH(CellBlocklistBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        VH(ItemBlocklistBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         holder.bind(rows[position])
@@ -56,7 +56,7 @@ class BlockedNumberAdapter(
             .start()
     }
 
-    inner class VH(val binding: CellBlocklistBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class VH(val binding: ItemBlocklistBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(row: BlockedNumberState) {
             val ctx = binding.root.context
             binding.lblLabel.text = row.label

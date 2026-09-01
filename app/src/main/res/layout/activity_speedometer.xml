@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Speed test — CID03 redesign.
+
+    Header (back · title · history) over the dial, the carrier chip, three stat
+    tiles, and a full-width "Test again".
+
+    The dial is SpeedometerView. Its scale is non-linear on purpose (see the view)
+    and its ticks are drawn rather than laid out, because the design's markup
+    hard-codes seventeen positioned spans that cannot re-proportion for a smaller
+    dial. Ad slots are unchanged from the previous layout.
+-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/speedRootVw"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        tools:context=".screen.utility.SpeedometerActivity">
+
+        <LinearLayout
+            android:id="@+id/crownBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/padBack"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/onboarding_skip"
+                android:padding="@dimen/_9sdp"
+                android:src="@drawable/glyph_arrow_back"
+                app:tint="@color/on_surface" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_weight="1"
+                android:letterSpacing="-0.02"
+                android:text="@string/tools_speedometer"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/padHistory"
+                android:layout_width="@dimen/_38sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/speedtest_history"
+                android:padding="@dimen/_9sdp"
+                android:src="@drawable/glyph_history"
+                app:tint="@color/primary" />
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintTop_toBottomOf="@id/crownBar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/_16sdp">
+
+                <!-- ===== Dial ===== -->
+                <FrameLayout
+                    android:layout_width="@dimen/_215sdp"
+                    android:layout_height="@dimen/_215sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:elevation="@dimen/_3sdp"
+                    android:outlineAmbientShadowColor="@color/card_shadow"
+                    android:outlineSpotShadowColor="@color/card_shadow">
+
+                    <com.numify.callerid.lookup.feature.tools.SpeedometerView
+                        android:id="@+id/gaugeVw"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                        <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_64sdp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+                            <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:baselineAligned="true"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/lblSpeed"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:includeFontPadding="false"
+                                android:letterSpacing="-0.04"
+                                android:textColor="@color/on_surface"
+                                android:textSize="@dimen/_34ssp"
+                                android:textStyle="bold"
+                                tools:text="184" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_3sdp"
+                                android:includeFontPadding="false"
+                                android:text="@string/speedometer_unit"
+                                android:textColor="@color/on_surface_variant"
+                                android:textSize="@dimen/_11ssp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/lblStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_7sdp"
+                            android:background="@drawable/shape_cid_pill_neutral"
+                            android:includeFontPadding="false"
+                            android:paddingHorizontal="@dimen/_10sdp"
+                            android:paddingVertical="@dimen/_4sdp"
+                            android:text="@string/speedtest_download"
+                            android:textColor="@color/on_surface"
+                            android:textSize="@dimen/_9ssp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <!-- ===== Carrier ===== -->
+                    <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:background="@drawable/shape_cid_pill_teal"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_6sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_13sdp"
+                        android:layout_height="@dimen/_13sdp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/glyph_tool_network"
+                        app:tint="@color/cid_teal" />
+
+                    <TextView
+                        android:id="@+id/lblCarrier"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/cid_teal"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold"
+                        tools:text="Wi-Fi · Airtel" />
+                </LinearLayout>
+
+                <!-- ===== Stats ===== -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        style="@style/SpeedStatCard"
+                        android:layout_marginEnd="@dimen/_4sdp">
+
+                        <ImageView
+                            style="@style/SpeedStatIcon"
+                            android:src="@drawable/glyph_arrow_forward"
+                            android:rotation="-90"
+                            app:tint="@color/cid_teal" />
+
+                        <TextView
+                            android:id="@+id/lblUpload"
+                            style="@style/SpeedStatValue"
+                            tools:text="42 Mbps" />
+
+                        <TextView
+                            style="@style/SpeedStatLabel"
+                            android:text="@string/speedtest_upload" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/SpeedStatCard"
+                        android:layout_marginHorizontal="@dimen/_4sdp">
+
+                        <ImageView
+                            style="@style/SpeedStatIcon"
+                            android:src="@drawable/glyph_timer"
+                            app:tint="@color/cid_amber" />
+
+                        <TextView
+                            android:id="@+id/lblLatency"
+                            style="@style/SpeedStatValue"
+                            tools:text="18 ms" />
+
+                        <TextView
+                            style="@style/SpeedStatLabel"
+                            android:text="@string/speedtest_ping" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/SpeedStatCard"
+                        android:layout_marginStart="@dimen/_4sdp">
+
+                        <ImageView
+                            style="@style/SpeedStatIcon"
+                            android:src="@drawable/glyph_tool_sound"
+                            app:tint="@color/cid_clay" />
+
+                        <TextView
+                            android:id="@+id/lblJitter"
+                            style="@style/SpeedStatValue"
+                            tools:text="4 ms" />
+
+                        <TextView
+                            style="@style/SpeedStatLabel"
+                            android:text="@string/speedtest_jitter" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ===== Run again ===== -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/padRetest"
+                    style="@style/ToolCta"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:text="@string/speedtest_again"
+                    app:icon="@drawable/glyph_play" />
+
+                <FrameLayout
+                    android:id="@+id/adNativeFrameVw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_10sdp">
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/adShimmerVw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#ccc">
+
+                        <include layout="@layout/admob_mid_native_two" />
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </FrameLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <View
+            android:id="@+id/adBannerDividerVw"
+            style="@style/AdDivider"
+            android:layout_width="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            layout="@layout/include_bottom_banner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

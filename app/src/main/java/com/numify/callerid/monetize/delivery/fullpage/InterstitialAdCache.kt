@@ -32,7 +32,7 @@ object InterstitialAdCache {
             dialog = Dialog(activity).apply {
                 requestWindowFeature(Window.FEATURE_NO_TITLE)
                 setCancelable(false)
-                setContentView(R.layout.fullscreen_spinner)
+                setContentView(R.layout.include_fullscreen_loader)
                 window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
                 window?.setLayout(

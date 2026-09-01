@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Full-Screen-Intent intro Activity (design: FSI Intro Activity). Radial hero
+    (navy dark / light-blue light), the incoming-call card floating in a halo of
+    glow + pulsing orbit rings, value copy, a 3-benefit card, and the glowing
+    Enable Now CTA. Title / desc / button copy set from Remote Config at runtime.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fsScreenRootVw"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_fsi_intro"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_22sdp">
+
+            <!-- Hero: floating card in a halo of glow + orbit rings -->
+            <FrameLayout
+                android:id="@+id/fsHeroVw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp">
+
+                <ImageView
+                    android:id="@+id/fsGlowVw"
+                    android:layout_width="@dimen/_185sdp"
+                    android:layout_height="@dimen/_185sdp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/shape_fsi_glow" />
+
+                <ImageView
+                    android:id="@+id/fsOrbit1Vw"
+                    android:layout_width="@dimen/_160sdp"
+                    android:layout_height="@dimen/_160sdp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/shape_fsi_orbit_ring" />
+
+                <ImageView
+                    android:id="@+id/fsOrbit2Vw"
+                    android:layout_width="@dimen/_160sdp"
+                    android:layout_height="@dimen/_160sdp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/shape_fsi_orbit_ring" />
+
+                <include
+                    layout="@layout/include_fsi_call_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/_26sdp" />
+            </FrameLayout>
+
+            <!-- Copy -->
+            <TextView
+                android:id="@+id/fsScreenTitleVw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:gravity="center"
+                android:letterSpacing="-0.01"
+                android:text="@string/fsi_screen_title"
+                android:textColor="@color/fsi_title"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/fsScreenDescVw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.35"
+                android:text="@string/fsi_screen_desc"
+                android:textColor="@color/fsi_subtitle"
+                android:textSize="@dimen/_10ssp" />
+
+            <!-- Benefits -->
+            <LinearLayout
+                android:id="@+id/fsScreenFeaturesVw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_13sdp"
+                android:background="@drawable/shape_fsi_benefit_card"
+                android:orientation="vertical"
+                android:padding="@dimen/_4sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/_9sdp"
+                    android:paddingVertical="@dimen/_8sdp">
+
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:background="@drawable/shape_fsi_tile"
+                        android:backgroundTint="@color/fsi_tile_blue"
+                        android:contentDescription="@null"
+                        android:padding="@dimen/_7sdp"
+                        android:src="@drawable/glyph_search"
+                        app:tint="@color/fsi_icon_blue" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_11sdp"
+                        android:layout_weight="1"
+                        android:text="@string/fsi_feature_identify"
+                        android:textColor="@color/fsi_benefit_text"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/_11sdp"
+                    android:background="@color/fsi_benefit_divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/_9sdp"
+                    android:paddingVertical="@dimen/_8sdp">
+
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:background="@drawable/shape_fsi_tile"
+                        android:backgroundTint="@color/fsi_tile_red"
+                        android:contentDescription="@null"
+                        android:padding="@dimen/_7sdp"
+                        android:src="@drawable/glyph_fraud_block"
+                        app:tint="@color/fsi_icon_red" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_11sdp"
+                        android:layout_weight="1"
+                        android:text="@string/fsi_feature_spam"
+                        android:textColor="@color/fsi_benefit_text"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/_11sdp"
+                    android:background="@color/fsi_benefit_divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/_9sdp"
+                    android:paddingVertical="@dimen/_8sdp">
+
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:background="@drawable/shape_fsi_tile"
+                        android:backgroundTint="@color/fsi_tile_green"
+                        android:contentDescription="@null"
+                        android:padding="@dimen/_7sdp"
+                        android:src="@drawable/glyph_history"
+                        app:tint="@color/fsi_icon_green" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_11sdp"
+                        android:layout_weight="1"
+                        android:text="@string/fsi_feature_missed"
+                        android:textColor="@color/fsi_benefit_text"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_10sdp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Full-bleed hairline separating the intro content from the ad below -->
+    <View
+        android:id="@+id/adNativeDividerVw"
+        style="@style/AdDivider" />
+
+    <!-- Mid native ad, pinned just above the CTA -->
+    <FrameLayout
+        android:id="@+id/adNativeFrameVw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_6sdp">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/adShimmerVw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ccc">
+
+            <include layout="@layout/admob_mid_native" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </FrameLayout>
+
+    <!-- CTA -->
+    <TextView
+        android:id="@+id/fsScreenButtonVw"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_44sdp"
+        android:layout_marginHorizontal="@dimen/_22sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:background="@drawable/shape_fsi_cta"
+        android:gravity="center"
+        android:text="@string/fsi_enable_now"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/fsScreenSkipVw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:paddingHorizontal="@dimen/_20sdp"
+        android:paddingVertical="@dimen/_9sdp"
+        android:text="@string/fsi_not_now"
+        android:textColor="@color/fsi_not_now"
+        android:textSize="@dimen/_10ssp" />
+</LinearLayout>

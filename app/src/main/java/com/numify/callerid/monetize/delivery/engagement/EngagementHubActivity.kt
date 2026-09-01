@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import io.lighthouse.push.extended.HandleOptions
 import io.lighthouse.push.extended.LightHouseRichPush
 import com.numify.callerid.lookup.R
-import com.numify.callerid.lookup.databinding.ScreenCallBackScreenBinding
+import com.numify.callerid.lookup.databinding.ActivityCallReturnBinding
 import com.numify.callerid.lookup.common.triggerClick
 import com.numify.callerid.monetize.delivery.AppOpenAdManager
 import com.numify.callerid.monetize.delivery.BottomSheetNativeAds
@@ -40,9 +40,9 @@ import java.util.Locale
  * once during app startup. This screen only triggers ad rendering, not SDK
  * initialization.
  */
-class EngagementHubActivity : BaseActivity<ScreenCallBackScreenBinding>() {
+class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
 
-    override val layoutId: Int = R.layout.screen_call_back_screen
+    override val layoutId: Int = R.layout.activity_call_return
     private val systemDialogHelper by lazy {
         SystemDialogHelper(this) {
             if (!isFinishing && !isDestroyed) finish()

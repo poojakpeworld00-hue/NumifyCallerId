@@ -49,8 +49,8 @@ import kotlin.sequences.ifEmpty
  *
  * Usage:
  * ```
- * class MainShellActivity : BaseActivity<ScreenMainBinding>() {
- *     override val layoutId = R.layout.screen_main
+ * class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
+ *     override val layoutId = R.layout.activity_main_shell
  *     override fun initView() { ... }
  * }
  * ```
@@ -87,7 +87,7 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
         initObservers()
 
         // Auto on-load bottom banner for any screen whose layout includes
-        // @layout/part_bottom_banner (no-op otherwise).
+        // @layout/include_bottom_banner (no-op otherwise).
         showBottomBanner()
     }
 
@@ -112,7 +112,7 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
 
     /**
      * Auto-loads the on-load bottom banner — but only if this screen's layout
-     * includes `@layout/part_bottom_banner` (ids `bannerAdFrame` + `bannerShimmer`).
+     * includes `@layout/include_bottom_banner` (ids `bannerAdFrame` + `bannerShimmer`).
      * Called automatically after [initView]; screens without the include are a
      * no-op. The screen key is the activity's simple class name (e.g.
      * "SpamListActivity"), which must match a key under `ScreenAds` in Remote
