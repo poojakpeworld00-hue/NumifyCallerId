@@ -682,4 +682,20 @@
     <string name="ai_action_details">Chi tiết</string>
     <string name="ai_blocked_toast">Đã chặn %1$s</string>
     <string name="ai_thinking">Đang nghĩ…</string>
+    <!-- ===== Ask AI · call surfaces ===== -->
+    <string name="ai_verdict_nuisance">Có thể là spam — đổ chuông %1$d lần, chưa từng được nghe</string>
+    <string name="ai_verdict_blocked">Bạn đã chặn số này</string>
+    <string name="ai_verdict_first_time">Lần đầu số này gọi cho bạn</string>
+    <string name="smart_reply_title">Chọn câu trả lời</string>
+    <string name="smart_reply_hint">Mở ứng dụng nhắn tin với nội dung sẵn sàng. Không có gì được gửi cho tới khi bạn nhấn gửi.</string>
+    <string name="ai_draft_call_back">Tôi đang họp. Gọi lại sau một giờ nhé?</string>
+    <string name="ai_draft_text_instead">Bạn nhắn tin cho tôi được không?</string>
+    <string name="notif_missed_title">Cuộc gọi nhỡ</string>
+    <string name="notif_action_callback">Gọi lại</string>
+    <string name="notif_action_reply">Trả lời</string>
+    <string name="notif_channel_missed">Cuộc gọi nhỡ</string>
+    <string name="ai_summary_first">Cuộc gọi đầu tiên với %1$s.</string>
+    <string name="ai_summary_frequency">Bạn đã nói chuyện với %1$s %2$d lần trong tháng này.</string>
+    <string name="ai_summary_longest">Đây là cuộc gọi dài nhất của bạn từ trước tới nay.</string>
+    <string name="ai_summary_unanswered">%1$d cuộc gọi trước từ số này không được nghe máy.</string>
 </resources>

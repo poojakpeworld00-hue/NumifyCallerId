@@ -729,4 +729,20 @@
     <string name="ai_action_details">Detalhes</string>
     <string name="ai_blocked_toast">%1$s bloqueado</string>
     <string name="ai_thinking">Pensando…</string>
+    <!-- ===== Ask AI · call surfaces ===== -->
+    <string name="ai_verdict_nuisance">Provável spam — tocou %1$d vezes, nunca atendida</string>
+    <string name="ai_verdict_blocked">Você bloqueou este número</string>
+    <string name="ai_verdict_first_time">Primeira vez que este número liga para você</string>
+    <string name="smart_reply_title">Escolha uma resposta</string>
+    <string name="smart_reply_hint">Abre seu app de mensagens com o texto pronto. Nada é enviado até você tocar em enviar.</string>
+    <string name="ai_draft_call_back">Estou em reunião. Posso ligar em uma hora?</string>
+    <string name="ai_draft_text_instead">Pode me mandar mensagem?</string>
+    <string name="notif_missed_title">Chamada perdida</string>
+    <string name="notif_action_callback">Ligar de volta</string>
+    <string name="notif_action_reply">Responder</string>
+    <string name="notif_channel_missed">Chamadas perdidas</string>
+    <string name="ai_summary_first">Primeira chamada com %1$s.</string>
+    <string name="ai_summary_frequency">Você falou com %1$s %2$d vezes este mês.</string>
+    <string name="ai_summary_longest">Foi sua chamada mais longa até agora.</string>
+    <string name="ai_summary_unanswered">%1$d chamadas anteriores deste número não foram atendidas.</string>
 </resources>

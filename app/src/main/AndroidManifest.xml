@@ -117,6 +117,16 @@
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />
 
+        <!-- Reply picker, opened from the missed-call notification. Translucent
+             and no-history: it does one thing and must not linger in Recents. -->
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".feature.assistant.SmartReplyActivity"
+            android:theme="@style/Theme.SmartReply"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:exported="false" />
+
         <!-- The keypad is the only input on this screen: never let the system
              keyboard open (stateAlwaysHidden) and never resize the dialpad for
              it (adjustNothing). -->

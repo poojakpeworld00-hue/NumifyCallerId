@@ -682,4 +682,20 @@
     <string name="ai_action_details">รายละเอียด</string>
     <string name="ai_blocked_toast">บล็อก %1$s แล้ว</string>
     <string name="ai_thinking">กำลังคิด…</string>
+    <!-- ===== Ask AI · call surfaces ===== -->
+    <string name="ai_verdict_nuisance">น่าจะเป็นสแปม — โทรมา %1$d ครั้ง ไม่เคยรับเลย</string>
+    <string name="ai_verdict_blocked">คุณบล็อกเบอร์นี้แล้ว</string>
+    <string name="ai_verdict_first_time">เบอร์นี้โทรหาคุณเป็นครั้งแรก</string>
+    <string name="smart_reply_title">เลือกคำตอบ</string>
+    <string name="smart_reply_hint">เปิดแอปข้อความพร้อมข้อความที่เตรียมไว้ จะยังไม่ส่งจนกว่าคุณจะกดส่ง</string>
+    <string name="ai_draft_call_back">กำลังประชุมอยู่ โทรกลับในหนึ่งชั่วโมงได้ไหม</string>
+    <string name="ai_draft_text_instead">ส่งข้อความมาแทนได้ไหม</string>
+    <string name="notif_missed_title">สายที่ไม่ได้รับ</string>
+    <string name="notif_action_callback">โทรกลับ</string>
+    <string name="notif_action_reply">ตอบกลับ</string>
+    <string name="notif_channel_missed">สายที่ไม่ได้รับ</string>
+    <string name="ai_summary_first">สายแรกกับ %1$s</string>
+    <string name="ai_summary_frequency">เดือนนี้คุณคุยกับ %1$s ไปแล้ว %2$d ครั้ง</string>
+    <string name="ai_summary_longest">นี่เป็นสายที่ยาวที่สุดของคุณ</string>
+    <string name="ai_summary_unanswered">สายก่อนหน้าจากเบอร์นี้ %1$d สายไม่ได้รับ</string>
 </resources>

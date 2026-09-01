@@ -22,6 +22,7 @@ import com.numify.callerid.monetize.delivery.engagement.background.EngagementSyn
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.repository.BlocklistRepository
 import com.numify.callerid.lookup.common.CallerIdCoordinator
+import com.numify.callerid.lookup.feature.assistant.MissedCallNotifier
 import com.numify.callerid.lookup.feature.incomingcall.IncomingCallActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -119,6 +120,14 @@ class CallStateReceiver : BroadcastReceiver() {
                     wasRinging && wasOffhook -> "INCOMING"   // rang and answered
                     !wasRinging && wasOffhook -> "OUTGOING"  // dialed out
                     else -> "UNKNOWN"
+                }
+
+                // A missed call is the one outcome the user comes back to later,
+                // so it gets its own dismissible notification with a drafted
+                // reply — independent of the callback screen, which only appears
+                // while the device is locked.
+                if (callType == "MISSED" && lastNumber != null) {
+                    MissedCallNotifier.show(context, phoneNumber)
                 }
 
                 handlePostCall(context, phoneNumber, startTime, endTime, callType)

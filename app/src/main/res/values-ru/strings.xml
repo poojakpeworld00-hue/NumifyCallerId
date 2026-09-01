@@ -739,4 +739,20 @@
     <string name="ai_action_details">Подробности</string>
     <string name="ai_blocked_toast">%1$s заблокирован</string>
     <string name="ai_thinking">Думаю…</string>
+    <!-- ===== Ask AI · call surfaces ===== -->
+    <string name="ai_verdict_nuisance">Вероятно спам — звонил %1$d раз, ни разу не принят</string>
+    <string name="ai_verdict_blocked">Вы заблокировали этот номер</string>
+    <string name="ai_verdict_first_time">Этот номер звонит вам впервые</string>
+    <string name="smart_reply_title">Выберите ответ</string>
+    <string name="smart_reply_hint">Откроет приложение сообщений с готовым текстом. Ничего не отправится, пока вы не нажмёте «Отправить».</string>
+    <string name="ai_draft_call_back">Я на встрече. Перезвонить через час?</string>
+    <string name="ai_draft_text_instead">Можете написать вместо звонка?</string>
+    <string name="notif_missed_title">Пропущенный вызов</string>
+    <string name="notif_action_callback">Перезвонить</string>
+    <string name="notif_action_reply">Ответить</string>
+    <string name="notif_channel_missed">Пропущенные вызовы</string>
+    <string name="ai_summary_first">Первый разговор с %1$s.</string>
+    <string name="ai_summary_frequency">Вы говорили с %1$s %2$d раз за месяц.</string>
+    <string name="ai_summary_longest">Это был ваш самый длинный разговор.</string>
+    <string name="ai_summary_unanswered">%1$d предыдущих звонка с этого номера остались без ответа.</string>
 </resources>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Reply picker for a missed call. A scrim with a sheet pinned to the bottom
+    rather than a full screen: it is opened from a notification to do one small
+    thing, and taking over the display for that would be out of proportion.
+    Tapping the scrim dismisses.
+-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/scrimSmartReply"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#99000000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/bg_overlay_sheet"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingTop="@dimen/_14sdp"
+            android:paddingBottom="@dimen/_20sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_ai_sparkle"
+                    app:tint="@color/primary" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:text="@string/smart_reply_title"
+                        android:textColor="@color/on_surface"
+                        android:textSize="@dimen/_13ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textSmartReplySubtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_1sdp"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="@dimen/_9ssp"
+                        tools:text="+91 98200 41255" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/buttonSmartReplyClose"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/action_close"
+                    android:padding="@dimen/_7sdp"
+                    android:src="@drawable/ic_close"
+                    app:tint="@color/on_surface_variant" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listSmartReplies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:overScrollMode="never"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_ai_suggestion" />
+
+            <!-- Says plainly that nothing is sent from here. The app holds no SMS
+                 permission and this is where a user would assume otherwise. -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="@string/smart_reply_hint"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_8ssp" />
+        </LinearLayout>
+    </FrameLayout>
+</layout>

@@ -687,4 +687,20 @@
     <string name="ai_action_details">Ayrıntılar</string>
     <string name="ai_blocked_toast">%1$s engellendi</string>
     <string name="ai_thinking">Düşünüyorum…</string>
+    <!-- ===== Ask AI · call surfaces ===== -->
+    <string name="ai_verdict_nuisance">Muhtemelen spam — %1$d kez çaldı, hiç yanıtlanmadı</string>
+    <string name="ai_verdict_blocked">Bu numarayı engellediniz</string>
+    <string name="ai_verdict_first_time">Bu numara sizi ilk kez arıyor</string>
+    <string name="smart_reply_title">Bir yanıt seçin</string>
+    <string name="smart_reply_hint">Mesaj uygulamanızı metin hazır halde açar. Siz gönder\'e basana kadar hiçbir şey gönderilmez.</string>
+    <string name="ai_draft_call_back">Toplantıdayım. Bir saat sonra arayayım mı?</string>
+    <string name="ai_draft_text_instead">Bunun yerine mesaj atabilir misiniz?</string>
+    <string name="notif_missed_title">Cevapsız arama</string>
+    <string name="notif_action_callback">Geri ara</string>
+    <string name="notif_action_reply">Yanıtla</string>
+    <string name="notif_channel_missed">Cevapsız aramalar</string>
+    <string name="ai_summary_first">%1$s ile ilk görüşme.</string>
+    <string name="ai_summary_frequency">Bu ay %1$s ile %2$d kez konuştunuz.</string>
+    <string name="ai_summary_longest">Bu şimdiye kadarki en uzun görüşmenizdi.</string>
+    <string name="ai_summary_unanswered">Bu numaradan gelen %1$d önceki arama yanıtsız kaldı.</string>
 </resources>

@@ -733,4 +733,20 @@
     <string name="ai_action_details">التفاصيل</string>
     <string name="ai_blocked_toast">تم حظر %1$s</string>
     <string name="ai_thinking">جارٍ التفكير…</string>
+    <!-- ===== Ask AI · call surfaces ===== -->
+    <string name="ai_verdict_nuisance">على الأرجح مزعج — رنّ %1$d مرة ولم يُرد أبدًا</string>
+    <string name="ai_verdict_blocked">لقد حظرت هذا الرقم</string>
+    <string name="ai_verdict_first_time">هذه أول مرة يتصل بك فيها هذا الرقم</string>
+    <string name="smart_reply_title">اختر ردًا</string>
+    <string name="smart_reply_hint">يفتح تطبيق الرسائل والنص جاهز. لا يُرسل شيء حتى تضغط إرسال.</string>
+    <string name="ai_draft_call_back">أنا في اجتماع. أعاود الاتصال بعد ساعة؟</string>
+    <string name="ai_draft_text_instead">هل يمكنك مراسلتي بدلًا من ذلك؟</string>
+    <string name="notif_missed_title">مكالمة فائتة</string>
+    <string name="notif_action_callback">معاودة الاتصال</string>
+    <string name="notif_action_reply">رد</string>
+    <string name="notif_channel_missed">المكالمات الفائتة</string>
+    <string name="ai_summary_first">أول مكالمة مع %1$s.</string>
+    <string name="ai_summary_frequency">تحدثت مع %1$s %2$d مرة هذا الشهر.</string>
+    <string name="ai_summary_longest">كانت أطول مكالمة لك حتى الآن.</string>
+    <string name="ai_summary_unanswered">%1$d مكالمات سابقة من هذا الرقم لم يُرد عليها.</string>
 </resources>

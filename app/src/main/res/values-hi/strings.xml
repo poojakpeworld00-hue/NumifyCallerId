@@ -727,4 +727,20 @@
     <string name="ai_action_details">विवरण</string>
     <string name="ai_blocked_toast">%1$s ब्लॉक किया गया</string>
     <string name="ai_thinking">सोच रहा हूँ…</string>
+    <!-- ===== Ask AI · call surfaces ===== -->
+    <string name="ai_verdict_nuisance">शायद स्पैम — %1$d बार घंटी बजी, कभी नहीं उठाई</string>
+    <string name="ai_verdict_blocked">आपने यह नंबर ब्लॉक किया है</string>
+    <string name="ai_verdict_first_time">यह नंबर पहली बार आपको कॉल कर रहा है</string>
+    <string name="smart_reply_title">एक जवाब चुनें</string>
+    <string name="smart_reply_hint">आपका मैसेजिंग ऐप तैयार टेक्स्ट के साथ खुलेगा। जब तक आप भेजें नहीं दबाते, कुछ नहीं भेजा जाता।</string>
+    <string name="ai_draft_call_back">मीटिंग में हूँ। एक घंटे में कॉल करूँ?</string>
+    <string name="ai_draft_text_instead">आप मुझे मैसेज कर सकते हैं?</string>
+    <string name="notif_missed_title">मिस्ड कॉल</string>
+    <string name="notif_action_callback">वापस कॉल करें</string>
+    <string name="notif_action_reply">जवाब दें</string>
+    <string name="notif_channel_missed">मिस्ड कॉल</string>
+    <string name="ai_summary_first">%1$s के साथ पहली कॉल।</string>
+    <string name="ai_summary_frequency">इस महीने आपने %1$s से %2$d बार बात की।</string>
+    <string name="ai_summary_longest">यह अब तक की आपकी सबसे लंबी कॉल थी।</string>
+    <string name="ai_summary_unanswered">इस नंबर की %1$d पिछली कॉल अनुत्तरित रहीं।</string>
 </resources>

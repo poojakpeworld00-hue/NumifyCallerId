@@ -682,4 +682,20 @@
     <string name="ai_action_details">详情</string>
     <string name="ai_blocked_toast">已拉黑 %1$s</string>
     <string name="ai_thinking">思考中…</string>
+    <!-- ===== Ask AI · call surfaces ===== -->
+    <string name="ai_verdict_nuisance">很可能是骚扰电话 — 响了 %1$d 次，从未接听</string>
+    <string name="ai_verdict_blocked">你已拉黑这个号码</string>
+    <string name="ai_verdict_first_time">这个号码第一次打给你</string>
+    <string name="smart_reply_title">选择回复</string>
+    <string name="smart_reply_hint">会打开你的短信应用并填好内容。在你点击发送前不会发出任何消息。</string>
+    <string name="ai_draft_call_back">我在开会，一小时后回你电话可以吗？</string>
+    <string name="ai_draft_text_instead">你可以改发短信给我吗？</string>
+    <string name="notif_missed_title">未接来电</string>
+    <string name="notif_action_callback">回拨</string>
+    <string name="notif_action_reply">回复</string>
+    <string name="notif_channel_missed">未接来电</string>
+    <string name="ai_summary_first">与 %1$s 的第一通电话。</string>
+    <string name="ai_summary_frequency">本月你和 %1$s 通话 %2$d 次。</string>
+    <string name="ai_summary_longest">这是你们迄今最长的一通电话。</string>
+    <string name="ai_summary_unanswered">该号码此前有 %1$d 通电话未被接听。</string>
 </resources>

@@ -32,4 +32,17 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
+    <!--
+        Host for the missed-call reply picker. Translucent like Theme.OverlayGuide
+        but with the system dim OFF: activity_smart_reply paints its own scrim, and
+        the two together read as almost-black.
+    -->
+    <style name="Theme.SmartReply" parent="Theme.CallerIDPhoneLookup">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
 </resources>

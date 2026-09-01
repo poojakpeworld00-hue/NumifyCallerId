@@ -128,6 +128,48 @@
             android:src="@drawable/ic_call" />
     </LinearLayout>
 
+    <!-- Ask AI post-call summary. Built from call-log metadata only: how often,
+         how long, how many went unanswered. There is no transcript, because
+         Android has not let a third-party app capture call audio since API 29.
+         Collapses when there is nothing worth saying. -->
+    <LinearLayout
+        android:id="@+id/cardCallSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@drawable/bg_cta_pill"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/column_1"
+        tools:visibility="visible">
+
+        <ImageView
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_ai_sparkle"
+            app:tint="@color/on_primary_container" />
+
+        <TextView
+            android:id="@+id/textCallSummary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_weight="1"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/_2sdp"
+            android:textColor="@color/on_primary_container"
+            android:textSize="@dimen/_9ssp"
+            tools:text="You have spoken to Rahul 6 times this month. This was your longest call yet." />
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/main_butttion"
         android:layout_width="match_parent"
@@ -138,7 +180,7 @@
         android:paddingVertical="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/column_1">
+        app:layout_constraintTop_toBottomOf="@+id/cardCallSummary">
 
         <LinearLayout
             android:id="@+id/image_recent"

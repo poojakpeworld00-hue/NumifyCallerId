@@ -28,6 +28,15 @@ import com.numify.callerid.lookup.repository.ContactRepository
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import android.view.View
+import androidx.lifecycle.lifecycleScope
+import com.numify.callerid.lookup.repository.CallLogRepository
+import com.numify.callerid.lookup.repository.assistant.AiFeatureConfig
+import com.numify.callerid.lookup.repository.assistant.CallSummary
+import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * The post-call screen, shown after an incoming, outgoing or missed call. It
@@ -91,6 +100,8 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
         val minutes = durationSec / 60
         val seconds = durationSec % 60
         binding.labelDuration.text = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
+
+        bindAiSummary(phone, durationSec.toLong())
 
         // Time — show end time if available
         val timeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
@@ -313,11 +324,78 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
     }
 
     companion object {
+        /** Below this, "you have called twice" is not an insight worth a card. */
+        private const val SUMMARY_MIN_CALLS = 3
+        private const val SUMMARY_MIN_UNANSWERED = 2
+
         /**
          * True while this post-call screen is in the foreground — CallStateReceiver
          * checks it to suppress a duplicate post-call notification (B2).
          */
         @Volatile
         var isActive = false
+    }
+
+    /**
+     * The Ask AI summary card.
+     *
+     * Reads the call log, so it runs off the main thread and fills the card in
+     * when it lands — the post-call screen has to appear immediately and cannot
+     * wait on a content-provider query.
+     *
+     * The card stays hidden unless there is something worth saying: on an
+     * unremarkable second call to a familiar number, silence is the right output.
+     */
+    private fun bindAiSummary(phone: String, durationSec: Long) {
+        if (!AiFeatureConfig.isEnabled(this)) return
+
+        lifecycleScope.launch {
+            val line = withContext(Dispatchers.IO) {
+                runCatching {
+                    val tail = phone.filter(Char::isDigit).takeLast(9)
+                    if (tail.isEmpty()) return@runCatching null
+
+                    val history = CallLogRepository(this@EngagementHubActivity)
+                        .getCalls(limit = 2000)
+                        .filter { it.number.filter(Char::isDigit).takeLast(9) == tail }
+
+                    val now = System.currentTimeMillis()
+                    val facts = CallSummary.facts(
+                        history = history,
+                        durationSec = durationSec,
+                        monthStartMs = now - TimeUnit.DAYS.toMillis(30),
+                        nowMs = now
+                    )
+                    summaryText(facts)
+                }.getOrNull()
+            }
+
+            if (!line.isNullOrBlank()) {
+                binding.textCallSummary.text = line
+                binding.cardCallSummary.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    /**
+     * Turns the facts into a sentence, strongest first, and returns null when
+     * none of them clear the bar for being worth a card.
+     */
+    private fun summaryText(facts: CallSummary.Facts): String? {
+        val name = binding.labelCallerName.text?.toString()?.takeIf { it.isNotBlank() }
+            ?: return null
+
+        val parts = buildList {
+            when {
+                facts.firstEverCall -> add(getString(R.string.ai_summary_first, name))
+                facts.callsThisMonth >= SUMMARY_MIN_CALLS ->
+                    add(getString(R.string.ai_summary_frequency, name, facts.callsThisMonth))
+            }
+            if (facts.longestYet) add(getString(R.string.ai_summary_longest))
+            if (facts.unanswered >= SUMMARY_MIN_UNANSWERED) {
+                add(getString(R.string.ai_summary_unanswered, facts.unanswered))
+            }
+        }
+        return parts.takeIf { it.isNotEmpty() }?.joinToString(" ")
     }
 }
