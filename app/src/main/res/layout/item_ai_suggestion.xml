@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Starter chip on the empty hub. Full width and left-aligned rather than a
+     wrapped pill grid: these are whole questions, and a two-line question in a
+     centred pill reads as a paragraph with a border round it. -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <TextView
+        android:id="@+id/textAiSuggestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_7sdp"
+        android:background="@drawable/bg_ai_suggestion"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="@dimen/_14sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/_10ssp"
+        tools:text="Is +91 88264 51120 spam?" />
+</layout>

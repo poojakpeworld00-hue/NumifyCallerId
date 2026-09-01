@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The user's question, echoed into the transcript on the right rail. -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:gravity="end"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textAiQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ai_bubble_user"
+            android:maxWidth="@dimen/_230sdp"
+            android:paddingHorizontal="@dimen/_13sdp"
+            android:paddingVertical="@dimen/_9sdp"
+            android:textColor="@color/on_primary"
+            android:textSize="@dimen/_10ssp"
+            tools:text="Is +91 88264 51120 spam?" />
+    </LinearLayout>
+</layout>

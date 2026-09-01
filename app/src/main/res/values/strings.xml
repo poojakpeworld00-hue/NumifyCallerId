@@ -725,4 +725,40 @@
         <item quantity="other">%1$d calls</item>
     </plurals>
     <string name="settings_version_fmt" translatable="false">%1$s · v%2$s</string>
+    <!-- ===== Ask AI ===== -->
+    <string name="ai_ask_button">Ask AI</string>
+    <string name="ai_tooltip_first_run">Ask about your calls</string>
+    <string name="ai_hub_headline">What can I help with?</string>
+    <string name="ai_hub_sub">Your calls, contacts and blocklist</string>
+    <string name="ai_input_hint">Ask anything…</string>
+    <string name="ai_send">Send</string>
+    <string name="ai_chip_is_spam">Is %1$s spam?</string>
+    <string name="ai_chip_reply_to">Reply to %1$s</string>
+    <string name="ai_chip_summarise">Summarise my call with %1$s</string>
+    <string name="ai_chip_who_keeps_calling">Who is %1$s and why do they keep calling?</string>
+    <string name="ai_chip_this_week">What happened this week?</string>
+    <string name="ai_follow_top_caller">Who called me most this week?</string>
+    <string name="ai_follow_missed">How many calls did I miss?</string>
+    <string name="ai_follow_blocked_count">How many numbers have I blocked?</string>
+    <string name="ai_follow_who_else">Who else called from this area?</string>
+    <string name="ai_ans_spam_blocked">%1$s is already on your blocklist. It called %2$d times before you blocked it.</string>
+    <string name="ai_ans_spam_unknown">%1$s has never called you, so there is nothing in your history to judge it by.</string>
+    <string name="ai_ans_spam_likely">Probably. It rang %1$d times and not one of those calls was answered.</string>
+    <string name="ai_ans_spam_clear">Nothing suspicious. It called %1$d times and you answered %2$d of them.</string>
+    <string name="ai_ans_no_calls">Your call log is empty for the last week.</string>
+    <string name="ai_ans_top_caller">%1$s — %2$d of your %3$d calls this week.</string>
+    <string name="ai_ans_no_missed">No missed calls this week.</string>
+    <string name="ai_ans_missed">%1$d missed calls this week, %2$d from numbers you have not saved. The most recent was %3$s.</string>
+    <string name="ai_ans_blocklist_empty">Your blocklist is empty.</string>
+    <string name="ai_ans_blocklist">%1$d numbers blocked, %2$d of them this month.</string>
+    <string name="ai_ans_local_only">Right now I can answer questions about your calls, contacts and blocklist. Anything wider needs the assistant service, which is not switched on yet.</string>
+    <string name="ai_ans_not_configured">The assistant service is not reachable. Try again shortly.</string>
+    <string name="ai_draft_missed_reply">Sorry I missed your call — what is this regarding?</string>
+    <string name="ai_action_block">Block</string>
+    <string name="ai_action_report">Report</string>
+    <string name="ai_action_message">Message</string>
+    <string name="ai_action_call">Call</string>
+    <string name="ai_action_details">Details</string>
+    <string name="ai_blocked_toast">%1$s blocked</string>
+    <string name="ai_thinking">Thinking…</string>
 </resources>

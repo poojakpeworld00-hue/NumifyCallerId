@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:id="@+id/aiRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical">
+
+        <!-- Title bar. The gear opens AI settings (screen 9); it is deliberately
+             not the app-wide settings screen. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_10sdp">
+
+            <ImageView
+                android:id="@+id/buttonAiBack"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/action_back"
+                android:padding="@dimen/_7sdp"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/on_surface" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:text="@string/ai_ask_button"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold" />
+
+            <!-- AI settings (screen 9) ships in phase 3. Hidden rather than
+                 inert: a gear that does nothing when tapped is worse than no
+                 gear. Flip to visible when AiSettingsActivity exists. -->
+            <ImageView
+                android:id="@+id/buttonAiSettings"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/nav_settings"
+                android:padding="@dimen/_7sdp"
+                android:src="@drawable/ic_settings"
+                android:visibility="gone"
+                app:tint="@color/on_surface" />
+        </LinearLayout>
+
+        <!-- Empty state. Never an empty chat box: a new user who does not know
+             what to ask leaves, so the hub always opens on ranked starters. -->
+        <LinearLayout
+            android:id="@+id/columnAiEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingTop="@dimen/_28sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_ai_sparkle"
+                app:tint="@color/primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:includeFontPadding="false"
+                android:text="@string/ai_hub_headline"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:text="@string/ai_hub_sub"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_10ssp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listAiSuggestions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:overScrollMode="never"
+                tools:itemCount="4"
+                tools:listitem="@layout/item_ai_suggestion" />
+        </LinearLayout>
+
+        <!-- Transcript. Replaces the empty state on the first question. -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listAiChat"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:visibility="gone"
+            tools:listitem="@layout/item_ai_answer"
+            tools:visibility="visible" />
+
+        <!-- Composer -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:background="@drawable/bg_lookup_field"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_14sdp"
+            android:paddingEnd="@dimen/_6sdp"
+            android:paddingVertical="@dimen/_6sdp">
+
+            <EditText
+                android:id="@+id/inputAiQuestion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/ai_input_hint"
+                android:imeOptions="actionSend"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLines="4"
+                android:textColor="@color/on_surface"
+                android:textColorHint="@color/on_surface_variant"
+                android:textSize="@dimen/_11ssp" />
+
+            <ImageView
+                android:id="@+id/buttonAiSend"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:background="@drawable/bg_circle_primary"
+                android:contentDescription="@string/ai_send"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/ic_arrow_up"
+                app:tint="@color/on_primary" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- First-run tooltip under the Ask AI button. Inverted on purpose: it has to
+     read as a system hint over the page rather than as another card. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/on_surface" />
+    <corners android:radius="@dimen/_10sdp" />
+</shape>

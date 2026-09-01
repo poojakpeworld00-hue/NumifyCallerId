@@ -239,10 +239,22 @@
                 android:textColor="@color/on_surface_variant"
                 android:textSize="@dimen/_9ssp" />
 
+            <!-- Search and Ask AI share a row: asking about a number and
+                 searching for one are the same intent, so they read as a pair.
+                 Deliberately NOT in the header icon cluster next to the gear,
+                 where an entry point this new gets missed. -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_11sdp"
+                android:baselineAligned="false"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/bg_lookup_field"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -342,6 +354,54 @@
                     android:src="@drawable/ic_search"
                     app:tint="@color/on_primary" />
             </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/buttonAskAi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_7sdp"
+                    android:background="@drawable/bg_ai_pill"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:paddingVertical="@dimen/_9sdp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="@dimen/_13sdp"
+                        android:layout_height="@dimen/_13sdp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_ai_sparkle"
+                        app:tint="@color/on_primary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:includeFontPadding="false"
+                        android:text="@string/ai_ask_button"
+                        android:textColor="@color/on_primary"
+                        android:textSize="@dimen/_9ssp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- First-run only, 3s, then never again. Right-aligned so it points
+                 back at the button it is explaining. -->
+            <TextView
+                android:id="@+id/textAskAiTooltip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/bg_ai_tooltip"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:text="@string/ai_tooltip_first_run"
+                android:textColor="@color/background"
+                android:textSize="@dimen/_9ssp"
+                android:visibility="gone" />
         </LinearLayout>
 
         <View

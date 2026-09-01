@@ -130,6 +130,23 @@ class SettingsRepository(context: Context) {
         get() = prefs.getInt(KEY_RATE_US_ARMED_VERSION, -1)
         set(value) = prefs.edit().putInt(KEY_RATE_US_ARMED_VERSION, value).apply()
 
+    /** True once the first-run Ask AI tooltip on Home has had its one showing. */
+    var isAiTooltipShown: Boolean
+        get() = prefs.getBoolean(KEY_AI_TOOLTIP_SHOWN, false)
+        set(value) = prefs.edit().putBoolean(KEY_AI_TOOLTIP_SHOWN, value).apply()
+
+    /**
+     * Assistant questions that reached the model. On-device answers are not
+     * counted, because they cost nothing to serve.
+     *
+     * Advisory only: this drives when the paywall is shown, never whether the
+     * user is entitled. Anything held in SharedPreferences is one edit away from
+     * being reset, so the enforcing count belongs to the backend.
+     */
+    var aiQueryCount: Int
+        get() = prefs.getInt(KEY_AI_QUERY_COUNT, 0)
+        set(value) = prefs.edit().putInt(KEY_AI_QUERY_COUNT, value).apply()
+
     companion object {
         private const val PREFS_NAME = "app_prefs"
         private const val KEY_LANGUAGE_SELECTED = "language_selected"
@@ -152,6 +169,8 @@ class SettingsRepository(context: Context) {
         private const val KEY_INTRO_LAST_MS_PREFIX = "intro_last_shown_ms_"
         private const val KEY_INTRO_SESSION_PREFIX = "intro_last_session_"
         private const val KEY_RATE_US_ARMED_VERSION = "rate_us_armed_version"
+        private const val KEY_AI_TOOLTIP_SHOWN = "ai_tooltip_shown"
+        private const val KEY_AI_QUERY_COUNT = "ai_query_count"
         const val DEFAULT_LANGUAGE = "en"
     }
 }

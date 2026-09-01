@@ -1,0 +1,15 @@
+<!-- Four-point sparkle with a small companion — the Ask AI mark. Tintable
+     (app:tint overrides the base), so one asset serves the accent pill, the
+     dark tooltip and the assistant bubble header. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M10,2.5 l1.65,5.35 L17,9.5 l-5.35,1.65 L10,16.5 l-1.65,-5.35 L3,9.5 l5.35,-1.65 z" />
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M17.5,14 l0.85,2.65 L21,17.5 l-2.65,0.85 L17.5,21 l-0.85,-2.65 L14,17.5 l2.65,-0.85 z" />
+</vector>

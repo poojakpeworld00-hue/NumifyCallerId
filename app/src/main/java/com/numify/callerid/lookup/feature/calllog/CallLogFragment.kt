@@ -27,10 +27,13 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.viewModels
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.numify.callerid.lookup.R
 import com.numify.callerid.monetize.delivery.NativeBannerPresenter
+import com.numify.callerid.lookup.feature.assistant.AiHubActivity
 import com.numify.callerid.lookup.foundation.BaseFragment
+import com.numify.callerid.lookup.repository.assistant.AiFeatureConfig
 import com.numify.callerid.lookup.common.openActivity
 import com.numify.callerid.lookup.databinding.FragmentRecentsBinding
 import com.numify.callerid.lookup.feature.MainShellActivity
@@ -101,6 +104,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
             requireActivity().openActivity<DialerActivity>()
         }
         binding.buttonRecentsFilter.setOnClickListener { showSortMenu(it) }
+        setupAskAi()
         binding.buttonSettings.setOnClickListener {
             requireActivity().openActivity<SettingsActivity>()
         }
@@ -377,6 +381,41 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
      * Once a filter or search is active the rows themselves are the subject, so it
      * counts them instead and the header describes what is actually in view.
      */
+    /**
+     * Ask AI sits beside the search field rather than in the header icon
+     * cluster: asking about a number and searching for one are the same intent.
+     * The whole entry point is gated on Remote Config, so the feature ships dark
+     * and is switched on per audience without a release.
+     */
+    private fun setupAskAi() {
+        val enabled = AiFeatureConfig.isEnabled(requireContext())
+        binding.buttonAskAi.isVisible = enabled
+        if (!enabled) return
+
+        binding.buttonAskAi.setOnClickListener {
+            startActivity(AiHubActivity.newIntent(requireContext()))
+        }
+        maybeShowAskAiTooltip()
+    }
+
+    /**
+     * One showing, three seconds, then never again — the same once-only ledger
+     * pattern the search hint and the screening coach-mark already use.
+     *
+     * The hide is posted against the view, so a user who leaves within those
+     * three seconds does not come back to a tooltip pinned open.
+     */
+    private fun maybeShowAskAiTooltip() {
+        val settings = SettingsRepository(requireContext())
+        if (settings.isAiTooltipShown) return
+        if (!AiFeatureConfig.showHomeTooltip(requireContext())) return
+
+        settings.isAiTooltipShown = true
+        val tooltip = binding.textAskAiTooltip
+        tooltip.isVisible = true
+        tooltip.postDelayed({ tooltip.isVisible = false }, ASK_AI_TOOLTIP_MS)
+    }
+
     private fun showCounts(rows: List<HistoryRowUi>) {
         val filtering = (viewModel.filter.value ?: CallLogFilter.ALL) != CallLogFilter.ALL ||
             binding.inputSearch.text?.isNotBlank() == true
@@ -480,5 +519,10 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
 
     private fun openDetail(entry: com.numify.callerid.lookup.repository.CallRecord) {
         requireActivity().openActivity(CallDetailsActivity.newIntent(requireContext(), entry.number, entry.name))
+    }
+
+    private companion object {
+        /** Long enough to read seven words, short enough not to be in the way. */
+        const val ASK_AI_TOOLTIP_MS = 3_000L
     }
 }

@@ -109,6 +109,14 @@
             android:name=".feature.finder.SearchHistoryActivity"
             android:exported="false" />
 
+        <!-- Ask AI. adjustResize so the composer rides above the keyboard;
+             the transcript is a scrolling list and shrinks to suit. -->
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".feature.assistant.AiHubActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
+
         <!-- The keypad is the only input on this screen: never let the system
              keyboard open (stateAlwaysHidden) and never resize the dialpad for
              it (adjustNothing). -->
