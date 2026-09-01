@@ -184,7 +184,7 @@
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/_20sdp">
 
-                <com.numify.callerid.numberlookup.screen.shared.RippleIconView
+                <com.numify.callerid.lookup.feature.widgets.RippleIconView
                     android:id="@+id/emptyIconVw"
                     android:layout_width="@dimen/_74sdp"
                     android:layout_height="@dimen/_74sdp"

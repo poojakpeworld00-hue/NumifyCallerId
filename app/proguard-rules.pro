@@ -34,15 +34,15 @@
 -keepclassmembers class * { native <methods>; }
 
 # View/Data binding generated classes.
--keep class com.numify.callerid.numberlookup.databinding.** { *; }
+-keep class com.numify.callerid.lookup.databinding.** { *; }
 
 # -------------------------------------------------------------
 # App models — serialized by Gson (Retrofit) & parsed from
 # Firebase Remote Config JSON. Field names must survive.
 # -------------------------------------------------------------
--keep class com.numify.callerid.numberlookup.schema.** { *; }
--keep class com.numify.callerid.adkit.contract.** { *; }
--keepclassmembers class com.numify.callerid.numberlookup.schema.** { *; }
+-keep class com.numify.callerid.lookup.entity.** { *; }
+-keep class com.numify.callerid.monetize.model.** { *; }
+-keepclassmembers class com.numify.callerid.lookup.entity.** { *; }
 
 # -------------------------------------------------------------
 # Kotlin
@@ -109,7 +109,7 @@
 # Firebase + Gson keeps below cover its FCM + JSON needs. (Replaced OneSignal.)
 # Ad module — AdAwareActivity is an open base (subclassed) that drives Remote
 # Config init/ad loading; keep it and its members intact.
--keep class com.numify.callerid.adkit.runtime.AdAwareActivity { *; }
+-keep class com.numify.callerid.monetize.delivery.AdAwareActivity { *; }
 
 # -------------------------------------------------------------
 # Firebase / Crashlytics / Remote Config
@@ -171,7 +171,7 @@
 
 # -------------------------------------------------------------
 # Permission Engine + Full-Screen-Intent (FSI) flow
-# (com.numify.callerid.numberlookup.access.**)
+# (com.numify.callerid.lookup.permission.**)
 #
 # Most of this package needs NO rules:
 #  • LockScreenAlertActivity / LockScreenWatchService are declared in the manifest, so
@@ -187,9 +187,9 @@
 # process death. Keep their no-arg constructors so that path can never
 # NoSuchMethod-crash under R8 full mode.
 # -------------------------------------------------------------
--keepclassmembers class com.numify.callerid.numberlookup.access.PermissionLauncher {
+-keepclassmembers class com.numify.callerid.lookup.permission.PermissionLauncher {
     <init>();
 }
--keepclassmembers class com.numify.callerid.numberlookup.access.PermissionSheetDialog {
+-keepclassmembers class com.numify.callerid.lookup.permission.PermissionSheetDialog {
     <init>();
 }

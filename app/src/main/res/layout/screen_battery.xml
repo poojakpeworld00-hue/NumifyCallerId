@@ -86,7 +86,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/_6sdp">
 
-                    <com.numify.callerid.numberlookup.screen.utility.BatteryGaugeView
+                    <com.numify.callerid.lookup.feature.tools.BatteryGaugeView
                         android:id="@+id/cellVw"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

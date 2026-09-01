@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         tools:context=".screen.MainShellActivity">
 
-        <com.numify.callerid.numberlookup.screen.shared.SwipeNavigationLayout
+        <com.numify.callerid.lookup.feature.widgets.SwipeNavigationLayout
             android:id="@+id/fragContainer"
             android:layout_width="0dp"
             android:layout_height="0dp"

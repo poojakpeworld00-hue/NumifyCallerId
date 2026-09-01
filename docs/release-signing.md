@@ -5,7 +5,7 @@ the life of the app. This document covers generating that key, wiring it into
 the build, and the CI path.
 
 > **The keystore is unrecoverable.** If you lose `numify-release.jks` or its
-> passwords, you can never publish an update to `com.numify.callerid.numberlookup`
+> passwords, you can never publish an update to `com.numify.callerid.lookup`
 > again — you'd have to ship a new listing under a new package name and lose every
 > install and review. Back it up somewhere off this machine before you ship.
 > (Play App Signing, §5, softens this — enrol.)
@@ -66,7 +66,7 @@ wants. For a signed APK to sideload or hand to a tester, use
 `./gradlew :app:assembleRelease` (`app/build/outputs/apk/release/`).
 
 Both are named via the `base { archivesName }` block, e.g.
-`Numify_com.numify.callerid.numberlookup_v1.0.0(1)_Aug.12.2026`.
+`Numify_com.numify.callerid.lookup_v1.0.0(1)_Aug.12.2026`.
 
 ### Verify the signature
 

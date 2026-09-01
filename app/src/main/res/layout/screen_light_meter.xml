@@ -96,7 +96,7 @@
                     android:layout_height="@dimen/_180sdp"
                     android:layout_marginTop="@dimen/_4sdp">
 
-                    <com.numify.callerid.numberlookup.screen.utility.RadiantBurstView
+                    <com.numify.callerid.lookup.feature.tools.RadiantBurstView
                         android:id="@+id/burstVw"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

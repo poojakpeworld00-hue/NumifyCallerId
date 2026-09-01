@@ -110,7 +110,7 @@
                     android:layout_height="@dimen/_210sdp"
                     android:layout_marginTop="@dimen/_8sdp">
 
-                    <com.numify.callerid.numberlookup.screen.utility.TimerArcView
+                    <com.numify.callerid.lookup.feature.tools.TimerArcView
                         android:id="@+id/ringVw"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

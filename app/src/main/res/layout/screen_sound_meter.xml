@@ -75,7 +75,7 @@
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/_16sdp">
 
-                <com.numify.callerid.numberlookup.screen.utility.NoiseGaugeView
+                <com.numify.callerid.lookup.feature.tools.NoiseGaugeView
                     android:id="@+id/gaugeVw"
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingVertical="@dimen/_12sdp">
 
-                    <com.numify.callerid.numberlookup.screen.utility.AudioWaveView
+                    <com.numify.callerid.lookup.feature.tools.AudioWaveView
                         android:id="@+id/spectrumVw"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_62sdp" />

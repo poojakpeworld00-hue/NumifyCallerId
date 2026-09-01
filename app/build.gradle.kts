@@ -55,7 +55,7 @@ fun xorByteArrayLiteral(value: String, key: Int = 0x5A): String {
 }
 
 android {
-    namespace = "com.numify.callerid.numberlookup"
+    namespace = "com.numify.callerid.lookup"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
