@@ -6,23 +6,23 @@ import android.view.ViewTreeObserver
 import androidx.core.view.isVisible
 
 /**
- * Keeps the 1dp hairline that sits above an ad slot in step with that slot.
+ * Keeps the 1dp hairline above an ad slot in step with the slot itself.
  *
- * The line exists only to separate app content from an advert, so it must not
- * survive the advert. Every "no ad" path in the ad module ends the same way —
- * `removeAllViews()` on the container plus GONE — which means one check covers
- * all of them:
+ * The line exists purely to separate app content from an advert, so it must not
+ * outlive the advert. Every "no ad" path in the ad module finishes identically -
+ * `removeAllViews()` on the container plus GONE - so a single check covers all
+ * of them:
  *
- *  - ads switched off globally in Remote Config (`IsAdsON`)
- *  - the screen's `ScreenAds` entry carrying `show: false`
+ *  - ads disabled globally via Remote Config (`IsAdsON`)
+ *  - a `ScreenAds` entry for the screen carrying `show: false`
  *  - the `NativeCounter` skip
- *  - a banner failing with the native-banner fallback also failing
+ *  - a banner failure whose native-banner fallback also fails
  *
- * Because the last case resolves asynchronously, this watches layout passes
- * rather than sampling once: the divider turns on when the container starts
- * occupying space (shimmer or a real ad) and back off the moment it collapses.
+ * That last case settles asynchronously, so this observes layout passes instead
+ * of sampling once: the divider appears as the container starts taking up space,
+ * whether shimmer or a real ad, and disappears the instant it collapses again.
  *
- * Call once, right after kicking off the ad load:
+ * Call it once, immediately after starting the ad load:
  * ```
  * binding.adNativeDivider.followAdContainer(binding.adNativeFrame)
  * ```

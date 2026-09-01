@@ -218,19 +218,20 @@ object OnboardingStepConfig {
     private const val DAY_MS = 24L * 60L * 60L * 1000L
 
     /**
-     * True when [key] should show right now. `fsi_permission` defers entirely to
-     * [LockScreenPermission.shouldShowScreen] (its own grant-state + ledger are more
-     * specific than the generic gate below).
+     * Whether [key] is due to show right now. `fsi_permission` hands off entirely
+     * to [LockScreenPermission.shouldShowScreen], whose grant state and ledger are
+     * more specific than the generic gate below.
      *
-     * **Missing-config behaviour differs by key, on purpose.** A `screen_order`
-     * screen with no `screen.<key>` entry stays hidden — `screen_order` is the
-     * source of truth, and showing an unconfigured screen is worse than skipping
-     * it. `permission_sheet` is the opposite: it isn't in `screen_order`, it's
-     * core Home behaviour, and the old `IntroGateConfig.permissionSheet()`
-     * defaulted it to `enabled=true` + `ALWAYS`. Failing closed here silently
-     * killed the sheet whenever `screen.permission_sheet` was absent — including
-     * on every first launch, since Remote Config lands asynchronously and there
-     * are no local RC defaults. It fails open instead, matching the old default.
+     * **Behaviour when config is missing differs by key, deliberately.** A
+     * `screen_order` screen with no matching `screen.<key>` entry stays hidden:
+     * `screen_order` is the source of truth, and showing an unconfigured screen is
+     * worse than skipping it. `permission_sheet` is the reverse case - it is not
+     * part of `screen_order`, it is core Home behaviour, and the old
+     * `IntroGateConfig.permissionSheet()` defaulted it to `enabled=true` plus
+     * `ALWAYS`. Failing closed here quietly killed the sheet whenever
+     * `screen.permission_sheet` was absent, which included every first launch,
+     * since Remote Config lands asynchronously and there are no local RC defaults.
+     * So it fails open, matching that old default.
      */
     fun isEligible(context: Context, key: String): Boolean {
         if (key == FSI_PERMISSION_KEY) return LockScreenPermission.shouldShowScreen(context)

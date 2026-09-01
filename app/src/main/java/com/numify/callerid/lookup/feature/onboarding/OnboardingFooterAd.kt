@@ -10,19 +10,20 @@ import com.numify.callerid.lookup.common.followAdContainer
 import com.facebook.shimmer.ShimmerFrameLayout
 
 /**
- * Renders the footer ad on an onboarding-flow screen (language / onboarding /
- * fsi_permission) from that screen's `isBottomAds` + `isBottomAdsType`.
+ * Draws the footer ad on an onboarding-flow screen - language, onboarding or
+ * fsi_permission - from that screen's own `isBottomAds` and `isBottomAdsType`.
  *
- * These two fields were in the Remote Config schema from the start but nothing
- * read them — each screen hard-coded its own renderer (`displayLargeNative` on
- * Language, `displayMediumNativeAlt` on Onboarding, `displayMediumNative` on FSI), so
- * the format could not be changed without shipping a build, and the ad could not
- * be switched off at all.
+ * Both fields were in the Remote Config schema from the beginning yet nothing
+ * consumed them: every screen hardcoded its renderer instead (`displayLargeNative`
+ * on Language, `displayMediumNativeAlt` on Onboarding, `displayMediumNative` on
+ * FSI), so the format could not change without a new build and the ad could not
+ * be turned off at all.
  *
- * Ad **colours** are not handled here: they come from the per-audience
- * `NativeTheme` block, which `AdAwareActivity.applyNativeTheme()` already resolves
- * into `NativebtnColor` / `NativeBgColor` / … before any of these renderers run.
- * That is what lets organic and paid ship different palettes off the same code.
+ * Ad **colours** are out of scope here. They arrive from the per-audience
+ * `NativeTheme` block, which `AdAwareActivity.applyNativeTheme()` has already
+ * resolved into `NativebtnColor`, `NativeBgColor` and friends before any of these
+ * renderers run - which is how organic and paid ship different palettes from one
+ * code path.
  */
 object OnboardingFooterAd {
 

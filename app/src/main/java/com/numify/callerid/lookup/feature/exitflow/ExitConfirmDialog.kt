@@ -17,19 +17,20 @@ import com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig
 import com.facebook.shimmer.ShimmerFrameLayout
 
 /**
- * The custom exit confirmation dialog, replacing the plain
- * `MaterialAlertDialogBuilder` that MainShellActivity used to build inline.
+ * The custom exit confirmation dialog, which took over from the plain
+ * `MaterialAlertDialogBuilder` that MainShellActivity once assembled inline.
  *
- * Two things the old one couldn't do:
- *  - **Ads.** `exit.dialog.isNativeAdShow` / `isBottomAdsType` were in the
- *    Remote Config schema but nothing parsed or rendered them, so a config
- *    asking for a MediumNative in the exit dialog silently got a plain dialog.
- *  - **Localisation.** Copy fell back to English whenever Remote Config carried
- *    a value — which it always does. Now RC text is used when present and the
- *    translated string resource otherwise, per field, so a blank RC field falls
- *    back in the user's own language instead of dropping to English.
+ * It does two things the old one could not:
+ *  - **Ads.** `exit.dialog.isNativeAdShow` and `isBottomAdsType` existed in the
+ *    Remote Config schema but nothing read or rendered them, so a config asking
+ *    for a MediumNative in the exit dialog quietly produced a plain dialog.
+ *  - **Localisation.** Copy dropped to English whenever Remote Config supplied a
+ *    value, which it always does. Now RC text wins where present and the
+ *    translated string resource fills in otherwise, field by field, so an empty
+ *    RC field falls back in the user's own language rather than to English.
  *
- * One live dialog at a time, same as [com.numify.callerid.lookup.permission.lockscreen.LockScreenPrimingDialog].
+ * Only one dialog is live at a time, matching
+ * [com.numify.callerid.lookup.permission.lockscreen.LockScreenPrimingDialog].
  */
 object ExitConfirmDialog {
 

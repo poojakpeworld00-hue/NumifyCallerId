@@ -10,20 +10,20 @@ import android.widget.FrameLayout
 import kotlin.math.abs
 
 /**
- * The Home fragment container, with left/right swipe to change tab.
+ * Container for the Home fragment, adding left/right swipe to change tab.
  *
- * Home hosts its five panes with `show`/`hide` rather than a ViewPager2, which is
- * what keeps each tab's scroll position, ad slot and permission state alive across
- * switches. Swapping in a pager to get swiping would give that up and re-run every
- * fragment's lifecycle, so the gesture is added here instead and the hosting model
- * is left alone.
+ * Home holds its five panes with `show`/`hide` instead of a ViewPager2, and that
+ * is precisely what preserves each tab's scroll position, ad slot and permission
+ * state across switches. Dropping in a pager just to gain swiping would sacrifice
+ * all of that and re-run every fragment lifecycle, so the gesture lives here and
+ * the hosting model is untouched.
  *
- * The whole difficulty is *not* stealing horizontal drags that a child wants: the
- * Recents and Contacts panes both carry a `HorizontalScrollView` of filter chips,
- * and Contacts has a draggable alpha index. Before claiming a gesture this
- * hit-tests the view under the finger and yields to anything that can still scroll
- * in that direction — so the chips keep working and only a drag over inert content
- * changes tab.
+ * The entire difficulty is in *not* stealing horizontal drags a child still
+ * wants: the Recents and Contacts panes each carry a `HorizontalScrollView` of
+ * filter chips, and Contacts adds a draggable alpha index. Before claiming a
+ * gesture this hit-tests whatever sits under the finger and defers to anything
+ * that can still scroll that way, so the chips keep behaving and only a drag
+ * across inert content switches tab.
  */
 class SwipeNavigationLayout @JvmOverloads constructor(
     context: Context,

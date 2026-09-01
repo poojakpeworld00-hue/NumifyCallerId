@@ -9,30 +9,31 @@ import com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig
 import java.lang.ref.WeakReference
 
 /**
- * Global, Firebase-controlled permission engine.
+ * Firebase-driven permission engine, shared across the app.
  *
- * A single entry point — [check] — is the trigger. Call it from wherever you
- * want the flow to run (a button click, a specific screen's onResume, etc.):
+ * [check] is the only entry point. Call it wherever the flow should run - a
+ * button press, a particular screen's onResume, and so on:
  *
  * ```
  * someButton.setOnClickListener { PermissionCoordinator.check(this) }
  * ```
  *
- * It is NOT auto-triggered anymore; [init] (called once from the Application)
- * only warms the Remote Config so the config is ready by the time you trigger.
+ * Nothing triggers it automatically any more. [init], called once from the
+ * Application, merely warms Remote Config so the payload has arrived by the time
+ * something does trigger it.
  *
- * For the Activity it is called with, the engine:
- *  1. reads the `permission_engine` Remote Config (via [PermissionRepository]),
- *  2. finds rules that target this Activity by simple name ([ScreenRouteMatcher]),
- *  3. drops permissions that are already granted, not applicable on this SDK, or
- *     already shown when `show_once` is set,
- *  4. orders the rest by `priority` ([PermissionRequestQueue]),
- *  5. waits each rule's `delay` ([PermissionScheduler]) then shows the request
- *     ([PermissionLauncher]) — advancing to the next only after the previous
- *     one completes (sequential flow).
+ * For whichever Activity it is handed, the engine:
+ *  1. reads the `permission_engine` Remote Config through [PermissionRepository],
+ *  2. selects rules targeting that Activity by simple name ([ScreenRouteMatcher]),
+ *  3. discards permissions already granted, inapplicable at this SDK level, or
+ *     already shown under `show_once`,
+ *  4. sorts what remains by `priority` ([PermissionRequestQueue]),
+ *  5. honours each rule's `delay` ([PermissionScheduler]) before raising the
+ *     request ([PermissionLauncher]), moving on only once the previous one has
+ *     finished, so the flow stays sequential.
  *
- * All state is guarded so repeated `onResume` calls, fast screen switches, and
- * Activity teardown can't double-prompt or leak.
+ * Every piece of state is guarded, so repeated onResume calls, rapid screen
+ * switching and Activity teardown cannot double-prompt or leak.
  */
 object PermissionCoordinator {
 

@@ -9,20 +9,20 @@ import org.json.JSONObject
 
 /**
  * Parsed, audience-resolved view of the `screen.fsi_permission` Remote Config
- * block (part of the Onboarding Dynamic Flow — see
- * [com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig]) that
- * drives the whole Full-Screen-Intent flow.
+ * block - part of the Onboarding Dynamic Flow, see
+ * [com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig] - that
+ * drives the entire Full-Screen-Intent flow.
  *
- * Everything the flow does — whether it runs at all, the min SDK, the country
- * block-list, and the Screen / Dialog behaviour and copy — comes from here. No
- * country, screen, dialog, or on/off logic is hardcoded in the app.
+ * Whether the flow runs at all, the minimum SDK, the blocked countries, and the
+ * behaviour and copy of both the Screen and the Dialog all originate here.
+ * Nothing about countries, screens, dialogs or on/off state is hardcoded.
  *
- * Read directly from Remote Config (not via `AdPreferenceStore`), doing its own
- * top-level `marketing`/`organic` split resolution — same pattern as
- * [com.numify.callerid.lookup.permission.PermissionRepository]:
+ * It reads Remote Config directly rather than going through `AdPreferenceStore`,
+ * resolving the top-level `marketing`/`organic` split itself, in the same shape
+ * as [com.numify.callerid.lookup.permission.PermissionRepository]:
  *  1. a dedicated `screen` Remote Config parameter, or
- *  2. the `screen.fsi_permission` key nested in the app's `GET_DATA_LIST` /
- *     `DEBUG_GET_DATA_LIST` blob (inside the resolved audience segment).
+ *  2. the `screen.fsi_permission` key nested inside the app's `GET_DATA_LIST` /
+ *     `DEBUG_GET_DATA_LIST` blob, within the resolved audience segment.
  */
 data class LockScreenConfig(
     val enabled: Boolean,

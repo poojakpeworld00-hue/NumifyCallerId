@@ -9,20 +9,22 @@ import android.os.Looper
 import com.numify.callerid.lookup.common.WindowInsetsHelper
 
 /**
- * Auto-return watcher for the FSI grant round-trip. While the user sits on the
- * system "Manage full-screen intents" page it polls every [POLL_MS]; the instant
- * the toggle flips ON it broadcasts [LockScreenPermission.ACTION_FSI_GRANTED] so
- * [LockScreenReturnWatcher] can do an in-task REORDER_TO_FRONT, then stops.
+ * Auto-return watcher for the FSI grant round-trip. It polls every [POLL_MS]
+ * while the user is on the system "Manage full-screen intents" page, and the
+ * moment the toggle turns ON it broadcasts
+ * [LockScreenPermission.ACTION_FSI_GRANTED] so [LockScreenReturnWatcher] can
+ * perform an in-task REORDER_TO_FRONT, then shuts itself down.
  *
- * NOTE: the primary, reliable auto-return for the after-Language screen is the
- * in-activity grant poll inside [LockScreenAlertActivity] (a plain in-task
- * `startActivity` — no notification, no background-activity-start needed, because
- * the Settings page is opened in-task so the app keeps a foreground task). This
- * service + broadcast is only a secondary path for hosts that stay resident (e.g.
- * the MainShellActivity dialog); on Android 12+/16 a background Service often cannot be
- * started on the way to Settings, so it is best-effort and never shows any UI.
+ * NOTE: the dependable auto-return after the Language screen is not this - it is
+ * the in-activity grant poll inside [LockScreenAlertActivity], a plain in-task
+ * `startActivity` that needs no notification and no background-activity-start,
+ * because opening the Settings page in-task keeps the app holding a foreground
+ * task. This service and its broadcast are only a secondary path for hosts that
+ * stay resident, such as the MainShellActivity dialog. On Android 12+/16 a
+ * background Service frequently cannot be started on the way to Settings, so it
+ * is best-effort and never puts anything on screen.
  *
- * Registered in the manifest as `.permission.fsi.LockScreenWatchService`.
+ * Declared in the manifest as `.permission.lockscreen.LockScreenWatchService`.
  */
 class LockScreenWatchService : Service() {
 

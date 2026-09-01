@@ -32,19 +32,19 @@ import com.numify.callerid.lookup.feature.overlay.OverlayPermissionUtils
 import com.numify.callerid.lookup.common.WindowInsetsHelper
 
 /**
- * Bottom-sheet replacement for MainShellActivity's old sequential first-run
- * permission chain. Lists every permission the app wants (notification,
- * phone state, call log, contacts, overlay) with a live grant status, lets the
- * user grant them individually, and offers a single **Continue** button that
- * requests everything still missing and then closes.
+ * Bottom sheet that replaced MainShellActivity's old sequential first-run
+ * permission chain. It shows every permission the app wants - notification,
+ * phone state, call log, contacts, overlay - each with a live grant status,
+ * allows them to be granted one at a time, and offers a single **Continue**
+ * button that requests whatever is still missing and then dismisses.
  *
- * Self-contained: it owns its own result launchers, so MainShellActivity only has to
- * `show()` it. Runtime permissions go through the OS dialog; the overlay
- * ("display over other apps") permission opens system Settings via
- * [OverlayPermissionUtils]. `phone_state` and `overlay` are listed unconditionally: they
- * are what the caller-ID card needs (the PHONE_STATE broadcast is only delivered
- * to holders of READ_PHONE_STATE), so they must not follow `HD_VBC_Show` — that
- * flag only gates the post-call Callback screen.
+ * It is self-contained, owning its own result launchers, so MainShellActivity
+ * need only call `show()`. Runtime permissions go through the OS dialog, while
+ * the overlay ("display over other apps") permission opens system Settings via
+ * [OverlayPermissionUtils]. `phone_state` and `overlay` are always listed: they
+ * are what the caller-ID card depends on, since the PHONE_STATE broadcast only
+ * reaches holders of READ_PHONE_STATE, so neither may follow `HD_VBC_Show` -
+ * that flag governs the post-call Callback screen and nothing else.
  */
 class PermissionSheetDialog : BottomSheetDialogFragment() {
 

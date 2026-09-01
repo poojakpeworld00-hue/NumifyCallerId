@@ -365,37 +365,7 @@ class ExitInterstitialAd {
 //        }
 //    }
 
-    /*private fun getSession(context: Context): CustomTabsSession? {
-        var tabSession: CustomTabsSession? = null
-        CustomTabsClient.bindCustomTabsService(
-            context, "com.android.chrome",
-            object : CustomTabsServiceConnection() {
-                override fun onServiceDisconnected(name: android.content.ComponentName?) {}
-                override fun onCustomTabsServiceConnected(
-                    name: ComponentName,
-                    client: CustomTabsClient
-                ) {
-                    tabSession = client?.newSession(object : CustomTabsCallback() {
-                        override fun onNavigationEvent(
-                            navigationEvent: Int,
-                            extras: android.os.Bundle?
-                        ) {
-                            if (navigationEvent == CustomTabsCallback.NAVIGATION_ABORTED ||
-                                navigationEvent == CustomTabsCallback.TAB_HIDDEN
-                            ) {
-                                if (isOpened) {
-                                    isOpened = false
-                                    onTabClosed?.invoke()
-                                }
-                            }
-                        }
-                    })
-                }
-            }
-        )
-        return tabSession
-    }
-*/
+    
     private fun Context.safeLog(event: String) {
         try {
             this.recordEvent(event)

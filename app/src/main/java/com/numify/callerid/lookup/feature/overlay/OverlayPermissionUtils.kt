@@ -20,25 +20,25 @@ object OverlayPermissionUtils {
         Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(context)
 
     /**
-     * Intent to the system "display over other apps" screen for this app.
+     * Intent onto the system "display over other apps" screen for this app.
      *
-     * **Deliberately NOT `FLAG_ACTIVITY_NO_HISTORY`.** It looks like the right tool
-     * for "don't let this page linger", and it is not, for two reasons:
+     * **`FLAG_ACTIVITY_NO_HISTORY` is omitted on purpose.** It reads like the
+     * obvious way to stop the page lingering, and it is the wrong tool twice over:
      *
-     *  1. The page resolves to a `singleTask` Settings activity, so it opens in
-     *     Settings' OWN task no matter what we pass. NO_HISTORY cannot dispose of
-     *     an activity in another task, so it never fixed the lingering page.
-     *  2. It actively breaks the page. On OEM builds where this action opens the
-     *     full app LIST rather than our app's detail row, tapping any app finishes
-     *     the list, so Back from the detail lands nowhere sensible. Worse, the
-     *     early finish fires our for-result callback, which stops the grant poll —
-     *     so enabling the toggle no longer returns the user to the app.
+     *  1. The action resolves to a `singleTask` Settings activity, so it opens in
+     *     Settings' own task whatever we pass. NO_HISTORY cannot dispose of an
+     *     activity in a different task, so it never removed the lingering page.
+     *  2. It breaks the page outright. On OEM builds where this action lands on
+     *     the full app LIST instead of our own detail row, tapping any entry
+     *     finishes the list, so Back from the detail goes nowhere sensible. Worse,
+     *     that early finish fires our for-result callback and stops the grant
+     *     poll, so flipping the toggle no longer brings the user back.
      *
-     * Lingering is handled instead by `MainShellActivity.exitToHome()`, which
-     * fronts the launcher before finishing our task.
+     * The lingering page is dealt with in `MainShellActivity.exitToHome()`, which
+     * brings the launcher forward before finishing our own task.
      *
-     * Also intentionally **no** `FLAG_ACTIVITY_NEW_TASK` / `CLEAR_TASK`: the page is
-     * launched *for-result*, so it must be started from the caller's task.
+     * `FLAG_ACTIVITY_NEW_TASK` and `CLEAR_TASK` are likewise absent by design: the
+     * page is started for-result, so it has to run in the caller's task.
      */
     fun buildOverlayIntent(packageName: String): Intent =
         Intent(

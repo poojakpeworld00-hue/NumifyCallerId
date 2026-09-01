@@ -5,22 +5,22 @@ import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import org.json.JSONObject
 
 /**
- * Remote-Config view of the callerid.kpeworld.com endpoints — base URL, the
- * account path id, and the two endpoint paths. Parsed from the `api_config`
- * object the same way [com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig]
- * reads `screen`: stored as text in [AdPreferenceStore], read back with `org.json`.
+ * Remote-Config view of the lookup API surface: base URL, the account path id,
+ * and the two endpoint paths. It is parsed out of the `api_config` object exactly
+ * as [com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig] parses
+ * `screen` - held as text in [AdPreferenceStore] and read back with `org.json`.
  *
- * **Every field falls back to the value that used to be hardcoded**, so the app
- * behaves identically when `api_config` is absent, malformed, or simply hasn't
- * been fetched yet (Remote Config lands asynchronously — on a first cold launch
- * these fallbacks are what actually run).
+ * **Each field falls back to whatever used to be hardcoded**, so behaviour is
+ * unchanged when `api_config` is missing, malformed, or simply not fetched yet.
+ * Remote Config arrives asynchronously, so on a first cold launch these fallbacks
+ * are what actually runs.
  *
- * Credentials deliberately live elsewhere. `hash_key` and the bearer token stay
- * in [CredentialProvider] (local.properties → obfuscated BuildConfig) because Remote
- * Config is **publicly readable** — anyone with the values from
- * `google-services.json` can fetch this whole payload over HTTPS without
- * authenticating. URLs and a path id are fine to expose; auth material is not.
- * See docs/credentials.md.
+ * Credentials are kept well away from here. `hash_key` and the bearer token stay
+ * in [CredentialProvider], sourced from local.properties into an obfuscated
+ * BuildConfig, because Remote Config is **publicly readable**: anyone holding the
+ * values in `google-services.json` can pull this entire payload over HTTPS with
+ * no authentication. Exposing URLs and a path id is harmless; exposing auth
+ * material is not. See docs/credentials.md.
  */
 object EndpointConfig {
 

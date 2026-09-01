@@ -12,20 +12,20 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 
 /**
- * Dismisses a caller-ID overlay when the user leaves via Home or Recents.
+ * Tears down a caller-ID overlay when the user leaves via Home or Recents.
  *
- * Android broadcasts ACTION_CLOSE_SYSTEM_DIALOGS (reason "homekey" / "recentapps")
- * when the user presses Home or Recents. This helper listens for that broadcast
- * while the host Activity is resumed and invokes [onCloseRequested] so the overlay
- * window can be torn down cleanly instead of being left stuck on screen.
+ * Android sends ACTION_CLOSE_SYSTEM_DIALOGS, with reason "homekey" or
+ * "recentapps", when either button is pressed. This helper listens for that
+ * broadcast while its host Activity is resumed and calls [onCloseRequested], so
+ * the overlay window is dismissed cleanly rather than being stranded on screen.
  *
- * It is a [DefaultLifecycleObserver]: the Activity registers it once and the helper
- * wires itself to RESUME / STOP / DESTROY automatically.
+ * It is a [DefaultLifecycleObserver]: the Activity registers it once and the
+ * helper hooks itself up to RESUME, STOP and DESTROY on its own.
  *
- * Usage in your CallerIdActivity:
+ * From a caller-ID Activity:
  *
  *     private val systemDialogHelper by lazy {
- *         CallerIdSystemDialogHelper(this) { dismissCallerIdWindow() }
+ *         SystemDialogHelper(this) { dismissCallerIdWindow() }
  *     }
  *
  *     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,9 +34,9 @@ import androidx.lifecycle.LifecycleOwner
  *         // ...
  *     }
  *
- * @param activity         host Activity — used as the receiver Context and for
- *                         isFinishing / isDestroyed guards.
- * @param onCloseRequested called on the main thread when the overlay should close.
+ * @param activity         host Activity, used both as the receiver Context and
+ *                         for the isFinishing / isDestroyed guards.
+ * @param onCloseRequested invoked on the main thread when the overlay should close.
  */
 class SystemDialogHelper(
     private val activity: Activity,
