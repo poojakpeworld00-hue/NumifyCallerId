@@ -109,6 +109,21 @@ class CallLogScanTest {
     }
 
     @Test
+    fun `a number the scanner would flag is never also a save suggestion`() {
+        // Seen on a real device: 6 calls, 1 answered appeared in BOTH tools, so
+        // the app advised blocking and saving the same number at once.
+        val history = calls("+911", 5, CallType.MISSED) + calls("+911", 1, CallType.INCOMING, 5)
+        assertTrue(CallLogScan.unsavedCallers(history, none, none).isEmpty())
+        assertTrue(CallLogScan.spamCandidates(history, none, none, now).isNotEmpty())
+    }
+
+    @Test
+    fun `answering exactly half is enough to suggest saving`() {
+        val history = calls("+911", 3, CallType.INCOMING) + calls("+911", 3, CallType.MISSED, 3)
+        assertEquals(1, CallLogScan.unsavedCallers(history, none, none).size)
+    }
+
+    @Test
     fun `most contacted sorts first`() {
         val history = calls("+911", 4, CallType.INCOMING) + calls("+922", 8, CallType.OUTGOING)
         assertEquals("+922", CallLogScan.unsavedCallers(history, none, none).first().number)

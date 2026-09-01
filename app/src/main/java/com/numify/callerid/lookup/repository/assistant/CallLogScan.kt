@@ -80,9 +80,11 @@ object CallLogScan {
     /**
      * Numbers worth saving as contacts, most-contacted first.
      *
-     * Requires at least one *answered* call. A number that only ever rang and was
-     * never picked up belongs in [spamCandidates], not in a list telling the user
-     * to add it to their address book.
+     * Requires that **at least half** the calls were answered, not merely one.
+     * One answered call out of six is the shape of a nuisance caller you picked
+     * up once by mistake — and with a weaker rule the same number appeared in
+     * both tools at once, so the app told the user to block it and save it in the
+     * same breath. Half is the line that keeps the two lists disjoint.
      */
     fun unsavedCallers(
         history: List<CallRecord>,
@@ -95,7 +97,8 @@ object CallLogScan {
             .filter { (number, _) -> !isKnownContact(number) && !isBlocked(number) }
             .mapNotNull { (number, calls) ->
                 val answered = calls.count { it.type != CallType.MISSED }
-                if (calls.size < UNSAVED_MIN_CALLS || answered == 0) return@mapNotNull null
+                if (calls.size < UNSAVED_MIN_CALLS) return@mapNotNull null
+                if (answered * 2 < calls.size) return@mapNotNull null
                 UnsavedCaller(
                     number = number,
                     calls = calls.size,

@@ -199,62 +199,63 @@
                 android:textSize="@dimen/_10ssp"
                 tools:text="JIO 4G" />
         </LinearLayout>
-    </LinearLayout>
-    <!-- NOTE: nothing in this file may use a `?attr/` theme reference. The card is
-         inflated from CallerOverlayService with LayoutInflater.from(service), and a
-         Service has no theme, so a theme attribute throws InflateException and takes
-         the whole caller-ID overlay down on every incoming call. That is why the
-         Block button below has no `?attr/selectableItemBackground` ripple. -->
 
-    <!-- Ask AI verdict. Shown only when the app has something to say about an
-         unknown number: a line that appears on every call is a line nobody
-         reads. Deliberately a statement plus one action rather than a link into
-         another screen — the phone is ringing, so navigating away is not an
-         option the user has time for. -->
-    <LinearLayout
-        android:id="@+id/rowIncallVerdict"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_9sdp"
-        android:baselineAligned="false"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        tools:visibility="visible">
+        <!-- NOTE: nothing in this file may use a `?attr/` theme reference. The card is
+             inflated from CallerOverlayService with LayoutInflater.from(service), and a
+             Service has no theme, so a theme attribute throws InflateException and takes
+             the whole caller-ID overlay down on every incoming call. That is why the
+             Block button below has no `?attr/selectableItemBackground` ripple. -->
 
-        <ImageView
-            android:id="@+id/imageIncallVerdict"
-            android:layout_width="@dimen/_14sdp"
-            android:layout_height="@dimen/_14sdp"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_ai_sparkle"
-            app:tint="@color/on_surface_variant" />
-
-        <TextView
-            android:id="@+id/textIncallVerdict"
-            android:layout_width="0dp"
+        <!-- Ask AI verdict. Shown only when the app has something to say about an
+             unknown number: a line that appears on every call is a line nobody
+             reads. Deliberately a statement plus one action rather than a link into
+             another screen — the phone is ringing, so navigating away is not an
+             option the user has time for. -->
+        <LinearLayout
+            android:id="@+id/rowIncallVerdict"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_weight="1"
-            android:includeFontPadding="false"
-            android:textColor="@color/on_surface_variant"
-            android:textSize="@dimen/_9ssp"
-            tools:text="Likely spam — rang 4 times, never answered" />
-
-        <TextView
-            android:id="@+id/buttonIncallBlock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:background="@drawable/bg_btn_danger"
-            android:includeFontPadding="false"
-            android:paddingHorizontal="@dimen/_12sdp"
-            android:paddingVertical="@dimen/_6sdp"
-            android:text="@string/ai_action_block"
-            android:textColor="@color/on_primary"
-            android:textSize="@dimen/_9ssp"
-            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:visibility="gone"
-            tools:visibility="visible" />
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/imageIncallVerdict"
+                android:layout_width="@dimen/_14sdp"
+                android:layout_height="@dimen/_14sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_ai_sparkle"
+                app:tint="@color/on_surface_variant" />
+
+            <TextView
+                android:id="@+id/textIncallVerdict"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_9ssp"
+                tools:text="Likely spam — rang 4 times, never answered" />
+
+            <TextView
+                android:id="@+id/buttonIncallBlock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:background="@drawable/bg_btn_danger"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="@dimen/_12sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:text="@string/ai_action_block"
+                android:textColor="@color/on_primary"
+                android:textSize="@dimen/_9ssp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
