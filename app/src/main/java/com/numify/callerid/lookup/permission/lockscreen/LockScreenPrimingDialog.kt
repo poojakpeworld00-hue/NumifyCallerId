@@ -30,10 +30,11 @@ object LockScreenPrimingDialog {
     fun isShowing(): Boolean = current?.isShowing == true
 
     /**
-     * Shows the priming dialog. [onFinished] fires once when it closes, with
-     * `enabled = true` if the user tapped **Enable** (and is being taken to the
-     * system FSI page) or `false` for **Not now** / cancel / outside-tap — so the
-     * host can sequence what comes next (e.g. a follow-up permission sheet).
+     * Shows the priming dialog. [onFinished] runs once as it closes, with
+     * `enabled = true` when the user tapped **Enable** and is on the way to the
+     * system FSI page, or `false` for **Not now**, cancel or an outside tap, so
+     * the host can sequence whatever comes next - a follow-up permission sheet,
+     * typically.
      */
     fun show(
         activity: Activity,

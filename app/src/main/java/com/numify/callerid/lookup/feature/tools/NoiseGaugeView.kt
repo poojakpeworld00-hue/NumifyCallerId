@@ -14,12 +14,12 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 /**
- * Half-dial for the sound meter: a 180° track, the measured arc over it, a
- * needle, and labelled decibel stops.
+ * Half-dial for the sound meter: a 180-degree track, the measured arc drawn over
+ * it, a needle, and labelled decibel stops.
  *
- * The view is a half-circle, so it measures its height as half its width — a
- * square box would leave the bottom half of the canvas empty and push everything
- * below it down by the same amount again.
+ * Being a half-circle, the view measures its height as half its width. A square
+ * box would leave the bottom half of the canvas empty and push everything beneath
+ * it down by that same amount again.
  */
 class NoiseGaugeView @JvmOverloads constructor(
     context: Context,

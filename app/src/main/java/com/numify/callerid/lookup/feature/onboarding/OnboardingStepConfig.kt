@@ -275,10 +275,11 @@ object OnboardingStepConfig {
     const val SPLASH_KEY = "splash"
 
     /**
-     * Not part of `screen_order` — the Home permission bottom sheet's auto-show
-     * frequency gate. Only `isEnable`/`session` (and `isCountryAllowed`, if ever
-     * set) from its `screen.permission_sheet` entry are meaningful; the rest of
-     * [ScreenStep] doesn't apply to a sheet, not a sequenced screen.
+     * Not part of `screen_order`: this is the auto-show frequency gate for Home's
+     * permission bottom sheet. Only `isEnable`, `session` and `isCountryAllowed`,
+     * should it ever be set, carry any meaning from its `screen.permission_sheet`
+     * entry; the rest of [ScreenStep] describes a sequenced screen and does not
+     * apply to a sheet.
      */
     const val PERMISSION_SHEET_KEY = "permission_sheet"
 }

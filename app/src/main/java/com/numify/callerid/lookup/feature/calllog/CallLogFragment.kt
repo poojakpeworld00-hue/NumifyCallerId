@@ -191,10 +191,10 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
     }
 
     /**
-     * Surfaces the "Manage permissions" hint once the MainShellActivity permission
-     * sheet has been dismissed with permissions still pending, and hides it again
-     * as soon as everything is granted. Safe to call any time the fragment is
-     * attached — MainShellActivity owns the actual condition.
+     * Raises the "Manage permissions" hint once the MainShellActivity permission
+     * sheet has been dismissed with permissions still outstanding, and hides it
+     * again as soon as everything is granted. It is safe to call whenever the
+     * fragment is attached, since MainShellActivity owns the actual condition.
      */
     fun refreshPermissionHint() {
         if (view == null) return

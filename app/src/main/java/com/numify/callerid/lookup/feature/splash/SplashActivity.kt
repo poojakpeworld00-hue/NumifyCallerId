@@ -517,10 +517,10 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         handler.removeCallbacksAndMessages(null)
     }
     /**
-     * Picks the next screen in the launch flow: the first eligible entry in the
-     * Remote Config `screen_order` (see [OnboardingStepConfig]) — each screen's
-     * own `isEnable` / `session` / country gate decides whether it actually
-     * shows — or [MainShellActivity] once every entry is exhausted/ineligible.
+     * Chooses the next screen in the launch flow: the first eligible entry in the
+     * Remote Config `screen_order` (see [OnboardingStepConfig]), where each
+     * screen's own `isEnable`, `session` and country gate decide whether it really
+     * appears, or [MainShellActivity] once every entry is spent or ineligible.
      */
     private fun nextScreen(): Class<*> {
         val key = OnboardingStepConfig.firstEligible(this) ?: return MainShellActivity::class.java

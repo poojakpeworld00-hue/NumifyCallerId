@@ -254,10 +254,11 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
     }
 
     /**
-     * Syncs the CallScreening card to the current role state: the switch mirrors
-     * whether the role is held, and — once Caller ID is enabled — the whole card
-     * is hidden (nothing left to manage). It shows only while Caller ID is still
-     * off, and stays hidden where the role isn't available at all.
+     * Brings the CallScreening card in line with the current role state. The
+     * switch reflects whether the role is held, and once Caller ID is enabled the
+     * card disappears entirely, there being nothing left to manage. It is on
+     * screen only while Caller ID is still off, and stays hidden wherever the role
+     * is unavailable.
      */
     private fun refreshCallScreeningCard() {
         if (!CallerIdCoordinator.isRoleAvailable(this)) {

@@ -15,9 +15,11 @@ import com.numify.callerid.lookup.feature.widgets.CallActionHandler
 /**
  * Resolves caller details and renders them into [R.layout.overlay_caller_id].
  *
- * Shared by [com.numify.callerid.lookup.resolver.telephony.CallerOverlayService] (floating window, device unlocked) and
- * IncomingCallActivity (full screen, device locked) so the card looks and reads
- * identically in both states.
+ * It is shared between
+ * [com.numify.callerid.lookup.resolver.telephony.CallerOverlayService], the
+ * floating window used while the device is unlocked, and IncomingCallActivity,
+ * the full screen used while it is locked, so the card looks and reads the same
+ * in both states.
  */
 object CallerLabel {
 

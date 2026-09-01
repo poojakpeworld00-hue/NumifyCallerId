@@ -262,10 +262,10 @@ open class AdAwareActivity : AppCompatActivity() {
     }
 
     /**
-     * Reads every getData key from [root] into AdPreferenceStore (batched). [root] is
-     * either the flat response or one of its `marketing` / `organic` sub-objects
-     * (see [audienceRoot]). Safe to call again (funOnAdsLoad re-applies the correct
-     * audience once the referrer settles OnMaketing).
+     * Reads every getData key out of [root] into AdPreferenceStore as one batch.
+     * [root] is either the flat response or one of its `marketing` / `organic`
+     * sub-objects (see [audienceRoot]). Calling it again is safe, because
+     * funOnAdsLoad re-applies the correct audience once the referrer settles.
      */
     private fun ingestConfig(context: Context, root: JSONObject) {
         val adsPref = AdPreferenceStore.getInstance(context)

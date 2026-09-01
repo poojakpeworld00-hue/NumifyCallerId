@@ -23,9 +23,9 @@ import java.util.Locale
 /**
  * Countdown timer.
  *
- * A duration is chosen from the presets, then run; the dial shows how much of
- * that duration is left. [totalMs] is kept separately from [remainingMs] because
- * the dial needs the original length to know what fraction has elapsed — with
+ * A duration is picked from the presets and then run, with the dial showing how
+ * much of it remains. [totalMs] is held separately from [remainingMs] because the
+ * dial needs the original length to work out what fraction has elapsed; given
  * only the remainder there is nothing to draw the arc against.
  */
 class TimerActivity : BaseActivity<ActivityTimerBinding>() {
