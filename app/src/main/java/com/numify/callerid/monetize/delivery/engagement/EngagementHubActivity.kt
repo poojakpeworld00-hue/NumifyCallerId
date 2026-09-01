@@ -30,15 +30,15 @@ import java.util.Date
 import java.util.Locale
 
 /**
- * Post-call screen shown after an incoming/outgoing/missed call. Hosts three
- * tabs (Message, AlertEntry, WhatsApp) and an ad slot. Extends the project's
- * [BaseActivity] so it picks up the standard DataBinding + locale/theme
- * plumbing.
+ * The post-call screen, shown after an incoming, outgoing or missed call. It
+ * hosts three tabs - Message, AlertEntry and WhatsApp - plus an ad slot, and
+ * extends the project's [BaseActivity] so it inherits the standard DataBinding
+ * and locale/theme plumbing.
  *
- * Note: the consent + Mobile Ads init that used to live here (via the
- * `getData(...)` call inherited from `AdAwareActivity`) is expected to run
- * once during app startup. This screen only triggers ad rendering, not SDK
- * initialization.
+ * Note that the consent and Mobile Ads initialisation which once lived here, by
+ * way of the `getData(...)` call inherited from `AdAwareActivity`, is expected to
+ * run once during app startup. This screen only triggers ad rendering; it does
+ * not initialise the SDK.
  */
 class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
 

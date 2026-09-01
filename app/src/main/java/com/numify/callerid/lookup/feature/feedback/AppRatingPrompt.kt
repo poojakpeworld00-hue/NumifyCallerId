@@ -64,13 +64,14 @@ object AppRatingPrompt {
     }
 
     /**
-     * True when every gate passes. `isEnable` defaults to **false**: an absent or
-     * malformed `rate_us` block must not start prompting on its own.
+     * True when every gate passes. `isEnable` defaults to **false**, so an absent
+     * or malformed `rate_us` block can never start prompting of its own accord.
      *
-     * Every path logs under [TAG] in debug builds. A silent gate is close to
-     * untestable here: Play shows nothing on a sideloaded build even when the
-     * gate passes, so without a line naming the blocker there is no way to tell
-     * "we never asked" from "we asked and Play declined". `adb logcat -s RateUs`.
+     * Every path logs under [TAG] in debug builds. A silent gate would be close to
+     * untestable here: Play displays nothing on a sideloaded build even when the
+     * gate passes, so without a line naming the blocker there is no way to
+     * separate "we never asked" from "we asked and Play declined". Use
+     * `adb logcat -s RateUs`.
      */
     fun shouldPrompt(context: Context): Boolean {
         val cfg = config(context)

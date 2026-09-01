@@ -14,15 +14,15 @@ import androidx.core.content.ContextCompat
 import com.numify.callerid.lookup.R
 
 /**
- * The battery graphic: a rounded cell with a cap, filled from the bottom.
+ * The battery graphic: a rounded cell with a cap, filling from the bottom up.
  *
  * The fill is drawn rather than laid out because it has to be clipped to the
- * cell's rounded corners — a child View with a percentage height would square
- * off against them at the bottom.
+ * cell's rounded corners; a child View with a percentage height would square off
+ * against them along the bottom.
  *
  * While charging, a soft band rides the top of the fill. That band is the only
- * thing on the screen that says "still going up", so it is tied to [charging]
- * rather than run unconditionally.
+ * thing on screen saying "still going up", so it is tied to [charging] instead of
+ * running unconditionally.
  */
 class BatteryGaugeView @JvmOverloads constructor(
     context: Context,

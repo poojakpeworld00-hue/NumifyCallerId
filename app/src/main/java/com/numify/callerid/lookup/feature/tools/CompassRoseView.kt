@@ -13,15 +13,15 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 /**
- * Compass dial: a face with rings and tick marks, N/E/S/W that rotate with the
- * heading, and a fixed two-tone needle.
+ * Compass dial: a face of rings and tick marks, N/E/S/W lettering that turns with
+ * the heading, and a fixed two-tone needle.
  *
- * The ROSE turns and the needle stays put — that is what a real compass does,
- * and it means "north" is wherever the red half points rather than the user
- * having to read a number to know which way they are facing.
+ * The rose rotates while the needle stays put, which is what a real compass does
+ * and means north is simply wherever the red half points - no reading a number to
+ * work out which way you are facing.
  *
- * [setHeading] smooths across the 359°→0° wrap; feeding raw sensor values
- * straight in makes the rose spin the long way round every time the user
+ * [setHeading] smooths across the 359-to-0 wrap. Feeding raw sensor values in
+ * unsmoothed sends the rose spinning the long way round every time the user
  * crosses north.
  */
 class CompassRoseView @JvmOverloads constructor(

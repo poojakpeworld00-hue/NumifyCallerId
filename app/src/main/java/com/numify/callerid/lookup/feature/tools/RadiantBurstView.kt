@@ -15,14 +15,14 @@ import kotlin.math.sin
 /**
  * Light-meter sunburst: a breathing halo with twelve rays around a bright core.
  *
- * The rays pulse on a stagger, so the burst reads as light spilling outward
- * rather than twelve bars blinking together — the design gets that by giving
- * each ray its own animation-delay, which here is a phase offset per index off
- * one animator.
+ * The rays pulse on a stagger so the burst reads as light spilling outwards
+ * instead of twelve bars blinking in unison. The design achieves that by giving
+ * each ray its own animation-delay; here it is a per-index phase offset taken
+ * from one animator.
  *
- * [setIntensity] scales the halo and ray length with the measured reading, so a
- * dark room genuinely looks dimmer than a bright one instead of the same drawing
- * with a different number under it.
+ * [setIntensity] scales both the halo and the ray length with the measured
+ * reading, so a dark room genuinely looks dimmer than a bright one rather than
+ * being the same drawing with a different number underneath it.
  */
 class RadiantBurstView @JvmOverloads constructor(
     context: Context,

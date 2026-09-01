@@ -13,15 +13,15 @@ import android.view.animation.PathInterpolator
 import com.numify.callerid.lookup.R
 
 /**
- * Exact port of the onboarding design's CSS keyframe animations.
+ * A faithful port of the onboarding design's CSS keyframe animations.
  *
- * Each element loops on its own timeline; the animation-timing-function is applied
- * per keyframe segment (as CSS does) by attaching the easing to each [Keyframe] and
- * driving the [ObjectAnimator] linearly. Easing curves mirror the design's
- * cubic-beziers via [PathInterpolator].
+ * Every element loops on its own timeline, and the animation-timing-function is
+ * applied per keyframe segment the way CSS does it: the easing is attached to
+ * each [Keyframe] and the [ObjectAnimator] itself runs linearly. The easing
+ * curves reproduce the design's cubic-beziers through [PathInterpolator].
  *
- * [attach] wires an inflated illustration to its loops by view id and returns the
- * started animators so the caller can cancel them on recycle.
+ * [attach] binds an inflated illustration to its loops by view id and hands back
+ * the started animators, so the caller can cancel them on recycle.
  */
 object IntroAnimations {
 

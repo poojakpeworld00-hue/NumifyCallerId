@@ -14,15 +14,15 @@ import com.numify.callerid.lookup.R
 import java.util.Date
 
 /**
- * On Android 14+ (API 34), starting an Activity from a BroadcastReceiver is
- * blocked by stricter background-activity-launch (BAL) restrictions, even with
- * FLAG_ACTIVITY_NEW_TASK.
+ * From Android 14 (API 34) onwards, launching an Activity out of a
+ * BroadcastReceiver is refused by the tighter background-activity-launch rules,
+ * FLAG_ACTIVITY_NEW_TASK notwithstanding.
  *
- * Workaround: Add an invisible TYPE_APPLICATION_OVERLAY window via
- * WindowManager (requires SYSTEM_ALERT_WINDOW / canDrawOverlays). The overlay
- * counts as a "non-app visible window" which gives the process foreground
- * eligibility. After a short delay the activity is launched and the overlay is
- * immediately removed.
+ * The way around it: add an invisible TYPE_APPLICATION_OVERLAY window through
+ * WindowManager, which needs SYSTEM_ALERT_WINDOW / canDrawOverlays. That overlay
+ * counts as a non-app visible window, and that is what makes the process
+ * foreground-eligible. After a brief delay the Activity is launched and the
+ * overlay is torn straight back down.
  */
 class FloatingWidgetManager(private val context: Context) {
 

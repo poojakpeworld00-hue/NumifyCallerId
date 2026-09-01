@@ -142,14 +142,15 @@ class CallStateReceiver : BroadcastReceiver() {
     }
 
     /**
-     * Best-effort rejection of a blocked call via the hidden ITelephony.endCall()
-     * (reflection — needs no runtime permission).
+     * Best-effort rejection of a blocked call through the hidden
+     * ITelephony.endCall(), reached by reflection and needing no runtime
+     * permission.
      *
-     * This is only the fallback for devices that don't hold the CallScreening role;
-     * the role-based [CallScreeningGateway] is the primary blocker and rejects
-     * calls before they ring. Note Android 9+ (API 28+) restricts this private API,
-     * so it may be a no-op there — which is why granting the CallScreening role is
-     * the reliable path.
+     * It is only the fallback for devices that do not hold the CallScreening role.
+     * The role-based [CallScreeningGateway] is the primary blocker and turns calls
+     * away before they ring. Android 9 (API 28) and later restrict this private
+     * API, so it may do nothing at all there - which is precisely why holding the
+     * CallScreening role is the dependable path.
      */
     @Suppress("DiscouragedPrivateApi", "PrivateApi")
     private fun endCall(context: Context) {

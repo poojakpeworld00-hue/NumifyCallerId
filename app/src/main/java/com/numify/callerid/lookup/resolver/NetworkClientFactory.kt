@@ -11,14 +11,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 object NetworkClientFactory {
 
     /**
-     * API base URL, from the `api_config` Remote Config block with the historical
-     * value as fallback (see [EndpointConfig]).
+     * The API base URL, taken from the `api_config` Remote Config block with the
+     * historical value as its fallback (see [EndpointConfig]).
      *
-     * Read once, when [api] is first touched — Retrofit fixes its base URL at
-     * build time. In practice Remote Config has landed by then (the splash
-     * fetches it before Home), and if it hasn't, the fallback is the URL this
-     * app has always used. A base-URL change therefore applies from the next
-     * cold start, not mid-session.
+     * It is read once, the first time [api] is touched, because Retrofit fixes its
+     * base URL at build time. In practice Remote Config has already landed by
+     * then, since the splash fetches it before Home, and if it has not, the
+     * fallback is the URL this app has always used. A base-URL change therefore
+     * takes effect from the next cold start rather than mid-session.
      */
     val BASE_URL: String get() = EndpointConfig.baseUrl(NumifyApplication.appContext)
 

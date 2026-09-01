@@ -151,13 +151,15 @@ class DialerActivity : BaseActivity<ActivityDialerBinding>() {
     private var hasNamedMatch = false
 
     /**
-     * Keeps "Add to contacts"/backspace visible only with a number, and refreshes
-     * the list so the keypad filters the recents just like the top search field.
+     * Shows "Add to contacts" and backspace only while a number is present, and
+     * refreshes the list so the keypad filters recents exactly as the search field
+     * at the top does.
      *
-     * "Add to contacts" toggles INVISIBLE↔VISIBLE (never GONE) so its slot is always
-     * reserved — otherwise the keypad reflows on every keystroke and the number/pill
-     * appear to blink. We also don't pre-hide it before the async contact lookup
-     * (which caused a GONE→VISIBLE flash), and we cancel any stale lookup.
+     * "Add to contacts" toggles between INVISIBLE and VISIBLE, never GONE, so its
+     * slot stays reserved; otherwise the keypad reflows on every keystroke and the
+     * number and pill appear to blink. It is also not pre-hidden ahead of the
+     * async contact lookup, which used to produce a GONE-to-VISIBLE flash, and any
+     * stale lookup is cancelled.
      */
     private fun updateDialState() {
         val number = dialedNumber()

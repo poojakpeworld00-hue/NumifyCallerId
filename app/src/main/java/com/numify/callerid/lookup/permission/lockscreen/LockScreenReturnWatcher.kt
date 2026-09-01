@@ -9,14 +9,15 @@ import androidx.core.content.ContextCompat
 import com.numify.callerid.lookup.common.WindowInsetsHelper
 
 /**
- * Host-side half of the FSI auto-return. Registered by whichever Activity opened
- * the FSI settings page (the `returnTo`); when [LockScreenWatchService] broadcasts
- * [LockScreenPermission.ACTION_FSI_GRANTED], it re-launches the host to the front so the
- * system Settings page drops behind and the host's `onResume` can react to the
- * grant.
+ * The host-side half of the FSI auto-return. Whichever Activity opened the FSI
+ * settings page registers it as the `returnTo`; when [LockScreenWatchService]
+ * broadcasts [LockScreenPermission.ACTION_FSI_GRANTED] it relaunches that host to
+ * the front, dropping the system Settings page behind it so the host's `onResume`
+ * can act on the grant.
  *
- * `startActivity` is issued from the Activity context (not a background service),
- * which is the path Android allows — mirroring the app's overlay-permission flow.
+ * The `startActivity` is issued from the Activity context rather than a
+ * background service, which is the route Android permits - the same shape as the
+ * app's overlay-permission flow.
  */
 class LockScreenReturnWatcher(private val activity: Activity) {
 

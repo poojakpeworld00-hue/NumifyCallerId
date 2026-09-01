@@ -176,13 +176,13 @@ fun Context.setLast_Result_HD_VBC_Type() {
 }
 
 /**
- * Opens an Activity with optional interstitial ad before navigation.
+ * Opens an Activity, optionally showing an interstitial ad before navigating.
  *
- * @param isNeedToClearTop  Clear back stack before opening (FLAG_ACTIVITY_NEW_TASK | CLEAR_TASK)
- * @param isAdd             true  → show interstitial ad first, then open activity
- *                          false → open activity directly (no ad)
- * @param extras            Optional Bundle to pass to the target activity
- * @param launcher          Optional ActivityResultLauncher; skips ad if provided
+ * @param isNeedToClearTop  clear the back stack first (FLAG_ACTIVITY_NEW_TASK | CLEAR_TASK)
+ * @param isAdd             true shows the interstitial and then opens the Activity;
+ *                          false opens it directly, with no ad
+ * @param extras            optional Bundle handed to the target Activity
+ * @param launcher          optional ActivityResultLauncher; supplying one skips the ad
  */
 inline fun <reified T : Activity> Context.openActivity(
     isNeedToClearTop: Boolean = false,

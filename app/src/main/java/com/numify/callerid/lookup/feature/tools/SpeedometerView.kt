@@ -13,14 +13,14 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 /**
- * Speed-test dial: a 240° arc of ticks with a needle over a centre hub.
+ * Speed-test dial: a 240-degree arc of ticks with a needle above a centre hub.
  *
- * The scale is deliberately NOT linear. Its labelled stops are 0, 25, 50, 75,
- * 100, 150, 200, 300, 500 Mbps spread evenly around the arc, so the low end —
- * where most real connections land — gets as much of the dial as the top end.
- * A linear 0–500 scale would bunch every ordinary reading into the first
- * quarter. [angleFor] interpolates within whichever pair of stops the value
- * falls between.
+ * The scale is deliberately non-linear. Its labelled stops - 0, 25, 50, 75, 100,
+ * 150, 200, 300 and 500 Mbps - are spread evenly around the arc, so the low end,
+ * where most real connections actually sit, gets as much dial as the top end
+ * does. A linear 0-500 scale would crush every ordinary reading into the first
+ * quarter. [angleFor] interpolates within whichever pair of stops a value falls
+ * between.
  */
 class SpeedometerView @JvmOverloads constructor(
     context: Context,

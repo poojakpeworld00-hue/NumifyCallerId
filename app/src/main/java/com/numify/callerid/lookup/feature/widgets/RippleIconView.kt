@@ -12,14 +12,16 @@ import androidx.core.content.ContextCompat
 import com.numify.callerid.lookup.R
 
 /**
- * Reusable empty-state icon used by the Blocklist and Tools screens.
+ * Reusable empty-state icon, used by the Blocklist and Tools screens.
  *
- * Renders (back-to-front) an expanding ring, a soft disc and a centered glyph.
- * On attach it runs two looping animations that mirror the Claude Design:
- *  • the disc + glyph "breathe" — scale 1 → 1.05 → 1 over 3s (ease-in-out, reverse),
- *  • a ring expands 0.7 → 1.5 while fading 0.55 → 0 over 3s (ease-out, restart).
+ * Back to front it renders an expanding ring, a soft disc and a centred glyph. On
+ * attach it starts two looping animations mirroring the design:
+ *  - the disc and glyph "breathe", scaling 1 to 1.05 and back over 3s, ease-in-out
+ *    and reversing,
+ *  - a ring expands from 0.7 to 1.5 while fading 0.55 to 0 over 3s, ease-out and
+ *    restarting.
  *
- * Everything is theme-token driven via drawables, so it flips light/dark for free.
+ * It is entirely theme-token driven through drawables, so light and dark come free.
  */
 class RippleIconView @JvmOverloads constructor(
     context: Context,
