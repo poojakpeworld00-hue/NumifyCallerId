@@ -52,38 +52,49 @@ class ContactListViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun rebuild() {
-        // Tab filter (keeps name order so alpha grouping / fast-scroll stay valid).
-        val byTab = when (_filter.value ?: ContactFilter.ALL) {
-            ContactFilter.ALL -> allContacts
-            ContactFilter.FAVORITES -> allContacts.filter { it.starred }
-            ContactFilter.RECENTS -> allContacts.filter { it.lastContacted > 0L }
-            ContactFilter.GROUPS -> allContacts.filter { it.inGroup }
-        }
+        val tab = _filter.value ?: ContactFilter.ALL
+        val needle = query.lowercase(Locale.getDefault())
 
-        val filtered = if (query.isEmpty()) {
-            byTab
-        } else {
-            val q = query.lowercase(Locale.getDefault())
-            byTab.filter {
-                it.name.lowercase(Locale.getDefault()).contains(q) || it.detail.contains(q)
-            }
-        }
-        _rows.value = group(filtered)
+        // Both passes preserve the incoming name order, so alpha grouping and
+        // fast-scroll stay valid downstream.
+        val visible = allContacts
+            .filter { tab.accepts(it) }
+            .filter { it.matches(needle) }
+
+        _rows.value = withInitialHeaders(visible)
     }
 
-    private fun group(contacts: List<ContactRecord>): List<ContactRowUi> {
-        if (contacts.isEmpty()) return emptyList()
-        val rows = mutableListOf<ContactRowUi>()
-        var lastLetter = ""
-        for (contact in contacts) {
-            val first = contact.name.firstOrNull()?.uppercaseChar()
-            val letter = if (first != null && first.isLetter()) first.toString() else "#"
-            if (letter != lastLetter) {
-                rows.add(ContactRowUi.Header(letter))
-                lastLetter = letter
-            }
-            rows.add(ContactRowUi.Item(contact))
-        }
-        return rows
+    private fun ContactFilter.accepts(contact: ContactRecord): Boolean = when (this) {
+        ContactFilter.ALL -> true
+        ContactFilter.FAVORITES -> contact.starred
+        ContactFilter.RECENTS -> contact.lastContacted > 0L
+        ContactFilter.GROUPS -> contact.inGroup
     }
+
+    private fun ContactRecord.matches(needle: String): Boolean =
+        needle.isEmpty() ||
+            name.lowercase(Locale.getDefault()).contains(needle) ||
+            detail.contains(needle)
+
+    /** Non-letter names (numbers, symbols, emoji) all land under the "#" section. */
+    private val ContactRecord.initial: String
+        get() = name.firstOrNull()
+            ?.uppercaseChar()
+            ?.takeIf(Char::isLetter)
+            ?.toString()
+            ?: "#"
+
+    /**
+     * Injects an alphabet header each time the initial changes, so exactly one
+     * header precedes each run of contacts sharing a letter.
+     */
+    private fun withInitialHeaders(contacts: List<ContactRecord>): List<ContactRowUi> =
+        contacts.flatMapIndexed { index, contact ->
+            val letter = contact.initial
+            if (index == 0 || letter != contacts[index - 1].initial) {
+                listOf(ContactRowUi.Header(letter), ContactRowUi.Item(contact))
+            } else {
+                listOf(ContactRowUi.Item(contact))
+            }
+        }
 }

@@ -71,64 +71,83 @@ class CallLogViewModel(app: Application) : AndroidViewModel(app) {
     private fun rebuild() {
         val active = _filter.value ?: CallLogFilter.ALL
         val order = _sort.value ?: CallLogSort.NEWEST
-        val q = query.lowercase(Locale.getDefault())
-        val filtered = allCalls.filter { call ->
-            matches(active, call.type) && (q.isEmpty() ||
-                call.name?.lowercase(Locale.getDefault())?.contains(q) == true ||
-                call.number.lowercase(Locale.getDefault()).contains(q))
-        }
-        _rows.value = when (order) {
-            // Date sorts keep the Today/Yesterday/… section headers.
-            CallLogSort.NEWEST -> group(filtered.sortedByDescending { it.date })
-            CallLogSort.OLDEST -> group(filtered.sortedBy { it.date })
-            // Name sorts flatten the list — date headers no longer apply.
-            CallLogSort.NAME_ASC ->
-                filtered.sortedBy { sortName(it) }.map { HistoryRowUi.Call(it) }
-            CallLogSort.NAME_DESC ->
-                filtered.sortedByDescending { sortName(it) }.map { HistoryRowUi.Call(it) }
+        val needle = query.lowercase(Locale.getDefault())
+
+        val visible = allCalls
+            .filter { active.accepts(it.type) }
+            .filter { it.matches(needle) }
+            .sortedWith(order.comparator)
+
+        // Date sorts keep the Today/Yesterday/… section headers; name sorts
+        // flatten the list, where those headers no longer mean anything.
+        _rows.value = if (order.isChronological) {
+            withDateHeaders(visible)
+        } else {
+            visible.map { HistoryRowUi.Call(it) }
         }
     }
 
     /** Key used for name sorting: caller name when present, otherwise the number. */
-    private fun sortName(call: CallRecord): String =
-        (call.name?.takeIf { it.isNotBlank() } ?: call.number).lowercase(Locale.getDefault())
+    private val CallRecord.sortKey: String
+        get() = (name?.takeIf { it.isNotBlank() } ?: number).lowercase(Locale.getDefault())
 
-    private fun matches(filter: CallLogFilter, type: CallType): Boolean = when (filter) {
+    private fun CallRecord.matches(needle: String): Boolean {
+        if (needle.isEmpty()) return true
+        val locale = Locale.getDefault()
+        return name?.lowercase(locale)?.contains(needle) == true ||
+            number.lowercase(locale).contains(needle)
+    }
+
+    private fun CallLogFilter.accepts(type: CallType): Boolean = when (this) {
         CallLogFilter.ALL -> true
         CallLogFilter.INCOMING -> type == CallType.INCOMING
         CallLogFilter.OUTGOING -> type == CallType.OUTGOING
         CallLogFilter.MISSED -> type == CallType.MISSED
     }
 
-    private fun group(calls: List<CallRecord>): List<HistoryRowUi> {
+    /** Date-ordered sorts are the only ones the section headers make sense under. */
+    private val CallLogSort.isChronological: Boolean
+        get() = this == CallLogSort.NEWEST || this == CallLogSort.OLDEST
+
+    private val CallLogSort.comparator: Comparator<CallRecord>
+        get() = when (this) {
+            CallLogSort.NEWEST -> compareByDescending { it.date }
+            CallLogSort.OLDEST -> compareBy { it.date }
+            CallLogSort.NAME_ASC -> compareBy { it.sortKey }
+            CallLogSort.NAME_DESC -> compareByDescending { it.sortKey }
+        }
+
+    /**
+     * Walks the already-ordered list and injects a header row each time the day
+     * bucket changes, so a header is emitted exactly once per run of rows.
+     */
+    private fun withDateHeaders(calls: List<CallRecord>): List<HistoryRowUi> {
         if (calls.isEmpty()) return emptyList()
 
-        val cal = Calendar.getInstance().apply {
+        val midnight = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, 0)
             set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
-        }
-        val todayStart = cal.timeInMillis
-        val yesterdayStart = todayStart - DAY_MS
-        val weekStart = todayStart - 6 * DAY_MS
-
-        val rows = mutableListOf<HistoryRowUi>()
-        var lastBucket = -1
-        for (call in calls) {
-            val bucket = when {
-                call.date >= todayStart -> 0
-                call.date >= yesterdayStart -> 1
-                call.date >= weekStart -> 2
+        }.timeInMillis
+        val bucketOf: (Long) -> Int = { at ->
+            when {
+                at >= midnight -> 0
+                at >= midnight - DAY_MS -> 1
+                at >= midnight - 6 * DAY_MS -> 2
                 else -> 3
             }
-            if (bucket != lastBucket) {
-                rows.add(HistoryRowUi.Header(bucketTitle(bucket)))
-                lastBucket = bucket
-            }
-            rows.add(HistoryRowUi.Call(call))
         }
-        return rows
+
+        return calls.flatMapIndexed { index, call ->
+            val bucket = bucketOf(call.date)
+            val opensSection = index == 0 || bucket != bucketOf(calls[index - 1].date)
+            if (opensSection) {
+                listOf(HistoryRowUi.Header(bucketTitle(bucket)), HistoryRowUi.Call(call))
+            } else {
+                listOf(HistoryRowUi.Call(call))
+            }
+        }
     }
 
     private fun bucketTitle(bucket: Int): Int = when (bucket) {

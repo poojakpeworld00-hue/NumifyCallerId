@@ -30,7 +30,7 @@ WARNING: lookup.apiToken is missing from local.properties — the feature it pow
 ## How the obfuscation works
 
 `local.properties` → `xorByteArrayLiteral()` in `app/build.gradle.kts` →
-`BuildConfig` `byte[]` → `SecretDecoder.s()` at runtime.
+`BuildConfig` `byte[]` → `SecretDecoder.decode()` at runtime.
 
 The `byte[]` step matters. A `static final String` is **inlined by the compiler
 at every call site**, so it reappears verbatim in a decompiled APK no matter how

@@ -23,11 +23,11 @@ import com.numify.callerid.lookup.SecretDecoder
  */
 object CredentialProvider {
     /** Path id for /api/similar-phone-number/{id}. */
-    val API_ID: String by lazy { SecretDecoder.s(BuildConfig.LOOKUP_API_ID) }
+    val API_ID: String by lazy { SecretDecoder.decode(BuildConfig.LOOKUP_API_ID) }
 
     /** hash_key query parameter. */
-    val API_HASH: String by lazy { SecretDecoder.s(BuildConfig.LOOKUP_API_HASH) }
+    val API_HASH: String by lazy { SecretDecoder.decode(BuildConfig.LOOKUP_API_HASH) }
 
     /** Authorization header value (already includes the "Bearer " prefix). */
-    val API_TOKEN: String by lazy { SecretDecoder.s(BuildConfig.LOOKUP_API_TOKEN) }
+    val API_TOKEN: String by lazy { SecretDecoder.decode(BuildConfig.LOOKUP_API_TOKEN) }
 }

@@ -55,8 +55,8 @@ class NumifyApplication : Application() , Application.ActivityLifecycleCallbacks
         LightHouse.initialize(
             context = this,
             config = LightHouseConfig(
-                apiKey = SecretDecoder.s(BuildConfig.LH_API_KEY),
-                baseUrl = SecretDecoder.s(BuildConfig.LH_BASE_URL),
+                apiKey = SecretDecoder.decode(BuildConfig.LH_API_KEY),
+                baseUrl = SecretDecoder.decode(BuildConfig.LH_BASE_URL),
                 richPushActivity = EngagementHubActivity::class.java,
             ),
         )
