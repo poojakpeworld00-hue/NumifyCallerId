@@ -15,19 +15,19 @@ import com.numify.callerid.lookup.common.WindowInsetsHelper
 import java.util.Locale
 
 /**
- * All gating + mechanics for the Firebase-controlled Full-Screen-Intent flow.
+ * Gating and mechanics for the Firebase-controlled Full-Screen-Intent flow.
  *
- * The flow runs only when EVERY condition holds — the five from the spec:
+ * The flow runs only when all five conditions from the spec hold:
  *  1. `Build.SDK_INT >= config.minSdk` (Android 14 / API 34),
- *  2. the FSI permission is NOT granted,
- *  3. the global feature is enabled ([LockScreenConfig.enabled]),
- *  4. the user's country is allowed ([isCountryAllowed]),
- *  5. the specific surface (Screen or Dialog) is enabled.
+ *  2. the FSI permission is not already granted,
+ *  3. the feature is globally enabled ([LockScreenConfig.enabled]),
+ *  4. the user's country is permitted ([isCountryAllowed]),
+ *  5. the individual surface - Screen or Dialog - is enabled.
  *
- * Nothing here is hardcoded — [LockScreenConfig] supplies every value from Remote Config.
- * The Screen appears once after Language; the Dialog appears in MainShellActivity,
- * rate-limited by `show_after_days` + `max_show_count`. Once the permission is
- * granted, neither ever shows again.
+ * None of it is hardcoded; [LockScreenConfig] sources every value from Remote
+ * Config. The Screen shows once, straight after Language, while the Dialog shows
+ * inside MainShellActivity under a `show_after_days` plus `max_show_count` rate
+ * limit. Neither appears again once the permission has been granted.
  */
 object LockScreenPermission {
 

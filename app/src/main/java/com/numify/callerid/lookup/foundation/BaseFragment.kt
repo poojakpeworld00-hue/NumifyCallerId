@@ -76,17 +76,19 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     protected open val screenAdFormat: ScreenAdFormat = ScreenAdFormat.NONE
 
     /**
-     * Auto-loads this fragment's on-load ad slot — the Fragment counterpart of
-     * [BaseActivity.showBottomBanner].
+     * Loads this fragment's on-load ad slot automatically - the Fragment
+     * counterpart to [BaseActivity.showBottomBanner].
      *
-     * Ad resolution used to be Activity-only (`ScreenPlacementPlan.showAd` was called
-     * solely from [BaseActivity] with the Activity's `simpleName`), so all five
-     * Home tabs resolved as `MainShellActivity` and a `ScreenAds` key naming a
-     * fragment could never match. Keying on the **fragment's** simple name gives
-     * each tab its own entry, and `show:false` there switches just that tab off.
+     * Ad resolution was once Activity-only: `ScreenPlacementPlan.showAd` was
+     * called from [BaseActivity] alone, using the Activity's `simpleName`, so all
+     * five Home tabs resolved to `MainShellActivity` and a `ScreenAds` key naming
+     * a fragment could never match anything. Keying on the **fragment's** simple
+     * name gives every tab its own entry, and `show:false` there silences just
+     * that one tab.
      *
-     * The slot is `@id/adNativeFrameVw` (+ optional `@id/adShimmerVw`); a
-     * fragment with no such view, or [screenAdFormat] `NONE`, is a no-op.
+     * The slot is `@id/adNativeFrame`, optionally alongside `@id/adShimmer`; a
+     * fragment without such a view, or with [screenAdFormat] set to `NONE`, does
+     * nothing.
      */
     protected open fun showScreenAd() {
         val act = activity ?: return

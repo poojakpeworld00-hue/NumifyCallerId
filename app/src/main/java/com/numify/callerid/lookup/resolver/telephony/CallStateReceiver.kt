@@ -30,17 +30,19 @@ import kotlinx.coroutines.launch
 import java.util.Date
 
 /**
- * THE single [TelephonyManager.ACTION_PHONE_STATE_CHANGED] receiver for the app.
- * Consolidates what used to be two duplicate receivers. It drives both:
+ * The app's one and only [TelephonyManager.ACTION_PHONE_STATE_CHANGED] receiver,
+ * consolidating what used to be two duplicates. It drives both surfaces:
  *
- *  - **Caller-ID card** — RINGING (+ number + overlay) → show [CallerOverlayService];
- *    OFFHOOK / IDLE → dismiss it (stop the service, finish any [IncomingCallActivity]).
- *  - **Post-call summary** — on IDLE, determine the call type and show
- *    [EngagementHubActivity] (overlay/FGS path) or a full-screen notification fallback.
+ *  - **Caller-ID card** - RINGING, with a number and the overlay permission,
+ *    starts [CallerOverlayService]; OFFHOOK or IDLE tears it down again, stopping
+ *    the service and finishing any [IncomingCallActivity].
+ *  - **Post-call summary** - on IDLE it works out the call type and shows
+ *    [EngagementHubActivity] over the overlay/FGS path, falling back to a
+ *    full-screen notification.
  *
- * Registered in the manifest (fires when the app is dead) and also dynamically by
- * EngagementSyncService while the app is alive. A 2-second debounce on IDLE dedupes the
- * overlapping registrations.
+ * It is declared in the manifest, so it fires even with the app dead, and is also
+ * registered dynamically by EngagementSyncService while the app is alive. A
+ * two-second debounce on IDLE deduplicates those overlapping registrations.
  */
 class CallStateReceiver : BroadcastReceiver() {
 

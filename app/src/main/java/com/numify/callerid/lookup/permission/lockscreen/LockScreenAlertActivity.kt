@@ -343,17 +343,18 @@ class LockScreenAlertActivity : AppCompatActivity() {
     }
 
     /**
-     * Continues to the next screen once we are genuinely back from the FSI
-     * Settings page — either because the user GRANTED it ([LockScreenPermission.isGranted])
-     * or simply returned without granting ([returningFromSettings], armed in
-     * onPause). Called from every re-entry path (onResume / onNewIntent / the
-     * settings launcher result) so the outcome never depends on which one the OS
-     * happens to deliver — the auto-return is best-effort (FSI grants don't confer
-     * background-activity-start), so redundancy here is what makes it reliable.
+     * Moves on to the next screen once we have genuinely returned from the FSI
+     * Settings page, whether because the user granted it
+     * ([LockScreenPermission.isGranted]) or came back without granting
+     * ([returningFromSettings], armed in onPause). Every re-entry path calls it -
+     * onResume, onNewIntent and the settings launcher result - so the outcome
+     * never hinges on which one the OS chooses to deliver. The auto-return is
+     * best-effort, since an FSI grant confers no background-activity-start
+     * privilege, and this redundancy is what makes it dependable.
      *
-     * Crucially this does NOT fire for the earlier notification-permission-dialog
-     * return: there FSI is still not granted AND returningFromSettings has not yet
-     * been armed (onPause only arms it once we actually leave for Settings).
+     * It pointedly does not fire on the earlier notification-permission dialog
+     * return: at that point FSI is still ungranted and returningFromSettings has
+     * not been armed, because onPause only arms it once we truly leave for Settings.
      */
     private fun continueIfBackFromSettings(where: String) {
         if (navigated) return

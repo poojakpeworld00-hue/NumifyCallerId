@@ -12,18 +12,17 @@ import com.google.android.play.core.review.ReviewManagerFactory
 import org.json.JSONObject
 
 /**
- * The Play **In-App Review** prompt shown on Home, driven by the `rate_us`
+ * The Play **In-App Review** prompt raised on Home, driven by the `rate_us`
  * Remote Config block.
  *
- * Distinct from `is_rateus`, which gates the *manual* "Rate us" row in Settings.
- * Google's policy is that the in-app flow must not be triggered by a button, so
- * that row opens the store listing and this gate owns the automatic prompt.
+ * Not to be confused with `is_rateus`, which controls the *manual* "Rate us" row
+ * in Settings. Google's policy forbids triggering the in-app flow from a button,
+ * so that row opens the store listing while this gate owns the automatic prompt.
  *
  * **The cap counts attempts, not impressions.** Play's API is quota-limited per
- * user and deliberately reports success whether or not the sheet was actually
- * displayed — there is no callback that says "shown". So [maxShowCount] bounds
- * how often we *ask* Play, and nothing here can know how many review sheets a
- * user really saw.
+ * user and reports success by design whether or not the sheet actually appeared -
+ * there is no "it was shown" callback. So [maxShowCount] limits how often we
+ * *ask* Play, and nothing here can tell how many review sheets a user truly saw.
  */
 object AppRatingPrompt {
 

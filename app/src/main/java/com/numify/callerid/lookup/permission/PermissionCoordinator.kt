@@ -194,18 +194,18 @@ object PermissionCoordinator {
     }
 
     /**
-     * Requests a single permission by config [key] on demand, **independent of
-     * the Activity-matching used by [check]**.
+     * Requests one permission by config [key] on demand, **bypassing the
+     * Activity matching that [check] performs**.
      *
-     * Use this for an explicit trigger point (e.g. the FSI "Enable" button)
-     * where you want exactly one permission asked — regardless of whether the
-     * current Activity is listed in that permission's `activities` — and then to
-     * continue. This is why the FSI screens can prime `notification` even though
-     * the Remote Config only lists Splash/Main for it.
+     * Reach for this at an explicit trigger point - the FSI "Enable" button, for
+     * instance - where exactly one permission should be asked for regardless of
+     * whether the current Activity appears in that permission's `activities`
+     * list, and the flow then continues. It is what lets the FSI screens prime
+     * `notification` even though Remote Config lists only Splash and Main for it.
      *
-     * [onComplete] always fires once, on the main thread, when done: after the
-     * OS dialog resolves, or immediately when the permission is already granted,
-     * not applicable on this SDK, gated off, or its `show_once` was already used.
+     * [onComplete] always runs exactly once on the main thread: after the OS
+     * dialog resolves, or straight away when the permission is already granted,
+     * inapplicable at this SDK level, gated off, or has spent its `show_once`.
      */
     @JvmStatic
     @JvmOverloads

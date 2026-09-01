@@ -14,17 +14,18 @@ import org.json.JSONObject
 import java.util.Locale
 
 /**
- * Parsed view of the Remote Config `screen_order` / `screen` / `exit` block —
- * the "Onboarding Dynamic Flow" that replaced `intro_display` +
- * `permission_engine`. This is the single source of truth for:
- *  - which onboarding screens run and in what order ([screenOrder], [nextEligibleAfter]),
- *  - each screen's on/off + repeat-frequency + country gate ([isEligible]),
- *  - each screen's permission asks ([stepConfig] / [splashConfig] `.permissions`),
+ * Parsed view of the Remote Config `screen_order` / `screen` / `exit` block: the
+ * "Onboarding Dynamic Flow" that superseded `intro_display` plus
+ * `permission_engine`. It is the single source of truth for
+ *  - which onboarding screens run, and in what order ([screenOrder],
+ *    [nextEligibleAfter]),
+ *  - each screen's enabled flag, repeat frequency and country gate ([isEligible]),
+ *  - the permissions each screen asks for ([stepConfig] / [splashConfig] `.permissions`),
  *  - the managed app-exit behaviour ([exitConfig]).
  *
- * `fsi_permission` is special-cased onto the existing, more detailed
- * [LockScreenPermission]/`LockScreenConfig` gate (grant-state + its own ledger),
- * rather than re-implemented here.
+ * `fsi_permission` is routed to the pre-existing and more detailed
+ * [LockScreenPermission] / `LockScreenConfig` gate, with its grant state and its
+ * own ledger, instead of being reimplemented here.
  */
 object OnboardingStepConfig {
 
