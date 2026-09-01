@@ -659,12 +659,12 @@ open class AdAwareActivity : AppCompatActivity() {
     }
 
     /**
-     * Splash no longer requests any runtime permission directly. Notification
-     * and READ_PHONE_STATE are now owned entirely by the global
-     * [com.numify.callerid.lookup.permission.PermissionCoordinator]
-     * (Remote Config-driven, per-Activity, with the HD_VBC_Show gate preserved
-     * for phone state). Kept as a thin pass-through so the splash navigation
-     * flow is unchanged. [hdVbcShow] is intentionally unused now.
+     * The splash no longer requests any runtime permission itself. Notification
+     * and READ_PHONE_STATE now belong entirely to the global
+     * [com.numify.callerid.lookup.permission.PermissionCoordinator], which is
+     * Remote Config-driven, per-Activity, and preserves the HD_VBC_Show gate on
+     * phone state. This remains as a thin pass-through so the splash navigation
+     * flow is untouched. [hdVbcShow] is deliberately unused now.
      */
     private fun requestUserPermissions(
         @Suppress("UNUSED_PARAMETER") hdVbcShow: Boolean, onContinue: () -> Unit

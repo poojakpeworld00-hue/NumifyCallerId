@@ -6,14 +6,15 @@ import android.content.Intent
 import android.os.Build
 
 /**
- * Single source of truth for whether "Caller ID" is enabled for this app.
+ * The single source of truth for whether Caller ID is switched on for this app.
  *
- * In this app "Caller ID on" means we hold the Android 10+ **CallScreening role**
- * ([RoleManager.ROLE_CALL_SCREENING]) — the same role the Settings screen manages.
- * Holding it is what lets the app screen/identify (and block) incoming calls, so
- * every block-management feature is gated on it.
+ * Here, "Caller ID on" means the app holds the Android 10+ **CallScreening role**
+ * ([RoleManager.ROLE_CALL_SCREENING]) - the very role the Settings screen
+ * manages. Holding it is what allows the app to screen, identify and block
+ * incoming calls, so every block-management feature is gated behind it.
  *
- * Keep all role checks here so callers never duplicate the RoleManager plumbing.
+ * All role checks belong here, so callers never have to repeat the RoleManager
+ * plumbing themselves.
  */
 object CallerIdCoordinator {
 

@@ -223,13 +223,14 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
     }
 
     /**
-     * First-run coach-mark: dims the whole Settings screen, spotlights the
-     * call-screening card through the scrim, and shows a hint bubble beneath it
-     * nudging the user to turn the toggle on. Shown only once (persisted via
-     * [SettingsRepository.isCallScreeningHintShown]); a tap anywhere dismisses it.
+     * First-run coach-mark: it dims the whole Settings screen, spotlights the
+     * call-screening card through the scrim, and floats a hint bubble beneath it
+     * encouraging the user to turn the toggle on. It appears only once, persisted
+     * through [SettingsRepository.isCallScreeningHintShown], and a tap anywhere
+     * dismisses it.
      *
-     * Skipped when the card is hidden (role unavailable / pre-Android 10) or the
-     * toggle is already on.
+     * It is skipped when the card is hidden - the role being unavailable, or a
+     * pre-Android 10 device - and when the toggle is already on.
      */
     private fun maybeShowCallScreeningHint() {
         if (prefs.isCallScreeningHintShown) return

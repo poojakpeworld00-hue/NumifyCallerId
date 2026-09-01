@@ -99,13 +99,14 @@ fun Context.rateApp() {
 }
 
 /**
- * Opens the URL stored under [configKey] in a Chrome Custom Tab, falling back to
- * whatever browser the device does have.
+ * Opens the URL held under [configKey] in a Chrome Custom Tab, falling back to
+ * whatever browser the device actually has.
  *
- * Chrome is *preferred*, never required: pinning `setPackage("com.android.chrome")`
- * unconditionally made the link a silent no-op on every device without Chrome
- * (the ActivityNotFoundException was swallowed). Play requires the privacy-policy
- * link to actually open, so the un-pinned retry is the important half.
+ * Chrome is *preferred* but never required. Pinning
+ * `setPackage("com.android.chrome")` unconditionally turned the link into a
+ * silent no-op on every device without Chrome, because the
+ * ActivityNotFoundException was swallowed. Play requires the privacy-policy link
+ * to genuinely open, which makes the un-pinned retry the half that matters.
  */
 private fun Context.openConfigLink(configKey: String) {
     val url = AdPreferenceStore.getInstance(this).getString(configKey).orEmpty()

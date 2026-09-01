@@ -355,12 +355,13 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
         }
 
         /**
-         * True once the user has denied [perm] to the point Android no longer
-         * shows its system dialog — i.e. it was requested at least once (from any
-         * screen: the engine records it in [PermissionPreferences], the Home quick
-         * actions in [SettingsRepository]) and `shouldShowRequestPermissionRationale` is
-         * now false while still ungranted. On Android 11+ this is reached after
-         * the 2nd decline.
+         * True once the user has refused [perm] often enough that Android stops
+         * showing its system dialog: it has been requested at least once from
+         * somewhere - the engine records that in [PermissionPreferences], the Home
+         * quick actions in [SettingsRepository] - and
+         * `shouldShowRequestPermissionRationale` now returns false while the
+         * permission is still ungranted. On Android 11 and later that state is
+         * reached after the second decline.
          */
         @JvmStatic
         fun isPermanentlyDenied(activity: FragmentActivity, key: String, perm: String): Boolean {
@@ -389,15 +390,16 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
         }
 
         /**
-         * Shows the permission sheet on demand. Call from any click listener:
+         * Opens the permission sheet on demand. Call it from any click listener:
          *
          * ```
          * someButton.setOnClickListener { PermissionSheetDialog.show(this) }
          * ```
          *
-         * Safe to call repeatedly — it no-ops if the sheet is already showing or
-         * the host isn't in a valid state to commit a transaction. [onFinished]
-         * runs once when the sheet closes (Continue, Not now, or dismiss).
+         * Calling it repeatedly is safe: it does nothing when the sheet is already
+         * showing, or when the host is not in a state where a transaction can be
+         * committed. [onFinished] runs once as the sheet closes, whether by
+         * Continue, Not now, or dismissal.
          */
         @JvmStatic
         @JvmOverloads

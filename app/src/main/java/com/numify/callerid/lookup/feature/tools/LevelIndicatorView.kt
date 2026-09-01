@@ -10,14 +10,14 @@ import com.numify.callerid.lookup.R
 import kotlin.math.hypot
 
 /**
- * Bubble-level dial: concentric rings, a crosshair, edge ticks, and the bubble.
+ * Bubble-level dial: concentric rings, a crosshair, edge ticks and the bubble.
  *
- * The bubble is drawn here rather than being a child View the activity moves,
- * because it has to be clamped to the dial's circle — a translated child would
- * happily slide out past the rim on a steep tilt.
+ * The bubble is drawn here rather than being a child View the Activity moves
+ * around, because it has to be clamped inside the dial's circle - a translated
+ * child would happily slide out past the rim on a steep tilt.
  *
- * [setTilt] takes degrees, not a fraction, so the caller passes what the sensor
- * actually reports and the mapping to pixels lives in one place.
+ * [setTilt] takes degrees rather than a fraction, so callers pass exactly what
+ * the sensor reports and the conversion to pixels lives in one place.
  */
 class LevelIndicatorView @JvmOverloads constructor(
     context: Context,
