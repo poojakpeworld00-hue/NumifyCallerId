@@ -13,6 +13,8 @@ import com.numify.callerid.lookup.repository.BlocklistRepository
 import com.numify.callerid.lookup.repository.CallLogRepository
 import com.numify.callerid.lookup.repository.CallType
 import com.numify.callerid.lookup.repository.ContactRepository
+import com.numify.callerid.lookup.repository.SettingsRepository
+import com.numify.callerid.lookup.repository.assistant.AiFeatureConfig
 import com.numify.callerid.lookup.repository.assistant.CallerRisk
 import com.numify.callerid.lookup.feature.widgets.CallActionHandler
 
@@ -120,6 +122,12 @@ object CallerLabel {
         onBlocked: (() -> Unit)?
     ) {
         val row = root.findViewById<View>(R.id.rowIncallVerdict)
+        if (!AiFeatureConfig.isEnabled(context) ||
+            !SettingsRepository(context).aiCallerVerdictEnabled
+        ) {
+            row.visibility = View.GONE
+            return
+        }
         val label = root.findViewById<TextView>(R.id.textIncallVerdict)
         val icon = root.findViewById<ImageView>(R.id.imageIncallVerdict)
         val block = root.findViewById<TextView>(R.id.buttonIncallBlock)

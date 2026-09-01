@@ -743,4 +743,25 @@
     <string name="ai_summary_frequency">इस महीने आपने %1$s से %2$d बार बात की।</string>
     <string name="ai_summary_longest">यह अब तक की आपकी सबसे लंबी कॉल थी।</string>
     <string name="ai_summary_unanswered">इस नंबर की %1$d पिछली कॉल अनुत्तरित रहीं।</string>
+    <!-- ===== Post-call notification ===== -->
+    <string name="caller_private_number">निजी नंबर</string>
+    <string name="notif_call_ended">कॉल समाप्त: %1$s</string>
+    <string name="notif_call_ended_body">कॉल का सारांश देखने के लिए टैप करें</string>
+    <string name="notif_channel_post_call">कॉल के बाद सारांश</string>
+    <string name="notif_channel_post_call_desc">कॉल खत्म होने पर सारांश स्क्रीन दिखाता है</string>
+    <!-- ===== Ask AI · settings ===== -->
+    <string name="ai_settings_title">AI से पूछें</string>
+    <string name="ai_settings_home_title">होम पर AI से पूछें</string>
+    <string name="ai_settings_home_sub">खोज बॉक्स के बगल वाला बटन</string>
+    <string name="ai_settings_verdict_title">कॉलर का आकलन</string>
+    <string name="ai_settings_verdict_sub">घंटी बजते समय अनजान नंबरों के बारे में एक पंक्ति</string>
+    <string name="ai_settings_summary_title">कॉल के बाद सारांश</string>
+    <string name="ai_settings_summary_sub">आप कितनी बार बात करते हैं, कॉल खत्म होने पर</string>
+    <string name="ai_settings_reply_title">मिस्ड कॉल के जवाब</string>
+    <string name="ai_settings_reply_sub">भेजने के लिए तैयार संदेश वाली सूचना</string>
+    <string name="ai_settings_questions_asked">पूछे गए सवाल</string>
+    <string name="ai_settings_privacy_title">Numify क्या इस्तेमाल करता है</string>
+    <string name="ai_settings_privacy_body">जवाब आपके फ़ोन पर ही आपके कॉल लॉग, संपर्कों और ब्लॉक सूची से निकाले जाते हैं। कॉल कभी रिकॉर्ड नहीं होतीं, और जब तक आप खुद भेजें नहीं दबाते, कुछ नहीं भेजा जाता।</string>
+    <string name="settings_ai">AI से पूछें</string>
+    <string name="settings_ai_sub">असिस्टेंट और कॉलर आकलन</string>
 </resources>

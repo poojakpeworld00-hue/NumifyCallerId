@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.repository.ContactRepository
+import com.numify.callerid.lookup.repository.SettingsRepository
 import com.numify.callerid.lookup.repository.assistant.AiFeatureConfig
 
 /**
@@ -38,6 +39,7 @@ object MissedCallNotifier {
     /** Posts the notification. A no-op while the assistant is switched off. */
     fun show(context: Context, number: String) {
         if (!AiFeatureConfig.isEnabled(context)) return
+        if (!SettingsRepository(context).aiSmartReplyEnabled) return
         if (number.isBlank()) return
         if (NotificationManagerCompat.from(context).areNotificationsEnabled().not()) return
 

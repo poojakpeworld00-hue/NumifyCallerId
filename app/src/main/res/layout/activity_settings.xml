@@ -166,6 +166,17 @@
 
                     <View style="@style/SettingsRowDivider" />
 
+                    <!-- Second way into AI settings. The first is the gear on the
+                         Ask AI screen, which the Home switch can hide — a setting
+                         that can conceal its own way back is a trap. -->
+                    <include
+                        android:id="@+id/cardAiSettings"
+                        layout="@layout/item_setting_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <View style="@style/SettingsRowDivider" />
+
                     <include
                         android:id="@+id/cardBlocklist"
                         layout="@layout/item_setting_row"

@@ -703,4 +703,25 @@
     <string name="ai_summary_frequency">Bu ay %1$s ile %2$d kez konuştunuz.</string>
     <string name="ai_summary_longest">Bu şimdiye kadarki en uzun görüşmenizdi.</string>
     <string name="ai_summary_unanswered">Bu numaradan gelen %1$d önceki arama yanıtsız kaldı.</string>
+    <!-- ===== Post-call notification ===== -->
+    <string name="caller_private_number">Gizli numara</string>
+    <string name="notif_call_ended">Arama bitti: %1$s</string>
+    <string name="notif_call_ended_body">Arama özetini görmek için dokunun</string>
+    <string name="notif_channel_post_call">Arama sonrası özet</string>
+    <string name="notif_channel_post_call_desc">Bir arama bittiğinde özet ekranını gösterir</string>
+    <!-- ===== Ask AI · settings ===== -->
+    <string name="ai_settings_title">Yapay zekâya sor</string>
+    <string name="ai_settings_home_title">Ana ekranda Yapay zekâya sor</string>
+    <string name="ai_settings_home_sub">Arama alanının yanındaki düğme</string>
+    <string name="ai_settings_verdict_title">Arayan değerlendirmesi</string>
+    <string name="ai_settings_verdict_sub">Telefon çalarken bilinmeyen numaralar hakkında bir satır</string>
+    <string name="ai_settings_summary_title">Aramalardan sonra özet</string>
+    <string name="ai_settings_summary_sub">Ne sıklıkta konuştuğunuz, arama bitince gösterilir</string>
+    <string name="ai_settings_reply_title">Cevapsız arama yanıtları</string>
+    <string name="ai_settings_reply_sub">Göndermeye hazır mesajlı bir bildirim</string>
+    <string name="ai_settings_questions_asked">Sorulan sorular</string>
+    <string name="ai_settings_privacy_title">Numify neleri kullanır</string>
+    <string name="ai_settings_privacy_body">Yanıtlar telefonunuzda arama kaydınız, kişileriniz ve engelleme listenizden hesaplanır. Aramalar asla kaydedilmez ve siz gönder\'e basana kadar kimseye hiçbir şey gönderilmez.</string>
+    <string name="settings_ai">Yapay zekâya sor</string>
+    <string name="settings_ai_sub">Asistan ve arayan değerlendirmeleri</string>
 </resources>

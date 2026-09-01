@@ -749,4 +749,25 @@
     <string name="ai_summary_frequency">تحدثت مع %1$s %2$d مرة هذا الشهر.</string>
     <string name="ai_summary_longest">كانت أطول مكالمة لك حتى الآن.</string>
     <string name="ai_summary_unanswered">%1$d مكالمات سابقة من هذا الرقم لم يُرد عليها.</string>
+    <!-- ===== Post-call notification ===== -->
+    <string name="caller_private_number">رقم مخفي</string>
+    <string name="notif_call_ended">انتهت المكالمة: %1$s</string>
+    <string name="notif_call_ended_body">اضغط لعرض ملخص المكالمة</string>
+    <string name="notif_channel_post_call">ملخص ما بعد المكالمة</string>
+    <string name="notif_channel_post_call_desc">يعرض شاشة الملخص بعد انتهاء المكالمة</string>
+    <!-- ===== Ask AI · settings ===== -->
+    <string name="ai_settings_title">اسأل الذكاء الاصطناعي</string>
+    <string name="ai_settings_home_title">اسأل الذكاء الاصطناعي في الرئيسية</string>
+    <string name="ai_settings_home_sub">الزر بجوار حقل البحث</string>
+    <string name="ai_settings_verdict_title">تقييم المتصل</string>
+    <string name="ai_settings_verdict_sub">سطر عن الأرقام المجهولة أثناء رنين هاتفك</string>
+    <string name="ai_settings_summary_title">ملخص بعد المكالمات</string>
+    <string name="ai_settings_summary_sub">عدد مرات تحدثكما، يظهر عند انتهاء المكالمة</string>
+    <string name="ai_settings_reply_title">ردود المكالمات الفائتة</string>
+    <string name="ai_settings_reply_sub">إشعار برسالة جاهزة للإرسال</string>
+    <string name="ai_settings_questions_asked">الأسئلة المطروحة</string>
+    <string name="ai_settings_privacy_title">ما الذي يستخدمه Numify</string>
+    <string name="ai_settings_privacy_body">تُحسب الإجابات على هاتفك من سجل مكالماتك وجهات اتصالك وقائمة الحظر. لا تُسجّل المكالمات أبدًا، ولا يُرسل أي شيء حتى تضغط إرسال بنفسك.</string>
+    <string name="settings_ai">اسأل الذكاء الاصطناعي</string>
+    <string name="settings_ai_sub">المساعد وتقييمات المتصلين</string>
 </resources>

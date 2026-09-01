@@ -147,6 +147,32 @@ class SettingsRepository(context: Context) {
         get() = prefs.getInt(KEY_AI_QUERY_COUNT, 0)
         set(value) = prefs.edit().putInt(KEY_AI_QUERY_COUNT, value).apply()
 
+    // --- Ask AI surfaces -----------------------------------------------------
+    // Each is a user override on top of the Remote Config gate: a surface shows
+    // only when the feature is enabled remotely AND the user has not turned it
+    // off here. All default to on, so enabling the feature does not leave every
+    // surface silently switched off.
+
+    /** The Ask AI button beside the Home search field. */
+    var aiHomeButtonEnabled: Boolean
+        get() = prefs.getBoolean(KEY_AI_HOME_BUTTON, true)
+        set(value) = prefs.edit().putBoolean(KEY_AI_HOME_BUTTON, value).apply()
+
+    /** The verdict line on the incoming-call card. */
+    var aiCallerVerdictEnabled: Boolean
+        get() = prefs.getBoolean(KEY_AI_CALLER_VERDICT, true)
+        set(value) = prefs.edit().putBoolean(KEY_AI_CALLER_VERDICT, value).apply()
+
+    /** The summary card on the post-call screen. */
+    var aiCallSummaryEnabled: Boolean
+        get() = prefs.getBoolean(KEY_AI_CALL_SUMMARY, true)
+        set(value) = prefs.edit().putBoolean(KEY_AI_CALL_SUMMARY, value).apply()
+
+    /** The missed-call notification carrying a drafted reply. */
+    var aiSmartReplyEnabled: Boolean
+        get() = prefs.getBoolean(KEY_AI_SMART_REPLY, true)
+        set(value) = prefs.edit().putBoolean(KEY_AI_SMART_REPLY, value).apply()
+
     companion object {
         private const val PREFS_NAME = "app_prefs"
         private const val KEY_LANGUAGE_SELECTED = "language_selected"
@@ -171,6 +197,10 @@ class SettingsRepository(context: Context) {
         private const val KEY_RATE_US_ARMED_VERSION = "rate_us_armed_version"
         private const val KEY_AI_TOOLTIP_SHOWN = "ai_tooltip_shown"
         private const val KEY_AI_QUERY_COUNT = "ai_query_count"
+        private const val KEY_AI_HOME_BUTTON = "ai_home_button_enabled"
+        private const val KEY_AI_CALLER_VERDICT = "ai_caller_verdict_enabled"
+        private const val KEY_AI_CALL_SUMMARY = "ai_call_summary_enabled"
+        private const val KEY_AI_SMART_REPLY = "ai_smart_reply_enabled"
         const val DEFAULT_LANGUAGE = "en"
     }
 }

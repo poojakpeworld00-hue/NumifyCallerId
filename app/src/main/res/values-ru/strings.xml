@@ -755,4 +755,25 @@
     <string name="ai_summary_frequency">Вы говорили с %1$s %2$d раз за месяц.</string>
     <string name="ai_summary_longest">Это был ваш самый длинный разговор.</string>
     <string name="ai_summary_unanswered">%1$d предыдущих звонка с этого номера остались без ответа.</string>
+    <!-- ===== Post-call notification ===== -->
+    <string name="caller_private_number">Скрытый номер</string>
+    <string name="notif_call_ended">Вызов завершён: %1$s</string>
+    <string name="notif_call_ended_body">Нажмите, чтобы посмотреть сводку по звонку</string>
+    <string name="notif_channel_post_call">Сводка после звонка</string>
+    <string name="notif_channel_post_call_desc">Показывает экран сводки после завершения вызова</string>
+    <!-- ===== Ask AI · settings ===== -->
+    <string name="ai_settings_title">Спросить ИИ</string>
+    <string name="ai_settings_home_title">Спросить ИИ на главном экране</string>
+    <string name="ai_settings_home_sub">Кнопка рядом с полем поиска</string>
+    <string name="ai_settings_verdict_title">Оценка звонящего</string>
+    <string name="ai_settings_verdict_sub">Строка о неизвестных номерах, пока телефон звонит</string>
+    <string name="ai_settings_summary_title">Сводка после звонков</string>
+    <string name="ai_settings_summary_sub">Как часто вы общаетесь — по завершении вызова</string>
+    <string name="ai_settings_reply_title">Ответы на пропущенные</string>
+    <string name="ai_settings_reply_sub">Уведомление с готовым сообщением</string>
+    <string name="ai_settings_questions_asked">Задано вопросов</string>
+    <string name="ai_settings_privacy_title">Что использует Numify</string>
+    <string name="ai_settings_privacy_body">Ответы вычисляются на вашем телефоне по журналу вызовов, контактам и списку блокировки. Звонки никогда не записываются, и ничего не отправляется, пока вы сами не нажмёте «Отправить».</string>
+    <string name="settings_ai">Спросить ИИ</string>
+    <string name="settings_ai_sub">Ассистент и оценки звонящих</string>
 </resources>

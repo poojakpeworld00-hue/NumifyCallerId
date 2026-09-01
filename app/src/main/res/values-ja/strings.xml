@@ -698,4 +698,25 @@
     <string name="ai_summary_frequency">今月は %1$s と %2$d 回話しています。</string>
     <string name="ai_summary_longest">これまでで最も長い通話でした。</string>
     <string name="ai_summary_unanswered">この番号からの過去 %1$d 件は未応答です。</string>
+    <!-- ===== Post-call notification ===== -->
+    <string name="caller_private_number">非通知</string>
+    <string name="notif_call_ended">通話終了: %1$s</string>
+    <string name="notif_call_ended_body">タップして通話の概要を表示</string>
+    <string name="notif_channel_post_call">通話後の概要</string>
+    <string name="notif_channel_post_call_desc">通話終了時に概要画面を表示します</string>
+    <!-- ===== Ask AI · settings ===== -->
+    <string name="ai_settings_title">AI に聞く</string>
+    <string name="ai_settings_home_title">ホームで AI に聞く</string>
+    <string name="ai_settings_home_sub">検索欄の横のボタン</string>
+    <string name="ai_settings_verdict_title">発信者の判定</string>
+    <string name="ai_settings_verdict_sub">着信中に不明な番号について一行で表示</string>
+    <string name="ai_settings_summary_title">通話後の概要</string>
+    <string name="ai_settings_summary_sub">通話終了時に、やり取りの頻度を表示</string>
+    <string name="ai_settings_reply_title">不在着信への返信</string>
+    <string name="ai_settings_reply_sub">本文入りの通知を表示</string>
+    <string name="ai_settings_questions_asked">質問した回数</string>
+    <string name="ai_settings_privacy_title">Numify が使う情報</string>
+    <string name="ai_settings_privacy_body">回答は端末内で通話履歴・連絡先・ブロックリストから作成されます。通話が録音されることはなく、ご自身が送信を押すまで何も送信されません。</string>
+    <string name="settings_ai">AI に聞く</string>
+    <string name="settings_ai_sub">アシスタントと発信者の判定</string>
 </resources>

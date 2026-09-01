@@ -388,7 +388,8 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
      * and is switched on per audience without a release.
      */
     private fun setupAskAi() {
-        val enabled = AiFeatureConfig.isEnabled(requireContext())
+        val enabled = AiFeatureConfig.isEnabled(requireContext()) &&
+            SettingsRepository(requireContext()).aiHomeButtonEnabled
         binding.buttonAskAi.isVisible = enabled
         if (!enabled) return
 

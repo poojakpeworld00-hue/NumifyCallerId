@@ -42,9 +42,7 @@
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold" />
 
-            <!-- AI settings (screen 9) ships in phase 3. Hidden rather than
-                 inert: a gear that does nothing when tapped is worse than no
-                 gear. Flip to visible when AiSettingsActivity exists. -->
+            <!-- Opens AiSettingsActivity. -->
             <ImageView
                 android:id="@+id/buttonAiSettings"
                 android:layout_width="@dimen/_32sdp"
@@ -53,7 +51,6 @@
                 android:contentDescription="@string/nav_settings"
                 android:padding="@dimen/_7sdp"
                 android:src="@drawable/ic_settings"
-                android:visibility="gone"
                 app:tint="@color/on_surface" />
         </LinearLayout>
 

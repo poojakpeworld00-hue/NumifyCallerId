@@ -698,4 +698,25 @@
     <string name="ai_summary_frequency">เดือนนี้คุณคุยกับ %1$s ไปแล้ว %2$d ครั้ง</string>
     <string name="ai_summary_longest">นี่เป็นสายที่ยาวที่สุดของคุณ</string>
     <string name="ai_summary_unanswered">สายก่อนหน้าจากเบอร์นี้ %1$d สายไม่ได้รับ</string>
+    <!-- ===== Post-call notification ===== -->
+    <string name="caller_private_number">เบอร์ที่ไม่แสดง</string>
+    <string name="notif_call_ended">สิ้นสุดสาย: %1$s</string>
+    <string name="notif_call_ended_body">แตะเพื่อดูสรุปการโทร</string>
+    <string name="notif_channel_post_call">สรุปหลังวางสาย</string>
+    <string name="notif_channel_post_call_desc">แสดงหน้าสรุปเมื่อวางสายแล้ว</string>
+    <!-- ===== Ask AI · settings ===== -->
+    <string name="ai_settings_title">ถาม AI</string>
+    <string name="ai_settings_home_title">ถาม AI บนหน้าแรก</string>
+    <string name="ai_settings_home_sub">ปุ่มข้างช่องค้นหา</string>
+    <string name="ai_settings_verdict_title">คำตัดสินผู้โทร</string>
+    <string name="ai_settings_verdict_sub">ข้อความสั้นเกี่ยวกับเบอร์ที่ไม่รู้จักขณะสายเข้า</string>
+    <string name="ai_settings_summary_title">สรุปหลังวางสาย</string>
+    <string name="ai_settings_summary_sub">คุณคุยกันบ่อยแค่ไหน แสดงเมื่อวางสาย</string>
+    <string name="ai_settings_reply_title">ตอบสายที่ไม่ได้รับ</string>
+    <string name="ai_settings_reply_sub">การแจ้งเตือนพร้อมข้อความที่เตรียมไว้</string>
+    <string name="ai_settings_questions_asked">จำนวนคำถาม</string>
+    <string name="ai_settings_privacy_title">Numify ใช้อะไรบ้าง</string>
+    <string name="ai_settings_privacy_body">คำตอบคำนวณบนเครื่องของคุณจากประวัติการโทร รายชื่อติดต่อ และรายการบล็อก ไม่มีการบันทึกเสียงสาย และจะไม่ส่งอะไรจนกว่าคุณจะกดส่งเอง</string>
+    <string name="settings_ai">ถาม AI</string>
+    <string name="settings_ai_sub">ผู้ช่วยและคำตัดสินผู้โทร</string>
 </resources>

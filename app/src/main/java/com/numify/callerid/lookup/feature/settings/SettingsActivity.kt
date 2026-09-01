@@ -39,6 +39,7 @@ import com.numify.callerid.lookup.common.openPolicyLink
 import com.numify.callerid.lookup.common.openTermLink
 import com.numify.callerid.lookup.common.rateApp
 import com.numify.callerid.lookup.common.shareApp
+import com.numify.callerid.lookup.feature.assistant.AiSettingsActivity
 
 class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
 
@@ -81,6 +82,12 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
             R.color.cid_teal, R.string.settings_language, currentLanguageName()
         ) {
             openActivity(LanguagePickerActivity.newIntent(this, standalone = true))
+        }
+        bindPanel(
+            binding.cardAiSettings, R.drawable.ic_ai_sparkle, R.drawable.bg_cid_chip_brand,
+            R.color.primary, R.string.settings_ai, getString(R.string.settings_ai_sub)
+        ) {
+            openActivity(AiSettingsActivity.newIntent(this))
         }
         bindPanel(
             binding.cardBlocklist, R.drawable.settings_blocklist, R.drawable.bg_cid_chip_clay,

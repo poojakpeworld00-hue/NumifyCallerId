@@ -112,7 +112,7 @@ class CallStateReceiver : BroadcastReceiver() {
                 }
                 lastTime = now
 
-                val phoneNumber = lastNumber ?: "Private Number"
+                val phoneNumber = lastNumber ?: PRIVATE_NUMBER
                 val endTime = Date()
                 val startTime = if (callStartTime > 0) Date(callStartTime) else endTime
                 val callType = when {
@@ -255,9 +255,11 @@ class CallStateReceiver : BroadcastReceiver() {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val channel = NotificationChannel(
-                    channelId, "Post Call Info", NotificationManager.IMPORTANCE_HIGH
+                    channelId,
+                    context.getString(R.string.notif_channel_post_call),
+                    NotificationManager.IMPORTANCE_HIGH
                 ).apply {
-                    description = "Shows callback screen after a call"
+                    description = context.getString(R.string.notif_channel_post_call_desc)
                     lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
                 }
                 manager.createNotificationChannel(channel)
@@ -280,8 +282,8 @@ class CallStateReceiver : BroadcastReceiver() {
 
             val notification = NotificationCompat.Builder(context, channelId)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Call ended: $phone")
-                .setContentText("Tap or wait — showing call summary...")
+                .setContentTitle(context.getString(R.string.notif_call_ended, displayName(context, phone)))
+                .setContentText(context.getString(R.string.notif_call_ended_body))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_CALL)
                 .setFullScreenIntent(pendingIntent, true)
@@ -293,8 +295,32 @@ class CallStateReceiver : BroadcastReceiver() {
         }
     }
 
+    /**
+     * What to print for [phone]. The withheld-number case carries [PRIVATE_NUMBER],
+     * which is an internal token and must never reach the screen — it is English
+     * by definition and is compared, not read.
+     */
+    private fun displayName(context: Context, phone: String): String =
+        if (phone.equals(PRIVATE_NUMBER, ignoreCase = true)) {
+            context.getString(R.string.caller_private_number)
+        } else {
+            phone
+        }
+
     companion object {
         private const val TAG = "CallStateReceiver"
+
+        /**
+         * Stand-in for a withheld caller ID, passed between this receiver and
+         * [EngagementHubActivity] through the intent extras.
+         *
+         * Deliberately a fixed English token rather than a string resource: it is
+         * compared with `equals` on the receiving side, so localizing it would
+         * make the comparison fail in all eleven other locales and a withheld
+         * number would be treated as a real one. The localized text a user
+         * actually sees is `R.string.caller_private_number`.
+         */
+        const val PRIVATE_NUMBER = "Private Number"
         const val ACTION_CALL_ENDED = "com.numify.callerid.lookup.CALL_ENDED"
 
         // Cross-broadcast call-state tracking (receiver instances are short-lived).

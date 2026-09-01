@@ -777,4 +777,25 @@
     <string name="ai_summary_frequency">You have spoken to %1$s %2$d times this month.</string>
     <string name="ai_summary_longest">This was your longest call yet.</string>
     <string name="ai_summary_unanswered">%1$d earlier calls from this number went unanswered.</string>
+    <!-- ===== Post-call notification ===== -->
+    <string name="caller_private_number">Private number</string>
+    <string name="notif_call_ended">Call ended: %1$s</string>
+    <string name="notif_call_ended_body">Tap to see the call summary</string>
+    <string name="notif_channel_post_call">Post-call summary</string>
+    <string name="notif_channel_post_call_desc">Shows the summary screen after a call ends</string>
+    <!-- ===== Ask AI · settings ===== -->
+    <string name="ai_settings_title">Ask AI</string>
+    <string name="ai_settings_home_title">Ask AI on Home</string>
+    <string name="ai_settings_home_sub">The button beside the search field</string>
+    <string name="ai_settings_verdict_title">Caller verdict</string>
+    <string name="ai_settings_verdict_sub">A line about unknown numbers while your phone rings</string>
+    <string name="ai_settings_summary_title">Summary after calls</string>
+    <string name="ai_settings_summary_sub">How often you speak, shown when a call ends</string>
+    <string name="ai_settings_reply_title">Missed call replies</string>
+    <string name="ai_settings_reply_sub">A notification with a message ready to send</string>
+    <string name="ai_settings_questions_asked">Questions asked</string>
+    <string name="ai_settings_privacy_title">What Numify uses</string>
+    <string name="ai_settings_privacy_body">Answers are worked out on your phone from your call log, contacts and blocklist. Calls are never recorded, and nothing is sent to anyone until you tap send yourself.</string>
+    <string name="settings_ai">Ask AI</string>
+    <string name="settings_ai_sub">Assistant and caller verdicts</string>
 </resources>

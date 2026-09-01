@@ -745,4 +745,25 @@
     <string name="ai_summary_frequency">Você falou com %1$s %2$d vezes este mês.</string>
     <string name="ai_summary_longest">Foi sua chamada mais longa até agora.</string>
     <string name="ai_summary_unanswered">%1$d chamadas anteriores deste número não foram atendidas.</string>
+    <!-- ===== Post-call notification ===== -->
+    <string name="caller_private_number">Número privado</string>
+    <string name="notif_call_ended">Chamada encerrada: %1$s</string>
+    <string name="notif_call_ended_body">Toque para ver o resumo da chamada</string>
+    <string name="notif_channel_post_call">Resumo pós-chamada</string>
+    <string name="notif_channel_post_call_desc">Mostra a tela de resumo quando uma chamada termina</string>
+    <!-- ===== Ask AI · settings ===== -->
+    <string name="ai_settings_title">Perguntar à IA</string>
+    <string name="ai_settings_home_title">Perguntar à IA na tela inicial</string>
+    <string name="ai_settings_home_sub">O botão ao lado do campo de busca</string>
+    <string name="ai_settings_verdict_title">Veredito do chamador</string>
+    <string name="ai_settings_verdict_sub">Uma linha sobre números desconhecidos enquanto o telefone toca</string>
+    <string name="ai_settings_summary_title">Resumo após as chamadas</string>
+    <string name="ai_settings_summary_sub">Com que frequência vocês falam, ao fim de uma chamada</string>
+    <string name="ai_settings_reply_title">Respostas a chamadas perdidas</string>
+    <string name="ai_settings_reply_sub">Uma notificação com uma mensagem pronta para enviar</string>
+    <string name="ai_settings_questions_asked">Perguntas feitas</string>
+    <string name="ai_settings_privacy_title">O que o Numify usa</string>
+    <string name="ai_settings_privacy_body">As respostas são calculadas no seu telefone a partir do registro de chamadas, contatos e lista de bloqueio. As chamadas nunca são gravadas e nada é enviado até você tocar em enviar.</string>
+    <string name="settings_ai">Perguntar à IA</string>
+    <string name="settings_ai_sub">Assistente e vereditos de chamadores</string>
 </resources>

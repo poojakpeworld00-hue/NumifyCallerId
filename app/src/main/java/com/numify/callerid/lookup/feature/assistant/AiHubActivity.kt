@@ -62,6 +62,9 @@ class AiHubActivity : BaseActivity<ActivityAiHubBinding>() {
         }
 
         binding.buttonAiBack.setOnClickListener { performBack() }
+        binding.buttonAiSettings.setOnClickListener {
+            startActivity(AiSettingsActivity.newIntent(this))
+        }
 
         binding.listAiSuggestions.apply {
             layoutManager = LinearLayoutManager(this@AiHubActivity)

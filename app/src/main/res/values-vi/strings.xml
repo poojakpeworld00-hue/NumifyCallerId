@@ -698,4 +698,25 @@
     <string name="ai_summary_frequency">Bạn đã nói chuyện với %1$s %2$d lần trong tháng này.</string>
     <string name="ai_summary_longest">Đây là cuộc gọi dài nhất của bạn từ trước tới nay.</string>
     <string name="ai_summary_unanswered">%1$d cuộc gọi trước từ số này không được nghe máy.</string>
+    <!-- ===== Post-call notification ===== -->
+    <string name="caller_private_number">Số ẩn</string>
+    <string name="notif_call_ended">Đã kết thúc cuộc gọi: %1$s</string>
+    <string name="notif_call_ended_body">Chạm để xem tóm tắt cuộc gọi</string>
+    <string name="notif_channel_post_call">Tóm tắt sau cuộc gọi</string>
+    <string name="notif_channel_post_call_desc">Hiển thị màn hình tóm tắt khi cuộc gọi kết thúc</string>
+    <!-- ===== Ask AI · settings ===== -->
+    <string name="ai_settings_title">Hỏi AI</string>
+    <string name="ai_settings_home_title">Hỏi AI ở màn hình chính</string>
+    <string name="ai_settings_home_sub">Nút bên cạnh ô tìm kiếm</string>
+    <string name="ai_settings_verdict_title">Đánh giá người gọi</string>
+    <string name="ai_settings_verdict_sub">Một dòng về số lạ trong lúc máy đổ chuông</string>
+    <string name="ai_settings_summary_title">Tóm tắt sau cuộc gọi</string>
+    <string name="ai_settings_summary_sub">Bạn nói chuyện thường xuyên ra sao, hiện khi cuộc gọi kết thúc</string>
+    <string name="ai_settings_reply_title">Trả lời cuộc gọi nhỡ</string>
+    <string name="ai_settings_reply_sub">Thông báo kèm tin nhắn sẵn sàng gửi</string>
+    <string name="ai_settings_questions_asked">Số câu đã hỏi</string>
+    <string name="ai_settings_privacy_title">Numify dùng những gì</string>
+    <string name="ai_settings_privacy_body">Câu trả lời được tính ngay trên máy bạn từ nhật ký cuộc gọi, danh bạ và danh sách chặn. Cuộc gọi không bao giờ được ghi âm, và không gì được gửi đi cho tới khi chính bạn nhấn gửi.</string>
+    <string name="settings_ai">Hỏi AI</string>
+    <string name="settings_ai_sub">Trợ lý và đánh giá người gọi</string>
 </resources>

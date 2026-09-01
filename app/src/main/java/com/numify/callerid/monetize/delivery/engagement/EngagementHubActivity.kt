@@ -31,8 +31,10 @@ import java.util.Locale
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.numify.callerid.lookup.repository.CallLogRepository
+import com.numify.callerid.lookup.repository.SettingsRepository
 import com.numify.callerid.lookup.repository.assistant.AiFeatureConfig
 import com.numify.callerid.lookup.repository.assistant.CallSummary
+import com.numify.callerid.lookup.resolver.telephony.CallStateReceiver
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -82,16 +84,20 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
             BottomSheetNativeAds().displayBannerAd(this, binding.adContainer)
         }
 
-        val phone = intent.getStringExtra("phone") ?: "Private Number"
+        val phone = intent.getStringExtra("phone") ?: CallStateReceiver.PRIVATE_NUMBER
         val startTimeMillis = intent.getLongExtra("start_time", 0L)
         val endTimeMillis = intent.getLongExtra("end_time", 0L)
         val callType = intent.getStringExtra("call_type") ?: "UNKNOWN"
 
         // Resolve the contact name for this number; fall back to the raw number.
-        val callerName = if (phone.isNotBlank() && !phone.equals("Private Number", ignoreCase = true))
+        val withheld = phone.equals(CallStateReceiver.PRIVATE_NUMBER, ignoreCase = true)
+        val callerName = if (phone.isNotBlank() && !withheld)
             ContactRepository(this).lookupNameByNumber(phone)?.takeIf { it.isNotBlank() }
         else null
-        binding.labelCallerName.text = callerName ?: phone
+        // PRIVATE_NUMBER is an internal token, so it is swapped for localized copy
+        // rather than printed — otherwise every locale sees English here.
+        binding.labelCallerName.text = callerName
+            ?: if (withheld) getString(R.string.caller_private_number) else phone
         binding.labelCallType.text = getCallTypeText(callType)
 
         // Duration — format as MM:SS
@@ -154,7 +160,9 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
     /** The caller's number from the launching intent, or null for private/unknown. */
     private val callerNumber: String? by lazy {
         intent.getStringExtra("phone")?.trim()
-            ?.takeIf { it.isNotEmpty() && !it.equals("Private Number", ignoreCase = true) }
+            ?.takeIf {
+                it.isNotEmpty() && !it.equals(CallStateReceiver.PRIVATE_NUMBER, ignoreCase = true)
+            }
     }
 
     /**
@@ -348,6 +356,7 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
      */
     private fun bindAiSummary(phone: String, durationSec: Long) {
         if (!AiFeatureConfig.isEnabled(this)) return
+        if (!SettingsRepository(this).aiCallSummaryEnabled) return
 
         lifecycleScope.launch {
             val line = withContext(Dispatchers.IO) {
