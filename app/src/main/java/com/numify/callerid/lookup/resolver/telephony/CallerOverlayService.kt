@@ -30,14 +30,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
- * Shows the caller-ID card while a call is ringing.
+ * Puts the caller-ID card on screen while a call is ringing.
  *
- * - **Device unlocked** → a floating [WindowManager] overlay (TYPE_APPLICATION_OVERLAY),
- *   which is why the app requires SYSTEM_ALERT_WINDOW.
- * - **Device locked** → overlays are unreliable over the keyguard, so we hand off to
- *   [IncomingCallActivity] (showWhenLocked + turnScreenOn) and stop.
+ * - **Device unlocked**: a floating [WindowManager] overlay
+ *   (TYPE_APPLICATION_OVERLAY), which is why the app asks for SYSTEM_ALERT_WINDOW.
+ * - **Device locked**: overlays behave unreliably over the keyguard, so it hands
+ *   off to [IncomingCallActivity] with showWhenLocked and turnScreenOn, then stops.
  *
- * Started by [CallStateReceiver] on RINGING and stopped on OFFHOOK/IDLE.
+ * [CallStateReceiver] starts it on RINGING and stops it on OFFHOOK or IDLE.
  */
 class CallerOverlayService : Service() {
 

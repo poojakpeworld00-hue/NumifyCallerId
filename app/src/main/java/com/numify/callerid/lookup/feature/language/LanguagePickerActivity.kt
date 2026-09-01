@@ -163,12 +163,13 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
     }
 
     /**
-     * Resolves the region that drives the Suggested group, checking the country
-     * BEFORE the lists are populated:
-     *  1. Seed synchronously from the device (SIM/network/locale) — offline, instant,
-     *     so the first rendered list is already region-correct.
-     *  2. Refine asynchronously from IP geo; updates the lists only if it differs
-     *     (confirmCountry is idempotent per country).
+     * Works out the region behind the Suggested group, settling the country
+     * BEFORE the lists are filled:
+     *  1. Seed synchronously from the device - SIM, network or locale - which is
+     *     offline and instant, so the very first list rendered is already correct
+     *     for the region.
+     *  2. Refine asynchronously from IP geo, updating the lists only when it
+     *     disagrees; confirmCountry is idempotent per country.
      */
     private fun resolveRegion() {
         val device = deviceCountry()

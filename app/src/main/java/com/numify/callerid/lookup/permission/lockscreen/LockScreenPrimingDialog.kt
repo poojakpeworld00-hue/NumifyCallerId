@@ -15,12 +15,13 @@ import com.numify.callerid.lookup.permission.PermissionCoordinator
 import com.numify.callerid.lookup.feature.MainShellActivity
 
 /**
- * The MainShellActivity Full-Screen-Intent priming dialog. Same visual language as the
- * Screen (incoming-call preview + remote-driven copy). "Enable" opens the system
- * FSI page in-task (via MainShellActivity's launcher) and arms [LockScreenWatchService]; the
- * dialog dismisses so the auto-return lands on a clean MainShellActivity.
+ * The Full-Screen-Intent priming dialog shown from MainShellActivity. It shares
+ * the Screen's visual language - an incoming-call preview with remote-driven copy.
+ * "Enable" opens the system FSI page in-task through MainShellActivity's launcher
+ * and arms [LockScreenWatchService], then the dialog dismisses so the auto-return
+ * lands on a clean MainShellActivity.
  *
- * A single live dialog is tracked so the host can [dismissIfShowing] on return.
+ * One live dialog is tracked, so the host can call [dismissIfShowing] on return.
  */
 object LockScreenPrimingDialog {
 

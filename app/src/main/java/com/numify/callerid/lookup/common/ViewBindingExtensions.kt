@@ -95,12 +95,13 @@ fun View.triggerClick(onClick: (View?) -> Unit) {
 }
 
 /**
- * Crops this view — and everything inside it — to the largest circle that fits
- * its bounds, so a rectangular child (an emoji flag, a photo) reads as round.
+ * Clips this view, and everything within it, to the largest circle its bounds
+ * allow, so a rectangular child such as an emoji flag or a photo reads as round.
  *
- * Done in code rather than with `android:clipToOutline` because that attribute
- * is only honoured from API 31; `setClipToOutline` itself goes back to API 21.
- * Re-measures with the view, so it survives rows being recycled at a new size.
+ * It is done in code rather than through `android:clipToOutline` because that
+ * attribute is only honoured from API 31, whereas `setClipToOutline` itself goes
+ * back to API 21. It re-measures along with the view, so it survives rows being
+ * recycled at a different size.
  */
 /**
  * Clips a view to its own bounds via the outline (hardware) clip.

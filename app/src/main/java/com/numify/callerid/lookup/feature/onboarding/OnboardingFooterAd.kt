@@ -28,12 +28,12 @@ import com.facebook.shimmer.ShimmerFrameLayout
 object OnboardingFooterAd {
 
     /**
-     * [screenKey] is the `screen.<key>` entry — see [OnboardingStepConfig].
+     * [screenKey] names the `screen.<key>` entry - see [OnboardingStepConfig].
      *
-     * When the screen has **no** config entry at all (Remote Config not fetched
-     * yet on a first cold start) the ad still renders with the screen's historical
-     * default, so a missing config never silently strips ads. An entry that exists
-     * and says `isBottomAds:false` is honoured.
+     * When a screen has **no** config entry at all, which is the case on a first
+     * cold start before Remote Config has been fetched, the ad still renders using
+     * that screen's historical default, so missing config never quietly strips
+     * ads. An entry that does exist and says `isBottomAds:false` is respected.
      */
     @JvmStatic
     @JvmOverloads

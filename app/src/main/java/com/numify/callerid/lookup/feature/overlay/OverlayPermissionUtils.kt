@@ -7,11 +7,12 @@ import android.os.Build
 import android.provider.Settings
 
 /**
- * Helpers for the "display over other apps" (overlay) permission used by the
- * caller-ID overlay. Keeps the permission check and the Settings intent in one
- * place so every caller agrees. Grant polling lives in the caller —
- * `MainShellActivity.startOverlayPermissionFlow()` owns the only implementation
- * (a main-thread Handler poll; the old background watcher Service was removed).
+ * Helpers around the "display over other apps" permission that the caller-ID
+ * overlay depends on. Holding the permission check and the Settings intent in one
+ * place keeps every caller in agreement. Grant polling belongs to the caller:
+ * `MainShellActivity.startOverlayPermissionFlow()` holds the only implementation,
+ * a main-thread Handler poll, the old background watcher Service having been
+ * removed.
  */
 object OverlayPermissionUtils {
 

@@ -38,11 +38,12 @@ data class PermissionSpec(
     /** Runtime permission is only required on this SDK level and above. */
     val minSdk: Int,
     /**
-     * Optional business gate: an `AdPreferenceStore` boolean key that must be `true`
-     * for this permission to ever be requested. Null = no gate, which is the
-     * case for every spec today. Use it only for permissions that serve a
-     * flag-controlled surface exclusively — never for one the OS requires to
-     * deliver a core signal (see the note on `phone_state` in [PermissionUtils]).
+     * An optional business gate: the `AdPreferenceStore` boolean key that has to
+     * be `true` before this permission may be requested at all. Null means no
+     * gate, which is the case for every spec today. Reserve it for permissions
+     * serving a flag-controlled surface and nothing else - never for one the OS
+     * needs in order to deliver a core signal (see the `phone_state` note in
+     * [PermissionUtils]).
      */
     val enabledPrefGate: String? = null,
 )

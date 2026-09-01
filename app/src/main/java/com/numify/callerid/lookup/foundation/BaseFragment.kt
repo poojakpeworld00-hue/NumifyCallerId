@@ -28,10 +28,10 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import java.util.Locale
 
 /**
- * Base class for every Fragment in the app.
+ * Base class behind every Fragment in the app.
  *
- * Uses ViewBinding, safely clears the binding in [onDestroyView] to avoid
- * memory leaks, and exposes [initView] / [initObservers] hooks.
+ * It uses ViewBinding, clears the binding safely in [onDestroyView] so nothing
+ * leaks, and offers [initView] and [initObservers] hooks.
  *
  * Usage:
  * ```
