@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/_16sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_card"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/_20sdp">
+
+        <ImageView
+            android:layout_width="@dimen/_54sdp"
+            android:layout_height="@dimen/_54sdp"
+            android:background="@drawable/shape_card_circle"
+            android:backgroundTint="@color/primary_container"
+            android:contentDescription="@null"
+            android:padding="@dimen/_14sdp"
+            android:src="@drawable/glyph_view"
+            app:tint="@color/primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:text="@string/watch_ad_title"
+            android:textColor="@color/on_surface"
+            android:textSize="@dimen/_16ssp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:gravity="center"
+            android:text="@string/watch_ad_message"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/_12ssp" />
+
+        <!-- Blurred preview -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:background="@drawable/shape_card_border"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/_12sdp">
+
+            <TextView
+                android:id="@+id/lblPreviewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+                tools:text="J•••••" />
+
+            <TextView
+                android:id="@+id/lblPreviewNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_12ssp"
+                tools:text="+91 70164 14568" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/padWatchAd"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_46sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:text="@string/watch_ad_button"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_13ssp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/primary"
+            app:cornerRadius="@dimen/_24sdp"
+            app:icon="@drawable/glyph_play"
+            app:iconGravity="textStart"
+            app:iconSize="@dimen/_18sdp"
+            app:iconTint="@color/white" />
+
+        <TextView
+            android:id="@+id/padCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="@dimen/_8sdp"
+            android:text="@string/watch_ad_cancel"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/_12ssp" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,13 @@
+<!-- Info row · City (pin) — per Claude Design. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="M12,21 s-7,-5.5 -7,-11 a7,7 0 1,1 14,0 c0,5.5 -7,11 -7,11 z M9.5,10 a2.5,2.5 0 1,0 5,0 a2.5,2.5 0 1,0 -5,0"
+        android:strokeColor="@color/on_surface_variant"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

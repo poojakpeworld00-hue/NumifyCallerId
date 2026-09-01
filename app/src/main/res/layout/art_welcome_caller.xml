@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Onboarding step 1 — "Know who's calling".
+
+    A verified incoming caller, presented as one elevated card (obCard · obFloat).
+    A live dot at the top pushes out a ring (obRing1 · obPulse) and the green
+    verified badge pops onto the avatar (obChip · obPop).
+
+    The animation ids here are the contract with WelcomeAnimations.attach() — it
+    binds loops by id, so renaming one silently drops that loop.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <!-- Soft halo behind the card. -->
+    <ImageView
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_gravity="center"
+        android:contentDescription="@null"
+        android:src="@drawable/shape_onb_halo_blue" />
+
+    <LinearLayout
+        android:id="@+id/obCardVw"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_182sdp"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_onb_card_brand"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="@dimen/_8sdp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:outlineAmbientShadowColor="@color/card_shadow"
+        android:outlineSpotShadowColor="@color/card_shadow"
+        android:paddingHorizontal="@dimen/_16sdp"
+        android:paddingTop="@dimen/_14sdp"
+        android:paddingBottom="@dimen/_12sdp">
+
+        <!-- Status row: live dot + label. -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_10sdp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <!-- Two rings, 900ms apart, so the dot reads as a repeating pulse
+                     rather than a single blink. -->
+                <View
+                    android:id="@+id/obRing1Vw"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_onb_pulse_brand" />
+
+                <View
+                    android:id="@+id/obRing2Vw"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_onb_pulse_brand" />
+
+                <View
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_5sdp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_onb_dot_brand" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.1"
+                android:text="@string/onb_incoming_call"
+                android:textAllCaps="true"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_7ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Avatar + verified badge. -->
+        <FrameLayout
+            android:layout_width="@dimen/_54sdp"
+            android:layout_height="@dimen/_54sdp"
+            android:layout_marginTop="@dimen/_11sdp"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_onb_avatar_brand"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/onb_caller_initials"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:id="@+id/obChipVw"
+                android:layout_width="@dimen/_21sdp"
+                android:layout_height="@dimen/_21sdp"
+                android:layout_gravity="bottom|end"
+                android:background="@drawable/shape_onb_badge_verified">
+
+                <ImageView
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/glyph_check"
+                    app:tint="@color/white" />
+            </FrameLayout>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:includeFontPadding="false"
+            android:text="@string/onb_caller_name"
+            android:textColor="@color/on_surface"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+
+        <!-- "BUSINESS · VERIFIED" pill. -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/shape_onb_chip_brand"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_7sdp"
+            android:paddingVertical="@dimen/_2sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_8sdp"
+                android:layout_height="@dimen/_8sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/glyph_verified"
+                app:tint="@color/on_primary_container" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.03"
+                android:text="@string/onb_business_verified"
+                android:textAllCaps="true"
+                android:textColor="@color/on_primary_container"
+                android:textSize="@dimen/_7ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Decline / answer. -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:layout_marginEnd="@dimen/_18sdp"
+                android:background="@drawable/shape_onb_circle_spam"
+                android:contentDescription="@null"
+                android:padding="@dimen/_7sdp"
+                android:rotation="135"
+                android:src="@drawable/glyph_phone_solid"
+                app:tint="@color/danger" />
+
+            <ImageView
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:background="@drawable/shape_onb_circle_green"
+                android:contentDescription="@null"
+                android:padding="@dimen/_7sdp"
+                android:src="@drawable/glyph_phone_solid"
+                app:tint="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The scan band that travels left→right across the waveform. Fades to the same
+    hue at zero alpha (not to transparent black) so the edges don't grey out.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <gradient
+        android:angle="0"
+        android:centerColor="@color/splash_sl_sweep"
+        android:endColor="@color/splash_sl_sweep_edge"
+        android:startColor="@color/splash_sl_sweep_edge"
+        android:type="linear" />
+</shape>

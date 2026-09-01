@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Callora — Bottom nav, 5 ways</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --primary:#6D3BE8;--primary-dark:#5326C4;
+  --primary-container:#EDE5FD;--on-primary-container:#5326C4;
+  --accent:#1E8E5A;--danger:#D93B3B;--warn:#E5920A;--accent-purple:#6C3DD9;
+  --background:#F7F8FC;--surface:#fff;--surface-2:#EEF0F6;
+  --on-surface:#101319;--on-surface-variant:#6A7285;
+  --outline:#D8DCE8;--ad-divider:#1F000000;
+  --identified-container:#DDF2E7;--identified-on:#14663F;
+  --spam-container:#FCEEEE;--spam-on:#A32626;--spam-avatar-bg:#F6D2D2;
+  --success-soft:#1F1E8E5A;--danger-soft:#1FD93B3B;
+  --neutral-soft:#1F6A7285;--purple-soft:#1F6C3DD9;--online-green:#22C55E;
+  --shadow:rgba(16,19,25,.10);
+  --page-bg:#EDEFF5;--page-fg:#101319;--page-muted:#5A6478;--page-card:#fff;--page-line:#D8DCE8;
+}
+.dark{
+  --background:#0B0E14;--surface:#141824;--surface-2:#1C2231;
+  --on-surface:#F2F4FA;--on-surface-variant:#8A93A8;--outline:#2A3145;--ad-divider:#28FFFFFF;
+  --primary-container:#1C2231;--on-primary-container:#C7ADFF;
+  --identified-container:#143126;--identified-on:#7BD8A8;
+  --spam-container:#2A1518;--spam-on:#F09A9A;--spam-avatar-bg:#47232A;
+  --shadow:rgba(0,0,0,.5);
+  --page-bg:#0E1118;--page-fg:#F2F4FA;--page-muted:#98A2B8;--page-card:#161B26;--page-line:#2A3145;
+}
+body{margin:0;padding:30px 18px 60px;background:var(--page-bg);color:var(--page-fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;transition:background .25s,color .25s}
+.wrap{max-width:1290px;margin:0 auto}
+header.top{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:space-between}
+h1{font-size:25px;margin:0 0 5px;letter-spacing:-.02em}
+.sub{color:var(--page-muted);font-size:13.5px;margin:0;max-width:74ch;line-height:1.55}
+.toggle{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:var(--page-card);border:1px solid var(--page-line)}
+.toggle button{font:inherit;font-size:13px;font-weight:600;cursor:pointer;border:0;border-radius:999px;padding:7px 16px;background:transparent;color:var(--page-muted)}
+.toggle button[aria-pressed="true"]{background:var(--primary);color:#fff}
+
+/* IA banner */
+.ia{margin-top:22px;background:var(--page-card);border:1px solid var(--page-line);border-radius:14px;padding:15px 17px}
+.ia h4{margin:0 0 11px;font-size:10.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--page-muted)}
+.ia .r{display:flex;gap:9px;flex-wrap:wrap}
+.ia .d{flex:1;min-width:180px;border:1px solid var(--page-line);border-radius:11px;padding:10px 12px;background:var(--page-bg)}
+.ia .d .t{font-size:13px;font-weight:800;letter-spacing:-.01em}
+.ia .d .s{font-size:11.5px;color:var(--page-muted);margin-top:3px;line-height:1.45}
+.ia .d .n{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.07em;padding:2px 6px;border-radius:999px;margin-top:6px}
+.ia .d .n.ok{background:var(--success-soft);color:var(--accent)}
+.ia .d .n.nw{background:var(--purple-soft);color:var(--accent-purple)}
+
+.stage{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;margin-top:28px}
+.col{display:flex;flex-direction:column;align-items:center;gap:12px;width:330px}
+.cap{text-align:center}
+.cap .badge{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+  padding:3px 10px;border-radius:999px;background:var(--primary);color:#fff;margin-bottom:7px}
+.cap b{display:block;font-size:15px;letter-spacing:-.01em}
+.cap span{display:block;font-size:12px;color:var(--page-muted);margin-top:4px;line-height:1.5}
+
+.phone{width:330px;height:672px;flex:none;border-radius:31px;padding:8px;
+  background:linear-gradient(160deg,#2b3040,#12151d);box-shadow:0 20px 44px -16px rgba(0,0,0,.5)}
+.screen{width:100%;height:100%;border-radius:24px;overflow:hidden;background:var(--background);
+  color:var(--on-surface);display:flex;flex-direction:column;position:relative;font-size:13px}
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;position:relative}
+.scroll::-webkit-scrollbar{width:4px}.scroll::-webkit-scrollbar-thumb{background:var(--outline);border-radius:9px}
+.sb{height:24px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 14px;font-size:10px;font-weight:700}
+.sb .d{display:flex;gap:4px;opacity:.7}.sb .d i{width:4px;height:4px;border-radius:50%;background:currentColor;font-style:normal}
+svg.ic{width:100%;height:100%;display:block;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+
+/* app bar */
+.bar{display:flex;align-items:center;gap:10px;padding:8px 15px 0;flex:none}
+.bar .t{flex:1;font-size:19px;font-weight:800;letter-spacing:-.025em}
+.bar .b{width:31px;height:31px;flex:none;border-radius:50%;padding:8px;background:var(--surface);
+  border:1px solid var(--outline);color:var(--on-surface)}
+
+/* list bits */
+.row{display:flex;align-items:center;gap:10px;padding:9px 15px}
+.row .m{flex:1;min-width:0}
+.row .nm{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .mt{font-size:10.5px;color:var(--on-surface-variant);margin-top:2px;display:flex;align-items:center;gap:5px}
+.row .mt .g{width:10px;height:10px;flex:none}
+.sep{height:1px;background:var(--outline);margin-left:60px;opacity:.5}
+.av{width:36px;height:36px;flex:none;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:12.5px}
+.av.p{background:var(--primary-container);color:var(--on-primary-container)}
+.av.s{background:var(--spam-avatar-bg);color:var(--spam-on)}
+.av.g{background:var(--identified-container);color:var(--identified-on)}
+.av.n{background:var(--surface-2);color:var(--on-surface-variant)}
+.pill{font-size:9px;font-weight:800;padding:3px 7px;border-radius:999px;white-space:nowrap}
+.pill.ok{background:var(--identified-container);color:var(--identified-on)}
+.pill.bad{background:var(--spam-container);color:var(--spam-on)}
+.pill.neu{background:var(--neutral-soft);color:var(--on-surface-variant)}
+.sticky{position:sticky;top:0;z-index:2;background:var(--background);padding:8px 15px 4px;
+  font-size:9.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--on-surface-variant)}
+
+/* ---- segmented (W1) ---- */
+.seg2{display:flex;margin:11px 15px 4px;background:var(--surface-2);border-radius:12px;padding:3px}
+.seg2 div{flex:1;text-align:center;padding:7px;border-radius:9px;font-size:12px;font-weight:700;color:var(--on-surface-variant)}
+.seg2 div.on{background:var(--surface);color:var(--on-surface);box-shadow:0 1px 4px var(--shadow)}
+
+/* ---- top tabs (W2) ---- */
+.ttabs{display:flex;padding:0 15px;border-bottom:1px solid var(--outline);margin-top:8px;flex:none}
+.ttabs div{flex:1;text-align:center;padding:10px 0 9px;font-size:12.5px;font-weight:700;color:var(--on-surface-variant);position:relative}
+.ttabs div.on{color:var(--primary)}
+.ttabs div.on::after{content:"";position:absolute;left:22%;right:22%;bottom:-1px;height:2.5px;border-radius:3px;background:var(--primary)}
+.ttabs .c{display:inline-block;margin-left:5px;font-size:9.5px;padding:1px 5px;border-radius:999px;background:var(--neutral-soft)}
+.ttabs div.on .c{background:var(--primary-container);color:var(--on-primary-container)}
+
+/* ---- alphabet rail (W3) ---- */
+.rail{position:absolute;right:2px;top:8px;bottom:8px;width:14px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:1px;font-size:7.5px;font-weight:800;color:var(--on-surface-variant);z-index:3}
+.rail b{color:var(--primary)}
+.freq{display:flex;gap:12px;padding:8px 15px 4px;overflow-x:auto;scrollbar-width:none}
+.freq::-webkit-scrollbar{display:none}
+.freq .f{flex:none;text-align:center;width:44px}
+.freq .f .a{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;margin:0 auto}
+.freq .f .l{font-size:9px;font-weight:600;color:var(--on-surface-variant);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---- chips (W4) ---- */
+.chips{display:flex;gap:7px;padding:10px 15px 3px;overflow-x:auto;scrollbar-width:none;flex:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:6px 12px;border-radius:999px;font-size:11.5px;font-weight:700;
+  background:var(--surface);border:1px solid var(--outline);color:var(--on-surface-variant)}
+.chip.on{background:var(--primary);border-color:var(--primary);color:#fff}
+
+/* ---- collapsible section (W5) ---- */
+.coll{display:flex;align-items:center;gap:8px;margin:10px 15px 0;padding:9px 12px;border-radius:12px;
+  background:var(--surface);border:1px solid var(--outline)}
+.coll .t{flex:1;font-size:12px;font-weight:800}
+.coll .n{font-size:9.5px;font-weight:800;padding:2px 7px;border-radius:999px;background:var(--primary-container);color:var(--on-primary-container)}
+.coll .c{width:13px;height:13px;opacity:.5}
+
+/* ================= NAV VARIANTS ================= */
+.nav{flex:none;background:var(--surface);border-top:1px solid var(--outline);display:flex;padding:7px 4px 9px}
+.nav .n{flex:1;text-align:center;color:var(--on-surface-variant)}
+.nav .n span{width:20px;height:20px;margin:0 auto;display:block}
+.nav .n b{display:block;font-size:9px;font-weight:700;margin-top:3px}
+.nav .n.on{color:var(--primary)}
+
+/* W2 — pill indicator */
+.nav.pill{padding:9px 8px 11px;gap:4px}
+.nav.pill .n{display:flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;padding:7px 4px}
+.nav.pill .n b{display:none;font-size:10.5px;margin:0}
+.nav.pill .n.on{background:var(--primary-container);color:var(--on-primary-container);flex:1.9}
+.nav.pill .n.on b{display:block}
+.nav.pill .n span{width:19px;height:19px;margin:0}
+
+/* W3 — center FAB */
+.nav.fab{position:relative;padding-top:7px}
+.nav.fab .gap{flex:1}
+.nav.fab .cta{position:absolute;left:50%;transform:translateX(-50%);top:-20px;width:52px;height:52px;
+  border-radius:50%;padding:15px;background:var(--primary);color:#fff;border:4px solid var(--background);
+  box-shadow:0 7px 18px -5px rgba(109,59,232,.75)}
+.nav.fab .cta b{display:none}
+
+/* W4 — floating detached bar */
+.navwrap{flex:none;padding:0 16px 12px;background:transparent}
+.nav.float{border:1px solid var(--outline);border-radius:22px;padding:8px 6px;
+  box-shadow:0 10px 24px -12px rgba(0,0,0,.55);border-top:1px solid var(--outline)}
+.nav.float .n span{width:21px;height:21px}
+.nav.float .n b{display:none}
+.nav.float .n.on span{color:#fff}
+.nav.float .n.on{position:relative}
+.nav.float .n.on::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:38px;height:38px;border-radius:14px;background:var(--primary);z-index:0}
+.nav.float .n.on span{position:relative;z-index:1}
+
+/* W5 — tools sheet */
+.sheet{position:absolute;left:0;right:0;bottom:0;z-index:8;background:var(--surface);
+  border-radius:22px 22px 0 0;border:1px solid var(--outline);border-bottom:0;padding:9px 15px 14px;
+  box-shadow:0 -12px 34px -14px rgba(0,0,0,.5)}
+.sheet .hnd{width:36px;height:4px;border-radius:9px;background:var(--outline);margin:0 auto 11px}
+.sheet .ttl{font-size:13.5px;font-weight:800;margin-bottom:10px}
+.sheet .gd{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.sheet .gi{text-align:center}
+.sheet .gi .i{width:42px;height:42px;margin:0 auto;border-radius:14px;padding:11px}
+.sheet .gi .l{font-size:9.5px;font-weight:700;margin-top:5px;color:var(--on-surface-variant)}
+.scrim{position:absolute;inset:0;background:rgba(8,10,16,.42);z-index:7}
+.i1{background:var(--primary-container);color:var(--primary)}
+.i2{background:var(--purple-soft);color:var(--accent-purple)}
+.i3{background:var(--danger-soft);color:var(--danger)}
+.i4{background:var(--success-soft);color:var(--accent)}
+
+.banner{flex:none;height:36px;display:grid;place-items:center;font-size:9px;font-weight:800;
+  letter-spacing:.09em;color:var(--on-surface-variant);background:var(--surface-2);border-top:1px solid var(--ad-divider)}
+
+/* nav anatomy strip */
+.anat{width:330px;background:var(--page-card);border:1px solid var(--page-line);border-radius:12px;padding:11px 13px}
+.anat h5{margin:0 0 8px;font-size:9.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--page-muted)}
+.anat .l{display:flex;align-items:center;gap:7px;font-size:11.5px;padding:4px 0;color:var(--page-fg)}
+.anat .l i{width:16px;height:16px;flex:none;color:var(--primary);font-style:normal}
+.anat .l em{font-style:normal;margin-left:auto;font-size:9.5px;font-weight:700;color:var(--page-muted)}
+
+.notes{margin-top:42px}
+.notes h2{font-size:18.5px;margin:0 0 14px;letter-spacing:-.01em}
+.grid3{display:grid;gap:13px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.note{background:var(--page-card);border:1px solid var(--page-line);border-radius:14px;padding:15px 16px}
+.note .tag{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);margin-bottom:5px}
+.note h3{font-size:13.5px;margin:0;letter-spacing:-.01em}
+.note p{margin:8px 0 0;font-size:12.5px;line-height:1.6;color:var(--page-muted)}
+.note ul{margin:8px 0 0;padding-left:17px;font-size:12.5px;line-height:1.6;color:var(--page-muted)}
+.note li{margin-bottom:3px}
+.note b{color:var(--page-fg)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;background:var(--neutral-soft);
+  padding:1.5px 5px;border-radius:5px;color:var(--page-fg)}
+</style>
+</head>
+<body>
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></symbol>
+  <symbol id="chev" viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></symbol>
+  <symbol id="cdown" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></symbol>
+  <symbol id="block" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="5.6" y1="5.6" x2="18.4" y2="18.4"/></symbol>
+  <symbol id="tools" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0 5.3 5.3l-8 8a2.8 2.8 0 0 1-4-4z"/></symbol>
+  <symbol id="people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.3"/><path d="M3 20v-1a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v1"/><path d="M16.5 5.3a3.3 3.3 0 0 1 0 5.4"/><path d="M18 14.2a5 5 0 0 1 3 4.6V20"/></symbol>
+  <symbol id="pad" viewBox="0 0 24 24"><circle cx="6" cy="6" r="1.4"/><circle cx="12" cy="6" r="1.4"/><circle cx="18" cy="6" r="1.4"/><circle cx="6" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="18" cy="12" r="1.4"/><circle cx="6" cy="18" r="1.4"/><circle cx="12" cy="18" r="1.4"/><circle cx="18" cy="18" r="1.4"/></symbol>
+  <symbol id="in" viewBox="0 0 24 24"><polyline points="17 7 7 17"/><polyline points="7 11 7 17 13 17"/></symbol>
+  <symbol id="out" viewBox="0 0 24 24"><polyline points="7 17 17 7"/><polyline points="17 13 17 7 11 7"/></symbol>
+  <symbol id="x" viewBox="0 0 24 24"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></symbol>
+  <symbol id="dots" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="19" r="1.4"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6z"/><polyline points="9 12 11 14 15 10"/></symbol>
+  <symbol id="star" viewBox="0 0 24 24"><path d="M12 4l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 9.7l5.4-.8z"/></symbol>
+  <symbol id="backup" viewBox="0 0 24 24"><path d="M12 15V4"/><polyline points="8 8 12 4 16 8"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+  <symbol id="rec" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/></symbol>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Bottom navigation — 5 ways</h1>
+      <p class="sub">Your IA: <b>Recent + Contacts in one tab</b>, then <b>Blocked</b>, <b>Search Number</b>, <b>Tools</b>.
+      Each option below shows the merged first tab plus a different nav pattern. Styling stays the app's current
+      language; only the navigation model changes.</p>
+    </div>
+    <div class="toggle" role="group" aria-label="Theme">
+      <button id="tL" aria-pressed="true">Light</button>
+      <button id="tD" aria-pressed="false">Dark</button>
+    </div>
+  </header>
+
+  <div class="ia">
+    <h4>Destination map · 4 destinations, down from 4 + a Home that duplicated them</h4>
+    <div class="r">
+      <div class="d"><div class="t">Calls</div><div class="s">Recent history + phonebook merged</div>
+        <span class="n ok">CallHistoryFragment + PhonebookFragment</span></div>
+      <div class="d"><div class="t">Blocked</div><div class="s">Blocked &amp; spam numbers</div>
+        <span class="n ok">SpamListActivity → fragment</span></div>
+      <div class="d"><div class="t">Search</div><div class="s">Number lookup</div>
+        <span class="n ok">NumberSearchFragment</span></div>
+      <div class="d"><div class="t">Tools</div><div class="s">Utilities &amp; settings</div>
+        <span class="n nw">new — from screen/utility</span></div>
+    </div>
+  </div>
+
+  <div class="stage">
+
+  <!-- ======================= WAY 1 ======================= -->
+  <div class="col">
+    <div class="cap"><span class="badge">Way 1</span><b>Segmented inside</b>
+      <span>Classic 4-tab bar. Recent/Contacts split by a segmented control in the content.</span></div>
+    <div class="phone"><div class="screen">
+      <div class="sb"><span>9:41</span><span class="d"><i></i><i></i><i></i></span></div>
+      <div class="bar"><div class="t">Calls</div>
+        <span class="b"><svg class="ic"><use href="#search"/></svg></span>
+        <span class="b"><svg class="ic"><use href="#dots"/></svg></span></div>
+      <div class="seg2"><div class="on">Recent</div><div>Contacts</div></div>
+      <div class="scroll">
+        <div class="row"><div class="av g">RS</div><div class="m"><div class="nm">Rahul Sharma</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>Incoming · 9:12 AM</div></div>
+          <span class="pill ok">Identified</span></div><div class="sep"></div>
+        <div class="row"><div class="av s">!</div><div class="m"><div class="nm">+91 98765 43210</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#x"/></svg></span>Blocked · 8:47 AM</div></div>
+          <span class="pill bad">Spam</span></div><div class="sep"></div>
+        <div class="row"><div class="av p">MK</div><div class="m"><div class="nm">Meera Kapoor</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#out"/></svg></span>Outgoing · Yesterday</div></div>
+          <span class="pill neu">Contact</span></div><div class="sep"></div>
+        <div class="row"><div class="av p">+</div><div class="m"><div class="nm">+91 70123 55888</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>Missed · Yesterday</div></div>
+          <span class="pill neu">Unknown</span></div><div class="sep"></div>
+        <div class="row"><div class="av g">AV</div><div class="m"><div class="nm">Anil Verma</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>Incoming · Mon</div></div>
+          <span class="pill ok">Identified</span></div><div class="sep"></div>
+        <div class="row"><div class="av n">SP</div><div class="m"><div class="nm">Sanjay Patel</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#out"/></svg></span>Outgoing · Mon</div></div>
+          <span class="pill neu">Contact</span></div>
+        <div style="height:10px"></div>
+      </div>
+      <div class="nav">
+        <div class="n on"><span><svg class="ic"><use href="#people"/></svg></span><b>Calls</b></div>
+        <div class="n"><span><svg class="ic"><use href="#block"/></svg></span><b>Blocked</b></div>
+        <div class="n"><span><svg class="ic"><use href="#search"/></svg></span><b>Search</b></div>
+        <div class="n"><span><svg class="ic"><use href="#tools"/></svg></span><b>Tools</b></div>
+      </div>
+      <div class="banner">ADMOB BANNER</div>
+    </div></div>
+    <div class="anat"><h5>Nav anatomy</h5>
+      <div class="l"><i><svg class="ic"><use href="#people"/></svg></i>Calls<em>icon + label always</em></div>
+      <div class="l"><i><svg class="ic"><use href="#block"/></svg></i>Blocked<em>badge-ready</em></div>
+      <div class="l"><i><svg class="ic"><use href="#search"/></svg></i>Search<em>—</em></div>
+      <div class="l"><i><svg class="ic"><use href="#tools"/></svg></i>Tools<em>—</em></div>
+    </div>
+  </div>
+
+  <!-- ======================= WAY 2 ======================= -->
+  <div class="col">
+    <div class="cap"><span class="badge">Way 2</span><b>Swipe sub-tabs</b>
+      <span>M3 pill nav. Tab 1 is a ViewPager2 — swipe between Recent and Contacts.</span></div>
+    <div class="phone"><div class="screen">
+      <div class="sb"><span>9:41</span><span class="d"><i></i><i></i><i></i></span></div>
+      <div class="bar"><div class="t">Calls</div>
+        <span class="b"><svg class="ic"><use href="#search"/></svg></span>
+        <span class="b"><svg class="ic"><use href="#dots"/></svg></span></div>
+      <div class="ttabs"><div class="on">Recent <span class="c">12</span></div><div>Contacts <span class="c">248</span></div></div>
+      <div class="scroll">
+        <div class="sticky">Today</div>
+        <div class="row"><div class="av g">RS</div><div class="m"><div class="nm">Rahul Sharma</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>9:12 AM · 2m 14s</div></div>
+          <span class="pill ok">Identified</span></div><div class="sep"></div>
+        <div class="row"><div class="av s">!</div><div class="m"><div class="nm">+91 98765 43210</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#x"/></svg></span>8:47 AM · Blocked</div></div>
+          <span class="pill bad">Spam</span></div>
+        <div class="sticky">Yesterday</div>
+        <div class="row"><div class="av p">MK</div><div class="m"><div class="nm">Meera Kapoor</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#out"/></svg></span>6:20 PM · 45s</div></div>
+          <span class="pill neu">Contact</span></div><div class="sep"></div>
+        <div class="row"><div class="av p">+</div><div class="m"><div class="nm">+91 70123 55888</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>3:02 PM · Missed</div></div>
+          <span class="pill neu">Unknown</span></div><div class="sep"></div>
+        <div class="row"><div class="av g">AV</div><div class="m"><div class="nm">Anil Verma</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>11:40 AM · 5m</div></div>
+          <span class="pill ok">Identified</span></div>
+        <div style="height:10px"></div>
+      </div>
+      <div class="nav pill">
+        <div class="n on"><span><svg class="ic"><use href="#people"/></svg></span><b>Calls</b></div>
+        <div class="n"><span><svg class="ic"><use href="#block"/></svg></span><b>Blocked</b></div>
+        <div class="n"><span><svg class="ic"><use href="#search"/></svg></span><b>Search</b></div>
+        <div class="n"><span><svg class="ic"><use href="#tools"/></svg></span><b>Tools</b></div>
+      </div>
+      <div class="banner">ADMOB BANNER</div>
+    </div></div>
+    <div class="anat"><h5>Nav anatomy</h5>
+      <div class="l"><i><svg class="ic"><use href="#people"/></svg></i>Calls<em>active = pill + label</em></div>
+      <div class="l"><i><svg class="ic"><use href="#block"/></svg></i>Blocked<em>inactive = icon only</em></div>
+      <div class="l"><i><svg class="ic"><use href="#search"/></svg></i>Search<em>—</em></div>
+      <div class="l"><i><svg class="ic"><use href="#tools"/></svg></i>Tools<em>—</em></div>
+    </div>
+  </div>
+
+  <!-- ======================= WAY 3 ======================= -->
+  <div class="col">
+    <div class="cap"><span class="badge">Way 3</span><b>Center action</b>
+      <span>Search raised into a FAB. One unified list — no sub-tabs at all.</span></div>
+    <div class="phone"><div class="screen">
+      <div class="sb"><span>9:41</span><span class="d"><i></i><i></i><i></i></span></div>
+      <div class="bar"><div class="t">Calls</div>
+        <span class="b"><svg class="ic"><use href="#dots"/></svg></span></div>
+      <div class="scroll">
+        <div class="rail">A<br>B<br><b>C</b><br>D<br>E<br>F<br>G<br>H<br>I<br>J<br>K<br>M<br>N<br>P<br>R<br>S<br>V<br>Z</div>
+        <div class="sticky">Recent</div>
+        <div class="row"><div class="av g">RS</div><div class="m"><div class="nm">Rahul Sharma</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>Incoming · 9:12 AM</div></div>
+          <span class="pill ok">Identified</span></div><div class="sep"></div>
+        <div class="row"><div class="av s">!</div><div class="m"><div class="nm">+91 98765 43210</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#x"/></svg></span>Blocked · 8:47 AM</div></div>
+          <span class="pill bad">Spam</span></div>
+        <div class="sticky">Frequently contacted</div>
+        <div class="freq">
+          <div class="f"><div class="a av p">MK</div><div class="l">Meera</div></div>
+          <div class="f"><div class="a av g">AV</div><div class="l">Anil</div></div>
+          <div class="f"><div class="a av n">SP</div><div class="l">Sanjay</div></div>
+          <div class="f"><div class="a av p">DR</div><div class="l">Divya</div></div>
+          <div class="f"><div class="a av n">KJ</div><div class="l">Karan</div></div>
+        </div>
+        <div class="sticky">C</div>
+        <div class="row"><div class="av n">CB</div><div class="m"><div class="nm">Chirag Bhatt</div>
+          <div class="mt">+91 99887 12345</div></div></div><div class="sep"></div>
+        <div class="row"><div class="av n">CD</div><div class="m"><div class="nm">Chetan Desai</div>
+          <div class="mt">+91 98200 44551</div></div></div>
+        <div class="sticky">D</div>
+        <div class="row"><div class="av p">DR</div><div class="m"><div class="nm">Divya Rao</div>
+          <div class="mt">+91 90040 88123</div></div></div>
+        <div style="height:64px"></div>
+      </div>
+      <div class="nav fab">
+        <div class="n on"><span><svg class="ic"><use href="#people"/></svg></span><b>Calls</b></div>
+        <div class="n"><span><svg class="ic"><use href="#block"/></svg></span><b>Blocked</b></div>
+        <div class="gap"></div>
+        <div class="n"><span><svg class="ic"><use href="#tools"/></svg></span><b>Tools</b></div>
+        <span class="cta"><svg class="ic"><use href="#search"/></svg></span>
+      </div>
+      <div class="banner">ADMOB BANNER</div>
+    </div></div>
+    <div class="anat"><h5>Nav anatomy</h5>
+      <div class="l"><i><svg class="ic"><use href="#people"/></svg></i>Calls<em>left of centre</em></div>
+      <div class="l"><i><svg class="ic"><use href="#block"/></svg></i>Blocked<em>left of centre</em></div>
+      <div class="l"><i><svg class="ic"><use href="#search"/></svg></i>Search<em>raised FAB</em></div>
+      <div class="l"><i><svg class="ic"><use href="#tools"/></svg></i>Tools<em>right of centre</em></div>
+    </div>
+  </div>
+
+  <!-- ======================= WAY 4 ======================= -->
+  <div class="col">
+    <div class="cap"><span class="badge">Way 4</span><b>Filter chips</b>
+      <span>Floating pill bar. One list, filtered by chips instead of split by tabs.</span></div>
+    <div class="phone"><div class="screen">
+      <div class="sb"><span>9:41</span><span class="d"><i></i><i></i><i></i></span></div>
+      <div class="bar"><div class="t">Calls</div>
+        <span class="b"><svg class="ic"><use href="#search"/></svg></span>
+        <span class="b"><svg class="ic"><use href="#dots"/></svg></span></div>
+      <div class="chips">
+        <div class="chip on">All</div><div class="chip">Recent</div><div class="chip">Contacts</div>
+        <div class="chip">Missed</div><div class="chip">Favourites</div>
+      </div>
+      <div class="scroll">
+        <div class="row"><div class="av g">RS</div><div class="m"><div class="nm">Rahul Sharma</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>Incoming · 9:12 AM</div></div>
+          <span class="pill ok">Identified</span></div><div class="sep"></div>
+        <div class="row"><div class="av s">!</div><div class="m"><div class="nm">+91 98765 43210</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#x"/></svg></span>Blocked · 8:47 AM</div></div>
+          <span class="pill bad">Spam</span></div><div class="sep"></div>
+        <div class="row"><div class="av p">MK</div><div class="m"><div class="nm">Meera Kapoor</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#out"/></svg></span>Outgoing · Yesterday</div></div>
+          <span class="pill neu">Contact</span></div><div class="sep"></div>
+        <div class="row"><div class="av n">CB</div><div class="m"><div class="nm">Chirag Bhatt</div>
+          <div class="mt">+91 99887 12345</div></div><span class="pill neu">Contact</span></div><div class="sep"></div>
+        <div class="row"><div class="av p">+</div><div class="m"><div class="nm">+91 70123 55888</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>Missed · Yesterday</div></div>
+          <span class="pill neu">Unknown</span></div><div class="sep"></div>
+        <div class="row"><div class="av g">AV</div><div class="m"><div class="nm">Anil Verma</div>
+          <div class="mt">+91 98330 21008</div></div><span class="pill ok">Identified</span></div><div class="sep"></div>
+        <div class="row"><div class="av n">SP</div><div class="m"><div class="nm">Sanjay Patel</div>
+          <div class="mt">+91 91200 77341</div></div><span class="pill neu">Contact</span></div>
+        <div style="height:10px"></div>
+      </div>
+      <div class="navwrap">
+        <div class="nav float">
+          <div class="n on"><span><svg class="ic"><use href="#people"/></svg></span><b>Calls</b></div>
+          <div class="n"><span><svg class="ic"><use href="#block"/></svg></span><b>Blocked</b></div>
+          <div class="n"><span><svg class="ic"><use href="#search"/></svg></span><b>Search</b></div>
+          <div class="n"><span><svg class="ic"><use href="#tools"/></svg></span><b>Tools</b></div>
+        </div>
+      </div>
+      <div class="banner">ADMOB BANNER</div>
+    </div></div>
+    <div class="anat"><h5>Nav anatomy</h5>
+      <div class="l"><i><svg class="ic"><use href="#people"/></svg></i>Calls<em>active = filled square</em></div>
+      <div class="l"><i><svg class="ic"><use href="#block"/></svg></i>Blocked<em>icons only, no labels</em></div>
+      <div class="l"><i><svg class="ic"><use href="#search"/></svg></i>Search<em>—</em></div>
+      <div class="l"><i><svg class="ic"><use href="#tools"/></svg></i>Tools<em>—</em></div>
+    </div>
+  </div>
+
+  <!-- ======================= WAY 5 ======================= -->
+  <div class="col">
+    <div class="cap"><span class="badge">Way 5</span><b>Tools as sheet</b>
+      <span>3 real tabs. Tools opens a bottom sheet instead of being a destination.</span></div>
+    <div class="phone"><div class="screen">
+      <div class="sb"><span>9:41</span><span class="d"><i></i><i></i><i></i></span></div>
+      <div class="bar"><div class="t">Calls</div>
+        <span class="b"><svg class="ic"><use href="#search"/></svg></span>
+        <span class="b"><svg class="ic"><use href="#dots"/></svg></span></div>
+      <div class="scroll">
+        <div class="coll"><div class="t">Recent</div><span class="n">12 today</span>
+          <span class="c"><svg class="ic"><use href="#cdown"/></svg></span></div>
+        <div class="row"><div class="av g">RS</div><div class="m"><div class="nm">Rahul Sharma</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>Incoming · 9:12 AM</div></div>
+          <span class="pill ok">Identified</span></div><div class="sep"></div>
+        <div class="row"><div class="av s">!</div><div class="m"><div class="nm">+91 98765 43210</div>
+          <div class="mt"><span class="g"><svg class="ic"><use href="#x"/></svg></span>Blocked · 8:47 AM</div></div>
+          <span class="pill bad">Spam</span></div>
+        <div class="coll"><div class="t">Contacts</div><span class="n">248</span>
+          <span class="c"><svg class="ic"><use href="#cdown"/></svg></span></div>
+        <div class="row"><div class="av n">CB</div><div class="m"><div class="nm">Chirag Bhatt</div>
+          <div class="mt">+91 99887 12345</div></div></div><div class="sep"></div>
+        <div class="row"><div class="av p">DR</div><div class="m"><div class="nm">Divya Rao</div>
+          <div class="mt">+91 90040 88123</div></div></div>
+        <div style="height:230px"></div>
+      </div>
+      <div class="scrim"></div>
+      <div class="sheet">
+        <div class="hnd"></div>
+        <div class="ttl">Tools</div>
+        <div class="gd">
+          <div class="gi"><div class="i i1"><svg class="ic"><use href="#pad"/></svg></div><div class="l">Dialer</div></div>
+          <div class="gi"><div class="i i2"><svg class="ic"><use href="#shield"/></svg></div><div class="l">Protection</div></div>
+          <div class="gi"><div class="i i3"><svg class="ic"><use href="#rec"/></svg></div><div class="l">Recorder</div></div>
+          <div class="gi"><div class="i i4"><svg class="ic"><use href="#backup"/></svg></div><div class="l">Backup</div></div>
+          <div class="gi"><div class="i i2"><svg class="ic"><use href="#star"/></svg></div><div class="l">Favourites</div></div>
+          <div class="gi"><div class="i i1"><svg class="ic"><use href="#people"/></svg></div><div class="l">Merge</div></div>
+          <div class="gi"><div class="i i3"><svg class="ic"><use href="#block"/></svg></div><div class="l">Rules</div></div>
+          <div class="gi"><div class="i i4"><svg class="ic"><use href="#tools"/></svg></div><div class="l">Settings</div></div>
+        </div>
+      </div>
+      <div class="nav" style="z-index:9">
+        <div class="n on"><span><svg class="ic"><use href="#people"/></svg></span><b>Calls</b></div>
+        <div class="n"><span><svg class="ic"><use href="#block"/></svg></span><b>Blocked</b></div>
+        <div class="n"><span><svg class="ic"><use href="#search"/></svg></span><b>Search</b></div>
+        <div class="n" style="color:var(--primary)"><span><svg class="ic"><use href="#tools"/></svg></span><b>Tools</b></div>
+      </div>
+      <div class="banner">ADMOB BANNER</div>
+    </div></div>
+    <div class="anat"><h5>Nav anatomy</h5>
+      <div class="l"><i><svg class="ic"><use href="#people"/></svg></i>Calls<em>destination</em></div>
+      <div class="l"><i><svg class="ic"><use href="#block"/></svg></i>Blocked<em>destination</em></div>
+      <div class="l"><i><svg class="ic"><use href="#search"/></svg></i>Search<em>destination</em></div>
+      <div class="l"><i><svg class="ic"><use href="#tools"/></svg></i>Tools<em>opens sheet</em></div>
+    </div>
+  </div>
+
+  </div>
+
+  <section class="notes">
+    <h2>Trade-offs</h2>
+    <div class="grid3">
+      <div class="note"><div class="tag">Way 1</div><h3>Segmented inside</h3>
+        <p>Smallest build. Keep both existing fragments and swap them behind a segmented control — no ViewPager2, no adapter merge.</p>
+        <ul><li>Reuses <code>CallHistoryFragment</code> and <code>PhonebookFragment</code> untouched</li>
+        <li>Segment state is trivial to persist across tab switches</li>
+        <li>Every nav label stays visible — best for first-time users</li></ul>
+        <p><b>Cost:</b> the segmented control eats ~44dp on every visit, and it's a second row of navigation directly above the first. Two nav layers stacked.</p></div>
+
+      <div class="note"><div class="tag">Way 2</div><h3>Swipe sub-tabs</h3>
+        <p>Standard <code>TabLayout</code> + <code>ViewPager2</code>. Counts in the tab labels give the screen useful information density.</p>
+        <ul><li>Swipe between Recent and Contacts is the gesture users already expect here</li>
+        <li>Active-only labels in the nav free horizontal room, so 5 destinations would still fit later</li>
+        <li>Date group headers (<code>Today</code> / <code>Yesterday</code>) become sticky</li></ul>
+        <p><b>Cost:</b> horizontal swipe inside a tab conflicts with swipe-to-delete on list rows. You'd have to pick one.</p></div>
+
+      <div class="note"><div class="tag">Way 3</div><h3>Center action</h3>
+        <p>Says Search is the app's primary job, not a peer of Tools. One merged list — Recent, then Frequently contacted, then A–Z with a fast-scroll rail.</p>
+        <ul><li>No sub-navigation at all inside tab 1</li>
+        <li>Alphabet rail makes 248 contacts reachable in one gesture</li>
+        <li>Frees the whole content area for the list</li></ul>
+        <p><b>Cost:</b> the biggest data change — needs a single merged adapter with multiple view types. And a raised FAB overlaps the AdMob banner region; the banner has to sit below the nav, not behind it.</p></div>
+
+      <div class="note"><div class="tag">Way 4</div><h3>Filter chips</h3>
+        <p>Chips replace both sub-tabs and separate destinations. One list, one adapter, filtered — and the set is extensible without touching navigation.</p>
+        <ul><li>Adding "Missed" or "Favourites" later costs one chip, not one screen</li>
+        <li>Floating pill bar reads as more modern and lifts the nav off the banner</li>
+        <li>Chip state maps cleanly onto a single query parameter</li></ul>
+        <p><b>Cost:</b> icons-only nav is worse for discoverability — some users never learn what the fourth icon is. And a detached bar plus a banner beneath it makes the bottom feel crowded.</p></div>
+
+      <div class="note"><div class="tag">Way 5</div><h3>Tools as sheet</h3>
+        <p>Tools is a grab-bag, not a place you dwell — a sheet fits its actual use better than a full destination, and it can hold 8+ entries without a scrolling screen.</p>
+        <ul><li>Only 3 real fragments to build and keep in memory</li>
+        <li>Sheet dismisses back to wherever you were — no tab-history bookkeeping in <code>HomeShellActivity</code></li>
+        <li>Collapsible Recent/Contacts sections mean no sub-nav and no merged adapter</li></ul>
+        <p><b>Cost:</b> the fourth nav item behaves differently from the other three, which is a small inconsistency. Your existing back-stack logic (<code>onBackPressed</code> retraces visited tabs) needs a special case for it.</p></div>
+    </div>
+
+    <p style="margin-top:18px;font-size:12.5px;line-height:1.7;color:var(--page-muted)">
+      <b>One thing to decide either way:</b> dropping the Home tab removes the only screen that currently hosts the
+      native ad and the Protection card. Ways 1–4 have no obvious home for either. Way 5's Tools sheet can carry
+      Protection, but the native ad slot would need to move into the Calls list as an inline item — worth settling
+      before I build, since it affects <code>DashboardFragment</code>'s fate.
+    </p>
+  </section>
+</div>
+<script>
+const L=document.getElementById('tL'),D=document.getElementById('tD');
+const set=d=>{document.body.classList.toggle('dark',d);
+  L.setAttribute('aria-pressed',String(!d));D.setAttribute('aria-pressed',String(d));};
+L.onclick=()=>set(false);D.onclick=()=>set(true);
+set(window.matchMedia('(prefers-color-scheme: dark)').matches);
+</script>
+</body>
+</html>

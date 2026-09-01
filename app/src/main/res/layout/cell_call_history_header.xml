@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Date-group header inside the Call History card (e.g. YESTERDAY, JUL 11). -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_10sdp"
+    android:layout_marginBottom="@dimen/_2sdp"
+    android:letterSpacing="0.08"
+    android:textAllCaps="true"
+    android:textColor="@color/on_surface_variant"
+    android:textSize="@dimen/_9ssp"
+    android:textStyle="bold"
+    tools:ignore="HardcodedText"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:text="Yesterday" />

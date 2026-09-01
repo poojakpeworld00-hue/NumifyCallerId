@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Onboarding step 3 — "Search any number".
+
+    A number lookup on one elevated card (obCard · obFloat): the typed number sits
+    in a field at the top, a radar arm sweeps a full turn (obSweep), a match blip
+    lands as it passes (obBlip) and the CALLER FOUND stamp follows (obStamp).
+
+    Ids are the contract with WelcomeAnimations.attach() — renaming one silently
+    drops that loop.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <ImageView
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_gravity="center"
+        android:contentDescription="@null"
+        android:src="@drawable/shape_onb_halo_blue" />
+
+    <LinearLayout
+        android:id="@+id/obCardVw"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_182sdp"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_onb_card_brand"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="@dimen/_8sdp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:outlineAmbientShadowColor="@color/card_shadow"
+        android:outlineSpotShadowColor="@color/card_shadow"
+        android:paddingHorizontal="@dimen/_16sdp"
+        android:paddingTop="@dimen/_13sdp"
+        android:paddingBottom="@dimen/_12sdp">
+
+        <!-- The number being looked up. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_22sdp"
+            android:background="@drawable/shape_onb_field_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_9sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_9sdp"
+                android:layout_height="@dimen/_9sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/glyph_ob_search"
+                app:tint="@color/on_surface_variant" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:fontFamily="monospace"
+                android:includeFontPadding="false"
+                android:text="@string/onb_search_number"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_7ssp" />
+        </LinearLayout>
+
+        <!-- Radar: two rings, a sweeping arm, the matched caller, and the blip. -->
+        <FrameLayout
+            android:layout_width="@dimen/_68sdp"
+            android:layout_height="@dimen/_68sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_onb_ring_scan" />
+
+            <View
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_onb_ring_scan" />
+
+            <ImageView
+                android:id="@+id/obSweepVw"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:src="@drawable/glyph_ob_sweep" />
+
+            <TextView
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_onb_avatar_brand"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/onb_match_initials"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8ssp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/obBlipVw"
+                android:layout_width="@dimen/_7sdp"
+                android:layout_height="@dimen/_7sdp"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="@dimen/_9sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:background="@drawable/shape_onb_blip" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_9sdp"
+            android:includeFontPadding="false"
+            android:text="@string/onb_match_name"
+            android:textColor="@color/on_surface"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:includeFontPadding="false"
+            android:text="@string/onb_match_location"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/_8ssp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/obStampVw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_onb_chip_found"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_11sdp"
+            android:paddingVertical="@dimen/_5sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_9sdp"
+                android:layout_height="@dimen/_9sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/glyph_check"
+                app:tint="@color/identified_on" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:includeFontPadding="false"
+                android:text="@string/onb_caller_found"
+                android:textAllCaps="true"
+                android:textColor="@color/identified_on"
+                android:textSize="@dimen/_8ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

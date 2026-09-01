@@ -1,0 +1,13 @@
+<!-- Share (3 nodes) — per Claude Design. Tintable, no baked background. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="M15.5,5.5 a2.5,2.5 0 1,0 5,0 a2.5,2.5 0 1,0 -5,0 M3.5,12 a2.5,2.5 0 1,0 5,0 a2.5,2.5 0 1,0 -5,0 M15.5,18.5 a2.5,2.5 0 1,0 5,0 a2.5,2.5 0 1,0 -5,0 M8.2,10.8 l7.6,-4 M8.2,13.2 l7.6,4"
+        android:strokeColor="@color/primary"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

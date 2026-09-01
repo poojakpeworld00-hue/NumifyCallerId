@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Flashlight — CID03 redesign.
+
+    A halo behind one big round toggle, the torch state under it, then a
+    brightness panel and the three modes.
+
+    The design's "lumen output" readout is gone: nothing here can measure lumens,
+    and the previous screen was deriving a number from the brightness slider and
+    presenting it as an instrument reading. Brightness itself is real on devices
+    that support torch-strength control.
+-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/flashlightRootVw"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        tools:context=".screen.utility.TorchActivity">
+
+        <LinearLayout
+            android:id="@+id/crownBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/padBack"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/onboarding_skip"
+                android:padding="@dimen/_9sdp"
+                android:src="@drawable/glyph_arrow_back"
+                app:tint="@color/on_surface" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_weight="1"
+                android:letterSpacing="-0.02"
+                android:text="@string/tools_flashlight"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/lblNoFlash"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_32sdp"
+            android:gravity="center"
+            android:text="@string/flashlight_no_flash"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/_12ssp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/crownBar" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/contentVw"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintTop_toBottomOf="@id/crownBar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/_18sdp">
+
+                <!-- ===== Toggle + halo ===== -->
+                <FrameLayout
+                    android:layout_width="@dimen/_195sdp"
+                    android:layout_height="@dimen/_195sdp"
+                    android:layout_marginTop="@dimen/_6sdp">
+
+                    <View
+                        android:id="@+id/beamOuterVw"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:alpha="0"
+                        android:background="@drawable/shape_cid_beam_outer" />
+
+                    <View
+                        android:id="@+id/beamInnerVw"
+                        android:layout_width="@dimen/_145sdp"
+                        android:layout_height="@dimen/_145sdp"
+                        android:layout_gravity="center"
+                        android:alpha="0"
+                        android:background="@drawable/shape_cid_beam_inner" />
+
+                    <ImageView
+                        android:id="@+id/padToggle"
+                        android:layout_width="@dimen/_118sdp"
+                        android:layout_height="@dimen/_118sdp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/shape_cid_torch_off"
+                        android:contentDescription="@string/flashlight_on"
+                        android:elevation="@dimen/_6sdp"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
+                        android:outlineAmbientShadowColor="@color/card_shadow"
+                        android:outlineSpotShadowColor="@color/card_shadow"
+                        android:padding="@dimen/_32sdp"
+                        android:src="@drawable/glyph_tool_flashlight"
+                        app:tint="@color/on_surface_variant" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/lblState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:letterSpacing="0.12"
+                    android:text="@string/flashlight_state_off"
+                    android:textAllCaps="true"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/flashlight_tap_hint"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="@dimen/_10ssp" />
+
+                <!-- ===== Brightness ===== -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_22sdp"
+                    android:background="@drawable/shape_cid_panel"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/_14sdp"
+                    android:paddingVertical="@dimen/_12sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:letterSpacing="0.08"
+                            android:text="@string/flashlight_brightness_short"
+                            android:textAllCaps="true"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="@dimen/_9ssp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/lblBrightnessPct"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:letterSpacing="0.08"
+                            android:textColor="@color/on_surface"
+                            android:textSize="@dimen/_9ssp"
+                            android:textStyle="bold"
+                            tools:text="80%" />
+                    </LinearLayout>
+
+                    <SeekBar
+                        android:id="@+id/seekBrightnessVw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:max="100"
+                        android:progressTint="@color/cid_amber"
+                        android:progressBackgroundTint="@color/outline"
+                        android:thumbTint="@color/cid_amber" />
+                </LinearLayout>
+
+                <!-- ===== Modes ===== -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/modeSteadyVw"
+                        style="@style/TorchModeChip"
+                        android:layout_marginEnd="@dimen/_4sdp">
+
+                        <ImageView
+                            android:id="@+id/picSteady"
+                            style="@style/TorchModeIcon"
+                            android:src="@drawable/glyph_power" />
+
+                        <TextView
+                            android:id="@+id/lblSteady"
+                            style="@style/TorchModeLabel"
+                            android:text="@string/flashlight_mode_steady" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/modeStrobeVw"
+                        style="@style/TorchModeChip"
+                        android:layout_marginHorizontal="@dimen/_4sdp">
+
+                        <ImageView
+                            android:id="@+id/picStrobe"
+                            style="@style/TorchModeIcon"
+                            android:src="@drawable/glyph_tool_sound" />
+
+                        <TextView
+                            android:id="@+id/lblStrobe"
+                            style="@style/TorchModeLabel"
+                            android:text="@string/flashlight_mode_strobe" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/modeSosVw"
+                        style="@style/TorchModeChip"
+                        android:layout_marginStart="@dimen/_4sdp">
+
+                        <ImageView
+                            android:id="@+id/picSos"
+                            style="@style/TorchModeIcon"
+                            android:src="@drawable/glyph_warning" />
+
+                        <TextView
+                            android:id="@+id/lblSos"
+                            style="@style/TorchModeLabel"
+                            android:text="@string/flashlight_sos" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/adNativeFrameVw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_10sdp">
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/adShimmerVw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#ccc">
+
+                        <include layout="@layout/gads_mid_native" />
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </FrameLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <View
+            android:id="@+id/adBannerDividerVw"
+            style="@style/AdDivider"
+            android:layout_width="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            layout="@layout/part_bottom_banner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

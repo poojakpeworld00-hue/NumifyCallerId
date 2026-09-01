@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/_16sdp"
+    android:paddingVertical="@dimen/_12sdp">
+
+    <!-- Fixed height + centre gravity so the emoji flag lines up with the name
+         beside it; see the note in pane_recents. -->
+    <TextView
+        android:id="@+id/lblFlag"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:textSize="@dimen/_14ssp"
+        tools:text="🇮🇳" />
+
+    <TextView
+        android:id="@+id/lblName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_weight="1"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/_12ssp"
+        tools:text="India" />
+
+    <TextView
+        android:id="@+id/lblDial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/on_surface_variant"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        tools:text="+91" />
+
+</LinearLayout>

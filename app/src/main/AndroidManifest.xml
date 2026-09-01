@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+    <!-- CallerBubbleService runs as a foregroundServiceType="specialUse" FGS during a ring. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+
+    <!-- Package visibility (Android 11+) for the apps/intents we hand off to. -->
+    <queries>
+        <package android:name="com.whatsapp" />
+        <package android:name="com.whatsapp.w4b" />
+
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="smsto" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="text/plain" />
+        </intent>
+    </queries>
+
+    <application
+        android:name=".CalloraApplication"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_label"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:localeConfig="@xml/locales_config"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CallerIDPhoneLookup">
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.launch.LaunchActivity"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.locale.LocalePickerActivity"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.welcome.WelcomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.HomeShellActivity"
+            android:exported="false" />
+
+        <!-- Firebase-gated Full-Screen-Intent priming Screen (after Language). -->
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".access.fullscreen.FullScreenAccessActivity"
+            android:exported="false" />
+
+        <!-- Auto-return watcher: pulls the app back when the FSI toggle flips on. -->
+        <service
+            android:name=".access.fullscreen.FullScreenWatchService"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.prefs.PreferencesActivity"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.search.RegionPickerActivity"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.search.NumberReportActivity"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.search.SearchTrailActivity"
+            android:exported="false" />
+
+        <!-- The keypad is the only input on this screen: never let the system
+             keyboard open (stateAlwaysHidden) and never resize the dialpad for
+             it (adjustNothing). -->
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.keypad.KeypadActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.insight.CallInsightActivity"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.utility.BearingActivity"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.utility.SpeedGaugeActivity"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.utility.TorchActivity"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.utility.BubbleLevelActivity"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.utility.PowerGaugeActivity"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.utility.DecibelActivity"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.utility.SimDetailsActivity"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.utility.LuxMeterActivity"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.utility.ChronoActivity"
+            android:exported="false" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".screen.utility.CountdownActivity"
+            android:exported="false" />
+
+        <!-- Caller-ID card shown over the keyguard when a call rings while the device is locked -->
+        <activity
+            android:name=".screen.ringing.RingScreenActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:showWhenLocked="true"
+            android:theme="@style/Theme.OverlayGuide"
+            android:turnScreenOn="true" />
+
+        <!-- Post-call (callback) screen shown after a call ends. Lives in the
+             ap_ad_module package, so it needs a fully-qualified name (the
+             manifest's default namespace is ...contacts.calllog). -->
+
+        <!-- Fires on every phone-state change to drive the caller-ID card -->
+        <receiver
+            android:name=".engine.incoming.PhoneStateReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Floating caller-ID overlay (device unlocked) -->
+        <service
+            android:name=".engine.incoming.CallerBubbleService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="caller_id" />
+        </service>
+
+        <!-- Screens incoming calls to reject blocked numbers before they ring
+             (requires the user to grant the CallScreening role on Android 10+). -->
+        <service
+            android:name=".engine.incoming.SpamScreeningService"
+            android:exported="true"
+            android:permission="android.permission.BIND_SCREENING_SERVICE">
+            <intent-filter>
+                <action android:name="android.telecom.CallScreeningService" />
+            </intent-filter>
+        </service>
+
+        <!-- Persists the per-app language chosen via AppCompatDelegate.setApplicationLocales -->
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+        </service>
+
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.callora.callerid.adkit.runtime.AdHostActivity"
+            android:exported="false" />
+
+        <!-- Transparent coach-mark shown over the system "Appear on top" page.
+             Theme.OverlayGuide is what makes it translucent + dimmed; without the
+             theme here it would render as an opaque screen. excludeFromRecents +
+             noHistory so the hint never lingers in the task after it finishes. -->
+        <activity
+            android:name="com.callora.callerid.adkit.runtime.showcase.OverlayGuideActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.OverlayGuide" />
+
+        <activity
+            android:name="com.callora.callerid.adkit.runtime.showcase.AdShowcaseActivity"
+            android:launchMode="singleInstance"
+            android:turnScreenOn="true"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Post-call + caller-ID handling is consolidated into the single
+             .services.onincomming.PhoneStateReceiver (registered above). -->
+
+        <service
+            android:name="com.callora.callerid.adkit.runtime.showcase.services.BackgroundJobService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="com.callora.callerid.adkit.runtime.showcase.receivers.StartupReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

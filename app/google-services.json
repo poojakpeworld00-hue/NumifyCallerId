@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "165243806315",
+    "project_id": "callora-caller-id-spam-block",
+    "storage_bucket": "callora-caller-id-spam-block.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:165243806315:android:3aecad02bd06c1d359872e",
+        "android_client_info": {
+          "package_name": "com.callora.callerid.numberlookup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfc1aGRsI6cnJDXp1TUC4IFDuGBEHcvLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

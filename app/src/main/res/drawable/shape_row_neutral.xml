@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Neutral surface card · 16dp radius with a hairline border (no heavy shadow). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/surface" />
+    <corners android:radius="@dimen/_16sdp" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/outline" />
+</shape>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Muted-red avatar disc for the "!" unknown-caller row (verdict-fixed color). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#F6D2D2" />
+</shape>

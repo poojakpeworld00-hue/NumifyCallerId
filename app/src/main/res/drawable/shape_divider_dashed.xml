@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Horizontal dashed separator. Host View must set android:layerType="software". -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="line">
+    <stroke
+        android:width="@dimen/_1sdp"
+        android:color="@color/outline"
+        android:dashGap="@dimen/_4sdp"
+        android:dashWidth="@dimen/_5sdp" />
+</shape>

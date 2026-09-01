@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The three "block by…" methods. In the empty state these ARE the primary path
+    (no FAB competing); they're also reused inside the FAB chooser dialog.
+    Soft brand icon chips, matching the add-number dialog.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_row_neutral"
+    android:orientation="vertical"
+    android:padding="@dimen/_2sdp">
+
+    <!-- Add a number -->
+    <LinearLayout
+        android:id="@+id/rowAddNumberVw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_9sdp">
+
+        <ImageView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/shape_block_method_chip"
+            android:contentDescription="@string/blocklist_method_add_title"
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/glyph_add"
+            app:tint="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/blocklist_method_add_title"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:text="@string/blocklist_method_add_sub"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_10ssp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:contentDescription="@string/blocklist_method_add_title"
+            android:src="@drawable/glyph_chevron_right"
+            app:tint="@color/radio_unselected" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:background="@color/outline" />
+
+    <!-- From contacts -->
+    <LinearLayout
+        android:id="@+id/rowFromContactsVw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_9sdp">
+
+        <ImageView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/shape_block_method_chip"
+            android:contentDescription="@string/blocklist_method_contacts_title"
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/glyph_person"
+            app:tint="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/blocklist_method_contacts_title"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:text="@string/blocklist_method_contacts_sub"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_10ssp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:contentDescription="@string/blocklist_method_contacts_title"
+            android:src="@drawable/glyph_chevron_right"
+            app:tint="@color/radio_unselected" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:background="@color/outline" />
+
+    <!-- Block from recent calls -->
+    <LinearLayout
+        android:id="@+id/rowFromRecentsVw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_9sdp">
+
+        <ImageView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/shape_block_method_chip"
+            android:contentDescription="@string/blocklist_method_recents_title"
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/glyph_call"
+            app:tint="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/blocklist_method_recents_title"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:text="@string/blocklist_method_recents_sub"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_10ssp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:contentDescription="@string/blocklist_method_recents_title"
+            android:src="@drawable/glyph_chevron_right"
+            app:tint="@color/radio_unselected" />
+    </LinearLayout>
+</LinearLayout>

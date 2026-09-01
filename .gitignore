@@ -1,0 +1,18 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+/app/build
+
+# Release signing — the keystore and its credentials must never be committed.
+# Losing this file means you can never update the app on Play again: back it up
+# somewhere off this machine. See docs/release-signing.md.
+*.jks
+*.keystore
+keystore.properties

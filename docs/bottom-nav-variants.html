@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Callora — Bottom nav, 10 variants</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --primary:#6D3BE8;--primary-dark:#5326C4;--on-primary:#fff;
+  --primary-container:#EDE5FD;--on-primary-container:#5326C4;
+  --accent:#1E8E5A;--danger:#D93B3B;--accent-purple:#6C3DD9;
+  --background:#F7F8FC;--surface:#fff;--surface-2:#EEF0F6;
+  --on-surface:#101319;--on-surface-variant:#6A7285;
+  --outline:#D8DCE8;--ad-divider:#1F000000;
+  --identified-container:#DDF2E7;--identified-on:#14663F;
+  --spam-container:#FCEEEE;--spam-on:#A32626;--spam-avatar-bg:#F6D2D2;
+  --neutral-soft:#1F6A7285;
+  --grad-a:#6D3BE8;--grad-b:#4A48E8;--grad-c:#6C3DF4;
+  --shadow:rgba(16,19,25,.10);
+  --page-bg:#EDEFF5;--page-fg:#101319;--page-muted:#5A6478;--page-card:#fff;--page-line:#D8DCE8;
+}
+.dark{
+  --background:#0B0E14;--surface:#141824;--surface-2:#1C2231;
+  --on-surface:#F2F4FA;--on-surface-variant:#8A93A8;--outline:#2A3145;--ad-divider:#28FFFFFF;
+  --primary-container:#1C2231;--on-primary-container:#C7ADFF;
+  --identified-container:#143126;--identified-on:#7BD8A8;
+  --spam-container:#2A1518;--spam-on:#F09A9A;--spam-avatar-bg:#47232A;
+  --shadow:rgba(0,0,0,.5);
+  --page-bg:#0E1118;--page-fg:#F2F4FA;--page-muted:#98A2B8;--page-card:#161B26;--page-line:#2A3145;
+}
+body{margin:0;padding:30px 18px 60px;background:var(--page-bg);color:var(--page-fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;transition:background .25s,color .25s}
+.wrap{max-width:1220px;margin:0 auto}
+header.top{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:space-between}
+h1{font-size:25px;margin:0 0 5px;letter-spacing:-.02em}
+.sub{color:var(--page-muted);font-size:13.5px;margin:0;max-width:72ch;line-height:1.55}
+.toggle{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:var(--page-card);border:1px solid var(--page-line)}
+.toggle button{font:inherit;font-size:13px;font-weight:600;cursor:pointer;border:0;border-radius:999px;padding:7px 16px;background:transparent;color:var(--page-muted)}
+.toggle button[aria-pressed="true"]{background:var(--primary);color:#fff}
+
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));margin-top:28px}
+.card{background:var(--page-card);border:1px solid var(--page-line);border-radius:16px;padding:16px 16px 18px}
+.card h3{margin:0;font-size:14.5px;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+.card h3 em{font-style:normal;font-size:10px;font-weight:800;letter-spacing:.06em;background:var(--primary);
+  color:#fff;padding:2px 7px;border-radius:999px;flex:none}
+.card .note{margin:7px 0 0;font-size:12px;line-height:1.55;color:var(--page-muted)}
+.card .tag{display:inline-block;margin-top:9px;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px}
+.tag.good{background:#DDF2E7;color:#14663F}
+.tag.warn{background:#FCEEEE;color:#A32626}
+.dark .tag.good{background:#143126;color:#7BD8A8}
+.dark .tag.warn{background:#2A1518;color:#F09A9A}
+
+/* device slice */
+.slice{margin-top:13px;border-radius:16px;overflow:hidden;background:var(--background);
+  border:1px solid var(--outline);}
+.body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:8px}
+.rowline{display:flex;align-items:center;gap:9px}
+.av{width:30px;height:30px;flex:none;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:11px}
+.av.g{background:var(--identified-container);color:var(--identified-on)}
+.av.s{background:var(--spam-avatar-bg);color:var(--spam-on)}
+.av.p{background:var(--primary-container);color:var(--on-primary-container)}
+.rowline .m{flex:1;min-width:0}
+.rowline .n{height:8px;border-radius:4px;background:var(--outline);width:58%}
+.rowline .t{height:6px;border-radius:3px;background:var(--outline);width:34%;margin-top:5px;opacity:.6}
+.pill{font-size:8.5px;font-weight:800;padding:2px 6px;border-radius:999px}
+.pill.ok{background:var(--identified-container);color:var(--identified-on)}
+.pill.bad{background:var(--spam-container);color:var(--spam-on)}
+
+svg.ic{width:100%;height:100%;display:block;fill:none;stroke:currentColor;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- base nav ---------- */
+.nav{display:flex;background:var(--surface);border-top:1px solid var(--outline);padding:7px 3px 9px;position:relative}
+.n{flex:1;text-align:center;color:var(--on-surface-variant);position:relative}
+.n span{width:19px;height:19px;margin:0 auto;display:block;position:relative;z-index:1}
+.n b{display:block;font-size:8.5px;font-weight:700;margin-top:3px;position:relative;z-index:1;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.n.on{color:var(--primary)}
+.badge{position:absolute;top:-3px;right:50%;margin-right:-16px;min-width:14px;height:14px;padding:0 4px;
+  border-radius:999px;background:var(--danger);color:#fff;font-size:8px;font-weight:800;line-height:14px;z-index:3}
+
+/* 1 classic — base only */
+
+/* 2 active label only */
+.v2 .n b{display:none}
+.v2 .n.on b{display:block}
+.v2 .n.on{flex:1.5}
+
+/* 3 filled pill */
+.v3{padding:9px 6px 11px;gap:3px}
+.v3 .n{display:flex;align-items:center;justify-content:center;gap:5px;border-radius:999px;padding:7px 2px}
+.v3 .n b{display:none;font-size:10px;margin:0}
+.v3 .n span{margin:0}
+.v3 .n.on{background:var(--primary-container);color:var(--on-primary-container);flex:1.9}
+.v3 .n.on b{display:block}
+
+/* 4 top accent bar */
+.v4 .n.on::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%);
+  width:26px;height:3px;border-radius:0 0 4px 4px;background:var(--primary)}
+
+/* 5 filled circle */
+.v5 .n.on span{color:#fff}
+.v5 .n.on::before{content:"";position:absolute;top:-4px;left:50%;transform:translateX(-50%);
+  width:32px;height:32px;border-radius:50%;background:var(--primary);z-index:0}
+.v5 .n.on b{color:var(--primary)}
+.v5{padding-top:11px}
+
+/* 6 floating detached */
+.v6wrap{padding:8px 12px 12px;background:var(--background)}
+.v6{border:1px solid var(--outline);border-radius:20px;padding:8px 4px;border-top:1px solid var(--outline);
+  box-shadow:0 8px 20px -10px rgba(0,0,0,.5)}
+.v6 .n b{font-size:8px}
+
+/* 7 center FAB */
+.v7{padding-top:8px}
+.v7 .gap{flex:1}
+.v7 .cta{position:absolute;left:50%;transform:translateX(-50%);top:-18px;width:46px;height:46px;
+  border-radius:50%;padding:13px;background:var(--primary);color:#fff;border:4px solid var(--background);
+  box-shadow:0 6px 14px -4px rgba(109,59,232,.7);z-index:4}
+
+/* 8 gradient pill */
+.v8{padding:9px 6px 11px;gap:3px}
+.v8 .n{display:flex;align-items:center;justify-content:center;gap:5px;border-radius:14px;padding:7px 2px}
+.v8 .n b{display:none;font-size:10px;margin:0}
+.v8 .n span{margin:0}
+.v8 .n.on{background:linear-gradient(120deg,var(--grad-a),var(--grad-c));color:#fff;flex:2;
+  box-shadow:0 5px 12px -5px rgba(109,59,232,.8)}
+.v8 .n.on b{display:block}
+
+/* 9 icon only + badges */
+.v9{padding:11px 4px 13px}
+.v9 .n b{display:none}
+.v9 .n span{width:21px;height:21px}
+.v9 .n.on::after{content:"";position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);
+  width:5px;height:5px;border-radius:50%;background:var(--primary)}
+
+/* 10 squircle tile */
+.v10{padding:8px 3px 10px}
+.v10 .n.on span{color:var(--on-primary-container)}
+.v10 .n.on::before{content:"";position:absolute;top:-3px;left:50%;transform:translateX(-50%);
+  width:44px;height:26px;border-radius:9px;background:var(--primary-container);z-index:0}
+.v10 .n.on b{color:var(--primary)}
+.v10{padding-top:10px}
+
+.foot{margin-top:34px;background:var(--page-card);border:1px solid var(--page-line);border-radius:14px;padding:16px 18px}
+.foot h2{margin:0 0 10px;font-size:16px;letter-spacing:-.01em}
+.foot p{margin:0 0 9px;font-size:12.8px;line-height:1.65;color:var(--page-muted)}
+.foot b{color:var(--page-fg)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;background:var(--neutral-soft);
+  padding:1.5px 5px;border-radius:5px;color:var(--page-fg)}
+</style>
+</head>
+<body>
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></symbol>
+  <symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"/></symbol>
+  <symbol id="block" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="5.6" y1="5.6" x2="18.4" y2="18.4"/></symbol>
+  <symbol id="tools" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0 5.3 5.3l-8 8a2.8 2.8 0 0 1-4-4z"/></symbol>
+  <symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></symbol>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Bottom navigation — 10 variants</h1>
+      <p class="sub">All ten show the app's current five destinations:
+      <b>Recents · Contacts · Blocklist · Tools · Lookup</b>. The bar is a custom
+      <code>LinearLayout</code> of <code>cell_nav</code> includes, not a
+      <code>BottomNavigationView</code>, so every one of these is reachable by editing
+      <code>cell_nav.xml</code> plus the selection code in <code>HomeShellActivity.select()</code>.</p>
+    </div>
+    <div class="toggle" role="group" aria-label="Theme">
+      <button id="tL" aria-pressed="true">Light</button>
+      <button id="tD" aria-pressed="false">Dark</button>
+    </div>
+  </header>
+
+  <div class="grid" id="grid"></div>
+
+  <section class="foot">
+    <h2>Reading these against your actual constraint</h2>
+    <p><b>Five tabs at 360dp is the real problem.</b> That's 72dp per tab. "Blocklist" needs ~46dp at
+    8.5sp bold, so the labelled variants (1, 4, 5, 6, 10) work but leave almost no breathing room — and on a
+    320dp device they will truncate. Variants that hide inactive labels (2, 3, 8) or all labels (9) are the
+    ones that genuinely fit five.</p>
+    <p><b>Variant 7 solves it differently</b> — promoting Lookup to a centre FAB drops the bar to four items,
+    which is the count the layout was designed around. It also matches how the app already treats lookup: the
+    "Who's calling?" card on Recents is the primary entry, so the FAB reinforces rather than duplicates it.</p>
+    <p><b>Cheapest to build:</b> 1 (already shipped), then 4 and 10 — both are a single extra
+    <code>View</code> in <code>cell_nav.xml</code> toggled in <code>select()</code>. <b>Most work:</b> 7,
+    which needs the FAB lifted out of the bar and the banner re-anchored beneath it, and 2/3/8, which animate
+    a width change per tab so they need a <code>ValueAnimator</code> on <code>layout_weight</code> to avoid
+    snapping.</p>
+    <p><b>Badges</b> are drawn on Blocklist in variant 9, but they drop into any of these — the natural
+    counts you already have are blocked-today and missed calls.</p>
+  </section>
+</div>
+
+<script>
+const TABS = [
+  {ic:'clock',  l:'Recents'},
+  {ic:'user',   l:'Contacts'},
+  {ic:'block',  l:'Blocklist'},
+  {ic:'tools',  l:'Tools'},
+  {ic:'search', l:'Lookup'}
+];
+
+const VARIANTS = [
+  {n:'Classic labelled', cls:'', tag:['good','Shipping today'],
+   note:'Icon + label always visible, active tinted violet. Best discoverability; tightest fit at five tabs.'},
+  {n:'Active label only', cls:'v2', tag:['good','Fits 5 easily'],
+   note:'Inactive tabs show only an icon; the active one expands and reveals its label. Buys back ~40% of the bar width.'},
+  {n:'Filled pill', cls:'v3', tag:['good','Material 3'],
+   note:'Active destination sits in a tonal pill with its label inline. The M3 default — familiar and roomy.'},
+  {n:'Top accent bar', cls:'v4', tag:['good','1-line change'],
+   note:'A short violet bar rides above the active icon. Cheapest possible upgrade over the classic bar.'},
+  {n:'Filled circle', cls:'v5', tag:['warn','Icon needs contrast'],
+   note:'Active icon inverts into a solid violet disc with the label below. Bold, but the icon must read white.'},
+  {n:'Floating detached', cls:'v6', wrap:'v6wrap', tag:['warn','Costs vertical space'],
+   note:'Bar lifts off the edge as a rounded card. Modern, but stacked above the AdMob banner it crowds the bottom.'},
+  {n:'Centre FAB', cls:'v7', fab:true, tag:['good','Drops to 4 tabs'],
+   note:'Lookup is promoted to a raised centre action, leaving four labelled tabs with comfortable spacing.'},
+  {n:'Gradient pill', cls:'v8', tag:['warn','Heavy at 5 tabs'],
+   note:'Active pill uses the brand gradient from the splash and protection card. Strong identity, visually loud.'},
+  {n:'Icon only + badge', cls:'v9', badge:true, tag:['good','Most compact'],
+   note:'No labels at all; a dot marks the active tab and counts ride as badges. Scales past five, but users must learn the icons.'},
+  {n:'Squircle tile', cls:'v10', tag:['good','Balanced'],
+   note:'Active icon sits on a rounded tonal tile with the label beneath. Reads clearly without inverting the icon.'}
+];
+
+const icon = id => `<svg class="ic"><use href="#${id}"/></svg>`;
+
+function navHtml(v){
+  const items = TABS.map((t,i)=>{
+    if (v.fab && i===4) return '';
+    const on = i===0 ? ' on' : '';
+    const badge = (v.badge && i===2) ? '<i class="badge">3</i>' : '';
+    return `<div class="n${on}">${badge}<span>${icon(t.ic)}</span><b>${t.l}</b></div>`;
+  }).join('') + (v.fab ? '<div class="gap"></div>' : '');
+
+  const fab = v.fab ? `<span class="cta">${icon('search')}</span>` : '';
+  const bar = `<div class="nav ${v.cls}">${v.fab ? items.slice(0,items.length) : items}${fab}</div>`;
+  return v.wrap ? `<div class="${v.wrap}">${bar}</div>` : bar;
+}
+
+function fabNavHtml(v){
+  // 4 tabs split 2 / 2 around the raised centre action
+  const cell = (t,on)=>`<div class="n${on?' on':''}"><span>${icon(t.ic)}</span><b>${t.l}</b></div>`;
+  return `<div class="nav ${v.cls}">
+    ${cell(TABS[0],true)}${cell(TABS[1],false)}
+    <div class="gap"></div>
+    ${cell(TABS[2],false)}${cell(TABS[3],false)}
+    <span class="cta">${icon('search')}</span>
+  </div>`;
+}
+
+const bodyHtml = `
+  <div class="body">
+    <div class="rowline"><div class="av g">RS</div><div class="m"><div class="n"></div><div class="t"></div></div><span class="pill ok">ID</span></div>
+    <div class="rowline"><div class="av s">!</div><div class="m"><div class="n" style="width:48%"></div><div class="t"></div></div><span class="pill bad">Spam</span></div>
+    <div class="rowline"><div class="av p">MK</div><div class="m"><div class="n" style="width:64%"></div><div class="t"></div></div></div>
+  </div>`;
+
+document.getElementById('grid').innerHTML = VARIANTS.map((v,i)=>`
+  <div class="card">
+    <h3><em>${i+1}</em>${v.n}</h3>
+    <p class="note">${v.note}</p>
+    <span class="tag ${v.tag[0]}">${v.tag[1]}</span>
+    <div class="slice">
+      ${bodyHtml}
+      ${v.fab ? fabNavHtml(v) : navHtml(v)}
+    </div>
+  </div>`).join('');
+
+const L=document.getElementById('tL'),D=document.getElementById('tD');
+const set=d=>{document.body.classList.toggle('dark',d);
+  L.setAttribute('aria-pressed',String(!d));D.setAttribute('aria-pressed',String(d));};
+L.onclick=()=>set(false);D.onclick=()=>set(true);
+set(window.matchMedia('(prefers-color-scheme: dark)').matches);
+</script>
+</body>
+</html>

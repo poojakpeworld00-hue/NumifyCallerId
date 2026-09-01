@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_card"
+    android:orientation="vertical"
+    android:padding="@dimen/_20sdp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/language_info_title"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:lineSpacingMultiplier="1.35"
+        android:text="@string/language_info_msg"
+        android:textColor="@color/on_surface_variant"
+        android:textSize="@dimen/_11ssp" />
+
+    <TextView
+        android:id="@+id/padGotIt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:background="@drawable/shape_btn_primary"
+        android:minWidth="@dimen/_70sdp"
+        android:paddingHorizontal="@dimen/_18sdp"
+        android:paddingVertical="@dimen/_9sdp"
+        android:text="@string/language_info_got_it"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+</LinearLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Splash boot progress · unlit track. Same neutral grey as the waveform's unlit
+    bars, so the two read as one family and the brand hue stays reserved for
+    whatever has actually completed.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:color="@color/splash_sl_bar_track" />
+    <corners android:radius="@dimen/_99sdp" />
+</shape>

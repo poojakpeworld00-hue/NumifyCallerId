@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <!-- Just the segmented toggle. The title, the current value and the card are
+         the host's (screen_settings) — this used to carry its own copy of all
+         three, which then showed twice inside the new Theme card. -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_theme_track"
+            android:orientation="horizontal"
+            android:padding="@dimen/_4sdp">
+
+            <ImageView
+                android:id="@+id/segLightVw"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:clickable="true"
+                android:contentDescription="@string/theme_light"
+                android:focusable="true"
+                android:padding="@dimen/_9sdp"
+                android:src="@drawable/glyph_light_mode" />
+
+            <ImageView
+                android:id="@+id/segDarkVw"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:clickable="true"
+                android:contentDescription="@string/theme_dark"
+                android:focusable="true"
+                android:padding="@dimen/_9sdp"
+                android:src="@drawable/glyph_dark_mode" />
+
+            <ImageView
+                android:id="@+id/segSystemVw"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:clickable="true"
+                android:contentDescription="@string/theme_system"
+                android:focusable="true"
+                android:padding="@dimen/_9sdp"
+                android:src="@drawable/glyph_theme_system" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

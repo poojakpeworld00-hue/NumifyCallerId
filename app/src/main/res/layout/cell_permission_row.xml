@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One compact permission row inside the permission bottom sheet:
+     icon · title/desc · Allow button (or a "Granted" chip once granted). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_7sdp"
+    android:background="@drawable/shape_overlay_row"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/_10sdp"
+    android:paddingVertical="@dimen/_9sdp">
+
+    <ImageView
+        android:id="@+id/picIcon"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:contentDescription="@null"
+        android:src="@drawable/glyph_notifications"
+        app:tint="@color/primary" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lblTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/on_surface"
+            android:textSize="@dimen/_11ssp"
+            android:textStyle="bold"
+            tools:text="Notifications" />
+
+        <TextView
+            android:id="@+id/lblDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/_9ssp"
+            tools:text="Get spam and call alerts" />
+    </LinearLayout>
+
+    <!-- The row is hidden entirely once its permission is granted. -->
+    <TextView
+        android:id="@+id/padAllow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_btn_primary"
+        android:paddingHorizontal="@dimen/_14sdp"
+        android:paddingVertical="@dimen/_6sdp"
+        android:text="@string/permsheet_allow"
+        android:textColor="@color/on_primary"
+        android:textSize="@dimen/_10ssp"
+        android:textStyle="bold" />
+
+</LinearLayout>

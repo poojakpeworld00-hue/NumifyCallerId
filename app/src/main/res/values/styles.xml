@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="RecentFilterTab">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/_7sdp</item>
+        <item name="android:background">@drawable/shape_chip</item>
+        <item name="android:minHeight">@dimen/_32sdp</item>
+        <item name="android:paddingHorizontal">@dimen/_12sdp</item>
+        <item name="android:paddingVertical">@dimen/_5sdp</item>
+        <item name="android:textColor">@color/csl_filter_tab</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:drawablePadding">@dimen/_3sdp</item>
+    </style>
+
+    <!-- Dial-pad key cell (digit + letters), one per GridLayout column. -->
+    <!-- Key card. The ripple is the FOREGROUND, not the background: the card
+         drawable owns the background, and putting the ripple there instead would
+         simply replace it. -->
+    <style name="DialKey">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/_46sdp</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_gravity">fill_horizontal</item>
+        <item name="android:layout_margin">@dimen/_3sdp</item>
+        <item name="android:background">@drawable/shape_cid_key_card</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="DialKeyDigit">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textSize">@dimen/_17ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DialKeyLetters">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:textSize">@dimen/_7ssp</item>
+    </style>
+
+    <!-- Call Details action button (circle icon + label) -->
+    <style name="DetailAction">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingVertical">@dimen/_4sdp</item>
+    </style>
+
+    <style name="DetailActionIcon">
+        <item name="android:layout_width">@dimen/_46sdp</item>
+        <item name="android:layout_height">@dimen/_46sdp</item>
+        <item name="android:background">@drawable/shape_oval</item>
+        <item name="android:padding">@dimen/_12sdp</item>
+    </style>
+
+    <!-- One colour for every action label. Colouring each to match its own chip
+         made the row read as four unrelated buttons; the chip already carries
+         the distinction. -->
+    <style name="DetailActionLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/_7sdp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Flashlight mode button -->
+    <style name="FlashMode">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/shape_card_border</item>
+        <item name="android:backgroundTint">@color/surface</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingVertical">@dimen/_12sdp</item>
+    </style>
+
+    <style name="FlashModeIcon">
+        <item name="android:layout_width">@dimen/_22sdp</item>
+        <item name="android:layout_height">@dimen/_22sdp</item>
+        <item name="android:tint">@color/on_surface_variant</item>
+    </style>
+
+    <style name="FlashModeLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/_5sdp</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Timer preset chip (+1:00 etc.) -->
+    <style name="TimerPreset">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/shape_card_border</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingVertical">@dimen/_12sdp</item>
+    </style>
+
+    <style name="TimerPresetValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TimerPresetLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/_2sdp</item>
+        <item name="android:letterSpacing">0.04</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:textSize">@dimen/_8ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Speed-test stat tile (Upload / Ping / Jitter). Three share a row, so the
+         width is a weight rather than a size — a fixed width overflows at large
+         system font scales. -->
+    <style name="SpeedStatCard">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/shape_cid_stat_card</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingHorizontal">@dimen/_6sdp</item>
+        <item name="android:paddingVertical">@dimen/_11sdp</item>
+    </style>
+
+    <style name="SpeedStatIcon">
+        <item name="android:layout_width">@dimen/_17sdp</item>
+        <item name="android:layout_height">@dimen/_17sdp</item>
+        <item name="android:contentDescription">@null</item>
+    </style>
+
+    <style name="SpeedStatValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/_5sdp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SpeedStatLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/_3sdp</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:textSize">@dimen/_8ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- SIM info detail tile (card cell) -->
+    <style name="SimTile">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/shape_card_border</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/_14sdp</item>
+    </style>
+
+    <!-- Battery Activity stat column -->
+    <style name="BatteryStat">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="BatteryStatLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:textSize">@dimen/_9ssp</item>
+    </style>
+
+    <style name="BatteryStatValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/_3sdp</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Blocklist FAB · rounded-square (18dp) instead of a full circle. -->
+    <style name="ShapeAppearance.Fab.Rounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/_18sdp</item>
+    </style>
+
+    <!-- Smooth scale+fade for custom (non-system) dialogs. -->
+    <style name="DialogScaleAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_scale_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_scale_out</item>
+    </style>
+
+    <!-- Spring-up / slide-down for bottom-sheet-style dialogs. -->
+    <style name="SheetSlideAnimation">
+        <item name="android:windowEnterAnimation">@anim/sheet_slide_up</item>
+        <item name="android:windowExitAnimation">@anim/sheet_slide_down</item>
+    </style>
+
+    <!-- Tools category header (in-grid, spans both columns). -->
+    <style name="ToolsCategory">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/_12sdp</item>
+        <item name="android:layout_marginBottom">@dimen/_2sdp</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:textSize">@dimen/_9ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Uppercase section label on the Settings screen -->
+    <style name="SettingsSection">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/_10sdp</item>
+        <item name="android:layout_marginBottom">@dimen/_8sdp</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:textSize">@dimen/_9ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--
+        1dp full-bleed hairline that separates app content from an ad container.
+        Edge-to-edge by design: no margins, so it spans the whole screen width.
+    -->
+    <style name="AdDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/ad_divider</item>
+    </style>
+
+
+
+    <!-- One "label · value" row on the Network info screen. -->
+    <style name="NetRowCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/_8sdp</item>
+        <item name="android:background">@drawable/shape_cid_card</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingStart">@dimen/_9sdp</item>
+        <item name="android:paddingEnd">@dimen/_12sdp</item>
+        <item name="android:paddingVertical">@dimen/_9sdp</item>
+    </style>
+
+    <style name="NetRowIcon">
+        <item name="android:layout_width">@dimen/_34sdp</item>
+        <item name="android:layout_height">@dimen/_34sdp</item>
+        <item name="android:contentDescription">@null</item>
+        <item name="android:padding">@dimen/_8sdp</item>
+    </style>
+
+    <style name="NetRowLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/_10sdp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="NetRowValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/_8sdp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Section heading: brand dot, label, then a rule out to the edge. -->
+    <style name="NetSectionRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/_18sdp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="NetSectionLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/_6sdp</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textSize">@dimen/_9ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="NetSignalBar">
+        <item name="android:layout_width">@dimen/_4sdp</item>
+        <item name="android:layout_marginStart">@dimen/_2sdp</item>
+        <item name="android:background">@drawable/shape_cid_bar_off</item>
+    </style>
+
+    <!-- "Right now" tile on the Battery screen: two per row. -->
+    <style name="BattStatCard">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/shape_cid_stat_card</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingHorizontal">@dimen/_11sdp</item>
+        <item name="android:paddingVertical">@dimen/_11sdp</item>
+    </style>
+
+    <style name="BattStatLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/_5sdp</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:textSize">@dimen/_8ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BattStatValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/_5sdp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textSize">@dimen/_15ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TorchModeChip">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/_42sdp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/shape_cid_mode_off</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="TorchModeIcon">
+        <item name="android:layout_width">@dimen/_14sdp</item>
+        <item name="android:layout_height">@dimen/_14sdp</item>
+        <item name="android:contentDescription">@null</item>
+    </style>
+
+    <style name="TorchModeLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/_5sdp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- One band of the light-meter scale. -->
+    <style name="LuxBand">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginHorizontal">@dimen/_2sdp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="LuxBandBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/_5sdp</item>
+        <item name="android:background">@drawable/shape_cid_band_off</item>
+    </style>
+
+    <style name="LuxBandLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/_5sdp</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:textSize">@dimen/_8ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Full-width action at the foot of a tool screen.
+         A MaterialButton rather than a TextView with drawableStart: on a centred
+         TextView the compound drawable pins itself to the view's leading EDGE,
+         so on a full-width button the icon ends up marooned far from its label.
+         MaterialButton lays icon and text out as one centred group. -->
+    <style name="ToolCta" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/_48sdp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/on_primary</item>
+        <item name="android:textSize">@dimen/_13ssp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="backgroundTint">@color/primary</item>
+        <item name="cornerRadius">@dimen/_24sdp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">@dimen/_7sdp</item>
+        <item name="iconSize">@dimen/_16sdp</item>
+        <item name="iconTint">@color/on_primary</item>
+    </style>
+
+    <!-- One "icon · label · value" line inside the lookup result card. -->
+    <style name="LookupFactRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingVertical">@dimen/_9sdp</item>
+    </style>
+
+    <style name="LookupFactIcon">
+        <item name="android:layout_width">@dimen/_15sdp</item>
+        <item name="android:layout_height">@dimen/_15sdp</item>
+        <item name="android:contentDescription">@null</item>
+    </style>
+
+    <style name="LookupFactLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/_9sdp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+    </style>
+
+    <style name="LookupFactValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/_8sdp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="LookupFactDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/outline</item>
+    </style>
+
+    <!-- Settings section heading: label then a rule out to the edge. -->
+    <style name="SettingsSectionRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/_18sdp</item>
+        <item name="android:layout_marginBottom">@dimen/_8sdp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="SettingsSectionLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textSize">@dimen/_9ssp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Hairline between rows in a settings group. Inset past the icon column so
+         it separates the text, not the whole row. -->
+    <style name="SettingsRowDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginStart">@dimen/_54sdp</item>
+        <item name="android:layout_marginEnd">@dimen/_12sdp</item>
+        <item name="android:background">@color/outline</item>
+    </style>
+
+    <style name="SettingsGroupCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/shape_settings_group</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/_4sdp</item>
+    </style>
+</resources>

@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Callora — Home redesign, three directions</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+
+  :root{
+    --primary:#6D3BE8; --primary-dark:#5326C4; --on-primary:#fff;
+    --primary-container:#EDE5FD; --on-primary-container:#5326C4;
+    --accent:#1E8E5A; --danger:#D93B3B; --warn:#E5920A; --accent-purple:#6C3DD9;
+    --background:#F7F8FC; --surface:#fff; --surface-2:#EEF0F6;
+    --on-surface:#101319; --on-surface-variant:#6A7285;
+    --outline:#D8DCE8; --ad-divider:#1F000000;
+    --identified-container:#DDF2E7; --identified-on:#14663F;
+    --spam-container:#FCEEEE; --spam-on:#A32626; --spam-avatar-bg:#F6D2D2;
+    --success-soft:#1F1E8E5A; --danger-soft:#1FD93B3B;
+    --neutral-soft:#1F6A7285; --purple-soft:#1F6C3DD9;
+    --surface-dark:#1B2430; --on-surface-dark:#94A3B8; --online-green:#22C55E;
+    --shadow:rgba(16,19,25,.09);
+    --page-bg:#EDEFF5; --page-fg:#101319; --page-muted:#5A6478;
+    --page-card:#fff; --page-line:#D8DCE8;
+  }
+  .dark{
+    --background:#0B0E14; --surface:#141824; --surface-2:#1C2231;
+    --on-surface:#F2F4FA; --on-surface-variant:#8A93A8;
+    --outline:#2A3145; --ad-divider:#28FFFFFF;
+    --primary-container:#1C2231; --on-primary-container:#C7ADFF;
+    --identified-container:#143126; --identified-on:#7BD8A8;
+    --spam-container:#2A1518; --spam-on:#F09A9A; --spam-avatar-bg:#47232A;
+    --surface-dark:#10151E;
+    --shadow:rgba(0,0,0,.5);
+    --page-bg:#0E1118; --page-fg:#F2F4FA; --page-muted:#98A2B8;
+    --page-card:#161B26; --page-line:#2A3145;
+  }
+
+  body{margin:0;padding:30px 18px 60px;background:var(--page-bg);color:var(--page-fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    transition:background .25s,color .25s}
+  .wrap{max-width:1250px;margin:0 auto}
+  header.top{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:space-between}
+  h1{font-size:25px;margin:0 0 5px;letter-spacing:-.02em}
+  .sub{color:var(--page-muted);font-size:13.5px;margin:0;max-width:66ch;line-height:1.55}
+  .toggle{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:var(--page-card);border:1px solid var(--page-line)}
+  .toggle button{font:inherit;font-size:13px;font-weight:600;cursor:pointer;border:0;border-radius:999px;padding:7px 16px;background:transparent;color:var(--page-muted)}
+  .toggle button[aria-pressed="true"]{background:var(--primary);color:#fff}
+
+  .stage{display:flex;gap:30px;flex-wrap:wrap;justify-content:center;margin-top:30px}
+  .col{display:flex;flex-direction:column;align-items:center;gap:13px;width:344px}
+  .cap{text-align:center}
+  .cap .badge{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+    padding:3px 10px;border-radius:999px;background:var(--primary);color:#fff;margin-bottom:8px}
+  .cap b{display:block;font-size:15.5px;letter-spacing:-.01em}
+  .cap span{display:block;font-size:12.5px;color:var(--page-muted);margin-top:4px;line-height:1.5}
+
+  .phone{width:344px;height:726px;flex:none;border-radius:32px;padding:8px;
+    background:linear-gradient(160deg,#2b3040,#12151d);box-shadow:0 20px 46px -16px rgba(0,0,0,.5)}
+  .screen{width:100%;height:100%;border-radius:25px;overflow:hidden;background:var(--background);
+    color:var(--on-surface);display:flex;flex-direction:column;position:relative;font-size:13px}
+  .scroll{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin}
+  .scroll::-webkit-scrollbar{width:4px}
+  .scroll::-webkit-scrollbar-thumb{background:var(--outline);border-radius:9px}
+  .sb{height:25px;flex:none;display:flex;align-items:center;justify-content:space-between;
+    padding:0 15px;font-size:10.5px;font-weight:700}
+  .sb .d{display:flex;gap:4px;opacity:.7}
+  .sb .d i{width:4px;height:4px;border-radius:50%;background:currentColor;font-style:normal}
+
+  svg.ic{width:100%;height:100%;display:block;fill:none;stroke:currentColor;stroke-width:1.9;
+    stroke-linecap:round;stroke-linejoin:round}
+
+  /* shared bits */
+  .pill{font-size:9.5px;font-weight:800;padding:3px 8px;border-radius:999px;white-space:nowrap}
+  .pill.ok{background:var(--identified-container);color:var(--identified-on)}
+  .pill.bad{background:var(--spam-container);color:var(--spam-on)}
+  .pill.neu{background:var(--neutral-soft);color:var(--on-surface-variant)}
+  .av{width:38px;height:38px;flex:none;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px}
+  .av.p{background:var(--primary-container);color:var(--on-primary-container)}
+  .av.s{background:var(--spam-avatar-bg);color:var(--spam-on)}
+  .av.g{background:var(--identified-container);color:var(--identified-on)}
+  .sec{display:flex;align-items:center;margin:14px 16px 2px}
+  .sec b{flex:1;font-size:13.5px;letter-spacing:-.01em}
+  .sec a{font-size:11.5px;font-weight:700;color:var(--primary);text-decoration:none}
+  .adlab{display:flex;align-items:center;gap:7px;font-size:9px;font-weight:800;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--on-surface-variant);margin:0 0 6px}
+  .adlab i{flex:1;height:1px;background:var(--ad-divider);font-style:normal}
+  .adbox{border:1px dashed var(--outline);border-radius:14px;min-height:70px;display:grid;place-items:center;
+    color:var(--on-surface-variant);font-size:11px;font-weight:600;background:var(--surface)}
+  .nav{flex:none;display:flex;background:var(--surface);border-top:1px solid var(--outline);padding:7px 4px 9px}
+  .nav .n{flex:1;text-align:center;color:var(--on-surface-variant)}
+  .nav .n span{width:19px;height:19px;margin:0 auto;display:block}
+  .nav .n b{display:block;font-size:9px;font-weight:700;margin-top:3px}
+  .nav .n.on{color:var(--primary)}
+  .banner{flex:none;height:40px;display:grid;place-items:center;font-size:9.5px;font-weight:800;
+    letter-spacing:.09em;color:var(--on-surface-variant);background:var(--surface-2);border-top:1px solid var(--ad-divider)}
+
+  /* ===================== A · QUIET / SEARCH-FIRST ===================== */
+  .a-pad{padding:14px 18px 0}
+  .a-kick{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--on-surface-variant)}
+  .a-h{font-size:26px;font-weight:800;letter-spacing:-.035em;line-height:1.15;margin-top:5px}
+  .a-h em{font-style:normal;color:var(--primary)}
+  .a-search{margin:16px 18px 0;background:var(--surface);border:1.5px solid var(--outline);border-radius:16px;
+    display:flex;align-items:center;padding:9px 9px 9px 13px}
+  .a-cc{display:flex;align-items:center;gap:5px;font-weight:800;font-size:13px}
+  .a-cc .c{width:10px;height:10px;opacity:.55}
+  .a-vr{width:1px;height:20px;background:var(--outline);margin:0 11px}
+  .a-ph{flex:1;color:var(--on-surface-variant);font-size:13.5px}
+  .a-go{width:36px;height:36px;flex:none;border-radius:12px;padding:9px;background:var(--primary);color:#fff}
+  .a-status{display:flex;align-items:center;gap:8px;margin:14px 18px 0;font-size:11.5px;font-weight:600;
+    color:var(--on-surface-variant)}
+  .a-status .dot{width:7px;height:7px;border-radius:50%;background:var(--online-green);flex:none;
+    box-shadow:0 0 0 3px var(--success-soft)}
+  .a-status b{color:var(--on-surface);font-weight:800}
+  .a-status .cv{width:12px;height:12px;margin-left:auto;opacity:.5}
+  .a-qa{display:flex;margin:18px 10px 0}
+  .a-qa .c{flex:1;text-align:center}
+  .a-qa .i{width:44px;height:44px;margin:0 auto;border-radius:50%;padding:12px;
+    background:var(--surface);border:1px solid var(--outline);color:var(--on-surface)}
+  .a-qa .l{margin-top:7px;font-size:10px;font-weight:700;color:var(--on-surface-variant)}
+  .a-row{display:flex;align-items:center;gap:11px;padding:11px 18px}
+  .a-row .m{flex:1;min-width:0}
+  .a-row .nm{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .a-row .mt{font-size:11px;color:var(--on-surface-variant);margin-top:2px;display:flex;align-items:center;gap:5px}
+  .a-row .mt .g{width:11px;height:11px;flex:none}
+  .a-sep{height:1px;background:var(--outline);margin-left:67px;opacity:.6}
+
+  /* ===================== B · SHIELD DASHBOARD ===================== */
+  .b-card{margin:10px 12px 0;border-radius:24px;background:var(--surface-dark);color:#fff;padding:14px 16px 18px;
+    position:relative;overflow:hidden}
+  .b-card::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(150px 110px at 82% -6%, rgba(109,59,232,.55), transparent 70%)}
+  .b-top{display:flex;align-items:center;gap:10px;position:relative;z-index:1}
+  .b-top .g{flex:1}
+  .b-top .k{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+  .b-top .n{font-size:16px;font-weight:800;letter-spacing:-.02em;margin-top:1px}
+  .b-gear{width:32px;height:32px;flex:none;border-radius:50%;padding:8px;color:#fff;background:rgba(255,255,255,.12)}
+  .b-ring{display:grid;place-items:center;margin-top:8px;position:relative;z-index:1}
+  .b-ring .box{position:relative;width:132px;height:132px}
+  .b-ring svg{width:132px;height:132px;transform:rotate(-90deg)}
+  .b-ring .mid{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+  .b-ring .mid .v{font-size:32px;font-weight:800;letter-spacing:-.04em;line-height:1}
+  .b-ring .mid .t{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    color:rgba(255,255,255,.55);margin-top:5px}
+  .b-st{display:flex;margin-top:14px;position:relative;z-index:1}
+  .b-st .s{flex:1;text-align:center}
+  .b-st .s .v{font-size:15px;font-weight:800;letter-spacing:-.02em}
+  .b-st .s .l{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(255,255,255,.5);margin-top:3px}
+  .b-st .vr{width:1px;background:rgba(255,255,255,.14);margin:2px 0}
+  .b-search{margin:-16px 22px 0;position:relative;z-index:3;background:var(--surface);border-radius:14px;
+    display:flex;align-items:center;padding:7px 7px 7px 12px;box-shadow:0 10px 24px -10px rgba(0,0,0,.5);
+    border:1px solid var(--outline)}
+  .b-chips{display:flex;gap:8px;margin:16px 0 0;padding:0 14px;overflow-x:auto;scrollbar-width:none}
+  .b-chips::-webkit-scrollbar{display:none}
+  .b-chip{flex:none;display:flex;align-items:center;gap:6px;padding:8px 13px;border-radius:999px;
+    background:var(--surface);border:1px solid var(--outline);font-size:11.5px;font-weight:700}
+  .b-chip span{width:14px;height:14px;flex:none}
+  .b-chip.c1 span{color:var(--primary)} .b-chip.c2 span{color:var(--accent-purple)}
+  .b-chip.c3 span{color:var(--danger)}  .b-chip.c4 span{color:var(--accent)}
+  .b-row{display:flex;align-items:center;gap:11px;margin:8px 14px 0;padding:9px 11px;border-radius:15px;
+    background:var(--surface);border:1px solid var(--outline)}
+  .b-row .m{flex:1;min-width:0}
+  .b-row .nm{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .b-row .mt{font-size:10.5px;color:var(--on-surface-variant);margin-top:2px}
+
+  /* ===================== C · BENTO ===================== */
+  .c-head{display:flex;align-items:center;gap:10px;padding:12px 14px 0}
+  .c-head .g{flex:1}
+  .c-head .k{font-size:10.5px;font-weight:700;color:var(--on-surface-variant)}
+  .c-head .n{font-size:18px;font-weight:800;letter-spacing:-.025em}
+  .c-gear{width:32px;height:32px;flex:none;border-radius:11px;padding:8px;background:var(--surface);
+    border:1px solid var(--outline);color:var(--on-surface)}
+  .c-search{margin:11px 14px 0;background:var(--surface);border:1px solid var(--outline);border-radius:14px;
+    display:flex;align-items:center;padding:6px 6px 6px 11px}
+  .c-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:11px 14px 0}
+  .c-t{border-radius:18px;padding:13px;position:relative;overflow:hidden;
+    background:var(--surface);border:1px solid var(--outline)}
+  .c-t .i{width:30px;height:30px;border-radius:10px;padding:7px}
+  .c-t .lab{font-size:12px;font-weight:800;letter-spacing:-.01em;margin-top:10px}
+  .c-t .sub{font-size:10px;font-weight:600;color:var(--on-surface-variant);margin-top:2px}
+  .c-hero{grid-row:span 2;color:#fff;border:0;display:flex;flex-direction:column;
+    background:linear-gradient(150deg,#6D3BE8,#4A48E8 60%,#6C3DF4)}
+  .c-hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(90px 70px at 88% 8%,rgba(255,255,255,.22),transparent 70%)}
+  .c-hero .i{background:rgba(255,255,255,.18);color:#fff;position:relative;z-index:1}
+  .c-hero .big{font-size:36px;font-weight:800;letter-spacing:-.05em;line-height:1;margin-top:auto;position:relative;z-index:1}
+  .c-hero .lab{color:#fff;position:relative;z-index:1;margin-top:6px}
+  .c-hero .sub{color:rgba(255,255,255,.72);position:relative;z-index:1}
+  .c-wide{grid-column:span 2;display:flex;align-items:center;gap:11px;padding:12px 13px}
+  .c-wide .m{flex:1}
+  .c-wide .cv{width:14px;height:14px;flex:none;opacity:.45}
+  .i1{background:var(--primary-container);color:var(--primary)}
+  .i2{background:var(--purple-soft);color:var(--accent-purple)}
+  .i3{background:var(--danger-soft);color:var(--danger)}
+  .i4{background:var(--success-soft);color:var(--accent)}
+  .c-row{display:flex;align-items:center;gap:10px;padding:9px 14px}
+  .c-row .m{flex:1;min-width:0}
+  .c-row .nm{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .c-row .mt{font-size:10.5px;color:var(--on-surface-variant);margin-top:2px}
+
+  /* notes */
+  .notes{margin-top:44px}
+  .notes h2{font-size:18.5px;margin:0 0 15px;letter-spacing:-.01em}
+  .grid3{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(292px,1fr))}
+  .note{background:var(--page-card);border:1px solid var(--page-line);border-radius:14px;padding:16px 17px}
+  .note h3{font-size:14px;margin:0 0 4px;letter-spacing:-.01em}
+  .note .tag{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--primary);margin-bottom:6px}
+  .note p{margin:9px 0 0;font-size:12.5px;line-height:1.6;color:var(--page-muted)}
+  .note ul{margin:9px 0 0;padding-left:17px;font-size:12.5px;line-height:1.65;color:var(--page-muted)}
+  .note li{margin-bottom:3px}
+  .note b{color:var(--page-fg)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;
+    background:var(--neutral-soft);padding:1.5px 5px;border-radius:5px;color:var(--page-fg)}
+</style>
+</head>
+<body>
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
+  <symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></symbol>
+  <symbol id="caret" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></symbol>
+  <symbol id="chev" viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6z"/><polyline points="9 12 11 14 15 10"/></symbol>
+  <symbol id="pad" viewBox="0 0 24 24"><circle cx="6" cy="6" r="1.4"/><circle cx="12" cy="6" r="1.4"/><circle cx="18" cy="6" r="1.4"/><circle cx="6" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="18" cy="12" r="1.4"/><circle cx="6" cy="18" r="1.4"/><circle cx="12" cy="18" r="1.4"/><circle cx="18" cy="18" r="1.4"/></symbol>
+  <symbol id="block" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="5.6" y1="5.6" x2="18.4" y2="18.4"/></symbol>
+  <symbol id="tools" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0 5.3 5.3l-8 8a2.8 2.8 0 0 1-4-4z"/></symbol>
+  <symbol id="call" viewBox="0 0 24 24"><path d="M5 4h3l2 5-2.2 1.4a12 12 0 0 0 5.8 5.8L15 14l5 2v3a2 2 0 0 1-2.2 2A17 17 0 0 1 3 6.2 2 2 0 0 1 5 4z"/></symbol>
+  <symbol id="in" viewBox="0 0 24 24"><polyline points="17 7 7 17"/><polyline points="7 11 7 17 13 17"/></symbol>
+  <symbol id="out" viewBox="0 0 24 24"><polyline points="7 17 17 7"/><polyline points="17 13 17 7 11 7"/></symbol>
+  <symbol id="x" viewBox="0 0 24 24"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></symbol>
+  <symbol id="home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></symbol>
+  <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></symbol>
+  <symbol id="user" viewBox="0 0 24 24"><path d="M4 20v-1a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v1"/><circle cx="10" cy="8" r="3.4"/></symbol>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Home — three directions</h1>
+      <p class="sub">Three separate takes, not variations of the same one. All use the app's real tokens from
+      <code>values/colors.xml</code> and <code>values-night/colors.xml</code>, so the dark toggle is accurate.
+      Pick one and I'll build it — or take pieces from different ones.</p>
+    </div>
+    <div class="toggle" role="group" aria-label="Theme">
+      <button id="tL" aria-pressed="true">Light</button>
+      <button id="tD" aria-pressed="false">Dark</button>
+    </div>
+  </header>
+
+  <div class="stage">
+
+    <!-- ============ A ============ -->
+    <div class="col">
+      <div class="cap">
+        <span class="badge">Direction A</span>
+        <b>Quiet</b>
+        <span>No gradient anywhere. Typography carries the screen; search is the hero.</span>
+      </div>
+      <div class="phone"><div class="screen">
+        <div class="sb"><span>9:41</span><span class="d"><i></i><i></i><i></i></span></div>
+        <div class="scroll">
+          <div class="a-pad">
+            <div class="a-kick">Good morning</div>
+            <div class="a-h">Who's<br>calling<em>?</em></div>
+          </div>
+          <div class="a-search">
+            <div class="a-cc"><span style="font-size:14px">🇮🇳</span><span>+91</span>
+              <span class="c"><svg class="ic"><use href="#caret"/></svg></span></div>
+            <div class="a-vr"></div>
+            <div class="a-ph">Name or number…</div>
+            <span class="a-go"><svg class="ic"><use href="#search"/></svg></span>
+          </div>
+          <div class="a-status">
+            <span class="dot"></span>Protection on · <b>12 blocked</b> today
+            <span class="cv"><svg class="ic"><use href="#chev"/></svg></span>
+          </div>
+          <div class="a-qa">
+            <div class="c"><div class="i"><svg class="ic"><use href="#pad"/></svg></div><div class="l">Dialer</div></div>
+            <div class="c"><div class="i"><svg class="ic"><use href="#search"/></svg></div><div class="l">Lookup</div></div>
+            <div class="c"><div class="i"><svg class="ic"><use href="#block"/></svg></div><div class="l">Blocklist</div></div>
+            <div class="c"><div class="i"><svg class="ic"><use href="#tools"/></svg></div><div class="l">Tools</div></div>
+          </div>
+          <div class="sec" style="margin-top:22px"><b>Recent</b><a href="#">See all</a></div>
+          <div class="a-row"><div class="av g">RS</div><div class="m">
+            <div class="nm">Rahul Sharma</div>
+            <div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>Incoming · 9:12 AM</div></div>
+            <span class="pill ok">Identified</span></div>
+          <div class="a-sep"></div>
+          <div class="a-row"><div class="av s">!</div><div class="m">
+            <div class="nm">+91 98765 43210</div>
+            <div class="mt"><span class="g"><svg class="ic"><use href="#x"/></svg></span>Blocked · 8:47 AM</div></div>
+            <span class="pill bad">Spam</span></div>
+          <div class="a-sep"></div>
+          <div class="a-row"><div class="av p">MK</div><div class="m">
+            <div class="nm">Meera Kapoor</div>
+            <div class="mt"><span class="g"><svg class="ic"><use href="#out"/></svg></span>Outgoing · Yesterday</div></div>
+            <span class="pill neu">Contact</span></div>
+          <div style="margin:18px 18px 0">
+            <div class="adlab">Sponsored <i></i></div>
+            <div class="adbox">Native ad</div>
+          </div>
+          <div class="a-sep" style="margin:16px 0 0"></div>
+          <div class="a-row"><div class="av p">+</div><div class="m">
+            <div class="nm">+91 70123 55888</div>
+            <div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>Missed · Yesterday</div></div>
+            <span class="pill neu">Unknown</span></div>
+          <div style="height:12px"></div>
+        </div>
+        <div class="nav">
+          <div class="n on"><span><svg class="ic"><use href="#home"/></svg></span><b>Home</b></div>
+          <div class="n"><span><svg class="ic"><use href="#clock"/></svg></span><b>Calls</b></div>
+          <div class="n"><span><svg class="ic"><use href="#user"/></svg></span><b>Contacts</b></div>
+          <div class="n"><span><svg class="ic"><use href="#block"/></svg></span><b>Blocked</b></div>
+        </div>
+        <div class="banner">ADMOB BANNER</div>
+      </div></div>
+    </div>
+
+    <!-- ============ B ============ -->
+    <div class="col">
+      <div class="cap">
+        <span class="badge">Direction B</span>
+        <b>Shield</b>
+        <span>Dark security-console card with a live gauge. Reads like an antivirus app.</span>
+      </div>
+      <div class="phone"><div class="screen">
+        <div class="sb"><span>9:41</span><span class="d"><i></i><i></i><i></i></span></div>
+        <div class="scroll">
+          <div class="b-card">
+            <div class="b-top">
+              <div class="g"><div class="k">Good morning</div><div class="n">Callora</div></div>
+              <span class="b-gear"><svg class="ic"><use href="#gear"/></svg></span>
+            </div>
+            <div class="b-ring"><div class="box">
+              <svg viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="50" stroke="rgba(255,255,255,.12)" stroke-width="9" fill="none"/>
+                <circle cx="60" cy="60" r="50" stroke="#22C55E" stroke-width="9" fill="none"
+                        stroke-linecap="round" stroke-dasharray="248 314"/>
+              </svg>
+              <div class="mid"><div class="v">12</div><div class="t">Blocked<br>this week</div></div>
+            </div></div>
+            <div class="b-st">
+              <div class="s"><div class="v">48</div><div class="l">Identified</div></div>
+              <div class="vr"></div>
+              <div class="s"><div class="v">3</div><div class="l">Reported</div></div>
+              <div class="vr"></div>
+              <div class="s"><div class="v">99%</div><div class="l">Accuracy</div></div>
+            </div>
+          </div>
+          <div class="b-search">
+            <div class="a-cc"><span style="font-size:14px">🇮🇳</span><span>+91</span>
+              <span class="c"><svg class="ic"><use href="#caret"/></svg></span></div>
+            <div class="a-vr"></div>
+            <div class="a-ph" style="font-size:13px">Name or number…</div>
+            <span class="a-go" style="border-radius:50%"><svg class="ic"><use href="#search"/></svg></span>
+          </div>
+          <div class="b-chips">
+            <div class="b-chip c1"><span><svg class="ic"><use href="#pad"/></svg></span>Dialer</div>
+            <div class="b-chip c2"><span><svg class="ic"><use href="#search"/></svg></span>Lookup</div>
+            <div class="b-chip c3"><span><svg class="ic"><use href="#block"/></svg></span>Blocklist</div>
+            <div class="b-chip c4"><span><svg class="ic"><use href="#tools"/></svg></span>Tools</div>
+          </div>
+          <div style="margin:16px 14px 0">
+            <div class="adlab">Sponsored <i></i></div>
+            <div class="adbox">Native ad</div>
+          </div>
+          <div class="sec" style="margin:16px 16px 2px"><b>Recent activity</b><a href="#">See all</a></div>
+          <div class="b-row"><div class="av g">RS</div><div class="m">
+            <div class="nm">Rahul Sharma</div><div class="mt">Incoming · 9:12 AM</div></div>
+            <span class="pill ok">Identified</span></div>
+          <div class="b-row"><div class="av s">!</div><div class="m">
+            <div class="nm">+91 98765 43210</div><div class="mt">Blocked · 8:47 AM</div></div>
+            <span class="pill bad">Spam</span></div>
+          <div class="b-row"><div class="av p">MK</div><div class="m">
+            <div class="nm">Meera Kapoor</div><div class="mt">Outgoing · Yesterday</div></div>
+            <span class="pill neu">Contact</span></div>
+          <div class="b-row"><div class="av p">+</div><div class="m">
+            <div class="nm">+91 70123 55888</div><div class="mt">Missed · Yesterday</div></div>
+            <span class="pill neu">Unknown</span></div>
+          <div style="height:12px"></div>
+        </div>
+        <div class="nav">
+          <div class="n on"><span><svg class="ic"><use href="#home"/></svg></span><b>Home</b></div>
+          <div class="n"><span><svg class="ic"><use href="#clock"/></svg></span><b>Calls</b></div>
+          <div class="n"><span><svg class="ic"><use href="#user"/></svg></span><b>Contacts</b></div>
+          <div class="n"><span><svg class="ic"><use href="#block"/></svg></span><b>Blocked</b></div>
+        </div>
+        <div class="banner">ADMOB BANNER</div>
+      </div></div>
+    </div>
+
+    <!-- ============ C ============ -->
+    <div class="col">
+      <div class="cap">
+        <span class="badge">Direction C</span>
+        <b>Bento</b>
+        <span>Modular tiles of mixed size. Every action is a destination, not a row.</span>
+      </div>
+      <div class="phone"><div class="screen">
+        <div class="sb"><span>9:41</span><span class="d"><i></i><i></i><i></i></span></div>
+        <div class="scroll">
+          <div class="c-head">
+            <div class="g"><div class="k">Good morning 👋</div><div class="n">Callora</div></div>
+            <span class="c-gear"><svg class="ic"><use href="#gear"/></svg></span>
+          </div>
+          <div class="c-search">
+            <div class="a-cc"><span style="font-size:13px">🇮🇳</span><span>+91</span>
+              <span class="c"><svg class="ic"><use href="#caret"/></svg></span></div>
+            <div class="a-vr" style="margin:0 9px"></div>
+            <div class="a-ph" style="font-size:12.5px">Name or number…</div>
+            <span class="a-go" style="width:32px;height:32px;padding:8px;border-radius:10px"><svg class="ic"><use href="#search"/></svg></span>
+          </div>
+
+          <div class="c-grid">
+            <div class="c-t c-hero">
+              <div class="i"><svg class="ic"><use href="#shield"/></svg></div>
+              <div class="big">12</div>
+              <div class="lab">Blocked today</div>
+              <div class="sub">Protection is on</div>
+            </div>
+            <div class="c-t">
+              <div class="i i2"><svg class="ic"><use href="#search"/></svg></div>
+              <div class="lab">Lookup</div>
+              <div class="sub">Trace any number</div>
+            </div>
+            <div class="c-t">
+              <div class="i i1"><svg class="ic"><use href="#pad"/></svg></div>
+              <div class="lab">Dialer</div>
+              <div class="sub">Call &amp; keypad</div>
+            </div>
+            <div class="c-t c-wide">
+              <div class="i i3"><svg class="ic"><use href="#block"/></svg></div>
+              <div class="m"><div class="lab" style="margin-top:0">Blocklist</div>
+                <div class="sub">34 numbers blocked</div></div>
+              <span class="cv"><svg class="ic"><use href="#chev"/></svg></span>
+            </div>
+            <div class="c-t c-wide">
+              <div class="i i4"><svg class="ic"><use href="#tools"/></svg></div>
+              <div class="m"><div class="lab" style="margin-top:0">Tools</div>
+                <div class="sub">Caller ID, backup &amp; more</div></div>
+              <span class="cv"><svg class="ic"><use href="#chev"/></svg></span>
+            </div>
+          </div>
+
+          <div style="margin:13px 14px 0">
+            <div class="adlab">Sponsored <i></i></div>
+            <div class="adbox">Native ad</div>
+          </div>
+
+          <div class="sec" style="margin:14px 14px 4px"><b>Recent activity</b><a href="#">See all</a></div>
+          <div class="c-row"><div class="av g">RS</div><div class="m">
+            <div class="nm">Rahul Sharma</div><div class="mt">Incoming · 9:12 AM</div></div>
+            <span class="pill ok">Identified</span></div>
+          <div class="c-row"><div class="av s">!</div><div class="m">
+            <div class="nm">+91 98765 43210</div><div class="mt">Blocked · 8:47 AM</div></div>
+            <span class="pill bad">Spam</span></div>
+          <div class="c-row"><div class="av p">MK</div><div class="m">
+            <div class="nm">Meera Kapoor</div><div class="mt">Outgoing · Yesterday</div></div>
+            <span class="pill neu">Contact</span></div>
+          <div style="height:12px"></div>
+        </div>
+        <div class="nav">
+          <div class="n on"><span><svg class="ic"><use href="#home"/></svg></span><b>Home</b></div>
+          <div class="n"><span><svg class="ic"><use href="#clock"/></svg></span><b>Calls</b></div>
+          <div class="n"><span><svg class="ic"><use href="#user"/></svg></span><b>Contacts</b></div>
+          <div class="n"><span><svg class="ic"><use href="#block"/></svg></span><b>Blocked</b></div>
+        </div>
+        <div class="banner">ADMOB BANNER</div>
+      </div></div>
+    </div>
+  </div>
+
+  <section class="notes">
+    <h2>Trade-offs</h2>
+    <div class="grid3">
+      <div class="note">
+        <div class="tag">Direction A</div>
+        <h3>Quiet</h3>
+        <p>Drops the gradient entirely. A large "Who's calling?" headline plus an oversized search field makes the screen's primary job unmistakable — this is a <b>lookup</b> app first.</p>
+        <ul>
+          <li>Protection collapses to a one-line status with a green dot — honest about how little it changes</li>
+          <li>Quick actions become plain outlined circles, no colour coding</li>
+          <li>Ad sits <b>inside</b> the recent list rather than above it, so the list starts higher</li>
+        </ul>
+        <p><b>Cost:</b> least "premium" looking of the three, and the headline eats ~70dp that a returning user gets no value from.</p>
+      </div>
+      <div class="note">
+        <div class="tag">Direction B</div>
+        <h3>Shield</h3>
+        <p>A dark console card using the existing <code>surface_dark</code> token with a radial gauge. Positions Callora as a protection product, not a phonebook.</p>
+        <ul>
+          <li>Gauge gives a single glanceable number that changes daily</li>
+          <li>Quick actions become a horizontally-scrolling chip row — leaves room for a 5th and 6th action later</li>
+          <li>The card stays dark in light mode, matching the Call Details duration card already in the app</li>
+        </ul>
+        <p><b>Cost:</b> the gauge needs real weekly data; with 0 blocked calls on day one it looks broken. Needs an explicit empty state.</p>
+      </div>
+      <div class="note">
+        <div class="tag">Direction C</div>
+        <h3>Bento</h3>
+        <p>Mixed-size tiles. The tall gradient tile carries the block count, and each quick action becomes a labelled destination with a subtitle instead of a bare icon.</p>
+        <ul>
+          <li>Subtitles ("34 numbers blocked", "Trace any number") tell first-time users what each action <i>does</i></li>
+          <li>Tap targets are far larger than the current 46dp tiles</li>
+          <li>Grid is easy to extend — new features drop in as another tile</li>
+        </ul>
+        <p><b>Cost:</b> tallest of the three. Recent activity starts near the fold, so the list feels secondary.</p>
+      </div>
+    </div>
+    <p style="margin-top:20px;font-size:12.5px;line-height:1.7;color:var(--page-muted)">
+      All three keep every existing ID and behaviour: the <code>+91</code> selector, <code>rowPermHint</code>,
+      the call-log permission empty state, <code>See all</code>, the native ad slot, bottom nav and AdMob banner.
+      Only the layout and token usage change.
+    </p>
+  </section>
+</div>
+
+<script>
+  const L=document.getElementById('tL'), D=document.getElementById('tD');
+  const set=d=>{document.body.classList.toggle('dark',d);
+    L.setAttribute('aria-pressed',String(!d));D.setAttribute('aria-pressed',String(d));};
+  L.onclick=()=>set(false); D.onclick=()=>set(true);
+  set(window.matchMedia('(prefers-color-scheme: dark)').matches);
+</script>
+</body>
+</html>

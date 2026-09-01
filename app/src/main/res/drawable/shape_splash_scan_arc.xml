@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- AI-scan ring: a faint full track with a bright leading arc at the top.
+     Rotated continuously in code to read as a scanning sweep (blue = scanning). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="148dp"
+    android:height="148dp"
+    android:viewportWidth="148"
+    android:viewportHeight="148">
+    <!-- faint full ring track -->
+    <path
+        android:pathData="M74,3 A71,71 0 1 1 73.99,3"
+        android:strokeColor="@color/splash_scan_faint"
+        android:strokeWidth="2.5"
+        android:fillColor="@android:color/transparent" />
+    <!-- bright leading arc (top ~110°) -->
+    <path
+        android:pathData="M20.5,26.5 A71,71 0 0 1 127.5,26.5"
+        android:strokeColor="@color/splash_scan"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent" />
+</vector>

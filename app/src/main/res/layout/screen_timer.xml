@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Timer — CID03 redesign.
+
+    Header (back · title · Stopwatch/Timer segmented) over a countdown dial, a row
+    of duration presets, three round transport controls, and an alert card pinned
+    to the foot of the content.
+
+    The dial is TimerRingView rather than a stack of shapes: the design's arc is a
+    partial sweep with a knob riding its leading end, which a <shape> ring cannot
+    express. Ad slots are unchanged from the previous layout.
+-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/timerRootVw"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        tools:context=".screen.utility.CountdownActivity">
+
+        <LinearLayout
+            android:id="@+id/crownBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/padBack"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/onboarding_skip"
+                android:padding="@dimen/_9sdp"
+                android:src="@drawable/glyph_arrow_back"
+                app:tint="@color/on_surface" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_weight="1"
+                android:letterSpacing="-0.02"
+                android:text="@string/timer_tool"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold" />
+
+            <!-- Stopwatch / Timer. Both tools are separate activities, so the
+                 inactive half navigates rather than swapping a view. -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_cid_seg_track"
+                android:orientation="horizontal"
+                android:padding="@dimen/_3sdp">
+
+                <TextView
+                    android:id="@+id/padSegStopwatch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_28sdp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_11sdp"
+                    android:text="@string/tools_stopwatch"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_28sdp"
+                    android:background="@drawable/shape_cid_seg_active"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_11sdp"
+                    android:text="@string/timer_tool"
+                    android:textColor="@color/on_surface"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintTop_toBottomOf="@id/crownBar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layoutAnimation="@anim/tool_layout_in"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/_16sdp">
+
+                <!-- ===== Dial ===== -->
+                <FrameLayout
+                    android:layout_width="@dimen/_210sdp"
+                    android:layout_height="@dimen/_210sdp"
+                    android:layout_marginTop="@dimen/_8sdp">
+
+                    <com.callora.callerid.numberlookup.screen.utility.TimerRingView
+                        android:id="@+id/ringVw"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                        <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/lblTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:includeFontPadding="false"
+                            android:letterSpacing="-0.04"
+                            android:textColor="@color/on_surface"
+                            android:textSize="@dimen/_36ssp"
+                            android:textStyle="bold"
+                            tools:text="04:37" />
+                            <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_9sdp"
+                            android:background="@drawable/shape_cid_pill_neutral"
+                            android:paddingHorizontal="@dimen/_10sdp"
+                            android:paddingVertical="@dimen/_5sdp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/_13sdp"
+                                android:layout_height="@dimen/_13sdp"
+                                android:contentDescription="@null"
+                                android:src="@drawable/glyph_timer"
+                                app:tint="@color/on_surface" />
+
+                            <TextView
+                                android:id="@+id/lblTotal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:includeFontPadding="false"
+                                android:textColor="@color/on_surface"
+                                android:textSize="@dimen/_9ssp"
+                                android:textStyle="bold"
+                                tools:text="of 10:00" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </FrameLayout>
+
+                <!-- ===== Duration presets ===== -->
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:clipToPadding="false"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:id="@+id/presetsVw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+                <FrameLayout
+                    android:id="@+id/adNativeFrameVw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_10sdp">
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/adShimmerVw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#ccc">
+
+                        <include layout="@layout/gads_mid_native_two" />
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </FrameLayout>
+
+                <!-- ===== Transport ===== -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/padReset"
+                        android:layout_width="@dimen/_48sdp"
+                        android:layout_height="@dimen/_48sdp"
+                        android:background="@drawable/shape_cid_circle_outline"
+                        android:contentDescription="@string/action_reset"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
+                        android:padding="@dimen/_13sdp"
+                        android:src="@drawable/glyph_undo"
+                        app:tint="@color/on_surface" />
+
+                    <ImageView
+                        android:id="@+id/padStartPause"
+                        android:layout_width="@dimen/_66sdp"
+                        android:layout_height="@dimen/_66sdp"
+                        android:layout_marginHorizontal="@dimen/_12sdp"
+                        android:background="@drawable/shape_cid_circle_dark"
+                        android:contentDescription="@string/action_start"
+                        android:elevation="@dimen/_6sdp"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
+                        android:outlineAmbientShadowColor="@color/card_shadow"
+                        android:outlineSpotShadowColor="@color/card_shadow"
+                        android:padding="@dimen/_18sdp"
+                        android:src="@drawable/glyph_play"
+                        app:tint="@color/on_primary" />
+
+                    <ImageView
+                        android:id="@+id/padAddMin"
+                        android:layout_width="@dimen/_48sdp"
+                        android:layout_height="@dimen/_48sdp"
+                        android:background="@drawable/shape_cid_circle_outline"
+                        android:contentDescription="@string/timer_add_minute"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
+                        android:padding="@dimen/_13sdp"
+                        android:src="@drawable/glyph_add"
+                        app:tint="@color/on_surface" />
+                </LinearLayout>
+
+                <!-- ===== Alert card ===== -->
+                <LinearLayout
+                    android:id="@+id/alertCardVw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:background="@drawable/shape_cid_card"
+                    android:elevation="@dimen/_1sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:outlineAmbientShadowColor="@color/card_shadow"
+                    android:outlineSpotShadowColor="@color/card_shadow"
+                    android:paddingStart="@dimen/_9sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_9sdp">
+
+                    <ImageView
+                        android:layout_width="@dimen/_34sdp"
+                        android:layout_height="@dimen/_34sdp"
+                        android:background="@drawable/shape_cid_chip_amber"
+                        android:contentDescription="@null"
+                        android:padding="@dimen/_8sdp"
+                        android:src="@drawable/glyph_notifications"
+                        app:tint="@color/cid_amber" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:includeFontPadding="false"
+                            android:text="@string/timer_alert_title"
+                            android:textColor="@color/on_surface"
+                            android:textSize="@dimen/_11ssp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_1sdp"
+                            android:includeFontPadding="false"
+                            android:text="@string/timer_alert_sub"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="@dimen/_9ssp" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/swAlert"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:contentDescription="@string/timer_alert_title" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- Full-bleed hairline separating app content from the ad below -->
+        <View
+            android:id="@+id/adBannerDividerVw"
+            style="@style/AdDivider"
+            android:layout_width="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Bottom adaptive banner (auto-loaded by BaseActivity, type from ScreenAds config). -->
+        <include
+            layout="@layout/part_bottom_banner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

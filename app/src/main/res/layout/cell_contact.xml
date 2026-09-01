@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/_16sdp"
+    android:paddingVertical="@dimen/_7sdp">
+
+    <FrameLayout
+        android:layout_width="@dimen/_36sdp"
+        android:layout_height="@dimen/_36sdp">
+
+        <TextView
+            android:id="@+id/lblAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_avatar"
+            android:backgroundTint="@color/primary_container"
+            android:gravity="center"
+            android:textColor="@color/on_primary_container"
+            android:textSize="@dimen/_11ssp"
+            android:textStyle="bold"
+            tools:text="AL" />
+
+        <!-- Real contact photo, loaded over the initials when one exists -->
+        <ImageView
+            android:id="@+id/picAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lblName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/on_surface"
+            android:textSize="@dimen/_11ssp"
+            android:textStyle="bold"
+            tools:text="Aisha Lawson" />
+
+        <TextView
+            android:id="@+id/lblNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/_10ssp"
+            tools:text="+1 (415) 555-0178" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/padCall"
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_32sdp"
+        android:background="@drawable/shape_circle_surface"
+        android:contentDescription="@string/action_call"
+        android:padding="@dimen/_7sdp"
+        android:src="@drawable/glyph_call"
+        app:tint="@color/primary" />
+</LinearLayout>

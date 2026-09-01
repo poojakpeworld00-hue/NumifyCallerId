@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Tool card — a circular tinted icon chip over a centred name, three to a row.
+    The chip tint and glyph colour are set per tool in ToolsFragment's table and
+    applied by UtilityAdapter (controlled 6-hue palette).
+
+    There is no one-line hint here: at three columns a subtitle either wraps to
+    two lines or ellipsises to nothing useful, and the tool names already say
+    what each one does.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolCardVw"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_4sdp"
+    android:background="@drawable/shape_row_neutral"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/_6sdp"
+    android:paddingTop="@dimen/_12sdp"
+    android:paddingBottom="@dimen/_10sdp">
+
+    <ImageView
+        android:id="@+id/picToolIcon"
+        android:layout_width="@dimen/_38sdp"
+        android:layout_height="@dimen/_38sdp"
+        android:background="@drawable/shape_tool_chip_violet"
+        android:padding="@dimen/_9sdp"
+        tools:src="@drawable/glyph_tool_compass"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/lblToolTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxLines="2"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/_10ssp"
+        android:textStyle="bold"
+        tools:text="Compass" />
+</LinearLayout>

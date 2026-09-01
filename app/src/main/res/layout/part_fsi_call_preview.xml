@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Floating incoming-call caller-ID card — the hero of the FSI intro. Always
+    white in both themes. Shared by the Screen and the priming Dialog. Avatar
+    pulse rings (fsAvatarRing1/2) are animated by the host. Compact sizing.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fsCallPreviewVw"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_fsi_dialog_card"
+    android:elevation="@dimen/_2sdp"
+    android:orientation="vertical">
+
+    <!-- Blue header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_fsi_dialog_header"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_11sdp"
+        android:paddingVertical="@dimen/_8sdp">
+
+        <FrameLayout
+            android:layout_width="@dimen/_19sdp"
+            android:layout_height="@dimen/_19sdp"
+            android:background="@drawable/shape_fsi_header_icon">
+
+            <ImageView
+                android:layout_width="@dimen/_11sdp"
+                android:layout_height="@dimen/_11sdp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/glyph_phone_solid"
+                app:tint="@color/fsi_blue" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_weight="1"
+            android:text="@string/fsi_incoming_call"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/_11ssp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="@dimen/_11sdp"
+            android:layout_height="@dimen/_11sdp"
+            android:contentDescription="@null"
+            android:src="@drawable/glyph_close"
+            app:tint="#FFFFFF" />
+    </LinearLayout>
+
+    <!-- Body: avatar + identity -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingTop="@dimen/_11sdp">
+
+        <FrameLayout
+            android:layout_width="@dimen/_48sdp"
+            android:layout_height="@dimen/_48sdp">
+
+            <ImageView
+                android:id="@+id/fsAvatarRing1Vw"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/shape_fsi_avatar_ring" />
+
+            <ImageView
+                android:id="@+id/fsAvatarRing2Vw"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/shape_fsi_avatar_ring" />
+
+            <TextView
+                android:layout_width="@dimen/_38sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_fsi_avatar"
+                android:gravity="center"
+                android:text="@string/fsi_avatar_initials"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_11sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="-0.01"
+                android:text="@string/fsi_caller_unknown"
+                android:textColor="#101319"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="@string/fsi_caller_number"
+                android:textColor="#6A7285"
+                android:textSize="@dimen/_9ssp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/shape_fsi_chip_known"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_3sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_9sdp"
+                    android:layout_height="@dimen/_9sdp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/glyph_verified"
+                    app:tint="#1E8E5A" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:text="@string/fsi_known_contact"
+                    android:textColor="#14663F"
+                    android:textSize="@dimen/_8ssp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="#EEF0F6" />
+
+    <!-- Footer: call meta -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_8sdp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_9sdp"
+                android:layout_height="@dimen/_9sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/glyph_history"
+                app:tint="#6A7285" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:text="@string/fsi_meta_now"
+                android:textColor="#6A7285"
+                android:textSize="@dimen/_8ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_9sdp"
+                android:layout_height="@dimen/_9sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/glyph_call_received"
+                app:tint="#6A7285" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:text="@string/fsi_meta_calls"
+                android:textColor="#6A7285"
+                android:textSize="@dimen/_8ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_9sdp"
+                android:layout_height="@dimen/_9sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/glyph_sim_card_alt"
+                app:tint="#6A7285" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:text="@string/fsi_meta_sim"
+                android:textColor="#6A7285"
+                android:textSize="@dimen/_8ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

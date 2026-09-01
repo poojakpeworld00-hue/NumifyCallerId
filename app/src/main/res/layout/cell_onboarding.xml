@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One onboarding page: floating illustration card, headline, and body copy,
+     packed and centred. The art layout is inflated into artContainer. -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/_20sdp">
+
+    <FrameLayout
+        android:id="@+id/artContainerVw"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_210sdp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toTopOf="@id/lblTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/lblTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_26sdp"
+        android:gravity="center"
+        android:letterSpacing="-0.02"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/_20ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/lblDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/artContainerVw"
+        tools:text="Know who's calling" />
+
+    <TextView
+        android:id="@+id/lblDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.35"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:textColor="@color/on_surface_variant"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblTitle"
+        tools:text="Instantly identify unknown numbers and block spam." />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

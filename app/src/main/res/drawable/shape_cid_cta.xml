@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Primary CTA pill (48dp) · fully rounded, FSI blue. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/fsi_blue" />
+    <corners android:radius="@dimen/_24sdp" />
+</shape>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Reusable bottom-banner ad slot. Drop this in via <include> at the bottom of a
+    screen, then call BaseActivity.showBottomBanner(binding.bannerAdFrame,
+    binding.bannerShimmer) from initView(). The real banner is loaded into
+    bannerAdFrame at runtime by ScreenAdConfig.showAd(); bannerShimmer is the
+    loading skeleton (banner-first, native-banner fallback).
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bannerAdFrameVw"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   >
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/bannerShimmerVw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ccc">
+
+        <include layout="@layout/gads_small_native" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+</FrameLayout>

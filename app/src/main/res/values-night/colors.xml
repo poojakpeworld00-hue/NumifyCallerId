@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Dark-theme overrides. Only the SEMANTIC tokens are redefined here; every
+    layout/drawable references these names, so the whole app flips light<->dark
+    automatically. Brand/literal colors (primary, on_primary, accent, danger,
+    warn, white, black) are intentionally NOT overridden — they stay defined
+    once in values/colors.xml and apply to both themes.
+-->
+<resources>
+    <!-- Surfaces & background — Visual System v1 true-dark ramp (OLED) -->
+    <color name="background">#0B0E14</color>
+    <color name="surface">#141824</color>
+    <color name="surface_2">#1C2231</color>
+    <color name="card_bg_light">#141824</color>
+
+    <!-- Soft elevation shadow on dark surfaces -->
+    <color name="card_shadow">#59000000</color>
+
+    <!-- Text / icons on surfaces -->
+    <color name="on_surface">#F2F4FA</color>
+    <color name="on_surface_variant">#8A93A8</color>
+
+    <!-- Lines & containers -->
+    <color name="outline">#2A3145</color>
+    <color name="ad_divider">#26FFFFFF</color>       <!-- hairline between app content and ads -->
+    <color name="primary_container">#1C2231</color>
+    <color name="on_primary_container">#C7ADFF</color>
+
+    <!-- Language screen: unselected radio ring (dark) -->
+    <color name="radio_unselected">#5D6579</color>
+
+    <!-- Verdict containers (dark) -->
+    <color name="identified_container">#143126</color>
+    <color name="identified_on">#7BD8A8</color>
+    <color name="spam_container">#2A1518</color>
+    <color name="spam_on">#F09A9A</color>
+    <color name="spam_avatar_bg">#47232A</color>
+
+    <!-- Lookup -->
+    <color name="success">#7FD98A</color>
+
+    <!-- Splash redesign dark overrides. Per Visual System, the hero gradient stays
+         a rich Amethyst→Orchid even in dark (just deepened) — not near-black. -->
+    <color name="splash_grad_start">#1E3A8F</color>
+    <color name="splash_grad_center">#3B34C4</color>
+    <color name="splash_grad_end">#4A2AC0</color>
+    <color name="splash_card_bg">#141824</color>
+    <color name="splash_card_name">#F2F4FA</color>
+    <color name="splash_card_sub">#8A93A8</color>
+    <color name="splash_chip_bg">#1C2231</color>
+    <color name="splash_chip_fg">#8A93A8</color>
+    <color name="splash_verdict_container">#143126</color>
+    <color name="splash_verdict_on">#7BD8A8</color>
+    <!-- Phone illustration (dark navy) -->
+    <color name="splash_phone_bg">#171F36</color>
+    <color name="splash_phone_stroke">#2E3A5C</color>
+    <color name="splash_content_line">#243050</color>
+    <color name="splash_notch">#2A3352</color>
+
+    <!-- FSI intro Activity — dark (navy) variant of the design. -->
+    <color name="fsi_bg_center">#221A3F</color>
+    <color name="fsi_bg_edge">#0F172A</color>
+    <color name="fsi_title">#FFFFFF</color>
+    <color name="fsi_subtitle">#99FFFFFF</color>
+    <color name="fsi_benefit_card">#14FFFFFF</color>
+    <color name="fsi_benefit_border">#1AFFFFFF</color>
+    <color name="fsi_benefit_text">#D9FFFFFF</color>
+    <color name="fsi_benefit_divider">#12FFFFFF</color>
+    <color name="fsi_not_now">#80FFFFFF</color>
+    <color name="fsi_orbit_ring">#5A9D77EC</color>
+    <color name="fsi_glow">#476D3BE8</color>
+    <color name="fsi_tile_blue">#2E6D3BE8</color>
+    <color name="fsi_tile_red">#29EF4444</color>
+    <color name="fsi_tile_green">#2922C55E</color>
+    <color name="fsi_icon_blue">#9D77EC</color>
+    <color name="fsi_icon_red">#F87171</color>
+    <color name="fsi_icon_green">#4ADE80</color>
+
+    <!-- Enable-Caller-ID dialog — dark variants. -->
+    <color name="cid_hint_bg">#246D3BE8</color>         <!-- ~0.14 blue tint on dark -->
+    <color name="cid_shield_check">#0B0E14</color>      <!-- dark checkmark on light-blue shield -->
+    <color name="cid_toggle_off">#3A4256</color>
+
+    <!-- Splash · "Scanline" — dark variant of the design: a deep plum core that
+         falls off to near-black, brighter Amethyst for anything that must stay
+         legible on it. Same +35° hue-rotation off the design's Sapphire as the
+         light theme (see values/colors.xml), so the two themes stay siblings.
+         `splash_sl_brand`/`_brand_2` are deliberately NOT overridden — the icon
+         tile keeps the same gradient in both themes. -->
+    <color name="splash_sl_bg_center">#151027</color>
+    <color name="splash_sl_bg_edge">#07050C</color>
+    <color name="splash_sl_bar_track">#3A4256</color>
+    <color name="splash_sl_bar_lit">#8A5BFF</color>
+    <color name="splash_sl_sweep">#738A5BFF</color>
+    <color name="splash_sl_sweep_edge">#008A5BFF</color>
+    <color name="splash_sl_bubble_lg">#1AA37FFF</color>
+    <color name="splash_sl_bubble_sm">#24A37FFF</color>
+    <color name="splash_sl_bubble_md">#14A37FFF</color>
+    <color name="splash_sl_sparkle_a">#99A37FFF</color>
+    <color name="splash_sl_sparkle_b">#998A5BFF</color>
+    <color name="splash_sl_badge_bg">#1A1626</color>
+    <color name="splash_sl_shadow">#80000000</color>
+    <color name="splash_sl_tile_shadow">#80000000</color>
+    <color name="splash_sl_title">#F2F4FA</color>
+    <color name="splash_sl_tagline">#8A93A8</color>
+    <color name="splash_sl_footer">#6A7285</color>
+    <color name="splash_sl_icon_red">#F0736F</color>
+    <color name="splash_sl_icon_amber">#F0B03C</color>
+    <color name="splash_sl_icon_blue">#A37FFF</color>
+    <color name="splash_sl_icon_green">#38B47C</color>
+
+    <!-- CID03 tool-screen ramp — dark. The ramp INVERTS: on a dark surface the
+         "deep ink" end has to be the light one, so cid_900 becomes near-white and
+         cid_050 becomes the darkest fill. Anything that reads the ramp by name
+         (a dark filled button = cid_900) therefore keeps working in both themes
+         without the layouts branching on the theme. The accents only lift enough
+         to stay legible; their hue does not move. -->
+    <color name="cid_900">#F2ECFF</color>
+    <color name="cid_800">#D9CCF7</color>
+    <color name="cid_700">#B79AF0</color>
+    <color name="cid_600">#9D77EC</color>
+    <color name="cid_500">#8557F0</color>
+    <color name="cid_200">#2E2545</color>
+    <color name="cid_100">#211A33</color>
+    <color name="cid_050">#181327</color>
+    <color name="cid_on_accent">#14091F</color>
+
+    <color name="cid_amber">#F0B03C</color>
+    <color name="cid_amber_100">#3A2C12</color>
+    <color name="cid_teal">#3DBDAF</color>
+    <color name="cid_teal_100">#123230</color>
+    <color name="cid_clay">#DE8B63</color>
+    <color name="cid_clay_100">#3A2118</color>
+</resources>

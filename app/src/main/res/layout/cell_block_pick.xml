@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/_12sdp"
+    android:paddingVertical="@dimen/_10sdp">
+
+    <ImageView
+        android:layout_width="@dimen/_36sdp"
+        android:layout_height="@dimen/_36sdp"
+        android:background="@drawable/shape_icon_box"
+        android:contentDescription="@string/blocklist_pick_recents_title"
+        android:padding="@dimen/_8sdp"
+        android:src="@drawable/glyph_call"
+        app:tint="@color/primary" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lblName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/on_surface"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            tools:text="John Doe" />
+
+        <TextView
+            android:id="@+id/lblNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/_11ssp"
+            tools:text="+1 555 0100" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:background="@drawable/shape_icon_box"
+        android:contentDescription="@string/blocklist_add"
+        android:padding="@dimen/_7sdp"
+        android:src="@drawable/glyph_block"
+        app:tint="@color/danger" />
+</LinearLayout>

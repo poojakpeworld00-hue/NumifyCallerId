@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Language — "Language + empty state".
+    Toolbar (back · title · info · filled confirm ✓) over two grouped cards:
+    a compact "Suggested" list and a scrollable "All languages" list, each row
+    56dp with the native name leading. Tapping a row previews the selection
+    (radio fills, row tints); the ✓ button confirms and applies. The native ad
+    stays pinned below the list as a standard labelled card — never mistakable
+    for the confirm action.
+-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/languageRootVw"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/_10sdp"
+        android:background="@color/background"
+        tools:context=".screen.locale.LocalePickerActivity">
+
+        <!-- ===== Toolbar ===== -->
+        <ImageView
+            android:id="@+id/padBack"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:visibility="gone"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/onboarding_skip"
+            android:src="@drawable/glyph_arrow_back"
+            app:layout_constraintBottom_toBottomOf="@id/lblTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/lblTitle"
+            app:tint="@color/on_surface" />
+
+        <TextView
+            android:id="@+id/lblTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:letterSpacing="-0.01"
+            android:text="@string/language_title"
+            android:textColor="@color/on_surface"
+            android:textSize="@dimen/_17ssp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/padInfo"
+            app:layout_constraintStart_toEndOf="@id/padBack"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Which language is live right now — set from LocalePickerActivity, so the
+             row the user is about to change is named before they change it. -->
+        <TextView
+            android:id="@+id/lblSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toEndOf="@id/lblTitle"
+            app:layout_constraintStart_toStartOf="@id/lblTitle"
+            app:layout_constraintTop_toBottomOf="@id/lblTitle"
+            tools:text="Current language: English" />
+
+        <ImageView
+            android:id="@+id/padInfo"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/language_info_title"
+            android:padding="@dimen/_6sdp"
+            android:visibility="gone"
+            android:src="@drawable/glyph_info"
+            app:layout_constraintBottom_toBottomOf="@id/padContinue"
+            app:layout_constraintEnd_toStartOf="@id/padContinue"
+            app:layout_constraintTop_toTopOf="@id/padContinue"
+            app:tint="@color/on_surface_variant" />
+
+        <!-- Filled confirm pill. It carries a label, not just a glyph: this is the
+             only action on the screen, and a bare disc gave no clue what it did. -->
+        <TextView
+            android:id="@+id/padContinue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:background="@drawable/shape_btn_primary"
+            android:drawableStart="@drawable/glyph_check"
+            android:drawablePadding="@dimen/_4sdp"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:minHeight="@dimen/_32sdp"
+            android:paddingHorizontal="@dimen/_14sdp"
+            android:text="@string/language_continue"
+            android:textColor="@color/on_primary"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:drawableTint="@color/on_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- The list starts below whichever of the two-line title block or the
+             confirm pill runs deeper — at a large system font scale that is the
+             subtitle, at the default it is the pill. -->
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/headerBottomBarrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="lblSubtitle,padContinue" />
+
+        <!-- ===== Suggested + All languages — one continuous scroll ===== -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrl"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toTopOf="@id/adNativeFrameVw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerBottomBarrier">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Suggested -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_18sdp"
+                    android:layout_marginEnd="@dimen/_18sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="@dimen/_5sdp"
+                        android:background="@drawable/shape_section_dot" />
+
+                    <TextView
+                        android:id="@+id/lblSuggested"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        android:letterSpacing="0.08"
+                        android:text="@string/language_suggested"
+                        android:textAllCaps="true"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="@dimen/_10ssp"
+                        android:textStyle="bold" />
+
+                    <!-- Rule runs from the label to the edge, so the eye is carried
+                         across the group it labels rather than stopping at the text. -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:background="@color/outline" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rollSuggested"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:background="@drawable/shape_search_pill"
+                    android:clipToOutline="true"
+                    android:clipToPadding="false"
+                    android:elevation="@dimen/_1sdp"
+                    android:nestedScrollingEnabled="false"
+                    android:outlineAmbientShadowColor="@color/card_shadow"
+                    android:outlineSpotShadowColor="@color/card_shadow"
+                    android:overScrollMode="never"
+                    android:paddingHorizontal="@dimen/_6sdp"
+                    android:paddingVertical="@dimen/_6sdp"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/cell_language" />
+
+                <!-- All languages -->
+                <TextView
+                    android:id="@+id/lblAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_18sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:letterSpacing="0.08"
+                    android:text="@string/language_all"
+                    android:textAllCaps="true"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rollLanguages"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:background="@drawable/shape_search_pill"
+                    android:clipToOutline="true"
+                    android:clipToPadding="false"
+                    android:elevation="@dimen/_1sdp"
+                    android:nestedScrollingEnabled="false"
+                    android:outlineAmbientShadowColor="@color/card_shadow"
+                    android:outlineSpotShadowColor="@color/card_shadow"
+                    android:overScrollMode="never"
+                    android:paddingHorizontal="@dimen/_6sdp"
+                    android:paddingVertical="@dimen/_6sdp"
+                    tools:listitem="@layout/cell_language" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- Full-bleed hairline separating the list from the ad below -->
+        <View
+            android:id="@+id/adNativeDividerVw"
+            style="@style/AdDivider"
+            android:layout_width="0dp"
+            app:layout_constraintBottom_toTopOf="@id/adNativeFrameVw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- ===== Native ad (labelled card, pinned below the list) ===== -->
+        <FrameLayout
+            android:id="@+id/adNativeFrameVw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/adShimmerVw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ccc">
+
+                <include layout="@layout/gads_big_native" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

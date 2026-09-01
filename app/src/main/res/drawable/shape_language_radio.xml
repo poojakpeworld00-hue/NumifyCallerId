@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Selection mark for language rows. Selected (activated) = filled brand disc,
+     which carries a white check drawn on top by the row's ImageView src; unselected
+     = thin muted outline with nothing inside. Driven by View.isActivated. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_activated="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/primary" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="2dp"
+                android:color="@color/radio_unselected" />
+        </shape>
+    </item>
+</selector>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tools category header (Measure · Device · Time), spans the whole grid row.
+     The rule runs from the label to the edge so the eye is carried across the
+     group it labels rather than stopping at the text. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_12sdp"
+    android:layout_marginBottom="@dimen/_2sdp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/_6sdp">
+
+    <TextView
+        android:id="@+id/lblToolCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:letterSpacing="0.08"
+        android:textAllCaps="true"
+        android:textColor="@color/on_surface_variant"
+        android:textSize="@dimen/_9ssp"
+        android:textStyle="bold"
+        tools:text="Measure" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_weight="1"
+        android:background="@color/outline" />
+</LinearLayout>

@@ -1,0 +1,811 @@
+{
+  "marketing": {
+    "_group_AdsOnOff_AdType": "----- Ads ON/OFF + Ad Network Type -----",
+    "IsAdsON": true,
+    "IsAdType": "Google",
+    "_group_AdsCounter": "----- Ads Counter (throttle: show after N calls) -----",
+    "InterCounter": 0,
+    "InterBackCounter": 0,
+    "NativeCounter": 0,
+    "MidNativeCounter": 0,
+    "BannerCounter": 0,
+    "AppopenCounter": 0,
+    "_group_AdId": "----- Ad Unit IDs -----",
+    "googleInter": "/23365179584/com.callora.callerid.numberlookup_googleInter",
+    "googleS_Inter": "/23365179584/com.callora.callerid.numberlookup_googleS_Inter",
+    "googleBackInter": "/23365179584/com.callora.callerid.numberlookup_googleBackInter",
+    "googleNative": "/23365179584/com.callora.callerid.numberlookup_googleNative",
+    "googleBanner": "/23365179584/com.callora.callerid.numberlookup_googleBanner",
+    "googleAppopen": "/23365179584/com.callora.callerid.numberlookup_googleAppopen",
+    "googleRewarded": "/23365179584/com.callora.callerid.numberlookup_googleRewarded",
+    "faceB_InterAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+    "faceB_NativeAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+    "faceB_NativeBannerAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+    "faceB_BannerAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+    "_group_ApiConfig": "----- Lookup API endpoints (no credentials here) -----",
+    "api_config": {
+      "lookup_base_url": "https://callerid.kpeworld.com/",
+      "lookup_api_id": "1433",
+      "lookup_path_similar": "api/similar-phone-number/",
+      "lookup_path_save_contact": "/api/save_contact2"
+    },
+    "_group_ScreenWiseToggle": "----- ScreenWise Ads ON/OFF -----",
+    "screen_wise_ad": true,
+    "screen_wise_default": false,
+    "_group_ScreenWiseAdId": "----- ScreenWise Ad IDs, keyed by Activity simpleName -----",
+    "ScreenAds": {
+      "default": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner1",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native1",
+        "nativeType": "mid"
+      },
+      "LaunchActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner2",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native2",
+        "nativeType": "mid"
+      },
+      "LocalePickerActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner2",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native2",
+        "nativeType": "mid"
+      },
+      "WelcomeActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner2",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native2",
+        "nativeType": "mid"
+      },
+      "HomeShellActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "nativeType": "small"
+      },
+      "NumberReportActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "nativeType": "mid"
+      },
+      "SearchTrailActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "nativeType": "mid"
+      },
+      "RegionPickerActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "nativeType": "small"
+      },
+      "CallInsightActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "nativeType": "mid"
+      },
+      "KeypadActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "nativeType": "small"
+      },
+      "PreferencesActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "nativeType": "mid"
+      },
+      "AdShowcaseActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "nativeType": "mid"
+      },
+      "BearingActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "BubbleLevelActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "ChronoActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "CountdownActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "DecibelActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "LuxMeterActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "PowerGaugeActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "SimDetailsActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "SpeedGaugeActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "TorchActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "CallHistoryFragment": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "nativeType": "small"
+      },
+      "PhonebookFragment": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "nativeType": "small"
+      },
+      "NumberSearchFragment": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "nativeType": "small"
+      },
+      "ToolsFragment": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "nativeType": "mid"
+      },
+      "BlocklistFragment": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "nativeType": "mid"
+      }
+    },
+    "_group_OnboardingFlow": "----- Onboarding Dynamic Flow -----",
+    "screen_order": [
+      "language",
+      "onboarding",
+      "fsi_permission"
+    ],
+    "screen": {
+      "splash": {
+        "ad_type": "app_open",
+        "banner_ad": {
+          "show": false,
+          "id": "",
+          "type": "adaptive"
+        },
+        "permissions": [
+          {
+            "is_permissionListCountryCheck": false,
+            "permission_excluded_countries": [
+              "IN"
+            ],
+            "permission_name": [
+              "android.permission.POST_NOTIFICATIONS"
+            ]
+          },
+          {
+            "is_permissionListCountryCheck": false,
+            "permission_excluded_countries": [
+              "IN"
+            ],
+            "permission_name": [
+              "android.permission.READ_PHONE_STATE"
+            ]
+          }
+        ]
+      },
+      "language": {
+        "isEnable": true,
+        "session": "every",
+        "autonext": 8,
+        "is_screenListCountryCheck": false,
+        "screen_excluded_countries": [
+          "IN"
+        ],
+        "onBackPerformNext": true,
+        "isInterShow": false,
+        "isBottomAds": true,
+        "isBottomAdsType": "BigNative",
+        "permissions": []
+      },
+      "onboarding": {
+        "isEnable": true,
+        "session": "4",
+        "autonext": 0,
+        "isSkipShow": true,
+        "is_screenListCountryCheck": false,
+        "screen_excluded_countries": [
+          "IN"
+        ],
+        "onBackPerformNext": false,
+        "isInterShow": true,
+        "isBottomAds": true,
+        "isBottomAdsType": "MediumNative",
+        "permissions": []
+      },
+      "fsi_permission": {
+        "isEnable": true,
+        "session": "every",
+        "autonext": 0,
+        "isSkipShow": true,
+        "is_screenListCountryCheck": true,
+        "screen_excluded_countries": [
+          "PK",
+          "BD"
+        ],
+        "onBackPerformNext": true,
+        "isInterShow": false,
+        "isBottomAds": true,
+        "isBottomAdsType": "MediumNative",
+        "android_min_sdk": 34,
+        "prompt": {
+          "title": "Never miss who's calling",
+          "desc": "Show verified caller details on your lock screen — the instant a call comes in.",
+          "button": "Enable Now"
+        },
+        "dialog": {
+          "isEnable": true,
+          "delay_ms": 500,
+          "show_after_days": 3,
+          "max_show_count": 1,
+          "title": "Enable full-screen call alerts",
+          "desc": "Get a loud, full-screen heads-up for calls you can't miss.",
+          "button": "Enable Now"
+        },
+        "permissions": []
+      },
+      "permission_sheet": {
+        "isEnable": true,
+        "session": "every"
+      }
+    },
+    "exit": {
+      "isEnable": true,
+      "exitType": "dialog",
+      "doubleBackIntervalSec": 2,
+      "doubleBackToastText": "",
+      "isInterShow": true,
+      "is_screenListCountryCheck": false,
+      "screen_excluded_countries": [
+        "IN"
+      ],
+      "dialog": {
+        "isEnable": true,
+        "title": "",
+        "desc": "",
+        "positiveButton": "",
+        "negativeButton": "",
+        "isNativeAdShow": true,
+        "isBottomAdsType": "MediumNative"
+      }
+    },
+    "_group_RateUs": "----- In-App Review prompt (Home) -----",
+    "rate_us": {
+      "isEnable": true,
+      "prompt_session": "days",
+      "prompt_interval": 30,
+      "min_sessions": 3,
+      "max_show_count": 3,
+      "is_screenListCountryCheck": false,
+      "screen_excluded_countries": []
+    },
+    "_group_Other": "----- Other -----",
+    "IsFail_FB": false,
+    "IsCustomADS": false,
+    "isLoaderForFB": false,
+    "IsBack": true,
+    "NativeBannerAd": true,
+    "BannerAdLoader": true,
+    "NativeAd": true,
+    "InterAds": true,
+    "AppopenAds": true,
+    "is_rateus": false,
+    "is_preload_ads": true,
+    "In_App_Update_Show": false,
+    "In_App_Update_Force_Show": false,
+    "In_App_Update_Link": "",
+    "DirectLink": "https://980.mark.qureka.com/intro",
+    "PrivacyPolicy": "https://privacypolicyportal.com/policy/identifycaller.phonelookup.contacts.calllog",
+    "TermLink": "https://sites.google.com/view/calleridtermsand-consdtions/home",
+    "Iscountry_Counter": true,
+    "CountryList_Counter_NShow": "Indore",
+    "HD_VBC_Show": true,
+    "HD_VBC_Native": true,
+    "HD_VBC_Type": "b",
+    "HD_VBC_Hrs": 0,
+    "HD_VBC_Native_ID": "/23365179584/com.callora.callerid.numberlookup_HD_VBC_Native_ID",
+    "HD_VBC_Banner_ID": "/23365179584/com.callora.callerid.numberlookup_HD_VBC_Banner_ID",
+    "FbAppId": "dfgd",
+    "FbClientToken": "fgfgfd",
+    "NativeTheme": {
+      "default": {
+        "NativeLight": {
+          "btnColor": "#6D3BE8",
+          "btnText": "#FFFFFF",
+          "bgColor": "#F7F8FC",
+          "textColor": "#101319"
+        },
+        "NativeDark": {
+          "btnColor": "#6D3BE8",
+          "btnText": "#FFFFFF",
+          "bgColor": "#121212",
+          "textColor": "#FFFFFF"
+        }
+      }
+    },
+    "custom_ads": [
+      {
+        "icon": "https://appdata.blr1.digitaloceanspaces.com/pja/caller_id/Frame%201234570076.png",
+        "title": "Identify Unknown Caller",
+        "description": "See caller name, location and spam status before answering any call.",
+        "bannerImage": "https://appdata.blr1.digitaloceanspaces.com/pja/caller_id/1.png",
+        "buttonText": "Check Now"
+      }
+    ]
+  },
+  "organic": {
+    "_group_AdsOnOff_AdType": "----- Ads ON/OFF + Ad Network Type -----",
+    "IsAdsON": true,
+    "IsAdType": "Google",
+    "_group_AdsCounter": "----- Ads Counter (throttle: show after N calls) -----",
+    "InterCounter": 0,
+    "InterBackCounter": 0,
+    "NativeCounter": 0,
+    "MidNativeCounter": 0,
+    "BannerCounter": 0,
+    "AppopenCounter": 0,
+    "_group_AdId": "----- Ad Unit IDs -----",
+    "googleInter": "/23365179584/com.callora.callerid.numberlookup_googleInter",
+    "googleS_Inter": "/23365179584/com.callora.callerid.numberlookup_googleS_Inter",
+    "googleBackInter": "/23365179584/com.callora.callerid.numberlookup_googleBackInter",
+    "googleNative": "/23365179584/com.callora.callerid.numberlookup_googleNative",
+    "googleBanner": "/23365179584/com.callora.callerid.numberlookup_googleBanner",
+    "googleAppopen": "/23365179584/com.callora.callerid.numberlookup_googleAppopen",
+    "googleRewarded": "/23365179584/com.callora.callerid.numberlookup_googleRewarded",
+    "faceB_InterAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+    "faceB_NativeAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+    "faceB_NativeBannerAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+    "faceB_BannerAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+    "_group_ApiConfig": "----- Lookup API endpoints (no credentials here) -----",
+    "api_config": {
+      "lookup_base_url": "https://callerid.kpeworld.com/",
+      "lookup_api_id": "1433",
+      "lookup_path_similar": "api/similar-phone-number/",
+      "lookup_path_save_contact": "/api/save_contact2"
+    },
+    "_group_ScreenWiseToggle": "----- ScreenWise Ads ON/OFF -----",
+    "screen_wise_ad": true,
+    "screen_wise_default": false,
+    "_group_ScreenWiseAdId": "----- ScreenWise Ad IDs, keyed by Activity simpleName -----",
+    "ScreenAds": {
+      "default": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner1",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native1",
+        "nativeType": "mid"
+      },
+      "LaunchActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner2",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native2",
+        "nativeType": "mid"
+      },
+      "LocalePickerActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner2",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native2",
+        "nativeType": "mid"
+      },
+      "WelcomeActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner2",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native2",
+        "nativeType": "mid"
+      },
+      "HomeShellActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "nativeType": "small"
+      },
+      "NumberReportActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "nativeType": "mid"
+      },
+      "SearchTrailActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "nativeType": "mid"
+      },
+      "RegionPickerActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "nativeType": "small"
+      },
+      "CallInsightActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "nativeType": "mid"
+      },
+      "KeypadActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "nativeType": "small"
+      },
+      "PreferencesActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "nativeType": "mid"
+      },
+      "AdShowcaseActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner4",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native4",
+        "nativeType": "mid"
+      },
+      "BearingActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "BubbleLevelActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "ChronoActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "CountdownActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "DecibelActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "LuxMeterActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "PowerGaugeActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "SimDetailsActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "SpeedGaugeActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "TorchActivity": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner5",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native5",
+        "nativeType": "mid"
+      },
+      "CallHistoryFragment": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "nativeType": "small"
+      },
+      "PhonebookFragment": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "nativeType": "small"
+      },
+      "NumberSearchFragment": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "nativeType": "small"
+      },
+      "ToolsFragment": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "nativeType": "mid"
+      },
+      "BlocklistFragment": {
+        "show": true,
+        "banner": "/23365179584/com.callora.callerid.numberlookup_banner3",
+        "bannerType": "adaptive",
+        "native": "/23365179584/com.callora.callerid.numberlookup_native3",
+        "nativeType": "mid"
+      }
+    },
+    "_group_OnboardingFlow": "----- Onboarding Dynamic Flow -----",
+    "screen_order": [
+      "language",
+      "onboarding",
+      "fsi_permission"
+    ],
+    "screen": {
+      "splash": {
+        "ad_type": "none",
+        "banner_ad": {
+          "show": false,
+          "id": "",
+          "type": "adaptive"
+        },
+        "permissions": [
+          {
+            "is_permissionListCountryCheck": false,
+            "permission_excluded_countries": [
+              "IN"
+            ],
+            "permission_name": [
+              "android.permission.POST_NOTIFICATIONS"
+            ]
+          }
+        ]
+      },
+      "language": {
+        "isEnable": true,
+        "session": "every",
+        "autonext": 50,
+        "is_screenListCountryCheck": false,
+        "screen_excluded_countries": [
+          "IN"
+        ],
+        "onBackPerformNext": true,
+        "isInterShow": false,
+        "isBottomAds": true,
+        "isBottomAdsType": "BigNative",
+        "permissions": []
+      },
+      "onboarding": {
+        "isEnable": true,
+        "session": "every",
+        "autonext": 0,
+        "isSkipShow": true,
+        "is_screenListCountryCheck": false,
+        "screen_excluded_countries": [
+          "IN"
+        ],
+        "onBackPerformNext": false,
+        "isInterShow": false,
+        "isBottomAds": true,
+        "isBottomAdsType": "MediumNative",
+        "permissions": []
+      },
+      "fsi_permission": {
+        "isEnable": true,
+        "session": "every",
+        "autonext": 0,
+        "isSkipShow": true,
+        "is_screenListCountryCheck": true,
+        "screen_excluded_countries": [
+          "PK",
+          "BD"
+        ],
+        "onBackPerformNext": true,
+        "isInterShow": false,
+        "isBottomAds": true,
+        "isBottomAdsType": "MediumNative",
+        "android_min_sdk": 34,
+        "prompt": {
+          "title": "Never miss who's calling",
+          "desc": "Show verified caller details on your lock screen — the instant a call comes in.",
+          "button": "Enable Now"
+        },
+        "dialog": {
+          "isEnable": true,
+          "delay_ms": 500,
+          "show_after_days": 3,
+          "max_show_count": 1,
+          "title": "Enable full-screen call alerts",
+          "desc": "Get a loud, full-screen heads-up for calls you can't miss.",
+          "button": "Enable Now"
+        },
+        "permissions": []
+      },
+      "permission_sheet": {
+        "isEnable": true,
+        "session": "every"
+      }
+    },
+    "exit": {
+      "isEnable": true,
+      "exitType": "double_back",
+      "doubleBackIntervalSec": 2,
+      "doubleBackToastText": "",
+      "isInterShow": false,
+      "is_screenListCountryCheck": false,
+      "screen_excluded_countries": [
+        "IN"
+      ],
+      "dialog": {
+        "isEnable": false,
+        "title": "",
+        "desc": "",
+        "positiveButton": "",
+        "negativeButton": "",
+        "isNativeAdShow": true,
+        "isBottomAdsType": "MediumNative"
+      }
+    },
+    "_group_RateUs": "----- In-App Review prompt (Home) -----",
+    "rate_us": {
+      "isEnable": true,
+      "prompt_session": "days",
+      "prompt_interval": 30,
+      "min_sessions": 3,
+      "max_show_count": 3,
+      "is_screenListCountryCheck": false,
+      "screen_excluded_countries": []
+    },
+    "_group_Other": "----- Other -----",
+    "IsFail_FB": false,
+    "IsCustomADS": false,
+    "isLoaderForFB": false,
+    "IsBack": false,
+    "NativeBannerAd": true,
+    "BannerAdLoader": true,
+    "NativeAd": true,
+    "InterAds": true,
+    "AppopenAds": false,
+    "is_rateus": true,
+    "is_preload_ads": true,
+    "In_App_Update_Show": false,
+    "In_App_Update_Force_Show": false,
+    "In_App_Update_Link": "",
+    "DirectLink": "https://980.mark.qureka.com/intro",
+    "PrivacyPolicy": "https://privacypolicyportal.com/policy/identifycaller.phonelookup.contacts.calllog",
+    "TermLink": "https://sites.google.com/view/calleridtermsand-consdtions/home",
+    "Iscountry_Counter": true,
+    "CountryList_Counter_NShow": "Indore",
+    "HD_VBC_Show": true,
+    "HD_VBC_Native": true,
+    "HD_VBC_Type": "b",
+    "HD_VBC_Hrs": 0,
+    "HD_VBC_Native_ID": "/23365179584/com.callora.callerid.numberlookup_HD_VBC_Native_ID",
+    "HD_VBC_Banner_ID": "/23365179584/com.callora.callerid.numberlookup_HD_VBC_Banner_ID",
+    "FbAppId": "dfgd",
+    "FbClientToken": "fgfgfd",
+    "NativeTheme": {
+      "default": {
+        "NativeLight": {
+          "btnColor": "#FF6D00",
+          "btnText": "#FFFFFF",
+          "bgColor": "#FFF3E0",
+          "textColor": "#1B1B1F"
+        },
+        "NativeDark": {
+          "btnColor": "#FF6D00",
+          "btnText": "#FFFFFF",
+          "bgColor": "#2A1B0E",
+          "textColor": "#FFFFFF"
+        }
+      }
+    },
+    "custom_ads": [
+      {
+        "icon": "https://appdata.blr1.digitaloceanspaces.com/pja/caller_id/Frame%201234570076.png",
+        "title": "Identify Unknown Caller",
+        "description": "See caller name, location and spam status before answering any call.",
+        "bannerImage": "https://appdata.blr1.digitaloceanspaces.com/pja/caller_id/1.png",
+        "buttonText": "Check Now"
+      }
+    ]
+  }
+}

@@ -1,0 +1,698 @@
+<resources>
+    <!-- App -->
+    <string name="app_name">Callora: Búsqueda de Números</string>
+    <string name="app_name1">#CallerID</string>
+    <string name="dash">&#8211;</string>
+
+    <!-- Splash -->
+    <string name="splash_tagline">Identifica cada llamada. Bloquea el resto.</string>
+    <string name="splash_footer">Esta app puede mostrar anuncios</string>
+
+    <!-- Language -->
+    <string name="language_title">Elige el idioma</string>
+    <string name="language_continue">Continuar</string>
+    <string name="language_search_hint">Buscar idiomas</string>
+    <string name="language_suggested">Idiomas sugeridos</string>
+    <string name="language_current">Idioma actual</string>
+    <string name="language_info_title">Información de idioma</string>
+    <string name="language_info_msg">Cambiar el idioma actualizará la interfaz de la app. Algunas funciones regionales pueden variar según tu selección.</string>
+    <string name="language_info_got_it">Entendido</string>
+
+    <!-- Terms &amp; Conditions -->
+    <string name="terms_title">Términos de uso</string>
+    <string name="terms_body">Lee estos términos antes de continuar. Al tocar Aceptar admites lo siguiente:\n\n• Callora nombra a quienes llaman, reciben llamadas o son desconocidos, en el momento.\n• La app marca números de spam, estafa y fraude y te ayuda a bloquearlos.\n• Puedes buscar cualquier número y ver los datos del titular que tengamos.\n• El acceso al registro de llamadas y contactos permite etiquetar tus llamadas.\n• El permiso de superposición muestra los datos del contacto durante la llamada.\n• Tus datos se quedan contigo y solo sirven para identificar llamadas y frenar spam.\n\nAl tocar “Aceptar y continuar” confirmas que leíste y aceptas nuestros Términos de uso y la Política de privacidad.</string>
+    <string name="terms_agree">He leído y acepto los Términos de uso y la Política de privacidad.</string>
+    <string name="terms_accept">Aceptar y continuar</string>
+    <string name="terms_please_accept">Marca la casilla para continuar.</string>
+    <string name="txt_allow_overlay_access">Permitir mostrar sobre otras apps</string>
+    <string name="overlay_system_permission">Permiso del sistema</string>
+    <string name="overlay_permission_desc">Mostrar sobre otras apps permite que esta app muestre la información del llamante mientras usas otras apps.</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">Omitir</string>
+    <string name="onboarding_next">Siguiente</string>
+    <string name="onboarding_title">Cada llamada, con nombre</string>
+    <string name="onboarding_desc">Los números desconocidos reciben nombre, empresa y ubicación al sonar.</string>
+    <string name="onboarding_title_2">Silencia las estafas</string>
+    <string name="onboarding_desc_2">Robollamadas, estafas y telemarketing se detectan y frenan antes de que suene.</string>
+    <string name="onboarding_title_3">Busca cualquier número</string>
+    <string name="onboarding_desc_3">Escribe un número y obtén en segundos el nombre, la región y la empresa detrás.</string>
+    <string name="onboarding_get_started">Empezar ahora</string>
+
+    <!-- Home -->
+    <string name="home_title">Estás cubierto</string>
+    <string name="home_subtitle">La identificación de llamadas y el bloqueo de spam están activos</string>
+    <string name="home_greeting">Buenos días</string>
+    <string name="home_search_hint">Escribe un nombre o número…</string>
+    <string name="home_protection_active">Protección activa</string>
+    <string name="home_blocked">Bloqueadas</string>
+    <string name="home_spam">Spam</string>
+    <string name="home_recent_activity">Actividad reciente</string>
+    <string name="see_all">Ver todo</string>
+
+    <!-- Quick actions -->
+    <string name="quick_dialer">Teclado</string>
+    <string name="quick_lookup">Buscar</string>
+    <string name="quick_blocklist">Bloqueados</string>
+    <string name="quick_tools">Herramientas</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">Inicio</string>
+    <string name="nav_recents">Recientes</string>
+    <string name="nav_contacts">Contactos</string>
+    <string name="nav_lookup">Buscar</string>
+    <string name="nav_settings">Ajustes</string>
+
+    <!-- Call states -->
+    <string name="call_incoming">Llamada entrante…</string>
+    <string name="call_decline">Rechazar</string>
+    <string name="call_accept">Aceptar</string>
+    <string name="call_message">Mensaje</string>
+    <string name="call_identified">Identificado por CallerID</string>
+    <string name="label_spam">Spam</string>
+    <string name="label_verified">Verificado</string>
+
+    <!-- Recents -->
+    <string name="recents_today">Hoy</string>
+    <string name="recents_yesterday">Ayer</string>
+    <string name="recents_this_week">Esta semana</string>
+    <string name="recents_earlier">Anteriores</string>
+    <string name="recents_empty">No hay llamadas recientes</string>
+
+    <!-- Call filters -->
+    <string name="filter_all">Todas</string>
+    <string name="filter_incoming">Entrantes</string>
+    <string name="filter_outgoing">Salientes</string>
+    <string name="filter_missed">Perdidas</string>
+
+    <!-- Call type labels -->
+    <string name="type_incoming">Entrante</string>
+    <string name="type_outgoing">Saliente</string>
+    <string name="type_missed">Perdida</string>
+    <string name="type_blocked">Bloqueada</string>
+
+    <!-- Call log permission -->
+    <string name="perm_calllog_title">Muestra tu historial de llamadas</string>
+    <string name="perm_calllog_message">Callora necesita acceso al registro de llamadas para listar las que hiciste y recibiste.</string>
+    <string name="action_grant">Conceder acceso</string>
+
+    <!-- Lookup -->
+    <string name="lookup_hint">Ingresa nombre o número</string>
+    <string name="lookup_verified_business">Empresa verificada</string>
+    <string name="lookup_organization">Organización</string>
+    <string name="lookup_location">Ubicación</string>
+    <string name="lookup_spam_risk">Riesgo de spam</string>
+    <string name="action_call">Llamar</string>
+    <string name="action_save">Guardar</string>
+    <string name="lookup_idle_hint">Ingresa un número para identificar a quien llama</string>
+    <string name="lookup_unknown_caller">Llamante desconocido</string>
+    <string name="lookup_in_contacts">En tus contactos</string>
+    <string name="lookup_not_in_contacts">No está en tus contactos</string>
+    <string name="lookup_status">Estado</string>
+    <string name="lookup_region">Región</string>
+    <string name="lookup_local_number">Número local</string>
+    <string name="lookup_international">Internacional</string>
+    <string name="lookup_carrier">Operador</string>
+
+    <!-- Contacts -->
+    <string name="contacts_search_hint">Buscar contactos</string>
+    <string name="contacts_empty">No se encontraron contactos</string>
+    <string name="perm_contacts_title">Asocia nombres a números</string>
+    <string name="perm_contacts_message">Callora necesita acceso a contactos para etiquetar llamadas con los nombres guardados.</string>
+
+    <!-- Settings -->
+    <string name="settings_language">Idioma</string>
+    <string name="settings_language_sub">Elige el idioma de la app</string>
+    <string name="settings_blocklist">Lista de bloqueo</string>
+    <string name="settings_blocklist_sub">Números que bloqueaste</string>
+    <string name="settings_protection">Protección contra spam</string>
+    <string name="settings_protection_sub">Identificador y bloqueo de spam</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_sub">Claro, oscuro o sistema</string>
+    <string name="theme_dialog_title">Elegir tema</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_dark">Oscuro</string>
+    <string name="theme_system">Predeterminado del sistema</string>
+
+    <!-- Settings actions -->
+    <string name="language_dialog_title">Elige el idioma</string>
+    <string name="blocklist_add">Añadir número</string>
+    <string name="blocklist_empty">Aún no hay números bloqueados</string>
+    <string name="blocklist_add_title">Bloquear un número</string>
+    <string name="blocklist_add_hint">Ingresa el número de teléfono</string>
+    <string name="blocklist_added">Número bloqueado</string>
+    <string name="blocklist_removed">Número eliminado</string>
+    <string name="blocklist_remove_title">¿Quitar de la lista de bloqueo?</string>
+    <string name="action_add">Añadir</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_remove">Quitar</string>
+
+    <!-- Added translations -->
+    <string name="app_name_overlay">Callora</string>
+    <string name="overlay_guide_desc">Busca Callora en la lista y activa su interruptor.</string>
+    <string name="overlay_guide_row_hint">Toca para activar</string>
+    <string name="overlay_guide_dismiss">Toca en cualquier lugar para cerrar</string>
+    <string name="onboarding_spam_id">ID de spam</string>
+    <string name="onboarding_caller_id">ID de llamada</string>
+    <string name="number_lookup">Búsqueda de número</string>
+    <string name="enter_a_number">Ingresa un número</string>
+    <string name="search_global_caller_db">Buscar en la base global de llamantes</string>
+    <string name="lookup_action">Buscar</string>
+    <string name="select_country">Seleccionar país</string>
+    <string name="search_country">Buscar país</string>
+    <string name="show_full_detail">Ver detalles completos</string>
+    <string name="empty_search_hint">Busca un número para ver detalles</string>
+    <string name="recent_lookups">Búsquedas recientes</string>
+    <string name="clear_all">Borrar todo</string>
+    <string name="lookup_valid_number">Número válido</string>
+    <string name="lookup_invalid_number">Número no válido</string>
+    <string name="lookup_country">País</string>
+    <string name="lookup_line_type">Tipo de línea</string>
+    <string name="dialer_title">Marcador</string>
+    <string name="dialer_search_hint">Buscar o ingresar número</string>
+    <string name="dialer_frequent">Llamados frecuentes</string>
+    <string name="dialer_empty">Aún no hay historial</string>
+    <string name="dialer_backspace">Borrar</string>
+    <string name="add_to_contacts">Añadir a contactos</string>
+    <string name="blocklist_title">Actividad de bloqueo</string>
+    <string name="blocklist_total">Total bloqueado</string>
+    <string name="blocklist_entry_title">Número bloqueado</string>
+    <string name="blocklist_status_blocked">Bloqueado</string>
+    <string name="blocklist_more_options">Más opciones</string>
+    <string name="blocklist_view_details">Ver detalles</string>
+    <string name="blocklist_unblock">Desbloquear</string>
+    <string name="blocklist_report">Reportar</string>
+    <string name="blocklist_reported">Reportado. Gracias por tu opinión.</string>
+    <string name="blocklist_details_title">Número bloqueado</string>
+    <string name="blocklist_details_added">Bloqueado el %1$s</string>
+    <string name="blocklist_section_latest">RECIENTE</string>
+    <string name="blocklist_section_yesterday">AYER</string>
+    <string name="blocklist_section_earlier">ANTES</string>
+    <string name="tools_title">Herramientas</string>
+    <string name="tools_compass">Brújula</string>
+    <string name="tools_compass_sub">Encuentra el norte magnético</string>
+    <string name="tools_speedometer">Velocímetro</string>
+    <string name="tools_speedometer_sub">Tu velocidad GPS actual</string>
+    <string name="compass_no_sensor">El sensor de brújula no está disponible en este dispositivo</string>
+    <string name="speedometer_unit">km/h</string>
+    <string name="speedometer_waiting">Esperando GPS…</string>
+    <string name="speedometer_permission">Se necesita permiso de ubicación para medir la velocidad</string>
+    <string name="cardinal_n">N</string>
+    <string name="cardinal_e">E</string>
+    <string name="cardinal_s">S</string>
+    <string name="cardinal_w">O</string>
+    <string name="tools_flashlight">Linterna</string>
+    <string name="tools_flashlight_sub">Linterna y SOS</string>
+    <string name="flashlight_on">Luz encendida</string>
+    <string name="flashlight_off">Luz apagada</string>
+    <string name="flashlight_sos">SOS</string>
+    <string name="flashlight_no_flash">Este dispositivo no tiene flash</string>
+    <string name="tools_level">Nivel de burbuja</string>
+    <string name="tools_level_sub">Comprueba si una superficie está plana</string>
+    <string name="tools_battery">Batería</string>
+    <string name="tools_battery_sub">Carga e información de salud</string>
+    <string name="battery_level">Carga</string>
+    <string name="battery_status">Estado</string>
+    <string name="battery_health">Salud</string>
+    <string name="battery_temp">Temperatura</string>
+    <string name="battery_voltage">Voltaje</string>
+    <string name="battery_tech">Tecnología</string>
+    <string name="battery_plugged">Fuente de energía</string>
+    <string name="tools_sound">Sonómetro</string>
+    <string name="tools_sound_sub">Mide el nivel de ruido</string>
+    <string name="sound_unit">dB</string>
+    <string name="sound_permission">Se necesita permiso del micrófono para medir el sonido</string>
+    <string name="tools_sim">Información de red</string>
+    <string name="tools_sim_sub">Detalles de SIM y operador</string>
+    <string name="sim_carrier">Operador</string>
+    <string name="sim_network_type">Tipo de red</string>
+    <string name="sim_phone_type">Tipo de teléfono</string>
+    <string name="sim_country">País</string>
+    <string name="sim_state">Estado de SIM</string>
+    <string name="sim_roaming">Itinerancia</string>
+    <string name="sim_permission">Se necesita permiso de teléfono para los detalles de red</string>
+    <string name="tools_light">Luxómetro</string>
+    <string name="tools_light_sub">Luz ambiental en lux</string>
+    <string name="light_unit">lux</string>
+    <string name="light_no_sensor">El sensor de luz no está disponible en este dispositivo</string>
+    <string name="tools_stopwatch">Cronómetro</string>
+    <string name="tools_stopwatch_sub">Cronómetro y temporizador</string>
+    <string name="mode_stopwatch">Cronómetro</string>
+    <string name="mode_timer">Temporizador</string>
+    <string name="action_start">Iniciar</string>
+    <string name="action_pause">Pausar</string>
+    <string name="action_reset">Restablecer</string>
+    <string name="common_yes">Sí</string>
+    <string name="common_no">No</string>
+    <string name="common_unknown">Desconocido</string>
+    <string name="press_back_again">Presiona atrás otra vez para salir</string>
+    <string name="exit_dialog_title">¿Salir de la app?</string>
+    <string name="exit_dialog_desc">¿Seguro que quieres salir?</string>
+    <string name="exit_dialog_positive">Salir</string>
+    <string name="exit_dialog_negative">Cancelar</string>
+    <string name="perm_allow">Activar</string>
+    <string name="action_close">Cerrar</string>
+    <string name="settings_section_preferences">Preferencias</string>
+    <string name="settings_section_support">Cuenta y soporte</string>
+    <string name="settings_section_legal">Legal</string>
+    <string name="settings_sim">Gestión de SIM</string>
+    <string name="settings_sim_sub">Ajustes de red y operador</string>
+    <string name="settings_rate">Califícanos</string>
+    <string name="settings_rate_sub">¿Te gusta la app? Cuéntanos.</string>
+    <string name="settings_share">Compartir</string>
+    <string name="settings_share_sub">Invita a amigos a proteger su vida digital.</string>
+    <string name="settings_share_text">Identifica llamadas desconocidas y bloquea spam con Caller ID Phone Lookup: https://play.google.com/store/apps/details?id=%1$s</string>
+    <string name="settings_privacy">Política de privacidad</string>
+    <string name="settings_terms">Términos del servicio</string>
+    <string name="settings_privacy_url">https://sites.google.com/view/calleridphonelookup/privacy</string>
+    <string name="settings_terms_url">https://sites.google.com/view/calleridphonelookup/terms</string>
+    <plurals name="blocklist_entries">
+        <item quantity="one">%d entrada</item>
+        <item quantity="other">%d entradas</item>
+    </plurals>
+    <plurals name="dialer_call_count">
+        <item quantity="one">%d llamada</item>
+        <item quantity="other">%d llamadas</item>
+    </plurals>
+    <plurals name="blocklist_blocked_count">
+        <item quantity="one">%1$d número bloqueado</item>
+        <item quantity="other">%1$d números bloqueados</item>
+    </plurals>
+    <plurals name="lookup_more_names">
+        <item quantity="one">%1$d nombre</item>
+        <item quantity="other">%1$d nombres más</item>
+    </plurals>
+    <plurals name="recents_call_count">
+        <item quantity="one">%1$d llamada</item>
+        <item quantity="other">%1$d llamadas</item>
+    </plurals>
+    <string name="splash_title">Callora</string>
+    <string name="battery_activity_title">Información de batería</string>
+
+    <!-- Localized strings (es) -->
+    <string name="app_label"> Callora: Búsqueda de Números</string>
+    <string name="home_brand">Callora</string>
+    <string name="home_brand_sub">ID de llamada y antispam</string>
+    <string name="home_quick_actions">Acciones rápidas</string>
+
+    <!-- Overlay -->
+    <string name="overlay_banner_desc">Mostrar la info del llamante sobre otras apps</string>
+
+    <!-- Recents -->
+    <string name="recents_subtitle">Tu historial de llamadas</string>
+    <string name="recents_search_hint">Buscar llamadas</string>
+    <string name="contacts_count_fmt">%1$d contactos</string>
+    <string name="action_more">Más</string>
+
+    <!-- Recents sort menu -->
+    <string name="sort_title">Ordenar por</string>
+    <string name="sort_newest">Más recientes primero</string>
+    <string name="sort_oldest">Más antiguas primero</string>
+    <string name="sort_name_asc">Nombre (A–Z)</string>
+    <string name="sort_name_desc">Nombre (Z–A)</string>
+
+    <!-- Lookup -->
+    <string name="lookup_city">Ciudad</string>
+    <string name="lookup_spam_type">Tipo de spam</string>
+    <string name="lookup_detail_title">Detalles del número</string>
+    <string name="lookup_subtitle">Identifica cualquier número en todo el mundo</string>
+    <string name="lookup_search_hint">Buscar número</string>
+    <string name="lookup_search_number">Buscar número</string>
+    <string name="lookup_pick_contact">Elegir de contactos</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="lookup_history_title">Historial de búsqueda</string>
+    <string name="lookup_history_empty">Aún no hay búsquedas recientes</string>
+    <string name="action_back">Atrás</string>
+
+    <!-- Call details -->
+    <string name="call_detail_title">Detalles de la llamada</string>
+    <string name="action_message">Mensaje</string>
+    <string name="action_block">Bloquear</string>
+    <string name="action_unblock">Desbloquear</string>
+    <string name="lookup_also_known_as">También conocido como</string>
+    <string name="lookup_nickname_bullet">•  %1$s</string>
+    <string name="lookup_unlock_nicknames">Ver anuncio para revelar</string>
+    <string name="lookup_unknown_value">Desconocido</string>
+    <string name="watch_ad_title">Desbloquea la ficha completa</string>
+    <string name="watch_ad_message">Reproduce un anuncio corto para ver el nombre y los datos completos.</string>
+    <string name="watch_ad_button">Ver anuncio</string>
+    <string name="watch_ad_cancel">Ahora no</string>
+    <string name="action_whatsapp">WhatsApp</string>
+    <string name="whatsapp_not_installed">WhatsApp no está instalado</string>
+    <string name="detail_verified">Verificado</string>
+    <string name="detail_line_mobile">Móvil</string>
+    <string name="detail_total_duration">Duración total</string>
+    <string name="detail_total_calls">Total de llamadas</string>
+    <string name="detail_total_sub">Tiempo total en llamadas este mes</string>
+    <string name="detail_call_history">Historial de llamadas</string>
+    <string name="detail_last_30">Últimos 30 días</string>
+    <string name="detail_calls_outgoing">Solo salientes</string>
+    <string name="detail_calls_incoming">Solo entrantes</string>
+    <string name="detail_calls_missed">Solo perdidas</string>
+    <string name="detail_calls_mixed">Llamadas mixtas</string>
+    <string name="detail_calls_none">No hay llamadas recientes</string>
+    <string name="detail_view_all">Ver todo el historial</string>
+    <string name="detail_secure">Seguro</string>
+    <string name="detail_no_connection">Sin conexión</string>
+    <string name="detail_today">Hoy, %1$s</string>
+    <string name="detail_yesterday">Ayer, %1$s</string>
+    <string name="detail_dot_join">%1$s · %2$s</string>
+
+    <!-- Dialer -->
+    <string name="dialer_search_contacts">Buscar contactos</string>
+    <string name="dialer_favorites">Favoritos</string>
+    <string name="dialer_view_all">Ver todo</string>
+    <string name="dialer_voice_search">Búsqueda por voz</string>
+
+    <!-- Tools -->
+    <string name="compass_activity_title">Actividad de la brújula</string>
+    <string name="compass_signal">Intensidad de la señal: %1$s</string>
+    <string name="signal_strong">Fuerte</string>
+    <string name="signal_medium">Media</string>
+    <string name="signal_weak">Débil</string>
+    <string name="speedtest_pill">AES-512 resistente a la computación cuántica</string>
+    <string name="speedtest_stable">Conexión segura estable</string>
+    <string name="speedtest_error">Error de conexión — toca para reintentar</string>
+    <string name="speedtest_upload">Velocidad de subida</string>
+    <string name="speedtest_latency">Latencia</string>
+    <string name="speedtest_jitter">Fluctuación</string>
+    <string name="speedtest_again">Probar de nuevo</string>
+    <string name="speedtest_mbps">%1$s Mbps</string>
+    <string name="speedtest_ms">%1$d ms</string>
+
+    <!-- Flashlight -->
+    <string name="flashlight_integrity">Integridad del hardware: Verificada</string>
+    <string name="flashlight_lumen">Salida en lúmenes</string>
+    <string name="flashlight_brightness">Control de brillo</string>
+    <string name="flashlight_mode_steady">Fija</string>
+    <string name="flashlight_mode_strobe">Estroboscópica</string>
+    <string name="flashlight_lm">%1$d lm</string>
+
+    <!-- Bubble level -->
+    <string name="level_current_tilt">Inclinación actual</string>
+    <string name="level_dual_axis">Datos de doble eje</string>
+    <string name="level_x_axis">Eje X</string>
+    <string name="level_y_axis">Eje Y</string>
+    <string name="level_calibrate">Calibrar</string>
+    <string name="level_adjusting">Ajustando</string>
+    <string name="level_level">Nivelado</string>
+
+    <!-- Battery -->
+    <string name="battery_activity_sub">Monitorea el consumo de energía y la integridad del hardware. Revisa el rendimiento en tiempo real y los estados de la negociación de seguridad.</string>
+    <string name="battery_secured">Protegida y optimizando</string>
+    <string name="battery_health_great">Excelente</string>
+    <string name="battery_health_hot">Caliente</string>
+    <string name="battery_health_cold">Fría</string>
+    <string name="battery_health_dead">Agotada</string>
+    <string name="battery_health_over">Sobrevoltaje</string>
+
+    <!-- Sound meter -->
+    <string name="sound_peak">Nivel máximo</string>
+    <string name="sound_average">Nivel medio</string>
+    <string name="sound_spectrum">Espectro de frecuencias</string>
+    <string name="sound_hold">Fijar lectura</string>
+    <string name="sound_resume">Reanudar</string>
+    <string name="sound_reset">Restablecer datos</string>
+    <string name="sound_cat_quiet">Silencioso</string>
+    <string name="sound_cat_normal">Conversación normal</string>
+    <string name="sound_cat_loud">Ruidoso</string>
+    <string name="sound_cat_very_loud">Muy ruidoso</string>
+    <string name="sound_cat_dangerous">Peligroso</string>
+
+    <!-- Light meter -->
+    <string name="light_capture">Capturar</string>
+    <string name="light_resume">Reanudar</string>
+    <string name="light_zero">Cero</string>
+    <string name="light_min">Mínimo</string>
+    <string name="light_avg">Promedio</string>
+    <string name="light_max">Máximo</string>
+    <string name="light_lx">%1$d lx</string>
+
+    <!-- Stopwatch -->
+    <string name="stopwatch_active">Sesión activa</string>
+    <string name="stopwatch_lap">Vuelta</string>
+    <string name="stopwatch_history">Historial de vueltas</string>
+    <string name="stopwatch_laps">%1$d vueltas</string>
+    <string name="stopwatch_empty">No se registraron datos de vueltas en la sesión actual.</string>
+    <string name="stopwatch_total">Total de registros</string>
+    <string name="stopwatch_lap_n">Vuelta %1$d</string>
+
+    <!-- Timer -->
+    <string name="timer_tool">Temporizador</string>
+    <string name="timer_tool_sub">Cuenta regresiva</string>
+    <string name="timer_minutes">Minutos</string>
+    <string name="timer_seconds">Segundos</string>
+
+    <!-- Incoming-call overlay -->
+    <string name="incall_incoming">Llamada entrante</string>
+    <string name="incall_known">Contacto conocido</string>
+    <string name="incall_unknown">Desconocido</string>
+    <string name="incall_now">Ahora</string>
+    <string name="incall_calls">%1$d llamadas</string>
+    <string name="incall_service_active">Identificador de llamadas activo</string>
+
+    <!-- Contacts tabs -->
+    <string name="contacts_tab_all">Todos</string>
+    <string name="contacts_tab_favorites">Favoritos</string>
+    <string name="contacts_tab_recents">Recientes</string>
+    <string name="contacts_tab_groups">Grupos</string>
+
+    <!-- Settings -->
+    <string name="call_screening">Superposición de identificador</string>
+    <string name="call_screening_desc">Mostrar la información del llamante durante las llamadas</string>
+    <string name="settings_section_call">PROTECCIÓN DE LLAMADAS</string>
+
+    <!-- Blocklist -->
+    <string name="blocklist_empty_subtitle">Rechaza llamadas de números o patrones específicos</string>
+    <string name="blocklist_choose_title">Bloquear un número</string>
+    <string name="blocklist_method_add_title">Añadir un número</string>
+    <string name="blocklist_method_add_sub">Ingresar manualmente</string>
+    <string name="blocklist_method_contacts_title">Desde contactos</string>
+    <string name="blocklist_method_contacts_sub">Elige a alguien de tus contactos</string>
+    <string name="blocklist_method_recents_title">Bloquear desde llamadas recientes</string>
+    <string name="blocklist_method_recents_sub">Elige de tu registro de llamadas</string>
+    <string name="blocklist_pick_recents_title">Llamadas recientes</string>
+    <string name="blocklist_no_recents">No se encontraron llamadas recientes</string>
+    <string name="blocklist_contact_no_number">No se pudo leer el número de ese contacto</string>
+    <string name="blocklist_already_blocked">Ya está bloqueado</string>
+    <string name="blocklist_perm_calllog">Se necesita acceso al registro de llamadas para elegir llamadas recientes</string>
+    <string name="blocklist_pick_contacts_title">Contactos</string>
+    <string name="blocklist_no_contacts">No se encontraron contactos</string>
+    <string name="blocklist_perm_contacts">Se necesita acceso a los contactos para elegir un contacto</string>
+
+    <!-- Misc / common -->
+    <string name="please_wait">Espera un momento...</string>
+
+    <!-- Post-call (callback) screen -->
+    <string name="pc_recent_calls_empty">No hay llamadas recientes</string>
+    <string name="recent">Reciente</string>
+    <string name="message">Mensaje</string>
+    <string name="reminder">Recordatorio</string>
+    <string name="whatsapp">WhatsApp</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="add_reminder">Añadir recordatorio</string>
+    <string name="no_reminders_found">No se encontraron recordatorios</string>
+    <string name="reminder_prompt">Recuérdame sobre</string>
+    <string name="reminder_name_hint">Cumpleaños</string>
+    <string name="message_custom_hint">Escribe tu propio mensaje</string>
+    <string name="call_duration_label">Duración:</string>
+    <string name="call_type_outgoing">Saliente</string>
+    <string name="incoming_call">Llamada entrante</string>
+    <string name="outgoing_call">Llamada saliente</string>
+    <string name="missed_call">Llamada perdida</string>
+    <string name="feature_send_email">Enviar correo</string>
+    <string name="feature_calendar">Añadir al calendario</string>
+    <string name="feature_web">Abrir sitio web</string>
+    <string name="feature_edit_contact">Editar contacto</string>
+
+    <!-- Home search-bar one-time hint -->
+    <string name="search_hint_tip">Escribe cualquier número aquí para identificar a quien llama</string>
+    <string name="got_it">Entendido</string>
+
+    <!-- App-redirect dialog -->
+    <string name="app_unavailable">App no disponible</string>
+    <string name="app_redirect_desc">Esta app no está instalada en tu dispositivo. ¿Quieres abrirla en Play Store?</string>
+    <string name="call_screening_hint_tip">Actívalo para ver quién llama y bloquear el spam</string>
+    <!-- FSI intro Activity/Dialog + Home permission hint -->
+    <string name="home_perm_hint">Aún faltan algunos permisos. Actívalos para una identificación completa.</string>
+    <string name="home_perm_manage">Gestionar</string>
+    <string name="fsi_incoming_call">Llamada entrante</string>
+    <string name="fsi_avatar_initials">ID</string>
+    <string name="fsi_caller_unknown">Desconocido</string>
+    <string name="fsi_caller_number">+91 70967 *****</string>
+    <string name="fsi_known_contact">Contacto conocido</string>
+    <string name="fsi_meta_now">Ahora</string>
+    <string name="fsi_meta_calls">68 llamadas</string>
+    <string name="fsi_meta_sim">JIO 4G</string>
+    <string name="fsi_screen_title">Ve quién llama en la pantalla de bloqueo</string>
+    <string name="fsi_screen_desc">Callora pinta los datos verificados del contacto sobre la pantalla de bloqueo al llegar la llamada.</string>
+    <string name="fsi_feature_identify">Pon nombre a los números desconocidos</string>
+    <string name="fsi_feature_spam">Detecta estafas y fraudes de un vistazo</string>
+    <string name="fsi_feature_missed">Deja de perder las llamadas que importan</string>
+    <string name="fsi_enable_now">Activarlo</string>
+    <string name="fsi_not_now">Ahora no</string>
+
+    <!-- Quick-action / reminder toasts -->
+    <string name="toast_no_number">No hay número para llamar</string>
+    <string name="toast_no_whatsapp">WhatsApp no está instalado</string>
+    <string name="toast_pick_message">Escribe o elige un mensaje primero</string>
+    <string name="toast_no_sms_app">No hay app de mensajes</string>
+    <string name="toast_no_contacts_app">No hay app de contactos</string>
+    <string name="toast_no_share_app">Nada instalado puede enviarlo</string>
+    <string name="toast_no_calendar_app">No hay app de calendario</string>
+    <string name="toast_calendar_failed">El calendario no se abrió</string>
+    <string name="toast_no_browser_app">No hay navegador</string>
+    <string name="toast_need_title">Ponle un título al recordatorio</string>
+    <string name="toast_need_future_time">Elige una hora futura</string>
+
+    <!-- Splash · onboarding · home -->
+    <string name="splash_incoming_call">Llamada entrante…</string>
+    <string name="splash_fraud_blocked">Fraude bloqueado</string>
+    <string name="splash_secure_version">Seguro v%1$s</string>
+    <string name="language_all">Todos los idiomas</string>
+    <string name="onb_incoming_call">Llamada entrante</string>
+    <string name="onb_business_verified">Empresa · Verificada</string>
+    <string name="onb_blocked_call">Llamada bloqueada</string>
+    <string name="onb_unknown_number">Número desconocido</string>
+    <string name="onb_spam_robocall">Spam · Robollamada</string>
+    <string name="onb_auto_blocked">Bloqueado automáticamente</string>
+    <string name="onb_caller_found">Contacto identificado</string>
+    <string name="home_see_all">Ver todo</string>
+    <string name="home_protection_line">Protección activa · llamadas fraudulentas bloqueadas</string>
+    <string name="home_caller_id">Identificador</string>
+    <string name="home_protection_off_title">La protección está desactivada</string>
+    <string name="home_protection_off_sub">Las llamadas spam sonarán con normalidad</string>
+    <string name="home_protection_on_title">La protección está activada</string>
+    <string name="home_protection_on_sub">Las llamadas spam se bloquean automáticamente</string>
+    <string name="home_protection_turn_on">Activar</string>
+    <string name="home_protection_manage">Gestionar</string>
+    <string name="home_whos_calling">¿Quién llama?</string>
+    <string name="home_whos_calling_sub">Busca cualquier número para identificar llamadas desconocidas</string>
+    <string name="home_search_any">Busca cualquier número</string>
+    <string name="home_recent_label">Recientes</string>
+    <string name="nav_blocklist">Bloqueados</string>
+    <string name="nav_tools">Herramientas</string>
+
+    <!-- Lookup · call detail · dialer · speed test · flashlight · battery -->
+    <string name="lookup_empty_cta">Buscar un número</string>
+    <string name="lookup_paste">Pegar</string>
+    <string name="action_share">Compartir</string>
+    <string name="detail_calls_word">llamadas</string>
+    <string name="detail_no_talk_time">Sin tiempo de conversación</string>
+    <string name="detail_not_answered">Sin respuesta</string>
+    <string name="detail_not_identified">Aún sin identificar</string>
+    <string name="detail_identify">Identificar este número</string>
+    <string name="detail_today_short">Hoy</string>
+    <string name="detail_yesterday_short">Ayer</string>
+    <string name="dialer_matches">Coincidencias</string>
+    <string name="speedtest_download">Descarga</string>
+    <string name="speedtest_ping">Ping</string>
+    <string name="speedtest_history">Resultados anteriores</string>
+    <string name="flashlight_state_on">Linterna encendida</string>
+    <string name="flashlight_state_off">Linterna apagada</string>
+    <string name="flashlight_brightness_short">Brillo</string>
+    <string name="battery_section_now">Ahora mismo</string>
+    <string name="battery_section_details">Detalles</string>
+    <string name="battery_screen_on">Pantalla encendida</string>
+    <string name="battery_capacity">Capacidad</string>
+    <string name="battery_charging">Cargando</string>
+    <string name="battery_discharging">Con batería</string>
+    <string name="battery_full">Completa</string>
+    <string name="battery_saver">Ajustes de batería</string>
+    <string name="stopwatch_hm_fmt">%1$d h %2$d min</string>
+
+    <!-- Lookup empty · call history · dialer · SIM · stopwatch · timer · recents -->
+    <string name="lookup_empty_title">Descubre quién está detrás de cualquier número</string>
+    <string name="lookup_empty_sub">Tus búsquedas aparecerán aquí. No se comparte nada con los números que buscas.</string>
+    <string name="lookup_empty_body">Tus búsquedas aparecerán aquí. No se comparte nada con los números que buscas.</string>
+    <string name="detail_history_empty_title">Aún no hay llamadas con este número</string>
+    <string name="detail_history_empty_sub">Cuando llames o recibas llamadas de este número, el historial aparecerá aquí.</string>
+    <string name="dialer_empty_title">Marca un número para empezar</string>
+    <string name="dialer_empty_sub">Los números que llamas con frecuencia aparecerán aquí para llamar con un toque.</string>
+    <string name="flashlight_tap_hint">Toca el botón para encender o apagar la linterna</string>
+    <string name="sim_section_carrier">SIM y operador</string>
+    <string name="sim_section_connection">Conexión</string>
+    <string name="sim_signal">Intensidad de señal</string>
+    <string name="sim_ip">Dirección IP</string>
+    <string name="sim_connected">Conectado</string>
+    <string name="sim_no_service">Sin servicio</string>
+    <string name="sim_run_speed_test">Probar velocidad</string>
+    <string name="sim_refresh">Actualizar</string>
+    <string name="stopwatch_running">En marcha</string>
+    <string name="stopwatch_paused">En pausa</string>
+    <string name="stopwatch_ready">Lista</string>
+    <string name="timer_of">de %1$s</string>
+    <string name="timer_alert_title">Avisar al terminar</string>
+    <string name="timer_alert_sub">Tono · vibración</string>
+    <string name="timer_preset_min">%1$d min</string>
+    <string name="timer_add_minute">Añadir un minuto</string>
+    <string name="recents_counts_fmt">%1$s · %2$d perdidas</string>
+
+    <!-- Blocklist · lookup detail -->
+    <string name="blocklist_add_sub">No podrán llamarte</string>
+    <string name="blocklist_from_recents">De recientes</string>
+    <string name="blocklist_country_code">Código de país</string>
+    <string name="blocklist_enable_cid_title">Activar identificador</string>
+    <string name="blocklist_enable_cid_message">Activa el identificador para gestionar los números bloqueados y usar todas las funciones de bloqueo.</string>
+    <string name="blocklist_enable_cid_confirm">Activar identificador</string>
+    <string name="blocklist_enable_cid_not_now">Ahora no</string>
+    <string name="blocklist_enable_cid_hint_label">Siguiente paso: actívalo</string>
+    <string name="blocklist_enable_cid_hint_sub">Establécelo como tu app de identificador</string>
+    <string name="blocklist_section_blocked">Números bloqueados</string>
+    <string name="blocklist_summary_sub">Las llamadas entrantes de estos números se rechazan automáticamente</string>
+    <string name="blocklist_unknown_caller">Llamante desconocido</string>
+    <string name="action_identify">Identificar</string>
+    <string name="lookup_revealed">Revelado</string>
+    <string name="lookup_reveal">Revelar</string>
+    <string name="lookup_nick_footer">Un anuncio revela un nombre · los nombres revelados quedan desbloqueados</string>
+    <string name="lookup_x_of_n_revealed">%1$d de %2$d revelados</string>
+    <string name="lookup_header_sub">Busca cualquier número, donde sea</string>
+    <string name="lookup_kicker">Búsqueda de número</string>
+    <string name="lookup_privacy">Las búsquedas son privadas y nunca se muestran al llamante</string>
+
+    <!-- Tools · permission sheet -->
+    <string name="tools_search_hint">Buscar herramientas</string>
+    <string name="tools_cat_measure">Medición</string>
+    <string name="tools_cat_device">Dispositivo</string>
+    <string name="tools_cat_time">Tiempo</string>
+    <string name="tools_empty_title">Ninguna herramienta coincide con \"%1$s\"</string>
+    <string name="tools_empty_sub">Prueba con \"nivel\" o \"brújula\", o explora todas.</string>
+    <string name="tools_reset_search">Restablecer búsqueda</string>
+    <string name="tools_clear_search">Borrar búsqueda</string>
+    <string name="perm_sheet_title">Activa los permisos</string>
+    <string name="perm_sheet_subtitle">El identificador, los avisos de spam y el historial necesitan un permiso cada uno.</string>
+    <string name="perm_sheet_continue">Continuar</string>
+    <string name="perm_sheet_not_now">Ahora no</string>
+    <string name="permsheet_allow">Permitir</string>
+    <string name="perm_granted">Concedido</string>
+    <string name="perm_notification_title">Notificaciones</string>
+    <string name="perm_notification_desc">Recibe avisos de spam y de llamadas</string>
+    <string name="perm_phone_title">Teléfono</string>
+    <string name="perm_phone_desc">Identificar llamadas entrantes</string>
+    <string name="permsheet_calllog_title">Registro de llamadas</string>
+    <string name="perm_calllog_desc">Mostrar tus llamadas recientes</string>
+    <string name="permsheet_contacts_title">Contactos</string>
+    <string name="perm_contacts_desc">Asociar nombres con números</string>
+    <string name="perm_overlay_title">Mostrar sobre otras apps</string>
+    <string name="perm_overlay_desc">Mostrar el identificador durante las llamadas</string>
+
+    <!-- Light meter · sound meter · bubble level -->
+    <string name="light_band_dark">Oscuro</string>
+    <string name="light_band_dim">Tenue</string>
+    <string name="light_band_indoor">Interior</string>
+    <string name="light_band_bright">Brillante</string>
+    <string name="light_band_sun">Luz solar</string>
+    <string name="light_lowest">Mínimo</string>
+    <string name="light_highest">Máximo</string>
+    <string name="meter_pause">Pausar medición</string>
+    <string name="meter_resume">Reanudar medición</string>
+    <string name="sound_min">Mín</string>
+    <string name="sound_avg">Med</string>
+    <string name="sound_max">Máx</string>
+    <string name="sound_window">hace 30 s</string>
+    <string name="sound_now">ahora</string>
+    <string name="level_roll">Alabeo</string>
+    <string name="level_pitch">Cabeceo</string>
+    <string name="level_hint">Apoya el teléfono plano sobre la superficie</string>
+</resources>

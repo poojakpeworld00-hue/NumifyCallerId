@@ -1,0 +1,700 @@
+<resources>
+    <!-- App -->
+    <string name="app_name">Callora: البحث عن الأرقام</string>
+    <string name="app_name1">#CallerID</string>
+    <string name="dash">&#8211;</string>
+
+    <!-- Splash -->
+    <string name="splash_tagline">تعرّف على كل متصل. واحجب الباقي.</string>
+    <string name="splash_footer">قد تظهر إعلانات في هذا التطبيق</string>
+
+    <!-- Language -->
+    <string name="language_title">اختر اللغة</string>
+    <string name="language_continue">متابعة</string>
+    <string name="language_search_hint">البحث عن اللغات</string>
+    <string name="language_suggested">اللغات المقترحة</string>
+    <string name="language_current">اللغة الحالية</string>
+    <string name="language_info_title">معلومات اللغة</string>
+    <string name="language_info_msg">تغيير اللغة سيحدّث واجهة التطبيق. قد تختلف بعض الميزات الإقليمية بناءً على اختيارك.</string>
+    <string name="language_info_got_it">حسناً</string>
+
+    <!-- Terms &amp; Conditions -->
+    <string name="terms_title">شروط الاستخدام</string>
+    <string name="terms_body">اقرأ هذه الشروط قبل المتابعة. بالضغط على موافق فإنك تقبل ما يلي:\n\n• يعرض Callora أسماء المتصلين الواردين والصادرين والمجهولين أثناء المكالمة.\n• يضع التطبيق علامة على أرقام البريد المزعج والاحتيال ويساعدك على حظرها.\n• يمكنك البحث عن أي رقم هاتف للاطلاع على بيانات المتصل المتوفرة لدينا.\n• يحتاج التطبيق إلى الوصول لسجل المكالمات وجهات الاتصال لتسمية مكالماتك.\n• يسمح إذن العرض فوق التطبيقات بظهور بيانات المتصل أثناء المكالمة.\n• تبقى بياناتك لديك وتُستخدم فقط لتحديد هوية المتصل والحماية من البريد المزعج.\n\nبالضغط على “موافق ومتابعة” تؤكد أنك قرأت شروط الاستخدام وسياسة الخصوصية وتوافق عليها.</string>
+    <string name="terms_agree">لقد قرأت شروط الاستخدام وسياسة الخصوصية وأوافق عليها.</string>
+    <string name="terms_accept">موافق ومتابعة</string>
+    <string name="terms_please_accept">حدّد المربع للمتابعة.</string>
+    <string name="txt_allow_overlay_access">السماح بالعرض فوق التطبيقات الأخرى</string>
+    <string name="overlay_system_permission">إذن النظام</string>
+    <string name="overlay_permission_desc">يتيح العرض فوق التطبيقات الأخرى لهذا التطبيق عرض معلومات المتصل أثناء استخدامك لتطبيقات أخرى.</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">تخطٍّ</string>
+    <string name="onboarding_next">التالي</string>
+    <string name="onboarding_title">كل متصل باسمه</string>
+    <string name="onboarding_desc">تحصل الأرقام المجهولة على اسم ونشاط وموقع لحظة رنينها.</string>
+    <string name="onboarding_title_2">أسكت مكالمات الاحتيال</string>
+    <string name="onboarding_desc_2">تُرصد المكالمات الآلية والاحتيالية والتسويقية وتُوقف قبل أن يرن هاتفك.</string>
+    <string name="onboarding_title_3">ابحث عن أي رقم</string>
+    <string name="onboarding_desc_3">اكتب رقمًا واحصل خلال ثوانٍ على الاسم ومنطقة المشغّل والنشاط وراءه.</string>
+    <string name="onboarding_get_started">ابدأ الآن</string>
+
+    <!-- Home -->
+    <string name="home_title">أنت محمي</string>
+    <string name="home_subtitle">تحديد هوية المتصل وحظر البريد المزعج قيد التشغيل</string>
+    <string name="home_greeting">صباح الخير</string>
+    <string name="home_search_hint">اكتب اسمًا أو رقمًا…</string>
+    <string name="home_protection_active">الحماية مفعّلة</string>
+    <string name="home_blocked">محظورة</string>
+    <string name="home_spam">مزعجة</string>
+    <string name="home_recent_activity">النشاط الأخير</string>
+    <string name="see_all">عرض الكل</string>
+
+    <!-- Quick actions -->
+    <string name="quick_dialer">لوحة الاتصال</string>
+    <string name="quick_lookup">بحث</string>
+    <string name="quick_blocklist">قائمة الحظر</string>
+    <string name="quick_tools">أدوات</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_recents">الأخيرة</string>
+    <string name="nav_contacts">جهات الاتصال</string>
+    <string name="nav_lookup">بحث</string>
+    <string name="nav_settings">الإعدادات</string>
+
+    <!-- Call states -->
+    <string name="call_incoming">مكالمة واردة…</string>
+    <string name="call_decline">رفض</string>
+    <string name="call_accept">قبول</string>
+    <string name="call_message">رسالة</string>
+    <string name="call_identified">تم التعرّف عبر CallerID</string>
+    <string name="label_spam">مزعجة</string>
+    <string name="label_verified">موثّق</string>
+
+    <!-- Recents -->
+    <string name="recents_today">اليوم</string>
+    <string name="recents_yesterday">أمس</string>
+    <string name="recents_this_week">هذا الأسبوع</string>
+    <string name="recents_earlier">أقدم</string>
+    <string name="recents_empty">لا توجد مكالمات حديثة</string>
+
+    <!-- Call filters -->
+    <string name="filter_all">الكل</string>
+    <string name="filter_incoming">واردة</string>
+    <string name="filter_outgoing">صادرة</string>
+    <string name="filter_missed">فائتة</string>
+
+    <!-- Call type labels -->
+    <string name="type_incoming">واردة</string>
+    <string name="type_outgoing">صادرة</string>
+    <string name="type_missed">فائتة</string>
+    <string name="type_blocked">محظورة</string>
+
+    <!-- Call log permission -->
+    <string name="perm_calllog_title">عرض سجل مكالماتك</string>
+    <string name="perm_calllog_message">يحتاج Callora إلى الوصول لسجل المكالمات لعرض المكالمات التي أجريتها وتلقيتها.</string>
+    <string name="action_grant">منح الإذن</string>
+
+    <!-- Lookup -->
+    <string name="lookup_hint">أدخل الاسم أو الرقم</string>
+    <string name="lookup_verified_business">نشاط موثّق</string>
+    <string name="lookup_organization">المؤسسة</string>
+    <string name="lookup_location">الموقع</string>
+    <string name="lookup_spam_risk">خطر الإزعاج</string>
+    <string name="action_call">اتصال</string>
+    <string name="action_save">حفظ</string>
+    <string name="lookup_idle_hint">أدخل رقمًا للتعرّف على المتصل</string>
+    <string name="lookup_unknown_caller">متصل مجهول</string>
+    <string name="lookup_in_contacts">في جهات اتصالك</string>
+    <string name="lookup_not_in_contacts">ليس في جهات اتصالك</string>
+    <string name="lookup_status">الحالة</string>
+    <string name="lookup_region">المنطقة</string>
+    <string name="lookup_local_number">رقم محلي</string>
+    <string name="lookup_international">دولي</string>
+    <string name="lookup_carrier">المشغل</string>
+
+    <!-- Contacts -->
+    <string name="contacts_search_hint">ابحث في جهات الاتصال</string>
+    <string name="contacts_empty">لم يتم العثور على جهات اتصال</string>
+    <string name="perm_contacts_title">اربط الأسماء بالأرقام</string>
+    <string name="perm_contacts_message">يحتاج Callora إلى الوصول لجهات الاتصال لتسمية المكالمات بالأسماء المحفوظة لديك.</string>
+
+    <!-- Settings -->
+    <string name="settings_language">اللغة</string>
+    <string name="settings_language_sub">اختر لغة التطبيق</string>
+    <string name="settings_blocklist">قائمة الحظر</string>
+    <string name="settings_blocklist_sub">الأرقام التي حظرتها</string>
+    <string name="settings_protection">الحماية من الإزعاج</string>
+    <string name="settings_protection_sub">معرّف المتصل وحظر الإزعاج</string>
+    <string name="settings_theme">السمة</string>
+    <string name="settings_theme_sub">فاتح أو داكن أو النظام</string>
+    <string name="theme_dialog_title">اختر السمة</string>
+    <string name="theme_light">فاتح</string>
+    <string name="theme_dark">داكن</string>
+    <string name="theme_system">افتراضي النظام</string>
+
+    <!-- Settings actions -->
+    <string name="language_dialog_title">اختر اللغة</string>
+    <string name="blocklist_add">إضافة رقم</string>
+    <string name="blocklist_empty">لا توجد أرقام محظورة بعد</string>
+    <string name="blocklist_add_title">حظر رقم</string>
+    <string name="blocklist_add_hint">أدخل رقم الهاتف</string>
+    <string name="blocklist_added">تم حظر الرقم</string>
+    <string name="blocklist_removed">تمت إزالة الرقم</string>
+    <string name="blocklist_remove_title">إزالة من قائمة الحظر؟</string>
+    <string name="action_add">إضافة</string>
+    <string name="action_cancel">إلغاء</string>
+    <string name="action_remove">إزالة</string>
+
+    <!-- Added translations -->
+    <string name="app_name_overlay">Callora</string>
+    <string name="overlay_guide_desc">ابحث عن Callora في القائمة أدناه وفعّل مفتاحه.</string>
+    <string name="overlay_guide_row_hint">اضغط للتفعيل</string>
+    <string name="overlay_guide_dismiss">اضغط في أي مكان للإغلاق</string>
+    <string name="onboarding_spam_id">معرّف الرسائل المزعجة</string>
+    <string name="onboarding_caller_id">معرّف المتصل</string>
+    <string name="number_lookup">بحث عن رقم</string>
+    <string name="enter_a_number">أدخل رقم الهاتف</string>
+    <string name="search_global_caller_db">ابحث في قاعدة بيانات المتصلين العالمية</string>
+    <string name="lookup_action">بحث</string>
+    <string name="select_country">اختر الدولة</string>
+    <string name="search_country">ابحث عن دولة</string>
+    <string name="show_full_detail">عرض التفاصيل الكاملة</string>
+    <string name="empty_search_hint">ابحث عن رقم لعرض التفاصيل</string>
+    <string name="recent_lookups">عمليات البحث الأخيرة</string>
+    <string name="clear_all">مسح الكل</string>
+    <string name="lookup_valid_number">رقم صالح</string>
+    <string name="lookup_invalid_number">رقم غير صالح</string>
+    <string name="lookup_country">الدولة</string>
+    <string name="lookup_line_type">نوع الخط</string>
+    <string name="dialer_title">لوحة الاتصال</string>
+    <string name="dialer_search_hint">ابحث أو أدخل رقمًا</string>
+    <string name="dialer_frequent">الأكثر اتصالاً</string>
+    <string name="dialer_empty">لا يوجد سجل مكالمات بعد</string>
+    <string name="dialer_backspace">حذف</string>
+    <string name="add_to_contacts">إضافة إلى جهات الاتصال</string>
+    <string name="blocklist_title">نشاط قائمة الحظر</string>
+    <string name="blocklist_total">إجمالي المحظور</string>
+    <string name="blocklist_entry_title">رقم محظور</string>
+    <string name="blocklist_status_blocked">محظور</string>
+    <string name="blocklist_more_options">خيارات أخرى</string>
+    <string name="blocklist_view_details">عرض التفاصيل</string>
+    <string name="blocklist_unblock">إلغاء الحظر</string>
+    <string name="blocklist_report">إبلاغ</string>
+    <string name="blocklist_reported">تم الإبلاغ. شكرًا لملاحظتك.</string>
+    <string name="blocklist_details_title">رقم محظور</string>
+    <string name="blocklist_details_added">تم الحظر في %1$s</string>
+    <string name="blocklist_section_latest">الأحدث</string>
+    <string name="blocklist_section_yesterday">أمس</string>
+    <string name="blocklist_section_earlier">سابقًا</string>
+    <string name="tools_title">الأدوات</string>
+    <string name="tools_compass">البوصلة</string>
+    <string name="tools_compass_sub">اعثر على الشمال المغناطيسي</string>
+    <string name="tools_speedometer">عداد السرعة</string>
+    <string name="tools_speedometer_sub">سرعتك الحالية عبر GPS</string>
+    <string name="compass_no_sensor">مستشعر البوصلة غير متوفر على هذا الجهاز</string>
+    <string name="speedometer_unit">كم/س</string>
+    <string name="speedometer_waiting">في انتظار GPS…</string>
+    <string name="speedometer_permission">إذن الموقع مطلوب لقياس السرعة</string>
+    <string name="cardinal_n">N</string>
+    <string name="cardinal_e">E</string>
+    <string name="cardinal_s">S</string>
+    <string name="cardinal_w">W</string>
+    <string name="tools_flashlight">المصباح</string>
+    <string name="tools_flashlight_sub">ضوء وإشارة استغاثة</string>
+    <string name="flashlight_on">الضوء مضاء</string>
+    <string name="flashlight_off">الضوء مطفأ</string>
+    <string name="flashlight_sos">SOS</string>
+    <string name="flashlight_no_flash">لا توجد فلاش كاميرا في هذا الجهاز</string>
+    <string name="tools_level">ميزان الماء</string>
+    <string name="tools_level_sub">تحقق من استواء السطح</string>
+    <string name="tools_battery">البطارية</string>
+    <string name="tools_battery_sub">معلومات الشحن والحالة</string>
+    <string name="battery_level">الشحن</string>
+    <string name="battery_status">الحالة</string>
+    <string name="battery_health">الصحة</string>
+    <string name="battery_temp">درجة الحرارة</string>
+    <string name="battery_voltage">الجهد</string>
+    <string name="battery_tech">التقنية</string>
+    <string name="battery_plugged">مصدر الطاقة</string>
+    <string name="tools_sound">مقياس الصوت</string>
+    <string name="tools_sound_sub">قياس مستوى الضوضاء</string>
+    <string name="sound_unit">ديسيبل</string>
+    <string name="sound_permission">إذن الميكروفون مطلوب لقياس الصوت</string>
+    <string name="tools_sim">معلومات الشبكة</string>
+    <string name="tools_sim_sub">تفاصيل SIM والمشغّل</string>
+    <string name="sim_carrier">المشغّل</string>
+    <string name="sim_network_type">نوع الشبكة</string>
+    <string name="sim_phone_type">نوع الهاتف</string>
+    <string name="sim_country">الدولة</string>
+    <string name="sim_state">حالة SIM</string>
+    <string name="sim_roaming">التجوال</string>
+    <string name="sim_permission">إذن الهاتف مطلوب لتفاصيل الشبكة</string>
+    <string name="tools_light">مقياس الضوء</string>
+    <string name="tools_light_sub">الضوء المحيط بوحدة لوكس</string>
+    <string name="light_unit">لوكس</string>
+    <string name="light_no_sensor">مستشعر الضوء غير متوفر على هذا الجهاز</string>
+    <string name="tools_stopwatch">ساعة الإيقاف</string>
+    <string name="tools_stopwatch_sub">ساعة إيقاف ومؤقّت</string>
+    <string name="mode_stopwatch">ساعة الإيقاف</string>
+    <string name="mode_timer">المؤقّت</string>
+    <string name="action_start">ابدأ</string>
+    <string name="action_pause">إيقاف مؤقت</string>
+    <string name="action_reset">إعادة تعيين</string>
+    <string name="common_yes">نعم</string>
+    <string name="common_no">لا</string>
+    <string name="common_unknown">غير معروف</string>
+    <string name="press_back_again">اضغط رجوع مرة أخرى للخروج</string>
+    <string name="exit_dialog_title">إغلاق التطبيق؟</string>
+    <string name="exit_dialog_desc">هل أنت متأكد أنك تريد الخروج؟</string>
+    <string name="exit_dialog_positive">خروج</string>
+    <string name="exit_dialog_negative">إلغاء</string>
+    <string name="perm_allow">تفعيل</string>
+    <string name="action_close">إغلاق</string>
+    <string name="settings_section_preferences">التفضيلات</string>
+    <string name="settings_section_support">الحساب والدعم</string>
+    <string name="settings_section_legal">قانوني</string>
+    <string name="settings_sim">إدارة SIM</string>
+    <string name="settings_sim_sub">إعدادات الشبكة والمشغّل</string>
+    <string name="settings_rate">قيّمنا</string>
+    <string name="settings_rate_sub">أعجبك التطبيق؟ أخبرنا.</string>
+    <string name="settings_share">مشاركة</string>
+    <string name="settings_share_sub">ادعُ أصدقاءك لتأمين حياتهم الرقمية.</string>
+    <string name="settings_share_text">تعرّف على المتصلين المجهولين واحظر الرسائل المزعجة مع Caller ID Phone Lookup: https://play.google.com/store/apps/details?id=%1$s</string>
+    <string name="settings_privacy">سياسة الخصوصية</string>
+    <string name="settings_terms">شروط الخدمة</string>
+    <string name="settings_privacy_url">https://sites.google.com/view/calleridphonelookup/privacy</string>
+    <string name="settings_terms_url">https://sites.google.com/view/calleridphonelookup/terms</string>
+    <plurals name="blocklist_entries">
+        <item quantity="one">%d إدخال</item>
+        <item quantity="other">%d إدخالات</item>
+    </plurals>
+    <plurals name="dialer_call_count">
+        <item quantity="one">%d مكالمة</item>
+        <item quantity="other">%d مكالمات</item>
+    </plurals>
+    <plurals name="blocklist_blocked_count">
+        <item quantity="one">تم حظر %1$d رقم</item>
+        <item quantity="other">تم حظر %1$d أرقام</item>
+    </plurals>
+    <plurals name="lookup_more_names">
+        <item quantity="one">%1$d اسم</item>
+        <item quantity="other">%1$d أسماء إضافية</item>
+    </plurals>
+    <plurals name="recents_call_count">
+        <item quantity="one">%1$d مكالمة</item>
+        <item quantity="other">%1$d مكالمات</item>
+    </plurals>
+    <string name="splash_title">Callora</string>
+    <string name="battery_activity_title">معلومات البطارية</string>
+
+    <!-- Localized batch -->
+    <string name="app_label"> Callora: البحث عن الأرقام</string>
+    <string name="home_brand">Callora</string>
+    <string name="home_brand_sub">هوية المتصل وحظر المزعج</string>
+    <string name="home_quick_actions">إجراءات سريعة</string>
+
+    <string name="action_back">رجوع</string>
+    <string name="action_block">حظر</string>
+    <string name="action_unblock">إلغاء الحظر</string>
+    <string name="action_message">رسالة</string>
+    <string name="action_more">المزيد</string>
+    <string name="action_settings">الإعدادات</string>
+    <string name="action_whatsapp">WhatsApp</string>
+
+    <string name="add_reminder">إضافة تذكير</string>
+    <string name="cancel">إلغاء</string>
+    <string name="save">حفظ</string>
+    <string name="got_it">حسناً</string>
+    <string name="please_wait">يرجى الانتظار...</string>
+
+    <string name="app_unavailable">التطبيق غير متوفر</string>
+    <string name="app_redirect_desc">هذا التطبيق غير مثبّت على جهازك. هل تريد فتحه في Play Store؟</string>
+
+    <string name="overlay_banner_desc">عرض معلومات المتصل فوق التطبيقات الأخرى</string>
+    <string name="search_hint_tip">اكتب أي رقم هنا للتعرّف على المتصل</string>
+    <string name="settings_section_call">حماية المتصل</string>
+
+    <!-- Battery health -->
+    <string name="battery_activity_sub">راقب استهلاك الطاقة وسلامة العتاد. اطّلع على الأداء في الوقت الفعلي وحالات تأمين الاتصال.</string>
+    <string name="battery_secured">مؤمّن وقيد التحسين</string>
+    <string name="battery_health_great">ممتازة</string>
+    <string name="battery_health_hot">ساخنة</string>
+    <string name="battery_health_cold">باردة</string>
+    <string name="battery_health_dead">تالفة</string>
+    <string name="battery_health_over">جهد زائد</string>
+
+    <!-- Blocklist extras -->
+    <string name="blocklist_already_blocked">محظور بالفعل</string>
+    <string name="blocklist_choose_title">حظر رقم</string>
+    <string name="blocklist_contact_no_number">تعذّرت قراءة رقم جهة الاتصال هذه</string>
+    <string name="blocklist_empty_subtitle">ارفض المكالمات من أرقام أو أنماط محددة</string>
+    <string name="blocklist_method_add_title">إضافة رقم</string>
+    <string name="blocklist_method_add_sub">أدخله يدويًا</string>
+    <string name="blocklist_method_contacts_title">من جهات الاتصال</string>
+    <string name="blocklist_method_contacts_sub">اختر شخصًا من جهات اتصالك</string>
+    <string name="blocklist_method_recents_title">حظر من المكالمات الأخيرة</string>
+    <string name="blocklist_method_recents_sub">اختر من سجل مكالماتك</string>
+    <string name="blocklist_no_contacts">لم يتم العثور على جهات اتصال</string>
+    <string name="blocklist_no_recents">لا توجد مكالمات حديثة</string>
+    <string name="blocklist_perm_calllog">الوصول إلى سجل المكالمات مطلوب لاختيار المكالمات الأخيرة</string>
+    <string name="blocklist_perm_contacts">الوصول إلى جهات الاتصال مطلوب لاختيار جهة اتصال</string>
+    <string name="blocklist_pick_contacts_title">جهات الاتصال</string>
+    <string name="blocklist_pick_recents_title">المكالمات الأخيرة</string>
+
+    <!-- Call detail -->
+    <string name="call_detail_title">تفاصيل المكالمة</string>
+    <string name="call_duration_label">المدة:</string>
+    <string name="call_type_outgoing">صادرة</string>
+    <string name="call_screening">تراكب معرّف المتصل</string>
+    <string name="call_screening_desc">عرض معلومات المتصل أثناء المكالمات</string>
+
+    <!-- Compass -->
+    <string name="compass_activity_title">نشاط البوصلة</string>
+    <string name="compass_signal">قوة الإشارة: %1$s</string>
+    <string name="signal_strong">قوية</string>
+    <string name="signal_medium">متوسطة</string>
+    <string name="signal_weak">ضعيفة</string>
+
+    <!-- Contacts tabs -->
+    <string name="contacts_count_fmt">%1$d جهة اتصال</string>
+    <string name="contacts_tab_all">الكل</string>
+    <string name="contacts_tab_favorites">المفضّلة</string>
+    <string name="contacts_tab_recents">الأخيرة</string>
+    <string name="contacts_tab_groups">المجموعات</string>
+
+    <!-- Call details screen -->
+    <string name="detail_verified">موثّق</string>
+    <string name="detail_line_mobile">جوّال</string>
+    <string name="detail_total_duration">إجمالي المدة</string>
+    <string name="detail_total_calls">إجمالي المكالمات</string>
+    <string name="detail_total_sub">إجمالي وقت المكالمات هذا الشهر</string>
+    <string name="detail_call_history">سجل المكالمات</string>
+    <string name="detail_last_30">آخر 30 يومًا</string>
+    <string name="detail_calls_outgoing">الصادرة فقط</string>
+    <string name="detail_calls_incoming">الواردة فقط</string>
+    <string name="detail_calls_missed">الفائتة فقط</string>
+    <string name="detail_calls_mixed">مكالمات متنوعة</string>
+    <string name="detail_calls_none">لا توجد مكالمات حديثة</string>
+    <string name="detail_view_all">عرض كل السجل</string>
+    <string name="detail_secure">آمن</string>
+    <string name="detail_no_connection">لا يوجد اتصال</string>
+    <string name="detail_today">اليوم، %1$s</string>
+    <string name="detail_yesterday">أمس، %1$s</string>
+    <string name="detail_dot_join">%1$s · %2$s</string>
+
+    <!-- Dialer extras -->
+    <string name="dialer_search_contacts">البحث في جهات الاتصال</string>
+    <string name="dialer_favorites">المفضّلة</string>
+    <string name="dialer_view_all">عرض الكل</string>
+    <string name="dialer_voice_search">البحث الصوتي</string>
+
+    <!-- Post-call features -->
+    <string name="feature_send_email">إرسال بريد إلكتروني</string>
+    <string name="feature_calendar">إضافة إلى التقويم</string>
+    <string name="feature_web">فتح الموقع</string>
+    <string name="feature_edit_contact">تعديل جهة الاتصال</string>
+
+    <!-- Flashlight extras -->
+    <string name="flashlight_integrity">سلامة العتاد: موثّقة</string>
+    <string name="flashlight_lumen">خرج الإضاءة</string>
+    <string name="flashlight_brightness">التحكم في السطوع</string>
+    <string name="flashlight_mode_steady">ثابت</string>
+    <string name="flashlight_mode_strobe">وامض</string>
+    <string name="flashlight_lm">%1$d lm</string>
+
+    <!-- Incoming-call overlay -->
+    <string name="incall_incoming">مكالمة واردة</string>
+    <string name="incall_known">جهة اتصال معروفة</string>
+    <string name="incall_unknown">مجهول</string>
+    <string name="incall_now">الآن</string>
+    <string name="incall_calls">%1$d مكالمات</string>
+    <string name="incall_service_active">معرّف المتصل مفعّل</string>
+
+    <!-- Bubble level -->
+    <string name="level_current_tilt">الميل الحالي</string>
+    <string name="level_dual_axis">بيانات المحورين</string>
+    <string name="level_x_axis">X-Axis</string>
+    <string name="level_y_axis">Y-Axis</string>
+    <string name="level_calibrate">معايرة</string>
+    <string name="level_adjusting">جارٍ الضبط</string>
+    <string name="level_level">مستوٍ</string>
+
+    <!-- Light meter -->
+    <string name="light_capture">التقاط</string>
+    <string name="light_resume">استئناف</string>
+    <string name="light_zero">تصفير</string>
+    <string name="light_min">الأدنى</string>
+    <string name="light_avg">المتوسط</string>
+    <string name="light_max">الأقصى</string>
+    <string name="light_lx">%1$d lx</string>
+
+    <!-- Lookup extras -->
+    <string name="lookup_also_known_as">معروف أيضًا باسم</string>
+    <string name="lookup_nickname_bullet">•  %1$s</string>
+    <string name="lookup_unlock_nicknames">شاهد إعلانًا للكشف</string>
+    <string name="lookup_unknown_value">غير معروف</string>
+    <string name="lookup_city">المدينة</string>
+    <string name="lookup_spam_type">نوع الإزعاج</string>
+    <string name="lookup_detail_title">تفاصيل الرقم</string>
+    <string name="lookup_history_title">سجل البحث</string>
+    <string name="lookup_history_empty">لا توجد عمليات بحث حديثة بعد</string>
+    <string name="lookup_pick_contact">اختر من جهات الاتصال</string>
+    <string name="lookup_search_hint">بحث عن رقم</string>
+    <string name="lookup_search_number">بحث عن رقم</string>
+    <string name="lookup_subtitle">تعرّف على أي رقم حول العالم</string>
+
+    <!-- Post-call screen -->
+    <string name="pc_recent_calls_empty">لا توجد مكالمات حديثة</string>
+    <string name="recent">الأخيرة</string>
+    <string name="message">رسالة</string>
+    <string name="reminder">تذكير</string>
+    <string name="whatsapp">WhatsApp</string>
+    <string name="whatsapp_not_installed">WhatsApp غير مثبّت</string>
+    <string name="no_reminders_found">لا توجد تذكيرات</string>
+    <string name="reminder_prompt">ذكّرني بشأن</string>
+    <string name="reminder_name_hint">عيد ميلاد</string>
+    <string name="message_custom_hint">اكتب رسالتك الخاصة</string>
+    <string name="incoming_call">مكالمة واردة</string>
+    <string name="outgoing_call">مكالمة صادرة</string>
+    <string name="missed_call">مكالمة فائتة</string>
+
+    <!-- Recents extras -->
+    <string name="recents_subtitle">سجل مكالماتك</string>
+    <string name="recents_search_hint">البحث في المكالمات</string>
+
+    <!-- Sort menu -->
+    <string name="sort_title">ترتيب حسب</string>
+    <string name="sort_newest">الأحدث أولاً</string>
+    <string name="sort_oldest">الأقدم أولاً</string>
+    <string name="sort_name_asc">الاسم (أ–ي)</string>
+    <string name="sort_name_desc">الاسم (ي–أ)</string>
+
+    <!-- Sound meter -->
+    <string name="sound_peak">أعلى مستوى</string>
+    <string name="sound_average">المستوى المتوسط</string>
+    <string name="sound_spectrum">طيف التردد</string>
+    <string name="sound_hold">تثبيت القراءة</string>
+    <string name="sound_resume">استئناف</string>
+    <string name="sound_reset">إعادة تعيين البيانات</string>
+    <string name="sound_cat_quiet">هادئ</string>
+    <string name="sound_cat_normal">محادثة عادية</string>
+    <string name="sound_cat_loud">عالٍ</string>
+    <string name="sound_cat_very_loud">عالٍ جدًا</string>
+    <string name="sound_cat_dangerous">خطير</string>
+
+    <!-- Speed test -->
+    <string name="speedtest_pill">AES-512 مقاوم للحوسبة الكمومية</string>
+    <string name="speedtest_stable">الاتصال الآمن مستقر</string>
+    <string name="speedtest_error">خطأ في الاتصال — انقر لإعادة المحاولة</string>
+    <string name="speedtest_upload">سرعة الرفع</string>
+    <string name="speedtest_latency">زمن الاستجابة</string>
+    <string name="speedtest_jitter">التذبذب</string>
+    <string name="speedtest_again">اختبر مجددًا</string>
+    <string name="speedtest_mbps">%1$s Mbps</string>
+    <string name="speedtest_ms">%1$d ms</string>
+
+    <!-- Stopwatch -->
+    <string name="stopwatch_active">جلسة نشطة</string>
+    <string name="stopwatch_lap">لفة</string>
+    <string name="stopwatch_history">سجل اللفات</string>
+    <string name="stopwatch_laps">%1$d لفات</string>
+    <string name="stopwatch_empty">لم تُسجَّل أي بيانات لفات للجلسة الحالية.</string>
+    <string name="stopwatch_total">إجمالي السجلات</string>
+    <string name="stopwatch_lap_n">لفة %1$d</string>
+
+    <!-- Timer -->
+    <string name="timer_tool">المؤقّت</string>
+    <string name="timer_tool_sub">مؤقّت تنازلي</string>
+    <string name="timer_minutes">دقائق</string>
+    <string name="timer_seconds">ثوانٍ</string>
+
+    <!-- Watch ad -->
+    <string name="watch_ad_title">افتح السجل الكامل</string>
+    <string name="watch_ad_message">شغّل إعلانًا قصيرًا لكشف اسم المتصل وتفاصيله كاملة.</string>
+    <string name="watch_ad_button">مشاهدة الإعلان</string>
+    <string name="watch_ad_cancel">ليس الآن</string>
+    <string name="call_screening_hint_tip">شغّل هذا الخيار لمعرفة المتصل وحظر المكالمات المزعجة</string>
+    <!-- FSI intro Activity/Dialog + Home permission hint -->
+    <string name="home_perm_hint">لا تزال بعض الأذونات مغلقة. فعّلها للحصول على تحديد كامل للمتصل.</string>
+    <string name="home_perm_manage">إدارة</string>
+    <string name="fsi_incoming_call">مكالمة واردة</string>
+    <string name="fsi_avatar_initials">ID</string>
+    <string name="fsi_caller_unknown">غير معروف</string>
+    <string name="fsi_caller_number">+91 70967 *****</string>
+    <string name="fsi_known_contact">جهة اتصال معروفة</string>
+    <string name="fsi_meta_now">الآن</string>
+    <string name="fsi_meta_calls">68 مكالمة</string>
+    <string name="fsi_meta_sim">JIO 4G</string>
+    <string name="fsi_screen_title">شاهد المتصلين على شاشة القفل</string>
+    <string name="fsi_screen_desc">يعرض Callora بيانات المتصل الموثوقة فوق شاشة القفل لحظة وصول المكالمة.</string>
+    <string name="fsi_feature_identify">ضع اسمًا للأرقام المجهولة</string>
+    <string name="fsi_feature_spam">اكتشف مكالمات الاحتيال بنظرة واحدة</string>
+    <string name="fsi_feature_missed">لا تفوّت المكالمات المهمة بعد الآن</string>
+    <string name="fsi_enable_now">فعّلها الآن</string>
+    <string name="fsi_not_now">ليس الآن</string>
+
+    <!-- Quick-action / reminder toasts -->
+    <string name="toast_no_number">لا يوجد رقم للاتصال</string>
+    <string name="toast_no_whatsapp">واتساب غير مثبّت</string>
+    <string name="toast_pick_message">اكتب رسالة أو اخترها أولًا</string>
+    <string name="toast_no_sms_app">لا يوجد تطبيق مراسلة</string>
+    <string name="toast_no_contacts_app">لا يوجد تطبيق جهات اتصال</string>
+    <string name="toast_no_share_app">لا يوجد تطبيق مثبّت يمكنه الإرسال</string>
+    <string name="toast_no_calendar_app">لا يوجد تطبيق تقويم</string>
+    <string name="toast_calendar_failed">تعذّر فتح التقويم</string>
+    <string name="toast_no_browser_app">لا يوجد متصفح</string>
+    <string name="toast_need_title">أعطِ التذكير عنوانًا</string>
+    <string name="toast_need_future_time">اختر وقتًا لم يمضِ بعد</string>
+
+    <!-- Splash · onboarding · home -->
+    <string name="splash_incoming_call">مكالمة واردة…</string>
+    <string name="splash_fraud_blocked">تم حظر الاحتيال</string>
+    <string name="splash_secure_version">آمن v%1$s</string>
+    <string name="language_all">كل اللغات</string>
+    <string name="onb_incoming_call">مكالمة واردة</string>
+    <string name="onb_business_verified">شركة · موثّقة</string>
+    <string name="onb_blocked_call">مكالمة محظورة</string>
+    <string name="onb_unknown_number">رقم غير معروف</string>
+    <string name="onb_spam_robocall">مزعج · اتصال آلي</string>
+    <string name="onb_auto_blocked">حُظر تلقائيًا</string>
+    <string name="onb_caller_found">تم العثور على المتصل</string>
+    <string name="home_see_all">عرض الكل</string>
+    <string name="home_protection_line">الحماية مفعّلة · حظر تلقائي للمكالمات الاحتيالية</string>
+    <string name="home_caller_id">هوية المتصل</string>
+    <string name="home_protection_off_title">الحماية متوقفة</string>
+    <string name="home_protection_off_sub">ستُصدر المكالمات المزعجة رنينًا كالمعتاد</string>
+    <string name="home_protection_on_title">الحماية مفعّلة</string>
+    <string name="home_protection_on_sub">يتم حظر المكالمات المزعجة تلقائيًا</string>
+    <string name="home_protection_turn_on">تفعيل</string>
+    <string name="home_protection_manage">إدارة</string>
+    <string name="home_whos_calling">مَن المتصل؟</string>
+    <string name="home_whos_calling_sub">ابحث عن أي رقم للتعرّف على المتصلين المجهولين</string>
+    <string name="home_search_any">ابحث عن أي رقم</string>
+    <string name="home_recent_label">الأخيرة</string>
+    <string name="nav_blocklist">قائمة الحظر</string>
+    <string name="nav_tools">الأدوات</string>
+
+    <!-- Lookup · call detail · dialer · speed test · flashlight · battery -->
+    <string name="lookup_empty_cta">ابحث عن رقم</string>
+    <string name="lookup_paste">لصق</string>
+    <string name="action_share">مشاركة</string>
+    <string name="detail_calls_word">مكالمات</string>
+    <string name="detail_no_talk_time">لا وقت تحدث</string>
+    <string name="detail_not_answered">لم يُرد عليها</string>
+    <string name="detail_not_identified">لم يتم التعرّف عليه بعد</string>
+    <string name="detail_identify">تعرّف على هذا الرقم</string>
+    <string name="detail_today_short">اليوم</string>
+    <string name="detail_yesterday_short">أمس</string>
+    <string name="dialer_matches">النتائج</string>
+    <string name="speedtest_download">التنزيل</string>
+    <string name="speedtest_ping">زمن الاستجابة</string>
+    <string name="speedtest_history">النتائج السابقة</string>
+    <string name="flashlight_state_on">الكشاف مضاء</string>
+    <string name="flashlight_state_off">الكشاف مطفأ</string>
+    <string name="flashlight_brightness_short">السطوع</string>
+    <string name="battery_section_now">الآن</string>
+    <string name="battery_section_details">التفاصيل</string>
+    <string name="battery_screen_on">مدة تشغيل الشاشة</string>
+    <string name="battery_capacity">السعة</string>
+    <string name="battery_charging">قيد الشحن</string>
+    <string name="battery_discharging">يعمل بالبطارية</string>
+    <string name="battery_full">ممتلئة</string>
+    <string name="battery_saver">إعدادات البطارية</string>
+    <string name="stopwatch_hm_fmt">%1$d س %2$d د</string>
+
+    <!-- Lookup empty · call history · dialer · SIM · stopwatch · timer · recents -->
+    <string name="lookup_empty_title">اكتشف صاحب أي رقم</string>
+    <string name="lookup_empty_sub">ستظهر عمليات البحث هنا. لا تتم مشاركة أي شيء مع الأرقام التي تبحث عنها.</string>
+    <string name="lookup_empty_body">ستظهر عمليات البحث هنا. لا تتم مشاركة أي شيء مع الأرقام التي تبحث عنها.</string>
+    <string name="detail_history_empty_title">لا مكالمات مع هذا الرقم بعد</string>
+    <string name="detail_history_empty_sub">عند الاتصال بهذا الرقم أو تلقّي مكالمة منه، سيظهر السجل هنا.</string>
+    <string name="dialer_empty_title">اطلب رقمًا للبدء</string>
+    <string name="dialer_empty_sub">ستظهر الأرقام التي تتصل بها كثيرًا هنا للاتصال بنقرة واحدة.</string>
+    <string name="flashlight_tap_hint">اضغط الزر لتشغيل الكشاف أو إطفائه</string>
+    <string name="sim_section_carrier">شريحة SIM والمشغّل</string>
+    <string name="sim_section_connection">الاتصال</string>
+    <string name="sim_signal">قوة الإشارة</string>
+    <string name="sim_ip">عنوان IP</string>
+    <string name="sim_connected">متصل</string>
+    <string name="sim_no_service">لا توجد خدمة</string>
+    <string name="sim_run_speed_test">اختبر السرعة</string>
+    <string name="sim_refresh">تحديث</string>
+    <string name="stopwatch_running">قيد التشغيل</string>
+    <string name="stopwatch_paused">متوقفة مؤقتًا</string>
+    <string name="stopwatch_ready">جاهزة</string>
+    <string name="timer_of">من %1$s</string>
+    <string name="timer_alert_title">تنبيه عند الانتهاء</string>
+    <string name="timer_alert_sub">رنين · اهتزاز</string>
+    <string name="timer_preset_min">%1$d دقيقة</string>
+    <string name="timer_add_minute">أضف دقيقة</string>
+    <string name="recents_counts_fmt">%1$s · %2$d فائتة</string>
+
+    <!-- Blocklist · lookup detail -->
+    <string name="blocklist_add_sub">لن يتمكّنوا من الاتصال بك</string>
+    <string name="blocklist_from_recents">من الأخيرة</string>
+    <string name="blocklist_country_code">رمز الدولة</string>
+    <string name="blocklist_enable_cid_title">تفعيل هوية المتصل</string>
+    <string name="blocklist_enable_cid_message">فعّل هوية المتصل لإدارة الأرقام المحظورة والوصول إلى كل ميزات الحظر.</string>
+    <string name="blocklist_enable_cid_confirm">تفعيل هوية المتصل</string>
+    <string name="blocklist_enable_cid_not_now">ليس الآن</string>
+    <string name="blocklist_enable_cid_hint_label">الخطوة التالية — فعّل هذا</string>
+    <string name="blocklist_enable_cid_hint_sub">اجعله تطبيق هوية المتصل</string>
+    <string name="blocklist_section_blocked">الأرقام المحظورة</string>
+    <string name="blocklist_summary_sub">يتم رفض المكالمات الواردة من هذه الأرقام تلقائيًا</string>
+    <string name="blocklist_unknown_caller">متصل غير معروف</string>
+    <string name="action_identify">تعرّف</string>
+    <string name="lookup_revealed">مكشوف</string>
+    <string name="lookup_reveal">اكشف</string>
+    <string name="lookup_nick_footer">إعلان واحد يكشف اسمًا واحدًا · تبقى الأسماء المكشوفة مفتوحة</string>
+    <string name="lookup_x_of_n_revealed">%1$d من %2$d مكشوف</string>
+    <string name="lookup_header_sub">ابحث عن أي رقم، في أي مكان</string>
+    <string name="lookup_kicker">بحث عن رقم</string>
+    <string name="lookup_privacy">عمليات البحث خاصة ولا تظهر أبدًا للمتصل</string>
+
+    <!-- Tools · permission sheet -->
+    <string name="tools_search_hint">ابحث في الأدوات</string>
+    <string name="tools_cat_measure">قياس</string>
+    <string name="tools_cat_device">الجهاز</string>
+    <string name="tools_cat_time">الوقت</string>
+    <string name="tools_empty_title">لا توجد أدوات تطابق \"%1$s\"</string>
+    <string name="tools_empty_sub">جرّب \"ميزان\" أو \"بوصلة\" — أو تصفّح المجموعة كاملة.</string>
+    <string name="tools_reset_search">إعادة تعيين البحث</string>
+    <string name="tools_clear_search">مسح البحث</string>
+    <string name="perm_sheet_title">فعّل الأذونات</string>
+    <string name="perm_sheet_subtitle">تحتاج هوية المتصل وتحذيرات الإزعاج وسجل المكالمات إلى إذن واحد لكل منها.</string>
+    <string name="perm_sheet_continue">متابعة</string>
+    <string name="perm_sheet_not_now">ليس الآن</string>
+    <string name="permsheet_allow">السماح</string>
+    <string name="perm_granted">ممنوح</string>
+    <string name="perm_notification_title">الإشعارات</string>
+    <string name="perm_notification_desc">استقبل تنبيهات الإزعاج والمكالمات</string>
+    <string name="perm_phone_title">الهاتف</string>
+    <string name="perm_phone_desc">التعرّف على المتصلين الواردين</string>
+    <string name="permsheet_calllog_title">سجل المكالمات</string>
+    <string name="perm_calllog_desc">عرض مكالماتك الأخيرة</string>
+    <string name="permsheet_contacts_title">جهات الاتصال</string>
+    <string name="perm_contacts_desc">مطابقة الأسماء بالأرقام</string>
+    <string name="perm_overlay_title">العرض فوق التطبيقات</string>
+    <string name="perm_overlay_desc">إظهار هوية المتصل أثناء المكالمات</string>
+
+    <!-- Light meter · sound meter · bubble level -->
+    <string name="light_band_dark">مظلم</string>
+    <string name="light_band_dim">خافت</string>
+    <string name="light_band_indoor">داخلي</string>
+    <string name="light_band_bright">ساطع</string>
+    <string name="light_band_sun">ضوء الشمس</string>
+    <string name="light_lowest">الأدنى</string>
+    <string name="light_highest">الأعلى</string>
+    <string name="meter_pause">إيقاف القياس مؤقتًا</string>
+    <string name="meter_resume">استئناف القياس</string>
+    <string name="sound_min">الأدنى</string>
+    <string name="sound_avg">المتوسط</string>
+    <string name="sound_max">الأعلى</string>
+    <string name="sound_window">قبل ٣٠ ثانية</string>
+    <string name="sound_now">الآن</string>
+    <string name="level_roll">الميل الجانبي</string>
+    <string name="level_pitch">الميل الأمامي</string>
+    <string name="level_hint">ضع الهاتف مسطحًا على السطح</string>
+</resources>

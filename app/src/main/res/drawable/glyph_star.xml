@@ -1,0 +1,37 @@
+<!--
+  ~ Copyright (C) 2026 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="56dp"
+    android:height="56dp"
+    android:viewportWidth="56"
+    android:viewportHeight="56">
+      <!-- These started life as icon TILES: a filled backdrop plus the mark, with
+       the mark sitting on only ~41% of the viewport. The backdrop is gone
+       (the layout draws the chip now), so the mark is scaled up to fill the
+       viewport like every other glyph here — otherwise the host's padding is
+       applied on top of the tile's old inset and the icon reads as a speck. -->
+  <group
+      android:pivotX="28.0"
+      android:pivotY="28.0"
+      android:scaleX="2.094"
+      android:scaleY="2.094"
+      android:translateX="0.0"
+      android:translateY="0.0">
+<path
+      android:pathData="M20.899,39L22.767,30.866L16.5,25.395L24.78,24.671L28,17L31.22,24.671L39.5,25.395L33.232,30.866L35.101,39L28,34.687L20.899,39Z"
+      android:fillColor="#FFFFFF"/>
+  </group>
+</vector>

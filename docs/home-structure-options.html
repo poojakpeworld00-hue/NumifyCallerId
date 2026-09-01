@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Callora — Home structure options</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  :root{
+    --primary:#6D3BE8;--primary-dark:#5326C4;
+    --primary-container:#EDE5FD;--on-primary-container:#5326C4;
+    --accent:#1E8E5A;--danger:#D93B3B;--warn:#E5920A;--accent-purple:#6C3DD9;
+    --background:#F7F8FC;--surface:#fff;--surface-2:#EEF0F6;
+    --on-surface:#101319;--on-surface-variant:#6A7285;
+    --outline:#D8DCE8;--ad-divider:#1F000000;
+    --identified-container:#DDF2E7;--identified-on:#14663F;
+    --spam-container:#FCEEEE;--spam-on:#A32626;--spam-avatar-bg:#F6D2D2;
+    --success-soft:#1F1E8E5A;--danger-soft:#1FD93B3B;
+    --neutral-soft:#1F6A7285;--purple-soft:#1F6C3DD9;--online-green:#22C55E;
+    --shadow:rgba(16,19,25,.10);
+    --page-bg:#EDEFF5;--page-fg:#101319;--page-muted:#5A6478;
+    --page-card:#fff;--page-line:#D8DCE8;
+  }
+  .dark{
+    --background:#0B0E14;--surface:#141824;--surface-2:#1C2231;
+    --on-surface:#F2F4FA;--on-surface-variant:#8A93A8;
+    --outline:#2A3145;--ad-divider:#28FFFFFF;
+    --primary-container:#1C2231;--on-primary-container:#C7ADFF;
+    --identified-container:#143126;--identified-on:#7BD8A8;
+    --spam-container:#2A1518;--spam-on:#F09A9A;--spam-avatar-bg:#47232A;
+    --shadow:rgba(0,0,0,.5);
+    --page-bg:#0E1118;--page-fg:#F2F4FA;--page-muted:#98A2B8;
+    --page-card:#161B26;--page-line:#2A3145;
+  }
+  body{margin:0;padding:30px 18px 60px;background:var(--page-bg);color:var(--page-fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;transition:background .25s,color .25s}
+  .wrap{max-width:1250px;margin:0 auto}
+  header.top{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:space-between}
+  h1{font-size:25px;margin:0 0 5px;letter-spacing:-.02em}
+  .sub{color:var(--page-muted);font-size:13.5px;margin:0;max-width:70ch;line-height:1.55}
+  .toggle{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:var(--page-card);border:1px solid var(--page-line)}
+  .toggle button{font:inherit;font-size:13px;font-weight:600;cursor:pointer;border:0;border-radius:999px;padding:7px 16px;background:transparent;color:var(--page-muted)}
+  .toggle button[aria-pressed="true"]{background:var(--primary);color:#fff}
+
+  .stage{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;margin-top:30px}
+  .col{display:flex;flex-direction:column;align-items:center;gap:13px;width:344px}
+  .cap{text-align:center}
+  .cap .badge{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+    padding:3px 10px;border-radius:999px;background:var(--primary);color:#fff;margin-bottom:8px}
+  .cap b{display:block;font-size:15.5px;letter-spacing:-.01em}
+  .cap span{display:block;font-size:12.5px;color:var(--page-muted);margin-top:4px;line-height:1.5}
+
+  .phone{width:344px;height:700px;flex:none;border-radius:32px;padding:8px;
+    background:linear-gradient(160deg,#2b3040,#12151d);box-shadow:0 20px 44px -16px rgba(0,0,0,.5)}
+  .screen{width:100%;height:100%;border-radius:25px;overflow:hidden;background:var(--background);
+    color:var(--on-surface);display:flex;flex-direction:column;position:relative;font-size:13px}
+  .scroll{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;position:relative}
+  .scroll::-webkit-scrollbar{width:4px}
+  .scroll::-webkit-scrollbar-thumb{background:var(--outline);border-radius:9px}
+  .sb{height:25px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 15px;font-size:10.5px;font-weight:700}
+  .sb .d{display:flex;gap:4px;opacity:.7}
+  .sb .d i{width:4px;height:4px;border-radius:50%;background:currentColor;font-style:normal}
+  svg.ic{width:100%;height:100%;display:block;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+
+  /* pinned-zone marker */
+  .pinned{position:relative;flex:none;z-index:5;background:var(--background);
+    box-shadow:0 6px 14px -10px var(--shadow)}
+  .pinned::after{content:"PINNED";position:absolute;right:6px;top:3px;font-size:6.5px;font-weight:800;
+    letter-spacing:.13em;color:var(--primary);opacity:.5}
+
+  /* ---- shared app chrome (unchanged styling) ---- */
+  .hd{display:flex;align-items:center;gap:10px;padding:8px 16px 0}
+  .hd .g{flex:1;min-width:0}
+  .hd .k{font-size:10.5px;font-weight:700;color:var(--on-surface-variant)}
+  .hd .n{font-size:18px;font-weight:700;letter-spacing:-.02em}
+  .gear{width:32px;height:32px;flex:none;border-radius:50%;padding:8px;background:var(--primary-container);color:var(--on-primary-container)}
+  .srch{display:flex;align-items:center;margin:10px 16px 0;background:var(--surface);border-radius:26px;
+    padding:6px 6px 6px 10px;box-shadow:0 2px 8px var(--shadow)}
+  .srch.tight{margin-top:8px}
+  .cc{display:flex;align-items:center;gap:4px;padding:6px 4px;font-weight:700;font-size:13px}
+  .cc .c{width:11px;height:11px;opacity:.6}
+  .vr{width:1px;height:22px;background:var(--outline);margin:0 10px 0 6px}
+  .ph{flex:1;color:var(--on-surface-variant);font-size:13px}
+  .go{width:34px;height:34px;flex:none;border-radius:50%;padding:9px;background:var(--primary);color:#fff}
+
+  .prot{display:flex;align-items:center;gap:10px;margin:9px 16px 0;padding:10px 13px;border-radius:16px;color:#fff;
+    background:linear-gradient(120deg,#6D3BE8,#4A48E8)}
+  .prot .s{width:17px;height:17px;flex:none}
+  .prot .t{flex:1;font-size:11.5px;font-weight:700}
+  .prot .c{width:14px;height:14px;flex:none;opacity:.85}
+
+  .slim{display:flex;align-items:center;gap:8px;margin:8px 16px 0;padding:7px 12px;border-radius:12px;
+    background:var(--surface);border:1px solid var(--outline);font-size:11px;font-weight:600;color:var(--on-surface-variant)}
+  .slim .dot{width:7px;height:7px;border-radius:50%;background:var(--online-green);flex:none;box-shadow:0 0 0 3px var(--success-soft)}
+  .slim b{color:var(--on-surface);font-weight:800}
+  .slim .c{width:12px;height:12px;margin-left:auto;opacity:.45}
+
+  .qa{display:flex;margin:10px 12px 0}
+  .qa .c{flex:1;margin:0 5px;text-align:center}
+  .qa .t{height:46px;border-radius:14px;background:var(--surface);display:grid;place-items:center;box-shadow:0 1px 4px var(--shadow)}
+  .qa .t span{width:19px;height:19px;color:var(--primary)}
+  .qa .l{margin-top:5px;font-size:10px;font-weight:700;color:var(--on-surface-variant)}
+
+  .segs{display:flex;gap:7px;padding:10px 16px 2px;overflow-x:auto;scrollbar-width:none}
+  .segs::-webkit-scrollbar{display:none}
+  .seg{flex:none;padding:6px 13px;border-radius:999px;font-size:11.5px;font-weight:700;
+    background:var(--surface);border:1px solid var(--outline);color:var(--on-surface-variant)}
+  .seg.on{background:var(--primary);border-color:var(--primary);color:#fff}
+  .seg .b{display:inline-block;margin-left:5px;padding:0 5px;border-radius:999px;font-size:9.5px;
+    background:var(--neutral-soft);color:var(--on-surface-variant)}
+  .seg.on .b{background:rgba(255,255,255,.24);color:#fff}
+
+  .sec{display:flex;align-items:center;margin:13px 16px 2px}
+  .sec b{flex:1;font-size:13.5px;letter-spacing:-.01em}
+  .sec a{font-size:11.5px;font-weight:700;color:var(--primary);text-decoration:none}
+  .zone{display:flex;align-items:center;gap:8px;margin:14px 16px 4px}
+  .zone b{font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--on-surface-variant)}
+  .zone i{flex:1;height:1px;background:var(--outline);font-style:normal}
+
+  .row{display:flex;align-items:center;gap:11px;padding:10px 16px}
+  .row .m{flex:1;min-width:0}
+  .row .nm{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .row .mt{font-size:11px;color:var(--on-surface-variant);margin-top:2px;display:flex;align-items:center;gap:5px}
+  .row .mt .g{width:11px;height:11px;flex:none}
+  .sep{height:1px;background:var(--outline);margin-left:65px;opacity:.55}
+  .av{width:38px;height:38px;flex:none;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px}
+  .av.p{background:var(--primary-container);color:var(--on-primary-container)}
+  .av.s{background:var(--spam-avatar-bg);color:var(--spam-on)}
+  .av.g{background:var(--identified-container);color:var(--identified-on)}
+  .pill{font-size:9.5px;font-weight:800;padding:3px 8px;border-radius:999px;white-space:nowrap}
+  .pill.ok{background:var(--identified-container);color:var(--identified-on)}
+  .pill.bad{background:var(--spam-container);color:var(--spam-on)}
+  .pill.neu{background:var(--neutral-soft);color:var(--on-surface-variant)}
+
+  .adlab{display:flex;align-items:center;gap:7px;font-size:9px;font-weight:800;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--on-surface-variant);margin:0 0 6px}
+  .adlab i{flex:1;height:1px;background:var(--ad-divider);font-style:normal}
+  .adbox{border:1px dashed var(--outline);border-radius:14px;min-height:68px;display:grid;place-items:center;
+    color:var(--on-surface-variant);font-size:11px;font-weight:600;background:var(--surface)}
+
+  .fab{position:absolute;right:14px;bottom:14px;width:52px;height:52px;border-radius:18px;padding:15px;
+    background:var(--primary);color:#fff;box-shadow:0 8px 20px -6px rgba(109,59,232,.7);z-index:6}
+
+  .nav{flex:none;display:flex;background:var(--surface);border-top:1px solid var(--outline);padding:7px 4px 9px}
+  .nav .n{flex:1;text-align:center;color:var(--on-surface-variant)}
+  .nav .n span{width:19px;height:19px;margin:0 auto;display:block}
+  .nav .n b{display:block;font-size:9px;font-weight:700;margin-top:3px}
+  .nav .n.on{color:var(--primary)}
+  .banner{flex:none;height:38px;display:grid;place-items:center;font-size:9.5px;font-weight:800;
+    letter-spacing:.09em;color:var(--on-surface-variant);background:var(--surface-2);border-top:1px solid var(--ad-divider)}
+
+  /* collapsed-state strip for option 2 */
+  .strip{width:344px;border-radius:14px;overflow:hidden;border:1px solid var(--page-line);background:var(--background)}
+  .strip .lbl{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--page-muted);padding:7px 12px;background:var(--page-card);border-bottom:1px solid var(--page-line)}
+
+  /* stack map */
+  .map{width:344px;background:var(--page-card);border:1px solid var(--page-line);border-radius:14px;padding:13px 14px}
+  .map h4{margin:0 0 9px;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--page-muted)}
+  .blk{display:flex;align-items:center;gap:8px;font-size:11.5px;padding:5px 9px;border-radius:8px;margin-bottom:4px;
+    background:var(--neutral-soft);color:var(--page-fg)}
+  .blk .tg{font-size:8.5px;font-weight:800;letter-spacing:.07em;margin-left:auto;padding:1px 6px;border-radius:999px}
+  .blk.pin{background:color-mix(in srgb,var(--primary) 15%,transparent);
+    box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--primary) 42%,transparent)}
+  .blk.pin .tg{background:var(--primary);color:#fff}
+  .blk.scr .tg{background:var(--page-line);color:var(--page-muted)}
+  .blk.gone{opacity:.45;text-decoration:line-through}
+  .blk.gone .tg{background:var(--danger);color:#fff;text-decoration:none}
+
+  .notes{margin-top:44px}
+  .notes h2{font-size:18.5px;margin:0 0 15px;letter-spacing:-.01em}
+  .grid3{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(292px,1fr))}
+  .note{background:var(--page-card);border:1px solid var(--page-line);border-radius:14px;padding:16px 17px}
+  .note .tag{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);margin-bottom:5px}
+  .note h3{font-size:14px;margin:0;letter-spacing:-.01em}
+  .note p{margin:9px 0 0;font-size:12.5px;line-height:1.6;color:var(--page-muted)}
+  .note ul{margin:9px 0 0;padding-left:17px;font-size:12.5px;line-height:1.65;color:var(--page-muted)}
+  .note li{margin-bottom:3px}
+  .note b{color:var(--page-fg)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;background:var(--neutral-soft);
+    padding:1.5px 5px;border-radius:5px;color:var(--page-fg)}
+</style>
+</head>
+<body>
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
+  <symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></symbol>
+  <symbol id="caret" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></symbol>
+  <symbol id="chev" viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6z"/><polyline points="9 12 11 14 15 10"/></symbol>
+  <symbol id="pad" viewBox="0 0 24 24"><circle cx="6" cy="6" r="1.4"/><circle cx="12" cy="6" r="1.4"/><circle cx="18" cy="6" r="1.4"/><circle cx="6" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="18" cy="12" r="1.4"/><circle cx="6" cy="18" r="1.4"/><circle cx="12" cy="18" r="1.4"/><circle cx="18" cy="18" r="1.4"/></symbol>
+  <symbol id="block" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="5.6" y1="5.6" x2="18.4" y2="18.4"/></symbol>
+  <symbol id="tools" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0 5.3 5.3l-8 8a2.8 2.8 0 0 1-4-4z"/></symbol>
+  <symbol id="in" viewBox="0 0 24 24"><polyline points="17 7 7 17"/><polyline points="7 11 7 17 13 17"/></symbol>
+  <symbol id="out" viewBox="0 0 24 24"><polyline points="7 17 17 7"/><polyline points="17 13 17 7 11 7"/></symbol>
+  <symbol id="x" viewBox="0 0 24 24"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></symbol>
+  <symbol id="home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></symbol>
+  <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></symbol>
+  <symbol id="user" viewBox="0 0 24 24"><path d="M4 20v-1a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v1"/><circle cx="10" cy="8" r="3.4"/></symbol>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Home — structure options</h1>
+      <p class="sub">Same visual language as the app today — same search pill, same protection gradient, same cards
+      and tokens. <b>Only the arrangement changes.</b> Each option has a stack map underneath showing block order and
+      what stays pinned while the rest scrolls.</p>
+    </div>
+    <div class="toggle" role="group" aria-label="Theme">
+      <button id="tL" aria-pressed="true">Light</button>
+      <button id="tD" aria-pressed="false">Dark</button>
+    </div>
+  </header>
+
+  <div class="stage">
+
+    <!-- ===================== S1 ===================== -->
+    <div class="col">
+      <div class="cap">
+        <span class="badge">Structure 1</span>
+        <b>List-first</b>
+        <span>Search pins to the top. The call list starts immediately and owns the screen.</span>
+      </div>
+      <div class="phone"><div class="screen">
+        <div class="sb"><span>9:41</span><span class="d"><i></i><i></i><i></i></span></div>
+
+        <div class="pinned">
+          <div class="hd">
+            <div class="g"><div class="k">Good morning 👋</div><div class="n">Callora</div></div>
+            <span class="gear"><svg class="ic"><use href="#gear"/></svg></span>
+          </div>
+          <div class="srch">
+            <div class="cc"><span style="font-size:14px">🇮🇳</span><span>+91</span><span class="c"><svg class="ic"><use href="#caret"/></svg></span></div>
+            <div class="vr"></div><div class="ph">Name or number…</div>
+            <span class="go"><svg class="ic"><use href="#search"/></svg></span>
+          </div>
+          <div class="slim">
+            <span class="dot"></span>Protection on · <b>12 blocked</b> today
+            <span class="c"><svg class="ic"><use href="#chev"/></svg></span>
+          </div>
+          <div class="segs">
+            <div class="seg on">All</div>
+            <div class="seg">Missed <span class="b">4</span></div>
+            <div class="seg">Spam <span class="b">12</span></div>
+            <div class="seg">Unknown</div>
+          </div>
+          <div style="height:8px"></div>
+        </div>
+
+        <div class="scroll">
+          <div class="row"><div class="av g">RS</div><div class="m">
+            <div class="nm">Rahul Sharma</div><div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>Incoming · 9:12 AM</div></div>
+            <span class="pill ok">Identified</span></div>
+          <div class="sep"></div>
+          <div class="row"><div class="av s">!</div><div class="m">
+            <div class="nm">+91 98765 43210</div><div class="mt"><span class="g"><svg class="ic"><use href="#x"/></svg></span>Blocked · 8:47 AM</div></div>
+            <span class="pill bad">Spam</span></div>
+          <div class="sep"></div>
+          <div class="row"><div class="av p">MK</div><div class="m">
+            <div class="nm">Meera Kapoor</div><div class="mt"><span class="g"><svg class="ic"><use href="#out"/></svg></span>Outgoing · Yesterday</div></div>
+            <span class="pill neu">Contact</span></div>
+
+          <div style="margin:12px 16px">
+            <div class="adlab">Sponsored <i></i></div>
+            <div class="adbox">Native ad — inline list item</div>
+          </div>
+
+          <div class="row"><div class="av p">+</div><div class="m">
+            <div class="nm">+91 70123 55888</div><div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>Missed · Yesterday</div></div>
+            <span class="pill neu">Unknown</span></div>
+          <div class="sep"></div>
+          <div class="row"><div class="av g">AV</div><div class="m">
+            <div class="nm">Anil Verma</div><div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>Incoming · Yesterday</div></div>
+            <span class="pill ok">Identified</span></div>
+          <div class="sep"></div>
+          <div class="row"><div class="av s">!</div><div class="m">
+            <div class="nm">+91 88220 71199</div><div class="mt"><span class="g"><svg class="ic"><use href="#x"/></svg></span>Blocked · Mon</div></div>
+            <span class="pill bad">Spam</span></div>
+          <div style="height:70px"></div>
+        </div>
+
+        <span class="fab"><svg class="ic"><use href="#pad"/></svg></span>
+        <div class="nav">
+          <div class="n on"><span><svg class="ic"><use href="#home"/></svg></span><b>Home</b></div>
+          <div class="n"><span><svg class="ic"><use href="#clock"/></svg></span><b>Calls</b></div>
+          <div class="n"><span><svg class="ic"><use href="#user"/></svg></span><b>Contacts</b></div>
+          <div class="n"><span><svg class="ic"><use href="#block"/></svg></span><b>Blocked</b></div>
+        </div>
+        <div class="banner">ADMOB BANNER</div>
+      </div></div>
+
+      <div class="map">
+        <h4>Stack map</h4>
+        <div class="blk pin">Header + search<span class="tg">PINNED</span></div>
+        <div class="blk pin">Protection strip (slim)<span class="tg">PINNED</span></div>
+        <div class="blk pin">Filter chips<span class="tg">PINNED</span></div>
+        <div class="blk scr">Call list (full height)<span class="tg">SCROLLS</span></div>
+        <div class="blk scr">Ad — inline at position 4<span class="tg">SCROLLS</span></div>
+        <div class="blk gone">Quick-action tiles<span class="tg">REMOVED</span></div>
+      </div>
+    </div>
+
+    <!-- ===================== S2 ===================== -->
+    <div class="col">
+      <div class="cap">
+        <span class="badge">Structure 2</span>
+        <b>Collapsing</b>
+        <span>Full header at rest; on scroll it collapses to just the search bar.</span>
+      </div>
+      <div class="phone"><div class="screen">
+        <div class="sb"><span>9:41</span><span class="d"><i></i><i></i><i></i></span></div>
+        <div class="scroll">
+          <div class="hd">
+            <div class="g"><div class="k">Good morning 👋</div><div class="n">Callora</div></div>
+            <span class="gear"><svg class="ic"><use href="#gear"/></svg></span>
+          </div>
+          <div class="prot">
+            <span class="s"><svg class="ic"><use href="#shield"/></svg></span>
+            <div class="t">Protection on · 12 blocked today</div>
+            <span class="c"><svg class="ic"><use href="#chev"/></svg></span>
+          </div>
+          <div class="srch">
+            <div class="cc"><span style="font-size:14px">🇮🇳</span><span>+91</span><span class="c"><svg class="ic"><use href="#caret"/></svg></span></div>
+            <div class="vr"></div><div class="ph">Name or number…</div>
+            <span class="go"><svg class="ic"><use href="#search"/></svg></span>
+          </div>
+          <div class="qa">
+            <div class="c"><div class="t"><span><svg class="ic"><use href="#pad"/></svg></span></div><div class="l">Dialer</div></div>
+            <div class="c"><div class="t"><span><svg class="ic"><use href="#search"/></svg></span></div><div class="l">Lookup</div></div>
+            <div class="c"><div class="t"><span><svg class="ic"><use href="#block"/></svg></span></div><div class="l">Blocklist</div></div>
+            <div class="c"><div class="t"><span><svg class="ic"><use href="#tools"/></svg></span></div><div class="l">Tools</div></div>
+          </div>
+          <div class="sec"><b>Recent activity</b><a href="#">See all</a></div>
+          <div class="row"><div class="av g">RS</div><div class="m">
+            <div class="nm">Rahul Sharma</div><div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>Incoming · 9:12 AM</div></div>
+            <span class="pill ok">Identified</span></div>
+          <div class="sep"></div>
+          <div class="row"><div class="av s">!</div><div class="m">
+            <div class="nm">+91 98765 43210</div><div class="mt"><span class="g"><svg class="ic"><use href="#x"/></svg></span>Blocked · 8:47 AM</div></div>
+            <span class="pill bad">Spam</span></div>
+          <div class="sep"></div>
+          <div class="row"><div class="av p">MK</div><div class="m">
+            <div class="nm">Meera Kapoor</div><div class="mt"><span class="g"><svg class="ic"><use href="#out"/></svg></span>Outgoing · Yesterday</div></div>
+            <span class="pill neu">Contact</span></div>
+          <div style="margin:12px 16px">
+            <div class="adlab">Sponsored <i></i></div>
+            <div class="adbox">Native ad</div>
+          </div>
+          <div class="row"><div class="av p">+</div><div class="m">
+            <div class="nm">+91 70123 55888</div><div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>Missed · Yesterday</div></div>
+            <span class="pill neu">Unknown</span></div>
+          <div style="height:14px"></div>
+        </div>
+        <div class="nav">
+          <div class="n on"><span><svg class="ic"><use href="#home"/></svg></span><b>Home</b></div>
+          <div class="n"><span><svg class="ic"><use href="#clock"/></svg></span><b>Calls</b></div>
+          <div class="n"><span><svg class="ic"><use href="#user"/></svg></span><b>Contacts</b></div>
+          <div class="n"><span><svg class="ic"><use href="#block"/></svg></span><b>Blocked</b></div>
+        </div>
+        <div class="banner">ADMOB BANNER</div>
+      </div></div>
+
+      <div class="strip">
+        <div class="lbl">↓ after scrolling — header collapsed</div>
+        <div style="padding:0 0 10px">
+          <div class="srch tight" style="margin-top:10px">
+            <div class="cc"><span style="font-size:14px">🇮🇳</span><span>+91</span><span class="c"><svg class="ic"><use href="#caret"/></svg></span></div>
+            <div class="vr"></div><div class="ph">Name or number…</div>
+            <span class="go"><svg class="ic"><use href="#search"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="map">
+        <h4>Stack map</h4>
+        <div class="blk scr">Header (greeting + gear)<span class="tg">COLLAPSES</span></div>
+        <div class="blk scr">Protection card<span class="tg">COLLAPSES</span></div>
+        <div class="blk pin">Search bar<span class="tg">PINS</span></div>
+        <div class="blk scr">Quick actions<span class="tg">SCROLLS</span></div>
+        <div class="blk scr">Recent activity<span class="tg">SCROLLS</span></div>
+        <div class="blk scr">Ad — after 3rd row<span class="tg">SCROLLS</span></div>
+      </div>
+    </div>
+
+    <!-- ===================== S3 ===================== -->
+    <div class="col">
+      <div class="cap">
+        <span class="badge">Structure 3</span>
+        <b>Two zones</b>
+        <span>Everything you <i>do</i> on top, everything you <i>review</i> below. Ad sits on the seam.</span>
+      </div>
+      <div class="phone"><div class="screen">
+        <div class="sb"><span>9:41</span><span class="d"><i></i><i></i><i></i></span></div>
+        <div class="scroll">
+          <div class="hd">
+            <div class="g"><div class="k">Good morning 👋</div><div class="n">Callora</div></div>
+            <span class="gear"><svg class="ic"><use href="#gear"/></svg></span>
+          </div>
+
+          <div class="zone"><b>Search &amp; act</b><i></i></div>
+          <div class="srch" style="margin-top:2px">
+            <div class="cc"><span style="font-size:14px">🇮🇳</span><span>+91</span><span class="c"><svg class="ic"><use href="#caret"/></svg></span></div>
+            <div class="vr"></div><div class="ph">Name or number…</div>
+            <span class="go"><svg class="ic"><use href="#search"/></svg></span>
+          </div>
+          <div class="qa">
+            <div class="c"><div class="t"><span><svg class="ic"><use href="#pad"/></svg></span></div><div class="l">Dialer</div></div>
+            <div class="c"><div class="t"><span><svg class="ic"><use href="#search"/></svg></span></div><div class="l">Lookup</div></div>
+            <div class="c"><div class="t"><span><svg class="ic"><use href="#block"/></svg></span></div><div class="l">Blocklist</div></div>
+            <div class="c"><div class="t"><span><svg class="ic"><use href="#tools"/></svg></span></div><div class="l">Tools</div></div>
+          </div>
+
+          <div style="margin:16px 16px 0">
+            <div class="adlab">Sponsored <i></i></div>
+            <div class="adbox">Native ad — zone divider</div>
+          </div>
+
+          <div class="zone"><b>Your activity</b><i></i></div>
+          <div class="prot" style="margin-top:2px">
+            <span class="s"><svg class="ic"><use href="#shield"/></svg></span>
+            <div class="t">Protection on · 12 blocked today</div>
+            <span class="c"><svg class="ic"><use href="#chev"/></svg></span>
+          </div>
+
+          <div class="sec" style="margin-top:11px"><b>Recent activity</b><a href="#">See all</a></div>
+          <div class="row"><div class="av g">RS</div><div class="m">
+            <div class="nm">Rahul Sharma</div><div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>Incoming · 9:12 AM</div></div>
+            <span class="pill ok">Identified</span></div>
+          <div class="sep"></div>
+          <div class="row"><div class="av s">!</div><div class="m">
+            <div class="nm">+91 98765 43210</div><div class="mt"><span class="g"><svg class="ic"><use href="#x"/></svg></span>Blocked · 8:47 AM</div></div>
+            <span class="pill bad">Spam</span></div>
+          <div class="sep"></div>
+          <div class="row"><div class="av p">MK</div><div class="m">
+            <div class="nm">Meera Kapoor</div><div class="mt"><span class="g"><svg class="ic"><use href="#out"/></svg></span>Outgoing · Yesterday</div></div>
+            <span class="pill neu">Contact</span></div>
+          <div class="sep"></div>
+          <div class="row"><div class="av p">+</div><div class="m">
+            <div class="nm">+91 70123 55888</div><div class="mt"><span class="g"><svg class="ic"><use href="#in"/></svg></span>Missed · Yesterday</div></div>
+            <span class="pill neu">Unknown</span></div>
+          <div style="height:14px"></div>
+        </div>
+        <div class="nav">
+          <div class="n on"><span><svg class="ic"><use href="#home"/></svg></span><b>Home</b></div>
+          <div class="n"><span><svg class="ic"><use href="#clock"/></svg></span><b>Calls</b></div>
+          <div class="n"><span><svg class="ic"><use href="#user"/></svg></span><b>Contacts</b></div>
+          <div class="n"><span><svg class="ic"><use href="#block"/></svg></span><b>Blocked</b></div>
+        </div>
+        <div class="banner">ADMOB BANNER</div>
+      </div></div>
+
+      <div class="map">
+        <h4>Stack map</h4>
+        <div class="blk scr">Header<span class="tg">SCROLLS</span></div>
+        <div class="blk scr">— zone: Search &amp; act —<span class="tg">SCROLLS</span></div>
+        <div class="blk scr">Search + quick actions<span class="tg">SCROLLS</span></div>
+        <div class="blk scr">Ad — on the seam<span class="tg">SCROLLS</span></div>
+        <div class="blk scr">— zone: Your activity —<span class="tg">SCROLLS</span></div>
+        <div class="blk scr">Protection + recent list<span class="tg">SCROLLS</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="notes">
+    <h2>What actually changes</h2>
+    <div class="grid3">
+      <div class="note">
+        <div class="tag">Structure 1</div>
+        <h3>List-first</h3>
+        <p>The biggest structural claim: <b>quick-action tiles are redundant</b>. Blocklist and Dialer already exist in the bottom nav, and Lookup is the search bar directly above them. Removing the row and moving Dialer to a FAB frees ~74dp.</p>
+        <ul>
+          <li>Search, protection and filter chips pin — they never scroll away</li>
+          <li>Filter chips replace the separate <code>See all</code> destination: Spam and Missed become one tap</li>
+          <li>Ad becomes an inline list item at position 4 instead of a full-width interruption</li>
+        </ul>
+        <p><b>Cost:</b> the pinned zone is ~150dp, so the visible list is short on small screens. And Tools loses its entry point — it would need to move into Settings.</p>
+      </div>
+      <div class="note">
+        <div class="tag">Structure 2</div>
+        <h3>Collapsing</h3>
+        <p>Keeps every block in today's order. The only change is that the header and protection card scroll away while the search bar pins below them — a <code>CollapsingToolbarLayout</code> with <code>pin</code> on the search.</p>
+        <ul>
+          <li>Smallest diff of the three; nothing is removed or reordered</li>
+          <li>First screen looks familiar, but scrolling recovers ~90dp permanently</li>
+          <li>Search stays reachable at any scroll position — currently it scrolls with the content</li>
+        </ul>
+        <p><b>Cost:</b> the least dramatic. If the current layout feels wrong at rest, this doesn't fix that — it only fixes what happens after you scroll.</p>
+      </div>
+      <div class="note">
+        <div class="tag">Structure 3</div>
+        <h3>Two zones</h3>
+        <p>Groups by intent rather than by component. Search and quick actions are both "do something now"; protection and recent activity are both "look at what happened". Two labelled zones make that split explicit.</p>
+        <ul>
+          <li>Protection moves <b>below</b> the ad, next to the activity it summarises — it's a report, not an action</li>
+          <li>The ad lands on a genuine content boundary, so it stops feeling like an interruption</li>
+          <li>Zone labels give the screen a spine without adding chrome</li>
+        </ul>
+        <p><b>Cost:</b> nothing pins, so search scrolls away like today. Zone headers add ~34dp of pure label.</p>
+      </div>
+    </div>
+    <p style="margin-top:20px;font-size:12.5px;line-height:1.7;color:var(--page-muted)">
+      Styling is untouched in all three — same <code>shape_home_search</code> pill, same
+      <code>shape_home_protection</code> gradient, same tiles, same tokens. If one of these is close but not right,
+      the pieces are swappable: S1's pinned search works with S3's zones, S2's collapsing behaviour works with any of them.
+    </p>
+  </section>
+</div>
+
+<script>
+  const L=document.getElementById('tL'),D=document.getElementById('tD');
+  const set=d=>{document.body.classList.toggle('dark',d);
+    L.setAttribute('aria-pressed',String(!d));D.setAttribute('aria-pressed',String(d));};
+  L.onclick=()=>set(false);D.onclick=()=>set(true);
+  set(window.matchMedia('(prefers-color-scheme: dark)').matches);
+</script>
+</body>
+</html>

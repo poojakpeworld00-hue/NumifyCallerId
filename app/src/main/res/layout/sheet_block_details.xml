@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_card"
+    android:orientation="vertical"
+    android:padding="@dimen/_20sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/_42sdp"
+            android:layout_height="@dimen/_42sdp"
+            android:background="@drawable/shape_pill"
+            android:backgroundTint="@color/danger_soft"
+            android:contentDescription="@string/blocklist_status_blocked"
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/glyph_block"
+            app:tint="@color/danger" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/blocklist_details_title"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@drawable/shape_pill"
+                android:backgroundTint="@color/danger_soft"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_3sdp"
+                android:text="@string/blocklist_status_blocked"
+                android:textColor="@color/danger"
+                android:textSize="@dimen/_9ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/lblDetailNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/_18ssp"
+        android:textStyle="bold"
+        tools:text="+1 (555) 012-3456" />
+
+    <TextView
+        android:id="@+id/lblDetailAdded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:textColor="@color/on_surface_variant"
+        android:textSize="@dimen/_11ssp"
+        tools:text="Blocked on Jun 4, 2026, 10:18 AM" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/padUnblock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingVertical="@dimen/_9sdp"
+            android:text="@string/blocklist_unblock"
+            android:textColor="@color/danger"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/padClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:background="@drawable/shape_btn_primary"
+            android:gravity="center"
+            android:minWidth="@dimen/_70sdp"
+            android:paddingHorizontal="@dimen/_18sdp"
+            android:paddingVertical="@dimen/_9sdp"
+            android:text="@string/action_close"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

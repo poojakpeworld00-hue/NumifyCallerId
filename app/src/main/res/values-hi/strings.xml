@@ -1,0 +1,694 @@
+<resources>
+    <!-- App -->
+    <string name="app_name">Callora: फ़ोन लुकअप</string>
+    <string name="app_name1">#CallerID</string>
+    <string name="dash">&#8211;</string>
+
+    <!-- Splash -->
+    <string name="splash_tagline">हर कॉलर पहचानें. बाकी सब रोकें.</string>
+    <string name="splash_footer">इस ऐप में विज्ञापन दिख सकते हैं</string>
+
+    <!-- Language -->
+    <string name="language_title">भाषा चुनें</string>
+    <string name="language_continue">जारी रखें</string>
+    <string name="language_search_hint">भाषाएँ खोजें</string>
+    <string name="language_suggested">सुझाई गई भाषाएँ</string>
+    <string name="language_current">वर्तमान भाषा</string>
+    <string name="language_info_title">भाषा जानकारी</string>
+    <string name="language_info_msg">भाषा बदलने से ऐप का इंटरफ़ेस अपडेट होगा। आपके चयन के आधार पर कुछ क्षेत्रीय सुविधाएँ भिन्न हो सकती हैं।</string>
+    <string name="language_info_got_it">समझ गया</string>
+
+    <!-- Terms &amp; Conditions -->
+    <string name="terms_title">उपयोग की शर्तें</string>
+    <string name="terms_body">जारी रखने से पहले ये शर्तें पढ़ें. सहमत दबाने पर आप निम्न स्वीकार करते हैं:\n\n• Callora कॉल के दौरान ही इनकमिंग, आउटगोइंग और अनजान कॉलर का नाम दिखाता है.\n• ऐप स्पैम, ठगी और धोखाधड़ी वाले नंबर चिह्नित करता है और ब्लॉक करने में मदद करता है.\n• आप किसी भी नंबर को खोजकर हमारे पास मौजूद कॉलर जानकारी देख सकते हैं.\n• कॉल लॉग और संपर्क की अनुमति से ऐप आपकी कॉल पर नाम लगाता है.\n• अन्य ऐप्स के ऊपर दिखाने की अनुमति से कॉल के दौरान कॉलर जानकारी दिखती है.\n• आपका डेटा आपके पास रहता है और सिर्फ कॉलर पहचान व स्पैम सुरक्षा के लिए है.\n\n“सहमत और जारी रखें” दबाने पर आप पुष्टि करते हैं कि आपने हमारी उपयोग की शर्तें और गोपनीयता नीति पढ़ी और स्वीकार की हैं.</string>
+    <string name="terms_agree">मैंने उपयोग की शर्तें और गोपनीयता नीति पढ़ ली हैं और स्वीकार करता/करती हूँ.</string>
+    <string name="terms_accept">सहमत और जारी रखें</string>
+    <string name="terms_please_accept">जारी रखने के लिए बॉक्स पर टिक करें.</string>
+    <string name="txt_allow_overlay_access">अन्य ऐप्स के ऊपर दिखाने की अनुमति दें</string>
+    <string name="overlay_system_permission">सिस्टम अनुमति</string>
+    <string name="overlay_permission_desc">अन्य ऐप्स के ऊपर दिखाने की अनुमति इस ऐप को अन्य ऐप्स का उपयोग करते समय कॉलर जानकारी दिखाने देती है।</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">छोड़ें</string>
+    <string name="onboarding_next">आगे</string>
+    <string name="onboarding_title">हर कॉलर का नाम</string>
+    <string name="onboarding_desc">अनजान नंबर बजते ही नाम, कारोबार और स्थान के साथ दिखते हैं.</string>
+    <string name="onboarding_title_2">ठगी कॉल चुप कराएँ</string>
+    <string name="onboarding_desc_2">रोबोकॉल, ठगी और टेलीमार्केटिंग फोन बजने से पहले पकड़ी और रोकी जाती हैं.</string>
+    <string name="onboarding_title_3">कोई भी नंबर खोजें</string>
+    <string name="onboarding_desc_3">नंबर टाइप करें और सेकंडों में नाम, ऑपरेटर क्षेत्र और कारोबार जानें.</string>
+    <string name="onboarding_get_started">अभी शुरू करें</string>
+
+    <!-- Home -->
+    <string name="home_title">आप सुरक्षित हैं</string>
+    <string name="home_subtitle">कॉलर आईडी और स्पैम ब्लॉकिंग चालू है</string>
+    <string name="home_greeting">सुप्रभात</string>
+    <string name="home_search_hint">नाम या नंबर टाइप करें…</string>
+    <string name="home_protection_active">सुरक्षा सक्रिय</string>
+    <string name="home_blocked">ब्लॉक किए गए</string>
+    <string name="home_spam">स्पैम</string>
+    <string name="home_recent_activity">हाल की गतिविधि</string>
+    <string name="see_all">सभी देखें</string>
+
+    <!-- Quick actions -->
+    <string name="quick_dialer">डायलर</string>
+    <string name="quick_lookup">लुकअप</string>
+    <string name="quick_blocklist">ब्लॉकलिस्ट</string>
+    <string name="quick_tools">टूल्स</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">होम</string>
+    <string name="nav_recents">हाल ही के</string>
+    <string name="nav_contacts">संपर्क</string>
+    <string name="nav_lookup">लुकअप</string>
+    <string name="nav_settings">सेटिंग्स</string>
+
+    <!-- Call states -->
+    <string name="call_incoming">इनकमिंग कॉल…</string>
+    <string name="call_decline">अस्वीकार करें</string>
+    <string name="call_accept">स्वीकार करें</string>
+    <string name="call_message">संदेश</string>
+    <string name="call_identified">CallerID द्वारा पहचाना गया</string>
+    <string name="label_spam">स्पैम</string>
+    <string name="label_verified">सत्यापित</string>
+
+    <!-- Recents -->
+    <string name="recents_today">आज</string>
+    <string name="recents_yesterday">कल</string>
+    <string name="recents_this_week">इस सप्ताह</string>
+    <string name="recents_earlier">पुराने</string>
+    <string name="recents_empty">कोई हाल की कॉल नहीं</string>
+
+    <!-- Call filters -->
+    <string name="filter_all">सभी</string>
+    <string name="filter_incoming">इनकमिंग</string>
+    <string name="filter_outgoing">आउटगोइंग</string>
+    <string name="filter_missed">मिस्ड</string>
+
+    <!-- Call type labels -->
+    <string name="type_incoming">इनकमिंग</string>
+    <string name="type_outgoing">आउटगोइंग</string>
+    <string name="type_missed">मिस्ड</string>
+    <string name="type_blocked">ब्लॉक की गई</string>
+
+    <!-- Call log permission -->
+    <string name="perm_calllog_title">अपना कॉल इतिहास दिखाएँ</string>
+    <string name="perm_calllog_message">आपकी की गई और आई कॉल दिखाने के लिए Callora को कॉल लॉग की अनुमति चाहिए.</string>
+    <string name="action_grant">अनुमति दें</string>
+
+    <!-- Lookup -->
+    <string name="lookup_hint">नाम या नंबर दर्ज करें</string>
+    <string name="lookup_verified_business">सत्यापित व्यवसाय</string>
+    <string name="lookup_organization">संगठन</string>
+    <string name="lookup_location">स्थान</string>
+    <string name="lookup_spam_risk">स्पैम जोखिम</string>
+    <string name="action_call">कॉल करें</string>
+    <string name="action_save">सहेजें</string>
+    <string name="lookup_idle_hint">कॉल करने वाले की पहचान के लिए नंबर दर्ज करें</string>
+    <string name="lookup_unknown_caller">अज्ञात कॉलर</string>
+    <string name="lookup_in_contacts">आपके संपर्कों में</string>
+    <string name="lookup_not_in_contacts">आपके संपर्कों में नहीं</string>
+    <string name="lookup_status">स्थिति</string>
+    <string name="lookup_region">क्षेत्र</string>
+    <string name="lookup_local_number">स्थानीय नंबर</string>
+    <string name="lookup_international">अंतरराष्ट्रीय</string>
+    <string name="lookup_carrier">कैरियर</string>
+
+    <!-- Contacts -->
+    <string name="contacts_search_hint">संपर्क खोजें</string>
+    <string name="contacts_empty">कोई संपर्क नहीं मिला</string>
+    <string name="perm_contacts_title">नामों को नंबरों से जोड़ें</string>
+    <string name="perm_contacts_message">सहेजे गए नामों से कॉल पर लेबल लगाने के लिए Callora को संपर्कों की अनुमति चाहिए.</string>
+
+    <!-- Settings -->
+    <string name="settings_language">भाषा</string>
+    <string name="settings_language_sub">ऐप की भाषा चुनें</string>
+    <string name="settings_blocklist">ब्लॉक सूची</string>
+    <string name="settings_blocklist_sub">आपके द्वारा ब्लॉक किए गए नंबर</string>
+    <string name="settings_protection">स्पैम सुरक्षा</string>
+    <string name="settings_protection_sub">कॉलर आईडी और स्पैम ब्लॉकिंग</string>
+    <string name="settings_theme">थीम</string>
+    <string name="settings_theme_sub">लाइट, डार्क या सिस्टम</string>
+    <string name="theme_dialog_title">थीम चुनें</string>
+    <string name="theme_light">लाइट</string>
+    <string name="theme_dark">डार्क</string>
+    <string name="theme_system">सिस्टम डिफ़ॉल्ट</string>
+
+    <!-- Settings actions -->
+    <string name="language_dialog_title">भाषा चुनें</string>
+    <string name="blocklist_add">नंबर जोड़ें</string>
+    <string name="blocklist_empty">अभी तक कोई ब्लॉक किया नंबर नहीं</string>
+    <string name="blocklist_add_title">नंबर ब्लॉक करें</string>
+    <string name="blocklist_add_hint">फ़ोन नंबर दर्ज करें</string>
+    <string name="blocklist_added">नंबर ब्लॉक किया गया</string>
+    <string name="blocklist_removed">नंबर हटाया गया</string>
+    <string name="blocklist_remove_title">ब्लॉक सूची से हटाएं?</string>
+    <string name="action_add">जोड़ें</string>
+    <string name="action_cancel">रद्द करें</string>
+    <string name="action_remove">हटाएं</string>
+
+    <!-- Added translations -->
+    <string name="app_name_overlay">Callora</string>
+    <string name="overlay_guide_desc">नीचे दी गई सूची में Callora ढूँढें और उसका स्विच चालू करें।</string>
+    <string name="overlay_guide_row_hint">चालू करने के लिए टैप करें</string>
+    <string name="overlay_guide_dismiss">बंद करने के लिए कहीं भी टैप करें</string>
+    <string name="onboarding_spam_id">स्पैम पहचान</string>
+    <string name="onboarding_caller_id">कॉलर पहचान</string>
+    <string name="number_lookup">नंबर लुकअप</string>
+    <string name="enter_a_number">फ़ोन नंबर डालें</string>
+    <string name="search_global_caller_db">वैश्विक कॉलर डेटाबेस खोजें</string>
+    <string name="lookup_action">खोजें</string>
+    <string name="select_country">देश चुनें</string>
+    <string name="search_country">देश खोजें</string>
+    <string name="show_full_detail">पूरा विवरण देखें</string>
+    <string name="empty_search_hint">विवरण देखने के लिए नंबर खोजें</string>
+    <string name="recent_lookups">हाल की खोजें</string>
+    <string name="clear_all">सभी हटाएं</string>
+    <string name="lookup_valid_number">मान्य नंबर</string>
+    <string name="lookup_invalid_number">अमान्य नंबर</string>
+    <string name="lookup_country">देश</string>
+    <string name="lookup_line_type">लाइन प्रकार</string>
+    <string name="dialer_title">डायलर</string>
+    <string name="dialer_search_hint">खोजें या नंबर डालें</string>
+    <string name="dialer_frequent">अक्सर कॉल किए गए</string>
+    <string name="dialer_empty">अभी कोई कॉल इतिहास नहीं</string>
+    <string name="dialer_backspace">हटाएं</string>
+    <string name="add_to_contacts">संपर्कों में जोड़ें</string>
+    <string name="blocklist_title">ब्लॉकलिस्ट गतिविधि</string>
+    <string name="blocklist_total">कुल ब्लॉक किए गए</string>
+    <string name="blocklist_entry_title">ब्लॉक किया गया नंबर</string>
+    <string name="blocklist_status_blocked">ब्लॉक</string>
+    <string name="blocklist_more_options">और विकल्प</string>
+    <string name="blocklist_view_details">विवरण देखें</string>
+    <string name="blocklist_unblock">अनब्लॉक करें</string>
+    <string name="blocklist_report">रिपोर्ट करें</string>
+    <string name="blocklist_reported">रिपोर्ट किया गया. आपकी प्रतिक्रिया के लिए धन्यवाद.</string>
+    <string name="blocklist_details_title">ब्लॉक किया गया नंबर</string>
+    <string name="blocklist_details_added">%1$s को ब्लॉक किया</string>
+    <string name="blocklist_section_latest">नवीनतम</string>
+    <string name="blocklist_section_yesterday">कल</string>
+    <string name="blocklist_section_earlier">पहले</string>
+    <string name="tools_title">टूल्स</string>
+    <string name="tools_compass">कम्पास</string>
+    <string name="tools_compass_sub">चुंबकीय उत्तर खोजें</string>
+    <string name="tools_speedometer">स्पीडोमीटर</string>
+    <string name="tools_speedometer_sub">आपकी वर्तमान GPS गति</string>
+    <string name="compass_no_sensor">इस डिवाइस पर कम्पास सेंसर उपलब्ध नहीं है</string>
+    <string name="speedometer_unit">किमी/घंटा</string>
+    <string name="speedometer_waiting">GPS की प्रतीक्षा…</string>
+    <string name="speedometer_permission">गति मापने के लिए स्थान अनुमति आवश्यक है</string>
+    <string name="cardinal_n">उ</string>
+    <string name="cardinal_e">पू</string>
+    <string name="cardinal_s">द</string>
+    <string name="cardinal_w">प</string>
+    <string name="tools_flashlight">फ्लैशलाइट</string>
+    <string name="tools_flashlight_sub">टॉर्च और SOS</string>
+    <string name="flashlight_on">लाइट चालू</string>
+    <string name="flashlight_off">लाइट बंद</string>
+    <string name="flashlight_sos">SOS</string>
+    <string name="flashlight_no_flash">इस डिवाइस में कैमरा फ्लैश नहीं है</string>
+    <string name="tools_level">बबल लेवल</string>
+    <string name="tools_level_sub">जांचें कि सतह समतल है</string>
+    <string name="tools_battery">बैटरी</string>
+    <string name="tools_battery_sub">चार्ज और हेल्थ जानकारी</string>
+    <string name="battery_level">चार्ज</string>
+    <string name="battery_status">स्थिति</string>
+    <string name="battery_health">हेल्थ</string>
+    <string name="battery_temp">तापमान</string>
+    <string name="battery_voltage">वोल्टेज</string>
+    <string name="battery_tech">तकनीक</string>
+    <string name="battery_plugged">पावर स्रोत</string>
+    <string name="tools_sound">साउंड मीटर</string>
+    <string name="tools_sound_sub">शोर स्तर मापें</string>
+    <string name="sound_unit">डेसिबल</string>
+    <string name="sound_permission">ध्वनि मापने के लिए माइक्रोफ़ोन अनुमति आवश्यक है</string>
+    <string name="tools_sim">नेटवर्क जानकारी</string>
+    <string name="tools_sim_sub">SIM और कैरियर विवरण</string>
+    <string name="sim_carrier">कैरियर</string>
+    <string name="sim_network_type">नेटवर्क प्रकार</string>
+    <string name="sim_phone_type">फ़ोन प्रकार</string>
+    <string name="sim_country">देश</string>
+    <string name="sim_state">SIM स्थिति</string>
+    <string name="sim_roaming">रोमिंग</string>
+    <string name="sim_permission">नेटवर्क विवरण के लिए फ़ोन अनुमति आवश्यक है</string>
+    <string name="tools_light">लाइट मीटर</string>
+    <string name="tools_light_sub">लक्स में परिवेशी प्रकाश</string>
+    <string name="light_unit">लक्स</string>
+    <string name="light_no_sensor">इस डिवाइस पर लाइट सेंसर उपलब्ध नहीं है</string>
+    <string name="tools_stopwatch">स्टॉपवॉच</string>
+    <string name="tools_stopwatch_sub">स्टॉपवॉच और टाइमर</string>
+    <string name="mode_stopwatch">स्टॉपवॉच</string>
+    <string name="mode_timer">टाइमर</string>
+    <string name="action_start">शुरू करें</string>
+    <string name="action_pause">रोकें</string>
+    <string name="action_reset">रीसेट</string>
+    <string name="common_yes">हां</string>
+    <string name="common_no">नहीं</string>
+    <string name="common_unknown">अज्ञात</string>
+    <string name="press_back_again">बाहर निकलने के लिए फिर से बैक दबाएं</string>
+    <string name="exit_dialog_title">ऐप बंद करें?</string>
+    <string name="exit_dialog_desc">क्या आप वाकई बाहर निकलना चाहते हैं?</string>
+    <string name="exit_dialog_positive">बाहर निकलें</string>
+    <string name="exit_dialog_negative">रद्द करें</string>
+    <string name="perm_allow">चालू करें</string>
+    <string name="action_close">बंद करें</string>
+    <string name="settings_section_preferences">प्राथमिकताएं</string>
+    <string name="settings_section_support">खाता और सहायता</string>
+    <string name="settings_section_legal">कानूनी</string>
+    <string name="settings_sim">SIM प्रबंधन</string>
+    <string name="settings_sim_sub">नेटवर्क और कैरियर सेटिंग</string>
+    <string name="settings_rate">हमें रेट करें</string>
+    <string name="settings_rate_sub">ऐप पसंद आया? हमें बताएं.</string>
+    <string name="settings_share">साझा करें</string>
+    <string name="settings_share_sub">दोस्तों को उनकी डिजिटल लाइफ सुरक्षित करने के लिए आमंत्रित करें.</string>
+    <string name="settings_share_text">Caller ID Phone Lookup से अनजान कॉलर पहचानें और स्पैम ब्लॉक करें: https://play.google.com/store/apps/details?id=%1$s</string>
+    <string name="settings_privacy">गोपनीयता नीति</string>
+    <string name="settings_terms">सेवा की शर्तें</string>
+    <string name="settings_privacy_url">https://sites.google.com/view/calleridphonelookup/privacy</string>
+    <string name="settings_terms_url">https://sites.google.com/view/calleridphonelookup/terms</string>
+    <plurals name="blocklist_entries">
+        <item quantity="one">%d प्रविष्टि</item>
+        <item quantity="other">%d प्रविष्टियाँ</item>
+    </plurals>
+    <plurals name="dialer_call_count">
+        <item quantity="one">%d कॉल</item>
+        <item quantity="other">%d कॉल</item>
+    </plurals>
+    <plurals name="blocklist_blocked_count">
+        <item quantity="one">%1$d नंबर ब्लॉक किया गया</item>
+        <item quantity="other">%1$d नंबर ब्लॉक किए गए</item>
+    </plurals>
+    <plurals name="lookup_more_names">
+        <item quantity="one">%1$d नाम</item>
+        <item quantity="other">%1$d और नाम</item>
+    </plurals>
+    <plurals name="recents_call_count">
+        <item quantity="one">%1$d कॉल</item>
+        <item quantity="other">%1$d कॉल</item>
+    </plurals>
+    <string name="splash_title">Callora</string>
+    <string name="battery_activity_title">बैटरी जानकारी</string>
+
+    <!-- Localization batch: missing keys -->
+    <string name="app_label"> Callora: फ़ोन लुकअप</string>
+    <string name="home_brand">Callora</string>
+    <string name="home_brand_sub">कॉलर आईडी और स्पैम ब्लॉक</string>
+    <string name="home_quick_actions">त्वरित क्रियाएँ</string>
+    <string name="action_back">वापस</string>
+    <string name="action_more">और</string>
+    <string name="action_settings">सेटिंग्स</string>
+    <string name="action_message">संदेश</string>
+    <string name="action_block">ब्लॉक करें</string>
+    <string name="action_unblock">अनब्लॉक करें</string>
+    <string name="action_whatsapp">WhatsApp</string>
+    <string name="got_it">समझ गया</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="save">सहेजें</string>
+    <string name="please_wait">कृपया प्रतीक्षा करें...</string>
+    <string name="message">संदेश</string>
+    <string name="recent">हाल ही का</string>
+
+    <!-- Overlay -->
+    <string name="overlay_banner_desc">अन्य ऐप्स के ऊपर कॉलर जानकारी दिखाएँ</string>
+
+    <!-- Recents -->
+    <string name="recents_subtitle">आपका कॉल इतिहास</string>
+    <string name="recents_search_hint">कॉल खोजें</string>
+
+    <!-- Recents sort menu -->
+    <string name="sort_title">इसके अनुसार क्रमबद्ध करें</string>
+    <string name="sort_newest">नवीनतम पहले</string>
+    <string name="sort_oldest">पुराने पहले</string>
+    <string name="sort_name_asc">नाम (A–Z)</string>
+    <string name="sort_name_desc">नाम (Z–A)</string>
+
+    <!-- Contacts -->
+    <string name="contacts_count_fmt">%1$d संपर्क</string>
+    <string name="contacts_tab_all">सभी</string>
+    <string name="contacts_tab_favorites">पसंदीदा</string>
+    <string name="contacts_tab_recents">हाल ही के</string>
+    <string name="contacts_tab_groups">समूह</string>
+
+    <!-- Lookup -->
+    <string name="lookup_detail_title">नंबर विवरण</string>
+    <string name="lookup_city">शहर</string>
+    <string name="lookup_spam_type">स्पैम प्रकार</string>
+    <string name="lookup_subtitle">दुनिया भर के किसी भी नंबर को पहचानें</string>
+    <string name="lookup_search_hint">नंबर खोजें</string>
+    <string name="lookup_search_number">नंबर खोजें</string>
+    <string name="lookup_pick_contact">संपर्कों से चुनें</string>
+    <string name="lookup_history_title">खोज इतिहास</string>
+    <string name="lookup_history_empty">अभी तक कोई हाल की खोज नहीं</string>
+
+    <!-- Call details -->
+    <string name="call_detail_title">कॉल विवरण</string>
+    <string name="lookup_also_known_as">इस नाम से भी जाना जाता है</string>
+    <string name="lookup_nickname_bullet">•  %1$s</string>
+    <string name="lookup_unlock_nicknames">देखने के लिए विज्ञापन देखें</string>
+    <string name="lookup_unknown_value">अज्ञात</string>
+    <string name="watch_ad_title">पूरा रिकॉर्ड खोलें</string>
+    <string name="watch_ad_message">पूरा कॉलर नाम और विवरण देखने के लिए छोटा विज्ञापन चलाएँ.</string>
+    <string name="watch_ad_button">विज्ञापन देखें</string>
+    <string name="watch_ad_cancel">अभी नहीं</string>
+    <string name="whatsapp_not_installed">WhatsApp इंस्टॉल नहीं है</string>
+    <string name="detail_verified">सत्यापित</string>
+    <string name="detail_line_mobile">मोबाइल</string>
+    <string name="detail_total_duration">कुल अवधि</string>
+    <string name="detail_total_calls">कुल कॉल</string>
+    <string name="detail_total_sub">इस महीने का कुल टॉकटाइम</string>
+    <string name="detail_call_history">कॉल इतिहास</string>
+    <string name="detail_last_30">पिछले 30 दिन</string>
+    <string name="detail_calls_outgoing">केवल आउटगोइंग</string>
+    <string name="detail_calls_incoming">केवल इनकमिंग</string>
+    <string name="detail_calls_missed">केवल मिस्ड</string>
+    <string name="detail_calls_mixed">मिश्रित कॉल</string>
+    <string name="detail_calls_none">कोई हाल की कॉल नहीं</string>
+    <string name="detail_view_all">पूरा इतिहास देखें</string>
+    <string name="detail_secure">सुरक्षित</string>
+    <string name="detail_no_connection">कोई कनेक्शन नहीं</string>
+    <string name="detail_today">आज, %1$s</string>
+    <string name="detail_yesterday">कल, %1$s</string>
+    <string name="detail_dot_join">%1$s · %2$s</string>
+
+    <!-- Dialer -->
+    <string name="dialer_search_contacts">संपर्क खोजें</string>
+    <string name="dialer_favorites">पसंदीदा</string>
+    <string name="dialer_view_all">सभी देखें</string>
+    <string name="dialer_voice_search">वॉइस खोज</string>
+
+    <!-- Blocklist -->
+    <string name="blocklist_empty_subtitle">विशिष्ट नंबरों या पैटर्न से आने वाली कॉल अस्वीकार करें</string>
+    <string name="blocklist_choose_title">नंबर ब्लॉक करें</string>
+    <string name="blocklist_method_add_title">नंबर जोड़ें</string>
+    <string name="blocklist_method_add_sub">मैन्युअल रूप से दर्ज करें</string>
+    <string name="blocklist_method_contacts_title">संपर्कों से</string>
+    <string name="blocklist_method_contacts_sub">अपने संपर्कों से किसी को चुनें</string>
+    <string name="blocklist_method_recents_title">हाल की कॉल से ब्लॉक करें</string>
+    <string name="blocklist_method_recents_sub">अपने कॉल लॉग से चुनें</string>
+    <string name="blocklist_pick_recents_title">हाल की कॉल</string>
+    <string name="blocklist_no_recents">कोई हाल की कॉल नहीं मिली</string>
+    <string name="blocklist_contact_no_number">उस संपर्क का नंबर नहीं पढ़ा जा सका</string>
+    <string name="blocklist_already_blocked">पहले से ब्लॉक है</string>
+    <string name="blocklist_perm_calllog">हाल की कॉल चुनने के लिए कॉल लॉग एक्सेस आवश्यक है</string>
+    <string name="blocklist_pick_contacts_title">संपर्क</string>
+    <string name="blocklist_no_contacts">कोई संपर्क नहीं मिला</string>
+    <string name="blocklist_perm_contacts">संपर्क चुनने के लिए संपर्क एक्सेस आवश्यक है</string>
+
+    <!-- Settings -->
+    <string name="call_screening">कॉलर आईडी ओवरले</string>
+    <string name="call_screening_desc">कॉल के दौरान कॉलर जानकारी दिखाएँ</string>
+    <string name="settings_section_call">कॉलर सुरक्षा</string>
+
+    <!-- Compass / Speedometer -->
+    <string name="compass_activity_title">कम्पास गतिविधि</string>
+    <string name="compass_signal">सिग्नल क्षमता: %1$s</string>
+    <string name="signal_strong">मजबूत</string>
+    <string name="signal_medium">मध्यम</string>
+    <string name="signal_weak">कमजोर</string>
+    <string name="speedtest_pill">क्वांटम-प्रतिरोधी AES-512</string>
+    <string name="speedtest_stable">सुरक्षित कनेक्शन स्थिर है</string>
+    <string name="speedtest_error">कनेक्शन त्रुटि — पुनः प्रयास के लिए टैप करें</string>
+    <string name="speedtest_upload">अपलोड गति</string>
+    <string name="speedtest_latency">लेटेंसी</string>
+    <string name="speedtest_jitter">जिटर</string>
+    <string name="speedtest_again">फिर से परीक्षण करें</string>
+    <string name="speedtest_mbps">%1$s Mbps</string>
+    <string name="speedtest_ms">%1$d ms</string>
+
+    <!-- Flashlight -->
+    <string name="flashlight_integrity">हार्डवेयर अखंडता: सत्यापित</string>
+    <string name="flashlight_lumen">लुमेन आउटपुट</string>
+    <string name="flashlight_brightness">चमक नियंत्रण</string>
+    <string name="flashlight_mode_steady">स्थिर</string>
+    <string name="flashlight_mode_strobe">स्ट्रोब</string>
+    <string name="flashlight_lm">%1$d lm</string>
+
+    <!-- Bubble level -->
+    <string name="level_current_tilt">वर्तमान झुकाव</string>
+    <string name="level_dual_axis">दोहरी-अक्ष डेटा</string>
+    <string name="level_x_axis">X-Axis</string>
+    <string name="level_y_axis">Y-Axis</string>
+    <string name="level_calibrate">कैलिब्रेट करें</string>
+    <string name="level_adjusting">समायोजित किया जा रहा है</string>
+    <string name="level_level">समतल</string>
+
+    <!-- Battery -->
+    <string name="battery_activity_sub">पावर खपत और हार्डवेयर अखंडता की निगरानी करें। रीयल-टाइम प्रदर्शन और सुरक्षा हैंडशेक स्थितियों की समीक्षा करें।</string>
+    <string name="battery_secured">सुरक्षित और अनुकूलित किया जा रहा है</string>
+    <string name="battery_health_great">बढ़िया</string>
+    <string name="battery_health_hot">गर्म</string>
+    <string name="battery_health_cold">ठंडा</string>
+    <string name="battery_health_dead">डेड</string>
+    <string name="battery_health_over">ओवर वोल्टेज</string>
+
+    <!-- Sound meter -->
+    <string name="sound_peak">शिखर स्तर</string>
+    <string name="sound_average">औसत स्तर</string>
+    <string name="sound_spectrum">आवृत्ति स्पेक्ट्रम</string>
+    <string name="sound_hold">रीडिंग रोकें</string>
+    <string name="sound_resume">फिर से शुरू करें</string>
+    <string name="sound_reset">डेटा रीसेट करें</string>
+    <string name="sound_cat_quiet">शांत</string>
+    <string name="sound_cat_normal">सामान्य बातचीत</string>
+    <string name="sound_cat_loud">तेज</string>
+    <string name="sound_cat_very_loud">बहुत तेज</string>
+    <string name="sound_cat_dangerous">खतरनाक</string>
+
+    <!-- Light meter -->
+    <string name="light_capture">कैप्चर करें</string>
+    <string name="light_resume">फिर से शुरू करें</string>
+    <string name="light_zero">शून्य</string>
+    <string name="light_min">न्यूनतम</string>
+    <string name="light_avg">औसत</string>
+    <string name="light_max">अधिकतम</string>
+    <string name="light_lx">%1$d lx</string>
+
+    <!-- Stopwatch / Timer -->
+    <string name="stopwatch_active">सक्रिय सत्र</string>
+    <string name="stopwatch_lap">लैप</string>
+    <string name="stopwatch_history">लैप इतिहास</string>
+    <string name="stopwatch_laps">%1$d लैप</string>
+    <string name="stopwatch_empty">वर्तमान सत्र के लिए कोई लैप टेलीमेट्री दर्ज नहीं की गई।</string>
+    <string name="stopwatch_total">कुल रिकॉर्ड</string>
+    <string name="stopwatch_lap_n">लैप %1$d</string>
+    <string name="timer_tool">टाइमर</string>
+    <string name="timer_tool_sub">काउंटडाउन टाइमर</string>
+    <string name="timer_minutes">मिनट</string>
+    <string name="timer_seconds">सेकंड</string>
+
+    <!-- Incoming-call overlay -->
+    <string name="incall_incoming">इनकमिंग कॉल</string>
+    <string name="incall_known">ज्ञात संपर्क</string>
+    <string name="incall_unknown">अज्ञात</string>
+    <string name="incall_now">अभी</string>
+    <string name="incall_calls">%1$d कॉल</string>
+    <string name="incall_service_active">कॉलर आईडी सक्रिय</string>
+
+    <!-- Post-call (callback) screen -->
+    <string name="pc_recent_calls_empty">कोई हाल की कॉल नहीं</string>
+    <string name="reminder">रिमाइंडर</string>
+    <string name="whatsapp">WhatsApp</string>
+    <string name="add_reminder">रिमाइंडर जोड़ें</string>
+    <string name="no_reminders_found">कोई रिमाइंडर नहीं मिला</string>
+    <string name="reminder_prompt">मुझे इसके बारे में याद दिलाएँ</string>
+    <string name="reminder_name_hint">जन्मदिन</string>
+    <string name="message_custom_hint">अपना संदेश लिखें</string>
+    <string name="call_duration_label">अवधि:</string>
+    <string name="call_type_outgoing">आउटगोइंग</string>
+    <string name="incoming_call">इनकमिंग कॉल</string>
+    <string name="outgoing_call">आउटगोइंग कॉल</string>
+    <string name="missed_call">मिस्ड कॉल</string>
+    <string name="feature_send_email">ईमेल भेजें</string>
+    <string name="feature_calendar">कैलेंडर में जोड़ें</string>
+    <string name="feature_web">वेबसाइट खोलें</string>
+    <string name="feature_edit_contact">संपर्क संपादित करें</string>
+
+    <!-- Home search-bar one-time hint -->
+    <string name="search_hint_tip">कॉल करने वाले की पहचान के लिए यहाँ कोई भी नंबर टाइप करें</string>
+
+    <!-- App-redirect dialog -->
+    <string name="app_unavailable">ऐप उपलब्ध नहीं है</string>
+    <string name="app_redirect_desc">यह ऐप आपके डिवाइस पर इंस्टॉल नहीं है। क्या आप इसे Play Store में खोलना चाहेंगे?</string>
+    <string name="call_screening_hint_tip">कॉल करने वाले को देखने और स्पैम ब्लॉक करने के लिए इसे चालू करें</string>
+    <!-- FSI intro Activity/Dialog + Home permission hint -->
+    <string name="home_perm_hint">कुछ अनुमतियाँ अब भी बंद हैं. पूरी कॉलर आईडी के लिए उन्हें चालू करें.</string>
+    <string name="home_perm_manage">प्रबंधित करें</string>
+    <string name="fsi_incoming_call">इनकमिंग कॉल</string>
+    <string name="fsi_avatar_initials">ID</string>
+    <string name="fsi_caller_unknown">अज्ञात</string>
+    <string name="fsi_caller_number">+91 70967 *****</string>
+    <string name="fsi_known_contact">ज्ञात संपर्क</string>
+    <string name="fsi_meta_now">अभी</string>
+    <string name="fsi_meta_calls">68 कॉल</string>
+    <string name="fsi_meta_sim">JIO 4G</string>
+    <string name="fsi_screen_title">लॉक स्क्रीन पर कॉलर देखें</string>
+    <string name="fsi_screen_desc">कॉल आते ही Callora सत्यापित कॉलर जानकारी लॉक स्क्रीन पर दिखा देता है.</string>
+    <string name="fsi_feature_identify">अनजान नंबरों को नाम दें</string>
+    <string name="fsi_feature_spam">ठगी और धोखाधड़ी कॉल एक नज़र में पहचानें</string>
+    <string name="fsi_feature_missed">ज़रूरी कॉल छूटना बंद करें</string>
+    <string name="fsi_enable_now">इसे चालू करें</string>
+    <string name="fsi_not_now">अभी नहीं</string>
+
+    <!-- Quick-action / reminder toasts -->
+    <string name="toast_no_number">डायल करने के लिए कोई नंबर नहीं</string>
+    <string name="toast_no_whatsapp">WhatsApp इंस्टॉल नहीं है</string>
+    <string name="toast_pick_message">पहले संदेश लिखें या चुनें</string>
+    <string name="toast_no_sms_app">कोई मैसेजिंग ऐप नहीं है</string>
+    <string name="toast_no_contacts_app">कोई संपर्क ऐप नहीं है</string>
+    <string name="toast_no_share_app">इसे भेजने वाला कोई ऐप इंस्टॉल नहीं है</string>
+    <string name="toast_no_calendar_app">कोई कैलेंडर ऐप नहीं है</string>
+    <string name="toast_calendar_failed">कैलेंडर नहीं खुला</string>
+    <string name="toast_no_browser_app">कोई ब्राउज़र नहीं है</string>
+    <string name="toast_need_title">रिमाइंडर को शीर्षक दें</string>
+    <string name="toast_need_future_time">आगे का समय चुनें</string>
+
+    <!-- Splash · onboarding · home -->
+    <string name="splash_incoming_call">इनकमिंग कॉल…</string>
+    <string name="splash_fraud_blocked">धोखाधड़ी रोकी गई</string>
+    <string name="splash_secure_version">सुरक्षित v%1$s</string>
+    <string name="language_all">सभी भाषाएँ</string>
+    <string name="onb_incoming_call">इनकमिंग कॉल</string>
+    <string name="onb_business_verified">व्यवसाय · सत्यापित</string>
+    <string name="onb_blocked_call">ब्लॉक की गई कॉल</string>
+    <string name="onb_unknown_number">अज्ञात नंबर</string>
+    <string name="onb_spam_robocall">स्पैम · रोबोकॉल</string>
+    <string name="onb_auto_blocked">अपने आप ब्लॉक</string>
+    <string name="onb_caller_found">कॉलर मिल गया</string>
+    <string name="home_see_all">सभी देखें</string>
+    <string name="home_protection_line">सुरक्षा चालू · स्कैम कॉल अपने आप ब्लॉक</string>
+    <string name="home_caller_id">कॉलर आईडी</string>
+    <string name="home_protection_off_title">सुरक्षा बंद है</string>
+    <string name="home_protection_off_sub">स्पैम कॉल सामान्य रूप से बजेंगी</string>
+    <string name="home_protection_on_title">सुरक्षा चालू है</string>
+    <string name="home_protection_on_sub">स्पैम कॉल अपने आप ब्लॉक होती हैं</string>
+    <string name="home_protection_turn_on">चालू करें</string>
+    <string name="home_protection_manage">प्रबंधित करें</string>
+    <string name="home_whos_calling">कौन कॉल कर रहा है?</string>
+    <string name="home_whos_calling_sub">अनजान कॉलर पहचानने के लिए कोई भी नंबर खोजें</string>
+    <string name="home_search_any">कोई भी नंबर खोजें</string>
+    <string name="home_recent_label">हाल की</string>
+    <string name="nav_blocklist">ब्लॉकलिस्ट</string>
+    <string name="nav_tools">टूल</string>
+
+    <!-- Lookup · call detail · dialer · speed test · flashlight · battery -->
+    <string name="lookup_empty_cta">नंबर खोजें</string>
+    <string name="lookup_paste">पेस्ट करें</string>
+    <string name="action_share">शेयर करें</string>
+    <string name="detail_calls_word">कॉल</string>
+    <string name="detail_no_talk_time">कोई बातचीत नहीं</string>
+    <string name="detail_not_answered">जवाब नहीं मिला</string>
+    <string name="detail_not_identified">अभी पहचाना नहीं गया</string>
+    <string name="detail_identify">इस नंबर की पहचान करें</string>
+    <string name="detail_today_short">आज</string>
+    <string name="detail_yesterday_short">कल</string>
+    <string name="dialer_matches">मिलान</string>
+    <string name="speedtest_download">डाउनलोड</string>
+    <string name="speedtest_ping">पिंग</string>
+    <string name="speedtest_history">पिछले नतीजे</string>
+    <string name="flashlight_state_on">टॉर्च चालू</string>
+    <string name="flashlight_state_off">टॉर्च बंद</string>
+    <string name="flashlight_brightness_short">चमक</string>
+    <string name="battery_section_now">अभी</string>
+    <string name="battery_section_details">विवरण</string>
+    <string name="battery_screen_on">स्क्रीन ऑन</string>
+    <string name="battery_capacity">क्षमता</string>
+    <string name="battery_charging">चार्ज हो रही है</string>
+    <string name="battery_discharging">बैटरी पर</string>
+    <string name="battery_full">फुल</string>
+    <string name="battery_saver">बैटरी सेटिंग</string>
+    <string name="stopwatch_hm_fmt">%1$dघं %2$dमि</string>
+
+    <!-- Lookup empty · call history · dialer · SIM · stopwatch · timer · recents -->
+    <string name="lookup_empty_title">जानें कि किसी भी नंबर के पीछे कौन है</string>
+    <string name="lookup_empty_sub">आपकी खोजें यहाँ दिखेंगी। जिन नंबरों को आप खोजते हैं उनके साथ कुछ भी साझा नहीं होता।</string>
+    <string name="lookup_empty_body">आपकी खोजें यहाँ दिखेंगी। जिन नंबरों को आप खोजते हैं उनके साथ कुछ भी साझा नहीं होता।</string>
+    <string name="detail_history_empty_title">इस नंबर से अभी कोई कॉल नहीं</string>
+    <string name="detail_history_empty_sub">जब आप इस नंबर पर कॉल करेंगे या इससे कॉल आएगी, इतिहास यहाँ दिखेगा।</string>
+    <string name="dialer_empty_title">शुरू करने के लिए नंबर डायल करें</string>
+    <string name="dialer_empty_sub">बार-बार कॉल किए जाने वाले नंबर यहाँ दिखेंगे, एक टैप में कॉल के लिए।</string>
+    <string name="flashlight_tap_hint">टॉर्च चालू/बंद करने के लिए बटन दबाएँ</string>
+    <string name="sim_section_carrier">सिम और कैरियर</string>
+    <string name="sim_section_connection">कनेक्शन</string>
+    <string name="sim_signal">सिग्नल क्षमता</string>
+    <string name="sim_ip">आईपी पता</string>
+    <string name="sim_connected">कनेक्टेड</string>
+    <string name="sim_no_service">कोई सेवा नहीं</string>
+    <string name="sim_run_speed_test">स्पीड टेस्ट चलाएँ</string>
+    <string name="sim_refresh">रिफ़्रेश</string>
+    <string name="stopwatch_running">चल रही है</string>
+    <string name="stopwatch_paused">रुकी हुई</string>
+    <string name="stopwatch_ready">तैयार</string>
+    <string name="timer_of">%1$s में से</string>
+    <string name="timer_alert_title">पूरा होने पर अलर्ट</string>
+    <string name="timer_alert_sub">चाइम · वाइब्रेट</string>
+    <string name="timer_preset_min">%1$d मिन</string>
+    <string name="timer_add_minute">एक मिनट जोड़ें</string>
+    <string name="recents_counts_fmt">%1$s · %2$d मिस्ड</string>
+
+    <!-- Blocklist · lookup detail -->
+    <string name="blocklist_add_sub">वे आपको कॉल नहीं कर पाएंगे</string>
+    <string name="blocklist_from_recents">हाल की कॉल से</string>
+    <string name="blocklist_country_code">देश कोड</string>
+    <string name="blocklist_enable_cid_title">कॉलर आईडी चालू करें</string>
+    <string name="blocklist_enable_cid_message">ब्लॉक किए गए नंबर प्रबंधित करने और सभी ब्लॉकिंग सुविधाएँ पाने के लिए कॉलर आईडी चालू करें।</string>
+    <string name="blocklist_enable_cid_confirm">कॉलर आईडी चालू करें</string>
+    <string name="blocklist_enable_cid_not_now">अभी नहीं</string>
+    <string name="blocklist_enable_cid_hint_label">अगला कदम — इसे चालू करें</string>
+    <string name="blocklist_enable_cid_hint_sub">इसे अपना कॉलर आईडी ऐप बनाएँ</string>
+    <string name="blocklist_section_blocked">ब्लॉक किए गए नंबर</string>
+    <string name="blocklist_summary_sub">इन नंबरों से आने वाली कॉल अपने आप अस्वीकार होती हैं</string>
+    <string name="blocklist_unknown_caller">अज्ञात कॉलर</string>
+    <string name="action_identify">पहचानें</string>
+    <string name="lookup_revealed">दिखाया गया</string>
+    <string name="lookup_reveal">दिखाएँ</string>
+    <string name="lookup_nick_footer">एक विज्ञापन एक नाम दिखाता है · दिखाए गए नाम खुले रहते हैं</string>
+    <string name="lookup_x_of_n_revealed">%2$d में से %1$d दिखाए गए</string>
+    <string name="lookup_header_sub">कहीं का भी कोई भी नंबर खोजें</string>
+    <string name="lookup_kicker">नंबर लुकअप</string>
+    <string name="lookup_privacy">खोजें निजी हैं और कॉलर को कभी नहीं दिखतीं</string>
+
+    <!-- Tools · permission sheet -->
+    <string name="tools_search_hint">टूल खोजें</string>
+    <string name="tools_cat_measure">माप</string>
+    <string name="tools_cat_device">डिवाइस</string>
+    <string name="tools_cat_time">समय</string>
+    <string name="tools_empty_title">\"%1$s\" से मेल खाता कोई टूल नहीं</string>
+    <string name="tools_empty_sub">\"लेवल\" या \"कंपास\" आज़माएँ — या पूरी सूची देखें।</string>
+    <string name="tools_reset_search">खोज रीसेट करें</string>
+    <string name="tools_clear_search">खोज साफ़ करें</string>
+    <string name="perm_sheet_title">अनुमतियाँ चालू करें</string>
+    <string name="perm_sheet_subtitle">कॉलर आईडी, स्पैम चेतावनी और कॉल इतिहास — तीनों को एक-एक अनुमति चाहिए।</string>
+    <string name="perm_sheet_continue">जारी रखें</string>
+    <string name="perm_sheet_not_now">अभी नहीं</string>
+    <string name="permsheet_allow">अनुमति दें</string>
+    <string name="perm_granted">दे दी गई</string>
+    <string name="perm_notification_title">सूचनाएँ</string>
+    <string name="perm_notification_desc">स्पैम और कॉल अलर्ट पाएँ</string>
+    <string name="perm_phone_title">फ़ोन</string>
+    <string name="perm_phone_desc">आने वाली कॉल पहचानें</string>
+    <string name="permsheet_calllog_title">कॉल लॉग</string>
+    <string name="perm_calllog_desc">आपकी हाल की कॉल दिखाएँ</string>
+    <string name="permsheet_contacts_title">संपर्क</string>
+    <string name="perm_contacts_desc">नामों को नंबरों से मिलाएँ</string>
+    <string name="perm_overlay_title">ऐप्स के ऊपर दिखाएँ</string>
+    <string name="perm_overlay_desc">कॉल के दौरान कॉलर आईडी दिखाएँ</string>
+
+    <!-- Light meter · sound meter · bubble level -->
+    <string name="light_band_dark">अंधेरा</string>
+    <string name="light_band_dim">मंद</string>
+    <string name="light_band_indoor">इनडोर</string>
+    <string name="light_band_bright">तेज़</string>
+    <string name="light_band_sun">धूप</string>
+    <string name="light_lowest">न्यूनतम</string>
+    <string name="light_highest">अधिकतम</string>
+    <string name="meter_pause">मापना रोकें</string>
+    <string name="meter_resume">मापना जारी रखें</string>
+    <string name="sound_min">न्यून</string>
+    <string name="sound_avg">औसत</string>
+    <string name="sound_max">अधिक</string>
+    <string name="sound_window">30 सेकंड पहले</string>
+    <string name="sound_now">अभी</string>
+    <string name="level_roll">रोल</string>
+    <string name="level_pitch">पिच</string>
+    <string name="level_hint">फ़ोन को सतह पर सपाट रखें</string>
+</resources>

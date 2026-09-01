@@ -1,0 +1,35 @@
+<!--
+  ~ Copyright (C) 2026 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="32"
+    android:viewportHeight="32">
+  <!-- The funnel is drawn edge-to-edge in its viewport; the app's other glyphs
+       leave ~14% margin, so without this it looks a size larger than its
+       neighbours in the same button. -->
+  <group
+      android:pivotX="16"
+      android:pivotY="16"
+      android:scaleX="0.86"
+      android:scaleY="0.86">
+    <clip-path
+        android:pathData="M0,0h32v32h-32z"/>
+    <path
+        android:pathData="M19.334,32C18.971,32 18.616,31.902 18.306,31.715L11.639,27.715C11.343,27.537 11.097,27.286 10.927,26.985C10.757,26.685 10.667,26.345 10.667,26V19.113L2.712,9.38C1.817,8.353 1.326,7.034 1.334,5.671C1.335,4.167 1.933,2.726 2.996,1.663C4.06,0.6 5.501,0.002 7.004,0L24.996,0C26.089,0 27.159,0.317 28.077,0.911C28.994,1.505 29.721,2.351 30.168,3.348C30.616,4.346 30.766,5.451 30.601,6.531C30.435,7.612 29.961,8.621 29.235,9.439L21.334,19.176V30C21.334,30.53 21.123,31.039 20.748,31.414C20.373,31.789 19.864,32 19.334,32ZM14.667,24.867L17.334,26.467V18.467C17.333,18.007 17.491,17.562 17.78,17.205L26.187,6.849C26.49,6.531 26.661,6.11 26.667,5.671C26.666,5.228 26.49,4.803 26.177,4.49C25.864,4.177 25.439,4.001 24.996,4H7.004C6.682,4 6.367,4.094 6.097,4.269C5.827,4.444 5.613,4.693 5.481,4.987C5.349,5.281 5.304,5.606 5.353,5.925C5.402,6.243 5.541,6.54 5.755,6.781L14.216,17.135C14.508,17.492 14.667,17.939 14.667,18.4V24.867Z"
+        android:fillColor="#ffffff"/>
+  </group>
+</vector>

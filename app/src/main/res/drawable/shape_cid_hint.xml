@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- "Next step" hint strip · rounded 14dp, soft blue tint. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/cid_hint_bg" />
+    <corners android:radius="@dimen/_14sdp" />
+</shape>

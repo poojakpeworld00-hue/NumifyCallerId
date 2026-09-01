@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- FSI intro screen background: radial gradient, lighter at top-center fading to
+     the edge. Colors flip light/dark via values-night (navy in dark). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:type="radial"
+        android:centerX="0.5"
+        android:centerY="0.0"
+        android:gradientRadius="640dp"
+        android:startColor="@color/fsi_bg_center"
+        android:endColor="@color/fsi_bg_edge" />
+</shape>

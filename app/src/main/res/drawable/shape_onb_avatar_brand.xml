@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Caller avatar disc — the brand gradient, same pair as the splash icon tile. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <gradient
+        android:angle="315"
+        android:endColor="#8A5BFF"
+        android:startColor="@color/primary"
+        android:type="linear" />
+</shape>

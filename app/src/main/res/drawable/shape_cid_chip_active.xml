@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Selected duration preset — filled brand, so exactly one chip reads as chosen. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/primary" />
+    <corners android:radius="100dp" />
+</shape>

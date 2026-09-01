@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/_16sdp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rollReminders"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/_8sdp" />
+        <!-- Empty View (hidden by default) -->
+        <LinearLayout
+            android:id="@+id/emptyLayoutVw"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/cbk_reminder_unselected"
+                android:tint="@color/text_secondary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/figtree_medium"
+                android:text="@string/no_reminders_found"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/_12ssp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/fabAddReminderVw"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center|right"
+            android:background="@drawable/shape_btn"
+            android:fontFamily="@font/figtree_medium"
+            android:gravity="center|right"
+            android:padding="@dimen/_13sdp"
+            android:text="@string/add_reminder"
+            android:textColor="@color/primary"
+             />
+
+    </LinearLayout>
+
+</LinearLayout>

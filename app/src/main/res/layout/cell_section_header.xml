@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Date group header in the recents list. Same "dot · label · rule" pattern the
+     rest of the redesign uses for section headings, so the list reads as part of
+     the same app rather than a plain date caption. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/_16sdp"
+    android:paddingTop="@dimen/_12sdp"
+    android:paddingBottom="@dimen/_4sdp">
+
+    <View
+        android:layout_width="@dimen/_5sdp"
+        android:layout_height="@dimen/_5sdp"
+        android:background="@drawable/shape_section_dot" />
+
+    <TextView
+        android:id="@+id/lblHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:letterSpacing="0.1"
+        android:textAllCaps="true"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/_9ssp"
+        android:textStyle="bold"
+        tools:text="Today" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_weight="1"
+        android:background="@color/outline" />
+</LinearLayout>

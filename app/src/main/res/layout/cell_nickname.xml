@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    One "Also known as" name. Locked → lock icon + masked name + Reveal pill.
+    Revealed → green check + name + "Revealed". State is set in LookupDetailActivity.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nickRowVw"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_8sdp"
+    android:background="@drawable/shape_nickname_row"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/_14sdp"
+    android:paddingVertical="@dimen/_10sdp">
+
+    <ImageView
+        android:id="@+id/picNickIcon"
+        android:layout_width="@dimen/_14sdp"
+        android:layout_height="@dimen/_14sdp"
+        android:contentDescription="@null"
+        android:src="@drawable/glyph_lock"
+        app:tint="@color/on_surface_variant" />
+
+    <TextView
+        android:id="@+id/lblNickName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:letterSpacing="0.06"
+        android:maxLines="1"
+        android:textColor="@color/on_surface_variant"
+        android:textSize="@dimen/_11ssp"
+        android:textStyle="bold"
+        tools:text="K••••••••" />
+
+    <TextView
+        android:id="@+id/lblNickRevealed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lookup_revealed"
+        android:textColor="@color/success"
+        android:textSize="@dimen/_10ssp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/padNickReveal"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_28sdp"
+        android:background="@drawable/shape_reveal_pill"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_12sdp">
+
+        <ImageView
+            android:layout_width="@dimen/_11sdp"
+            android:layout_height="@dimen/_11sdp"
+            android:contentDescription="@string/lookup_reveal"
+            android:src="@drawable/glyph_play"
+            app:tint="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:text="@string/lookup_reveal"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

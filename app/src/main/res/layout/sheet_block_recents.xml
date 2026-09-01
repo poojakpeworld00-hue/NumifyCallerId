@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_card"
+    android:orientation="vertical"
+    android:paddingVertical="@dimen/_16sdp">
+
+    <TextView
+        android:id="@+id/lblTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_18sdp"
+        android:text="@string/blocklist_pick_recents_title"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rollRecents"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_300sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/_8sdp"
+        tools:listitem="@layout/cell_block_pick" />
+
+    <TextView
+        android:id="@+id/lblNoRecents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_24sdp"
+        android:gravity="center"
+        android:text="@string/blocklist_no_recents"
+        android:textColor="@color/on_surface_variant"
+        android:textSize="@dimen/_12ssp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/padClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_14sdp"
+        android:background="?attr/selectableItemBackground"
+        android:paddingHorizontal="@dimen/_16sdp"
+        android:paddingVertical="@dimen/_9sdp"
+        android:text="@string/action_cancel"
+        android:textColor="@color/on_surface_variant"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold" />
+</LinearLayout>

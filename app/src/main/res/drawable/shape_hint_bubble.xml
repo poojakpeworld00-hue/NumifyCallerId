@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Coach-mark bubble. A light surface rather than a solid brand slab: the bubble
+    sits on a ~70% black scrim, where a saturated block competes with the very
+    thing the spotlight is trying to draw the eye to.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/surface" />
+    <corners android:radius="@dimen/_18sdp" />
+</shape>

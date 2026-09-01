@@ -1,0 +1,37 @@
+<!--
+  ~ Copyright (C) 2026 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="56dp"
+    android:height="56dp"
+    android:viewportWidth="56"
+    android:viewportHeight="56">
+      <!-- These started life as icon TILES: a filled backdrop plus the mark, with
+       the mark sitting on only ~43% of the viewport. The backdrop is gone
+       (the layout draws the chip now), so the mark is scaled up to fill the
+       viewport like every other glyph here — otherwise the host's padding is
+       applied on top of the tile's old inset and the icon reads as a speck. -->
+  <group
+      android:pivotX="28.0"
+      android:pivotY="28.0"
+      android:scaleX="2.007"
+      android:scaleY="2.007"
+      android:translateX="0.0"
+      android:translateY="0.0">
+<path
+      android:pathData="M20.62,34.12C21.64,33.34 22.78,32.725 24.04,32.275C25.3,31.825 26.62,31.6 28,31.6C29.38,31.6 30.7,31.825 31.96,32.275C33.22,32.725 34.36,33.34 35.38,34.12C36.08,33.3 36.625,32.37 37.015,31.33C37.405,30.29 37.6,29.18 37.6,28C37.6,25.34 36.665,23.075 34.795,21.205C32.925,19.335 30.66,18.4 28,18.4C25.34,18.4 23.075,19.335 21.205,21.205C19.335,23.075 18.4,25.34 18.4,28C18.4,29.18 18.595,30.29 18.985,31.33C19.375,32.37 19.92,33.3 20.62,34.12ZM28,29.2C26.82,29.2 25.825,28.795 25.015,27.985C24.205,27.175 23.8,26.18 23.8,25C23.8,23.82 24.205,22.825 25.015,22.015C25.825,21.205 26.82,20.8 28,20.8C29.18,20.8 30.175,21.205 30.985,22.015C31.795,22.825 32.2,23.82 32.2,25C32.2,26.18 31.795,27.175 30.985,27.985C30.175,28.795 29.18,29.2 28,29.2ZM28,40C26.34,40 24.78,39.685 23.32,39.055C21.86,38.425 20.59,37.57 19.51,36.49C18.43,35.41 17.575,34.14 16.945,32.68C16.315,31.22 16,29.66 16,28C16,26.34 16.315,24.78 16.945,23.32C17.575,21.86 18.43,20.59 19.51,19.51C20.59,18.43 21.86,17.575 23.32,16.945C24.78,16.315 26.34,16 28,16C29.66,16 31.22,16.315 32.68,16.945C34.14,17.575 35.41,18.43 36.49,19.51C37.57,20.59 38.425,21.86 39.055,23.32C39.685,24.78 40,26.34 40,28C40,29.66 39.685,31.22 39.055,32.68C38.425,34.14 37.57,35.41 36.49,36.49C35.41,37.57 34.14,38.425 32.68,39.055C31.22,39.685 29.66,40 28,40ZM28,37.6C29.06,37.6 30.06,37.445 31,37.135C31.94,36.825 32.8,36.38 33.58,35.8C32.8,35.22 31.94,34.775 31,34.465C30.06,34.155 29.06,34 28,34C26.94,34 25.94,34.155 25,34.465C24.06,34.775 23.2,35.22 22.42,35.8C23.2,36.38 24.06,36.825 25,37.135C25.94,37.445 26.94,37.6 28,37.6ZM28,26.8C28.52,26.8 28.95,26.63 29.29,26.29C29.63,25.95 29.8,25.52 29.8,25C29.8,24.48 29.63,24.05 29.29,23.71C28.95,23.37 28.52,23.2 28,23.2C27.48,23.2 27.05,23.37 26.71,23.71C26.37,24.05 26.2,24.48 26.2,25C26.2,25.52 26.37,25.95 26.71,26.29C27.05,26.63 27.48,26.8 28,26.8Z"
+      android:fillColor="#FFFFFF"/>
+  </group>
+</vector>

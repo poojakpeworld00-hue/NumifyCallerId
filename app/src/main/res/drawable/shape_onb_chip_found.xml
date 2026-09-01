@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- "CALLER FOUND" stamp at the foot of the search card. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/identified_container" />
+    <corners android:radius="100dp" />
+</shape>

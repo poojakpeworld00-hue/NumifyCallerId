@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- White on the selected (activated) filter pill, muted grey otherwise. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_activated="true" android:color="@color/white" />
+    <item android:color="@color/on_surface_variant" />
+</selector>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    One tile in the Contacts favourites strip: an initial disc over the first
+    name only. First name, not full name — at 66dp wide anything longer just
+    ellipsises, and the surname is not what you scan for here.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/favRootVw"
+    android:layout_width="@dimen/_58sdp"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingVertical="@dimen/_4sdp">
+
+    <TextView
+        android:id="@+id/lblFavInitial"
+        android:layout_width="@dimen/_46sdp"
+        android:layout_height="@dimen/_46sdp"
+        android:background="@drawable/shape_cid_pill_neutral"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/_15ssp"
+        android:textStyle="bold"
+        tools:text="A" />
+
+    <TextView
+        android:id="@+id/lblFavName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/_9ssp"
+        tools:text="Alicia" />
+</LinearLayout>

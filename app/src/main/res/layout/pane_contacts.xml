@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/heroHeaderVw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_16sdp"
+        android:paddingTop="@dimen/_10sdp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.03"
+                android:text="@string/nav_contacts"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_20ssp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblContactsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:includeFontPadding="false"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_10ssp"
+                tools:text="3 contacts" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/padContactsAdd"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:background="@drawable/shape_onb_circle_lavender"
+            android:contentDescription="@string/action_add"
+            android:padding="@dimen/_8sdp"
+            android:src="@drawable/glyph_person_add"
+            app:tint="@color/on_primary_container" />
+    </LinearLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:stateListAnimator="@null"
+        app:elevation="0dp"
+        app:liftOnScroll="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_scrollFlags="scroll">
+
+
+        <!-- Search pill -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/shape_home_search"
+            android:elevation="@dimen/_2sdp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:outlineAmbientShadowColor="@color/card_shadow"
+            android:outlineSpotShadowColor="@color/card_shadow"
+            android:paddingHorizontal="@dimen/_14sdp"
+            android:paddingVertical="@dimen/_9sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:contentDescription="@string/contacts_search_hint"
+                android:src="@drawable/glyph_search"
+                app:tint="@color/on_surface_variant" />
+
+            <EditText
+                android:id="@+id/inpSearch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/contacts_search_hint"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:textColor="@color/on_surface"
+                android:textColorHint="@color/on_surface_variant"
+                android:textSize="@dimen/_11ssp" />
+
+            <ImageView
+                android:id="@+id/padClearSearch"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/call_decline"
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/glyph_close"
+                android:visibility="gone"
+                app:tint="@color/on_surface_variant" />
+        </LinearLayout>
+
+        <!-- Filter chips -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:overScrollMode="never"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/segAll"
+                    style="@style/RecentFilterTab"
+                    android:drawableStart="@drawable/glyph_group"
+                    android:text="@string/contacts_tab_all" />
+
+                <TextView
+                    android:id="@+id/segFavorites"
+                    style="@style/RecentFilterTab"
+                    android:drawableStart="@drawable/glyph_rate_contact"
+                    android:text="@string/contacts_tab_favorites" />
+
+                <TextView
+                    android:id="@+id/segRecents"
+                    style="@style/RecentFilterTab"
+                    android:drawableStart="@drawable/glyph_history"
+                    android:text="@string/contacts_tab_recents" />
+
+                <TextView
+                    android:id="@+id/segGroups"
+                    style="@style/RecentFilterTab"
+                    android:layout_marginEnd="0dp"
+                    android:drawableStart="@drawable/glyph_group"
+                    android:text="@string/contacts_tab_groups" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Favourites. Hidden by PhonebookFragment when nobody is starred, so the
+             section header never sits over an empty rail. -->
+        <LinearLayout
+            android:id="@+id/favSectionVw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_5sdp"
+                android:background="@drawable/shape_cid_dot_amber" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:letterSpacing="0.1"
+                android:text="@string/contacts_tab_favorites"
+                android:textAllCaps="true"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_9ssp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:background="@color/outline" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rollFavorites"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:paddingHorizontal="@dimen/_14sdp"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/cell_contact_favorite" />
+
+        <!-- Full-bleed hairline separating the filters from the ad below -->
+        <View
+            android:id="@+id/adNativeDividerVw"
+            android:layout_marginTop="@dimen/_10sdp"
+            style="@style/AdDivider" />
+
+        <!-- Native ad -->
+        <FrameLayout
+            android:id="@+id/adNativeFrameVw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+           >
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/adShimmerVw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ccc">
+
+                <include layout="@layout/gads_native_banner" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </FrameLayout>
+        <!-- Full-bleed hairline separating the filters from the ad below -->
+        <View
+            android:id="@+id/adNativeDivider1Vw"
+            style="@style/AdDivider" />
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rollContacts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:clipToPadding="false"
+            android:paddingStart="0dp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:paddingBottom="@dimen/_12sdp"
+            tools:listitem="@layout/cell_contact" />
+
+        <!-- Alphabet fast-scroll index -->
+        <LinearLayout
+            android:id="@+id/alphaIndexVw"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/_4sdp" />
+
+        <TextView
+            android:id="@+id/letterBubbleVw"
+            android:layout_width="@dimen/_48sdp"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_gravity="center"
+            android:background="@drawable/shape_letter_bubble"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20ssp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:text="A"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/lblEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/contacts_empty"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/_12ssp"
+            android:visibility="gone" />
+
+        <!-- Permission state -->
+        <LinearLayout
+            android:id="@+id/permStateVw"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_32sdp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:background="@drawable/shape_icon_box"
+                android:contentDescription="@string/perm_contacts_title"
+                android:padding="@dimen/_16sdp"
+                android:src="@drawable/glyph_group"
+                app:tint="@color/primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:text="@string/perm_contacts_title"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:gravity="center"
+                android:text="@string/perm_contacts_message"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_11ssp" />
+
+            <TextView
+                android:id="@+id/padGrant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="@drawable/shape_btn_primary"
+                android:paddingHorizontal="@dimen/_24sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/action_grant"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

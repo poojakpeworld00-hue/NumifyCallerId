@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Rounded icon chip, amber signal (alerts). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/cid_amber_100" />
+    <corners android:radius="@dimen/_12sdp" />
+</shape>

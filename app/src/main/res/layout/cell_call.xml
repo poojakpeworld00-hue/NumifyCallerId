@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Recent-call row as a card: verdict-tinted avatar, name + type/time, and a
+     call action. Row background + avatar colors are set per verdict in CallAdapter
+     (spam rows get a red-tinted container). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rowCallVw"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_16sdp"
+    android:layout_marginTop="@dimen/_6sdp"
+    android:background="@drawable/shape_home_tile"
+    android:clipToOutline="true"
+    android:elevation="@dimen/_1sdp"
+    android:foreground="?attr/selectableItemBackground"
+    android:outlineAmbientShadowColor="@color/card_shadow"
+    android:outlineSpotShadowColor="@color/card_shadow"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/_10sdp"
+    android:paddingVertical="@dimen/_8sdp">
+
+    <TextView
+        android:id="@+id/lblAvatar"
+        android:layout_width="@dimen/_34sdp"
+        android:layout_height="@dimen/_34sdp"
+        android:background="@drawable/shape_avatar"
+        android:gravity="center"
+        android:textColor="@color/on_primary_container"
+        android:textSize="@dimen/_11ssp"
+        android:textStyle="bold"
+        tools:text="112" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lblName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/on_surface"
+            android:textSize="@dimen/_11ssp"
+            android:textStyle="bold"
+            tools:text="Emergency · 112" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/picType"
+                android:layout_width="@dimen/_11sdp"
+                android:layout_height="@dimen/_11sdp"
+                android:contentDescription="@string/call_incoming"
+                android:src="@drawable/glyph_call_received"
+                app:tint="@color/on_surface_variant" />
+
+            <TextView
+                android:id="@+id/lblSub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_9ssp"
+                tools:text="Outgoing · Jul 13" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/padCall"
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_32sdp"
+        android:background="@drawable/shape_circle_surface"
+        android:contentDescription="@string/action_call"
+        android:padding="@dimen/_7sdp"
+        android:src="@drawable/glyph_call"
+        app:tint="@color/primary" />
+
+    <!-- Shown instead of Call for unknown / unsaved numbers → opens Lookup. -->
+    <TextView
+        android:id="@+id/padIdentify"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_30sdp"
+        android:background="@drawable/shape_cta_pill"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:text="@string/action_identify"
+        android:textColor="@color/on_primary_container"
+        android:textSize="@dimen/_10ssp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:visibility="visible" />
+</LinearLayout>

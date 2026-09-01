@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Language row background: ripple over a rounded container that fills with
+     primaryContainer when the row is selected (activated), transparent otherwise. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorControlHighlight">
+    <item>
+        <selector>
+            <item android:state_activated="true">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/primary_container" />
+                    <corners android:radius="@dimen/_10sdp" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@android:color/transparent" />
+                    <corners android:radius="@dimen/_10sdp" />
+                </shape>
+            </item>
+        </selector>
+    </item>
+</ripple>

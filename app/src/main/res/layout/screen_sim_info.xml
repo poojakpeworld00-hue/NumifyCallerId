@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Network info — CID03 redesign.
+
+    A dark hero naming the connection, then two labelled groups of rows, then a
+    CTA through to the speed test.
+
+    The design's hero also shows download / upload / ping. Those are NOT here:
+    this screen reads the device's network state, it does not run a transfer, so
+    those figures would be invented. They live on the speed-test screen, which is
+    exactly where the CTA at the foot goes.
+-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/simRootVw"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        tools:context=".screen.utility.SimDetailsActivity">
+
+        <LinearLayout
+            android:id="@+id/crownBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/padBack"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/onboarding_skip"
+                android:padding="@dimen/_9sdp"
+                android:src="@drawable/glyph_arrow_back"
+                app:tint="@color/on_surface" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_weight="1"
+                android:letterSpacing="-0.02"
+                android:text="@string/tools_sim"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/padRefresh"
+                android:layout_width="@dimen/_38sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/sim_refresh"
+                android:padding="@dimen/_9sdp"
+                android:src="@drawable/glyph_refresh"
+                app:tint="@color/primary" />
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintTop_toBottomOf="@id/crownBar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/_16sdp">
+
+                <!-- ===== Hero ===== -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:background="@drawable/shape_cid_hero_dark"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/_14sdp"
+                    android:paddingVertical="@dimen/_14sdp">
+
+                    <ImageView
+                        android:layout_width="@dimen/_38sdp"
+                        android:layout_height="@dimen/_38sdp"
+                        android:background="@drawable/shape_cid_hero_tile"
+                        android:contentDescription="@null"
+                        android:padding="@dimen/_9sdp"
+                        android:src="@drawable/glyph_tool_network"
+                        app:tint="@color/cid_050" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/lblCarrier"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:includeFontPadding="false"
+                            android:maxLines="1"
+                            android:textColor="@color/cid_050"
+                            android:textSize="@dimen/_14ssp"
+                            android:textStyle="bold"
+                            tools:text="Airtel" />
+
+                        <TextView
+                            android:id="@+id/lblStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:alpha="0.72"
+                            android:ellipsize="end"
+                            android:includeFontPadding="false"
+                            android:maxLines="1"
+                            android:textColor="@color/cid_050"
+                            android:textSize="@dimen/_10ssp"
+                            tools:text="5G SA · connected" />
+                    </LinearLayout>
+
+                    <!-- Signal bars. Tinted per level in SimDetailsActivity. -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:gravity="bottom"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/bar1Vw"
+                            style="@style/NetSignalBar"
+                            android:layout_height="@dimen/_8sdp" />
+
+                        <View
+                            android:id="@+id/bar2Vw"
+                            style="@style/NetSignalBar"
+                            android:layout_height="@dimen/_12sdp" />
+
+                        <View
+                            android:id="@+id/bar3Vw"
+                            style="@style/NetSignalBar"
+                            android:layout_height="@dimen/_16sdp" />
+
+                        <View
+                            android:id="@+id/bar4Vw"
+                            style="@style/NetSignalBar"
+                            android:layout_height="@dimen/_20sdp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ===== SIM & carrier ===== -->
+                <LinearLayout style="@style/NetSectionRow">
+
+                    <View
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="@dimen/_5sdp"
+                        android:background="@drawable/shape_section_dot" />
+
+                    <TextView
+                        style="@style/NetSectionLabel"
+                        android:text="@string/sim_section_carrier" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:background="@color/outline" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NetRowCard">
+
+                    <ImageView
+                        style="@style/NetRowIcon"
+                        android:background="@drawable/shape_cid_chip_brand"
+                        android:src="@drawable/glyph_sim_card"
+                        app:tint="@color/primary" />
+
+                    <TextView
+                        style="@style/NetRowLabel"
+                        android:text="@string/sim_carrier" />
+
+                    <TextView
+                        android:id="@+id/lblCarrierRow"
+                        style="@style/NetRowValue"
+                        tools:text="Airtel" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NetRowCard">
+
+                    <ImageView
+                        style="@style/NetRowIcon"
+                        android:background="@drawable/shape_cid_chip_teal"
+                        android:src="@drawable/glyph_radio"
+                        app:tint="@color/cid_teal" />
+
+                    <TextView
+                        style="@style/NetRowLabel"
+                        android:text="@string/sim_network_type" />
+
+                    <TextView
+                        android:id="@+id/lblNetworkType"
+                        style="@style/NetRowValue"
+                        tools:text="5G SA" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NetRowCard">
+
+                    <ImageView
+                        style="@style/NetRowIcon"
+                        android:background="@drawable/shape_cid_chip_amber"
+                        android:src="@drawable/glyph_language"
+                        app:tint="@color/cid_amber" />
+
+                    <TextView
+                        style="@style/NetRowLabel"
+                        android:text="@string/sim_country" />
+
+                    <TextView
+                        android:id="@+id/lblCountry"
+                        style="@style/NetRowValue"
+                        tools:text="India · IN" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NetRowCard">
+
+                    <ImageView
+                        style="@style/NetRowIcon"
+                        android:background="@drawable/shape_cid_chip_clay"
+                        android:src="@drawable/glyph_tool_network"
+                        app:tint="@color/cid_clay" />
+
+                    <TextView
+                        style="@style/NetRowLabel"
+                        android:text="@string/sim_signal" />
+
+                    <TextView
+                        android:id="@+id/lblSignal"
+                        style="@style/NetRowValue"
+                        tools:text="−72 dBm" />
+                </LinearLayout>
+
+                <!-- ===== Connection ===== -->
+                <LinearLayout style="@style/NetSectionRow">
+
+                    <View
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="@dimen/_5sdp"
+                        android:background="@drawable/shape_section_dot" />
+
+                    <TextView
+                        style="@style/NetSectionLabel"
+                        android:text="@string/sim_section_connection" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:background="@color/outline" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NetRowCard">
+
+                    <ImageView
+                        style="@style/NetRowIcon"
+                        android:background="@drawable/shape_cid_chip_brand"
+                        android:src="@drawable/glyph_profile"
+                        app:tint="@color/primary" />
+
+                    <TextView
+                        style="@style/NetRowLabel"
+                        android:text="@string/sim_ip" />
+
+                    <TextView
+                        android:id="@+id/lblIp"
+                        style="@style/NetRowValue"
+                        tools:text="192.168.1.24" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NetRowCard">
+
+                    <ImageView
+                        style="@style/NetRowIcon"
+                        android:background="@drawable/shape_cid_chip_teal"
+                        android:src="@drawable/glyph_sim_card_alt"
+                        app:tint="@color/cid_teal" />
+
+                    <TextView
+                        style="@style/NetRowLabel"
+                        android:text="@string/sim_state" />
+
+                    <TextView
+                        android:id="@+id/lblSimState"
+                        style="@style/NetRowValue"
+                        tools:text="Ready" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NetRowCard">
+
+                    <ImageView
+                        style="@style/NetRowIcon"
+                        android:background="@drawable/shape_cid_chip_amber"
+                        android:src="@drawable/glyph_call"
+                        app:tint="@color/cid_amber" />
+
+                    <TextView
+                        style="@style/NetRowLabel"
+                        android:text="@string/sim_phone_type" />
+
+                    <TextView
+                        android:id="@+id/lblPhoneType"
+                        style="@style/NetRowValue"
+                        tools:text="GSM" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/NetRowCard">
+
+                    <ImageView
+                        style="@style/NetRowIcon"
+                        android:background="@drawable/shape_cid_chip_clay"
+                        android:src="@drawable/glyph_compass"
+                        app:tint="@color/cid_clay" />
+
+                    <TextView
+                        style="@style/NetRowLabel"
+                        android:text="@string/sim_roaming" />
+
+                    <TextView
+                        android:id="@+id/lblRoaming"
+                        style="@style/NetRowValue"
+                        tools:text="No" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/padSpeedTest"
+                    style="@style/ToolCta"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:text="@string/sim_run_speed_test"
+                    app:icon="@drawable/glyph_speed" />
+
+                <FrameLayout
+                    android:id="@+id/adNativeFrameVw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_10sdp">
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/adShimmerVw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#ccc">
+
+                        <include layout="@layout/gads_mid_native_two" />
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </FrameLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <View
+            android:id="@+id/adBannerDividerVw"
+            style="@style/AdDivider"
+            android:layout_width="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            layout="@layout/part_bottom_banner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    One blocked number. Row background, avatar tint, text colours and the
+    Unblock pill are swapped between the "spam" (red) and "neutral" treatments
+    in BlocklistAdapter. 64dp row per spec.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/blockRowVw"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_6sdp"
+    android:background="@drawable/shape_row_neutral"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/_12sdp"
+    android:paddingVertical="@dimen/_10sdp">
+
+    <FrameLayout
+        android:id="@+id/avatarBoxVw"
+        android:layout_width="@dimen/_38sdp"
+        android:layout_height="@dimen/_38sdp"
+        android:background="@drawable/shape_avatar_neutral">
+
+        <TextView
+            android:id="@+id/lblBang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="!"
+            android:textColor="@color/spam_on"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/picAvatar"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/blocklist_status_blocked"
+            android:src="@drawable/glyph_person"
+            app:tint="@color/on_surface_variant" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lblLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/on_surface"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            tools:text="Unknown Caller" />
+
+        <TextView
+            android:id="@+id/lblNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:ellipsize="end"
+            android:fontFamily="monospace"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/_10ssp"
+            tools:text="+1 415 555 0142" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/padUnblock"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:background="@drawable/shape_unblock_neutral"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/_14sdp"
+        android:text="@string/blocklist_unblock"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/_10ssp"
+        android:textStyle="bold" />
+</LinearLayout>

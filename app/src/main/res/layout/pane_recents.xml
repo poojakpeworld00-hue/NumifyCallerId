@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/heroHeaderVw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_16sdp"
+        android:paddingTop="@dimen/_10sdp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:letterSpacing="-0.03"
+                android:text="@string/home_caller_id"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_20ssp"
+                android:textStyle="bold" />
+
+            <!-- Live counts, set from CallHistoryFragment. -->
+            <TextView
+                android:id="@+id/lblRecentsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:includeFontPadding="false"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_10ssp"
+                tools:text="32 calls · 14 missed" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/padRecentsFilter"
+            android:layout_width="@dimen/_36sdp"
+            android:layout_height="@dimen/_36sdp"
+            android:background="@drawable/shape_cid_pill_neutral"
+            android:contentDescription="@string/filter_all"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:padding="@dimen/_9sdp"
+            android:src="@drawable/glyph_filter_list"
+            app:tint="@color/on_surface" />
+
+        <ImageView
+            android:id="@+id/padSettings"
+            android:layout_width="@dimen/_36sdp"
+            android:layout_height="@dimen/_36sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:background="@drawable/shape_cid_pill_neutral"
+            android:contentDescription="@string/nav_settings"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:padding="@dimen/_9sdp"
+            android:src="@drawable/glyph_settings"
+            app:tint="@color/on_surface" />
+    </LinearLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:stateListAnimator="@null"
+        app:elevation="0dp"
+        app:liftOnScroll="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_scrollFlags="scroll">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/panelProtection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/shape_cid_card"
+                android:elevation="@dimen/_1sdp"
+                android:outlineAmbientShadowColor="@color/card_shadow"
+                android:outlineSpotShadowColor="@color/card_shadow"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_10sdp">
+
+                <ImageView
+                    android:id="@+id/picProtection"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:background="@drawable/shape_cid_chip_brand"
+                    android:contentDescription="@null"
+                    android:padding="@dimen/_7sdp"
+                    android:src="@drawable/glyph_shield_check"
+                    app:tint="@color/on_surface_variant" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_9sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/lblProtectionTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_protection_off_title"
+                        android:textColor="@color/on_surface"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/lblProtectionSub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_1sdp"
+                        android:text="@string/home_protection_off_sub"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="@dimen/_9ssp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/padProtectionAction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/shape_cid_cta_pill"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:paddingHorizontal="@dimen/_14sdp"
+                    android:paddingVertical="@dimen/_7sdp"
+                    android:text="@string/home_protection_turn_on"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rowPermHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/shape_card"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_12sdp"
+            android:paddingEnd="@dimen/_6sdp"
+            android:paddingVertical="@dimen/_8sdp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/glyph_shield_check"
+                app:tint="@color/primary" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:text="@string/home_perm_hint"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_10ssp" />
+
+            <TextView
+                android:id="@+id/padPermManage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:background="@drawable/shape_btn_primary"
+                android:paddingHorizontal="@dimen/_14sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:text="@string/home_perm_manage"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/panelLookup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/shape_lookup_card"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_14sdp"
+            android:paddingVertical="@dimen/_13sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="-0.01"
+                android:text="@string/home_whos_calling"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="@string/home_whos_calling_sub"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_9ssp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:background="@drawable/shape_lookup_field"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingVertical="@dimen/_6sdp">
+
+                <LinearLayout
+                    android:id="@+id/rowHomeCountry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:baselineAligned="false"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                    android:paddingVertical="@dimen/_6sdp">
+
+                    <!-- Flag and dial code both sit in a fixed-height box and centre
+                         inside it. An emoji flag's font metrics are nothing like the
+                         Latin text beside it, so with wrap_content heights the two
+                         optical centres never line up however they are gravitied.
+                         Same textSize for the same reason. -->
+                    <TextView
+                        android:id="@+id/lblHomeFlag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_22sdp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:textSize="@dimen/_11ssp"
+                        tools:text="🇮🇳" />
+
+                    <TextView
+                        android:id="@+id/lblHomeDial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_22sdp"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/on_surface"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="bold"
+                        tools:text="+91" />
+
+                    <!-- Caret as a sized ImageView: a compound drawable draws at its
+                         own intrinsic 24dp, which towers over an 11ssp label. -->
+                    <ImageView
+                        android:layout_width="@dimen/_11sdp"
+                        android:layout_height="@dimen/_11sdp"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/glyph_caret_down"
+                        app:tint="@color/on_surface_variant" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_9sdp"
+                    android:background="@color/outline" />
+
+                <EditText
+                    android:id="@+id/inpSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/home_search_any"
+                    android:imeOptions="actionSearch"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/on_surface"
+                    android:textColorHint="@color/on_surface_variant"
+                    android:textSize="@dimen/_11ssp" />
+
+                <ImageView
+                    android:id="@+id/padClearSearch"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/action_cancel"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/glyph_close"
+                    android:visibility="gone"
+                    app:tint="@color/on_surface_variant" />
+
+                <ImageView
+                    android:id="@+id/padHomeSearch"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:background="@drawable/shape_circle_primary"
+                    android:contentDescription="@string/lookup_hint"
+                    android:padding="@dimen/_8sdp"
+                    android:src="@drawable/glyph_search"
+                    app:tint="@color/on_primary" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/adNativeDividerVw"
+            android:layout_marginTop="@dimen/_10sdp"
+            style="@style/AdDivider" />
+
+        <FrameLayout
+            android:id="@+id/adNativeFrameVw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/adShimmerVw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/surface_2">
+
+                <include layout="@layout/gads_native_banner" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </FrameLayout>
+
+        <View
+            android:id="@+id/adNativeDivider1Vw"
+            style="@style/AdDivider" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:letterSpacing="-0.01"
+            android:text="@string/home_recent_label"
+            android:textColor="@color/on_surface"
+            android:textSize="@dimen/_13ssp"
+            android:textStyle="bold" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:overScrollMode="never"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/segAll"
+                    style="@style/RecentFilterTab"
+                    android:drawableStart="@drawable/glyph_recent_all"
+                    android:text="@string/filter_all" />
+
+                <TextView
+                    android:id="@+id/segIncoming"
+                    style="@style/RecentFilterTab"
+                    android:drawableStart="@drawable/sift_incoming"
+                    android:text="@string/filter_incoming" />
+
+                <TextView
+                    android:id="@+id/segOutgoing"
+                    style="@style/RecentFilterTab"
+                    android:drawableStart="@drawable/sift_outgoing"
+                    android:text="@string/filter_outgoing" />
+
+                <TextView
+                    android:id="@+id/segMissed"
+                    style="@style/RecentFilterTab"
+                    android:layout_marginEnd="0dp"
+                    android:drawableStart="@drawable/glyph_call_missed"
+                    android:text="@string/filter_missed" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rollRecents"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/_70sdp"
+            tools:listitem="@layout/cell_call" />
+
+        <TextView
+            android:id="@+id/lblEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/recents_empty"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/_12ssp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/padRecentsDial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:background="@drawable/shape_home_protection"
+            android:clickable="true"
+            android:elevation="@dimen/_6sdp"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:outlineAmbientShadowColor="@color/card_shadow"
+            android:outlineSpotShadowColor="@color/card_shadow"
+            android:paddingHorizontal="@dimen/_18sdp"
+            android:paddingVertical="@dimen/_12sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:contentDescription="@string/quick_dialer"
+                android:src="@drawable/glyph_dialpad"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:text="@string/quick_dialer"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/permStateVw"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_32sdp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:background="@drawable/shape_icon_box"
+                android:contentDescription="@string/perm_calllog_title"
+                android:padding="@dimen/_16sdp"
+                android:src="@drawable/glyph_history"
+                app:tint="@color/primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:text="@string/perm_calllog_title"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:gravity="center"
+                android:text="@string/perm_calllog_message"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_11ssp" />
+
+            <TextView
+                android:id="@+id/padGrant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="@drawable/shape_btn_primary"
+                android:paddingHorizontal="@dimen/_24sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/action_grant"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Identified (green) ring behind the number-details hero avatar. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <gradient
+        android:angle="315"
+        android:startColor="#1E8E5A"
+        android:endColor="#35B57E"
+        android:type="linear" />
+</shape>

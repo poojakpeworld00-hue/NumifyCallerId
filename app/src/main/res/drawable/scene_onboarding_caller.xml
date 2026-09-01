@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Onboarding "Know who's calling" illustration (matching the spam card style). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="280dp"
+    android:height="280dp"
+    android:viewportWidth="320"
+    android:viewportHeight="320">
+
+    <!-- Card -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#C1C6D6"
+        android:strokeWidth="1.5"
+        android:pathData="M80,34 h160 a34,34 0 0 1 34,34 v182 a34,34 0 0 1 -34,34 h-160 a34,34 0 0 1 -34,-34 v-182 a34,34 0 0 1 34,-34 z" />
+
+    <!-- Primary badge circle -->
+    <path
+        android:fillColor="#D8E2FF"
+        android:pathData="M122,96 a38,38 0 1 0 76,0 a38,38 0 1 0 -76,0 z" />
+
+    <!-- Call glyph -->
+    <group
+        android:scaleX="2.4"
+        android:scaleY="2.4"
+        android:translateX="131.2"
+        android:translateY="67.2">
+        <path
+            android:fillColor="#005BBF"
+            android:pathData="M6.62,10.79c1.44,2.83 3.76,5.14 6.59,6.59l2.2,-2.2c0.27,-0.27 0.67,-0.36 1.02,-0.24 1.12,0.37 2.33,0.57 3.57,0.57 0.55,0 1,0.45 1,1V20c0,0.55 -0.45,1 -1,1 -9.39,0 -17,-7.61 -17,-17 0,-0.55 0.45,-1 1,-1h3.5c0.55,0 1,0.45 1,1 0,1.25 0.2,2.45 0.57,3.57 0.11,0.35 0.03,0.74 -0.25,1.02l-2.2,2.2z" />
+    </group>
+
+    <!-- Row 1 (incoming, highlighted) -->
+    <path
+        android:fillColor="#F3F4F5"
+        android:strokeColor="#1A73E8"
+        android:strokeWidth="1.5"
+        android:pathData="M92,160 h136 a14,14 0 0 1 14,14 v18 a14,14 0 0 1 -14,14 h-136 a14,14 0 0 1 -14,-14 v-18 a14,14 0 0 1 14,-14 z" />
+    <path
+        android:fillColor="#D8E2FF"
+        android:pathData="M86,183 a12,12 0 1 0 24,0 a12,12 0 1 0 -24,0 z" />
+    <path
+        android:fillColor="#1A73E8"
+        android:pathData="M93,183 a5,5 0 1 0 10,0 a5,5 0 1 0 -10,0 z" />
+    <path
+        android:fillColor="#1A73E8"
+        android:pathData="M124,176 h60 a4,4 0 0 1 0,8 h-60 a4,4 0 0 1 0,-8 z" />
+    <path
+        android:fillColor="#C1C6D6"
+        android:pathData="M124,190 h38 a3.5,3.5 0 0 1 0,7 h-38 a3.5,3.5 0 0 1 0,-7 z" />
+    <path
+        android:fillColor="#2E7D32"
+        android:pathData="M202,179 h28 a5,5 0 0 1 0,10 h-28 a5,5 0 0 1 0,-10 z" />
+
+    <!-- Row 2 (faded) -->
+    <path
+        android:fillColor="#F3F4F5"
+        android:pathData="M92,214 h136 a14,14 0 0 1 14,14 v12 a14,14 0 0 1 -14,14 h-136 a14,14 0 0 1 -14,-14 v-12 a14,14 0 0 1 14,-14 z" />
+    <path
+        android:fillColor="#DDE0E6"
+        android:pathData="M87,234 a11,11 0 1 0 22,0 a11,11 0 1 0 -22,0 z" />
+    <path
+        android:fillColor="#C1C6D6"
+        android:pathData="M124,230 h72 a4,4 0 0 1 0,8 h-72 a4,4 0 0 1 0,-8 z" />
+
+    <!-- Floating "Caller ID" chip -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#C1C6D6"
+        android:strokeWidth="1.2"
+        android:pathData="M224,40 h56 a18,18 0 0 1 18,18 v4 a18,18 0 0 1 -18,18 h-56 a18,18 0 0 1 -18,-18 v-4 a18,18 0 0 1 18,-18 z" />
+    <path
+        android:fillColor="#005BBF"
+        android:pathData="M218,60 a8,8 0 1 0 16,0 a8,8 0 1 0 -16,0 z" />
+    <path
+        android:fillColor="#414754"
+        android:pathData="M248,56 h36 a4,4 0 0 1 0,8 h-36 a4,4 0 0 1 0,-8 z" />
+
+</vector>

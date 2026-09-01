@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Call History row — direction icon + time, with duration / "Not answered" on the right. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingVertical="@dimen/_9sdp">
+
+    <ImageView
+        android:id="@+id/picDir"
+        android:layout_width="@dimen/_36sdp"
+        android:layout_height="@dimen/_36sdp"
+        android:background="@drawable/shape_circle_surface"
+        android:contentDescription="@string/detail_call_history"
+        android:padding="@dimen/_9sdp"
+        android:src="@drawable/glyph_call_received"
+        app:tint="@color/primary" />
+
+    <TextView
+        android:id="@+id/lblWhen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        tools:text="4:54 PM" />
+
+    <TextView
+        android:id="@+id/lblDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:fontFamily="monospace"
+        android:textColor="@color/on_surface_variant"
+        android:textSize="@dimen/_11ssp"
+        tools:text="Not answered" />
+</LinearLayout>

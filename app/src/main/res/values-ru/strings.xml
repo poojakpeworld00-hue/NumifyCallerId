@@ -1,0 +1,706 @@
+<resources>
+    <!-- App -->
+    <string name="app_name">Callora: Поиск номера</string>
+    <string name="app_name1">#CallerID</string>
+    <string name="dash">&#8211;</string>
+
+    <!-- Splash -->
+    <string name="splash_title">Callora</string>
+    <string name="splash_tagline">Узнайте каждого. Остальных — в блок.</string>
+    <string name="splash_footer">В приложении может быть реклама</string>
+
+    <!-- Language -->
+    <string name="language_title">Выберите язык</string>
+    <string name="language_continue">Продолжить</string>
+    <string name="language_search_hint">Поиск языков</string>
+    <string name="language_suggested">Рекомендуемые языки</string>
+    <string name="language_current">Текущий язык</string>
+    <string name="language_info_title">Информация о языке</string>
+    <string name="language_info_msg">Изменение языка обновит интерфейс приложения. Некоторые региональные функции могут отличаться в зависимости от выбора.</string>
+    <string name="language_info_got_it">Понятно</string>
+
+    <!-- Terms &amp; Conditions -->
+    <string name="terms_title">Условия использования</string>
+    <string name="terms_body">Прочитайте условия перед продолжением. Нажимая «Принять», вы соглашаетесь с тем, что:\n\n• Callora определяет входящих, исходящих и неизвестных абонентов прямо во время звонка.\n• Приложение отмечает спам, мошеннические и подозрительные номера и помогает их блокировать.\n• Вы можете найти любой номер и увидеть доступные нам сведения об абоненте.\n• Доступ к журналу звонков и контактам нужен, чтобы подписывать ваши вызовы.\n• Разрешение показа поверх других приложений выводит данные абонента во время звонка.\n• Ваши данные остаются у вас и используются только для определения номера и защиты от спама.\n\nНажимая «Принять и продолжить», вы подтверждаете, что прочитали и принимаете Условия использования и Политику конфиденциальности.</string>
+    <string name="terms_agree">Я прочитал(а) и принимаю Условия использования и Политику конфиденциальности.</string>
+    <string name="terms_accept">Принять и продолжить</string>
+    <string name="terms_please_accept">Отметьте флажок, чтобы продолжить.</string>
+    <string name="txt_allow_overlay_access">Разрешить показ поверх других приложений</string>
+    <string name="overlay_system_permission">Системное разрешение</string>
+    <string name="overlay_permission_desc">Показ поверх других приложений позволяет приложению показывать информацию о звонящем, пока вы пользуетесь другими приложениями.</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">Пропустить</string>
+    <string name="onboarding_next">Далее</string>
+    <string name="onboarding_title">Имя у каждого звонка</string>
+    <string name="onboarding_desc">Неизвестные номера получают имя, компанию и регион уже при первом гудке.</string>
+    <string name="onboarding_title_2">Заглушите мошенников</string>
+    <string name="onboarding_desc_2">Робозвонки, мошенники и телемаркетинг отсекаются ещё до первого гудка.</string>
+    <string name="onboarding_title_3">Проверьте любой номер</string>
+    <string name="onboarding_desc_3">Введите номер и за секунды узнайте имя, регион оператора и компанию.</string>
+    <string name="onboarding_get_started">Начать</string>
+
+    <!-- Home -->
+    <string name="home_title">Вы под защитой</string>
+    <string name="home_subtitle">Определитель номера и блокировка спама работают</string>
+    <string name="home_greeting">Доброе утро</string>
+    <string name="home_search_hint">Введите имя или номер…</string>
+    <string name="home_protection_active">Защита активна</string>
+    <string name="home_blocked">Заблокировано</string>
+    <string name="home_spam">Спам</string>
+    <string name="home_recent_activity">Недавние действия</string>
+    <string name="see_all">Показать все</string>
+
+    <!-- Quick actions -->
+    <string name="quick_dialer">Набор</string>
+    <string name="quick_lookup">Поиск</string>
+    <string name="quick_blocklist">Чёрный список</string>
+    <string name="quick_tools">Инструменты</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">Главная</string>
+    <string name="nav_recents">Недавние</string>
+    <string name="nav_contacts">Контакты</string>
+    <string name="nav_lookup">Поиск</string>
+    <string name="nav_settings">Настройки</string>
+
+    <!-- Recents -->
+    <string name="recents_today">Сегодня</string>
+    <string name="recents_yesterday">Вчера</string>
+    <string name="recents_this_week">На этой неделе</string>
+    <string name="recents_earlier">Ранее</string>
+    <string name="recents_empty">Нет недавних звонков</string>
+
+    <!-- Call filters -->
+    <string name="filter_all">Все</string>
+    <string name="filter_incoming">Входящие</string>
+    <string name="filter_outgoing">Исходящие</string>
+    <string name="filter_missed">Пропущенные</string>
+
+    <!-- Call type labels -->
+    <string name="type_incoming">Входящий</string>
+    <string name="type_outgoing">Исходящий</string>
+    <string name="type_missed">Пропущенный</string>
+    <string name="type_blocked">Заблокирован</string>
+
+    <!-- Call log permission -->
+    <string name="perm_calllog_title">Показать историю звонков</string>
+    <string name="perm_calllog_message">Callora нужен доступ к журналу вызовов, чтобы показать ваши звонки.</string>
+    <string name="action_grant">Разрешить доступ</string>
+
+    <!-- Lookup -->
+    <string name="lookup_hint">Введите номер телефона</string>
+    <string name="lookup_verified_business">Проверенная компания</string>
+    <string name="lookup_organization">Организация</string>
+    <string name="lookup_location">Местоположение</string>
+    <string name="lookup_spam_risk">Риск спама</string>
+    <string name="action_call">Позвонить</string>
+    <string name="action_save">Сохранить</string>
+    <string name="lookup_idle_hint">Введите номер телефона, чтобы определить звонящего</string>
+    <string name="lookup_unknown_caller">Неизвестный абонент</string>
+    <string name="lookup_in_contacts">В ваших контактах</string>
+    <string name="lookup_not_in_contacts">Нет в ваших контактах</string>
+    <string name="lookup_status">Статус</string>
+    <string name="lookup_region">Регион</string>
+    <string name="lookup_local_number">Местный номер</string>
+    <string name="lookup_international">Международный</string>
+    <string name="lookup_carrier">Оператор</string>
+
+    <!-- Contacts -->
+    <string name="contacts_search_hint">Поиск контактов</string>
+    <string name="contacts_empty">Контакты не найдены</string>
+    <string name="perm_contacts_title">Свяжите имена с номерами</string>
+    <string name="perm_contacts_message">Callora нужен доступ к контактам, чтобы подписывать звонки сохранёнными именами.</string>
+
+    <!-- Settings actions -->
+    <string name="language_dialog_title">Выберите язык</string>
+    <string name="blocklist_add">Добавить номер</string>
+    <string name="blocklist_empty">Пока нет заблокированных номеров</string>
+    <string name="blocklist_add_title">Заблокировать номер</string>
+    <string name="blocklist_add_hint">Введите номер телефона</string>
+    <string name="blocklist_added">Номер заблокирован</string>
+    <string name="blocklist_removed">Номер удалён</string>
+    <string name="blocklist_remove_title">Удалить из чёрного списка?</string>
+    <string name="action_add">Добавить</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="action_remove">Удалить</string>
+
+    <!-- Settings -->
+    <string name="settings_language">Язык</string>
+    <string name="settings_language_sub">Выберите язык приложения</string>
+    <string name="settings_blocklist">Чёрный список</string>
+    <string name="settings_blocklist_sub">Заблокированные вами номера</string>
+    <string name="settings_protection">Защита от спама</string>
+    <string name="settings_protection_sub">Определитель номера и блокировка спама</string>
+    <string name="settings_theme">Тема</string>
+    <string name="settings_theme_sub">Светлая, тёмная или системная</string>
+    <string name="theme_dialog_title">Выбор темы</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Тёмная</string>
+    <string name="theme_system">Как в системе</string>
+
+    <!-- Call states -->
+    <string name="call_incoming">Входящий звонок…</string>
+    <string name="call_decline">Отклонить</string>
+    <string name="call_accept">Принять</string>
+    <string name="call_message">Сообщение</string>
+    <string name="call_identified">Определено CallerID</string>
+    <string name="label_spam">Спам</string>
+    <string name="label_verified">Проверено</string>
+
+    <!-- Added translations -->
+    <string name="app_name_overlay">Callora</string>
+    <string name="overlay_guide_desc">Найдите Callora в списке ниже и включите переключатель.</string>
+    <string name="overlay_guide_row_hint">Нажмите, чтобы включить</string>
+    <string name="overlay_guide_dismiss">Нажмите в любом месте, чтобы закрыть</string>
+    <string name="onboarding_spam_id">Определение спама</string>
+    <string name="onboarding_caller_id">Определитель номера</string>
+    <string name="number_lookup">Поиск номера</string>
+    <string name="enter_a_number">Введите номер</string>
+    <string name="search_global_caller_db">Поиск в глобальной базе</string>
+    <string name="lookup_action">Поиск</string>
+    <string name="select_country">Выберите страну</string>
+    <string name="search_country">Поиск страны</string>
+    <string name="show_full_detail">Показать подробности</string>
+    <string name="empty_search_hint">Найдите номер, чтобы увидеть детали</string>
+    <string name="recent_lookups">Недавние запросы</string>
+    <string name="clear_all">Очистить все</string>
+    <string name="lookup_valid_number">Действительный номер</string>
+    <string name="lookup_invalid_number">Недействительный номер</string>
+    <string name="lookup_country">Страна</string>
+    <string name="lookup_line_type">Тип линии</string>
+    <string name="dialer_title">Набор</string>
+    <string name="dialer_search_hint">Поиск или ввод номера</string>
+    <string name="dialer_frequent">Частые вызовы</string>
+    <string name="dialer_empty">Пока нет истории звонков</string>
+    <string name="dialer_backspace">Удалить</string>
+    <string name="add_to_contacts">Добавить в контакты</string>
+    <string name="blocklist_title">Активность черного списка</string>
+    <string name="blocklist_total">Всего заблокировано</string>
+    <string name="blocklist_entry_title">Заблокированный номер</string>
+    <string name="blocklist_status_blocked">Заблокирован</string>
+    <string name="blocklist_more_options">Ещё</string>
+    <string name="blocklist_view_details">Подробнее</string>
+    <string name="blocklist_unblock">Разблокировать</string>
+    <string name="blocklist_report">Пожаловаться</string>
+    <string name="blocklist_reported">Жалоба отправлена. Спасибо за отзыв.</string>
+    <string name="blocklist_details_title">Заблокированный номер</string>
+    <string name="blocklist_details_added">Заблокирован %1$s</string>
+    <string name="blocklist_section_latest">НЕДАВНО</string>
+    <string name="blocklist_section_yesterday">ВЧЕРА</string>
+    <string name="blocklist_section_earlier">РАНЕЕ</string>
+    <string name="tools_title">Инструменты</string>
+    <string name="tools_compass">Компас</string>
+    <string name="tools_compass_sub">Найдите магнитный север</string>
+    <string name="tools_speedometer">Спидометр</string>
+    <string name="tools_speedometer_sub">Текущая скорость по GPS</string>
+    <string name="compass_no_sensor">Датчик компаса недоступен на этом устройстве</string>
+    <string name="speedometer_unit">км/ч</string>
+    <string name="speedometer_waiting">Ожидание GPS…</string>
+    <string name="speedometer_permission">Для измерения скорости нужен доступ к геолокации</string>
+    <string name="cardinal_n">С</string>
+    <string name="cardinal_e">В</string>
+    <string name="cardinal_s">Ю</string>
+    <string name="cardinal_w">З</string>
+    <string name="tools_flashlight">Фонарик</string>
+    <string name="tools_flashlight_sub">Свет и SOS</string>
+    <string name="flashlight_on">Свет включен</string>
+    <string name="flashlight_off">Свет выключен</string>
+    <string name="flashlight_sos">SOS</string>
+    <string name="flashlight_no_flash">На этом устройстве нет вспышки</string>
+    <string name="tools_level">Уровень</string>
+    <string name="tools_level_sub">Проверьте, ровная ли поверхность</string>
+    <string name="tools_battery">Батарея</string>
+    <string name="tools_battery_sub">Заряд и состояние</string>
+    <string name="battery_level">Заряд</string>
+    <string name="battery_status">Статус</string>
+    <string name="battery_health">Состояние</string>
+    <string name="battery_temp">Температура</string>
+    <string name="battery_voltage">Напряжение</string>
+    <string name="battery_tech">Технология</string>
+    <string name="battery_plugged">Источник питания</string>
+    <string name="tools_sound">Шумомер</string>
+    <string name="tools_sound_sub">Измерьте уровень шума</string>
+    <string name="sound_unit">дБ</string>
+    <string name="sound_permission">Для измерения звука нужен доступ к микрофону</string>
+    <string name="tools_sim">Сведения о сети</string>
+    <string name="tools_sim_sub">Данные SIM и оператора</string>
+    <string name="sim_carrier">Оператор</string>
+    <string name="sim_network_type">Тип сети</string>
+    <string name="sim_phone_type">Тип телефона</string>
+    <string name="sim_country">Страна</string>
+    <string name="sim_state">Состояние SIM</string>
+    <string name="sim_roaming">Роуминг</string>
+    <string name="sim_permission">Для сведений о сети нужен доступ к телефону</string>
+    <string name="tools_light">Люксметр</string>
+    <string name="tools_light_sub">Освещённость в люксах</string>
+    <string name="light_unit">лк</string>
+    <string name="light_no_sensor">Датчик света недоступен на этом устройстве</string>
+    <string name="tools_stopwatch">Секундомер</string>
+    <string name="tools_stopwatch_sub">Секундомер и таймер</string>
+    <string name="mode_stopwatch">Секундомер</string>
+    <string name="mode_timer">Таймер</string>
+    <string name="action_start">Старт</string>
+    <string name="action_pause">Пауза</string>
+    <string name="action_reset">Сброс</string>
+    <string name="common_yes">Да</string>
+    <string name="common_no">Нет</string>
+    <string name="common_unknown">Неизвестно</string>
+    <string name="press_back_again">Нажмите «Назад» ещё раз для выхода</string>
+    <string name="exit_dialog_title">Закрыть приложение?</string>
+    <string name="exit_dialog_desc">Вы уверены, что хотите выйти?</string>
+    <string name="exit_dialog_positive">Выйти</string>
+    <string name="exit_dialog_negative">Отмена</string>
+    <string name="perm_allow">Включить</string>
+    <string name="action_close">Закрыть</string>
+    <string name="settings_section_preferences">Настройки</string>
+    <string name="settings_section_support">Аккаунт и поддержка</string>
+    <string name="settings_section_legal">Правовая информация</string>
+    <string name="settings_sim">Управление SIM</string>
+    <string name="settings_sim_sub">Настройки сети и оператора</string>
+    <string name="settings_rate">Оцените нас</string>
+    <string name="settings_rate_sub">Нравится приложение? Расскажите нам.</string>
+    <string name="settings_share">Поделиться</string>
+    <string name="settings_share_sub">Пригласите друзей защитить их цифровую жизнь.</string>
+    <string name="settings_share_text">Определяйте неизвестные номера и блокируйте спам с Caller ID Phone Lookup: https://play.google.com/store/apps/details?id=%1$s</string>
+    <string name="settings_privacy">Политика конфиденциальности</string>
+    <string name="settings_terms">Условия использования</string>
+    <string name="settings_privacy_url">https://sites.google.com/view/calleridphonelookup/privacy</string>
+    <string name="settings_terms_url">https://sites.google.com/view/calleridphonelookup/terms</string>
+    <plurals name="blocklist_entries">
+        <item quantity="one">%d запись</item>
+        <item quantity="few">%d записи</item>
+        <item quantity="many">%d записей</item>
+        <item quantity="other">%d записи</item>
+    </plurals>
+    <plurals name="dialer_call_count">
+        <item quantity="one">%d звонок</item>
+        <item quantity="few">%d звонка</item>
+        <item quantity="many">%d звонков</item>
+        <item quantity="other">%d звонка</item>
+    </plurals>
+    <plurals name="blocklist_blocked_count">
+        <item quantity="one">%1$d номер заблокирован</item>
+        <item quantity="few">%1$d номера заблокировано</item>
+        <item quantity="many">%1$d номеров заблокировано</item>
+        <item quantity="other">%1$d номера заблокировано</item>
+    </plurals>
+    <plurals name="lookup_more_names">
+        <item quantity="one">%1$d имя</item>
+        <item quantity="few">ещё %1$d имени</item>
+        <item quantity="many">ещё %1$d имён</item>
+        <item quantity="other">ещё %1$d имени</item>
+    </plurals>
+    <plurals name="recents_call_count">
+        <item quantity="one">%1$d звонок</item>
+        <item quantity="few">%1$d звонка</item>
+        <item quantity="many">%1$d звонков</item>
+        <item quantity="other">%1$d звонка</item>
+    </plurals>
+    <string name="battery_activity_title">Информация о батарее</string>
+
+    <!-- Localization batch: ru -->
+    <string name="app_label"> Callora: Поиск номера</string>
+    <string name="home_brand">Callora</string>
+    <string name="home_brand_sub">Определитель и антиспам</string>
+    <string name="home_quick_actions">Быстрые действия</string>
+    <string name="overlay_banner_desc">Показывать информацию о звонящем поверх других приложений</string>
+    <string name="recents_subtitle">История ваших звонков</string>
+    <string name="contacts_count_fmt">Контактов: %1$d</string>
+    <string name="action_more">Ещё</string>
+    <string name="recents_search_hint">Поиск звонков</string>
+
+    <!-- Recents sort menu -->
+    <string name="sort_title">Сортировать по</string>
+    <string name="sort_newest">Сначала новые</string>
+    <string name="sort_oldest">Сначала старые</string>
+    <string name="sort_name_asc">Имя (А–Я)</string>
+    <string name="sort_name_desc">Имя (Я–А)</string>
+
+    <!-- Lookup -->
+    <string name="lookup_detail_title">Сведения о номере</string>
+    <string name="lookup_city">Город</string>
+    <string name="lookup_spam_type">Тип спама</string>
+    <string name="lookup_subtitle">Определяйте любой номер по всему миру</string>
+    <string name="lookup_search_hint">Поиск номера</string>
+    <string name="lookup_search_number">Найти номер</string>
+    <string name="lookup_pick_contact">Выбрать из контактов</string>
+    <string name="action_settings">Настройки</string>
+    <string name="lookup_history_title">История поиска</string>
+    <string name="lookup_history_empty">Пока нет недавних запросов</string>
+    <string name="action_back">Назад</string>
+
+    <!-- Call details -->
+    <string name="call_detail_title">Сведения о звонке</string>
+    <string name="action_message">Сообщение</string>
+    <string name="action_block">Заблокировать</string>
+    <string name="action_unblock">Разблокировать</string>
+    <string name="lookup_also_known_as">Также известен как</string>
+    <string name="lookup_nickname_bullet">•  %1$s</string>
+    <string name="lookup_unlock_nicknames">Смотреть рекламу, чтобы открыть</string>
+    <string name="lookup_unknown_value">Неизвестно</string>
+    <string name="watch_ad_title">Открыть полную карточку</string>
+    <string name="watch_ad_message">Посмотрите короткую рекламу, чтобы увидеть полное имя и данные.</string>
+    <string name="watch_ad_button">Смотреть рекламу</string>
+    <string name="watch_ad_cancel">Не сейчас</string>
+    <string name="action_whatsapp">WhatsApp</string>
+    <string name="whatsapp_not_installed">WhatsApp не установлен</string>
+    <string name="detail_verified">Проверено</string>
+    <string name="detail_line_mobile">Мобильный</string>
+    <string name="detail_total_duration">Общая длительность</string>
+    <string name="detail_total_calls">Всего звонков</string>
+    <string name="detail_total_sub">Общее время разговоров за месяц</string>
+    <string name="detail_call_history">История звонков</string>
+    <string name="detail_last_30">Последние 30 дней</string>
+    <string name="detail_calls_outgoing">Только исходящие</string>
+    <string name="detail_calls_incoming">Только входящие</string>
+    <string name="detail_calls_missed">Только пропущенные</string>
+    <string name="detail_calls_mixed">Смешанные звонки</string>
+    <string name="detail_calls_none">Нет недавних звонков</string>
+    <string name="detail_view_all">Показать всю историю</string>
+    <string name="detail_secure">Защищено</string>
+    <string name="detail_no_connection">Нет соединения</string>
+    <string name="detail_today">Сегодня, %1$s</string>
+    <string name="detail_yesterday">Вчера, %1$s</string>
+    <string name="detail_dot_join">%1$s · %2$s</string>
+
+    <!-- Dialer -->
+    <string name="dialer_search_contacts">Поиск контактов</string>
+    <string name="dialer_favorites">Избранное</string>
+    <string name="dialer_view_all">Показать все</string>
+    <string name="dialer_voice_search">Голосовой поиск</string>
+
+    <!-- Blocklist -->
+    <string name="blocklist_empty_subtitle">Отклоняйте звонки с определённых номеров или по шаблонам</string>
+    <string name="blocklist_choose_title">Заблокировать номер</string>
+    <string name="blocklist_method_add_title">Добавить номер</string>
+    <string name="blocklist_method_add_sub">Ввести вручную</string>
+    <string name="blocklist_method_contacts_title">Из контактов</string>
+    <string name="blocklist_method_contacts_sub">Выберите кого-то из контактов</string>
+    <string name="blocklist_method_recents_title">Из недавних звонков</string>
+    <string name="blocklist_method_recents_sub">Выберите из журнала звонков</string>
+    <string name="blocklist_pick_recents_title">Недавние звонки</string>
+    <string name="blocklist_no_recents">Недавние звонки не найдены</string>
+    <string name="blocklist_contact_no_number">Не удалось прочитать номер этого контакта</string>
+    <string name="blocklist_already_blocked">Уже заблокирован</string>
+    <string name="blocklist_perm_calllog">Для выбора недавних звонков нужен доступ к журналу звонков</string>
+    <string name="blocklist_pick_contacts_title">Контакты</string>
+    <string name="blocklist_no_contacts">Контакты не найдены</string>
+    <string name="blocklist_perm_contacts">Для выбора контакта нужен доступ к контактам</string>
+
+    <!-- Tools: compass / signal -->
+    <string name="compass_activity_title">Компас</string>
+    <string name="compass_signal">Уровень сигнала: %1$s</string>
+    <string name="signal_strong">Сильный</string>
+    <string name="signal_medium">Средний</string>
+    <string name="signal_weak">Слабый</string>
+
+    <!-- Speed test -->
+    <string name="speedtest_pill">Квантово-устойчивый AES-512</string>
+    <string name="speedtest_stable">Защищённое соединение стабильно</string>
+    <string name="speedtest_error">Ошибка соединения — нажмите, чтобы повторить</string>
+    <string name="speedtest_upload">Скорость отдачи</string>
+    <string name="speedtest_latency">Задержка</string>
+    <string name="speedtest_jitter">Джиттер</string>
+    <string name="speedtest_again">Повторить тест</string>
+    <string name="speedtest_mbps">%1$s Mbps</string>
+    <string name="speedtest_ms">%1$d ms</string>
+
+    <!-- Flashlight -->
+    <string name="flashlight_integrity">Целостность оборудования: проверено</string>
+    <string name="flashlight_lumen">Световой поток</string>
+    <string name="flashlight_brightness">Регулировка яркости</string>
+    <string name="flashlight_mode_steady">Постоянный</string>
+    <string name="flashlight_mode_strobe">Стробоскоп</string>
+    <string name="flashlight_lm">%1$d lm</string>
+
+    <!-- Bubble level -->
+    <string name="level_current_tilt">Текущий наклон</string>
+    <string name="level_dual_axis">Данные по двум осям</string>
+    <string name="level_x_axis">X-Axis</string>
+    <string name="level_y_axis">Y-Axis</string>
+    <string name="level_calibrate">Калибровать</string>
+    <string name="level_adjusting">Настройка</string>
+    <string name="level_level">Ровно</string>
+
+    <!-- Battery -->
+    <string name="battery_activity_sub">Отслеживайте энергопотребление и целостность оборудования. Просматривайте производительность в реальном времени и статусы защищённого подключения.</string>
+    <string name="battery_secured">Защищено и оптимизируется</string>
+    <string name="battery_health_great">Отличное</string>
+    <string name="battery_health_hot">Перегрев</string>
+    <string name="battery_health_cold">Переохлаждение</string>
+    <string name="battery_health_dead">Неисправна</string>
+    <string name="battery_health_over">Перенапряжение</string>
+
+    <!-- Sound meter -->
+    <string name="sound_peak">Пиковый уровень</string>
+    <string name="sound_average">Средний уровень</string>
+    <string name="sound_spectrum">Частотный спектр</string>
+    <string name="sound_hold">Зафиксировать показание</string>
+    <string name="sound_resume">Продолжить</string>
+    <string name="sound_reset">Сбросить данные</string>
+    <string name="sound_cat_quiet">Тихо</string>
+    <string name="sound_cat_normal">Обычный разговор</string>
+    <string name="sound_cat_loud">Громко</string>
+    <string name="sound_cat_very_loud">Очень громко</string>
+    <string name="sound_cat_dangerous">Опасно</string>
+
+    <!-- Light meter -->
+    <string name="light_capture">Снимок</string>
+    <string name="light_resume">Продолжить</string>
+    <string name="light_zero">Обнулить</string>
+    <string name="light_min">Минимум</string>
+    <string name="light_avg">Среднее</string>
+    <string name="light_max">Максимум</string>
+    <string name="light_lx">%1$d lx</string>
+
+    <!-- Stopwatch -->
+    <string name="stopwatch_active">Активная сессия</string>
+    <string name="stopwatch_lap">Круг</string>
+    <string name="stopwatch_history">История кругов</string>
+    <string name="stopwatch_laps">Кругов: %1$d</string>
+    <string name="stopwatch_empty">Нет данных о кругах для текущей сессии.</string>
+    <string name="stopwatch_total">Всего записей</string>
+    <string name="stopwatch_lap_n">Круг %1$d</string>
+
+    <!-- Timer -->
+    <string name="timer_tool">Таймер</string>
+    <string name="timer_tool_sub">Таймер обратного отсчёта</string>
+    <string name="timer_minutes">Минуты</string>
+    <string name="timer_seconds">Секунды</string>
+
+    <!-- Incoming-call overlay -->
+    <string name="incall_incoming">Входящий вызов</string>
+    <string name="incall_known">Известный контакт</string>
+    <string name="incall_unknown">Неизвестно</string>
+    <string name="incall_now">Сейчас</string>
+    <string name="incall_calls">%1$d звонков</string>
+    <string name="incall_service_active">Определитель номера активен</string>
+
+    <!-- Contacts tabs -->
+    <string name="contacts_tab_all">Все</string>
+    <string name="contacts_tab_favorites">Избранное</string>
+    <string name="contacts_tab_recents">Недавние</string>
+    <string name="contacts_tab_groups">Группы</string>
+
+    <!-- Settings -->
+    <string name="call_screening">Наложение определителя номера</string>
+    <string name="call_screening_desc">Показывать информацию о звонящем во время вызовов</string>
+    <string name="settings_section_call">ЗАЩИТА ОТ ЗВОНКОВ</string>
+
+    <!-- Call states -->
+    <string name="please_wait">Подождите...</string>
+
+    <!-- Post-call (callback) screen -->
+    <string name="pc_recent_calls_empty">Нет недавних звонков</string>
+    <string name="recent">Недавние</string>
+    <string name="message">Сообщение</string>
+    <string name="reminder">Напоминание</string>
+    <string name="whatsapp">WhatsApp</string>
+    <string name="save">Сохранить</string>
+    <string name="cancel">Отмена</string>
+    <string name="add_reminder">Добавить напоминание</string>
+    <string name="no_reminders_found">Напоминания не найдены</string>
+    <string name="reminder_prompt">Напомнить о</string>
+    <string name="reminder_name_hint">День рождения</string>
+    <string name="message_custom_hint">Напишите своё сообщение</string>
+    <string name="call_duration_label">Длительность:</string>
+    <string name="call_type_outgoing">Исходящий</string>
+    <string name="incoming_call">Входящий вызов</string>
+    <string name="outgoing_call">Исходящий вызов</string>
+    <string name="missed_call">Пропущенный вызов</string>
+    <string name="feature_send_email">Отправить e-mail</string>
+    <string name="feature_calendar">Добавить в календарь</string>
+    <string name="feature_web">Открыть сайт</string>
+    <string name="feature_edit_contact">Изменить контакт</string>
+
+    <!-- Home search-bar one-time hint -->
+    <string name="search_hint_tip">Введите здесь любой номер, чтобы определить звонящего</string>
+    <string name="got_it">Понятно</string>
+
+    <!-- App-redirect dialog -->
+    <string name="app_unavailable">Приложение недоступно</string>
+    <string name="app_redirect_desc">Это приложение не установлено на вашем устройстве. Открыть его в Play Store?</string>
+    <string name="call_screening_hint_tip">Включите, чтобы видеть, кто звонит, и блокировать спам</string>
+    <!-- FSI intro Activity/Dialog + Home permission hint -->
+    <string name="home_perm_hint">Некоторые разрешения ещё выключены. Включите их для полного определителя.</string>
+    <string name="home_perm_manage">Управлять</string>
+    <string name="fsi_incoming_call">Входящий вызов</string>
+    <string name="fsi_avatar_initials">ID</string>
+    <string name="fsi_caller_unknown">Неизвестный</string>
+    <string name="fsi_caller_number">+91 70967 *****</string>
+    <string name="fsi_known_contact">Известный контакт</string>
+    <string name="fsi_meta_now">Сейчас</string>
+    <string name="fsi_meta_calls">68 вызовов</string>
+    <string name="fsi_meta_sim">JIO 4G</string>
+    <string name="fsi_screen_title">Смотрите, кто звонит, на экране блокировки</string>
+    <string name="fsi_screen_desc">Callora выводит проверенные данные звонящего поверх экрана блокировки сразу при вызове.</string>
+    <string name="fsi_feature_identify">Дайте имя неизвестным номерам</string>
+    <string name="fsi_feature_spam">Замечайте мошенников с первого взгляда</string>
+    <string name="fsi_feature_missed">Перестаньте пропускать важные звонки</string>
+    <string name="fsi_enable_now">Включить</string>
+    <string name="fsi_not_now">Не сейчас</string>
+
+    <!-- Quick-action / reminder toasts -->
+    <string name="toast_no_number">Нет номера для вызова</string>
+    <string name="toast_no_whatsapp">WhatsApp не установлен</string>
+    <string name="toast_pick_message">Сначала напишите или выберите сообщение</string>
+    <string name="toast_no_sms_app">Нет приложения для сообщений</string>
+    <string name="toast_no_contacts_app">Нет приложения контактов</string>
+    <string name="toast_no_share_app">Нет приложения, способного отправить</string>
+    <string name="toast_no_calendar_app">Нет приложения календаря</string>
+    <string name="toast_calendar_failed">Календарь не открылся</string>
+    <string name="toast_no_browser_app">Нет браузера</string>
+    <string name="toast_need_title">Дайте напоминанию название</string>
+    <string name="toast_need_future_time">Выберите время в будущем</string>
+
+    <!-- Splash · onboarding · home -->
+    <string name="splash_incoming_call">Входящий вызов…</string>
+    <string name="splash_fraud_blocked">Мошенник заблокирован</string>
+    <string name="splash_secure_version">Защищено v%1$s</string>
+    <string name="language_all">Все языки</string>
+    <string name="onb_incoming_call">Входящий вызов</string>
+    <string name="onb_business_verified">Компания · Проверено</string>
+    <string name="onb_blocked_call">Заблокированный вызов</string>
+    <string name="onb_unknown_number">Неизвестный номер</string>
+    <string name="onb_spam_robocall">Спам · Робозвонок</string>
+    <string name="onb_auto_blocked">Заблокировано автоматически</string>
+    <string name="onb_caller_found">Абонент найден</string>
+    <string name="home_see_all">Показать все</string>
+    <string name="home_protection_line">Защита включена · мошеннические вызовы блокируются</string>
+    <string name="home_caller_id">Определитель номера</string>
+    <string name="home_protection_off_title">Защита выключена</string>
+    <string name="home_protection_off_sub">Спам-звонки будут звонить как обычно</string>
+    <string name="home_protection_on_title">Защита включена</string>
+    <string name="home_protection_on_sub">Спам-звонки блокируются автоматически</string>
+    <string name="home_protection_turn_on">Включить</string>
+    <string name="home_protection_manage">Настроить</string>
+    <string name="home_whos_calling">Кто звонит?</string>
+    <string name="home_whos_calling_sub">Найдите любой номер, чтобы узнать неизвестного абонента</string>
+    <string name="home_search_any">Найти любой номер</string>
+    <string name="home_recent_label">Недавние</string>
+    <string name="nav_blocklist">Блокировка</string>
+    <string name="nav_tools">Инструменты</string>
+
+    <!-- Lookup · call detail · dialer · speed test · flashlight · battery -->
+    <string name="lookup_empty_cta">Найти номер</string>
+    <string name="lookup_paste">Вставить</string>
+    <string name="action_share">Поделиться</string>
+    <string name="detail_calls_word">вызовов</string>
+    <string name="detail_no_talk_time">Нет времени разговора</string>
+    <string name="detail_not_answered">Без ответа</string>
+    <string name="detail_not_identified">Пока не определён</string>
+    <string name="detail_identify">Определить этот номер</string>
+    <string name="detail_today_short">Сегодня</string>
+    <string name="detail_yesterday_short">Вчера</string>
+    <string name="dialer_matches">Совпадения</string>
+    <string name="speedtest_download">Загрузка</string>
+    <string name="speedtest_ping">Пинг</string>
+    <string name="speedtest_history">Прошлые результаты</string>
+    <string name="flashlight_state_on">Фонарик включён</string>
+    <string name="flashlight_state_off">Фонарик выключен</string>
+    <string name="flashlight_brightness_short">Яркость</string>
+    <string name="battery_section_now">Прямо сейчас</string>
+    <string name="battery_section_details">Подробности</string>
+    <string name="battery_screen_on">Экран активен</string>
+    <string name="battery_capacity">Ёмкость</string>
+    <string name="battery_charging">Заряжается</string>
+    <string name="battery_discharging">От батареи</string>
+    <string name="battery_full">Заряжена</string>
+    <string name="battery_saver">Настройки батареи</string>
+    <string name="stopwatch_hm_fmt">%1$d ч %2$d мин</string>
+
+    <!-- Lookup empty · call history · dialer · SIM · stopwatch · timer · recents -->
+    <string name="lookup_empty_title">Узнайте, кому принадлежит любой номер</string>
+    <string name="lookup_empty_sub">Ваши запросы появятся здесь. Ничего не передаётся номерам, которые вы ищете.</string>
+    <string name="lookup_empty_body">Ваши запросы появятся здесь. Ничего не передаётся номерам, которые вы ищете.</string>
+    <string name="detail_history_empty_title">С этим номером пока нет вызовов</string>
+    <string name="detail_history_empty_sub">Когда вы позвоните на этот номер или получите вызов, история появится здесь.</string>
+    <string name="dialer_empty_title">Наберите номер, чтобы начать</string>
+    <string name="dialer_empty_sub">Часто набираемые номера появятся здесь для звонка в одно касание.</string>
+    <string name="flashlight_tap_hint">Нажмите кнопку, чтобы включить или выключить фонарик</string>
+    <string name="sim_section_carrier">SIM и оператор</string>
+    <string name="sim_section_connection">Подключение</string>
+    <string name="sim_signal">Уровень сигнала</string>
+    <string name="sim_ip">IP-адрес</string>
+    <string name="sim_connected">Подключено</string>
+    <string name="sim_no_service">Нет сети</string>
+    <string name="sim_run_speed_test">Проверить скорость</string>
+    <string name="sim_refresh">Обновить</string>
+    <string name="stopwatch_running">Идёт отсчёт</string>
+    <string name="stopwatch_paused">Пауза</string>
+    <string name="stopwatch_ready">Готово</string>
+    <string name="timer_of">из %1$s</string>
+    <string name="timer_alert_title">Сигнал по окончании</string>
+    <string name="timer_alert_sub">Звук · вибрация</string>
+    <string name="timer_preset_min">%1$d мин</string>
+    <string name="timer_add_minute">Добавить минуту</string>
+    <string name="recents_counts_fmt">%1$s · %2$d пропущено</string>
+
+    <!-- Blocklist · lookup detail -->
+    <string name="blocklist_add_sub">Они не смогут вам позвонить</string>
+    <string name="blocklist_from_recents">Из недавних</string>
+    <string name="blocklist_country_code">Код страны</string>
+    <string name="blocklist_enable_cid_title">Включить определитель</string>
+    <string name="blocklist_enable_cid_message">Включите определитель номера, чтобы управлять заблокированными номерами и всеми функциями блокировки.</string>
+    <string name="blocklist_enable_cid_confirm">Включить определитель</string>
+    <string name="blocklist_enable_cid_not_now">Не сейчас</string>
+    <string name="blocklist_enable_cid_hint_label">Следующий шаг — включите это</string>
+    <string name="blocklist_enable_cid_hint_sub">Сделать приложением определителя</string>
+    <string name="blocklist_section_blocked">Заблокированные номера</string>
+    <string name="blocklist_summary_sub">Входящие вызовы с этих номеров отклоняются автоматически</string>
+    <string name="blocklist_unknown_caller">Неизвестный абонент</string>
+    <string name="action_identify">Определить</string>
+    <string name="lookup_revealed">Показано</string>
+    <string name="lookup_reveal">Показать</string>
+    <string name="lookup_nick_footer">Одна реклама открывает одно имя · открытые имена остаются доступными</string>
+    <string name="lookup_x_of_n_revealed">Показано %1$d из %2$d</string>
+    <string name="lookup_header_sub">Ищите любой номер в любой стране</string>
+    <string name="lookup_kicker">Поиск номера</string>
+    <string name="lookup_privacy">Поиски приватны и никогда не показываются абоненту</string>
+
+    <!-- Tools · permission sheet -->
+    <string name="tools_search_hint">Поиск инструментов</string>
+    <string name="tools_cat_measure">Измерение</string>
+    <string name="tools_cat_device">Устройство</string>
+    <string name="tools_cat_time">Время</string>
+    <string name="tools_empty_title">Нет инструментов по запросу \"%1$s\"</string>
+    <string name="tools_empty_sub">Попробуйте \"уровень\" или \"компас\" — либо посмотрите весь список.</string>
+    <string name="tools_reset_search">Сбросить поиск</string>
+    <string name="tools_clear_search">Очистить поиск</string>
+    <string name="perm_sheet_title">Включите разрешения</string>
+    <string name="perm_sheet_subtitle">Определителю номера, предупреждениям о спаме и истории вызовов нужно по одному разрешению.</string>
+    <string name="perm_sheet_continue">Продолжить</string>
+    <string name="perm_sheet_not_now">Не сейчас</string>
+    <string name="permsheet_allow">Разрешить</string>
+    <string name="perm_granted">Разрешено</string>
+    <string name="perm_notification_title">Уведомления</string>
+    <string name="perm_notification_desc">Получайте оповещения о спаме и вызовах</string>
+    <string name="perm_phone_title">Телефон</string>
+    <string name="perm_phone_desc">Определять входящие вызовы</string>
+    <string name="permsheet_calllog_title">Журнал вызовов</string>
+    <string name="perm_calllog_desc">Показывать недавние вызовы</string>
+    <string name="permsheet_contacts_title">Контакты</string>
+    <string name="perm_contacts_desc">Сопоставлять имена с номерами</string>
+    <string name="perm_overlay_title">Поверх других приложений</string>
+    <string name="perm_overlay_desc">Показывать определитель во время вызова</string>
+
+    <!-- Light meter · sound meter · bubble level -->
+    <string name="light_band_dark">Темно</string>
+    <string name="light_band_dim">Тускло</string>
+    <string name="light_band_indoor">В помещении</string>
+    <string name="light_band_bright">Ярко</string>
+    <string name="light_band_sun">Солнце</string>
+    <string name="light_lowest">Минимум</string>
+    <string name="light_highest">Максимум</string>
+    <string name="meter_pause">Приостановить измерение</string>
+    <string name="meter_resume">Продолжить измерение</string>
+    <string name="sound_min">Мин</string>
+    <string name="sound_avg">Сред</string>
+    <string name="sound_max">Макс</string>
+    <string name="sound_window">30 с назад</string>
+    <string name="sound_now">сейчас</string>
+    <string name="level_roll">Крен</string>
+    <string name="level_pitch">Тангаж</string>
+    <string name="level_hint">Положите телефон плашмя на поверхность</string>
+</resources>

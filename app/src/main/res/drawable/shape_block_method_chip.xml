@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Icon chip on a "block by…" row. Soft brand tint with the glyph drawn in the
+    brand colour, matching the add-number dialog — the saturated gradient tiles
+    this replaced put three loud, unrelated hues on what is one set of choices.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#246D3BE8" />
+    <corners android:radius="@dimen/_12sdp" />
+</shape>

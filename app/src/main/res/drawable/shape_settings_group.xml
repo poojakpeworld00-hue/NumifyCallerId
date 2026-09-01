@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Container that groups related setting rows. The rows themselves are
+     background-less so the group reads as one card with hairlines inside it,
+     rather than a stack of separate boxes. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/surface" />
+    <corners android:radius="@dimen/_18sdp" />
+</shape>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- "Known Contact" green verified chip on the caller-ID card. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#DDF2E7" />
+    <corners android:radius="@dimen/_40sdp" />
+</shape>

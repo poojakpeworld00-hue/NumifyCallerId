@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?><!-- The caller-ID card shown on an incoming call. Used both as a floating
+     WindowManager overlay (device unlocked) and inside IncomingCallActivity
+     (device locked). Plain layout (no data-binding) — bound via findViewById. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/incallCardVw"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_card"
+    android:elevation="@dimen/_8sdp"
+    android:orientation="vertical">
+
+    <!-- Header: blue strip with title + close -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_incall_header"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/_14sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingEnd="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_10sdp">
+
+        <ImageView
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:contentDescription="@string/incall_incoming"
+            android:src="@drawable/glyph_phone_in_talk"
+            app:tint="@color/primary" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_weight="1"
+            android:text="@string/incall_incoming"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/padIncallClose"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:contentDescription="@string/action_close"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/glyph_close"
+            android:tint="@color/white" />
+    </LinearLayout>
+
+    <!-- Identity row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/_14sdp">
+
+        <TextView
+            android:id="@+id/lblIncallAvatar"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:background="@drawable/shape_avatar"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_17ssp"
+            android:textStyle="bold"
+            tools:text="ID" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lblIncallName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"
+                tools:text="Unknown" />
+
+            <TextView
+                android:id="@+id/lblIncallNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_12ssp"
+                tools:text="+91 70967 04911" />
+
+            <TextView
+                android:id="@+id/lblIncallStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@drawable/shape_pill"
+                android:backgroundTint="@color/success_soft"
+                android:drawablePadding="@dimen/_4sdp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_3sdp"
+                android:textColor="@color/success"
+                android:textSize="@dimen/_9ssp"
+                android:textStyle="bold"
+                tools:text="Known Contact" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:background="@color/neutral_soft" />
+
+    <!-- Stats footer: last-seen / call count / network -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:paddingVertical="@dimen/_12sdp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_14sdp"
+                android:layout_height="@dimen/_14sdp"
+                android:src="@drawable/glyph_history"
+                android:tint="@color/on_surface_variant" />
+
+            <TextView
+                android:id="@+id/lblIncallWhen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_10ssp"
+                tools:text="Now" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_14sdp"
+                android:layout_height="@dimen/_14sdp"
+                android:src="@drawable/glyph_call_received"
+                android:tint="@color/on_surface_variant" />
+
+            <TextView
+                android:id="@+id/lblIncallCalls"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_10ssp"
+                tools:text="68 calls" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_14sdp"
+                android:layout_height="@dimen/_14sdp"
+                android:src="@drawable/glyph_sim_card_alt"
+                android:tint="@color/on_surface_variant" />
+
+            <TextView
+                android:id="@+id/lblIncallNetwork"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_10ssp"
+                tools:text="JIO 4G" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

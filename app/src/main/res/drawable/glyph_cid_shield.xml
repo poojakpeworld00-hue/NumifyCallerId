@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Caller-ID shield with a checkmark. The checkmark path is named "check" and
+    starts fully drawn (trimPathEnd=1) so it is visible even without the
+    animated-vector; avd_cid_shield animates it drawing in from 0→1.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="30dp"
+    android:height="30dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <path
+        android:fillColor="@color/fsi_icon_blue"
+        android:pathData="M12,2l8,3.5v5.2c0,5 -3.4,9.6 -8,11.3c-4.6,-1.7 -8,-6.3 -8,-11.3V5.5L12,2z" />
+
+    <path
+        android:name="check"
+        android:pathData="M8.6,12.2l2.3,2.3l4.5,-4.8"
+        android:strokeColor="@color/cid_shield_check"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:trimPathStart="0"
+        android:trimPathEnd="1" />
+</vector>

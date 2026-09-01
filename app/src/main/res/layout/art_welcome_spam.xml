@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Onboarding step 2 — "Block spam & fraud".
+
+    A blocked spam call on one elevated card (obCard · obFloat). A live dot pushes
+    out a ring (obRing1 · obPulse), the shield disc breathes (obShield), the red
+    block badge pops onto it (obChip · obPop) and the AUTO-BLOCKED stamp lands
+    (obStamp).
+
+    Ids are the contract with WelcomeAnimations.attach() — renaming one silently
+    drops that loop.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <ImageView
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_gravity="center"
+        android:contentDescription="@null"
+        android:src="@drawable/shape_onb_halo_red" />
+
+    <LinearLayout
+        android:id="@+id/obCardVw"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_182sdp"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_onb_card_spam"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="@dimen/_8sdp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:outlineAmbientShadowColor="@color/card_shadow"
+        android:outlineSpotShadowColor="@color/card_shadow"
+        android:paddingHorizontal="@dimen/_16sdp"
+        android:paddingTop="@dimen/_14sdp"
+        android:paddingBottom="@dimen/_12sdp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_10sdp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <!-- Two rings, 900ms apart, so the dot reads as a repeating pulse
+                     rather than a single blink. -->
+                <View
+                    android:id="@+id/obRing1Vw"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_onb_pulse_spam" />
+
+                <View
+                    android:id="@+id/obRing2Vw"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_onb_pulse_spam" />
+
+                <View
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_5sdp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_onb_dot_spam" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.1"
+                android:text="@string/onb_blocked_call"
+                android:textAllCaps="true"
+                android:textColor="@color/spam_on"
+                android:textSize="@dimen/_7ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Shield disc + block badge. -->
+        <FrameLayout
+            android:layout_width="@dimen/_54sdp"
+            android:layout_height="@dimen/_54sdp"
+            android:layout_marginTop="@dimen/_11sdp"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <FrameLayout
+                android:id="@+id/obShieldVw"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_onb_circle_spam">
+
+                <ImageView
+                    android:layout_width="@dimen/_27sdp"
+                    android:layout_height="@dimen/_27sdp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/glyph_ob_shield_spam" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/obChipVw"
+                android:layout_width="@dimen/_21sdp"
+                android:layout_height="@dimen/_21sdp"
+                android:layout_gravity="bottom|end"
+                android:background="@drawable/shape_onb_badge_spam">
+
+                <ImageView
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/glyph_ob_x" />
+            </FrameLayout>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:includeFontPadding="false"
+            android:text="@string/onb_unknown_number"
+            android:textColor="@color/on_surface"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/shape_onb_chip_spam"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.03"
+            android:paddingHorizontal="@dimen/_7sdp"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/onb_spam_robocall"
+                android:textAllCaps="true"
+            android:textColor="@color/spam_on"
+            android:textSize="@dimen/_7ssp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/obStampVw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_onb_pill_spam"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.04"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            android:text="@string/onb_auto_blocked"
+                android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_8ssp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</FrameLayout>

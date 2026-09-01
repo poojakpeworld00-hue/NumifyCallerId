@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Permission priming bottom sheet: grabber · title/subtitle · a scrollable
+     list of permission rows (added at runtime) · Continue button. Compact so it
+     stays roughly half-height; the row list scrolls if it ever overflows. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_overlay_sheet"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/_16sdp"
+    android:paddingTop="@dimen/_8sdp"
+    android:paddingBottom="@dimen/_14sdp">
+
+    <View
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_4sdp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/shape_sheet_grabber" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/perm_sheet_title"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:text="@string/perm_sheet_subtitle"
+        android:textColor="@color/on_surface_variant"
+        android:textSize="@dimen/_10ssp" />
+
+    <!-- Permission rows are inflated into containerRows at runtime. The scroll
+         view keeps the sheet bounded on small screens. -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/rowsScrollVw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/holderRows"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/padContinue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="@drawable/shape_btn_primary"
+        android:gravity="center"
+        android:paddingVertical="@dimen/_11sdp"
+        android:text="@string/perm_sheet_continue"
+        android:textColor="@color/on_primary"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/padNotNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:paddingHorizontal="@dimen/_16sdp"
+        android:paddingVertical="@dimen/_7sdp"
+        android:text="@string/perm_sheet_not_now"
+        android:textColor="@color/on_surface_variant"
+        android:textSize="@dimen/_11ssp"
+        android:textStyle="bold" />
+
+</LinearLayout>

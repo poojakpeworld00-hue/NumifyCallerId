@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Onboarding "Say Goodbye to Spam" illustration, matching the ConnectPro design:
+    a floating white card with a red block badge, a faded call row and a
+    highlighted "Blocked" call row, plus a floating "Spam ID" chip.
+    Standalone asset — not wired into any layout.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="280dp"
+    android:height="280dp"
+    android:viewportWidth="320"
+    android:viewportHeight="320">
+
+    <!-- Card -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#C1C6D6"
+        android:strokeWidth="1.5"
+        android:pathData="M80,34 h160 a34,34 0 0 1 34,34 v182 a34,34 0 0 1 -34,34 h-160 a34,34 0 0 1 -34,-34 v-182 a34,34 0 0 1 34,-34 z" />
+
+    <!-- Red badge circle -->
+    <path
+        android:fillColor="#FFDAD6"
+        android:pathData="M122,96 a38,38 0 1 0 76,0 a38,38 0 1 0 -76,0 z" />
+
+    <!-- Block icon (ring + slash) -->
+    <path
+        android:strokeColor="#BA1A1A"
+        android:strokeWidth="5"
+        android:pathData="M141,96 a19,19 0 1 0 38,0 a19,19 0 1 0 -38,0 z" />
+    <path
+        android:strokeColor="#BA1A1A"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:pathData="M147,83 L173,109" />
+
+    <!-- Row 1 (faded) -->
+    <path
+        android:fillColor="#F3F4F5"
+        android:pathData="M92,160 h136 a14,14 0 0 1 14,14 v12 a14,14 0 0 1 -14,14 h-136 a14,14 0 0 1 -14,-14 v-12 a14,14 0 0 1 14,-14 z" />
+    <path
+        android:fillColor="#DDE0E6"
+        android:pathData="M87,180 a11,11 0 1 0 22,0 a11,11 0 1 0 -22,0 z" />
+    <path
+        android:fillColor="#C1C6D6"
+        android:pathData="M124,176 h72 a4,4 0 0 1 0,8 h-72 a4,4 0 0 1 0,-8 z" />
+
+    <!-- Row 2 (highlighted / blocked) -->
+    <path
+        android:fillColor="#F3F4F5"
+        android:strokeColor="#1A73E8"
+        android:strokeWidth="1.5"
+        android:pathData="M92,212 h136 a14,14 0 0 1 14,14 v18 a14,14 0 0 1 -14,14 h-136 a14,14 0 0 1 -14,-14 v-18 a14,14 0 0 1 14,-14 z" />
+    <path
+        android:fillColor="#D8E2FF"
+        android:pathData="M86,235 a12,12 0 1 0 24,0 a12,12 0 1 0 -24,0 z" />
+    <path
+        android:fillColor="#1A73E8"
+        android:pathData="M93,235 a5,5 0 1 0 10,0 a5,5 0 1 0 -10,0 z" />
+    <path
+        android:fillColor="#1A73E8"
+        android:pathData="M126,228 h56 a4,4 0 0 1 0,8 h-56 a4,4 0 0 1 0,-8 z" />
+    <path
+        android:fillColor="#C1C6D6"
+        android:pathData="M125.5,242 h33 a3.5,3.5 0 0 1 0,7 h-33 a3.5,3.5 0 0 1 0,-7 z" />
+    <path
+        android:fillColor="#BA1A1A"
+        android:pathData="M205,231 h24 a5,5 0 0 1 0,10 h-24 a5,5 0 0 1 0,-10 z" />
+
+    <!-- Floating "Spam ID" chip -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#C1C6D6"
+        android:strokeWidth="1.2"
+        android:pathData="M224,40 h56 a18,18 0 0 1 18,18 v4 a18,18 0 0 1 -18,18 h-56 a18,18 0 0 1 -18,-18 v-4 a18,18 0 0 1 18,-18 z" />
+    <path
+        android:fillColor="#9E4300"
+        android:pathData="M218,60 a8,8 0 1 0 16,0 a8,8 0 1 0 -16,0 z" />
+    <path
+        android:fillColor="#414754"
+        android:pathData="M248,56 h36 a4,4 0 0 1 0,8 h-36 a4,4 0 0 1 0,-8 z" />
+
+</vector>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Enable-Caller-ID bottom sheet (design: "Enable Caller ID Dialog").
+    Shown from the Block List when the CallScreening role is off. The sheet springs
+    up over a dimmed scrim; the shield pops with a pulse ring + drawing checkmark,
+    a "next step" hint strip previews the system toggle, and the CTA breathes.
+    Animations are wired in BlocklistActivity.animateEnableCallerIdDialog().
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_cid_sheet"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/_22sdp"
+    android:paddingTop="@dimen/_22sdp"
+    android:paddingBottom="@dimen/_16sdp">
+
+    <!-- Shield tile with pulse ring -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/shieldRingVw"
+            android:layout_width="@dimen/_52sdp"
+            android:layout_height="@dimen/_52sdp"
+            android:layout_gravity="center"
+            android:background="@drawable/shape_cid_ring" />
+
+        <FrameLayout
+            android:id="@+id/shieldTileVw"
+            android:layout_width="@dimen/_52sdp"
+            android:layout_height="@dimen/_52sdp"
+            android:layout_gravity="center"
+            android:background="@drawable/shape_cid_shield_tile">
+
+            <ImageView
+                android:id="@+id/shieldIconVw"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/blocklist_enable_cid_title"
+                android:src="@drawable/glyph_cid_shield" />
+        </FrameLayout>
+    </FrameLayout>
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_14sdp"
+        android:letterSpacing="-0.01"
+        android:text="@string/blocklist_enable_cid_title"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold" />
+
+    <!-- Description -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:lineSpacingMultiplier="1.35"
+        android:text="@string/blocklist_enable_cid_message"
+        android:textColor="@color/fsi_subtitle"
+        android:textSize="@dimen/_12ssp" />
+
+    <!-- "Next step" hint strip: previews the system Caller-ID toggle -->
+    <LinearLayout
+        android:id="@+id/tipStrip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="@drawable/shape_cid_hint"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:letterSpacing="0.08"
+            android:text="@string/blocklist_enable_cid_hint_label"
+            android:textAllCaps="true"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/_8ssp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_14sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_12sdp">
+
+            <!-- App-icon tile -->
+            <FrameLayout
+                android:layout_width="@dimen/_34sdp"
+                android:layout_height="@dimen/_34sdp"
+                android:background="@drawable/shape_cid_app_icon">
+
+                <ImageView
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/glyph_call"
+                    app:tint="@color/white" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/app_name"
+                    android:textColor="@color/on_surface"
+                    android:textSize="@dimen/_11ssp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:text="@string/blocklist_enable_cid_hint_sub"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="@dimen/_9ssp" />
+            </LinearLayout>
+
+            <!-- Demo toggle (animated off→on in code) -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/flipRipple"
+                    android:layout_width="@dimen/_44sdp"
+                    android:layout_height="@dimen/_44sdp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_cid_toggle_ripple" />
+
+                <View
+                    android:id="@+id/flipTrack"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_cid_toggle_track"
+                    android:backgroundTint="@color/cid_toggle_off" />
+
+                <View
+                    android:id="@+id/flipThumb"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:background="@drawable/shape_cid_toggle_thumb" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Actions -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:gravity="end|center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/padNotNow"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_44sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:text="@string/blocklist_enable_cid_not_now"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/_13ssp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/padEnable"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_44sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:background="@drawable/shape_cid_cta"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_22sdp"
+            android:text="@string/blocklist_enable_cid_confirm"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

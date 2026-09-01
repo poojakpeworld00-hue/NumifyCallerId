@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Translucent radar sweep sector, rotated in code around the search icon. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="130dp"
+    android:height="130dp"
+    android:viewportWidth="130"
+    android:viewportHeight="130">
+    <path
+        android:pathData="M65,65 L65,3 A62,62 0 0 1 123.3,43.8 Z"
+        android:fillColor="#406D3BE8" />
+</vector>

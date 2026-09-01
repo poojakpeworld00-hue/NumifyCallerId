@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/_8sdp"
+    android:paddingVertical="@dimen/_12sdp">
+
+    <ImageView
+        android:id="@+id/picCheck"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:contentDescription="@null"
+        android:src="@drawable/shape_radio_unselected" />
+
+    <TextView
+        android:id="@+id/lblOption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_weight="1"
+        android:fontFamily="@font/figtree_medium"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/_12ssp" />
+
+</LinearLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Concentric "radar" rings + a faint vertical scan line, centered. White
+     strokes at low alpha over the blue splash gradient. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="320dp"
+    android:viewportWidth="320"
+    android:viewportHeight="320">
+
+    <!-- vertical scan line -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1"
+        android:strokeAlpha="0.18"
+        android:pathData="M160,6 L160,314" />
+
+    <!-- ring r=48 -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.45"
+        android:pathData="M112,160 a48,48 0 1,0 96,0 a48,48 0 1,0 -96,0 z" />
+
+    <!-- ring r=92 -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.32"
+        android:pathData="M68,160 a92,92 0 1,0 184,0 a92,92 0 1,0 -184,0 z" />
+
+    <!-- ring r=134 -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.22"
+        android:pathData="M26,160 a134,134 0 1,0 268,0 a134,134 0 1,0 -268,0 z" />
+
+    <!-- ring r=158 (outer, faintest) -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.14"
+        android:pathData="M2,160 a158,158 0 1,0 316,0 a158,158 0 1,0 -316,0 z" />
+</vector>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Splash footer "secure" mark. Stroke-only and single-colour on purpose: the
+    footer tints it, and a filled shield would need a knocked-out check, which
+    goes invisible the moment the backdrop colour changes between themes.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="@color/splash_sl_footer">
+
+    <path
+        android:fillColor="@android:color/transparent"
+        android:pathData="M12,2.6 L19.2,5.8 L19.2,10.6 C19.2,15.2 16.1,19.4 12,21 C7.9,19.4 4.8,15.2 4.8,10.6 L4.8,5.8 Z"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineJoin="round"
+        android:strokeWidth="1.9" />
+    <path
+        android:pathData="M9,11.9 L11.2,14.1 L15.2,9.9"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="1.9" />
+</vector>

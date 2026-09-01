@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The "block a number" form body: header, the number row (country chip + field),
+    and the two shortcut chips that fill that field.
+
+    Shared by the add dialog and the blocklist's empty state so the two cannot
+    drift apart. It carries no card background and no confirm button — those
+    belong to the host, because the dialog needs Cancel beside Block and the
+    empty state does not.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- ===== Header ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/_38sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:background="@drawable/shape_block_icon_chip"
+            android:contentDescription="@null"
+            android:padding="@dimen/_9sdp"
+            android:src="@drawable/glyph_block_circle"
+            app:tint="@color/danger" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@string/blocklist_add_title"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:includeFontPadding="false"
+                android:text="@string/blocklist_add_sub"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_10ssp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ===== Number row: country chip + field ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_44sdp"
+        android:layout_marginTop="@dimen/_14sdp"
+        android:background="@drawable/shape_block_field"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/_6sdp"
+        android:paddingEnd="@dimen/_12sdp">
+
+        <LinearLayout
+            android:id="@+id/padCountryVw"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_32sdp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:contentDescription="@string/blocklist_country_code"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_6sdp">
+
+            <!-- Fixed height + centre gravity on both: an emoji flag's font
+                 metrics do not match the Latin dial code beside it, so with
+                 wrap_content the two optical centres never line up. -->
+            <TextView
+                android:id="@+id/lblFlag"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_22sdp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textSize="@dimen/_11ssp"
+                tools:text="🇮🇳" />
+
+            <TextView
+                android:id="@+id/lblDialCode"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                tools:text="+91" />
+
+            <ImageView
+                android:layout_width="@dimen/_12sdp"
+                android:layout_height="@dimen/_12sdp"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/glyph_caret_down"
+                app:tint="@color/on_surface_variant" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/inpNumber"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/blocklist_add_hint"
+            android:importantForAutofill="no"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/on_surface"
+            android:textColorHint="@color/on_surface_variant"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/_12ssp" />
+    </LinearLayout>
+
+    <!-- ===== Fill-from shortcuts ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/padFromContactsVw"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_block_source_chip"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_14sdp"
+                android:layout_height="@dimen/_14sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/glyph_group"
+                app:tint="@color/primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="@string/blocklist_method_contacts_title"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_11ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/padFromRecentsVw"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_block_source_chip"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_14sdp"
+                android:layout_height="@dimen/_14sdp"
+                android:contentDescription="@null"
+                android:src="@drawable/glyph_history"
+                app:tint="@color/primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="@string/blocklist_from_recents"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_11ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

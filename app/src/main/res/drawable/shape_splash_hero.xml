@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The one hero gradient. Colors flip light/dark via values(-night)/colors.xml. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:startColor="@color/splash_grad_start"
+        android:centerColor="@color/splash_grad_center"
+        android:endColor="@color/splash_grad_end"
+        android:type="linear" />
+</shape>

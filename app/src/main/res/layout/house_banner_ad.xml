@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainlnr"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_50sdp"
+    android:background="@color/white"
+    android:gravity="start|center_vertical"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/only_banner_logo"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/img_promo" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/glyph_ad" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="15sp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/only_banner_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/figtree_medium"
+                android:lines="1"
+
+                android:text="Win 50000 Coins on Qureka"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/only_banner_desc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/figtree_medium"
+                android:gravity="top"
+
+                android:lines="1"
+                android:text="Win 50000 Coins Daily"
+                android:textColor="#808080"
+                android:textSize="@dimen/_8sdp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/only_banner_button"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:background="@drawable/shape_btn_primary"
+        android:backgroundTint="@color/primary"
+        android:fontFamily="@font/figtree_medium"
+        android:gravity="center"
+        android:lines="1"
+        android:text="Install"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_12sdp" />
+</LinearLayout>

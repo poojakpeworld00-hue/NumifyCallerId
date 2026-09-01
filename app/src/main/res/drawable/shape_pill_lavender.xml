@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tonal (primary-container) pill — e.g. the dialer "Add to contacts" chip. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/primary_container" />
+    <corners android:radius="100dp" />
+</shape>

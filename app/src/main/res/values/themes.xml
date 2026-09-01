@@ -1,0 +1,35 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.CallerIDPhoneLookup" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- App-wide Poppins font (regular 400) -->
+        <item name="android:fontFamily">@font/figtree_regular</item>
+        <item name="fontFamily">@font/figtree_regular</item>
+
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorSurface">@color/background</item>
+
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:navigationBarColor">@color/background</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+    </style>
+
+    <style name="Theme.CallerIDPhoneLookup" parent="Base.Theme.CallerIDPhoneLookup" />
+
+    <!--
+        Transparent host for the overlay-permission guide. The window is
+        translucent so the screen behind shows through, with a system-applied
+        dim to focus attention on the bottom guide card.
+    -->
+    <style name="Theme.OverlayGuide" parent="Theme.CallerIDPhoneLookup">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+</resources>

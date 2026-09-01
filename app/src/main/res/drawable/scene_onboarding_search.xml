@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Onboarding "Search any number" illustration (matching the spam card style). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="280dp"
+    android:height="280dp"
+    android:viewportWidth="320"
+    android:viewportHeight="320">
+
+    <!-- Card -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#C1C6D6"
+        android:strokeWidth="1.5"
+        android:pathData="M80,34 h160 a34,34 0 0 1 34,34 v182 a34,34 0 0 1 -34,34 h-160 a34,34 0 0 1 -34,-34 v-182 a34,34 0 0 1 34,-34 z" />
+
+    <!-- Primary badge circle -->
+    <path
+        android:fillColor="#D8E2FF"
+        android:pathData="M122,96 a38,38 0 1 0 76,0 a38,38 0 1 0 -76,0 z" />
+
+    <!-- Search glyph -->
+    <group
+        android:scaleX="2.4"
+        android:scaleY="2.4"
+        android:translateX="131.2"
+        android:translateY="67.2">
+        <path
+            android:fillColor="#005BBF"
+            android:pathData="M15.5,14h-0.79l-0.28,-0.27C15.41,12.59 16,11.11 16,9.5 16,5.91 13.09,3 9.5,3S3,5.91 3,9.5 5.91,16 9.5,16c1.61,0 3.09,-0.59 4.23,-1.57l0.27,0.28v0.79l5,4.99L20.49,19l-4.99,-5zM9.5,14C7.01,14 5,11.99 5,9.5S7.01,5 9.5,5 14,7.01 14,9.5 11.99,14 9.5,14z" />
+    </group>
+
+    <!-- Row 1 (search field) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#C1C6D6"
+        android:strokeWidth="1.5"
+        android:pathData="M92,160 h136 a14,14 0 0 1 14,14 v16 a14,14 0 0 1 -14,14 h-136 a14,14 0 0 1 -14,-14 v-16 a14,14 0 0 1 14,-14 z" />
+    <path
+        android:strokeColor="#1A73E8"
+        android:strokeWidth="3"
+        android:pathData="M95,180 a7,7 0 1 0 14,0 a7,7 0 1 0 -14,0 z" />
+    <path
+        android:strokeColor="#1A73E8"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M107,185 L113,191" />
+    <path
+        android:fillColor="#C1C6D6"
+        android:pathData="M126,178 h74 a4,4 0 0 1 0,8 h-74 a4,4 0 0 1 0,-8 z" />
+
+    <!-- Row 2 (result) -->
+    <path
+        android:fillColor="#F3F4F5"
+        android:pathData="M92,214 h136 a14,14 0 0 1 14,14 v12 a14,14 0 0 1 -14,14 h-136 a14,14 0 0 1 -14,-14 v-12 a14,14 0 0 1 14,-14 z" />
+    <path
+        android:fillColor="#D8E2FF"
+        android:pathData="M87,234 a11,11 0 1 0 22,0 a11,11 0 1 0 -22,0 z" />
+    <path
+        android:fillColor="#1A73E8"
+        android:pathData="M124,229 h58 a4,4 0 0 1 0,8 h-58 a4,4 0 0 1 0,-8 z" />
+    <path
+        android:fillColor="#C1C6D6"
+        android:pathData="M124,241 h34 a3,3 0 0 1 0,6 h-34 a3,3 0 0 1 0,-6 z" />
+
+    <!-- Floating "Lookup" chip -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#C1C6D6"
+        android:strokeWidth="1.2"
+        android:pathData="M224,40 h56 a18,18 0 0 1 18,18 v4 a18,18 0 0 1 -18,18 h-56 a18,18 0 0 1 -18,-18 v-4 a18,18 0 0 1 18,-18 z" />
+    <path
+        android:fillColor="#005BBF"
+        android:pathData="M218,60 a8,8 0 1 0 16,0 a8,8 0 1 0 -16,0 z" />
+    <path
+        android:fillColor="#414754"
+        android:pathData="M248,56 h36 a4,4 0 0 1 0,8 h-36 a4,4 0 0 1 0,-8 z" />
+
+</vector>

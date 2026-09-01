@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/_14sdp"
+    android:paddingVertical="@dimen/_10sdp">
+
+    <TextView
+        android:id="@+id/lblSortLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/_12ssp"
+        tools:text="Newest first" />
+
+    <ImageView
+        android:id="@+id/picSortCheck"
+        android:layout_width="@dimen/_16sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:contentDescription="@string/sort_title"
+        android:src="@drawable/glyph_check"
+        android:visibility="invisible"
+        app:tint="@color/primary" />
+</LinearLayout>

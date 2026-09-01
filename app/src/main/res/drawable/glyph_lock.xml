@@ -1,0 +1,13 @@
+<!-- Locked (padlock) — Also-known-as rows, per Claude Design. Tintable. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="M7,10.5 h10 a2,2 0 0,1 2,2 v6 a2,2 0 0,1 -2,2 h-10 a2,2 0 0,1 -2,-2 v-6 a2,2 0 0,1 2,-2 z M8,10.5 V7 a4,4 0 1,1 8,0 v3.5"
+        android:strokeColor="@color/on_surface_variant"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

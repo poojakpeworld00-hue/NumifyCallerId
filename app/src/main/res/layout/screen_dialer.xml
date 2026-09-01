@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dialerRootVw"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        tools:context=".screen.keypad.KeypadActivity">
+
+        <!-- Top bar -->
+        <LinearLayout
+            android:id="@+id/crownBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/padBack"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/action_back"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/glyph_arrow_back"
+                app:tint="@color/on_surface" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text="@string/dialer_title"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_16ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Match block — bottom-aligned so it hugs the keypad sheet like the design -->
+        <LinearLayout
+            android:id="@+id/matchesContainerVw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@id/dialpadPanelVw"
+            app:layout_constraintTop_toBottomOf="@id/crownBar"
+            app:layout_constraintVertical_bias="1">
+
+            <!-- Section label — shown while matches exist -->
+            <TextView
+                android:id="@+id/lblMatchesLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:letterSpacing="0.08"
+                android:text="@string/dialer_matches"
+                android:textAllCaps="true"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_9ssp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <!-- Match list (vertical, filtered by the dialed number) -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rollFrequent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/_16sdp"
+                android:paddingTop="@dimen/_2sdp"
+                android:paddingBottom="@dimen/_8sdp"
+                tools:listitem="@layout/cell_frequent" />
+        </LinearLayout>
+
+        <!-- Zero-state (no dialed number / no matches) -->
+        <LinearLayout
+            android:id="@+id/lblEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_40sdp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/dialpadPanelVw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/crownBar">
+
+            <ImageView
+                android:layout_width="@dimen/_64sdp"
+                android:layout_height="@dimen/_64sdp"
+                android:background="@drawable/shape_circle_surface"
+                android:contentDescription="@null"
+                android:padding="@dimen/_18sdp"
+                android:src="@drawable/glyph_dialpad"
+                app:tint="@color/on_surface_variant" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:gravity="center"
+                android:text="@string/dialer_empty_title"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.15"
+                android:text="@string/dialer_empty_sub"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+
+        <!-- Bottom dial pad + call -->
+        <LinearLayout
+            android:id="@+id/dialpadPanelVw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_dialer_sheet"
+            android:elevation="@dimen/_6sdp"
+            android:orientation="vertical"
+            android:outlineAmbientShadowColor="@color/card_shadow"
+            android:outlineSpotShadowColor="@color/card_shadow"
+            android:paddingHorizontal="@dimen/_18sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <!-- Number display. An EditText (not a TextView) so it shows a blinking
+                 cursor, but the on-screen keypad is the only input: the soft keyboard
+                 is suppressed (showSoftInputOnFocus=false) and it's not directly
+                 editable. Selection is kept at the end from code. -->
+            <EditText
+                android:id="@+id/lblDialNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:fontFamily="monospace"
+                android:gravity="center"
+                android:importantForAutofill="no"
+                android:inputType="phone"
+                android:letterSpacing="0.04"
+                android:maxLines="1"
+                android:textColor="@color/on_surface"
+                android:textColorHint="@color/on_surface_variant"
+                android:textSize="@dimen/_20ssp"
+                android:textStyle="bold"
+                tools:ignore="LabelFor"
+                tools:text="+1 234 567" />
+
+            <!-- Add to Contacts -->
+            <LinearLayout
+                android:id="@+id/rowAddContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:background="@drawable/shape_pill_lavender"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_12sdp"
+                android:paddingVertical="@dimen/_5sdp"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:layout_width="@dimen/_13sdp"
+                    android:layout_height="@dimen/_13sdp"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:contentDescription="@string/add_to_contacts"
+                    android:src="@drawable/glyph_person_add"
+                    app:tint="@color/on_primary_container" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_to_contacts"
+                    android:textColor="@color/on_primary_container"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <GridLayout
+                android:id="@+id/gridKeypadVw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="3"
+                android:rowCount="4"
+                android:useDefaultMargins="false">
+
+                <LinearLayout style="@style/DialKey" android:tag="1">
+                    <TextView style="@style/DialKeyDigit" android:text="1" />
+                    <TextView style="@style/DialKeyLetters" android:text="" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/DialKey" android:tag="2">
+                    <TextView style="@style/DialKeyDigit" android:text="2" />
+                    <TextView style="@style/DialKeyLetters" android:text="ABC" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/DialKey" android:tag="3">
+                    <TextView style="@style/DialKeyDigit" android:text="3" />
+                    <TextView style="@style/DialKeyLetters" android:text="DEF" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/DialKey" android:tag="4">
+                    <TextView style="@style/DialKeyDigit" android:text="4" />
+                    <TextView style="@style/DialKeyLetters" android:text="GHI" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/DialKey" android:tag="5">
+                    <TextView style="@style/DialKeyDigit" android:text="5" />
+                    <TextView style="@style/DialKeyLetters" android:text="JKL" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/DialKey" android:tag="6">
+                    <TextView style="@style/DialKeyDigit" android:text="6" />
+                    <TextView style="@style/DialKeyLetters" android:text="MNO" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/DialKey" android:tag="7">
+                    <TextView style="@style/DialKeyDigit" android:text="7" />
+                    <TextView style="@style/DialKeyLetters" android:text="PQRS" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/DialKey" android:tag="8">
+                    <TextView style="@style/DialKeyDigit" android:text="8" />
+                    <TextView style="@style/DialKeyLetters" android:text="TUV" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/DialKey" android:tag="9">
+                    <TextView style="@style/DialKeyDigit" android:text="9" />
+                    <TextView style="@style/DialKeyLetters" android:text="WXYZ" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/DialKey" android:tag="*">
+                    <TextView style="@style/DialKeyDigit" android:text="*" />
+                    <TextView style="@style/DialKeyLetters" android:text="" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/DialKey" android:tag="0">
+                    <TextView style="@style/DialKeyDigit" android:text="0" />
+                    <TextView style="@style/DialKeyLetters" android:text="+" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/DialKey" android:tag="#">
+                    <TextView style="@style/DialKeyDigit" android:text="#" />
+                    <TextView style="@style/DialKeyLetters" android:text="" />
+                </LinearLayout>
+            </GridLayout>
+
+            <!-- Call pill + backspace row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/padDialCall"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_46sdp"
+                    android:minWidth="@dimen/_130sdp"
+                    android:paddingHorizontal="@dimen/_24sdp"
+                    android:text="@string/action_call"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/primary"
+                    app:cornerRadius="@dimen/_24sdp"
+                    app:icon="@drawable/glyph_call"
+                    app:iconGravity="textStart"
+                    app:iconSize="@dimen/_18sdp"
+                    app:iconTint="@color/white" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/padBackspace"
+                        android:layout_width="@dimen/_44sdp"
+                        android:layout_height="@dimen/_44sdp"
+                        android:layout_gravity="center"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/dialer_backspace"
+                        android:padding="@dimen/_11sdp"
+                        android:src="@drawable/glyph_backspace"
+                        android:visibility="invisible"
+                        app:tint="@color/on_surface_variant" />
+                </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

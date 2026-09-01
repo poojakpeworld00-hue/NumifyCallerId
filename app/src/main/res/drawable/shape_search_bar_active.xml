@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tools search field · pill, focused/typing state (2dp accent ring). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/surface" />
+    <corners android:radius="@dimen/_100sdp" />
+    <stroke
+        android:width="2dp"
+        android:color="@color/on_primary_container" />
+</shape>

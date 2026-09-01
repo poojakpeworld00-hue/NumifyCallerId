@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One-line summary above a detail card ("59 calls · 12m talk time"). Fully
+     rounded so it reads as a caption on the record, not another card. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/surface" />
+    <corners android:radius="100dp" />
+</shape>

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/settingsRootVw"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        tools:context=".screen.prefs.PreferencesActivity">
+
+        <!-- Top bar -->
+        <LinearLayout
+            android:id="@+id/crownBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_8sdp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/padBack"
+                android:layout_width="@dimen/_34sdp"
+                android:layout_height="@dimen/_34sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/onboarding_skip"
+                android:padding="@dimen/_7sdp"
+                android:src="@drawable/glyph_arrow_back"
+                app:tint="@color/on_surface" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:text="@string/nav_settings"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/settingsScrollVw"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_20sdp"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintTop_toBottomOf="@id/crownBar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutAnimation="@anim/tool_layout_in"
+                android:orientation="vertical">
+
+                <!-- Native ad at the top of the settings list -->
+                <FrameLayout
+                    android:id="@+id/adNativeFrameVw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/adShimmerVw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#ccc">
+
+                        <include layout="@layout/gads_mid_native" />
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </FrameLayout>
+
+                <!-- ===== Preferences ===== -->
+                <LinearLayout style="@style/SettingsSectionRow">
+
+                    <TextView
+                        style="@style/SettingsSectionLabel"
+                        android:text="@string/settings_section_preferences" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:background="@color/outline" />
+                </LinearLayout>
+
+                <!-- Theme: the row names the current choice, the segmented control
+                     under it changes it. Kept in its own card because it is the one
+                     setting here that is chosen in place rather than navigated to. -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_settings_group"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:paddingVertical="@dimen/_12sdp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_34sdp"
+                            android:layout_height="@dimen/_34sdp"
+                            android:background="@drawable/shape_cid_chip_brand"
+                            android:contentDescription="@null"
+                            android:padding="@dimen/_8sdp"
+                            android:src="@drawable/glyph_theme_system"
+                            app:tint="@color/primary" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:includeFontPadding="false"
+                                android:text="@string/settings_theme"
+                                android:textColor="@color/on_surface"
+                                android:textSize="@dimen/_12ssp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/lblThemeValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_1sdp"
+                                android:includeFontPadding="false"
+                                android:textColor="@color/on_surface_variant"
+                                android:textSize="@dimen/_10ssp"
+                                tools:text="Light" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <include
+                        android:id="@+id/panelTheme"
+                        layout="@layout/cell_pref_theme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                      />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/SettingsGroupCard"
+                    android:layout_marginTop="@dimen/_10sdp">
+
+                    <include
+                        android:id="@+id/panelLanguage"
+                        layout="@layout/cell_setting_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <View style="@style/SettingsRowDivider" />
+
+                    <include
+                        android:id="@+id/panelBlocklist"
+                        layout="@layout/cell_setting_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <View style="@style/SettingsRowDivider" />
+
+                    <include
+                        android:id="@+id/panelSim"
+                        layout="@layout/cell_setting_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <!-- ===== Caller protection =====
+                     Header + card are hidden together with panelCallScreening
+                     (PreferencesActivity.refreshCallScreeningCard) — the card is
+                     the section's only row, so leaving them behind renders an
+                     empty white bar under the heading once Caller ID is on. -->
+                <LinearLayout
+                    android:id="@+id/secCallHeaderVw"
+                    style="@style/SettingsSectionRow">
+
+                    <TextView
+                        style="@style/SettingsSectionLabel"
+                        android:text="@string/settings_section_call" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:background="@color/outline" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/secCallCardVw"
+                    style="@style/SettingsGroupCard">
+
+                    <LinearLayout
+                        android:id="@+id/panelCallScreening"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:paddingVertical="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_34sdp"
+                            android:layout_height="@dimen/_34sdp"
+                            android:background="@drawable/shape_cid_chip_teal"
+                            android:contentDescription="@null"
+                            android:padding="@dimen/_8sdp"
+                            android:src="@drawable/glyph_phone_in_talk"
+                            app:tint="@color/cid_teal" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:includeFontPadding="false"
+                                android:text="@string/call_screening"
+                                android:textColor="@color/on_surface"
+                                android:textSize="@dimen/_12ssp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_1sdp"
+                                android:includeFontPadding="false"
+                                android:text="@string/call_screening_desc"
+                                android:textColor="@color/on_surface_variant"
+                                android:textSize="@dimen/_10ssp" />
+                        </LinearLayout>
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/swcCallScreening"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ===== Account & support ===== -->
+                <LinearLayout style="@style/SettingsSectionRow">
+
+                    <TextView
+                        style="@style/SettingsSectionLabel"
+                        android:text="@string/settings_section_support" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:background="@color/outline" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/SettingsGroupCard">
+
+                    <include
+                        android:id="@+id/rowRateVw"
+                        layout="@layout/cell_setting_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <View
+                        android:id="@+id/rateDividerVw"
+                        style="@style/SettingsRowDivider" />
+
+                    <include
+                        android:id="@+id/rowShareVw"
+                        layout="@layout/cell_setting_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <!-- ===== Legal ===== -->
+                <LinearLayout style="@style/SettingsSectionRow">
+
+                    <TextView
+                        style="@style/SettingsSectionLabel"
+                        android:text="@string/settings_section_legal" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:background="@color/outline" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/SettingsGroupCard">
+
+                    <include
+                        android:id="@+id/rowPrivacyVw"
+                        layout="@layout/cell_setting_legal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <View style="@style/SettingsRowDivider" />
+
+                    <include
+                        android:id="@+id/rowTermsVw"
+                        layout="@layout/cell_setting_legal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/lblVersion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:gravity="center"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="@dimen/_10ssp"
+                    tools:text="Callora · v1.2" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- Full-bleed hairline separating app content from the ad below -->
+        <View
+            android:id="@+id/adBannerDividerVw"
+            style="@style/AdDivider"
+            android:layout_width="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Bottom adaptive banner (auto-loaded by BaseActivity, type from ScreenAds config). -->
+        <include
+            layout="@layout/part_bottom_banner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
