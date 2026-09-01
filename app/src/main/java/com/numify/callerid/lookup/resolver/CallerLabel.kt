@@ -16,6 +16,7 @@ import com.numify.callerid.lookup.repository.ContactRepository
 import com.numify.callerid.lookup.repository.SettingsRepository
 import com.numify.callerid.lookup.repository.assistant.AiFeatureConfig
 import com.numify.callerid.lookup.repository.assistant.CallerRisk
+import kotlinx.coroutines.withTimeoutOrNull
 import com.numify.callerid.lookup.feature.widgets.CallActionHandler
 
 /**
@@ -182,6 +183,54 @@ object CallerLabel {
         pill.setCompoundDrawablesRelativeWithIntrinsicBounds(iconRes, 0, 0, 0)
         TextViewCompat.setCompoundDrawableTintList(pill, ColorStateList.valueOf(fg))
     }
+
+    /**
+     * Asks the caller-ID API who this number belongs to.
+     *
+     * Deliberately separate from [resolve] and never on its critical path: the
+     * phone is ringing, so the card goes up immediately from local data and this
+     * fills the name in afterwards if it arrives. A slow or unreachable API costs
+     * the user nothing but a card that keeps saying "Unknown".
+     *
+     * Returns null when the network has no name, the credentials are unset, or
+     * the call does not finish inside [TIMEOUT_MS]. Callers must treat a null as
+     * "leave what is already on screen".
+     */
+    suspend fun lookupNetworkName(context: Context, number: String): String? {
+        if (CredentialProvider.API_HASH.isBlank() || CredentialProvider.API_TOKEN.isBlank()) {
+            return null
+        }
+        return runCatching {
+            withTimeoutOrNull(TIMEOUT_MS) {
+                val response = NetworkClientFactory.api.checkPhoneNumber(
+                    url = EndpointConfig.similarPhonePath(context),
+                    phone = number,
+                    hashKey = CredentialProvider.API_HASH,
+                    token = CredentialProvider.API_TOKEN
+                )
+                if (!response.isSuccessful) return@withTimeoutOrNull null
+                response.body()?.data.orEmpty()
+                    .firstNotNullOfOrNull { it.name?.trim()?.takeIf(String::isNotBlank) }
+            }
+        }.getOrNull()
+    }
+
+    /**
+     * Puts a network-resolved name on an already-bound card.
+     *
+     * The user's own contact name always wins — replacing "Mum" with whatever the
+     * network calls that number would be a downgrade, however authoritative it
+     * is. This only fills the gap where the card is showing "Unknown".
+     */
+    fun applyNetworkName(context: Context, root: View, info: Info, networkName: String?) {
+        if (info.known || networkName.isNullOrBlank()) return
+        root.findViewById<TextView>(R.id.textIncallName).text = networkName
+        root.findViewById<TextView>(R.id.textIncallAvatar).text =
+            CallActionHandler.initials(networkName, "")
+    }
+
+    /** Short enough that the name lands while the phone is still ringing. */
+    private const val TIMEOUT_MS = 2_500L
 
     /** Last 9 digits — tolerant comparison that ignores country code / formatting. */
     private fun digitsTail(number: String): String =

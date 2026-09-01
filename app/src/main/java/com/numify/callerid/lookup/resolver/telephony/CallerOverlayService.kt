@@ -116,6 +116,18 @@ class CallerOverlayService : Service() {
         scope.launch {
             val info = withContext(Dispatchers.IO) { CallerLabel.resolve(this@CallerOverlayService, number) }
             overlayView?.let { CallerLabel.bind(this@CallerOverlayService, it, number, info) }
+
+            // The card is already up; a name from the caller-ID API lands on it
+            // when (and only if) it arrives in time. Skipped for a saved contact,
+            // whose own name should never be replaced.
+            if (!info.known) {
+                val networkName = withContext(Dispatchers.IO) {
+                    CallerLabel.lookupNetworkName(this@CallerOverlayService, number)
+                }
+                overlayView?.let {
+                    CallerLabel.applyNetworkName(this@CallerOverlayService, it, info, networkName)
+                }
+            }
         }
     }
 

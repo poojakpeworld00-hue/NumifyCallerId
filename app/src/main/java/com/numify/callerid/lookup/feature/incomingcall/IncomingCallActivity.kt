@@ -71,6 +71,16 @@ class IncomingCallActivity : AppCompatActivity() {
                 )
             }
             CallerLabel.bind(this@IncomingCallActivity, card, number, info)
+
+            // Same two-step as the floating overlay: the card shows immediately
+            // from local data, and the caller-ID API fills the name in if it
+            // answers in time. A saved contact keeps the user's own name.
+            if (!info.known) {
+                val networkName = withContext(Dispatchers.IO) {
+                    CallerLabel.lookupNetworkName(this@IncomingCallActivity, number)
+                }
+                CallerLabel.applyNetworkName(this@IncomingCallActivity, card, info, networkName)
+            }
         }
 
         val filter = IntentFilter(CallStateReceiver.ACTION_CALL_ENDED)
