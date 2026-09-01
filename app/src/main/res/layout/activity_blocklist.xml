@@ -6,7 +6,7 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/blocklistRootVw"
+        android:id="@+id/blocklistRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
@@ -14,7 +14,7 @@
 
         <!-- Top bar -->
         <LinearLayout
-            android:id="@+id/crownBar"
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/padBack"
+                android:id="@+id/buttonBack"
                 android:layout_width="@dimen/_34sdp"
                 android:layout_height="@dimen/_34sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -47,7 +47,7 @@
 
         <!-- Slim summary strip (not a hero card celebrating a number) -->
         <LinearLayout
-            android:id="@+id/summaryStripVw"
+            android:id="@+id/summaryStrip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_18sdp"
@@ -57,7 +57,7 @@
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/_14sdp"
             android:paddingVertical="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@id/adNativeFrameVw">
+            app:layout_constraintTop_toBottomOf="@id/adNativeFrame">
 
             <ImageView
                 android:layout_width="@dimen/_34sdp"
@@ -75,7 +75,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/lblSummaryCount"
+                    android:id="@+id/textSummaryCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
@@ -100,7 +100,7 @@
              drew the two on top of each other. Both the populated strip and the
              empty state now flow *below* this slot instead. -->
         <FrameLayout
-            android:id="@+id/adNativeFrameVw"
+            android:id="@+id/adNativeFrame"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_14sdp"
@@ -108,10 +108,10 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/crownBar">
+            app:layout_constraintTop_toBottomOf="@id/topBar">
 
             <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/adShimmerVw"
+                android:id="@+id/adShimmer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -120,7 +120,7 @@
         </FrameLayout>
 
         <TextView
-            android:id="@+id/lblHeaderBlocked"
+            android:id="@+id/textHeaderBlocked"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_18sdp"
@@ -131,22 +131,22 @@
             android:textColor="@color/on_surface_variant"
             android:textSize="@dimen/_9ssp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/summaryStripVw" />
+            app:layout_constraintTop_toBottomOf="@id/summaryStrip" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rollBlocklist"
+            android:id="@+id/listBlocklist"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clipToPadding="false"
             android:paddingHorizontal="@dimen/_18sdp"
             android:paddingTop="@dimen/_6sdp"
             android:paddingBottom="@dimen/_88sdp"
-            app:layout_constraintBottom_toTopOf="@id/adBannerDividerVw"
-            app:layout_constraintTop_toBottomOf="@id/lblHeaderBlocked"
+            app:layout_constraintBottom_toTopOf="@id/adBannerDivider"
+            app:layout_constraintTop_toBottomOf="@id/textHeaderBlocked"
             tools:listitem="@layout/item_blocklist" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAddVw"
+            android:id="@+id/fabAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_20sdp"
@@ -154,13 +154,13 @@
             android:src="@drawable/ic_add"
             app:backgroundTint="@color/primary"
             app:elevation="@dimen/_6sdp"
-            app:layout_constraintBottom_toTopOf="@id/adBannerDividerVw"
+            app:layout_constraintBottom_toTopOf="@id/adBannerDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Fab.Rounded"
             app:tint="@color/white" />
 
         <androidx.constraintlayout.widget.Group
-            android:id="@+id/populatedGroupVw"
+            android:id="@+id/populatedGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -168,14 +168,14 @@
 
         <!-- ===== EMPTY STATE: breathing icon + headline + the three methods ===== -->
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/emptyScrollVw"
+            android:id="@+id/emptyScroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clipToPadding="false"
             android:paddingBottom="@dimen/_12sdp"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/adBannerDividerVw"
-            app:layout_constraintTop_toBottomOf="@id/adNativeFrameVw">
+            app:layout_constraintBottom_toTopOf="@id/adBannerDivider"
+            app:layout_constraintTop_toBottomOf="@id/adNativeFrame">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -185,7 +185,7 @@
                 android:paddingHorizontal="@dimen/_20sdp">
 
                 <com.numify.callerid.lookup.feature.widgets.RippleIconView
-                    android:id="@+id/emptyIconVw"
+                    android:id="@+id/emptyIcon"
                     android:layout_width="@dimen/_74sdp"
                     android:layout_height="@dimen/_74sdp"
                     android:layout_marginTop="@dimen/_20sdp"
@@ -217,7 +217,7 @@
                      the first number, so make it typable on the spot. Same
                      part_block_add_form as the dialog, so the two cannot drift. -->
                 <LinearLayout
-                    android:id="@+id/emptyFormCardVw"
+                    android:id="@+id/emptyFormCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
@@ -226,13 +226,13 @@
                     android:padding="@dimen/_14sdp">
 
                     <include
-                        android:id="@+id/emptyFormVw"
+                        android:id="@+id/emptyForm"
                         layout="@layout/include_block_add_form"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:id="@+id/padEmptyBlock"
+                        android:id="@+id/buttonEmptyBlock"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_44sdp"
                         android:layout_marginTop="@dimen/_14sdp"
@@ -250,7 +250,7 @@
         <!-- Hosted as a tab: MainShellActivity owns the app-wide bottom banner, so
              this screen carries no banner slot of its own. -->
         <View
-            android:id="@+id/adBannerDividerVw"
+            android:id="@+id/adBannerDivider"
             style="@style/AdDivider"
             android:layout_width="0dp"
             android:visibility="gone"

@@ -70,7 +70,7 @@
         android:paddingEnd="@dimen/_12sdp">
 
         <LinearLayout
-            android:id="@+id/padCountryVw"
+            android:id="@+id/buttonCountry"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_32sdp"
             android:background="?attr/selectableItemBackground"
@@ -85,7 +85,7 @@
                  metrics do not match the Latin dial code beside it, so with
                  wrap_content the two optical centres never line up. -->
             <TextView
-                android:id="@+id/lblFlag"
+                android:id="@+id/textFlag"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_22sdp"
                 android:gravity="center"
@@ -94,7 +94,7 @@
                 tools:text="🇮🇳" />
 
             <TextView
-                android:id="@+id/lblDialCode"
+                android:id="@+id/textDialCode"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_22sdp"
                 android:layout_marginStart="@dimen/_4sdp"
@@ -115,7 +115,7 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/inpNumber"
+            android:id="@+id/inputNumber"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_6sdp"
@@ -140,7 +140,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/padFromContactsVw"
+            android:id="@+id/buttonFromContacts"
             android:layout_width="0dp"
             android:layout_height="@dimen/_38sdp"
             android:layout_marginEnd="@dimen/_5sdp"
@@ -173,7 +173,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/padFromRecentsVw"
+            android:id="@+id/buttonFromRecents"
             android:layout_width="0dp"
             android:layout_height="@dimen/_38sdp"
             android:layout_marginStart="@dimen/_5sdp"

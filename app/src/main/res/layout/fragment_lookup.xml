@@ -9,7 +9,7 @@
 
     <!-- Compact header (pads the status-bar inset from LookupFragment) -->
     <LinearLayout
-        android:id="@+id/heroHeaderVw"
+        android:id="@+id/heroHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -44,7 +44,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/padLookupHistory"
+            android:id="@+id/buttonLookupHistory"
             android:layout_width="@dimen/_36sdp"
             android:layout_height="@dimen/_36sdp"
             android:background="@drawable/bg_cid_pill_neutral"
@@ -72,7 +72,7 @@
         android:paddingVertical="@dimen/_6sdp">
 
         <LinearLayout
-            android:id="@+id/rowCountryPickerSearch"
+            android:id="@+id/columnCountryPickerSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
@@ -87,7 +87,7 @@
                  not line up however they are gravitied — the box is what makes them
                  agree. Same textSize for the same reason. -->
             <TextView
-                android:id="@+id/lblFlagSearch"
+                android:id="@+id/textFlagSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_22sdp"
                 android:gravity="center"
@@ -96,7 +96,7 @@
                 tools:text="🇮🇳" />
 
             <TextView
-                android:id="@+id/lblCountrySearch"
+                android:id="@+id/textCountrySearch"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_22sdp"
                 android:layout_marginStart="@dimen/_4sdp"
@@ -126,7 +126,7 @@
             android:background="@color/outline" />
 
         <EditText
-            android:id="@+id/inpNumberInput"
+            android:id="@+id/inputNumberInput"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -141,7 +141,7 @@
             android:textSize="@dimen/_11ssp" />
 
         <ImageView
-            android:id="@+id/picClear"
+            android:id="@+id/imageClear"
             android:layout_width="@dimen/_26sdp"
             android:layout_height="@dimen/_26sdp"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -152,7 +152,7 @@
             app:tint="@color/on_surface_variant" />
 
         <ImageView
-            android:id="@+id/padSearch"
+            android:id="@+id/buttonSearch"
             android:layout_width="@dimen/_38sdp"
             android:layout_height="@dimen/_38sdp"
             android:layout_marginStart="@dimen/_2sdp"
@@ -167,7 +167,7 @@
     <!-- Paste suggestion — shown only when the clipboard holds a phone number.
          40dp lavender pill: clipboard glyph + "Paste" + mono number (per design). -->
     <LinearLayout
-        android:id="@+id/flagPaste"
+        android:id="@+id/chipPaste"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_38sdp"
         android:layout_marginStart="@dimen/_16sdp"
@@ -199,7 +199,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/lblPasteNumber"
+            android:id="@+id/textPasteNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_6sdp"
@@ -216,7 +216,7 @@
          stays GONE when ads are off or `show:false`. Outside the scroll view so
          it holds its position at the top of the tab. -->
     <FrameLayout
-        android:id="@+id/adNativeFrameVw"
+        android:id="@+id/adNativeFrame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_14sdp"
@@ -224,7 +224,7 @@
         android:visibility="gone">
 
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/adShimmerVw"
+            android:id="@+id/adShimmer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -239,7 +239,7 @@
 
         <!-- Shimmer skeleton shown during search loading -->
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shmResult"
+            android:id="@+id/shimmerResult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_16sdp"
@@ -289,7 +289,7 @@
         </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/scrlContent"
+            android:id="@+id/scrollContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
@@ -308,7 +308,7 @@
                      foot. Sharing the language matters because both surfaces are
                      "here is a number, decide what to do about it". -->
                 <LinearLayout
-                    android:id="@+id/cvResultVw"
+                    android:id="@+id/cardResult"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_16sdp"
@@ -355,7 +355,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/lblResNumber"
+                                android:id="@+id/textResNumber"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_3sdp"
@@ -376,7 +376,7 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/lblResName"
+                                    android:id="@+id/textResName"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:ellipsize="end"
@@ -387,7 +387,7 @@
                                     tools:text="N••••" />
 
                                 <ImageView
-                                    android:id="@+id/picRevealName"
+                                    android:id="@+id/imageRevealName"
                                     android:layout_width="@dimen/_20sdp"
                                     android:layout_height="@dimen/_20sdp"
                                     android:layout_marginStart="@dimen/_5sdp"
@@ -400,7 +400,7 @@
                         </LinearLayout>
 
                         <ImageView
-                            android:id="@+id/padResCall"
+                            android:id="@+id/buttonResCall"
                             android:layout_width="@dimen/_38sdp"
                             android:layout_height="@dimen/_38sdp"
                             android:layout_marginStart="@dimen/_8sdp"
@@ -415,7 +415,7 @@
                     <!-- Verdict pill. Text, colours and icon are all set from
                          NumberFinderFragment.bindStatusPill(). -->
                     <TextView
-                        android:id="@+id/lblResValid"
+                        android:id="@+id/textResValid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_12sdp"
@@ -455,7 +455,7 @@
                                 android:text="@string/lookup_country" />
 
                             <TextView
-                                android:id="@+id/lblResCountry"
+                                android:id="@+id/textResCountry"
                                 style="@style/LookupFactValue"
                                 tools:text="India" />
                         </LinearLayout>
@@ -474,7 +474,7 @@
                                 android:text="@string/lookup_carrier" />
 
                             <TextView
-                                android:id="@+id/lblResCarrier"
+                                android:id="@+id/textResCarrier"
                                 style="@style/LookupFactValue"
                                 tools:text="Tata Docomo" />
                         </LinearLayout>
@@ -493,7 +493,7 @@
                                 android:text="@string/lookup_line_type" />
 
                             <TextView
-                                android:id="@+id/lblResType"
+                                android:id="@+id/textResType"
                                 style="@style/LookupFactValue"
                                 tools:text="Mobile" />
                         </LinearLayout>
@@ -507,7 +507,7 @@
                         android:orientation="horizontal">
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/padResShare"
+                            android:id="@+id/buttonResShare"
                             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_42sdp"
@@ -529,7 +529,7 @@
                             app:strokeColor="@color/outline" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/padShowFullDetail"
+                            android:id="@+id/buttonShowFullDetail"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_42sdp"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -549,7 +549,7 @@
 
                 <!-- Empty state — animated breathing search icon (no Lottie) -->
                 <LinearLayout
-                    android:id="@+id/rowEmptyState"
+                    android:id="@+id/columnEmptyState"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_40sdp"
@@ -581,7 +581,7 @@
                             app:ripple_ring="@drawable/bg_ring_tools" />
 
                         <ImageView
-                            android:id="@+id/badgeNamedVw"
+                            android:id="@+id/badgeNamed"
                             android:layout_width="@dimen/_26sdp"
                             android:layout_height="@dimen/_26sdp"
                             android:layout_gravity="top|end"
@@ -592,7 +592,7 @@
                             app:tint="@color/cid_teal" />
 
                         <ImageView
-                            android:id="@+id/badgeSpamVw"
+                            android:id="@+id/badgeSpam"
                             android:layout_width="@dimen/_24sdp"
                             android:layout_height="@dimen/_24sdp"
                             android:layout_gravity="bottom|start"
@@ -626,7 +626,7 @@
                         android:textSize="@dimen/_11ssp" />
 
                     <LinearLayout
-                        android:id="@+id/padEmptySearch"
+                        android:id="@+id/buttonEmptySearch"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_marginTop="@dimen/_18sdp"
@@ -657,7 +657,7 @@
 
                 <!-- History Header -->
                 <LinearLayout
-                    android:id="@+id/rowHistoryHeader"
+                    android:id="@+id/columnHistoryHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_14sdp"
@@ -673,7 +673,7 @@
                         android:background="@drawable/bg_section_dot" />
 
                     <TextView
-                        android:id="@+id/lblHistoryTitle"
+                        android:id="@+id/textHistoryTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_6sdp"
@@ -686,7 +686,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/lblHistoryClearAll"
+                        android:id="@+id/textHistoryClearAll"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
@@ -698,7 +698,7 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rollHistory"
+                    android:id="@+id/listHistory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"

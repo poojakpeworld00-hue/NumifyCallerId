@@ -16,7 +16,7 @@
     android:paddingVertical="@dimen/_8sdp">
 
     <TextView
-        android:id="@+id/lblAvatar"
+        android:id="@+id/textAvatar"
         android:layout_width="@dimen/_36sdp"
         android:layout_height="@dimen/_36sdp"
         android:background="@drawable/bg_avatar"
@@ -35,7 +35,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/lblName"
+            android:id="@+id/textName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -46,7 +46,7 @@
             tools:text="Pooja Chudhri" />
 
         <TextView
-            android:id="@+id/lblCount"
+            android:id="@+id/textCount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_2sdp"
@@ -59,7 +59,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/padCall"
+        android:id="@+id/buttonCall"
         android:layout_width="@dimen/_34sdp"
         android:layout_height="@dimen/_34sdp"
         android:layout_marginStart="@dimen/_8sdp"

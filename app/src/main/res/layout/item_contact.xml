@@ -15,7 +15,7 @@
         android:layout_height="@dimen/_36sdp">
 
         <TextView
-            android:id="@+id/lblAvatar"
+            android:id="@+id/textAvatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_avatar"
@@ -28,7 +28,7 @@
 
         <!-- Real contact photo, loaded over the initials when one exists -->
         <ImageView
-            android:id="@+id/picAvatar"
+            android:id="@+id/imageAvatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@null"
@@ -44,7 +44,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/lblName"
+            android:id="@+id/textName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -55,7 +55,7 @@
             tools:text="Aisha Lawson" />
 
         <TextView
-            android:id="@+id/lblNumber"
+            android:id="@+id/textNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_2sdp"
@@ -65,7 +65,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/padCall"
+        android:id="@+id/buttonCall"
         android:layout_width="@dimen/_32sdp"
         android:layout_height="@dimen/_32sdp"
         android:background="@drawable/bg_circle_surface"

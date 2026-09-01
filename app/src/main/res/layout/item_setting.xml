@@ -14,7 +14,7 @@
     android:padding="@dimen/_14sdp">
 
     <ImageView
-        android:id="@+id/picIcon"
+        android:id="@+id/imageIcon"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
         android:background="@drawable/bg_icon_box"
@@ -31,7 +31,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/lblTitle"
+            android:id="@+id/textTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/on_surface"
@@ -40,7 +40,7 @@
             tools:text="Language" />
 
         <TextView
-            android:id="@+id/lblSub"
+            android:id="@+id/textSub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_2sdp"

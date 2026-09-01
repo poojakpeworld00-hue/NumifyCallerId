@@ -22,22 +22,22 @@ class ShortcutFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragment_third, container, false)
-        view.findViewById<LinearLayout>(R.id.btnmessageVw).triggerClick {
+        view.findViewById<LinearLayout>(R.id.shortcutMessage).triggerClick {
             messga()
         }
-        view.findViewById<LinearLayout>(R.id.padAddContact).triggerClick {
+        view.findViewById<LinearLayout>(R.id.buttonAddContact).triggerClick {
             addContact()
         }
 
-        view.findViewById<LinearLayout>(R.id.padSendEmail).triggerClick {
+        view.findViewById<LinearLayout>(R.id.buttonSendEmail).triggerClick {
             sendEmail()
         }
 
-        view.findViewById<LinearLayout>(R.id.padAddCalendar).triggerClick {
+        view.findViewById<LinearLayout>(R.id.buttonAddCalendar).triggerClick {
             addCalendarEvent()
         }
 
-        view.findViewById<LinearLayout>(R.id.padOpenWebsite).triggerClick {
+        view.findViewById<LinearLayout>(R.id.buttonOpenWebsite).triggerClick {
             openWebsite()
         }
 

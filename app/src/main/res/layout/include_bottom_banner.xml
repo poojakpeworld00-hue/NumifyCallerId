@@ -7,13 +7,13 @@
     loading skeleton (banner-first, native-banner fallback).
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/bannerAdFrameVw"
+    android:id="@+id/bannerAdFrame"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
    >
 
     <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/bannerShimmerVw"
+        android:id="@+id/bannerShimmer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ccc">

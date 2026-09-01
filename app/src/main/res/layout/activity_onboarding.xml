@@ -6,14 +6,14 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/onboardingRootVw"
+        android:id="@+id/onboardingRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
         tools:context=".screen.welcome.IntroActivity">
 
         <TextView
-            android:id="@+id/padSkip"
+            android:id="@+id/buttonSkip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp"
@@ -30,25 +30,25 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vuPager"
+            android:id="@+id/viewPager"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/dotsVw"
+            app:layout_constraintBottom_toTopOf="@id/dots"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/padSkip" />
+            app:layout_constraintTop_toBottomOf="@id/buttonSkip" />
 
         <!-- Dots sit centred under the page copy, on their own row. They are
              outside the pager on purpose: they report the pager's position, so
              they must not scroll with it. -->
         <LinearLayout
-            android:id="@+id/dotsVw"
+            android:id="@+id/dots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_14sdp"
             android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/padNext"
+            app:layout_constraintBottom_toTopOf="@id/buttonNext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -56,7 +56,7 @@
              advert below can never out-rank the app's own action. Anchored to the
              ad so it keeps a real gap above it at any system font scale. -->
         <TextView
-            android:id="@+id/padNext"
+            android:id="@+id/buttonNext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_16sdp"
@@ -71,7 +71,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/adNativeFrameVw"
+            app:layout_constraintBottom_toTopOf="@id/adNativeFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -79,16 +79,16 @@
 
         <!-- Full-bleed hairline separating the pager content from the ad below -->
         <View
-            android:id="@+id/adNativeDividerVw"
+            android:id="@+id/adNativeDivider"
             style="@style/AdDivider"
             android:layout_width="0dp"
-            app:layout_constraintBottom_toTopOf="@id/adNativeFrameVw"
+            app:layout_constraintBottom_toTopOf="@id/adNativeFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <!-- Big native ad pinned at the bottom. -->
         <FrameLayout
-            android:id="@+id/adNativeFrameVw"
+            android:id="@+id/adNativeFrame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_5sdp"
@@ -97,7 +97,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/adShimmerVw"
+                android:id="@+id/adShimmer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#ccc">

@@ -57,13 +57,13 @@ class SearchHistoryAdapter(
                 val p = bindingAdapterPosition
                 if (p != RecyclerView.NO_POSITION) onClick(items[p])
             }
-            binding.picHistCall.setOnClickListener {
+            binding.imageHistCall.setOnClickListener {
                 val p = bindingAdapterPosition
                 if (p != RecyclerView.NO_POSITION) onCall(items[p])
             }
             // The name is revealed only via the explicit eye button (rewarded ad) —
             // never by tapping the row/name directly.
-            binding.picHistReveal.setOnClickListener {
+            binding.imageHistReveal.setOnClickListener {
                 val p = bindingAdapterPosition
                 if (p != RecyclerView.NO_POSITION) onRevealName(items[p])
             }
@@ -80,12 +80,12 @@ class SearchHistoryAdapter(
     override fun onBindViewHolder(holder: VH, position: Int) {
         val item = items[position]
         with(holder.binding) {
-            lblHistAvatar.text = CallActionHandler.initials(item.name, item.rawNumber)
+            textHistAvatar.text = CallActionHandler.initials(item.name, item.rawNumber)
             val locked = isLocked(item)
             // Locked: blur the name and surface the eye button to unlock it.
-            lblHistName.text = if (locked) blurName(item.name!!) else (item.name ?: item.number)
-            picHistReveal.visibility = if (locked) View.VISIBLE else View.GONE
-            lblHistSub.text = item.subtitle ?: item.number
+            textHistName.text = if (locked) blurName(item.name!!) else (item.name ?: item.number)
+            imageHistReveal.visibility = if (locked) View.VISIBLE else View.GONE
+            textHistSub.text = item.subtitle ?: item.number
         }
     }
 

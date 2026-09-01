@@ -8,7 +8,7 @@
     android:paddingVertical="@dimen/_16sdp">
 
     <TextView
-        android:id="@+id/lblTitle"
+        android:id="@+id/textTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_18sdp"
@@ -18,7 +18,7 @@
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rollRecents"
+        android:id="@+id/listRecents"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_300sdp"
         android:layout_marginTop="@dimen/_8sdp"
@@ -27,7 +27,7 @@
         tools:listitem="@layout/item_block_pick" />
 
     <TextView
-        android:id="@+id/lblNoRecents"
+        android:id="@+id/textNoRecents"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/_24sdp"
@@ -38,7 +38,7 @@
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/padClose"
+        android:id="@+id/buttonClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"

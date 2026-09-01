@@ -5,7 +5,7 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fsCallPreviewVw"
+    android:id="@+id/fsiCallPreview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_fsi_dialog_card"
@@ -68,7 +68,7 @@
             android:layout_height="@dimen/_48sdp">
 
             <ImageView
-                android:id="@+id/fsAvatarRing1Vw"
+                android:id="@+id/fsiAvatarRing1"
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 android:layout_gravity="center"
@@ -76,7 +76,7 @@
                 android:src="@drawable/bg_fsi_avatar_ring" />
 
             <ImageView
-                android:id="@+id/fsAvatarRing2Vw"
+                android:id="@+id/fsiAvatarRing2"
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 android:layout_gravity="center"

@@ -36,16 +36,16 @@ class SpeedometerActivity : BaseActivity<ActivitySpeedometerBinding>() {
     }
 
     override fun initView() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.speedRootVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.speedRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
-        binding.padBack.setOnClickListener { goBack() }
+        binding.buttonBack.setOnClickListener { goBack() }
 
         // Mid native, scrolls with the tool content.
-        NativeAdPresenter().renderMidNativeAlt(this, binding.adNativeFrameVw, binding.adShimmerVw)
-        binding.padRetest.setOnClickListener { runTest() }
+        NativeAdPresenter().renderMidNativeAlt(this, binding.adNativeFrame, binding.adShimmer)
+        binding.buttonRetest.setOnClickListener { runTest() }
         showCarrier()
     }
 
@@ -62,17 +62,17 @@ class SpeedometerActivity : BaseActivity<ActivitySpeedometerBinding>() {
     private fun runTest() {
         job?.cancel()
         resetUi()
-        binding.lblStatus.setText(R.string.speedometer_waiting)
+        binding.textStatus.setText(R.string.speedometer_waiting)
 
         job = lifecycleScope.launch {
             // 1) Latency + jitter
             val (latency, jitter) = withContext(Dispatchers.IO) { measureLatency() }
             if (latency < 0) {
-                binding.lblStatus.setText(R.string.speedtest_error)
+                binding.textStatus.setText(R.string.speedtest_error)
                 return@launch
             }
-            binding.lblLatency.text = getString(R.string.speedtest_ms, latency)
-            binding.lblJitter.text = getString(R.string.speedtest_ms, jitter)
+            binding.textLatency.text = getString(R.string.speedtest_ms, latency)
+            binding.textJitter.text = getString(R.string.speedtest_ms, jitter)
 
             // 2) Download (with live gauge)
             val download = measureDownload { live -> showSpeed(live) }
@@ -80,15 +80,15 @@ class SpeedometerActivity : BaseActivity<ActivitySpeedometerBinding>() {
 
             // 3) Upload (best-effort)
             val upload = withContext(Dispatchers.IO) { measureUpload() }
-            binding.lblUpload.text = getString(R.string.speedtest_mbps, oneDp(upload))
+            binding.textUpload.text = getString(R.string.speedtest_mbps, oneDp(upload))
 
-            binding.lblStatus.setText(R.string.speedtest_stable)
+            binding.textStatus.setText(R.string.speedtest_stable)
         }
     }
 
     private fun showSpeed(mbps: Float) {
-        binding.lblSpeed.text = mbps.roundToInt().toString()
-        binding.gaugeVw.setSpeed(mbps)
+        binding.textSpeed.text = mbps.roundToInt().toString()
+        binding.gauge.setSpeed(mbps)
     }
 
     /** Names the connection the reading was taken over, so a slow result can be
@@ -96,15 +96,15 @@ class SpeedometerActivity : BaseActivity<ActivitySpeedometerBinding>() {
     private fun showCarrier() {
         val tm = getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager
         val carrier = tm?.networkOperatorName?.takeIf { it.isNotBlank() }
-        binding.lblCarrier.text = carrier ?: getString(R.string.speedtest_download)
+        binding.textCarrier.text = carrier ?: getString(R.string.speedtest_download)
     }
 
     private fun resetUi() {
-        binding.lblSpeed.text = "0"
-        binding.gaugeVw.setSpeed(0f, animate = false)
-        binding.lblUpload.text = getString(R.string.speedtest_mbps, "0")
-        binding.lblLatency.text = getString(R.string.speedtest_ms, 0)
-        binding.lblJitter.text = getString(R.string.speedtest_ms, 0)
+        binding.textSpeed.text = "0"
+        binding.gauge.setSpeed(0f, animate = false)
+        binding.textUpload.text = getString(R.string.speedtest_mbps, "0")
+        binding.textLatency.text = getString(R.string.speedtest_ms, 0)
+        binding.textJitter.text = getString(R.string.speedtest_ms, 0)
     }
 
     /** Returns avg latency (ms) and jitter (ms), or (-1, 0) if unreachable. */

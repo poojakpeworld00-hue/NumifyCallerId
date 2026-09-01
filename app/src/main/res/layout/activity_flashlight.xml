@@ -17,14 +17,14 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/flashlightRootVw"
+        android:id="@+id/flashlightRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
         tools:context=".screen.utility.FlashlightActivity">
 
         <LinearLayout
-            android:id="@+id/crownBar"
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/padBack"
+                android:id="@+id/buttonBack"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -57,7 +57,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/lblNoFlash"
+            android:id="@+id/textNoFlash"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_32sdp"
@@ -69,15 +69,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/crownBar" />
+            app:layout_constraintTop_toBottomOf="@id/topBar" />
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/contentVw"
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
-            app:layout_constraintTop_toBottomOf="@id/crownBar">
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
+            app:layout_constraintTop_toBottomOf="@id/topBar">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,7 +93,7 @@
                     android:layout_marginTop="@dimen/_6sdp">
 
                     <View
-                        android:id="@+id/beamOuterVw"
+                        android:id="@+id/beamOuter"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -101,7 +101,7 @@
                         android:background="@drawable/bg_cid_beam_outer" />
 
                     <View
-                        android:id="@+id/beamInnerVw"
+                        android:id="@+id/beamInner"
                         android:layout_width="@dimen/_145sdp"
                         android:layout_height="@dimen/_145sdp"
                         android:layout_gravity="center"
@@ -109,7 +109,7 @@
                         android:background="@drawable/bg_cid_beam_inner" />
 
                     <ImageView
-                        android:id="@+id/padToggle"
+                        android:id="@+id/buttonToggle"
                         android:layout_width="@dimen/_118sdp"
                         android:layout_height="@dimen/_118sdp"
                         android:layout_gravity="center"
@@ -125,7 +125,7 @@
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/lblState"
+                    android:id="@+id/textState"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
@@ -171,7 +171,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/lblBrightnessPct"
+                            android:id="@+id/textBrightnessPct"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:letterSpacing="0.08"
@@ -182,7 +182,7 @@
                     </LinearLayout>
 
                     <SeekBar
-                        android:id="@+id/seekBrightnessVw"
+                        android:id="@+id/seekBrightness"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_6sdp"
@@ -201,62 +201,62 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:id="@+id/modeSteadyVw"
+                        android:id="@+id/modeSteady"
                         style="@style/TorchModeChip"
                         android:layout_marginEnd="@dimen/_4sdp">
 
                         <ImageView
-                            android:id="@+id/picSteady"
+                            android:id="@+id/imageSteady"
                             style="@style/TorchModeIcon"
                             android:src="@drawable/ic_power" />
 
                         <TextView
-                            android:id="@+id/lblSteady"
+                            android:id="@+id/textSteady"
                             style="@style/TorchModeLabel"
                             android:text="@string/flashlight_mode_steady" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/modeStrobeVw"
+                        android:id="@+id/modeStrobe"
                         style="@style/TorchModeChip"
                         android:layout_marginHorizontal="@dimen/_4sdp">
 
                         <ImageView
-                            android:id="@+id/picStrobe"
+                            android:id="@+id/imageStrobe"
                             style="@style/TorchModeIcon"
                             android:src="@drawable/ic_tool_sound" />
 
                         <TextView
-                            android:id="@+id/lblStrobe"
+                            android:id="@+id/textStrobe"
                             style="@style/TorchModeLabel"
                             android:text="@string/flashlight_mode_strobe" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/modeSosVw"
+                        android:id="@+id/modeSos"
                         style="@style/TorchModeChip"
                         android:layout_marginStart="@dimen/_4sdp">
 
                         <ImageView
-                            android:id="@+id/picSos"
+                            android:id="@+id/imageSos"
                             style="@style/TorchModeIcon"
                             android:src="@drawable/ic_warning" />
 
                         <TextView
-                            android:id="@+id/lblSos"
+                            android:id="@+id/textSos"
                             style="@style/TorchModeLabel"
                             android:text="@string/flashlight_sos" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <FrameLayout
-                    android:id="@+id/adNativeFrameVw"
+                    android:id="@+id/adNativeFrame"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/_10sdp">
 
                     <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/adShimmerVw"
+                        android:id="@+id/adShimmer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ccc">
@@ -269,10 +269,10 @@
         </androidx.core.widget.NestedScrollView>
 
         <View
-            android:id="@+id/adBannerDividerVw"
+            android:id="@+id/adBannerDivider"
             style="@style/AdDivider"
             android:layout_width="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

@@ -36,22 +36,22 @@ class BatteryInfoActivity : BaseActivity<ActivityBatteryBinding>() {
     }
 
     override fun initView() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.batteryRootVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.batteryRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
-        binding.padBack.setOnClickListener { goBack() }
+        binding.buttonBack.setOnClickListener { goBack() }
         val openBatterySettings = View.OnClickListener {
             // Capacity, cycle count and time-to-full are not exposed to apps, so
             // the screen hands off to the one place that does know them.
             runCatching { startActivity(Intent(Intent.ACTION_POWER_USAGE_SUMMARY)) }
         }
-        binding.padSettings.setOnClickListener(openBatterySettings)
-        binding.padSaver.setOnClickListener(openBatterySettings)
+        binding.buttonSettings.setOnClickListener(openBatterySettings)
+        binding.buttonSaver.setOnClickListener(openBatterySettings)
 
         // Mid native, scrolls with the tool content.
-        NativeAdPresenter().renderMidNative(this, binding.adNativeFrameVw, binding.adShimmerVw)
+        NativeAdPresenter().renderMidNative(this, binding.adNativeFrame, binding.adShimmer)
     }
 
     override fun onResume() {
@@ -67,33 +67,33 @@ class BatteryInfoActivity : BaseActivity<ActivityBatteryBinding>() {
     private fun render(intent: Intent) {
         val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
         val scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-        binding.lblLevel.text = if (level >= 0 && scale > 0) (level * 100 / scale).toString() else "—"
+        binding.textLevel.text = if (level >= 0 && scale > 0) (level * 100 / scale).toString() else "—"
 
         val status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
         val charging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                 status == BatteryManager.BATTERY_STATUS_FULL
         val pct = if (level >= 0 && scale > 0) level * 100 / scale else 0
-        binding.cellVw.setLevel(pct, charging)
+        binding.cell.setLevel(pct, charging)
         // The readout sits over the middle of the cell, so its colour has to
         // follow whether the fill has got that far — white on an empty cell is
         // invisible, and dark ink on the fill is barely better.
-        val onFill = binding.cellVw.fillCoversCentre(pct)
+        val onFill = binding.cell.fillCoversCentre(pct)
         val ink = ContextCompat.getColor(this, if (onFill) R.color.white else R.color.on_surface)
-        binding.lblLevel.setTextColor(ink)
-        binding.lblPercentSign.setTextColor(ink)
+        binding.textLevel.setTextColor(ink)
+        binding.textPercentSign.setTextColor(ink)
 
-        binding.lblStatus.text = statusText(status)
-        binding.lblPlugged.text = pluggedText(intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1))
-        binding.lblCapacity.text = capacityText()
-        binding.lblScreenOn.text = screenOnText()
+        binding.textStatus.text = statusText(status)
+        binding.textPlugged.text = pluggedText(intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1))
+        binding.textCapacity.text = capacityText()
+        binding.textScreenOn.text = screenOnText()
 
         val tempC = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) / 10f
-        binding.lblTemp.text = getString(R.string.battery_temp_fmt, tempC.roundToInt())
+        binding.textTemp.text = getString(R.string.battery_temp_fmt, tempC.roundToInt())
 
         val voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0) / 1000f
-        binding.lblVoltage.text = getString(R.string.battery_voltage_fmt, voltage)
+        binding.textVoltage.text = getString(R.string.battery_voltage_fmt, voltage)
 
-        binding.lblTech.text = intent.getStringExtra(BatteryManager.EXTRA_TECHNOLOGY) ?: "—"
+        binding.textTech.text = intent.getStringExtra(BatteryManager.EXTRA_TECHNOLOGY) ?: "—"
 
         bindHealth(intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1))
     }
@@ -127,8 +127,8 @@ class BatteryInfoActivity : BaseActivity<ActivityBatteryBinding>() {
             BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE -> R.string.battery_health_over to R.color.danger
             else -> R.string.common_unknown to R.color.on_surface
         }
-        binding.lblHealth.setText(textRes)
-        binding.lblHealth.setTextColor(ContextCompat.getColor(this, colorRes))
+        binding.textHealth.setText(textRes)
+        binding.textHealth.setTextColor(ContextCompat.getColor(this, colorRes))
     }
 
     private fun statusText(status: Int) = when (status) {

@@ -124,7 +124,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         // insets so the title/footer never sit under the status or navigation bar
         // (incl. the Android 16 gesture pill). The gradient still draws full-bleed
         // because a View's background fills its padding.
-        ViewCompat.setOnApplyWindowInsetsListener(binding.splashRootVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.splashRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
@@ -132,7 +132,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
         // Footer build stamp — name and code both come from the build, so what the
         // splash shows is always the APK the user is actually running.
-        binding.lblSecureVersion.text = getString(
+        binding.textSecureVersion.text = getString(
             R.string.splash_secure_version,
             "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})",
         )
@@ -249,9 +249,9 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     /** The twelve waveform bars, left to right — the order they light up in. */
     private val waveBars by lazy {
         listOf(
-            binding.bar1Vw, binding.bar2Vw, binding.bar3Vw, binding.bar4Vw,
-            binding.bar5Vw, binding.bar6Vw, binding.bar7Vw, binding.bar8Vw,
-            binding.bar9Vw, binding.bar10Vw, binding.bar11Vw, binding.bar12Vw,
+            binding.bar1, binding.bar2, binding.bar3, binding.bar4,
+            binding.bar5, binding.bar6, binding.bar7, binding.bar8,
+            binding.bar9, binding.bar10, binding.bar11, binding.bar12,
         )
     }
 
@@ -259,8 +259,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
      *  protection → contact → location), which alternates across the icon. */
     private val featureBadges by lazy {
         listOf(
-            binding.badgeBlockVw, binding.badgeSpamVw, binding.badgeLookupVw,
-            binding.badgeProtectionVw, binding.badgeContactVw, binding.badgeLocationVw,
+            binding.badgeBlock, binding.badgeSpam, binding.badgeLookup,
+            binding.badgeProtection, binding.badgeContact, binding.badgeLocation,
         )
     }
 
@@ -287,15 +287,15 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         }
 
         // 0–260 · the app-icon tile scales up out of the waveform.
-        binding.iconTileVw.scaleX = 0.72f
-        binding.iconTileVw.scaleY = 0.72f
+        binding.iconTile.scaleX = 0.72f
+        binding.iconTile.scaleY = 0.72f
         start(AnimatorSet().apply {
             duration = 260L
             interpolator = entranceEasing
             playTogether(
-                ObjectAnimator.ofFloat(binding.iconTileVw, View.ALPHA, 0f, 1f),
-                ObjectAnimator.ofFloat(binding.iconTileVw, View.SCALE_X, 0.72f, 1f),
-                ObjectAnimator.ofFloat(binding.iconTileVw, View.SCALE_Y, 0.72f, 1f),
+                ObjectAnimator.ofFloat(binding.iconTile, View.ALPHA, 0f, 1f),
+                ObjectAnimator.ofFloat(binding.iconTile, View.SCALE_X, 0.72f, 1f),
+                ObjectAnimator.ofFloat(binding.iconTile, View.SCALE_Y, 0.72f, 1f),
             )
         })
 
@@ -308,15 +308,15 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         featureBadges.forEachIndexed { i, badge -> popIn(badge, delay = 360L + i * 120L) }
 
         // 420–1040 · wordmark, then tagline, then the ad disclosure rise in.
-        start(riseIn(binding.lblAppName, delay = 420L, dur = 360L))
-        start(riseIn(binding.lblTagline, delay = 560L, dur = 340L))
-        start(riseIn(binding.lblAdDisclosure, delay = 700L, dur = 340L))
+        start(riseIn(binding.textAppName, delay = 420L, dur = 360L))
+        start(riseIn(binding.textTagline, delay = 560L, dur = 340L))
+        start(riseIn(binding.textAdDisclosure, delay = 700L, dur = 340L))
 
         // 820ms on · the boot progress bar and build stamp fade in, then the bar
         // fills while getData() works.
-        start(fadeIn(binding.progTrack, delay = 820L, dur = 320L))
-        start(fadeIn(binding.progFill, delay = 820L, dur = 320L))
-        start(riseIn(binding.secureRowVw, delay = 900L, dur = 340L))
+        start(fadeIn(binding.progressTrack, delay = 820L, dur = 320L))
+        start(fadeIn(binding.progressFill, delay = 820L, dur = 320L))
+        start(riseIn(binding.secureRow, delay = 900L, dur = 340L))
         startProgressFill(delay = 860L)
 
         // 1300ms on · the wave keeps breathing like a live level meter, each bar
@@ -326,25 +326,25 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
         // Ambient and endless: four bubbles drift (7.5–11s round trips) and two
         // sparkles twinkle (3.2–4.1s), spread across the page.
-        drift(binding.bubbleLgVw, dxDp = 10f, dyDp = -22f, halfCycle = 4500L)
-        drift(binding.bubbleSmVw, dxDp = -14f, dyDp = 18f, halfCycle = 3750L)
-        drift(binding.bubbleMdVw, dxDp = 8f, dyDp = 16f, halfCycle = 5500L)
-        drift(binding.bubbleXsVw, dxDp = -9f, dyDp = -15f, halfCycle = 4100L)
-        twinkle(binding.sparkleAVw, halfCycle = 1600L, delay = 0L)
-        twinkle(binding.sparkleBVw, halfCycle = 2050L, delay = 600L)
+        drift(binding.bubbleLg, dxDp = 10f, dyDp = -22f, halfCycle = 4500L)
+        drift(binding.bubbleSm, dxDp = -14f, dyDp = 18f, halfCycle = 3750L)
+        drift(binding.bubbleMd, dxDp = 8f, dyDp = 16f, halfCycle = 5500L)
+        drift(binding.bubbleXs, dxDp = -9f, dyDp = -15f, halfCycle = 4100L)
+        twinkle(binding.sparkleA, halfCycle = 1600L, delay = 0L)
+        twinkle(binding.sparkleB, halfCycle = 2050L, delay = 600L)
     }
 
     /** The scene as it looks once every entrance has finished — used when the user
      *  has animations turned off, so they still get the composed screen. */
     private fun showSettledFrame() {
         (featureBadges + listOf(
-            binding.iconTileVw, binding.lblAppName, binding.lblTagline,
-            binding.lblAdDisclosure, binding.progTrack, binding.progFill,
-            binding.secureRowVw,
+            binding.iconTile, binding.textAppName, binding.textTagline,
+            binding.textAdDisclosure, binding.progressTrack, binding.progressFill,
+            binding.secureRow,
         )).forEach { it.alpha = 1f }
         waveBars.forEach { it.backgroundTintList = ColorStateList.valueOf(barTrackColor) }
-        binding.progTrack.post {
-            if (alive()) setFillWidth((binding.progTrack.width * 0.94f).toInt())
+        binding.progressTrack.post {
+            if (alive()) setFillWidth((binding.progressTrack.width * 0.94f).toInt())
         }
     }
 
@@ -378,16 +378,16 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
      *  first pass. Loops on the same 2.6s cycle the design previews at, so the
      *  screen keeps reading as "scanning" for as long as it is up. */
     private fun startScan() {
-        val sweep = binding.sweepVw
-        binding.waveRowVw.post {
+        val sweep = binding.sweep
+        binding.waveRow.post {
             if (!alive()) return@post
-            val rowWidth = binding.waveRowVw.width
+            val rowWidth = binding.waveRow.width
             if (rowWidth <= 0) return@post
 
             // The wrapper sits under an ancestor with clipChildren="false", so it
             // needs the outline clip for the band to enter and leave at the wave's
             // ends rather than float out over the feature badges.
-            binding.waveWrapVw.clipToRect()
+            binding.waveWrap.clipToRect()
 
             val bandWidth = sweep.width.toFloat()
             // Bar centres in row space — what the band's head is measured against.
@@ -435,7 +435,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     /** Sets the progress fill's width in px. Width — not scaleX, which would
      *  stretch the drawable's rounded caps into a lens. */
     private fun setFillWidth(px: Int) {
-        binding.progFill.updateLayoutParams { width = px }
+        binding.progressFill.updateLayoutParams { width = px }
     }
 
     /** Grows the boot bar from its seeded nub to ~94% of the track. It stops short
@@ -443,11 +443,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
      *  bar ends, and a bar that sat at 100% while the screen was still up would be
      *  claiming something that has not happened. */
     private fun startProgressFill(delay: Long) {
-        binding.progTrack.post {
+        binding.progressTrack.post {
             if (!alive()) return@post
-            val track = binding.progTrack.width
+            val track = binding.progressTrack.width
             if (track <= 0) return@post
-            val from = binding.progFill.width.coerceAtLeast(dp(8f).toInt())
+            val from = binding.progressFill.width.coerceAtLeast(dp(8f).toInt())
             val to = (track * 0.94f).toInt()
             start(ValueAnimator.ofInt(from, to).apply {
                 startDelay = delay

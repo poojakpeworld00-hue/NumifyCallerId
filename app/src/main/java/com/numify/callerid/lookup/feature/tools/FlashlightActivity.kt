@@ -53,31 +53,31 @@ class FlashlightActivity : BaseActivity<ActivityFlashlightBinding>() {
     }
 
     override fun initView() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.flashlightRootVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.flashlightRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
-        binding.padBack.setOnClickListener { goBack() }
+        binding.buttonBack.setOnClickListener { goBack() }
 
         // Mid native, scrolls with the tool content.
-        NativeAdPresenter().renderMidNative(this, binding.adNativeFrameVw, binding.adShimmerVw)
+        NativeAdPresenter().renderMidNative(this, binding.adNativeFrame, binding.adShimmer)
 
         cameraManager = getSystemService(CAMERA_SERVICE) as CameraManager
         cameraId = findFlashCamera()
         if (cameraId == null) {
-            binding.lblNoFlash.visibility = View.VISIBLE
-            binding.contentVw.visibility = View.GONE
+            binding.textNoFlash.visibility = View.VISIBLE
+            binding.content.visibility = View.GONE
             return
         }
 
-        binding.padToggle.setOnClickListener { toggleActive() }
-        binding.modeSteadyVw.setOnClickListener { selectMode(Mode.STEADY) }
-        binding.modeStrobeVw.setOnClickListener { selectMode(Mode.STROBE) }
-        binding.modeSosVw.setOnClickListener { selectMode(Mode.SOS) }
+        binding.buttonToggle.setOnClickListener { toggleActive() }
+        binding.modeSteady.setOnClickListener { selectMode(Mode.STEADY) }
+        binding.modeStrobe.setOnClickListener { selectMode(Mode.STROBE) }
+        binding.modeSos.setOnClickListener { selectMode(Mode.SOS) }
 
-        binding.seekBrightnessVw.progress = brightnessPct
-        binding.seekBrightnessVw.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        binding.seekBrightness.progress = brightnessPct
+        binding.seekBrightness.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(sb: SeekBar?, value: Int, fromUser: Boolean) {
                 brightnessPct = value
                 if (active && mode == Mode.STEADY) applyTorch(true)
@@ -163,33 +163,33 @@ class FlashlightActivity : BaseActivity<ActivityFlashlightBinding>() {
     }
 
     private fun updatePowerUi() {
-        binding.padToggle.setBackgroundResource(
+        binding.buttonToggle.setBackgroundResource(
             if (active) R.drawable.bg_cid_torch_on else R.drawable.bg_cid_torch_off
         )
-        binding.padToggle.imageTintList = ColorStateList.valueOf(
+        binding.buttonToggle.imageTintList = ColorStateList.valueOf(
             ContextCompat.getColor(this, if (active) R.color.white else R.color.on_surface_variant)
         )
-        binding.lblState.setText(
+        binding.textState.setText(
             if (active) R.string.flashlight_state_on else R.string.flashlight_state_off
         )
-        binding.lblState.setTextColor(
+        binding.textState.setTextColor(
             ContextCompat.getColor(this, if (active) R.color.cid_amber else R.color.on_surface_variant)
         )
         // The halo is the only thing that says "this is throwing light", so it
         // fades rather than snaps — a hard cut reads as a rendering glitch.
         val target = if (active) 1f else 0f
-        binding.beamOuterVw.animate().alpha(target).setDuration(220L).start()
-        binding.beamInnerVw.animate().alpha(target).setDuration(220L).start()
+        binding.beamOuter.animate().alpha(target).setDuration(220L).start()
+        binding.beamInner.animate().alpha(target).setDuration(220L).start()
     }
 
     private fun updateReadout() {
-        binding.lblBrightnessPct.text = getString(R.string.flashlight_pct, brightnessPct)
+        binding.textBrightnessPct.text = getString(R.string.flashlight_pct, brightnessPct)
     }
 
     private fun highlightModes() {
-        setMode(binding.modeSteadyVw, binding.picSteady, binding.lblSteady, mode == Mode.STEADY)
-        setMode(binding.modeStrobeVw, binding.picStrobe, binding.lblStrobe, mode == Mode.STROBE)
-        setMode(binding.modeSosVw, binding.picSos, binding.lblSos, mode == Mode.SOS)
+        setMode(binding.modeSteady, binding.imageSteady, binding.textSteady, mode == Mode.STEADY)
+        setMode(binding.modeStrobe, binding.imageStrobe, binding.textStrobe, mode == Mode.STROBE)
+        setMode(binding.modeSos, binding.imageSos, binding.textSos, mode == Mode.SOS)
     }
 
     private fun setMode(container: View, icon: ImageView, label: TextView, selected: Boolean) {

@@ -10,7 +10,7 @@
         android:layout_weight="1">
 
         <LinearLayout
-            android:id="@+id/rdoContainer"
+            android:id="@+id/radioContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -33,7 +33,7 @@
             android:src="@drawable/option_rename" />
 
         <EditText
-            android:id="@+id/inpCustomMessage"
+            android:id="@+id/inputCustomMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
@@ -46,7 +46,7 @@
             android:textSize="@dimen/_12sdp" />
 
         <ImageView
-            android:id="@+id/padSendMessage"
+            android:id="@+id/buttonSendMessage"
             android:layout_width="@dimen/_32sdp"
             android:layout_height="@dimen/_32sdp"
             android:background="@drawable/bg_main_btn"

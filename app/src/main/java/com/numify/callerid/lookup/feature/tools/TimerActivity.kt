@@ -44,26 +44,26 @@ class TimerActivity : BaseActivity<ActivityTimerBinding>() {
     }
 
     override fun initView() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.timerRootVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.timerRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
-        binding.padBack.setOnClickListener { goBack() }
+        binding.buttonBack.setOnClickListener { goBack() }
 
         // Sibling tool — the segmented control swaps activities rather than views.
-        binding.padSegStopwatch.setOnClickListener {
+        binding.buttonSegStopwatch.setOnClickListener {
             startActivity(Intent(this, StopwatchActivity::class.java))
             finish()
         }
 
         // Mid native, scrolls with the tool content.
-        NativeAdPresenter().renderMidNativeAlt(this, binding.adNativeFrameVw, binding.adShimmerVw)
+        NativeAdPresenter().renderMidNativeAlt(this, binding.adNativeFrame, binding.adShimmer)
 
         buildPresets()
-        binding.padStartPause.setOnClickListener { if (running) pause() else start() }
-        binding.padReset.setOnClickListener { reset() }
-        binding.padAddMin.setOnClickListener { add(60_000) }
+        binding.buttonStartPause.setOnClickListener { if (running) pause() else start() }
+        binding.buttonReset.setOnClickListener { reset() }
+        binding.buttonAddMin.setOnClickListener { add(60_000) }
 
         selectPreset(DEFAULT_PRESET_MIN)
     }
@@ -77,7 +77,7 @@ class TimerActivity : BaseActivity<ActivityTimerBinding>() {
 
     /** Built in code so the chip row stays in step with [PRESET_MINUTES]. */
     private fun buildPresets() {
-        val row = binding.presetsVw
+        val row = binding.presets
         row.removeAllViews()
         PRESET_MINUTES.forEach { minutes ->
             val chip = TextView(this).apply {
@@ -110,7 +110,7 @@ class TimerActivity : BaseActivity<ActivityTimerBinding>() {
     }
 
     private fun paintPresets(selected: Int) {
-        val row = binding.presetsVw
+        val row = binding.presets
         for (i in 0 until row.childCount) {
             val chip = row.getChildAt(i) as TextView
             val isOn = chip.tag == selected
@@ -138,8 +138,8 @@ class TimerActivity : BaseActivity<ActivityTimerBinding>() {
         if (remainingMs <= 0L) return
         running = true
         endRealtime = SystemClock.elapsedRealtime() + remainingMs
-        binding.padStartPause.setImageResource(R.drawable.ic_pause)
-        binding.padStartPause.contentDescription = getString(R.string.action_pause)
+        binding.buttonStartPause.setImageResource(R.drawable.ic_pause)
+        binding.buttonStartPause.contentDescription = getString(R.string.action_pause)
         setPresetsEnabled(false)
         handler.post(tick)
     }
@@ -161,8 +161,8 @@ class TimerActivity : BaseActivity<ActivityTimerBinding>() {
     }
 
     private fun showStartAffordance() {
-        binding.padStartPause.setImageResource(R.drawable.ic_play)
-        binding.padStartPause.contentDescription = getString(R.string.action_start)
+        binding.buttonStartPause.setImageResource(R.drawable.ic_play)
+        binding.buttonStartPause.contentDescription = getString(R.string.action_start)
         setPresetsEnabled(true)
     }
 
@@ -184,17 +184,17 @@ class TimerActivity : BaseActivity<ActivityTimerBinding>() {
     private fun onFinished() {
         running = false
         showStartAffordance()
-        if (binding.swAlert.isChecked) vibrate()
+        if (binding.switchAlert.isChecked) vibrate()
     }
 
     // ─────────────────────────────── rendering ───────────────────────────────
 
     private fun render() {
-        binding.lblTime.text = format(remainingMs)
-        binding.lblTotal.text = getString(R.string.timer_of, format(totalMs))
+        binding.textTime.text = format(remainingMs)
+        binding.textTotal.text = getString(R.string.timer_of, format(totalMs))
         // Elapsed, not remaining: the design's arc grows as the timer runs down.
         val elapsed = if (totalMs <= 0L) 0f else (totalMs - remainingMs).toFloat() / totalMs
-        binding.ringVw.setProgress(elapsed, animate = running)
+        binding.ring.setProgress(elapsed, animate = running)
     }
 
     /** Rounds up while counting down, so "1s left" never shows as 00:00. */
@@ -204,7 +204,7 @@ class TimerActivity : BaseActivity<ActivityTimerBinding>() {
     }
 
     private fun setPresetsEnabled(enabled: Boolean) {
-        val row = binding.presetsVw
+        val row = binding.presets
         for (i in 0 until row.childCount) {
             row.getChildAt(i).isEnabled = enabled
             row.getChildAt(i).alpha = if (enabled) 1f else 0.5f

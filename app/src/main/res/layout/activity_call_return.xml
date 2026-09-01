@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mainVw"
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg">
 
     <LinearLayout
-        android:id="@+id/row_1"
+        android:id="@+id/column_1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_90sdp"
         android:orientation="horizontal"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
-            android:id="@+id/sectUser"
+            android:id="@+id/sectionUser"
             android:layout_width="@dimen/_56sdp"
             android:layout_height="@dimen/_56sdp"
             android:layout_gravity="center"
@@ -27,7 +27,7 @@
             android:background="@drawable/ic_profile">
 
             <ImageView
-                android:id="@+id/picUser"
+                android:id="@+id/imageUser"
                 android:layout_width="@dimen/_28sdp"
                 android:layout_height="@dimen/_28sdp"
                 android:layout_gravity="center"
@@ -39,7 +39,7 @@
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/crestLayout"
+            android:id="@+id/headerLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -47,14 +47,14 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/row_1">
+            app:layout_constraintTop_toBottomOf="@+id/column_1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/txtCallerNameVw"
+                    android:id="@+id/labelCallerName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -79,7 +79,7 @@
                     android:textSize="@dimen/_10sdp" />
 
                 <TextView
-                    android:id="@+id/txtDurationVw"
+                    android:id="@+id/labelDuration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_2sdp"
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/txtTimeVw"
+                    android:id="@+id/labelTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/figtree_medium"
@@ -106,7 +106,7 @@
                     android:textSize="@dimen/_10sdp" />
 
                 <TextView
-                    android:id="@+id/txtCallTypeVw"
+                    android:id="@+id/labelCallType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
@@ -119,7 +119,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <ImageView
-            android:id="@+id/call_iconVw"
+            android:id="@+id/call_icon"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="@dimen/_10sdp"
@@ -129,7 +129,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/main_butttionVw"
+        android:id="@+id/main_butttion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_5sdp"
@@ -138,10 +138,10 @@
         android:paddingVertical="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/row_1">
+        app:layout_constraintTop_toBottomOf="@+id/column_1">
 
         <LinearLayout
-            android:id="@+id/pic_recent"
+            android:id="@+id/image_recent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -153,7 +153,7 @@
             android:paddingEnd="@dimen/_12sdp">
 
             <ImageView
-                android:id="@+id/picTabRecent"
+                android:id="@+id/imageTabRecent"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_gravity="center"
@@ -170,7 +170,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/pic_mes"
+            android:id="@+id/image_mes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -182,7 +182,7 @@
             android:paddingEnd="@dimen/_12sdp">
 
             <ImageView
-                android:id="@+id/picTabMessage"
+                android:id="@+id/imageTabMessage"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_gravity="center"
@@ -199,7 +199,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/pic_reminder"
+            android:id="@+id/image_reminder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -211,7 +211,7 @@
             android:paddingEnd="@dimen/_12sdp">
 
             <ImageView
-                android:id="@+id/picTabReminder"
+                android:id="@+id/imageTabReminder"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_gravity="center"
@@ -235,7 +235,7 @@
             WhatsApp nor WhatsApp Business is installed.
         -->
         <LinearLayout
-            android:id="@+id/pic_whatsapp"
+            android:id="@+id/image_whatsapp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -247,7 +247,7 @@
             android:paddingEnd="@dimen/_12sdp">
 
             <ImageView
-                android:id="@+id/picTabWhatsapp"
+                android:id="@+id/imageTabWhatsapp"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_gravity="center"
@@ -265,17 +265,17 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/frag_container"
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/_5sdp"
-        app:layout_constraintBottom_toTopOf="@+id/adContainerVw"
+        app:layout_constraintBottom_toTopOf="@+id/adContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_butttionVw" />
+        app:layout_constraintTop_toBottomOf="@+id/main_butttion" />
 
     <FrameLayout
-        android:id="@+id/adContainerVw"
+        android:id="@+id/adContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

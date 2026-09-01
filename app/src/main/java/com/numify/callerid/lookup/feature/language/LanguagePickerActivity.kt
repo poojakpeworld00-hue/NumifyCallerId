@@ -57,7 +57,7 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
         // from Settings to change language) — drives the once/count frequency gate.
         if (!standalone) OnboardingStepConfig.markShown(this, OnboardingStepConfig.LANGUAGE_KEY)
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.languageRootVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.languageRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
@@ -72,15 +72,15 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
         // the raw tag if the current one is not in the catalogue (a locale carried
         // over from an older build, say) — better than showing nothing.
         val currentName = LocaleCatalog.all.firstOrNull { it.tag == current }?.nativeName ?: current
-        binding.lblSubtitle.text = "${getString(R.string.language_current)}: $currentName"
+        binding.textSubtitle.text = "${getString(R.string.language_current)}: $currentName"
 
         // Mid native ad shown above the Continue button.
         OnboardingFooterAd.render(
             activity = this,
             screenKey = OnboardingStepConfig.LANGUAGE_KEY,
-            container = binding.adNativeFrameVw,
-            shimmer = binding.adShimmerVw,
-            divider = binding.adNativeDividerVw,
+            container = binding.adNativeFrame,
+            shimmer = binding.adShimmer,
+            divider = binding.adNativeDivider,
             fallbackType = "BigNative",
         )
 
@@ -97,21 +97,21 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
         suggestedAdapter = LanguageAdapter(onPick).apply { setCurrent(current) }
         allAdapter = LanguageAdapter(onPick).apply { setCurrent(current) }
 
-        binding.rollSuggested.layoutManager = LinearLayoutManager(this)
-        binding.rollSuggested.adapter = suggestedAdapter
-        binding.rollSuggested.addItemDecoration(
-            LanguageDividerDecoration(binding.rollSuggested)
+        binding.listSuggested.layoutManager = LinearLayoutManager(this)
+        binding.listSuggested.adapter = suggestedAdapter
+        binding.listSuggested.addItemDecoration(
+            LanguageDividerDecoration(binding.listSuggested)
         )
 
-        binding.rollLanguages.layoutManager = LinearLayoutManager(this)
-        binding.rollLanguages.adapter = allAdapter
-        binding.rollLanguages.addItemDecoration(
-            LanguageDividerDecoration(binding.rollLanguages)
+        binding.listLanguages.layoutManager = LinearLayoutManager(this)
+        binding.listLanguages.adapter = allAdapter
+        binding.listLanguages.addItemDecoration(
+            LanguageDividerDecoration(binding.listLanguages)
         )
 
-        binding.padBack.setOnClickListener { goBack() }
-        binding.padInfo.setOnClickListener { showInfoDialog() }
-        binding.padContinue.setOnClickListener {
+        binding.buttonBack.setOnClickListener { goBack() }
+        binding.buttonInfo.setOnClickListener { showInfoDialog() }
+        binding.buttonContinue.setOnClickListener {
             if (forwarding) return@setOnClickListener
             forwarding = true
             onContinue()
@@ -204,10 +204,10 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
 
     /** Small spring on the confirm button each time the selection changes. */
     private fun popConfirm() {
-        binding.padContinue.animate().cancel()
-        binding.padContinue.scaleX = 0.8f
-        binding.padContinue.scaleY = 0.8f
-        binding.padContinue.animate()
+        binding.buttonContinue.animate().cancel()
+        binding.buttonContinue.scaleX = 0.8f
+        binding.buttonContinue.scaleY = 0.8f
+        binding.buttonContinue.animate()
             .scaleX(1f).scaleY(1f)
             .setInterpolator(OvershootInterpolator(3f))
             .setDuration(260L)
@@ -216,13 +216,13 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
 
     private fun showInfoDialog() {
         val view =
-            layoutInflater.inflate(R.layout.dialog_language_info, binding.languageRootVw, false)
+            layoutInflater.inflate(R.layout.dialog_language_info, binding.languageRoot, false)
         val dialog = MaterialAlertDialogBuilder(this)
             .setView(view)
             .create()
 
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        view.findViewById<View>(R.id.padGotIt).setOnClickListener { dialog.dismiss() }
+        view.findViewById<View>(R.id.buttonGotIt).setOnClickListener { dialog.dismiss() }
 
         dialog.show()
         val width = (resources.displayMetrics.widthPixels * 0.85f).toInt()

@@ -66,7 +66,7 @@ class ToolboxAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val row = rows[position]) {
-            is UtilityRow.Header -> (holder as HeaderVH).binding.lblToolCategory.text = row.title
+            is UtilityRow.Header -> (holder as HeaderVH).binding.textToolCategory.text = row.title
             is UtilityRow.Tool -> (holder as ToolVH).bind(row.tool)
         }
         animateIn(holder.itemView, position)
@@ -96,15 +96,15 @@ class ToolboxAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(tool: UtilityUi) {
-            binding.picToolIcon.setBackgroundResource(tool.tileRes)
-            binding.picToolIcon.setImageResource(tool.iconRes)
+            binding.imageToolIcon.setBackgroundResource(tool.tileRes)
+            binding.imageToolIcon.setImageResource(tool.iconRes)
             // The glyphs are authored white, so the hue has to come from a tint.
-            binding.picToolIcon.imageTintList = ColorStateList.valueOf(
+            binding.imageToolIcon.imageTintList = ColorStateList.valueOf(
                 ContextCompat.getColor(binding.root.context, tool.tintRes)
             )
-            binding.lblToolTitle.text = tool.name
-            binding.toolCardVw.setOnClickListener {
-                springIcon(binding.picToolIcon)
+            binding.textToolTitle.text = tool.name
+            binding.toolCard.setOnClickListener {
+                springIcon(binding.imageToolIcon)
                 onClick(tool)
             }
         }

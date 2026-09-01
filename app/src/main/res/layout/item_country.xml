@@ -12,7 +12,7 @@
     <!-- Fixed height + centre gravity so the emoji flag lines up with the name
          beside it; see the note in pane_recents. -->
     <TextView
-        android:id="@+id/lblFlag"
+        android:id="@+id/textFlag"
         android:layout_width="@dimen/_24sdp"
         android:layout_height="@dimen/_24sdp"
         android:gravity="center"
@@ -21,7 +21,7 @@
         tools:text="🇮🇳" />
 
     <TextView
-        android:id="@+id/lblName"
+        android:id="@+id/textName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_12sdp"
@@ -33,7 +33,7 @@
         tools:text="India" />
 
     <TextView
-        android:id="@+id/lblDial"
+        android:id="@+id/textDial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/on_surface_variant"

@@ -19,7 +19,7 @@ class IntroPagerAdapter(
 
         fun bind(page: IntroSlide) {
             cancelAnims()
-            val container = binding.artContainerVw
+            val container = binding.artContainer
             container.removeAllViews()
 
             if (page.customArtRes != 0) {
@@ -39,8 +39,8 @@ class IntroPagerAdapter(
                 container.addView(image)
             }
 
-            binding.lblTitle.setText(page.titleRes)
-            binding.lblDesc.setText(page.descRes)
+            binding.textTitle.setText(page.titleRes)
+            binding.textDesc.setText(page.descRes)
         }
 
         private fun cancelAnims() {

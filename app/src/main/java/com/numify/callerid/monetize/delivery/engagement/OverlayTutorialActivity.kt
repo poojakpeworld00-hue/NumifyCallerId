@@ -36,7 +36,7 @@ class OverlayTutorialActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_overlay_tutorial)
 
-        val root = findViewById<View>(R.id.llMain)
+        val root = findViewById<View>(R.id.columnMain)
 
         // Edge-to-edge is forced on Android 15+/16 (targetSdk 37), so the bottom
         // hint card would otherwise draw behind the navigation bar. Pad the root
@@ -57,7 +57,7 @@ class OverlayTutorialActivity : AppCompatActivity() {
         // Slide the card up on entry. The window itself is translucent and the dim
         // fades in on its own, so animating the card is what makes it read as a
         // sheet rising over the Settings page rather than a frame-one pop-in.
-        findViewById<View>(R.id.overlayCardVw)?.apply {
+        findViewById<View>(R.id.overlayCard)?.apply {
             alpha = 0f
             post {
                 translationY = height.toFloat()

@@ -10,7 +10,7 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/toolCardVw"
+    android:id="@+id/toolCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_4sdp"
@@ -24,7 +24,7 @@
     android:paddingBottom="@dimen/_10sdp">
 
     <ImageView
-        android:id="@+id/picToolIcon"
+        android:id="@+id/imageToolIcon"
         android:layout_width="@dimen/_38sdp"
         android:layout_height="@dimen/_38sdp"
         android:background="@drawable/bg_tool_chip_violet"
@@ -33,7 +33,7 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/lblToolTitle"
+        android:id="@+id/textToolTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8sdp"

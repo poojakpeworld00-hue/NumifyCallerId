@@ -6,7 +6,7 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/favRootVw"
+    android:id="@+id/favRoot"
     android:layout_width="@dimen/_58sdp"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackgroundBorderless"
@@ -17,7 +17,7 @@
     android:paddingVertical="@dimen/_4sdp">
 
     <TextView
-        android:id="@+id/lblFavInitial"
+        android:id="@+id/textFavInitial"
         android:layout_width="@dimen/_46sdp"
         android:layout_height="@dimen/_46sdp"
         android:background="@drawable/bg_cid_pill_neutral"
@@ -29,7 +29,7 @@
         tools:text="A" />
 
     <TextView
-        android:id="@+id/lblFavName"
+        android:id="@+id/textFavName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"

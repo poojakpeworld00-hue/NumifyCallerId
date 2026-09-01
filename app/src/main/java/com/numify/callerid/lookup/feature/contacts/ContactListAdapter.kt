@@ -50,8 +50,8 @@ class ContactListAdapter(
     class HeaderVH(private val binding: ItemSectionHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(letter: String) {
-            binding.lblHeader.text = letter
-            binding.lblHeader.setTextColor(
+            binding.textHeader.text = letter
+            binding.textHeader.setTextColor(
                 ContextCompat.getColor(binding.root.context, R.color.primary)
             )
         }
@@ -61,17 +61,17 @@ class ContactListAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(row: ContactRowUi.Item) {
             val c = row.contact
-            binding.lblAvatar.text = c.initials
-            binding.lblName.text = c.name
-            binding.lblNumber.text = c.detail
+            binding.textAvatar.text = c.initials
+            binding.textName.text = c.name
+            binding.textNumber.text = c.detail
             loadContactPhoto(c)
-            binding.padCall.setOnClickListener { onCall(c.detail) }
+            binding.buttonCall.setOnClickListener { onCall(c.detail) }
             binding.root.setOnClickListener { onOpen(c) }
         }
 
         /** Shows the real contact photo over the initials, falling back to initials. */
         private fun loadContactPhoto(c: ContactRecord) {
-            val iv = binding.picAvatar
+            val iv = binding.imageAvatar
             val uri = c.photoUri
             if (uri.isNullOrBlank()) {
                 Glide.with(iv).clear(iv)

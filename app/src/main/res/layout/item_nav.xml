@@ -16,14 +16,14 @@
 
         <!-- Top indicator bar; only visible on the selected tab. -->
         <View
-            android:id="@+id/navIndicatorVw"
+            android:id="@+id/navIndicator"
             android:layout_width="@dimen/_22sdp"
             android:layout_height="@dimen/_3sdp"
             android:background="@drawable/bg_nav_indicator"
             android:visibility="invisible" />
 
         <ImageView
-            android:id="@+id/navIconVw"
+            android:id="@+id/navIcon"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_24sdp"
             android:layout_marginTop="@dimen/_7sdp"
@@ -33,7 +33,7 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/navLabelVw"
+            android:id="@+id/navLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_3sdp"

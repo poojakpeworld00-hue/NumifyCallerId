@@ -35,24 +35,24 @@ class StopwatchActivity : BaseActivity<ActivityStopwatchBinding>() {
     }
 
     override fun initView() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.stopwatchRootVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.stopwatchRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
-        binding.padBack.setOnClickListener { goBack() }
+        binding.buttonBack.setOnClickListener { goBack() }
 
         // Sibling tool — the segmented control swaps activities rather than views.
-        binding.padSegTimer.setOnClickListener {
+        binding.buttonSegTimer.setOnClickListener {
             startActivity(Intent(this, TimerActivity::class.java))
             finish()
         }
 
         // Mid native, scrolls with the tool content.
-        NativeAdPresenter().renderMidNative(this, binding.adNativeFrameVw, binding.adShimmerVw)
-        binding.padStartPause.setOnClickListener { if (running) pause() else start() }
-        binding.padReset.setOnClickListener { reset() }
-        binding.padLap.setOnClickListener { lap() }
+        NativeAdPresenter().renderMidNative(this, binding.adNativeFrame, binding.adShimmer)
+        binding.buttonStartPause.setOnClickListener { if (running) pause() else start() }
+        binding.buttonReset.setOnClickListener { reset() }
+        binding.buttonLap.setOnClickListener { lap() }
 
         reset()
     }
@@ -65,8 +65,8 @@ class StopwatchActivity : BaseActivity<ActivityStopwatchBinding>() {
     private fun start() {
         running = true
         startRealtime = SystemClock.elapsedRealtime()
-        binding.padStartPause.setImageResource(R.drawable.ic_pause)
-        binding.padStartPause.contentDescription = getString(R.string.action_pause)
+        binding.buttonStartPause.setImageResource(R.drawable.ic_pause)
+        binding.buttonStartPause.contentDescription = getString(R.string.action_pause)
         setLapEnabled(true)
         handler.post(tick)
     }
@@ -86,10 +86,10 @@ class StopwatchActivity : BaseActivity<ActivityStopwatchBinding>() {
         lastLapTotal = 0L
         lapCount = 0
         showStartAffordance()
-        binding.rowLaps.removeAllViews()
-        binding.rowLaps.visibility = View.GONE
-        binding.emptyStateVw.visibility = View.VISIBLE
-        binding.lblLapCount.text = getString(R.string.stopwatch_laps, 0)
+        binding.columnLaps.removeAllViews()
+        binding.columnLaps.visibility = View.GONE
+        binding.emptyState.visibility = View.VISIBLE
+        binding.textLapCount.text = getString(R.string.stopwatch_laps, 0)
         renderTime()
     }
 
@@ -100,15 +100,15 @@ class StopwatchActivity : BaseActivity<ActivityStopwatchBinding>() {
         lastLapTotal = total
         lapCount++
 
-        val row = ItemLapBinding.inflate(LayoutInflater.from(this), binding.rowLaps, false)
-        row.lblLapName.text = getString(R.string.stopwatch_lap_n, lapCount)
-        row.lblLapSplit.text = format(split)
-        row.lblLapTotal.text = format(total)
-        binding.rowLaps.addView(row.root, 0) // newest on top
+        val row = ItemLapBinding.inflate(LayoutInflater.from(this), binding.columnLaps, false)
+        row.textLapName.text = getString(R.string.stopwatch_lap_n, lapCount)
+        row.textLapSplit.text = format(split)
+        row.textLapTotal.text = format(total)
+        binding.columnLaps.addView(row.root, 0) // newest on top
 
-        binding.rowLaps.visibility = View.VISIBLE
-        binding.emptyStateVw.visibility = View.GONE
-        binding.lblLapCount.text = getString(R.string.stopwatch_laps, lapCount)
+        binding.columnLaps.visibility = View.VISIBLE
+        binding.emptyState.visibility = View.GONE
+        binding.textLapCount.text = getString(R.string.stopwatch_laps, lapCount)
     }
 
     private fun elapsed(): Long =
@@ -122,15 +122,15 @@ class StopwatchActivity : BaseActivity<ActivityStopwatchBinding>() {
     }
 
     private fun showStartAffordance() {
-        binding.padStartPause.setImageResource(R.drawable.ic_play)
-        binding.padStartPause.contentDescription = getString(R.string.action_start)
+        binding.buttonStartPause.setImageResource(R.drawable.ic_play)
+        binding.buttonStartPause.contentDescription = getString(R.string.action_start)
         setLapEnabled(false)
     }
 
     /** Lap is meaningless while stopped, so it dims rather than silently no-op. */
     private fun setLapEnabled(enabled: Boolean) {
-        binding.padLap.isEnabled = enabled
-        binding.padLap.alpha = if (enabled) 1f else 0.4f
+        binding.buttonLap.isEnabled = enabled
+        binding.buttonLap.alpha = if (enabled) 1f else 0.4f
     }
 
     private fun renderTime() {
@@ -138,11 +138,11 @@ class StopwatchActivity : BaseActivity<ActivityStopwatchBinding>() {
         // Split so the hundredths can sit smaller and in the brand colour, as the
         // design has them — one string could not carry two type styles.
         val totalSec = ms / 1000
-        binding.lblTime.text =
+        binding.textTime.text =
             String.format(Locale.getDefault(), "%02d:%02d", totalSec / 60, totalSec % 60)
-        binding.lblFraction.text =
+        binding.textFraction.text =
             String.format(Locale.getDefault(), ".%02d", (ms % 1000) / 10)
-        binding.lblStatus.setText(
+        binding.textStatus.setText(
             when {
                 running -> R.string.stopwatch_running
                 ms > 0L -> R.string.stopwatch_paused
@@ -150,7 +150,7 @@ class StopwatchActivity : BaseActivity<ActivityStopwatchBinding>() {
             }
         )
         // The hand turns once a minute, fractional so it sweeps rather than steps.
-        binding.faceVw.setSeconds(ms / 1000f)
+        binding.face.setSeconds(ms / 1000f)
     }
 
     /** mm:ss.cc (centiseconds). */

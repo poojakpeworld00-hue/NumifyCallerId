@@ -21,7 +21,7 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/splashRootVw"
+        android:id="@+id/splashRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_splash_sl_bg"
@@ -36,7 +36,7 @@
              and keep clear of the centre composition and the wordmark block, so
              the page reads balanced rather than clustered. -->
         <View
-            android:id="@+id/bubbleLgVw"
+            android:id="@+id/bubbleLg"
             android:layout_width="@dimen/_58sdp"
             android:layout_height="@dimen/_58sdp"
             android:background="@drawable/bg_splash_sl_bubble"
@@ -49,7 +49,7 @@
             app:layout_constraintVertical_bias="0.14" />
 
         <View
-            android:id="@+id/bubbleSmVw"
+            android:id="@+id/bubbleSm"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
             android:background="@drawable/bg_splash_sl_bubble"
@@ -62,7 +62,7 @@
             app:layout_constraintVertical_bias="0.28" />
 
         <View
-            android:id="@+id/bubbleMdVw"
+            android:id="@+id/bubbleMd"
             android:layout_width="@dimen/_42sdp"
             android:layout_height="@dimen/_42sdp"
             android:background="@drawable/bg_splash_sl_bubble"
@@ -75,7 +75,7 @@
             app:layout_constraintVertical_bias="0.82" />
 
         <View
-            android:id="@+id/bubbleXsVw"
+            android:id="@+id/bubbleXs"
             android:layout_width="@dimen/_22sdp"
             android:layout_height="@dimen/_22sdp"
             android:background="@drawable/bg_splash_sl_bubble"
@@ -88,7 +88,7 @@
             app:layout_constraintVertical_bias="0.86" />
 
         <ImageView
-            android:id="@+id/sparkleAVw"
+            android:id="@+id/sparkleA"
             android:layout_width="@dimen/_18sdp"
             android:layout_height="@dimen/_18sdp"
             android:contentDescription="@null"
@@ -102,7 +102,7 @@
             app:tint="@color/splash_sl_sparkle_a" />
 
         <ImageView
-            android:id="@+id/sparkleBVw"
+            android:id="@+id/sparkleB"
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
             android:contentDescription="@null"
@@ -119,12 +119,12 @@
              Packed vertical chain with the wordmark and tagline, so the whole
              group sits optically centred like the design's flex column. -->
         <FrameLayout
-            android:id="@+id/compositionVw"
+            android:id="@+id/composition"
             android:layout_width="@dimen/_268sdp"
             android:layout_height="@dimen/_136sdp"
             android:clipChildren="false"
             android:clipToPadding="false"
-            app:layout_constraintBottom_toTopOf="@id/lblAppName"
+            app:layout_constraintBottom_toTopOf="@id/textAppName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -138,13 +138,13 @@
                  compositionVw above switches clipping off for this whole subtree.
                  SplashActivity.startScan() applies the outline clip instead. -->
             <FrameLayout
-                android:id="@+id/waveWrapVw"
+                android:id="@+id/waveWrap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
 
                 <LinearLayout
-                    android:id="@+id/waveRowVw"
+                    android:id="@+id/waveRow"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_64sdp"
                     android:layout_gravity="center"
@@ -152,83 +152,83 @@
                     android:orientation="horizontal">
 
                     <View
-                        android:id="@+id/bar1Vw"
+                        android:id="@+id/bar1"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_14sdp"
                         android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
-                        android:id="@+id/bar2Vw"
+                        android:id="@+id/bar2"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_27sdp"
                         android:layout_marginStart="@dimen/_11sdp"
                         android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
-                        android:id="@+id/bar3Vw"
+                        android:id="@+id/bar3"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_22sdp"
                         android:layout_marginStart="@dimen/_11sdp"
                         android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
-                        android:id="@+id/bar4Vw"
+                        android:id="@+id/bar4"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_38sdp"
                         android:layout_marginStart="@dimen/_11sdp"
                         android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
-                        android:id="@+id/bar5Vw"
+                        android:id="@+id/bar5"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_58sdp"
                         android:layout_marginStart="@dimen/_11sdp"
                         android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
-                        android:id="@+id/bar6Vw"
+                        android:id="@+id/bar6"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_34sdp"
                         android:layout_marginStart="@dimen/_11sdp"
                         android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
-                        android:id="@+id/bar7Vw"
+                        android:id="@+id/bar7"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_64sdp"
                         android:layout_marginStart="@dimen/_11sdp"
                         android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
-                        android:id="@+id/bar8Vw"
+                        android:id="@+id/bar8"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_marginStart="@dimen/_11sdp"
                         android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
-                        android:id="@+id/bar9Vw"
+                        android:id="@+id/bar9"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_46sdp"
                         android:layout_marginStart="@dimen/_11sdp"
                         android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
-                        android:id="@+id/bar10Vw"
+                        android:id="@+id/bar10"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginStart="@dimen/_11sdp"
                         android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
-                        android:id="@+id/bar11Vw"
+                        android:id="@+id/bar11"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_33sdp"
                         android:layout_marginStart="@dimen/_11sdp"
                         android:background="@drawable/bg_splash_sl_bar" />
 
                     <View
-                        android:id="@+id/bar12Vw"
+                        android:id="@+id/bar12"
                         android:layout_width="@dimen/_5sdp"
                         android:layout_height="@dimen/_15sdp"
                         android:layout_marginStart="@dimen/_11sdp"
@@ -238,7 +238,7 @@
                 <!-- Scan band. Taller than the row so it overhangs top and
                      bottom like the design's -6px inset. -->
                 <View
-                    android:id="@+id/sweepVw"
+                    android:id="@+id/sweep"
                     android:layout_width="@dimen/_56sdp"
                     android:layout_height="@dimen/_76sdp"
                     android:layout_gravity="start|center_vertical"
@@ -248,7 +248,7 @@
 
             <!-- Centred app-icon tile -->
             <FrameLayout
-                android:id="@+id/iconTileVw"
+                android:id="@+id/iconTile"
                 android:layout_width="@dimen/_76sdp"
                 android:layout_height="@dimen/_76sdp"
                 android:layout_gravity="center"
@@ -271,7 +271,7 @@
             <!-- ===== Six feature badges, mirrored three per side =====
                  Offsets are the design's, measured inside this 268×136 box. -->
             <FrameLayout
-                android:id="@+id/badgeBlockVw"
+                android:id="@+id/badgeBlock"
                 android:layout_width="@dimen/_38sdp"
                 android:layout_height="@dimen/_38sdp"
                 android:layout_gravity="start|top"
@@ -294,7 +294,7 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/badgeSpamVw"
+                android:id="@+id/badgeSpam"
                 android:layout_width="@dimen/_38sdp"
                 android:layout_height="@dimen/_38sdp"
                 android:layout_gravity="end|top"
@@ -317,7 +317,7 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/badgeLookupVw"
+                android:id="@+id/badgeLookup"
                 android:layout_width="@dimen/_38sdp"
                 android:layout_height="@dimen/_38sdp"
                 android:layout_gravity="end|bottom"
@@ -340,7 +340,7 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/badgeProtectionVw"
+                android:id="@+id/badgeProtection"
                 android:layout_width="@dimen/_38sdp"
                 android:layout_height="@dimen/_38sdp"
                 android:layout_gravity="start|bottom"
@@ -363,7 +363,7 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/badgeContactVw"
+                android:id="@+id/badgeContact"
                 android:layout_width="@dimen/_38sdp"
                 android:layout_height="@dimen/_38sdp"
                 android:layout_gravity="start|top"
@@ -386,7 +386,7 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/badgeLocationVw"
+                android:id="@+id/badgeLocation"
                 android:layout_width="@dimen/_38sdp"
                 android:layout_height="@dimen/_38sdp"
                 android:layout_gravity="end|top"
@@ -411,7 +411,7 @@
 
         <!-- ===== Wordmark + tagline ===== -->
         <TextView
-            android:id="@+id/lblAppName"
+            android:id="@+id/textAppName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_22sdp"
@@ -422,13 +422,13 @@
             android:textColor="@color/splash_sl_title"
             android:textSize="@dimen/_30ssp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/lblTagline"
+            app:layout_constraintBottom_toTopOf="@id/textTagline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/compositionVw" />
+            app:layout_constraintTop_toBottomOf="@id/composition" />
 
         <TextView
-            android:id="@+id/lblTagline"
+            android:id="@+id/textTagline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
@@ -441,11 +441,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lblAppName" />
+            app:layout_constraintTop_toBottomOf="@id/textAppName" />
 
         <!-- ===== Ad disclosure ===== -->
         <TextView
-            android:id="@+id/lblAdDisclosure"
+            android:id="@+id/textAdDisclosure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_14sdp"
@@ -455,7 +455,7 @@
             android:text="@string/splash_footer"
             android:textColor="@color/splash_sl_footer"
             android:textSize="@dimen/_11ssp"
-            app:layout_constraintBottom_toTopOf="@id/progTrack"
+            app:layout_constraintBottom_toTopOf="@id/progressTrack"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -465,13 +465,13 @@
              getting somewhere. It is a progress INDICATOR, not a progress report:
              nothing here drives navigation. -->
         <View
-            android:id="@+id/progTrack"
+            android:id="@+id/progressTrack"
             android:layout_width="@dimen/_110sdp"
             android:layout_height="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_12sdp"
             android:alpha="0"
             android:background="@drawable/bg_splash_sl_prog_track"
-            app:layout_constraintBottom_toTopOf="@id/secureRowVw"
+            app:layout_constraintBottom_toTopOf="@id/secureRow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -479,17 +479,17 @@
              animates its real width (not scaleX, which would stretch the rounded
              caps into a lens). -->
         <View
-            android:id="@+id/progFill"
+            android:id="@+id/progressFill"
             android:layout_width="@dimen/_8sdp"
             android:layout_height="@dimen/_4sdp"
             android:alpha="0"
             android:background="@drawable/bg_splash_sl_prog_fill"
-            app:layout_constraintBottom_toBottomOf="@id/progTrack"
-            app:layout_constraintStart_toStartOf="@id/progTrack"
-            app:layout_constraintTop_toTopOf="@id/progTrack" />
+            app:layout_constraintBottom_toBottomOf="@id/progressTrack"
+            app:layout_constraintStart_toStartOf="@id/progressTrack"
+            app:layout_constraintTop_toTopOf="@id/progressTrack" />
 
         <LinearLayout
-            android:id="@+id/secureRowVw"
+            android:id="@+id/secureRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_18sdp"
@@ -509,7 +509,7 @@
             <!-- Text is set from BuildConfig in SplashActivity, so it tracks the
                  real build instead of a hardcoded string. -->
             <TextView
-                android:id="@+id/lblSecureVersion"
+                android:id="@+id/textSecureVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"

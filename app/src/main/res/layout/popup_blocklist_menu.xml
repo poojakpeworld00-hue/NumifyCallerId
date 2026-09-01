@@ -9,7 +9,7 @@
     android:paddingVertical="@dimen/_6sdp">
 
     <LinearLayout
-        android:id="@+id/rowViewDetailsVw"
+        android:id="@+id/columnViewDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
@@ -37,7 +37,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/rowUnblockVw"
+        android:id="@+id/columnUnblock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"

@@ -128,7 +128,7 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
             val iso = defaultIso()
             setCountry(iso, CountryCatalog.dialOf(iso).orEmpty())
 
-            view.padCountryVw.setOnClickListener {
+            view.buttonCountry.setOnClickListener {
                 pickingCountryFor = this
                 countryPickerLauncher.launch(
                     Intent(requireContext(), CountryPickerActivity::class.java)
@@ -136,20 +136,20 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
             }
             // The chips fill THIS form's field; confirming is still the Block
             // button, so a mis-tap in a picker never blocks anyone outright.
-            view.padFromContactsVw.setOnClickListener {
-                onNumberPicked = { number -> view.inpNumber.setText(number) }
+            view.buttonFromContacts.setOnClickListener {
+                onNumberPicked = { number -> view.inputNumber.setText(number) }
                 pickFromContacts()
             }
-            view.padFromRecentsVw.setOnClickListener {
-                onNumberPicked = { number -> view.inpNumber.setText(number) }
+            view.buttonFromRecents.setOnClickListener {
+                onNumberPicked = { number -> view.inputNumber.setText(number) }
                 pickFromRecents()
             }
         }
 
         fun setCountry(iso: String, dialCode: String) {
             dial = dialCode
-            view.lblDialCode.text = dialCode
-            view.lblFlag.text = if (iso.length == 2) CountryCatalog.flag(iso) else ""
+            view.textDialCode.text = dialCode
+            view.textFlag.text = if (iso.length == 2) CountryCatalog.flag(iso) else ""
         }
 
         /**
@@ -159,12 +159,12 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
          * code onto it.
          */
         fun compose(): String {
-            val n = view.inpNumber.text?.toString()?.trim().orEmpty()
+            val n = view.inputNumber.text?.toString()?.trim().orEmpty()
             if (n.isEmpty()) return ""
             return if (n.startsWith("+")) n else dial + n
         }
 
-        fun clear() = view.inpNumber.setText("")
+        fun clear() = view.inputNumber.setText("")
     }
 
     /** Asks for contacts access, then opens the in-app contacts picker once granted. */
@@ -188,26 +188,26 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
 
     override fun initView() {
         // Hosted as a tab: the shell owns the bottom nav, so only the top inset applies.
-        ViewCompat.setOnApplyWindowInsetsListener(binding.blocklistRootVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.blocklistRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, 0)
             insets
         }
-        binding.padBack.visibility = View.GONE
-        binding.rollBlocklist.layoutManager = LinearLayoutManager(requireContext())
-        binding.rollBlocklist.adapter = adapter
+        binding.buttonBack.visibility = View.GONE
+        binding.listBlocklist.layoutManager = LinearLayoutManager(requireContext())
+        binding.listBlocklist.adapter = adapter
 
         // With nothing blocked yet, the empty state IS the add form — no menu in
         // front of it. The FAB opens the same form in a dialog.
-        emptyForm = AddForm(binding.emptyFormVw)
-        binding.padEmptyBlock.setOnClickListener {
+        emptyForm = AddForm(binding.emptyForm)
+        binding.buttonEmptyBlock.setOnClickListener {
             requireCallerId {
                 val form = emptyForm ?: return@requireCallerId
                 blockNumber(form.compose())
                 form.clear()
             }
         }
-        binding.fabAddVw.setOnClickListener { requireCallerId { showAddDialog() } }
+        binding.fabAdd.setOnClickListener { requireCallerId { showAddDialog() } }
     }
 
     private var emptyCascaded = false
@@ -216,7 +216,7 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
     private fun cascadeEmptyMethods() {
         if (emptyCascaded) return
         emptyCascaded = true
-        val card = binding.emptyFormCardVw
+        val card = binding.emptyFormCard
         card.alpha = 0f
         card.translationY = resources.displayMetrics.density * 10f
         card.animate().alpha(1f).translationY(0f).setDuration(320L).start()
@@ -226,12 +226,12 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
         viewModel.rows.observe(viewLifecycleOwner) { rows ->
             adapter.submit(rows)
             val empty = rows.isEmpty()
-            binding.emptyScrollVw.visibility = if (empty) View.VISIBLE else View.GONE
-            binding.populatedGroupVw.visibility = if (empty) View.GONE else View.VISIBLE
+            binding.emptyScroll.visibility = if (empty) View.VISIBLE else View.GONE
+            binding.populatedGroup.visibility = if (empty) View.GONE else View.VISIBLE
             if (empty) cascadeEmptyMethods()
         }
         viewModel.count.observe(viewLifecycleOwner) { count ->
-            binding.lblSummaryCount.text =
+            binding.textSummaryCount.text =
                 resources.getQuantityString(R.plurals.blocklist_blocked_count, count, count)
         }
     }
@@ -241,17 +241,17 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
         val view = DialogBlockDetailsBinding.inflate(layoutInflater)
         val dialog = customDialog(view.root)
 
-        view.lblDetailNumber.text = entry.number
+        view.textDetailNumber.text = entry.number
         if (entry.addedAt > 0L) {
             val date = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
                 .format(Date(entry.addedAt))
-            view.lblDetailAdded.text = getString(R.string.blocklist_details_added, date)
+            view.textDetailAdded.text = getString(R.string.blocklist_details_added, date)
         } else {
-            view.lblDetailAdded.visibility = View.GONE
+            view.textDetailAdded.visibility = View.GONE
         }
 
-        view.padClose.setOnClickListener { dialog.dismiss() }
-        view.padUnblock.setOnClickListener {
+        view.buttonClose.setOnClickListener { dialog.dismiss() }
+        view.buttonUnblock.setOnClickListener {
             dialog.dismiss()
             unblock(entry)
         }
@@ -271,10 +271,10 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
     private fun showAddDialog() {
         val view = DialogBlockAddBinding.inflate(layoutInflater)
         val dialog = customDialog(view.root)
-        val form = AddForm(view.formVw)
+        val form = AddForm(view.form)
 
-        view.padCancel.setOnClickListener { dialog.dismiss() }
-        view.padAdd.setOnClickListener {
+        view.buttonCancel.setOnClickListener { dialog.dismiss() }
+        view.buttonAdd.setOnClickListener {
             blockNumber(form.compose())
             dialog.dismiss()
         }
@@ -348,8 +348,8 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
         val view = DialogBlockRecentsBinding.inflate(layoutInflater)
         val dialog = customDialog(view.root)
 
-        view.lblTitle.setText(titleRes)
-        view.lblNoRecents.setText(emptyRes)
+        view.textTitle.setText(titleRes)
+        view.textNoRecents.setText(emptyRes)
 
         val pickAdapter = BlockOptionAdapter { entry ->
             dialog.dismiss()
@@ -357,13 +357,13 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
             // rows there is no dialog to fill, so it blocks straight away.
             onNumberPicked?.invoke(entry.number) ?: blockNumber(entry.number)
         }
-        view.rollRecents.layoutManager = LinearLayoutManager(requireContext())
-        view.rollRecents.adapter = pickAdapter
+        view.listRecents.layoutManager = LinearLayoutManager(requireContext())
+        view.listRecents.adapter = pickAdapter
         pickAdapter.submit(items)
 
-        view.rollRecents.visibility = if (items.isEmpty()) View.GONE else View.VISIBLE
-        view.lblNoRecents.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
-        view.padClose.setOnClickListener { dialog.dismiss() }
+        view.listRecents.visibility = if (items.isEmpty()) View.GONE else View.VISIBLE
+        view.textNoRecents.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+        view.buttonClose.setOnClickListener { dialog.dismiss() }
         dialog.show()
     }
 
@@ -413,11 +413,11 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
             }
         }
 
-        view.padNotNow.setOnClickListener {
+        view.buttonNotNow.setOnClickListener {
             pendingCallerIdAction = null
             dialog.dismiss()
         }
-        view.padEnable.setOnClickListener {
+        view.buttonEnable.setOnClickListener {
             dialog.dismiss()
             requestEnableCallerId()
         }
@@ -436,39 +436,39 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
      * strip reveals, the CTA breathes, and the demo toggle loops off→on.
      */
     private fun animateEnableCallerIdDialog(v: DialogEnableCallerIdBinding) {
-        v.shieldTileVw.alpha = 0f
-        v.shieldTileVw.scaleX = 0.4f
-        v.shieldTileVw.scaleY = 0.4f
-        v.shieldTileVw.animate()
+        v.shieldTile.alpha = 0f
+        v.shieldTile.scaleX = 0.4f
+        v.shieldTile.scaleY = 0.4f
+        v.shieldTile.animate()
             .alpha(1f).scaleX(1f).scaleY(1f)
             .setStartDelay(80L).setDuration(440L)
             .setInterpolator(OvershootInterpolator(2.4f))
             .start()
 
         AnimatedVectorDrawableCompat.create(requireContext(), R.drawable.motion_shield)?.let { avd ->
-            v.shieldIconVw.setImageDrawable(avd)
+            v.shieldIcon.setImageDrawable(avd)
             avd.start()
         }
 
-        v.shieldRingVw.alpha = 0f
-        loopAnimator(v.shieldRingVw, View.SCALE_X, 0.7f, 1.5f, 1500L, 220L, DecelerateInterpolator())
-        loopAnimator(v.shieldRingVw, View.SCALE_Y, 0.7f, 1.5f, 1500L, 220L, DecelerateInterpolator())
-        loopAnimator(v.shieldRingVw, View.ALPHA, 0.7f, 0f, 1500L, 220L, DecelerateInterpolator())
+        v.shieldRing.alpha = 0f
+        loopAnimator(v.shieldRing, View.SCALE_X, 0.7f, 1.5f, 1500L, 220L, DecelerateInterpolator())
+        loopAnimator(v.shieldRing, View.SCALE_Y, 0.7f, 1.5f, 1500L, 220L, DecelerateInterpolator())
+        loopAnimator(v.shieldRing, View.ALPHA, 0.7f, 0f, 1500L, 220L, DecelerateInterpolator())
 
-        v.tipStrip.alpha = 0f
-        v.tipStrip.translationY = 10f * resources.displayMetrics.density
-        v.tipStrip.animate()
+        v.hintStrip.alpha = 0f
+        v.hintStrip.translationY = 10f * resources.displayMetrics.density
+        v.hintStrip.animate()
             .alpha(1f).translationY(0f)
             .setStartDelay(620L).setDuration(340L)
             .setInterpolator(DecelerateInterpolator())
             .start()
 
         loopAnimator(
-            v.padEnable, View.SCALE_X, 1f, 1.03f, 1300L, 900L,
+            v.buttonEnable, View.SCALE_X, 1f, 1.03f, 1300L, 900L,
             AccelerateDecelerateInterpolator(), ValueAnimator.REVERSE
         )
         loopAnimator(
-            v.padEnable, View.SCALE_Y, 1f, 1.03f, 1300L, 900L,
+            v.buttonEnable, View.SCALE_Y, 1f, 1.03f, 1300L, 900L,
             AccelerateDecelerateInterpolator(), ValueAnimator.REVERSE
         )
 

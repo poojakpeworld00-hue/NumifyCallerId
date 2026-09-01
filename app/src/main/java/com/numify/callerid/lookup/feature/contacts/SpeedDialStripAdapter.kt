@@ -36,10 +36,10 @@ class SpeedDialStripAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(entry: ContactRecord) {
-            binding.lblFavInitial.text = entry.initials.take(1)
+            binding.textFavInitial.text = entry.initials.take(1)
             // First word only; see the layout's note on width.
-            binding.lblFavName.text = entry.name.substringBefore(' ')
-            binding.favRootVw.setOnClickListener { onPick(entry) }
+            binding.textFavName.text = entry.name.substringBefore(' ')
+            binding.favRoot.setOnClickListener { onPick(entry) }
         }
     }
 }

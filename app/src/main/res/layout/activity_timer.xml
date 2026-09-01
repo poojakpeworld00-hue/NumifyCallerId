@@ -17,14 +17,14 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/timerRootVw"
+        android:id="@+id/timerRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
         tools:context=".screen.utility.TimerActivity">
 
         <LinearLayout
-            android:id="@+id/crownBar"
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/padBack"
+                android:id="@+id/buttonBack"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -65,7 +65,7 @@
                 android:padding="@dimen/_3sdp">
 
                 <TextView
-                    android:id="@+id/padSegStopwatch"
+                    android:id="@+id/buttonSegStopwatch"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_28sdp"
                     android:background="?attr/selectableItemBackgroundBorderless"
@@ -93,8 +93,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
-            app:layout_constraintTop_toBottomOf="@id/crownBar">
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
+            app:layout_constraintTop_toBottomOf="@id/topBar">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -111,7 +111,7 @@
                     android:layout_marginTop="@dimen/_8sdp">
 
                     <com.numify.callerid.lookup.feature.tools.TimerArcView
-                        android:id="@+id/ringVw"
+                        android:id="@+id/ring"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                         <LinearLayout
@@ -122,7 +122,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/lblTime"
+                            android:id="@+id/textTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:includeFontPadding="false"
@@ -149,7 +149,7 @@
                                 app:tint="@color/on_surface" />
 
                             <TextView
-                                android:id="@+id/lblTotal"
+                                android:id="@+id/textTotal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_5sdp"
@@ -171,19 +171,19 @@
                     android:scrollbars="none">
 
                     <LinearLayout
-                        android:id="@+id/presetsVw"
+                        android:id="@+id/presets"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal" />
                 </HorizontalScrollView>
                 <FrameLayout
-                    android:id="@+id/adNativeFrameVw"
+                    android:id="@+id/adNativeFrame"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/_10sdp">
 
                     <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/adShimmerVw"
+                        android:id="@+id/adShimmer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ccc">
@@ -200,7 +200,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/padReset"
+                        android:id="@+id/buttonReset"
                         android:layout_width="@dimen/_48sdp"
                         android:layout_height="@dimen/_48sdp"
                         android:background="@drawable/bg_cid_circle_outline"
@@ -211,7 +211,7 @@
                         app:tint="@color/on_surface" />
 
                     <ImageView
-                        android:id="@+id/padStartPause"
+                        android:id="@+id/buttonStartPause"
                         android:layout_width="@dimen/_66sdp"
                         android:layout_height="@dimen/_66sdp"
                         android:layout_marginHorizontal="@dimen/_12sdp"
@@ -226,7 +226,7 @@
                         app:tint="@color/on_primary" />
 
                     <ImageView
-                        android:id="@+id/padAddMin"
+                        android:id="@+id/buttonAddMin"
                         android:layout_width="@dimen/_48sdp"
                         android:layout_height="@dimen/_48sdp"
                         android:background="@drawable/bg_cid_circle_outline"
@@ -239,7 +239,7 @@
 
                 <!-- ===== Alert card ===== -->
                 <LinearLayout
-                    android:id="@+id/alertCardVw"
+                    android:id="@+id/alertCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
@@ -289,7 +289,7 @@
                     </LinearLayout>
 
                     <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/swAlert"
+                        android:id="@+id/switchAlert"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
@@ -302,10 +302,10 @@
 
         <!-- Full-bleed hairline separating app content from the ad below -->
         <View
-            android:id="@+id/adBannerDividerVw"
+            android:id="@+id/adBannerDivider"
             style="@style/AdDivider"
             android:layout_width="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

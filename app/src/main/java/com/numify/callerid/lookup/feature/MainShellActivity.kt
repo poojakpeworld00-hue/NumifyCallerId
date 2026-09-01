@@ -256,7 +256,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     }
 
     override fun initView() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.mainVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             statusBarTop = bars.top
             // No top padding on the root — Home's hero draws under the status bar.
@@ -268,19 +268,19 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
 
         tabs = listOf(
             Tab(
-                binding.navRecentsVw, CallLogFragment(),
+                binding.navRecents, CallLogFragment(),
                 R.drawable.navtab_recent_selected, R.drawable.navtab_recent_unselected, R.string.nav_recents
             ),
             Tab(
-                binding.navContactsVw, ContactListFragment(),
+                binding.navContacts, ContactListFragment(),
                 R.drawable.navtab_contact_selected, R.drawable.navtab_contact_unselected, R.string.nav_contacts
             ),
             Tab(
-                binding.navBlocklistVw, BlockedNumbersFragment(),
+                binding.navBlocklist, BlockedNumbersFragment(),
                 R.drawable.ic_block, R.drawable.ic_block, R.string.nav_blocklist
             ),
             Tab(
-                binding.navToolsVw, ToolboxFragment(),
+                binding.navTools, ToolboxFragment(),
                 R.drawable.ic_qa_tools, R.drawable.ic_qa_tools, R.string.nav_tools
             ),
             Tab(
@@ -291,22 +291,22 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
 
         tabs.forEachIndexed { index, tab ->
             val nav = tab.nav ?: return@forEachIndexed
-            nav.navLabelVw.setText(tab.label)
+            nav.navLabel.setText(tab.label)
             nav.root.setOnClickListener {
-                animateIcon(nav.navIconVw)
+                animateIcon(nav.navIcon)
                 select(index)
             }
         }
 
-        binding.fabLookupVw.setOnClickListener {
-            animateIcon(binding.fabLookupIconVw)
+        binding.fabLookup.setOnClickListener {
+            animateIcon(binding.fabLookupIcon)
             showLookup()
         }
 
         setupSwipeNavigation()
         select(0, animate = false)
 
-        binding.padEnableOverlay.setOnClickListener { startOverlayPermissionFlow() }
+        binding.buttonEnableOverlay.setOnClickListener { startOverlayPermissionFlow() }
 
         onBackPressedDispatcher.addCallback(this) { handleBack() }
 
@@ -379,7 +379,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
      * same as a tab strip.
      */
     private fun setupSwipeNavigation() {
-        binding.fragContainer.onSwipe = { direction ->
+        binding.fragmentContainer.onSwipe = { direction ->
             val barTabs = tabs.indices.filter { tabs[it].nav != null }
             val position = barTabs.indexOf(currentIndex)
             if (position >= 0) {
@@ -517,7 +517,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         val coreGranted = isPermissionGranted(Manifest.permission.READ_CALL_LOG) &&
             isPermissionGranted(Manifest.permission.READ_CONTACTS)
         val show = coreGranted && !OverlayPermissionUtils.isGranted(this)
-        binding.overlayBannerVw.visibility = if (show) View.VISIBLE else View.GONE
+        binding.overlayBanner.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun isPermissionGranted(permission: String): Boolean =
@@ -713,18 +713,18 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
      * (first selection, and config changes).
      */
     private fun tintNavCell(nav: ItemNavBinding, color: Int, animate: Boolean) {
-        val from = nav.navLabelVw.currentTextColor
+        val from = nav.navLabel.currentTextColor
         if (!animate || from == color) {
-            nav.navIconVw.imageTintList = ColorStateList.valueOf(color)
-            nav.navLabelVw.setTextColor(color)
+            nav.navIcon.imageTintList = ColorStateList.valueOf(color)
+            nav.navLabel.setTextColor(color)
             return
         }
         ValueAnimator.ofArgb(from, color).apply {
             duration = 200L
             addUpdateListener {
                 val c = it.animatedValue as Int
-                nav.navIconVw.imageTintList = ColorStateList.valueOf(c)
-                nav.navLabelVw.setTextColor(c)
+                nav.navIcon.imageTintList = ColorStateList.valueOf(c)
+                nav.navLabel.setTextColor(c)
             }
             start()
         }
@@ -747,7 +747,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             // selection so the app doesn't fade in over a blank container at launch.
             if (animate) setCustomAnimations(R.anim.anim_tab_enter, R.anim.anim_tab_exit)
             setReorderingAllowed(true)
-            if (!tab.fragment.isAdded) add(R.id.fragContainer, tab.fragment)
+            if (!tab.fragment.isAdded) add(R.id.fragmentContainer, tab.fragment)
             tabs.forEach { if (it.fragment.isAdded && it !== tab) hide(it.fragment) }
             show(tab.fragment)
         }.commit()
@@ -755,18 +755,18 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         tabs.forEachIndexed { i, t ->
             val nav = t.nav ?: return@forEachIndexed
             val active = i == index
-            nav.navIconVw.setImageResource(if (active) t.selectedIcon else t.unselectedIcon)
+            nav.navIcon.setImageResource(if (active) t.selectedIcon else t.unselectedIcon)
             val color = ContextCompat.getColor(
                 this, if (active) R.color.primary else R.color.on_surface_variant
             )
             tintNavCell(nav, color, animate)
-            nav.navIndicatorVw.visibility = if (active) View.VISIBLE else View.INVISIBLE
+            nav.navIndicator.visibility = if (active) View.VISIBLE else View.INVISIBLE
         }
 
         // The centre action is always tinted; it only reacts to being the active
         // destination by lifting slightly.
-        binding.fabLookupVw.animate().cancel()
-        binding.fabLookupVw.animate()
+        binding.fabLookup.animate().cancel()
+        binding.fabLookup.animate()
             .scaleX(if (tabs[index].nav == null) 1.08f else 1f)
             .scaleY(if (tabs[index].nav == null) 1.08f else 1f)
             .setDuration(if (animate) 220L else 0L)
@@ -790,7 +790,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             fragment is ToolboxFragment ||
             fragment is ContactListFragment ||
             fragment is NumberFinderFragment
-        binding.fragContainer.setPadding(0, if (immersive) 0 else statusBarTop, 0, 0)
+        binding.fragmentContainer.setPadding(0, if (immersive) 0 else statusBarTop, 0, 0)
         // All v2 tabs (Home / Recents / Contacts / Lookup) now use a LIGHT background,
         // so the status-bar icons are always dark.
         WindowInsetsControllerCompat(window, window.decorView)

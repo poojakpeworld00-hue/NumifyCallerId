@@ -37,41 +37,41 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
     }
 
     override fun initView() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.lookupDetailRootVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.lookupDetailRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
-        binding.padBack.setOnClickListener { goBack() }
+        binding.buttonBack.setOnClickListener { goBack() }
         RewardedAdPresenter.preload(this) // ready for the "Also known as" unlock
 
         val displayName = name?.takeIf { it.isNotBlank() } ?: getString(R.string.lookup_unknown_caller)
-        binding.lblAvatar.text = CallActionHandler.initials(name, number)
-        binding.lblName.text = displayName
-        binding.lblNumber.text = number
+        binding.textAvatar.text = CallActionHandler.initials(name, number)
+        binding.textName.text = displayName
+        binding.textNumber.text = number
 
         val country = intent.getStringExtra(EXTRA_COUNTRY)
-        binding.lblCountry.text = textOrDash(country)
-        binding.lblCarrier.text = textOrDash(intent.getStringExtra(EXTRA_CARRIER))
-        binding.lblLineType.text = textOrDash(intent.getStringExtra(EXTRA_LINE_TYPE))
+        binding.textCountry.text = textOrDash(country)
+        binding.textCarrier.text = textOrDash(intent.getStringExtra(EXTRA_CARRIER))
+        binding.textLineType.text = textOrDash(intent.getStringExtra(EXTRA_LINE_TYPE))
         // Never echo the country as the city — show a real city or "—".
         val city = intent.getStringExtra(EXTRA_CITY)?.takeIf { !it.equals(country, ignoreCase = true) }
-        binding.lblCity.text = textOrDash(city)
+        binding.textCity.text = textOrDash(city)
 
         bindStatus()
 
         val spamType = intent.getStringExtra(EXTRA_SPAM_TYPE)
         if (!spamType.isNullOrBlank()) {
-            binding.spamRowVw.visibility = View.VISIBLE
-            binding.lblSpamType.text = spamType
+            binding.spamRow.visibility = View.VISIBLE
+            binding.textSpamType.text = spamType
         }
 
         showNicknames(intent.getStringArrayListExtra(EXTRA_NICKNAMES))
 
-        binding.padCall.setOnClickListener { placeCall(rawNumber) }
-        binding.padMessage.setOnClickListener { message() }
-        binding.padShare.setOnClickListener { share(displayName) }
-        binding.padBlock.setOnClickListener { toggleBlock() }
+        binding.buttonCall.setOnClickListener { placeCall(rawNumber) }
+        binding.buttonMessage.setOnClickListener { message() }
+        binding.buttonShare.setOnClickListener { share(displayName) }
+        binding.buttonBlock.setOnClickListener { toggleBlock() }
         updateBlockState()
     }
 
@@ -90,7 +90,7 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
             )
         }
         val color = ContextCompat.getColor(this, fg)
-        binding.lblStatus.apply {
+        binding.textStatus.apply {
             setText(textRes)
             setTextColor(color)
             backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@ReportNumberActivity, bg))
@@ -142,10 +142,10 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
         val soft = if (blocked) R.color.success_soft else R.color.danger_soft
 
         val color = ContextCompat.getColor(this, fg)
-        binding.lblBlockLabel.setText(labelRes)
-        binding.lblBlockLabel.setTextColor(color)
-        binding.picBlockIcon.imageTintList = ColorStateList.valueOf(color)
-        binding.picBlockIcon.backgroundTintList =
+        binding.textBlockLabel.setText(labelRes)
+        binding.textBlockLabel.setTextColor(color)
+        binding.imageBlockIcon.imageTintList = ColorStateList.valueOf(color)
+        binding.imageBlockIcon.backgroundTintList =
             ColorStateList.valueOf(ContextCompat.getColor(this, soft))
     }
 
@@ -164,33 +164,33 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
      */
     private fun showNicknames(nicknames: List<String>?) {
         nicknameList = nicknames.orEmpty()
-        binding.nicknamesSectionVw.visibility = if (nicknameList.isEmpty()) View.GONE else View.VISIBLE
+        binding.nicknamesSection.visibility = if (nicknameList.isEmpty()) View.GONE else View.VISIBLE
         if (nicknameList.isEmpty()) return
         renderNicknames()
     }
 
     private fun renderNicknames() {
         val revealed = revealedSet()
-        binding.rowNicknames.removeAllViews()
+        binding.columnNicknames.removeAllViews()
         for (nick in nicknameList) {
-            val row = ItemNicknameBinding.inflate(layoutInflater, binding.rowNicknames, false)
+            val row = ItemNicknameBinding.inflate(layoutInflater, binding.columnNicknames, false)
             if (revealed.contains(nick)) {
-                row.picNickIcon.setImageResource(R.drawable.ic_verified)
-                row.picNickIcon.imageTintList = ColorStateList.valueOf(color(R.color.success))
-                row.lblNickName.text = nick
-                row.lblNickName.setTextColor(color(R.color.on_surface))
-                row.lblNickRevealed.visibility = View.VISIBLE
-                row.padNickReveal.visibility = View.GONE
+                row.imageNickIcon.setImageResource(R.drawable.ic_verified)
+                row.imageNickIcon.imageTintList = ColorStateList.valueOf(color(R.color.success))
+                row.textNickName.text = nick
+                row.textNickName.setTextColor(color(R.color.on_surface))
+                row.textNickRevealed.visibility = View.VISIBLE
+                row.buttonNickReveal.visibility = View.GONE
             } else {
-                row.picNickIcon.setImageResource(R.drawable.ic_lock)
-                row.picNickIcon.imageTintList = ColorStateList.valueOf(color(R.color.on_surface_variant))
-                row.lblNickName.text = blurName(nick)
-                row.lblNickName.setTextColor(color(R.color.on_surface_variant))
-                row.lblNickRevealed.visibility = View.GONE
-                row.padNickReveal.visibility = View.VISIBLE
-                row.padNickReveal.setOnClickListener { revealOne(nick) }
+                row.imageNickIcon.setImageResource(R.drawable.ic_lock)
+                row.imageNickIcon.imageTintList = ColorStateList.valueOf(color(R.color.on_surface_variant))
+                row.textNickName.text = blurName(nick)
+                row.textNickName.setTextColor(color(R.color.on_surface_variant))
+                row.textNickRevealed.visibility = View.GONE
+                row.buttonNickReveal.visibility = View.VISIBLE
+                row.buttonNickReveal.setOnClickListener { revealOne(nick) }
             }
-            binding.rowNicknames.addView(row.root)
+            binding.columnNicknames.addView(row.root)
         }
         updateNickCount()
     }
@@ -198,7 +198,7 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
     private fun updateNickCount() {
         val total = nicknameList.size
         val count = nicknameList.count { revealedSet().contains(it) }
-        binding.lblNickCount.text = if (count == 0)
+        binding.textNickCount.text = if (count == 0)
             resources.getQuantityString(R.plurals.lookup_more_names, total, total)
         else getString(R.string.lookup_x_of_n_revealed, count, total)
     }

@@ -11,14 +11,14 @@
         android:padding="@dimen/_16sdp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rollReminders"
+            android:id="@+id/listReminders"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="@dimen/_8sdp" />
         <!-- Empty View (hidden by default) -->
         <LinearLayout
-            android:id="@+id/emptyLayoutVw"
+            android:id="@+id/emptyLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -44,7 +44,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/fabAddReminderVw"
+            android:id="@+id/fabAddReminder"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_40sdp"
             android:layout_alignParentBottom="true"

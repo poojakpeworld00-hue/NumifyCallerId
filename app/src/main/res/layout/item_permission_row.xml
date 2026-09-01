@@ -14,7 +14,7 @@
     android:paddingVertical="@dimen/_9sdp">
 
     <ImageView
-        android:id="@+id/picIcon"
+        android:id="@+id/imageIcon"
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"
         android:contentDescription="@null"
@@ -29,7 +29,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/lblTitle"
+            android:id="@+id/textTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/on_surface"
@@ -38,7 +38,7 @@
             tools:text="Notifications" />
 
         <TextView
-            android:id="@+id/lblDesc"
+            android:id="@+id/textDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_1sdp"
@@ -49,7 +49,7 @@
 
     <!-- The row is hidden entirely once its permission is granted. -->
     <TextView
-        android:id="@+id/padAllow"
+        android:id="@+id/buttonAllow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_btn_primary"

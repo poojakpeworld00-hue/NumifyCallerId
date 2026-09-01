@@ -6,14 +6,14 @@
     <data />
 
     <LinearLayout
-        android:id="@+id/toolsRootVw"
+        android:id="@+id/toolsRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
         android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/crownBar"
+                    android:id="@+id/topBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -22,7 +22,7 @@
                     android:paddingVertical="@dimen/_8sdp">
 
                     <ImageView
-                        android:id="@+id/padBack"
+                        android:id="@+id/buttonBack"
                         android:layout_width="@dimen/_34sdp"
                         android:layout_height="@dimen/_34sdp"
                         android:background="?attr/selectableItemBackgroundBorderless"
@@ -61,7 +61,7 @@
                 app:layout_scrollFlags="scroll">
 
                 <LinearLayout
-                    android:id="@+id/searchBarVw"
+                    android:id="@+id/searchBar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_38sdp"
                     android:layout_marginHorizontal="@dimen/_16sdp"
@@ -79,7 +79,7 @@
                         app:tint="@color/on_surface_variant" />
 
                     <EditText
-                        android:id="@+id/inpSearch"
+                        android:id="@+id/inputSearch"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/_8sdp"
@@ -98,7 +98,7 @@
                         android:textSize="@dimen/_11ssp" />
 
                     <ImageView
-                        android:id="@+id/padClearSearch"
+                        android:id="@+id/buttonClearSearch"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:background="?attr/selectableItemBackgroundBorderless"
@@ -109,7 +109,7 @@
                         app:tint="@color/on_surface_variant" />
                 </LinearLayout>
                 <FrameLayout
-                    android:id="@+id/adNativeFrameVw"
+                    android:id="@+id/adNativeFrame"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_14sdp"
@@ -117,7 +117,7 @@
                     android:visibility="gone">
 
                     <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/adShimmerVw"
+                        android:id="@+id/adShimmer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -133,7 +133,7 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rollTools"
+                android:id="@+id/listTools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
@@ -144,7 +144,7 @@
                 tools:spanCount="2" />
 
             <LinearLayout
-                android:id="@+id/emptyToolsVw"
+                android:id="@+id/emptyTools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -153,7 +153,7 @@
                 android:visibility="gone">
 
                 <com.numify.callerid.lookup.feature.widgets.RippleIconView
-                    android:id="@+id/emptyToolsIconVw"
+                    android:id="@+id/emptyToolsIcon"
                     android:layout_width="@dimen/_78sdp"
                     android:layout_height="@dimen/_78sdp"
                     app:ripple_disc="@drawable/bg_empty_circle_tools"
@@ -163,7 +163,7 @@
                     app:ripple_ring="@drawable/bg_ring_tools" />
 
                 <TextView
-                    android:id="@+id/lblEmptyTitle"
+                    android:id="@+id/textEmptyTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_14sdp"
@@ -183,7 +183,7 @@
                     android:textSize="@dimen/_11ssp" />
 
                 <LinearLayout
-                    android:id="@+id/padResetSearch"
+                    android:id="@+id/buttonResetSearch"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginTop="@dimen/_16sdp"
@@ -214,7 +214,7 @@
         </FrameLayout>
 
         <View
-            android:id="@+id/adBannerDividerVw"
+            android:id="@+id/adBannerDivider"
             style="@style/AdDivider"
             android:layout_width="match_parent"
             android:visibility="gone"/>

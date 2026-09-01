@@ -55,7 +55,7 @@
             android:padding="@dimen/_12sdp">
 
             <TextView
-                android:id="@+id/lblPreviewName"
+                android:id="@+id/textPreviewName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/on_surface"
@@ -64,7 +64,7 @@
                 tools:text="J•••••" />
 
             <TextView
-                android:id="@+id/lblPreviewNumber"
+                android:id="@+id/textPreviewNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
@@ -74,7 +74,7 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/padWatchAd"
+            android:id="@+id/buttonWatchAd"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_46sdp"
             android:layout_marginTop="@dimen/_16sdp"
@@ -90,7 +90,7 @@
             app:iconTint="@color/white" />
 
         <TextView
-            android:id="@+id/padCancel"
+            android:id="@+id/buttonCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_6sdp"

@@ -41,10 +41,10 @@ class CallTimelineAdapter(
     override fun getItemCount(): Int = items.size
 
     inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val ivType: ImageView = itemView.findViewById(R.id.picType)
-        private val tvName: TextView = itemView.findViewById(R.id.lblName)
-        private val tvNumber: TextView = itemView.findViewById(R.id.lblNumber)
-        private val btnCall: ImageView = itemView.findViewById(R.id.padCall)
+        private val ivType: ImageView = itemView.findViewById(R.id.imageType)
+        private val tvName: TextView = itemView.findViewById(R.id.textName)
+        private val tvNumber: TextView = itemView.findViewById(R.id.textNumber)
+        private val btnCall: ImageView = itemView.findViewById(R.id.buttonCall)
 
         fun bind(entry: CallRecord) {
             val name = entry.name?.takeIf { it.isNotBlank() }

@@ -40,13 +40,13 @@ object NameRevealReward {
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
-        db.lblPreviewName.text = blur(fullName)
-        db.lblPreviewNumber.text = number
-        db.padWatchAd.setOnClickListener {
+        db.textPreviewName.text = blur(fullName)
+        db.textPreviewNumber.text = number
+        db.buttonWatchAd.setOnClickListener {
             dialog.dismiss()
             RewardedAdPresenter().show(activity) { onRevealed() }
         }
-        db.padCancel.setOnClickListener { dialog.dismiss() }
+        db.buttonCancel.setOnClickListener { dialog.dismiss() }
         dialog.show()
     }
 }

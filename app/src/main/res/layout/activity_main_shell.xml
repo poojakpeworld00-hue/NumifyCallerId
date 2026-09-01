@@ -6,16 +6,16 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mainVw"
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".screen.MainShellActivity">
 
         <com.numify.callerid.lookup.feature.widgets.SwipeNavigationLayout
-            android:id="@+id/fragContainer"
+            android:id="@+id/fragmentContainer"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/overlayBannerVw"
+            app:layout_constraintBottom_toTopOf="@id/overlayBanner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,7 @@
              and carries a 12sdp elevation, so a banner pinned to that same edge had
              its middle drawn over and its text clipped. -->
         <LinearLayout
-            android:id="@+id/overlayBannerVw"
+            android:id="@+id/overlayBanner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/primary_container"
@@ -35,7 +35,7 @@
             android:paddingHorizontal="@dimen/_8sdp"
             android:paddingVertical="@dimen/_5sdp"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/fabLookupVw"
+            app:layout_constraintBottom_toTopOf="@id/fabLookup"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:visibility="visible">
@@ -60,7 +60,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/padEnableOverlay"
+                android:id="@+id/buttonEnableOverlay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
@@ -85,19 +85,19 @@
             android:paddingHorizontal="@dimen/_4sdp"
             android:paddingTop="0dp"
             android:paddingBottom="@dimen/_4sdp"
-            app:layout_constraintBottom_toTopOf="@+id/bannerAdFrameVw"
+            app:layout_constraintBottom_toTopOf="@+id/bannerAdFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <include
-                android:id="@+id/navRecentsVw"
+                android:id="@+id/navRecents"
                 layout="@layout/item_nav"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <include
-                android:id="@+id/navContactsVw"
+                android:id="@+id/navContacts"
                 layout="@layout/item_nav"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -105,20 +105,20 @@
 
             <!-- Reserves the slot the raised Lookup action sits over. -->
             <Space
-                android:id="@+id/navFabSlotVw"
+                android:id="@+id/navFabSlot"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <include
-                android:id="@+id/navBlocklistVw"
+                android:id="@+id/navBlocklist"
                 layout="@layout/item_nav"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <include
-                android:id="@+id/navToolsVw"
+                android:id="@+id/navTools"
                 layout="@layout/item_nav"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
         <!-- Lookup, promoted to a raised centre action. Centred on the bar's top edge
              and elevated above it so the disc overlaps rather than sits inside. -->
         <FrameLayout
-            android:id="@+id/fabLookupVw"
+            android:id="@+id/fabLookup"
             android:layout_width="@dimen/_52sdp"
             android:layout_height="@dimen/_52sdp"
             android:background="@drawable/bg_fab_lookup"
@@ -144,7 +144,7 @@
             app:layout_constraintTop_toTopOf="@id/footerBar">
 
             <ImageView
-                android:id="@+id/fabLookupIconVw"
+                android:id="@+id/fabLookupIcon"
                 android:layout_width="@dimen/_22sdp"
                 android:layout_height="@dimen/_22sdp"
                 android:layout_gravity="center"
@@ -155,10 +155,10 @@
 
         <!-- Full-bleed hairline separating app content from the ad below -->
         <View
-            android:id="@+id/adBannerDividerVw"
+            android:id="@+id/adBannerDivider"
             style="@style/AdDivider"
             android:layout_width="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

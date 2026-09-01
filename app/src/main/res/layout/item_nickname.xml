@@ -6,7 +6,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nickRowVw"
+    android:id="@+id/nickRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/_8sdp"
@@ -17,7 +17,7 @@
     android:paddingVertical="@dimen/_10sdp">
 
     <ImageView
-        android:id="@+id/picNickIcon"
+        android:id="@+id/imageNickIcon"
         android:layout_width="@dimen/_14sdp"
         android:layout_height="@dimen/_14sdp"
         android:contentDescription="@null"
@@ -25,7 +25,7 @@
         app:tint="@color/on_surface_variant" />
 
     <TextView
-        android:id="@+id/lblNickName"
+        android:id="@+id/textNickName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
@@ -39,7 +39,7 @@
         tools:text="K••••••••" />
 
     <TextView
-        android:id="@+id/lblNickRevealed"
+        android:id="@+id/textNickRevealed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/lookup_revealed"
@@ -50,7 +50,7 @@
         tools:visibility="gone" />
 
     <LinearLayout
-        android:id="@+id/padNickReveal"
+        android:id="@+id/buttonNickReveal"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_28sdp"
         android:background="@drawable/bg_reveal_pill"

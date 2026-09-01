@@ -12,14 +12,14 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/lightRootVw"
+        android:id="@+id/lightRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
         tools:context=".screen.utility.LightMeterActivity">
 
         <LinearLayout
-            android:id="@+id/crownBar"
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/padBack"
+                android:id="@+id/buttonBack"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -51,7 +51,7 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/padZero"
+                android:id="@+id/buttonZero"
                 android:layout_width="@dimen/_38sdp"
                 android:layout_height="@dimen/_38sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -62,7 +62,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/lblNoSensor"
+            android:id="@+id/textNoSensor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_32sdp"
@@ -74,15 +74,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/crownBar" />
+            app:layout_constraintTop_toBottomOf="@id/topBar" />
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/contentVw"
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
-            app:layout_constraintTop_toBottomOf="@id/crownBar">
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
+            app:layout_constraintTop_toBottomOf="@id/topBar">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -97,7 +97,7 @@
                     android:layout_marginTop="@dimen/_4sdp">
 
                     <com.numify.callerid.lookup.feature.tools.RadiantBurstView
-                        android:id="@+id/burstVw"
+                        android:id="@+id/burst"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
@@ -118,7 +118,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/lblLux"
+                        android:id="@+id/textLux"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:includeFontPadding="false"
@@ -140,7 +140,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/lblCategory"
+                    android:id="@+id/textCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
@@ -155,7 +155,7 @@
 
                 <!-- Five bands; the active one is lit by LightMeterActivity. -->
                 <LinearLayout
-                    android:id="@+id/bandsVw"
+                    android:id="@+id/bands"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_18sdp"
@@ -168,7 +168,7 @@
                     <LinearLayout style="@style/LuxBand">
 
                         <View
-                            android:id="@+id/band1Vw"
+                            android:id="@+id/band1"
                             style="@style/LuxBandBar" />
 
                         <TextView
@@ -180,7 +180,7 @@
                     <LinearLayout style="@style/LuxBand">
 
                         <View
-                            android:id="@+id/band2Vw"
+                            android:id="@+id/band2"
                             style="@style/LuxBandBar" />
 
                         <TextView
@@ -192,7 +192,7 @@
                     <LinearLayout style="@style/LuxBand">
 
                         <View
-                            android:id="@+id/band3Vw"
+                            android:id="@+id/band3"
                             style="@style/LuxBandBar" />
 
                         <TextView
@@ -204,7 +204,7 @@
                     <LinearLayout style="@style/LuxBand">
 
                         <View
-                            android:id="@+id/band4Vw"
+                            android:id="@+id/band4"
                             style="@style/LuxBandBar" />
 
                         <TextView
@@ -216,7 +216,7 @@
                     <LinearLayout style="@style/LuxBand">
 
                         <View
-                            android:id="@+id/band5Vw"
+                            android:id="@+id/band5"
                             style="@style/LuxBandBar" />
 
                         <TextView
@@ -255,7 +255,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/lblMin"
+                            android:id="@+id/textMin"
                             style="@style/BattStatValue"
                             tools:text="120 lux" />
                     </LinearLayout>
@@ -282,27 +282,27 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/lblMax"
+                            android:id="@+id/textMax"
                             style="@style/BattStatValue"
                             tools:text="2340 lux" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/padCapture"
+                    android:id="@+id/buttonCapture"
                     style="@style/ToolCta"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:text="@string/meter_pause"
                     app:icon="@drawable/ic_pause" />
 
                 <FrameLayout
-                    android:id="@+id/adNativeFrameVw"
+                    android:id="@+id/adNativeFrame"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/_10sdp">
 
                     <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/adShimmerVw"
+                        android:id="@+id/adShimmer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ccc">
@@ -315,10 +315,10 @@
         </androidx.core.widget.NestedScrollView>
 
         <View
-            android:id="@+id/adBannerDividerVw"
+            android:id="@+id/adBannerDivider"
             style="@style/AdDivider"
             android:layout_width="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

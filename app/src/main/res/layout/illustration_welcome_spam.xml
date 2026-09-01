@@ -26,7 +26,7 @@
         android:src="@drawable/bg_onb_halo_red" />
 
     <LinearLayout
-        android:id="@+id/obCardVw"
+        android:id="@+id/onboardingCard"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_182sdp"
         android:layout_gravity="center"
@@ -59,14 +59,14 @@
                 <!-- Two rings, 900ms apart, so the dot reads as a repeating pulse
                      rather than a single blink. -->
                 <View
-                    android:id="@+id/obRing1Vw"
+                    android:id="@+id/onboardingRing1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:background="@drawable/bg_onb_pulse_spam" />
 
                 <View
-                    android:id="@+id/obRing2Vw"
+                    android:id="@+id/onboardingRing2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -101,7 +101,7 @@
             android:clipToPadding="false">
 
             <FrameLayout
-                android:id="@+id/obShieldVw"
+                android:id="@+id/onboardingShield"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_onb_circle_spam">
@@ -115,7 +115,7 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/obChipVw"
+                android:id="@+id/onboardingChip"
                 android:layout_width="@dimen/_21sdp"
                 android:layout_height="@dimen/_21sdp"
                 android:layout_gravity="bottom|end"
@@ -161,7 +161,7 @@
             android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/obStampVw"
+            android:id="@+id/onboardingStamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_onb_pill_spam"

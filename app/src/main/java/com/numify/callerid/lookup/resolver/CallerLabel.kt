@@ -56,18 +56,18 @@ object CallerLabel {
         val displayName = info.name?.takeIf { it.isNotBlank() }
             ?: context.getString(R.string.incall_unknown)
 
-        root.findViewById<TextView>(R.id.lblIncallAvatar).text =
+        root.findViewById<TextView>(R.id.textIncallAvatar).text =
             CallActionHandler.initials(info.name, number)
-        root.findViewById<TextView>(R.id.lblIncallName).text = displayName
-        root.findViewById<TextView>(R.id.lblIncallNumber).text = number
+        root.findViewById<TextView>(R.id.textIncallName).text = displayName
+        root.findViewById<TextView>(R.id.textIncallNumber).text = number
 
-        bindStatusPill(context, root.findViewById(R.id.lblIncallStatus), info.known)
+        bindStatusPill(context, root.findViewById(R.id.textIncallStatus), info.known)
 
-        root.findViewById<TextView>(R.id.lblIncallWhen).text =
+        root.findViewById<TextView>(R.id.textIncallWhen).text =
             context.getString(R.string.incall_now)
-        root.findViewById<TextView>(R.id.lblIncallCalls).text =
+        root.findViewById<TextView>(R.id.textIncallCalls).text =
             context.getString(R.string.incall_calls, info.callCount)
-        root.findViewById<TextView>(R.id.lblIncallNetwork).text =
+        root.findViewById<TextView>(R.id.textIncallNetwork).text =
             info.network?.takeIf { it.isNotBlank() } ?: "—"
     }
 

@@ -14,7 +14,7 @@
 
     <!-- Add a number -->
     <LinearLayout
-        android:id="@+id/rowAddNumberVw"
+        android:id="@+id/columnAddNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
@@ -72,7 +72,7 @@
 
     <!-- From contacts -->
     <LinearLayout
-        android:id="@+id/rowFromContactsVw"
+        android:id="@+id/columnFromContacts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
@@ -130,7 +130,7 @@
 
     <!-- Block from recent calls -->
     <LinearLayout
-        android:id="@+id/rowFromRecentsVw"
+        android:id="@+id/columnFromRecents"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"

@@ -74,8 +74,8 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
         if (res.resultCode == Activity.RESULT_OK) {
             val number = res.data?.getStringExtra(SearchHistoryActivity.EXTRA_NUMBER)
                 ?.takeIf { it.isNotBlank() } ?: return@registerForActivityResult
-            binding.inpNumberInput.setText(number)
-            binding.inpNumberInput.setSelection(number.length)
+            binding.inputNumberInput.setText(number)
+            binding.inputNumberInput.setSelection(number.length)
             viewModel.search(number)
             hideKeyboard()
         }
@@ -87,8 +87,8 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
     override fun initView() {
         // Let the blue hero extend under the status bar; pad its top by the inset.
         // Hero bleeds under the status bar; pad its content down by the inset.
-        val baseTop = binding.heroHeaderVw.paddingTop
-        ViewCompat.setOnApplyWindowInsetsListener(binding.heroHeaderVw) { v, insets ->
+        val baseTop = binding.heroHeader.paddingTop
+        ViewCompat.setOnApplyWindowInsetsListener(binding.heroHeader) { v, insets ->
             val top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
             v.updatePadding(top = baseTop + top)
             insets
@@ -96,78 +96,78 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
         setupCountryChip()
         // Preload the rewarded ad so it's ready when the user reveals a result.
         RewardedAdPresenter.preload(requireContext())
-        binding.rowCountryPickerSearch.setOnClickListener {
+        binding.columnCountryPickerSearch.setOnClickListener {
             countryLauncher.launch(Intent(requireContext(), CountryPickerActivity::class.java))
         }
 
-        binding.padLookupHistory.setOnClickListener {
+        binding.buttonLookupHistory.setOnClickListener {
             historyLauncher.launch(SearchHistoryActivity.newIntent(requireContext()))
         }
 
         historyAdapter = SearchHistoryAdapter(
-            onClick = { entry -> binding.inpNumberInput.setText(entry.rawNumber); binding.inpNumberInput.setSelection(entry.rawNumber.length) },
+            onClick = { entry -> binding.inputNumberInput.setText(entry.rawNumber); binding.inputNumberInput.setSelection(entry.rawNumber.length) },
             onCall = { entry -> dial(entry.rawNumber) },
             onRevealName = { entry -> revealHistoryName(entry) }
         )
-        binding.rollHistory.layoutManager = LinearLayoutManager(requireContext())
-        binding.rollHistory.adapter = historyAdapter
+        binding.listHistory.layoutManager = LinearLayoutManager(requireContext())
+        binding.listHistory.adapter = historyAdapter
 
-        binding.inpNumberInput.addTextChangedListener(object : TextWatcher {
+        binding.inputNumberInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
             override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 val text = s?.toString().orEmpty()
-                binding.picClear.visibility = if (text.isEmpty()) View.GONE else View.VISIBLE
+                binding.imageClear.visibility = if (text.isEmpty()) View.GONE else View.VISIBLE
                 // Note: no live search — results are shown only after tapping Lookup.
-                if (text.isEmpty()) maybeShowPasteChip() else binding.flagPaste.visibility = View.GONE
+                if (text.isEmpty()) maybeShowPasteChip() else binding.chipPaste.visibility = View.GONE
             }
         })
 
-        binding.inpNumberInput.setOnEditorActionListener { _, actionId, _ ->
+        binding.inputNumberInput.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                viewModel.search(binding.inpNumberInput.text?.toString().orEmpty())
+                viewModel.search(binding.inputNumberInput.text?.toString().orEmpty())
                 hideKeyboard()
                 true
             } else false
         }
 
-        binding.padSearch.setOnClickListener {
-            viewModel.search(binding.inpNumberInput.text?.toString().orEmpty())
+        binding.buttonSearch.setOnClickListener {
+            viewModel.search(binding.inputNumberInput.text?.toString().orEmpty())
             hideKeyboard()
         }
 
-        binding.picClear.setOnClickListener {
-            binding.inpNumberInput.setText("")
+        binding.imageClear.setOnClickListener {
+            binding.inputNumberInput.setText("")
             viewModel.clear()
         }
 
         // Empty-state CTA: focus the field and pop the keyboard.
-        binding.padEmptySearch.setOnClickListener {
-            binding.inpNumberInput.requestFocus()
+        binding.buttonEmptySearch.setOnClickListener {
+            binding.inputNumberInput.requestFocus()
             showKeyboard()
         }
 
         // Paste chip: one tap fills the field from the clipboard and searches
         // (uses the raw clipboard value stored on the chip, not the pretty display).
-        binding.flagPaste.setOnClickListener {
-            val n = (binding.flagPaste.tag as? String)?.takeIf { it.isNotBlank() }
-                ?: binding.lblPasteNumber.text?.toString().orEmpty()
+        binding.chipPaste.setOnClickListener {
+            val n = (binding.chipPaste.tag as? String)?.takeIf { it.isNotBlank() }
+                ?: binding.textPasteNumber.text?.toString().orEmpty()
             if (n.isNotBlank()) {
                 consumedClip = n // used once → don't re-offer this same clipboard number
-                binding.inpNumberInput.setText(n)
-                binding.inpNumberInput.setSelection(n.length)
+                binding.inputNumberInput.setText(n)
+                binding.inputNumberInput.setSelection(n.length)
                 viewModel.search(n)
                 hideKeyboard()
-                binding.flagPaste.visibility = View.GONE
+                binding.chipPaste.visibility = View.GONE
             }
         }
 
         // Focusing the field re-checks the clipboard (covers copying from inside the app).
-        binding.inpNumberInput.setOnFocusChangeListener { _, hasFocus ->
+        binding.inputNumberInput.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) maybeShowPasteChip()
         }
 
-        binding.lblHistoryClearAll.setOnClickListener { viewModel.wipeSearchTrail() }
+        binding.textHistoryClearAll.setOnClickListener { viewModel.wipeSearchTrail() }
 
         consumePendingSearch()
     }
@@ -202,8 +202,8 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
     private fun consumePendingSearch() {
         val number = pendingNumber?.takeIf { it.isNotBlank() } ?: return
         pendingNumber = null
-        binding.inpNumberInput.setText(number)
-        binding.inpNumberInput.setSelection(number.length)
+        binding.inputNumberInput.setText(number)
+        binding.inputNumberInput.setSelection(number.length)
         viewModel.search(number)
         hideKeyboard()
     }
@@ -221,32 +221,32 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
         viewModel.history.observe(viewLifecycleOwner) { items ->
             historyAdapter.submit(items)
             val hasHistory = items.isNotEmpty()
-            binding.rowHistoryHeader.visibility = if (hasHistory) View.VISIBLE else View.GONE
-            binding.rollHistory.visibility = if (hasHistory) View.VISIBLE else View.GONE
+            binding.columnHistoryHeader.visibility = if (hasHistory) View.VISIBLE else View.GONE
+            binding.listHistory.visibility = if (hasHistory) View.VISIBLE else View.GONE
             updateEmptyState(hasHistory)
         }
     }
 
     private fun render(loading: Boolean, result: LookupVerdict?) {
-        binding.shmResult.visibility = if (loading) View.VISIBLE else View.GONE
-        if (loading) binding.shmResult.startShimmer() else binding.shmResult.stopShimmer()
+        binding.shimmerResult.visibility = if (loading) View.VISIBLE else View.GONE
+        if (loading) binding.shimmerResult.startShimmer() else binding.shimmerResult.stopShimmer()
 
         // Shimmer overlays the scroll region, so hide the list/result content while loading.
-        binding.scrlContent.visibility = if (loading) View.GONE else View.VISIBLE
+        binding.scrollContent.visibility = if (loading) View.GONE else View.VISIBLE
 
         if (result != null) {
-            binding.cvResultVw.visibility = View.VISIBLE
+            binding.cardResult.visibility = View.VISIBLE
             bindResult(result)
         } else {
-            binding.cvResultVw.visibility = View.GONE
+            binding.cardResult.visibility = View.GONE
         }
-        updateEmptyState(binding.rollHistory.visibility == View.VISIBLE)
+        updateEmptyState(binding.listHistory.visibility == View.VISIBLE)
     }
 
     /** Empty state only when idle with no result and no history. */
     private fun updateEmptyState(hasHistory: Boolean) {
         val idle = currentState is SearchState.Idle
-        binding.rowEmptyState.visibility =
+        binding.columnEmptyState.visibility =
             if (idle && !hasHistory) View.VISIBLE else View.GONE
     }
 
@@ -254,9 +254,9 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
         // Name is blurred on the card; revealed (full name + detail screen) after a rewarded ad.
         val hasName = !result.name.isNullOrBlank()
         val fullName = result.name?.takeIf { it.isNotBlank() } ?: getString(R.string.lookup_unknown_caller)
-        binding.lblResName.text = if (hasName) blurName(fullName) else fullName
-        binding.picRevealName.visibility = if (hasName) View.VISIBLE else View.GONE
-        binding.lblResNumber.text = result.number
+        binding.textResName.text = if (hasName) blurName(fullName) else fullName
+        binding.imageRevealName.visibility = if (hasName) View.VISIBLE else View.GONE
+        binding.textResNumber.text = result.number
 
         when {
             result.isSpam -> bindStatusPill(
@@ -274,23 +274,23 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
             )
         }
 
-        binding.lblResCountry.text = result.country
+        binding.textResCountry.text = result.country
             ?: viewModel.regionName(result.rawNumber)
             ?: getString(
                 if (result.regionCode.isEmpty()) R.string.lookup_local_number
                 else R.string.lookup_international
             )
-        binding.lblResCarrier.text = result.carrier?.takeIf { it.isNotBlank() }
+        binding.textResCarrier.text = result.carrier?.takeIf { it.isNotBlank() }
             ?: getString(R.string.lookup_unknown_value)
-        binding.lblResType.text = result.lineType?.takeIf { it.isNotBlank() }
+        binding.textResType.text = result.lineType?.takeIf { it.isNotBlank() }
             ?: getString(R.string.lookup_unknown_value)
 
-        binding.padResCall.setOnClickListener { dial(result.rawNumber) }
-        binding.padResShare.setOnClickListener { share(result) }
+        binding.buttonResCall.setOnClickListener { dial(result.rawNumber) }
+        binding.buttonResShare.setOnClickListener { share(result) }
         // Eye icon + "Show full detail" → watch a rewarded ad, then reveal.
         val reveal = { revealFullDetail(result, fullName) }
-        binding.picRevealName.setOnClickListener { reveal() }
-        binding.padShowFullDetail.setOnClickListener { reveal() }
+        binding.imageRevealName.setOnClickListener { reveal() }
+        binding.buttonShowFullDetail.setOnClickListener { reveal() }
     }
 
     /**
@@ -302,8 +302,8 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
         val act = activity ?: return
         val open = {
             if (view != null) {
-                binding.lblResName.text = fullName
-                binding.picRevealName.visibility = View.GONE
+                binding.textResName.text = fullName
+                binding.imageRevealName.visibility = View.GONE
                 requireActivity().openActivity(ReportNumberActivity.newIntent(requireContext(), result), false)
             }
         }
@@ -322,13 +322,13 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
-        db.lblPreviewName.text = blurName(fullName)
-        db.lblPreviewNumber.text = result.number
-        db.padWatchAd.setOnClickListener {
+        db.textPreviewName.text = blurName(fullName)
+        db.textPreviewNumber.text = result.number
+        db.buttonWatchAd.setOnClickListener {
             dialog.dismiss()
             RewardedAdPresenter().show(act) { open() }
         }
-        db.padCancel.setOnClickListener { dialog.dismiss() }
+        db.buttonCancel.setOnClickListener { dialog.dismiss() }
         dialog.show()
     }
 
@@ -396,15 +396,15 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
     }
 
     private fun commitCountry(iso: String, dial: String) {
-        binding.lblFlagSearch.text = CountryCatalog.flag(iso)
-        binding.lblCountrySearch.text = if (dial.isBlank()) iso else "+$dial"
+        binding.textFlagSearch.text = CountryCatalog.flag(iso)
+        binding.textCountrySearch.text = if (dial.isBlank()) iso else "+$dial"
         viewModel.updateRegion(iso, dial)
     }
 
     /** Styles the status pill (text, text/icon color, soft background) for one lookup state. */
     private fun bindStatusPill(textRes: Int, fgColor: Int, bgColor: Int, iconRes: Int) {
         val fg = color(fgColor)
-        binding.lblResValid.apply {
+        binding.textResValid.apply {
             setText(textRes)
             setTextColor(fg)
             backgroundTintList = ColorStateList.valueOf(color(bgColor))
@@ -436,12 +436,12 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
 
     private fun hideKeyboard() {
         val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        imm?.hideSoftInputFromWindow(binding.inpNumberInput.windowToken, 0)
+        imm?.hideSoftInputFromWindow(binding.inputNumberInput.windowToken, 0)
     }
 
     private fun showKeyboard() {
         val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        imm?.showSoftInput(binding.inpNumberInput, InputMethodManager.SHOW_IMPLICIT)
+        imm?.showSoftInput(binding.inputNumberInput, InputMethodManager.SHOW_IMPLICIT)
     }
 
     /**
@@ -450,28 +450,28 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
      */
     private fun maybeShowPasteChip(autoFocusIfUsed: Boolean = false) {
         if (view == null) return
-        val idleEmpty = currentState is SearchState.Idle && binding.inpNumberInput.text.isNullOrBlank()
+        val idleEmpty = currentState is SearchState.Idle && binding.inputNumberInput.text.isNullOrBlank()
         if (!idleEmpty) {
-            binding.flagPaste.visibility = View.GONE
+            binding.chipPaste.visibility = View.GONE
             return
         }
         val clip = clipboardPhone()
         when {
             // A fresh phone number in the clipboard → offer the Paste chip.
             clip != null && clip != consumedClip -> {
-                binding.flagPaste.tag = clip // raw value used for the search
-                binding.lblPasteNumber.text =
+                binding.chipPaste.tag = clip // raw value used for the search
+                binding.textPasteNumber.text =
                     runCatching { NumberDetails.format(clip) }.getOrNull()?.takeIf { it.isNotBlank() } ?: clip
-                binding.flagPaste.visibility = View.VISIBLE
+                binding.chipPaste.visibility = View.VISIBLE
             }
             // Already pasted this same number once → don't re-offer it; open the
             // keyboard so the user can just type instead.
             clip != null && clip == consumedClip && autoFocusIfUsed -> {
-                binding.flagPaste.visibility = View.GONE
-                binding.inpNumberInput.requestFocus()
+                binding.chipPaste.visibility = View.GONE
+                binding.inputNumberInput.requestFocus()
                 showKeyboard()
             }
-            else -> binding.flagPaste.visibility = View.GONE
+            else -> binding.chipPaste.visibility = View.GONE
         }
     }
 

@@ -12,14 +12,14 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/levelRootVw"
+        android:id="@+id/levelRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
         tools:context=".screen.utility.SpiritLevelActivity">
 
         <LinearLayout
-            android:id="@+id/crownBar"
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/padBack"
+                android:id="@+id/buttonBack"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -51,7 +51,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/padCalibrate"
+                android:id="@+id/buttonCalibrate"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_32sdp"
                 android:background="@drawable/bg_cid_pill_neutral"
@@ -68,8 +68,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
-            app:layout_constraintTop_toBottomOf="@id/crownBar">
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
+            app:layout_constraintTop_toBottomOf="@id/topBar">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                 android:paddingHorizontal="@dimen/_16sdp">
 
                 <TextView
-                    android:id="@+id/lblTilt"
+                    android:id="@+id/textTilt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
@@ -91,7 +91,7 @@
                     tools:text="0.4°" />
 
                 <TextView
-                    android:id="@+id/lblStatus"
+                    android:id="@+id/textStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_7sdp"
@@ -105,7 +105,7 @@
                     tools:text="Almost level" />
 
                 <FrameLayout
-                    android:id="@+id/dialAreaVw"
+                    android:id="@+id/dialArea"
                     android:layout_width="@dimen/_205sdp"
                     android:layout_height="@dimen/_205sdp"
                     android:layout_marginTop="@dimen/_14sdp"
@@ -114,7 +114,7 @@
                     android:outlineSpotShadowColor="@color/card_shadow">
 
                     <com.numify.callerid.lookup.feature.tools.LevelIndicatorView
-                        android:id="@+id/bubbleVw"
+                        android:id="@+id/bubble"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </FrameLayout>
@@ -170,7 +170,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/lblX"
+                            android:id="@+id/textX"
                             style="@style/BattStatValue"
                             tools:text="+0.3°" />
                     </LinearLayout>
@@ -197,20 +197,20 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/lblY"
+                            android:id="@+id/textY"
                             style="@style/BattStatValue"
                             tools:text="−0.2°" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <FrameLayout
-                    android:id="@+id/adNativeFrameVw"
+                    android:id="@+id/adNativeFrame"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/_12sdp">
 
                     <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/adShimmerVw"
+                        android:id="@+id/adShimmer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ccc">
@@ -223,10 +223,10 @@
         </androidx.core.widget.NestedScrollView>
 
         <View
-            android:id="@+id/adBannerDividerVw"
+            android:id="@+id/adBannerDivider"
             style="@style/AdDivider"
             android:layout_width="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

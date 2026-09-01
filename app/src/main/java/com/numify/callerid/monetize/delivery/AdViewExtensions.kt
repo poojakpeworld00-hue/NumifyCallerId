@@ -106,7 +106,7 @@ fun Activity.showAppRedirectPopup(onDismiss: (() -> Unit)? = null) {
     )
 
     dialogBinding.apply {
-        padContinue.setOnClickListener {
+        buttonContinue.setOnClickListener {
             try {
                 appUrl.toUri().let { uri ->
                     startActivity(Intent(Intent.ACTION_VIEW, uri))
@@ -116,7 +116,7 @@ fun Activity.showAppRedirectPopup(onDismiss: (() -> Unit)? = null) {
             }
         }
 
-        padCancel.setOnClickListener {
+        buttonCancel.setOnClickListener {
             dialog.dismiss()
             onDismiss?.invoke()
         }

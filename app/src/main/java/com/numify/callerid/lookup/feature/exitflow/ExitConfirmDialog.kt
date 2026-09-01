@@ -61,10 +61,10 @@ object ExitConfirmDialog {
             view.findViewById<TextView>(id).text =
                 remote.ifBlank { activity.getString(fallback) }
         }
-        bind(R.id.exitDialogTitleVw, cfg.dialogTitle, R.string.exit_dialog_title)
-        bind(R.id.exitDialogDescVw, cfg.dialogDesc, R.string.exit_dialog_desc)
-        bind(R.id.exitDialogExitVw, cfg.dialogPositive, R.string.exit_dialog_positive)
-        bind(R.id.exitDialogCancelVw, cfg.dialogNegative, R.string.exit_dialog_negative)
+        bind(R.id.exitDialogTitle, cfg.dialogTitle, R.string.exit_dialog_title)
+        bind(R.id.exitDialogDesc, cfg.dialogDesc, R.string.exit_dialog_desc)
+        bind(R.id.exitDialogExit, cfg.dialogPositive, R.string.exit_dialog_positive)
+        bind(R.id.exitDialogCancel, cfg.dialogNegative, R.string.exit_dialog_negative)
 
         val dialog = Dialog(activity).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -79,12 +79,12 @@ object ExitConfirmDialog {
 
         var exitTapped = false
 
-        view.findViewById<TextView>(R.id.exitDialogExitVw).setOnClickListener {
+        view.findViewById<TextView>(R.id.exitDialogExit).setOnClickListener {
             activity.logKeyEvent("Exit_Dialog_Exit")
             exitTapped = true
             dialog.dismiss()
         }
-        view.findViewById<TextView>(R.id.exitDialogCancelVw).setOnClickListener {
+        view.findViewById<TextView>(R.id.exitDialogCancel).setOnClickListener {
             activity.logKeyEvent("Exit_Dialog_Cancel")
             dialog.dismiss()
         }
@@ -110,8 +110,8 @@ object ExitConfirmDialog {
         if (!cfg.dialogAdShow) return
         if (!AdPreferenceStore.getInstance(activity).getBoolean("IsAdsON")) return
 
-        val container = view.findViewById<FrameLayout>(R.id.adNativeFrameVw)
-        val shimmer = view.findViewById<ShimmerFrameLayout>(R.id.adShimmerVw)
+        val container = view.findViewById<FrameLayout>(R.id.adNativeFrame)
+        val shimmer = view.findViewById<ShimmerFrameLayout>(R.id.adShimmer)
 
         // The format is remote-driven, so the shimmer placeholder is inflated to
         // match rather than baked into the layout.

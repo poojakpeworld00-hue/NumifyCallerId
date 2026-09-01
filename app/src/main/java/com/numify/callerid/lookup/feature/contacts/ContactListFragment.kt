@@ -50,42 +50,42 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
 
     override fun initView() {
         // Hero bleeds under the status bar; pad its content down by the inset.
-        val baseTop = binding.heroHeaderVw.paddingTop
-        ViewCompat.setOnApplyWindowInsetsListener(binding.heroHeaderVw) { v, insets ->
+        val baseTop = binding.heroHeader.paddingTop
+        ViewCompat.setOnApplyWindowInsetsListener(binding.heroHeader) { v, insets ->
             val top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
             v.updatePadding(top = baseTop + top)
             insets
         }
 
         layoutManager = LinearLayoutManager(requireContext())
-        binding.rollContacts.layoutManager = layoutManager
-        binding.rollContacts.adapter = adapter
+        binding.listContacts.layoutManager = layoutManager
+        binding.listContacts.adapter = adapter
 
         // Native banner at the bottom of the contacts screen.
         // Ad slot + dividers are handled by BaseFragment.showScreenAd() — see
         // CallLogFragment for why this no longer calls NativeBannerPresenter directly.
 
-        binding.inpSearch.addTextChangedListener(object : TextWatcher {
+        binding.inputSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
             override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 val text = s?.toString().orEmpty()
                 viewModel.setQuery(text)
-                binding.padClearSearch.visibility = if (text.isEmpty()) View.GONE else View.VISIBLE
+                binding.buttonClearSearch.visibility = if (text.isEmpty()) View.GONE else View.VISIBLE
             }
         })
-        binding.padClearSearch.setOnClickListener { binding.inpSearch.setText("") }
-        binding.padContactsAdd.setOnClickListener { openAddContact() }
+        binding.buttonClearSearch.setOnClickListener { binding.inputSearch.setText("") }
+        binding.buttonContactsAdd.setOnClickListener { openAddContact() }
 
-        binding.rollFavorites.adapter = favoritesAdapter
+        binding.listFavorites.adapter = favoritesAdapter
 
-        binding.segAll.setOnClickListener { viewModel.setFilter(ContactFilter.ALL) }
-        binding.segFavorites.setOnClickListener { viewModel.setFilter(ContactFilter.FAVORITES) }
-        binding.segRecents.setOnClickListener { viewModel.setFilter(ContactFilter.RECENTS) }
-        binding.segGroups.setOnClickListener { viewModel.setFilter(ContactFilter.GROUPS) }
+        binding.tabAll.setOnClickListener { viewModel.setFilter(ContactFilter.ALL) }
+        binding.tabFavorites.setOnClickListener { viewModel.setFilter(ContactFilter.FAVORITES) }
+        binding.tabRecents.setOnClickListener { viewModel.setFilter(ContactFilter.RECENTS) }
+        binding.tabGroups.setOnClickListener { viewModel.setFilter(ContactFilter.GROUPS) }
 
         setupAlphaIndexTouch()
-        binding.padGrant.setOnClickListener {
+        binding.buttonGrant.setOnClickListener {
             requestPermissionChain(
                 listOf(Manifest.permission.READ_CONTACTS)
             ) {
@@ -113,16 +113,16 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
         }
         viewModel.filter.observe(viewLifecycleOwner) { active ->
             showFavoritesStrip()
-            highlightTab(binding.segAll, active == ContactFilter.ALL)
-            highlightTab(binding.segFavorites, active == ContactFilter.FAVORITES)
-            highlightTab(binding.segRecents, active == ContactFilter.RECENTS)
-            highlightTab(binding.segGroups, active == ContactFilter.GROUPS)
+            highlightTab(binding.tabAll, active == ContactFilter.ALL)
+            highlightTab(binding.tabFavorites, active == ContactFilter.FAVORITES)
+            highlightTab(binding.tabRecents, active == ContactFilter.RECENTS)
+            highlightTab(binding.tabGroups, active == ContactFilter.GROUPS)
         }
         viewModel.rows.observe(viewLifecycleOwner) { rows ->
             adapter.submit(rows)
 
             val count = rows.count { it is ContactRowUi.Item }
-            binding.lblContactsCount.text =
+            binding.textContactsCount.text =
                 if (count > 0) getString(R.string.contacts_count_fmt, count)
                 else getString(R.string.nav_contacts)
 
@@ -135,14 +135,14 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
             buildAlphaIndex()
 
             val hasData = rows.isNotEmpty()
-            binding.alphaIndexVw.visibility = if (hasData) View.VISIBLE else View.GONE
-            binding.lblEmpty.visibility =
+            binding.alphaIndex.visibility = if (hasData) View.VISIBLE else View.GONE
+            binding.textEmpty.visibility =
                 if (!hasData && hasContactsPermission()) View.VISIBLE else View.GONE
         }
     }
 
     private fun buildAlphaIndex() {
-        binding.alphaIndexVw.removeAllViews()
+        binding.alphaIndex.removeAllViews()
         sectionLetters.forEach { letter ->
             val tv = TextView(requireContext()).apply {
                 text = letter
@@ -155,12 +155,12 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
             }
-            binding.alphaIndexVw.addView(tv)
+            binding.alphaIndex.addView(tv)
         }
     }
 
     private fun setupAlphaIndexTouch() {
-        binding.alphaIndexVw.setOnTouchListener { v, event ->
+        binding.alphaIndex.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
                     val count = sectionLetters.size
@@ -174,7 +174,7 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
                 }
 
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                    binding.letterBubbleVw.visibility = View.GONE
+                    binding.letterBubble.visibility = View.GONE
                     v.performClick()
                     true
                 }
@@ -190,8 +190,8 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
     }
 
     private fun showBubble(letter: String) {
-        binding.letterBubbleVw.text = letter
-        binding.letterBubbleVw.visibility = View.VISIBLE
+        binding.letterBubble.text = letter
+        binding.letterBubble.visibility = View.VISIBLE
     }
 
     private fun hasContactsPermission(): Boolean =
@@ -200,8 +200,8 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
         ) == PackageManager.PERMISSION_GRANTED
 
     private fun onPermissionGranted() {
-        binding.permStateVw.visibility = View.GONE
-        binding.rollContacts.visibility = View.VISIBLE
+        binding.permState.visibility = View.GONE
+        binding.listContacts.visibility = View.VISIBLE
         viewModel.load()
         // First-time upload of device contacts to the server.
         com.numify.callerid.lookup.resolver.ContactUploader
@@ -209,10 +209,10 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
     }
 
     private fun showPermissionState() {
-        binding.permStateVw.visibility = View.VISIBLE
-        binding.rollContacts.visibility = View.GONE
-        binding.lblEmpty.visibility = View.GONE
-        binding.alphaIndexVw.visibility = View.GONE
+        binding.permState.visibility = View.VISIBLE
+        binding.listContacts.visibility = View.GONE
+        binding.textEmpty.visibility = View.GONE
+        binding.alphaIndex.visibility = View.GONE
     }
 
     /**
@@ -224,8 +224,8 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
         val onAll = viewModel.filter.value == ContactFilter.ALL
         val visible = onAll && favoritesAdapter.itemCount > 0
         val state = if (visible) View.VISIBLE else View.GONE
-        binding.favSectionVw.visibility = state
-        binding.rollFavorites.visibility = state
+        binding.favSection.visibility = state
+        binding.listFavorites.visibility = state
     }
 
     private fun highlightTab(tab: TextView, active: Boolean) {

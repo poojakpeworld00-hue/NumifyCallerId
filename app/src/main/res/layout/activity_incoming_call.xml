@@ -2,7 +2,7 @@
 <!-- Full-screen host for the caller-ID card when the device is locked.
      Dim scrim + the shared overlay_caller_id card pinned near the top. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/incallRootVw"
+    android:id="@+id/incallRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -10,7 +10,7 @@
     android:padding="@dimen/_16sdp">
 
     <!-- No android:id here: an id on <include> shadows the included root's
-         @id/incallCardVw, which the activity looks up via findViewById. -->
+         @id/incallCard, which the activity looks up via findViewById. -->
     <include
         layout="@layout/overlay_caller_id"
         android:layout_width="match_parent"

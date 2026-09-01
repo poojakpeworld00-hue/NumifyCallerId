@@ -123,12 +123,12 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
      * Kotlin change needed. Override to customise.
      */
     protected open fun showBottomBanner() {
-        val container = binding.root.findViewById<FrameLayout>(R.id.bannerAdFrameVw) ?: return
-        val shimmer = binding.root.findViewById<ShimmerFrameLayout>(R.id.bannerShimmerVw)
+        val container = binding.root.findViewById<FrameLayout>(R.id.bannerAdFrame) ?: return
+        val shimmer = binding.root.findViewById<ShimmerFrameLayout>(R.id.bannerShimmer)
         ScreenPlacementPlan.showAd(this::class.java.simpleName, this, container, shimmer)
         // The hairline above the slot only exists to fence off an advert — drop it
         // whenever the slot ends up empty (ads off, show:false, load failure).
-        binding.root.findViewById<View>(R.id.adBannerDividerVw)?.followAdContainer(container)
+        binding.root.findViewById<View>(R.id.adBannerDivider)?.followAdContainer(container)
     }
 
     /** Set up views, listeners, adapters. */

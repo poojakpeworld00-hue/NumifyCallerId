@@ -57,21 +57,21 @@ class LanguageAdapter(
         val selected = item.tag == selectedTag
         with(holder.binding) {
             val ctx = root.context
-            lblFlag.text = item.flag
-            lblNative.text = item.nativeName
-            lblName.text =
+            textFlag.text = item.flag
+            textNative.text = item.nativeName
+            textName.text =
                 if (item.tag == currentTag) ctx.getString(R.string.language_current)
                 else item.name
             // Native name leads; on the selected (primaryContainer) row it takes the
             // on-container color so contrast holds in both light and dark.
-            lblNative.setTextColor(
+            textNative.setTextColor(
                 ContextCompat.getColor(
                     ctx, if (selected) R.color.on_primary_container else R.color.on_surface
                 )
             )
-            // Selection tint (row) + filled rdo are both driven by activated state.
+            // Selection tint (row) + filled radio are both driven by activated state.
             root.isActivated = selected
-            rdo.isActivated = selected
+            radio.isActivated = selected
         }
     }
 

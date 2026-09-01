@@ -32,13 +32,13 @@ class SpeedDialAdapter(
     override fun onBindViewHolder(holder: VH, position: Int) {
         val item = items[position]
         val hasName = !item.name.isNullOrBlank()
-        holder.binding.lblName.text = CallActionHandler.displayName(item.name, item.number)
-        holder.binding.lblAvatar.text = CallActionHandler.initials(item.name, item.number)
+        holder.binding.textName.text = CallActionHandler.displayName(item.name, item.number)
+        holder.binding.textAvatar.text = CallActionHandler.initials(item.name, item.number)
         // Show the number only when the name is the headline (otherwise it'd duplicate).
-        holder.binding.lblCount.text = item.number
-        holder.binding.lblCount.visibility = if (hasName) View.VISIBLE else View.GONE
+        holder.binding.textCount.text = item.number
+        holder.binding.textCount.visibility = if (hasName) View.VISIBLE else View.GONE
         holder.binding.root.setOnClickListener { onClick(item.number) }
-        holder.binding.padCall.setOnClickListener { onCall(item.number) }
+        holder.binding.buttonCall.setOnClickListener { onCall(item.number) }
     }
 
     override fun getItemCount(): Int = items.size

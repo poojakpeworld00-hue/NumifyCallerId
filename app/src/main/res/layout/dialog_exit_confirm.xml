@@ -9,7 +9,7 @@
     Remote Config rather than fixed at build time.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/exitDialogCardVw"
+    android:id="@+id/exitDialogCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_card"
@@ -19,7 +19,7 @@
     android:paddingBottom="@dimen/_12sdp">
 
     <TextView
-        android:id="@+id/exitDialogTitleVw"
+        android:id="@+id/exitDialogTitle"
         android:fontFamily="@font/figtree_bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         android:textSize="@dimen/_13ssp" />
 
     <TextView
-        android:id="@+id/exitDialogDescVw"
+        android:id="@+id/exitDialogDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
@@ -42,14 +42,14 @@
 
     <!-- Ad slot. Gone unless the config asks for an ad AND it loads. -->
     <FrameLayout
-        android:id="@+id/adNativeFrameVw"
+        android:id="@+id/adNativeFrame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
         android:visibility="gone">
 
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/adShimmerVw"
+            android:id="@+id/adShimmer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </FrameLayout>
@@ -62,7 +62,7 @@
         android:weightSum="2">
 
         <TextView
-            android:id="@+id/exitDialogCancelVw"
+            android:id="@+id/exitDialogCancel"
             android:layout_width="0dp"
             android:layout_height="@dimen/_42sdp"
             android:layout_marginEnd="@dimen/_5sdp"
@@ -74,7 +74,7 @@
             android:textSize="@dimen/_11ssp" />
 
         <TextView
-            android:id="@+id/exitDialogExitVw"
+            android:id="@+id/exitDialogExit"
             android:fontFamily="@font/figtree_semibold"
             android:layout_width="0dp"
             android:layout_height="@dimen/_42sdp"

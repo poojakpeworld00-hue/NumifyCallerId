@@ -41,16 +41,16 @@ class SpiritLevelActivity : BaseActivity<ActivityLevelBinding>(), SensorEventLis
     }
 
     override fun initView() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.levelRootVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.levelRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
-        binding.padBack.setOnClickListener { goBack() }
+        binding.buttonBack.setOnClickListener { goBack() }
 
         // Mid native, scrolls with the tool content.
-        NativeAdPresenter().renderMidNativeAlt(this, binding.adNativeFrameVw, binding.adShimmerVw)
-        binding.padCalibrate.setOnClickListener {
+        NativeAdPresenter().renderMidNativeAlt(this, binding.adNativeFrame, binding.adShimmer)
+        binding.buttonCalibrate.setOnClickListener {
             // Treat the current orientation as perfectly level.
             calRoll = rawRoll
             calPitch = rawPitch
@@ -88,24 +88,24 @@ class SpiritLevelActivity : BaseActivity<ActivityLevelBinding>(), SensorEventLis
 
         // The dial owns the bubble now, and clamps it to its own rim — a
         // translated child would slide out past the edge on a steep tilt.
-        binding.bubbleVw.setTilt(roll, -pitch)
+        binding.bubble.setTilt(roll, -pitch)
 
         val tilt = sqrt(roll * roll + pitch * pitch)
-        binding.lblTilt.text = getString(R.string.level_deg_fmt, tilt)
+        binding.textTilt.text = getString(R.string.level_deg_fmt, tilt)
         // Signed, because which way it leans is the point of these two.
-        binding.lblX.text = getString(R.string.level_deg_signed_fmt, roll)
-        binding.lblY.text = getString(R.string.level_deg_signed_fmt, pitch)
+        binding.textX.text = getString(R.string.level_deg_signed_fmt, roll)
+        binding.textY.text = getString(R.string.level_deg_signed_fmt, pitch)
         bindStatus(tilt)
     }
 
     /** "Level" (green) when nearly flat, otherwise "Adjusting" (blue). */
     private fun bindStatus(tilt: Float) {
         val level = abs(tilt) < 1f
-        binding.lblStatus.setText(if (level) R.string.level_level else R.string.level_adjusting)
+        binding.textStatus.setText(if (level) R.string.level_level else R.string.level_adjusting)
         val fg = if (level) R.color.success else R.color.primary
         val bg = if (level) R.color.success_soft else R.color.primary_container
-        binding.lblStatus.setTextColor(ContextCompat.getColor(this, fg))
-        binding.lblStatus.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, bg))
+        binding.textStatus.setTextColor(ContextCompat.getColor(this, fg))
+        binding.textStatus.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, bg))
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}

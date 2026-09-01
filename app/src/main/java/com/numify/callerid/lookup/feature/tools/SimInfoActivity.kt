@@ -37,19 +37,19 @@ class SimInfoActivity : BaseActivity<ActivitySimInfoBinding>() {
     }
 
     override fun initView() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.simRootVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.simRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
-        binding.padBack.setOnClickListener { goBack() }
-        binding.padRefresh.setOnClickListener { render() }
-        binding.padSpeedTest.setOnClickListener {
+        binding.buttonBack.setOnClickListener { goBack() }
+        binding.buttonRefresh.setOnClickListener { render() }
+        binding.buttonSpeedTest.setOnClickListener {
             startActivity(Intent(this, SpeedometerActivity::class.java))
         }
 
         // Mid native, scrolls with the tool content.
-        NativeAdPresenter().renderMidNative(this, binding.adNativeFrameVw, binding.adShimmerVw)
+        NativeAdPresenter().renderMidNative(this, binding.adNativeFrame, binding.adShimmer)
     }
 
     override fun onResume() {
@@ -67,8 +67,8 @@ class SimInfoActivity : BaseActivity<ActivitySimInfoBinding>() {
         val type = networkTypeText()
 
         // Hero
-        binding.lblCarrier.text = carrier
-        binding.lblStatus.text = if (hasPhonePermission()) {
+        binding.textCarrier.text = carrier
+        binding.textStatus.text = if (hasPhonePermission()) {
             getString(R.string.sim_status_fmt, type, getString(R.string.sim_connected))
         } else {
             getString(R.string.sim_permission)
@@ -76,17 +76,17 @@ class SimInfoActivity : BaseActivity<ActivitySimInfoBinding>() {
         paintSignalBars(signalLevel())
 
         // SIM & carrier
-        binding.lblCarrierRow.text = carrier
-        binding.lblNetworkType.text = type
-        binding.lblCountry.text =
+        binding.textCarrierRow.text = carrier
+        binding.textNetworkType.text = type
+        binding.textCountry.text =
             tm.networkCountryIso.uppercase(Locale.getDefault()).ifBlank { dash() }
-        binding.lblSignal.text = signalDbm()?.let { getString(R.string.sim_dbm, it) } ?: dash()
+        binding.textSignal.text = signalDbm()?.let { getString(R.string.sim_dbm, it) } ?: dash()
 
         // Connection
-        binding.lblIp.text = localIpAddress() ?: dash()
-        binding.lblSimState.text = simStateText()
-        binding.lblPhoneType.text = phoneTypeText()
-        binding.lblRoaming.text =
+        binding.textIp.text = localIpAddress() ?: dash()
+        binding.textSimState.text = simStateText()
+        binding.textPhoneType.text = phoneTypeText()
+        binding.textRoaming.text =
             if (tm.isNetworkRoaming) getString(R.string.common_yes) else getString(R.string.common_no)
     }
 
@@ -105,7 +105,7 @@ class SimInfoActivity : BaseActivity<ActivitySimInfoBinding>() {
     }
 
     private fun paintSignalBars(level: Int) {
-        listOf(binding.bar1Vw, binding.bar2Vw, binding.bar3Vw, binding.bar4Vw)
+        listOf(binding.bar1, binding.bar2, binding.bar3, binding.bar4)
             .forEachIndexed { i, bar ->
                 bar.setBackgroundResource(
                     if (i < level) R.drawable.bg_cid_bar_on else R.drawable.bg_cid_bar_off

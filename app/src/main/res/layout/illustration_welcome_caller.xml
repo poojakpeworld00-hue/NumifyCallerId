@@ -26,7 +26,7 @@
         android:src="@drawable/bg_onb_halo_blue" />
 
     <LinearLayout
-        android:id="@+id/obCardVw"
+        android:id="@+id/onboardingCard"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_182sdp"
         android:layout_gravity="center"
@@ -60,14 +60,14 @@
                 <!-- Two rings, 900ms apart, so the dot reads as a repeating pulse
                      rather than a single blink. -->
                 <View
-                    android:id="@+id/obRing1Vw"
+                    android:id="@+id/onboardingRing1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:background="@drawable/bg_onb_pulse_brand" />
 
                 <View
-                    android:id="@+id/obRing2Vw"
+                    android:id="@+id/onboardingRing2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -113,7 +113,7 @@
                 android:textStyle="bold" />
 
             <FrameLayout
-                android:id="@+id/obChipVw"
+                android:id="@+id/onboardingChip"
                 android:layout_width="@dimen/_21sdp"
                 android:layout_height="@dimen/_21sdp"
                 android:layout_gravity="bottom|end"

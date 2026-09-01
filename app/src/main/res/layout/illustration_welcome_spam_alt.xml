@@ -25,7 +25,7 @@
         android:src="@drawable/bg_onb_halo_blue" />
 
     <LinearLayout
-        android:id="@+id/obCardVw"
+        android:id="@+id/onboardingCard"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_182sdp"
         android:layout_gravity="center"
@@ -88,7 +88,7 @@
                 android:background="@drawable/bg_onb_ring_scan" />
 
             <ImageView
-                android:id="@+id/obSweepVw"
+                android:id="@+id/onboardingSweep"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@null"
@@ -107,7 +107,7 @@
                 android:textStyle="bold" />
 
             <View
-                android:id="@+id/obBlipVw"
+                android:id="@+id/onboardingBlip"
                 android:layout_width="@dimen/_7sdp"
                 android:layout_height="@dimen/_7sdp"
                 android:layout_gravity="top|end"
@@ -142,7 +142,7 @@
             android:layout_weight="1" />
 
         <LinearLayout
-            android:id="@+id/obStampVw"
+            android:id="@+id/onboardingStamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_onb_chip_found"

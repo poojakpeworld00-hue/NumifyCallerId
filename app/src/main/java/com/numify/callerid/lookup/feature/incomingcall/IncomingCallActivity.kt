@@ -58,8 +58,8 @@ class IncomingCallActivity : AppCompatActivity() {
             finish(); return
         }
 
-        val card = findViewById<View>(R.id.incallCardVw)
-        card.findViewById<View>(R.id.padIncallClose).setOnClickListener { finish() }
+        val card = findViewById<View>(R.id.incallCard)
+        card.findViewById<View>(R.id.buttonIncallClose).setOnClickListener { finish() }
 
         lifecycleScope.launch {
             val info = withContext(Dispatchers.IO) {

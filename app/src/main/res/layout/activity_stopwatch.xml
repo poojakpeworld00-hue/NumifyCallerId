@@ -16,14 +16,14 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/stopwatchRootVw"
+        android:id="@+id/stopwatchRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
         tools:context=".screen.utility.StopwatchActivity">
 
         <LinearLayout
-            android:id="@+id/crownBar"
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -34,7 +34,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/padBack"
+                android:id="@+id/buttonBack"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -73,7 +73,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/padSegTimer"
+                    android:id="@+id/buttonSegTimer"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_28sdp"
                     android:background="?attr/selectableItemBackgroundBorderless"
@@ -90,8 +90,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
-            app:layout_constraintTop_toBottomOf="@id/crownBar">
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
+            app:layout_constraintTop_toBottomOf="@id/topBar">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,7 +110,7 @@
                     android:outlineSpotShadowColor="@color/card_shadow">
 
                     <com.numify.callerid.lookup.feature.tools.StopwatchDialView
-                        android:id="@+id/faceVw"
+                        android:id="@+id/face"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
@@ -131,7 +131,7 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/lblTime"
+                                android:id="@+id/textTime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:includeFontPadding="false"
@@ -142,7 +142,7 @@
                                 tools:text="02:14" />
 
                             <TextView
-                                android:id="@+id/lblFraction"
+                                android:id="@+id/textFraction"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_1sdp"
@@ -154,7 +154,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/lblStatus"
+                            android:id="@+id/textStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_7sdp"
@@ -178,7 +178,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/padReset"
+                        android:id="@+id/buttonReset"
                         android:layout_width="@dimen/_48sdp"
                         android:layout_height="@dimen/_48sdp"
                         android:background="@drawable/bg_cid_circle_outline"
@@ -189,7 +189,7 @@
                         app:tint="@color/on_surface" />
 
                     <ImageView
-                        android:id="@+id/padStartPause"
+                        android:id="@+id/buttonStartPause"
                         android:layout_width="@dimen/_66sdp"
                         android:layout_height="@dimen/_66sdp"
                         android:layout_marginHorizontal="@dimen/_12sdp"
@@ -204,7 +204,7 @@
                         app:tint="@color/on_primary" />
 
                     <ImageView
-                        android:id="@+id/padLap"
+                        android:id="@+id/buttonLap"
                         android:layout_width="@dimen/_48sdp"
                         android:layout_height="@dimen/_48sdp"
                         android:background="@drawable/bg_cid_circle_outline"
@@ -229,7 +229,7 @@
                         android:background="@drawable/bg_section_dot" />
 
                     <TextView
-                        android:id="@+id/lblLapCount"
+                        android:id="@+id/textLapCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_6sdp"
@@ -249,7 +249,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/emptyStateVw"
+                    android:id="@+id/emptyState"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_14sdp"
@@ -259,7 +259,7 @@
                     android:textSize="@dimen/_11ssp" />
 
                 <LinearLayout
-                    android:id="@+id/rowLaps"
+                    android:id="@+id/columnLaps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
@@ -267,13 +267,13 @@
                     android:visibility="gone" />
 
                 <FrameLayout
-                    android:id="@+id/adNativeFrameVw"
+                    android:id="@+id/adNativeFrame"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/_10sdp">
 
                     <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/adShimmerVw"
+                        android:id="@+id/adShimmer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ccc">
@@ -286,10 +286,10 @@
         </androidx.core.widget.NestedScrollView>
 
         <View
-            android:id="@+id/adBannerDividerVw"
+            android:id="@+id/adBannerDivider"
             style="@style/AdDivider"
             android:layout_width="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

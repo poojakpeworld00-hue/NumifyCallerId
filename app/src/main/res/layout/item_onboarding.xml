@@ -9,20 +9,20 @@
     android:paddingHorizontal="@dimen/_20sdp">
 
     <FrameLayout
-        android:id="@+id/artContainerVw"
+        android:id="@+id/artContainer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_210sdp"
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:clipChildren="false"
         android:clipToPadding="false"
-        app:layout_constraintBottom_toTopOf="@id/lblTitle"
+        app:layout_constraintBottom_toTopOf="@id/textTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
-        android:id="@+id/lblTitle"
+        android:id="@+id/textTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_26sdp"
@@ -31,14 +31,14 @@
         android:textColor="@color/on_surface"
         android:textSize="@dimen/_20ssp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/lblDesc"
+        app:layout_constraintBottom_toTopOf="@id/textDesc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/artContainerVw"
+        app:layout_constraintTop_toBottomOf="@id/artContainer"
         tools:text="Know who's calling" />
 
     <TextView
-        android:id="@+id/lblDesc"
+        android:id="@+id/textDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
@@ -50,7 +50,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lblTitle"
+        app:layout_constraintTop_toBottomOf="@id/textTitle"
         tools:text="Instantly identify unknown numbers and block spam." />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

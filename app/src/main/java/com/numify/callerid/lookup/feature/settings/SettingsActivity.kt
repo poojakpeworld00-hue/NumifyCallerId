@@ -64,26 +64,26 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
     }
 
     override fun initView() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.settingsRootVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.settingsRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
-        binding.padBack.setOnClickListener { goBack() }
+        binding.buttonBack.setOnClickListener { goBack() }
 
         // Native ad at the top of the settings list (bottom adaptive banner auto-loads via BaseActivity).
-        NativeAdPresenter().renderMidNative(this, binding.adNativeFrameVw, binding.adShimmerVw)
+        NativeAdPresenter().renderMidNative(this, binding.adNativeFrame, binding.adShimmer)
 
         // Preferences grid — Theme is an inline segmented toggle.
         setupThemeToggle()
         bindPanel(
-            binding.panelLanguage, R.drawable.ic_language, R.drawable.bg_cid_chip_teal,
+            binding.cardLanguage, R.drawable.ic_language, R.drawable.bg_cid_chip_teal,
             R.color.cid_teal, R.string.settings_language, currentLanguageName()
         ) {
             openActivity(LanguagePickerActivity.newIntent(this, standalone = true))
         }
         bindPanel(
-            binding.panelBlocklist, R.drawable.settings_blocklist, R.drawable.bg_cid_chip_clay,
+            binding.cardBlocklist, R.drawable.settings_blocklist, R.drawable.bg_cid_chip_clay,
             R.color.cid_clay, R.string.settings_blocklist, getString(R.string.settings_blocklist_sub)
         ) {
             openActivity(
@@ -93,7 +93,7 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
             )
         }
         bindPanel(
-            binding.panelSim, R.drawable.ic_sim_card, R.drawable.bg_cid_chip_amber,
+            binding.cardSim, R.drawable.ic_sim_card, R.drawable.bg_cid_chip_amber,
             R.color.cid_amber, R.string.settings_sim, getString(R.string.settings_sim_sub)
         ) { openSimManagement() }
 
@@ -104,11 +104,11 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
         // Rate-us row is gated by the `is_rateus` Remote Config flag: true (or
         // unset) → visible, false → gone.
         val showRate = AdPreferenceStore.getInstance(this).getBoolean("is_rateus", true)
-        binding.rowRateVw.root.visibility = if (showRate) View.VISIBLE else View.GONE
-        binding.rateDividerVw.visibility = if (showRate) View.VISIBLE else View.GONE
+        binding.columnRate.root.visibility = if (showRate) View.VISIBLE else View.GONE
+        binding.rateDivider.visibility = if (showRate) View.VISIBLE else View.GONE
         if (showRate) {
             bindRow(
-                binding.rowRateVw,
+                binding.columnRate,
                 R.drawable.ic_star,
                 R.drawable.bg_cid_chip_amber,
                 R.color.cid_amber,
@@ -119,7 +119,7 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
             }
         }
         bindRow(
-            binding.rowShareVw,
+            binding.columnShare,
             R.drawable.settings_share,
             R.drawable.bg_cid_chip_teal,
             R.color.cid_teal,
@@ -130,16 +130,16 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
         }
 
         // Legal
-        binding.rowPrivacyVw.picIcon.setImageResource(R.drawable.ic_policy)
-        chipIcon(binding.rowPrivacyVw.picIcon, R.drawable.bg_cid_chip_brand, R.color.primary)
-        binding.rowPrivacyVw.lblTitle.setText(R.string.settings_privacy)
-        binding.rowPrivacyVw.root.setOnClickListener { openPolicyLink() }
-        binding.rowTermsVw.picIcon.setImageResource(R.drawable.ic_terms)
-        chipIcon(binding.rowTermsVw.picIcon, R.drawable.bg_cid_chip_clay, R.color.cid_clay)
-        binding.rowTermsVw.lblTitle.setText(R.string.settings_terms)
-        binding.rowTermsVw.root.setOnClickListener { openTermLink() }
+        binding.columnPrivacy.imageIcon.setImageResource(R.drawable.ic_policy)
+        chipIcon(binding.columnPrivacy.imageIcon, R.drawable.bg_cid_chip_brand, R.color.primary)
+        binding.columnPrivacy.textTitle.setText(R.string.settings_privacy)
+        binding.columnPrivacy.root.setOnClickListener { openPolicyLink() }
+        binding.columnTerms.imageIcon.setImageResource(R.drawable.ic_terms)
+        chipIcon(binding.columnTerms.imageIcon, R.drawable.bg_cid_chip_clay, R.color.cid_clay)
+        binding.columnTerms.textTitle.setText(R.string.settings_terms)
+        binding.columnTerms.root.setOnClickListener { openTermLink() }
 
-        binding.lblVersion.text =
+        binding.textVersion.text =
             getString(R.string.settings_version_fmt, getString(R.string.home_brand), BuildConfig.VERSION_NAME)
 
         // First-run coach-mark nudging the user to enable the call-screening toggle.
@@ -159,10 +159,10 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
         sub: String,
         onClick: () -> Unit
     ) {
-        row.picIcon.setImageResource(icon)
-        chipIcon(row.picIcon, chip, tint)
-        row.lblTitle.setText(title)
-        row.lblSub.text = sub
+        row.imageIcon.setImageResource(icon)
+        chipIcon(row.imageIcon, chip, tint)
+        row.textTitle.setText(title)
+        row.textSub.text = sub
         row.root.setOnClickListener { onClick() }
     }
 
@@ -175,10 +175,10 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
         @StringRes sub: Int,
         onClick: () -> Unit
     ) {
-        row.picIcon.setImageResource(icon)
-        chipIcon(row.picIcon, chip, tint)
-        row.lblTitle.setText(title)
-        row.lblSub.setText(sub)
+        row.imageIcon.setImageResource(icon)
+        chipIcon(row.imageIcon, chip, tint)
+        row.textTitle.setText(title)
+        row.textSub.setText(sub)
         row.root.setOnClickListener { onClick() }
     }
 
@@ -216,7 +216,7 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
             return
         }
         refreshCallScreeningCard()
-        binding.swcCallScreening.setOnCheckedChangeListener { _, isChecked ->
+        binding.switchCallScreening.setOnCheckedChangeListener { _, isChecked ->
             if (isProgrammatic) return@setOnCheckedChangeListener
             if (isChecked) requestCallScreening() else openDefaultAppsSettings()
         }
@@ -233,19 +233,19 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
      */
     private fun maybeShowCallScreeningHint() {
         if (prefs.isCallScreeningHintShown) return
-        if (binding.panelCallScreening.visibility != View.VISIBLE) return
-        if (binding.swcCallScreening.isChecked) return
+        if (binding.cardCallScreening.visibility != View.VISIBLE) return
+        if (binding.switchCallScreening.isChecked) return
 
-        val card = binding.panelCallScreening
+        val card = binding.cardCallScreening
         // Wait for layout (native ad above can shift positions), scroll the card
         // fully into view, then spotlight it on the next frame.
-        binding.settingsScrollVw.post {
+        binding.settingsScroll.post {
             if (isFinishing || isDestroyed) return@post
             val pad = (24 * resources.displayMetrics.density).toInt()
-            binding.settingsScrollVw.scrollTo(0, (card.top - pad).coerceAtLeast(0))
+            binding.settingsScroll.scrollTo(0, (card.top - pad).coerceAtLeast(0))
             card.post {
                 if (isFinishing || isDestroyed) return@post
-                if (binding.swcCallScreening.isChecked) return@post
+                if (binding.switchCallScreening.isChecked) return@post
                 prefs.isCallScreeningHintShown = true
                 CoachMarkOverlay.show(this, card, R.layout.include_call_screening_hint)
             }
@@ -266,7 +266,7 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
         val enabled = CallerIdCoordinator.isCallerIdEnabled(this)
         showCallScreeningSection(!enabled)
         isProgrammatic = true
-        binding.swcCallScreening.isChecked = enabled
+        binding.switchCallScreening.isChecked = enabled
         isProgrammatic = false
     }
 
@@ -277,9 +277,9 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
      */
     private fun showCallScreeningSection(show: Boolean) {
         val visibility = if (show) View.VISIBLE else View.GONE
-        binding.secCallHeaderVw.visibility = visibility
-        binding.secCallCardVw.visibility = visibility
-        binding.panelCallScreening.visibility = visibility
+        binding.secCallHeader.visibility = visibility
+        binding.secCallCard.visibility = visibility
+        binding.cardCallScreening.visibility = visibility
     }
 
     /** Launches the system role-request dialog for call screening. */
@@ -316,9 +316,9 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
 
     /** Inline Light / Dark / System segmented toggle inside the Theme card. */
     private fun setupThemeToggle() {
-        val card = binding.panelTheme
+        val card = binding.cardTheme
         val cells =
-            listOf(card.segLightVw, card.segDarkVw, card.segSystemVw) // matches themeOptions order
+            listOf(card.tabLight, card.tabDark, card.tabSystem) // matches themeOptions order
         val current = PreferenceStore.selectedTheme(this).ifEmpty { PreferenceStore.THEME_LIGHT }
         highlightTheme(cells, themeOptions.indexOf(current).coerceAtLeast(0))
         showThemeName(current)
@@ -342,7 +342,7 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
     /** Names the active theme under the "Theme" title, so the row says what it is
      *  set to without the user having to read which segment looks selected. */
     private fun showThemeName(theme: String) {
-        binding.lblThemeValue.setText(
+        binding.textThemeValue.setText(
             when (theme) {
                 PreferenceStore.THEME_DARK -> R.string.theme_dark
                 PreferenceStore.THEME_SYSTEM -> R.string.theme_system

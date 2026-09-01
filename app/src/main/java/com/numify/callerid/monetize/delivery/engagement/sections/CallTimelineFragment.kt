@@ -32,8 +32,8 @@ class CallTimelineFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_recent_calls, container, false)
 
-        val recycler = view.findViewById<RecyclerView>(R.id.rollRecents)
-        val empty = view.findViewById<TextView>(R.id.lblEmpty)
+        val recycler = view.findViewById<RecyclerView>(R.id.listRecents)
+        val empty = view.findViewById<TextView>(R.id.textEmpty)
 
         recycler.layoutManager = LinearLayoutManager(requireContext())
         recycler.adapter = adapter

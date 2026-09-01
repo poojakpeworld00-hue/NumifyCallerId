@@ -91,23 +91,23 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
 
     override fun initView() {
         // Hero bleeds under the status bar; pad its content down by the inset.
-        val baseTop = binding.heroHeaderVw.paddingTop
-        ViewCompat.setOnApplyWindowInsetsListener(binding.heroHeaderVw) { v, insets ->
+        val baseTop = binding.heroHeader.paddingTop
+        ViewCompat.setOnApplyWindowInsetsListener(binding.heroHeader) { v, insets ->
             val top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
             v.updatePadding(top = baseTop + top)
             insets
         }
-        binding.padRecentsDial.setOnClickListener {
+        binding.buttonRecentsDial.setOnClickListener {
             requireActivity().openActivity<DialerActivity>()
         }
-        binding.padRecentsFilter.setOnClickListener { showSortMenu(it) }
-        binding.padSettings.setOnClickListener {
+        binding.buttonRecentsFilter.setOnClickListener { showSortMenu(it) }
+        binding.buttonSettings.setOnClickListener {
             requireActivity().openActivity<SettingsActivity>()
         }
-        binding.panelProtection.setOnClickListener {
+        binding.cardProtection.setOnClickListener {
             (activity as? MainShellActivity)?.showBlocklist()
         }
-        binding.padProtectionAction.setOnClickListener {
+        binding.buttonProtectionAction.setOnClickListener {
             if (Settings.canDrawOverlays(requireContext())) {
                 requireActivity().openActivity<SettingsActivity>()
             } else {
@@ -115,23 +115,23 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
             }
         }
 
-        binding.padPermManage.setOnClickListener {
+        binding.buttonPermManage.setOnClickListener {
             (activity as? MainShellActivity)?.showPermissionSheet()
         }
 
         setupHomeCountry()
-        binding.rowHomeCountry.setOnClickListener {
+        binding.columnHomeCountry.setOnClickListener {
             countryLauncher.launch(Intent(requireContext(), CountryPickerActivity::class.java))
         }
-        binding.padHomeSearch.setOnClickListener { submitSearch() }
-        binding.inpSearch.setOnEditorActionListener { _, actionId, _ ->
+        binding.buttonHomeSearch.setOnClickListener { submitSearch() }
+        binding.inputSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 submitSearch(); true
             } else false
         }
 
-        binding.rollRecents.layoutManager = LinearLayoutManager(requireContext())
-        binding.rollRecents.adapter = adapter
+        binding.listRecents.layoutManager = LinearLayoutManager(requireContext())
+        binding.listRecents.adapter = adapter
 
         // Native banner at the bottom of the recents screen.
         // Ad slot + dividers are handled by BaseFragment.showScreenAd(), which
@@ -139,11 +139,11 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         // entry (banner-first, native-banner fallback) instead of hard-coding a
         // native banner that Remote Config could not switch off.
 
-        binding.segAll.setOnClickListener { viewModel.setFilter(CallLogFilter.ALL) }
-        binding.segIncoming.setOnClickListener { viewModel.setFilter(CallLogFilter.INCOMING) }
-        binding.segOutgoing.setOnClickListener { viewModel.setFilter(CallLogFilter.OUTGOING) }
-        binding.segMissed.setOnClickListener { viewModel.setFilter(CallLogFilter.MISSED) }
-        binding.padGrant.setOnClickListener {
+        binding.tabAll.setOnClickListener { viewModel.setFilter(CallLogFilter.ALL) }
+        binding.tabIncoming.setOnClickListener { viewModel.setFilter(CallLogFilter.INCOMING) }
+        binding.tabOutgoing.setOnClickListener { viewModel.setFilter(CallLogFilter.OUTGOING) }
+        binding.tabMissed.setOnClickListener { viewModel.setFilter(CallLogFilter.MISSED) }
+        binding.buttonGrant.setOnClickListener {
             requestPermissionChain(
                 listOf(Manifest.permission.READ_CALL_LOG)
             ) {
@@ -152,16 +152,16 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
             }
         }
 
-        binding.inpSearch.addTextChangedListener(object : android.text.TextWatcher {
+        binding.inputSearch.addTextChangedListener(object : android.text.TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
             override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
             override fun afterTextChanged(s: android.text.Editable?) {
                 val text = s?.toString().orEmpty()
                 viewModel.setQuery(text)
-                binding.padClearSearch.visibility = if (text.isEmpty()) View.GONE else View.VISIBLE
+                binding.buttonClearSearch.visibility = if (text.isEmpty()) View.GONE else View.VISIBLE
             }
         })
-        binding.padClearSearch.setOnClickListener { binding.inpSearch.setText("") }
+        binding.buttonClearSearch.setOnClickListener { binding.inputSearch.setText("") }
 
         if (hasCallLogPermission()) onPermissionGranted() else showPermissionState()
         refreshProtectionState()
@@ -199,21 +199,21 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
     fun refreshPermissionHint() {
         if (view == null) return
         val show = (activity as? MainShellActivity)?.shouldShowPermissionHint() == true
-        binding.rowPermHint.visibility = if (show) View.VISIBLE else View.GONE
+        binding.columnPermHint.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun refreshProtectionState() {
         val active = Settings.canDrawOverlays(requireContext())
-        binding.lblProtectionTitle.setText(
+        binding.textProtectionTitle.setText(
             if (active) R.string.home_protection_on_title else R.string.home_protection_off_title
         )
-        binding.lblProtectionSub.setText(
+        binding.textProtectionSub.setText(
             if (active) R.string.home_protection_on_sub else R.string.home_protection_off_sub
         )
-        binding.padProtectionAction.setText(
+        binding.buttonProtectionAction.setText(
             if (active) R.string.home_protection_manage else R.string.home_protection_turn_on
         )
-        binding.picProtection.imageTintList = ColorStateList.valueOf(
+        binding.imageProtection.imageTintList = ColorStateList.valueOf(
             ContextCompat.getColor(
                 requireContext(),
                 if (active) R.color.accent else R.color.on_surface_variant
@@ -279,7 +279,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
      */
     private fun maybeShowSearchHint() {
         if (prefs.isSearchHintShown) return
-        val anchor = binding.panelLookup
+        val anchor = binding.cardLookup
         anchor.post {
             if (!isAdded || view == null) return@post
             val act = activity ?: return@post
@@ -332,13 +332,13 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
 
     private fun applyHomeCountry(iso: String, dial: String) {
         homeDial = dial
-        binding.lblHomeFlag.text = CountryCatalog.flag(iso)
-        binding.lblHomeDial.text = if (dial.isBlank()) iso else "+$dial"
+        binding.textHomeFlag.text = CountryCatalog.flag(iso)
+        binding.textHomeDial.text = if (dial.isBlank()) iso else "+$dial"
     }
 
     /** Navigates to the Lookup tab and runs the lookup for the entered number. */
     private fun submitSearch() {
-        val typed = binding.inpSearch.text?.toString()?.trim().orEmpty()
+        val typed = binding.inputSearch.text?.toString()?.trim().orEmpty()
         val number = when {
             typed.isBlank() -> ""
             typed.startsWith("+") -> typed
@@ -346,21 +346,21 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
             else -> typed
         }
         (activity as? MainShellActivity)?.showLookup(number.ifBlank { null })
-        binding.inpSearch.setText("")
+        binding.inputSearch.setText("")
     }
 
     override fun initObservers() {
         viewModel.rows.observe(viewLifecycleOwner) { rows ->
             adapter.submit(rows)
-            binding.lblEmpty.visibility =
+            binding.textEmpty.visibility =
                 if (rows.isEmpty() && hasCallLogPermission()) View.VISIBLE else View.GONE
             showCounts(rows)
         }
         viewModel.filter.observe(viewLifecycleOwner) { active ->
-            highlightTab(binding.segAll, active == CallLogFilter.ALL)
-            highlightTab(binding.segIncoming, active == CallLogFilter.INCOMING)
-            highlightTab(binding.segOutgoing, active == CallLogFilter.OUTGOING)
-            highlightTab(binding.segMissed, active == CallLogFilter.MISSED)
+            highlightTab(binding.tabAll, active == CallLogFilter.ALL)
+            highlightTab(binding.tabIncoming, active == CallLogFilter.INCOMING)
+            highlightTab(binding.tabOutgoing, active == CallLogFilter.OUTGOING)
+            highlightTab(binding.tabMissed, active == CallLogFilter.MISSED)
         }
     }
 
@@ -378,7 +378,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
      */
     private fun showCounts(rows: List<HistoryRowUi>) {
         val filtering = (viewModel.filter.value ?: CallLogFilter.ALL) != CallLogFilter.ALL ||
-            binding.inpSearch.text?.isNotBlank() == true
+            binding.inputSearch.text?.isNotBlank() == true
 
         val (total, missed) = if (filtering) {
             val calls = rows.filterIsInstance<HistoryRowUi.Call>()
@@ -388,7 +388,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
             t.total to t.missed
         }
 
-        binding.lblRecentsCount.text = getString(
+        binding.textRecentsCount.text = getString(
             R.string.recents_counts_fmt,
             resources.getQuantityString(R.plurals.recents_call_count, total, total),
             missed,
@@ -435,7 +435,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
 
         val inflater = LayoutInflater.from(requireContext())
         val content = inflater.inflate(R.layout.popup_sort, null) as LinearLayout
-        val container = content.findViewById<LinearLayout>(R.id.sortContainerVw)
+        val container = content.findViewById<LinearLayout>(R.id.sortContainer)
 
         val popup = PopupWindow(
             content,
@@ -449,8 +449,8 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
 
         options.forEach { (titleRes, sort) ->
             val row = inflater.inflate(R.layout.item_sort_option, container, false)
-            row.findViewById<TextView>(R.id.lblSortLabel).setText(titleRes)
-            row.findViewById<ImageView>(R.id.picSortCheck).visibility =
+            row.findViewById<TextView>(R.id.textSortLabel).setText(titleRes)
+            row.findViewById<ImageView>(R.id.imageSortCheck).visibility =
                 if (sort == current) View.VISIBLE else View.INVISIBLE
             row.setOnClickListener {
                 viewModel.setSort(sort)
@@ -464,15 +464,15 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
     }
 
     private fun onPermissionGranted() {
-        binding.permStateVw.visibility = View.GONE
-        binding.rollRecents.visibility = View.VISIBLE
+        binding.permState.visibility = View.GONE
+        binding.listRecents.visibility = View.VISIBLE
         viewModel.load()
     }
 
     private fun showPermissionState() {
-        binding.permStateVw.visibility = View.VISIBLE
-        binding.rollRecents.visibility = View.GONE
-        binding.lblEmpty.visibility = View.GONE
+        binding.permState.visibility = View.VISIBLE
+        binding.listRecents.visibility = View.GONE
+        binding.textEmpty.visibility = View.GONE
     }
 
     private fun dialNumber(number: String) = placeCall(number)

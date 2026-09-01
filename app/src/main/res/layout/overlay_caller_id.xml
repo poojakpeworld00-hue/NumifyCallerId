@@ -4,7 +4,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/incallCardVw"
+    android:id="@+id/incallCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_card"
@@ -41,7 +41,7 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/padIncallClose"
+            android:id="@+id/buttonIncallClose"
             android:layout_width="@dimen/_28sdp"
             android:layout_height="@dimen/_28sdp"
             android:contentDescription="@string/action_close"
@@ -59,7 +59,7 @@
         android:padding="@dimen/_14sdp">
 
         <TextView
-            android:id="@+id/lblIncallAvatar"
+            android:id="@+id/textIncallAvatar"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
             android:background="@drawable/bg_avatar"
@@ -77,7 +77,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/lblIncallName"
+                android:id="@+id/textIncallName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -88,7 +88,7 @@
                 tools:text="Unknown" />
 
             <TextView
-                android:id="@+id/lblIncallNumber"
+                android:id="@+id/textIncallNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
@@ -97,7 +97,7 @@
                 tools:text="+91 70967 04911" />
 
             <TextView
-                android:id="@+id/lblIncallStatus"
+                android:id="@+id/textIncallStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
@@ -143,7 +143,7 @@
                 android:tint="@color/on_surface_variant" />
 
             <TextView
-                android:id="@+id/lblIncallWhen"
+                android:id="@+id/textIncallWhen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"
@@ -166,7 +166,7 @@
                 android:tint="@color/on_surface_variant" />
 
             <TextView
-                android:id="@+id/lblIncallCalls"
+                android:id="@+id/textIncallCalls"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"
@@ -189,7 +189,7 @@
                 android:tint="@color/on_surface_variant" />
 
             <TextView
-                android:id="@+id/lblIncallNetwork"
+                android:id="@+id/textIncallNetwork"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"

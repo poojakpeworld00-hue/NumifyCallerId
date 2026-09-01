@@ -41,19 +41,19 @@ class CallEntryAdapter(
         fun tint(res: Int) = ColorStateList.valueOf(color(res))
 
         with(holder.binding) {
-            lblAvatar.text = item.initials
-            lblName.text = item.name
-            lblSub.text = item.info
+            textAvatar.text = item.initials
+            textName.text = item.name
+            textSub.text = item.info
 
             // Verdict container: spam rows read red before the text does; everything
             // else sits on a neutral surface card with a primary-container avatar.
-            rowCallVw.setBackgroundResource(
+            columnCall.setBackgroundResource(
                 if (isSpam) R.drawable.bg_home_tile_spam else R.drawable.bg_home_tile
             )
-            lblAvatar.backgroundTintList =
+            textAvatar.backgroundTintList =
                 tint(if (isSpam) R.color.spam_avatar_bg else R.color.primary_container)
-            lblAvatar.setTextColor(color(if (isSpam) R.color.spam_on else R.color.on_primary_container))
-            lblName.setTextColor(color(if (isSpam) R.color.spam_on else R.color.on_surface))
+            textAvatar.setTextColor(color(if (isSpam) R.color.spam_on else R.color.on_primary_container))
+            textName.setTextColor(color(if (isSpam) R.color.spam_on else R.color.on_surface))
 
             val (iconRes, subColorRes) = when (item.type) {
                 CallType.INCOMING -> R.drawable.ic_call_received to R.color.on_surface_variant
@@ -61,27 +61,27 @@ class CallEntryAdapter(
                 CallType.MISSED -> R.drawable.ic_call_missed to R.color.danger
                 CallType.SPAM -> R.drawable.ic_warning to R.color.spam_on
             }
-            picType.setImageResource(iconRes)
-            picType.imageTintList = tint(subColorRes)
-            lblSub.setTextColor(color(subColorRes))
+            imageType.setImageResource(iconRes)
+            imageType.imageTintList = tint(subColorRes)
+            textSub.setTextColor(color(subColorRes))
 
             // Spam → no action (auto-blocked); unknown number → Identify (opens Lookup);
             // otherwise the Call button.
             val unknown = !item.identified && item.number.isNotBlank()
             when {
                 isSpam -> {
-                    padCall.visibility = android.view.View.GONE
-                    padIdentify.visibility = android.view.View.GONE
+                    buttonCall.visibility = android.view.View.GONE
+                    buttonIdentify.visibility = android.view.View.GONE
                 }
                 unknown -> {
-                    padCall.visibility = android.view.View.GONE
-                    padIdentify.visibility = android.view.View.VISIBLE
-                    padIdentify.setOnClickListener { onIdentify(item.number) }
+                    buttonCall.visibility = android.view.View.GONE
+                    buttonIdentify.visibility = android.view.View.VISIBLE
+                    buttonIdentify.setOnClickListener { onIdentify(item.number) }
                 }
                 else -> {
-                    padCall.visibility = android.view.View.VISIBLE
-                    padIdentify.visibility = android.view.View.GONE
-                    padCall.setOnClickListener { if (item.number.isNotBlank()) onCall(item.number) }
+                    buttonCall.visibility = android.view.View.VISIBLE
+                    buttonIdentify.visibility = android.view.View.GONE
+                    buttonCall.setOnClickListener { if (item.number.isNotBlank()) onCall(item.number) }
                 }
             }
         }

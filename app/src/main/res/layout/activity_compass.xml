@@ -16,14 +16,14 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/compassRootVw"
+        android:id="@+id/compassRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
         tools:context=".screen.utility.CompassActivity">
 
         <LinearLayout
-            android:id="@+id/crownBar"
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -34,7 +34,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/padBack"
+                android:id="@+id/buttonBack"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -56,7 +56,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/lblNoSensor"
+            android:id="@+id/textNoSensor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_32sdp"
@@ -68,15 +68,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/crownBar" />
+            app:layout_constraintTop_toBottomOf="@id/topBar" />
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/contentVw"
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
-            app:layout_constraintTop_toBottomOf="@id/crownBar">
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
+            app:layout_constraintTop_toBottomOf="@id/topBar">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,7 +86,7 @@
                 android:paddingHorizontal="@dimen/_16sdp">
 
                 <TextView
-                    android:id="@+id/lblHeading"
+                    android:id="@+id/textHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_2sdp"
@@ -98,7 +98,7 @@
                     tools:text="342°" />
 
                 <TextView
-                    android:id="@+id/lblDirection"
+                    android:id="@+id/textDirection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_3sdp"
@@ -110,7 +110,7 @@
                     tools:text="North-northwest" />
 
                 <FrameLayout
-                    android:id="@+id/dialLabelsVw"
+                    android:id="@+id/dialLabels"
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="@dimen/_200sdp"
                     android:layout_marginTop="@dimen/_12sdp"
@@ -119,7 +119,7 @@
                     android:outlineSpotShadowColor="@color/card_shadow">
 
                     <com.numify.callerid.lookup.feature.tools.CompassRoseView
-                        android:id="@+id/picNeedle"
+                        android:id="@+id/imageNeedle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </FrameLayout>
@@ -141,7 +141,7 @@
                         app:tint="@color/on_surface" />
 
                     <TextView
-                        android:id="@+id/lblSignal"
+                        android:id="@+id/textSignal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
@@ -153,13 +153,13 @@
                 </LinearLayout>
 
                 <FrameLayout
-                    android:id="@+id/adNativeFrameVw"
+                    android:id="@+id/adNativeFrame"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/_14sdp">
 
                     <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/adShimmerVw"
+                        android:id="@+id/adShimmer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ccc">
@@ -172,10 +172,10 @@
         </androidx.core.widget.NestedScrollView>
 
         <View
-            android:id="@+id/adBannerDividerVw"
+            android:id="@+id/adBannerDivider"
             style="@style/AdDivider"
             android:layout_width="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

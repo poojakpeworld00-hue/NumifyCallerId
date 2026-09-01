@@ -18,7 +18,7 @@ class CountryPickerActivity : BaseActivity<ActivityCountryPickerBinding>() {
     private lateinit var adapter: CountryAdapter
 
     override fun initView() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.countryRootVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.countryRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
@@ -34,12 +34,12 @@ class CountryPickerActivity : BaseActivity<ActivityCountryPickerBinding>() {
             )
             finish()
         }
-        binding.rollCountries.layoutManager = LinearLayoutManager(this)
-        binding.rollCountries.adapter = adapter
+        binding.listCountries.layoutManager = LinearLayoutManager(this)
+        binding.listCountries.adapter = adapter
         adapter.submit(CountryCatalog.all)
 
-        binding.padBack.setOnClickListener { goBack() }
-        binding.inpSearch.addTextChangedListener { text -> filter(text?.toString().orEmpty()) }
+        binding.buttonBack.setOnClickListener { goBack() }
+        binding.inputSearch.addTextChangedListener { text -> filter(text?.toString().orEmpty()) }
     }
 
     private fun filter(query: String) {

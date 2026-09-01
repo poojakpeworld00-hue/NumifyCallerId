@@ -17,14 +17,14 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/batteryRootVw"
+        android:id="@+id/batteryRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
         tools:context=".screen.utility.BatteryInfoActivity">
 
         <LinearLayout
-            android:id="@+id/crownBar"
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/padBack"
+                android:id="@+id/buttonBack"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -56,7 +56,7 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/padSettings"
+                android:id="@+id/buttonSettings"
                 android:layout_width="@dimen/_38sdp"
                 android:layout_height="@dimen/_38sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -70,8 +70,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
-            app:layout_constraintTop_toBottomOf="@id/crownBar">
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
+            app:layout_constraintTop_toBottomOf="@id/topBar">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,7 +87,7 @@
                     android:layout_marginTop="@dimen/_6sdp">
 
                     <com.numify.callerid.lookup.feature.tools.BatteryGaugeView
-                        android:id="@+id/cellVw"
+                        android:id="@+id/cell"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                         <LinearLayout
@@ -98,7 +98,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/lblLevel"
+                            android:id="@+id/textLevel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:includeFontPadding="false"
@@ -109,7 +109,7 @@
                             tools:text="68" />
 
                         <TextView
-                            android:id="@+id/lblPercentSign"
+                            android:id="@+id/textPercentSign"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_1sdp"
@@ -139,7 +139,7 @@
                         app:tint="@color/on_surface" />
 
                     <TextView
-                        android:id="@+id/lblStatus"
+                        android:id="@+id/textStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
@@ -197,7 +197,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/lblTemp"
+                            android:id="@+id/textTemp"
                             style="@style/BattStatValue"
                             tools:text="31 °C" />
                     </LinearLayout>
@@ -222,7 +222,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/lblVoltage"
+                            android:id="@+id/textVoltage"
                             style="@style/BattStatValue"
                             tools:text="4.21 V" />
                     </LinearLayout>
@@ -255,7 +255,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/lblHealth"
+                            android:id="@+id/textHealth"
                             style="@style/BattStatValue"
                             tools:text="Good" />
                     </LinearLayout>
@@ -280,7 +280,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/lblTech"
+                            android:id="@+id/textTech"
                             style="@style/BattStatValue"
                             tools:text="Li-ion" />
                     </LinearLayout>
@@ -319,7 +319,7 @@
                         android:text="@string/battery_capacity" />
 
                     <TextView
-                        android:id="@+id/lblCapacity"
+                        android:id="@+id/textCapacity"
                         style="@style/NetRowValue"
                         tools:text="4285 mAh" />
                 </LinearLayout>
@@ -337,7 +337,7 @@
                         android:text="@string/battery_plugged" />
 
                     <TextView
-                        android:id="@+id/lblPlugged"
+                        android:id="@+id/textPlugged"
                         style="@style/NetRowValue"
                         tools:text="USB" />
                 </LinearLayout>
@@ -355,26 +355,26 @@
                         android:text="@string/battery_screen_on" />
 
                     <TextView
-                        android:id="@+id/lblScreenOn"
+                        android:id="@+id/textScreenOn"
                         style="@style/NetRowValue"
                         tools:text="3h 12m" />
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/padSaver"
+                    android:id="@+id/buttonSaver"
                     style="@style/ToolCta"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:text="@string/battery_saver"
                     app:icon="@drawable/ic_settings" />
 
                 <FrameLayout
-                    android:id="@+id/adNativeFrameVw"
+                    android:id="@+id/adNativeFrame"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/_10sdp">
 
                     <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/adShimmerVw"
+                        android:id="@+id/adShimmer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ccc">
@@ -387,10 +387,10 @@
         </androidx.core.widget.NestedScrollView>
 
         <View
-            android:id="@+id/adBannerDividerVw"
+            android:id="@+id/adBannerDivider"
             style="@style/AdDivider"
             android:layout_width="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

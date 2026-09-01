@@ -37,7 +37,7 @@
     <!-- Permission rows are inflated into containerRows at runtime. The scroll
          view keeps the sheet bounded on small screens. -->
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/rowsScrollVw"
+        android:id="@+id/rowsScroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8sdp"
@@ -45,14 +45,14 @@
         android:scrollbars="none">
 
         <LinearLayout
-            android:id="@+id/holderRows"
+            android:id="@+id/containerRows"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </androidx.core.widget.NestedScrollView>
 
     <TextView
-        android:id="@+id/padContinue"
+        android:id="@+id/buttonContinue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
@@ -65,7 +65,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/padNotNow"
+        android:id="@+id/buttonNotNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

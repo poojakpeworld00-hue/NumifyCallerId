@@ -38,9 +38,9 @@ class CountryAdapter(
     override fun onBindViewHolder(holder: VH, position: Int) {
         val c = items[position]
         with(holder.binding) {
-            lblFlag.text = CountryCatalog.flag(c.iso2)
-            lblName.text = c.name
-            lblDial.text = "+${c.dial}"
+            textFlag.text = CountryCatalog.flag(c.iso2)
+            textName.text = c.name
+            textDial.text = "+${c.dial}"
         }
     }
 

@@ -10,7 +10,7 @@
     android:paddingVertical="@dimen/_9sdp">
 
     <ImageView
-        android:id="@+id/picDir"
+        android:id="@+id/imageDir"
         android:layout_width="@dimen/_36sdp"
         android:layout_height="@dimen/_36sdp"
         android:background="@drawable/bg_circle_surface"
@@ -20,7 +20,7 @@
         app:tint="@color/primary" />
 
     <TextView
-        android:id="@+id/lblWhen"
+        android:id="@+id/textWhen"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_12sdp"
@@ -33,7 +33,7 @@
         tools:text="4:54 PM" />
 
     <TextView
-        android:id="@+id/lblDuration"
+        android:id="@+id/textDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"

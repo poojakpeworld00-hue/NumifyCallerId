@@ -44,9 +44,9 @@ class AnnouncementFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_message, container, false)
 
-        radioContainer = view.findViewById(R.id.rdoContainer)
-        etCustomMessage = view.findViewById(R.id.inpCustomMessage)
-        btnSendMessage = view.findViewById(R.id.padSendMessage)
+        radioContainer = view.findViewById(R.id.radioContainer)
+        etCustomMessage = view.findViewById(R.id.inputCustomMessage)
+        btnSendMessage = view.findViewById(R.id.buttonSendMessage)
 
         setupOptions(inflater)
         setupListeners()
@@ -59,8 +59,8 @@ class AnnouncementFragment : Fragment() {
 
         options.forEachIndexed { index, text ->
             val itemView = inflater.inflate(R.layout.item_radio_option, radioContainer, false)
-            val tvOption = itemView.findViewById<TextView>(R.id.lblOption)
-            val imgCheck = itemView.findViewById<ImageView>(R.id.picCheck)
+            val tvOption = itemView.findViewById<TextView>(R.id.textOption)
+            val imgCheck = itemView.findViewById<ImageView>(R.id.imageCheck)
 
             tvOption.text = text
 
@@ -82,8 +82,8 @@ class AnnouncementFragment : Fragment() {
 
         for (i in 0 until radioContainer.childCount) {
             val child = radioContainer.getChildAt(i)
-            val tvOption = child.findViewById<TextView>(R.id.lblOption)
-            val imgCheck = child.findViewById<ImageView>(R.id.picCheck)
+            val tvOption = child.findViewById<TextView>(R.id.textOption)
+            val imgCheck = child.findViewById<ImageView>(R.id.imageCheck)
 
             if (i == selectedIndex) {
                 tvOption.setTextColor(requireContext().getColor(R.color.primary))

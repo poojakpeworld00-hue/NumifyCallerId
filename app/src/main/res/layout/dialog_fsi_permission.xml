@@ -6,7 +6,7 @@
     Card springs up, rings/glow pulse, CTA breathes (driven by FsiPrimingDialog).
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fsDialogCardVw"
+    android:id="@+id/fsiDialogCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_card"
@@ -17,13 +17,13 @@
 
     <!-- Hero: floating card in a small halo of glow + orbit rings -->
     <FrameLayout
-        android:id="@+id/fsDialogHeroVw"
+        android:id="@+id/fsiDialogHero"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_4sdp">
 
         <ImageView
-            android:id="@+id/fsDialogGlowVw"
+            android:id="@+id/fsiDialogGlow"
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_150sdp"
             android:layout_gravity="center"
@@ -31,7 +31,7 @@
             android:src="@drawable/bg_fsi_glow" />
 
         <ImageView
-            android:id="@+id/fsDialogOrbit1Vw"
+            android:id="@+id/fsiDialogOrbit1"
             android:layout_width="@dimen/_130sdp"
             android:layout_height="@dimen/_130sdp"
             android:layout_gravity="center"
@@ -39,7 +39,7 @@
             android:src="@drawable/bg_fsi_orbit_ring" />
 
         <ImageView
-            android:id="@+id/fsDialogOrbit2Vw"
+            android:id="@+id/fsiDialogOrbit2"
             android:layout_width="@dimen/_130sdp"
             android:layout_height="@dimen/_130sdp"
             android:layout_gravity="center"
@@ -55,7 +55,7 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/fsDialogTitleVw"
+        android:id="@+id/fsiDialogTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_14sdp"
@@ -67,7 +67,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/fsDialogDescVw"
+        android:id="@+id/fsiDialogDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
@@ -78,7 +78,7 @@
         android:textSize="@dimen/_10ssp" />
 
     <TextView
-        android:id="@+id/fsDialogButtonVw"
+        android:id="@+id/fsiDialogButton"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_44sdp"
         android:layout_marginTop="@dimen/_14sdp"
@@ -90,7 +90,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/fsDialogLaterVw"
+        android:id="@+id/fsiDialogLater"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

@@ -9,7 +9,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/sect"
+            android:id="@+id/section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_10sdp"
@@ -17,7 +17,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/btnmessageVw"
+                android:id="@+id/shortcutMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_5sdp"
@@ -50,7 +50,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/padSendEmail"
+                android:id="@+id/buttonSendEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_5sdp"
@@ -83,7 +83,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/padAddCalendar"
+                android:id="@+id/buttonAddCalendar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_5sdp"
@@ -116,7 +116,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/padOpenWebsite"
+                android:id="@+id/buttonOpenWebsite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_5sdp"
@@ -149,7 +149,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/padAddContact"
+                android:id="@+id/buttonAddContact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_5sdp"

@@ -58,7 +58,7 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
         // Pad the root by the system-bar insets to keep all content visible, and
         // fold in the IME inset so the bottom message input rides above the
         // keyboard instead of being hidden behind it (with or without an ad).
-        ViewCompat.setOnApplyWindowInsetsListener(binding.mainVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             val ime = insets.getInsets(WindowInsetsCompat.Type.ime())
             v.setPadding(bars.left, bars.top, bars.right, maxOf(bars.bottom, ime.bottom))
@@ -67,10 +67,10 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
 
         if (getHD_VBC_Type() == "n") {
             Log.w("987654321", "Native called")
-            BottomSheetNativeAds().BS_showBigNative(this, binding.adContainerVw)
+            BottomSheetNativeAds().BS_showBigNative(this, binding.adContainer)
         } else {
             Log.w("987654321", "Banner called")
-            BottomSheetNativeAds().renderBannerAd(this, binding.adContainerVw)
+            BottomSheetNativeAds().renderBannerAd(this, binding.adContainer)
         }
 
         val phone = intent.getStringExtra("phone") ?: "Private Number"
@@ -82,29 +82,29 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
         val callerName = if (phone.isNotBlank() && !phone.equals("Private Number", ignoreCase = true))
             ContactRepository(this).lookupNameByNumber(phone)?.takeIf { it.isNotBlank() }
         else null
-        binding.txtCallerNameVw.text = callerName ?: phone
-        binding.txtCallTypeVw.text = getCallTypeText(callType)
+        binding.labelCallerName.text = callerName ?: phone
+        binding.labelCallType.text = getCallTypeText(callType)
 
         // Duration — format as MM:SS
         val durationSec = if (startTimeMillis > 0 && endTimeMillis > startTimeMillis)
             ((endTimeMillis - startTimeMillis) / 1000).toInt() else 0
         val minutes = durationSec / 60
         val seconds = durationSec % 60
-        binding.txtDurationVw.text = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
+        binding.labelDuration.text = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
 
         // Time — show end time if available
         val timeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
-        binding.txtTimeVw.text = timeFormat.format(
+        binding.labelTime.text = timeFormat.format(
             if (endTimeMillis > 0) Date(endTimeMillis) else Date()
         )
 
         // Recent-call list is the default ("first") tab of the post-call screen.
         supportFragmentManager.beginTransaction()
-            .replace(R.id.frag_container, CallTimelineFragment())
+            .replace(R.id.fragment_container, CallTimelineFragment())
             .commit()
-        selectTab(binding.picRecent, getAllTabs())
+        selectTab(binding.imageRecent, getAllTabs())
 
-        binding.callIconVw.triggerClick {
+        binding.callIcon.triggerClick {
             val number = callerNumber
             if (!number.isNullOrBlank()) callNumber(number)
             else Toast.makeText(this, R.string.toast_no_number, Toast.LENGTH_SHORT).show()
@@ -113,17 +113,17 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
         setupClickListeners()
 
         onBackPressedDispatcher.addCallback(this) {
-            val currentFragment = supportFragmentManager.findFragmentById(R.id.frag_container)
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
             when (currentFragment) {
                 // The recents list is "home" — back from it closes the screen.
                 is CallTimelineFragment -> finish()
                 else -> {
                     if (!isFinishing && !isDestroyed) {
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.frag_container, CallTimelineFragment())
+                            .replace(R.id.fragment_container, CallTimelineFragment())
                             .commitAllowingStateLoss()
                     }
-                    selectTab(binding.picRecent, getAllTabs())
+                    selectTab(binding.imageRecent, getAllTabs())
                 }
             }
         }
@@ -137,7 +137,7 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
     }
 
     private fun getAllTabs() = listOf(
-        binding.picRecent, binding.picMes, binding.picReminder, binding.picWhatsapp
+        binding.imageRecent, binding.imageMes, binding.imageReminder, binding.imageWhatsapp
     )
 
     /** The caller's number from the launching intent, or null for private/unknown. */
@@ -157,9 +157,9 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
         val allTabs = getAllTabs()
 
         val fragmentTabs = listOf(
-            binding.picRecent to { CallTimelineFragment() as Fragment },
-            binding.picMes to { AnnouncementFragment.newInstance(callerNumber) as Fragment },
-            binding.picReminder to { AlertFeedFragment() as Fragment }
+            binding.imageRecent to { CallTimelineFragment() as Fragment },
+            binding.imageMes to { AnnouncementFragment.newInstance(callerNumber) as Fragment },
+            binding.imageReminder to { AlertFeedFragment() as Fragment }
         )
 
         fragmentTabs.forEach { (tab, fragmentFactory) ->
@@ -167,16 +167,16 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
                 if (isFinishing || isDestroyed) return@triggerClick
                 selectTab(tab, allTabs)
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.frag_container, fragmentFactory())
+                    .replace(R.id.fragment_container, fragmentFactory())
                     .addToBackStack(null)
                     .commitAllowingStateLoss()
             }
         }
 
         // WhatsApp tab — opens a chat directly with the caller's number.
-        binding.picWhatsapp.triggerClick {
+        binding.imageWhatsapp.triggerClick {
             if (isFinishing || isDestroyed) return@triggerClick
-            selectTab(binding.picWhatsapp, allTabs)
+            selectTab(binding.imageWhatsapp, allTabs)
             openWhatsApp(callerNumber)
         }
     }
@@ -228,19 +228,19 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
 
     private val tabIcons by lazy {
         mapOf(
-            binding.picRecent to Pair(
+            binding.imageRecent to Pair(
                 R.drawable.callback_recent_selected,
                 R.drawable.callback_recent_unselected
             ),
-            binding.picMes to Pair(
+            binding.imageMes to Pair(
                 R.drawable.callback_message_selected,
                 R.drawable.callback_message_unselected
             ),
-            binding.picReminder to Pair(
+            binding.imageReminder to Pair(
                 R.drawable.callback_reminder_selected,
                 R.drawable.callback_reminder_unselected
             ),
-            binding.picWhatsapp to Pair(
+            binding.imageWhatsapp to Pair(
                 R.drawable.callback_wa_selected,
                 R.drawable.callback_wa_unselected
             )
@@ -249,10 +249,10 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
 
     private val tabImageViews by lazy {
         mapOf(
-            binding.picRecent to binding.picTabRecent,
-            binding.picMes to binding.picTabMessage,
-            binding.picReminder to binding.picTabReminder,
-            binding.picWhatsapp to binding.picTabWhatsapp
+            binding.imageRecent to binding.imageTabRecent,
+            binding.imageMes to binding.imageTabMessage,
+            binding.imageReminder to binding.imageTabReminder,
+            binding.imageWhatsapp to binding.imageTabWhatsapp
         )
     }
 

@@ -92,8 +92,8 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         val act = activity ?: return
         if (screenAdFormat == ScreenAdFormat.NONE) return
         val root = _binding?.root ?: return
-        val container = root.findViewById<FrameLayout>(R.id.adNativeFrameVw) ?: return
-        val shimmer = root.findViewById<ShimmerFrameLayout>(R.id.adShimmerVw)
+        val container = root.findViewById<FrameLayout>(R.id.adNativeFrame) ?: return
+        val shimmer = root.findViewById<ShimmerFrameLayout>(R.id.adShimmer)
 
         // Remote Config gate — IsAdsON plus this fragment's own `show` flag.
         val screen = this::class.java.simpleName
@@ -117,8 +117,8 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
         // Dividers exist only to fence off an advert — drop them when the slot
         // ends up empty (ads off, show:false, or load failure).
-        root.findViewById<View>(R.id.adNativeDividerVw)?.followAdContainer(container)
-        root.findViewById<View>(R.id.adNativeDivider1Vw)?.followAdContainer(container)
+        root.findViewById<View>(R.id.adNativeDivider)?.followAdContainer(container)
+        root.findViewById<View>(R.id.adNativeDivider1)?.followAdContainer(container)
     }
 
     /** Set up views, listeners, adapters. */

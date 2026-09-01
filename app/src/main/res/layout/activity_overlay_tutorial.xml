@@ -9,7 +9,7 @@
 -->
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/llMain"
+    android:id="@+id/columnMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
@@ -21,7 +21,7 @@
         android:layout_weight="1" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/overlayCardVw"
+        android:id="@+id/overlayCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_overlay_sheet"
@@ -101,7 +101,7 @@
             </LinearLayout>
 
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/animation_view"
+                android:id="@+id/lottieView"
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_50sdp"
                 app:lottie_autoPlay="true"

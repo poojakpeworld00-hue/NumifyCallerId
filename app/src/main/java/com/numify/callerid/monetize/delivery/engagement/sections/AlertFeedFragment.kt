@@ -44,9 +44,9 @@ class AlertFeedFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_reminder, container, false)
 
-        recyclerView = view.findViewById(R.id.rollReminders)
-        fab = view.findViewById(R.id.fabAddReminderVw)
-        emptyLayout = view.findViewById(R.id.emptyLayoutVw)
+        recyclerView = view.findViewById(R.id.listReminders)
+        fab = view.findViewById(R.id.fabAddReminder)
+        emptyLayout = view.findViewById(R.id.emptyLayout)
 
         reminderList = mutableListOf()
         adapter = AlertFeedAdapter(reminderList, ::deleteReminder)
@@ -80,7 +80,7 @@ class AlertFeedFragment : Fragment() {
     private fun showAddReminderDialog() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_add_reminder, null)
 
-        val etTitle = dialogView.findViewById<EditText>(R.id.edit_reminderVw).apply {
+        val etTitle = dialogView.findViewById<EditText>(R.id.edit_reminder).apply {
             hint = "e.g. Birthday, Meeting, Call back..."
             setHintTextColor(Color.parseColor("#999999"))
             setBackgroundResource(R.drawable.bg_btn)
@@ -94,10 +94,10 @@ class AlertFeedFragment : Fragment() {
             imm?.showSoftInput(etTitle, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
         }
 
-        val npMonth = dialogView.findViewById<NumberPicker>(R.id.npMonthVw)
-        val npDay = dialogView.findViewById<NumberPicker>(R.id.npDayVw)
-        val npHour = dialogView.findViewById<NumberPicker>(R.id.npHourVw)
-        val npMinute = dialogView.findViewById<NumberPicker>(R.id.npMinuteVw)
+        val npMonth = dialogView.findViewById<NumberPicker>(R.id.keypadMonth)
+        val npDay = dialogView.findViewById<NumberPicker>(R.id.keypadDay)
+        val npHour = dialogView.findViewById<NumberPicker>(R.id.keypadHour)
+        val npMinute = dialogView.findViewById<NumberPicker>(R.id.keypadMinute)
         val cal = Calendar.getInstance()
 
         npMonth.minValue = 1
@@ -128,8 +128,8 @@ class AlertFeedFragment : Fragment() {
             setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
 
-        val btnSave = dialogView.findViewById<TextView>(R.id.padSave)
-        val btnCancel = dialogView.findViewById<TextView>(R.id.padCancel)
+        val btnSave = dialogView.findViewById<TextView>(R.id.buttonSave)
+        val btnCancel = dialogView.findViewById<TextView>(R.id.buttonCancel)
 
         btnSave.triggerClick {
             val title = etTitle.text.toString().trim()

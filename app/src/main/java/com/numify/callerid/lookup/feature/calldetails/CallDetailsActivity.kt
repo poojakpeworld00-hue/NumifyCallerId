@@ -47,26 +47,26 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
     }
 
     override fun initView() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.detailRootVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.detailRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
-        binding.padBack.setOnClickListener { goBack() }
+        binding.buttonBack.setOnClickListener { goBack() }
 
-        binding.padCall.setOnClickListener { placeCall(number) }
-        binding.padMessage.setOnClickListener { message() }
-        binding.padWhatsapp.setOnClickListener { whatsapp() }
-        binding.padBlock.setOnClickListener { block() }
-        binding.padIdentify.setOnClickListener { identifyNumber() }
-        binding.padViewAll.setOnClickListener { expanded = true; renderHistory() }
+        binding.buttonCall.setOnClickListener { placeCall(number) }
+        binding.buttonMessage.setOnClickListener { message() }
+        binding.buttonWhatsapp.setOnClickListener { whatsapp() }
+        binding.buttonBlock.setOnClickListener { block() }
+        binding.buttonIdentify.setOnClickListener { identifyNumber() }
+        binding.buttonViewAll.setOnClickListener { expanded = true; renderHistory() }
     }
 
     override fun initObservers() {
         viewModel.ui.observe(this) { ui ->
             bindHero(ui)
-            binding.lblTotal.text = ui.totalDuration
-            binding.lblCallCount.text = ui.totalCalls
+            binding.textTotal.text = ui.totalDuration
+            binding.textCallCount.text = ui.totalCalls
             history = ui.history
             renderHistory()
         }
@@ -77,24 +77,24 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
     private fun bindHero(ui: CallInsightUi) {
         val identified = ui.verified
         if (identified) {
-            binding.avatarRingVw.setBackgroundResource(R.drawable.bg_detail_avatar_ring)
-            binding.lblAvatar.setBackgroundResource(R.drawable.bg_avatar)
-            binding.lblAvatar.setTextColor(ContextCompat.getColor(this, R.color.white))
-            binding.lblAvatar.text = CallActionHandler.initials(ui.name, ui.number)
-            binding.lblName.typeface = Typeface.DEFAULT_BOLD
+            binding.avatarRing.setBackgroundResource(R.drawable.bg_detail_avatar_ring)
+            binding.textAvatar.setBackgroundResource(R.drawable.bg_avatar)
+            binding.textAvatar.setTextColor(ContextCompat.getColor(this, R.color.white))
+            binding.textAvatar.text = CallActionHandler.initials(ui.name, ui.number)
+            binding.textName.typeface = Typeface.DEFAULT_BOLD
         } else {
-            binding.avatarRingVw.setBackgroundResource(R.drawable.bg_circle_surface)
-            binding.lblAvatar.setBackgroundResource(0)
-            binding.lblAvatar.setTextColor(ContextCompat.getColor(this, R.color.on_surface_variant))
-            binding.lblAvatar.text = "?"
-            binding.lblName.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD)
+            binding.avatarRing.setBackgroundResource(R.drawable.bg_circle_surface)
+            binding.textAvatar.setBackgroundResource(0)
+            binding.textAvatar.setTextColor(ContextCompat.getColor(this, R.color.on_surface_variant))
+            binding.textAvatar.text = "?"
+            binding.textName.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD)
         }
-        binding.lblName.text = ui.name
-        binding.lblNumber.text =
+        binding.textName.text = ui.name
+        binding.textNumber.text =
             getString(R.string.detail_dot_join, ui.number, getString(R.string.detail_line_mobile))
-        binding.lblNumber.visibility = if (identified) View.VISIBLE else View.GONE
-        binding.lblVerified.visibility = if (identified) View.GONE else View.VISIBLE
-        binding.padIdentify.visibility = if (identified) View.GONE else View.VISIBLE
+        binding.textNumber.visibility = if (identified) View.VISIBLE else View.GONE
+        binding.textVerified.visibility = if (identified) View.GONE else View.VISIBLE
+        binding.buttonIdentify.visibility = if (identified) View.GONE else View.VISIBLE
     }
 
     /** Sends the number to the Lookup tab so the user can identify it. */
@@ -109,11 +109,11 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
     }
 
     private fun renderHistory() {
-        binding.rowHistory.removeAllViews()
+        binding.columnHistory.removeAllViews()
         val empty = history.isEmpty()
-        binding.lblEmptyHistory.visibility = if (empty) View.VISIBLE else View.GONE
-        binding.summaryStripVw.visibility = if (empty) View.GONE else View.VISIBLE
-        binding.historyCardVw.visibility = if (empty) View.GONE else View.VISIBLE
+        binding.textEmptyHistory.visibility = if (empty) View.VISIBLE else View.GONE
+        binding.summaryStrip.visibility = if (empty) View.GONE else View.VISIBLE
+        binding.historyCard.visibility = if (empty) View.GONE else View.VISIBLE
         if (empty) return
 
         // Rows grouped under Today / Yesterday / date headers.
@@ -129,32 +129,32 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
         }
 
         val more = !expanded && history.size > COLLAPSED_COUNT
-        binding.padViewAll.visibility = if (more) View.VISIBLE else View.GONE
-        binding.historyDividerVw.visibility = if (more) View.VISIBLE else View.GONE
+        binding.buttonViewAll.visibility = if (more) View.VISIBLE else View.GONE
+        binding.historyDivider.visibility = if (more) View.VISIBLE else View.GONE
     }
 
     private fun addHistoryHeader(text: String) {
         val header = layoutInflater
-            .inflate(R.layout.item_call_history_header, binding.rowHistory, false) as TextView
+            .inflate(R.layout.item_call_history_header, binding.columnHistory, false) as TextView
         header.text = text
-        binding.rowHistory.addView(header)
+        binding.columnHistory.addView(header)
     }
 
     private fun addHistoryRow(e: CallRecord) {
-        val row = ItemCallHistoryBinding.inflate(layoutInflater, binding.rowHistory, false)
+        val row = ItemCallHistoryBinding.inflate(layoutInflater, binding.columnHistory, false)
         val missed = e.type == CallType.MISSED || e.type == CallType.SPAM
 
-        row.picDir.setImageResource(CallActionHandler.typeIconRes(e.type))
+        row.imageDir.setImageResource(CallActionHandler.typeIconRes(e.type))
         val iconColor = ContextCompat.getColor(this, if (missed) R.color.danger else R.color.primary)
-        row.picDir.imageTintList = ColorStateList.valueOf(iconColor)
+        row.imageDir.imageTintList = ColorStateList.valueOf(iconColor)
 
-        row.lblWhen.text = timeLabel(e.date)
+        row.textWhen.text = timeLabel(e.date)
 
         val dur = CallActionHandler.durationLabel(e.durationSec)
-        row.lblDuration.text =
+        row.textDuration.text =
             if (missed || dur.isEmpty()) getString(R.string.detail_not_answered) else dur
 
-        binding.rowHistory.addView(row.root)
+        binding.columnHistory.addView(row.root)
     }
 
     private fun timeLabel(date: Long): String =

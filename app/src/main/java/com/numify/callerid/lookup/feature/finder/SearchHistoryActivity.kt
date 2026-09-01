@@ -36,15 +36,15 @@ class SearchHistoryActivity : BaseActivity<ActivityLookupHistoryBinding>() {
     }
 
     override fun initView() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.lookupHistoryRootVw) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.lookupHistoryRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
-        binding.padBack.setOnClickListener { goBack() }
-        binding.padClearAll.setOnClickListener { viewModel.clear() }
-        binding.rollHistory.layoutManager = LinearLayoutManager(this)
-        binding.rollHistory.adapter = adapter
+        binding.buttonBack.setOnClickListener { goBack() }
+        binding.buttonClearAll.setOnClickListener { viewModel.clear() }
+        binding.listHistory.layoutManager = LinearLayoutManager(this)
+        binding.listHistory.adapter = adapter
         // Warm up the rewarded ad that gates revealing caller names.
         RewardedAdPresenter.preload(this)
     }
@@ -53,8 +53,8 @@ class SearchHistoryActivity : BaseActivity<ActivityLookupHistoryBinding>() {
         viewModel.history.observe(this) { items ->
             adapter.submit(items)
             val empty = items.isEmpty()
-            binding.emptyStateVw.visibility = if (empty) View.VISIBLE else View.GONE
-            binding.padClearAll.visibility = if (empty) View.GONE else View.VISIBLE
+            binding.emptyState.visibility = if (empty) View.VISIBLE else View.GONE
+            binding.buttonClearAll.visibility = if (empty) View.GONE else View.VISIBLE
         }
     }
 

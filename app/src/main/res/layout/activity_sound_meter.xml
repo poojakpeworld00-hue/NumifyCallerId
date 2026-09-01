@@ -12,14 +12,14 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/soundRootVw"
+        android:id="@+id/soundRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
         tools:context=".screen.utility.NoiseMeterActivity">
 
         <LinearLayout
-            android:id="@+id/crownBar"
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/padBack"
+                android:id="@+id/buttonBack"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -51,7 +51,7 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/padReset"
+                android:id="@+id/buttonReset"
                 android:layout_width="@dimen/_38sdp"
                 android:layout_height="@dimen/_38sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -65,8 +65,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
-            app:layout_constraintTop_toBottomOf="@id/crownBar">
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
+            app:layout_constraintTop_toBottomOf="@id/topBar">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                 android:paddingHorizontal="@dimen/_16sdp">
 
                 <com.numify.callerid.lookup.feature.tools.NoiseGaugeView
-                    android:id="@+id/gaugeVw"
+                    android:id="@+id/gauge"
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp" />
@@ -89,7 +89,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/lblDb"
+                        android:id="@+id/textDb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:includeFontPadding="false"
@@ -111,7 +111,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/lblCategory"
+                    android:id="@+id/textCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
@@ -125,7 +125,7 @@
                     tools:text="Normal conversation" />
 
                 <TextView
-                    android:id="@+id/lblStatus"
+                    android:id="@+id/textStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
@@ -145,7 +145,7 @@
                     android:paddingVertical="@dimen/_12sdp">
 
                     <com.numify.callerid.lookup.feature.tools.AudioWaveView
-                        android:id="@+id/spectrumVw"
+                        android:id="@+id/spectrum"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_62sdp" />
 
@@ -189,7 +189,7 @@
                             android:text="@string/sound_min" />
 
                         <TextView
-                            android:id="@+id/lblMin"
+                            android:id="@+id/textMin"
                             style="@style/SpeedStatValue"
                             android:textColor="@color/cid_teal"
                             tools:text="41" />
@@ -205,7 +205,7 @@
                             android:text="@string/sound_avg" />
 
                         <TextView
-                            android:id="@+id/lblAvg"
+                            android:id="@+id/textAvg"
                             style="@style/SpeedStatValue"
                             tools:text="59" />
                     </LinearLayout>
@@ -220,7 +220,7 @@
                             android:text="@string/sound_max" />
 
                         <TextView
-                            android:id="@+id/lblPeak"
+                            android:id="@+id/textPeak"
                             style="@style/SpeedStatValue"
                             android:textColor="@color/cid_amber"
                             tools:text="88" />
@@ -228,20 +228,20 @@
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/padHold"
+                    android:id="@+id/buttonHold"
                     style="@style/ToolCta"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:text="@string/meter_pause"
                     app:icon="@drawable/ic_pause" />
 
                 <FrameLayout
-                    android:id="@+id/adNativeFrameVw"
+                    android:id="@+id/adNativeFrame"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/_10sdp">
 
                     <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/adShimmerVw"
+                        android:id="@+id/adShimmer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ccc">
@@ -254,10 +254,10 @@
         </androidx.core.widget.NestedScrollView>
 
         <View
-            android:id="@+id/adBannerDividerVw"
+            android:id="@+id/adBannerDivider"
             style="@style/AdDivider"
             android:layout_width="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

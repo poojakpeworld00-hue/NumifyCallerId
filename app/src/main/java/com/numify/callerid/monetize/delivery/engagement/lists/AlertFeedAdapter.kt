@@ -20,9 +20,9 @@ class AlertFeedAdapter(
     RecyclerView.Adapter<AlertFeedAdapter.ReminderViewHolder>() {
 
     class ReminderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title: TextView = itemView.findViewById(R.id.lblTitle)
-        val time: TextView = itemView.findViewById(R.id.lblTime)
-        val delete: ImageView = itemView.findViewById(R.id.picDelete)
+        val title: TextView = itemView.findViewById(R.id.textTitle)
+        val time: TextView = itemView.findViewById(R.id.textTime)
+        val delete: ImageView = itemView.findViewById(R.id.imageDelete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReminderViewHolder {

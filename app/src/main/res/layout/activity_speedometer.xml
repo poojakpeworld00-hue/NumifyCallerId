@@ -17,14 +17,14 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/speedRootVw"
+        android:id="@+id/speedRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
         tools:context=".screen.utility.SpeedometerActivity">
 
         <LinearLayout
-            android:id="@+id/crownBar"
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/padBack"
+                android:id="@+id/buttonBack"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -56,7 +56,7 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/padHistory"
+                android:id="@+id/buttonHistory"
                 android:layout_width="@dimen/_38sdp"
                 android:layout_height="@dimen/_38sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -70,8 +70,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
-            app:layout_constraintTop_toBottomOf="@id/crownBar">
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
+            app:layout_constraintTop_toBottomOf="@id/topBar">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -90,7 +90,7 @@
                     android:outlineSpotShadowColor="@color/card_shadow">
 
                     <com.numify.callerid.lookup.feature.tools.SpeedometerView
-                        android:id="@+id/gaugeVw"
+                        android:id="@+id/gauge"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                         <LinearLayout
@@ -107,7 +107,7 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/lblSpeed"
+                                android:id="@+id/textSpeed"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:includeFontPadding="false"
@@ -129,7 +129,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/lblStatus"
+                            android:id="@+id/textStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_7sdp"
@@ -163,7 +163,7 @@
                         app:tint="@color/cid_teal" />
 
                     <TextView
-                        android:id="@+id/lblCarrier"
+                        android:id="@+id/textCarrier"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
@@ -193,7 +193,7 @@
                             app:tint="@color/cid_teal" />
 
                         <TextView
-                            android:id="@+id/lblUpload"
+                            android:id="@+id/textUpload"
                             style="@style/SpeedStatValue"
                             tools:text="42 Mbps" />
 
@@ -212,7 +212,7 @@
                             app:tint="@color/cid_amber" />
 
                         <TextView
-                            android:id="@+id/lblLatency"
+                            android:id="@+id/textLatency"
                             style="@style/SpeedStatValue"
                             tools:text="18 ms" />
 
@@ -231,7 +231,7 @@
                             app:tint="@color/cid_clay" />
 
                         <TextView
-                            android:id="@+id/lblJitter"
+                            android:id="@+id/textJitter"
                             style="@style/SpeedStatValue"
                             tools:text="4 ms" />
 
@@ -243,20 +243,20 @@
 
                 <!-- ===== Run again ===== -->
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/padRetest"
+                    android:id="@+id/buttonRetest"
                     style="@style/ToolCta"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:text="@string/speedtest_again"
                     app:icon="@drawable/ic_play" />
 
                 <FrameLayout
-                    android:id="@+id/adNativeFrameVw"
+                    android:id="@+id/adNativeFrame"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/_10sdp">
 
                     <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/adShimmerVw"
+                        android:id="@+id/adShimmer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ccc">
@@ -269,10 +269,10 @@
         </androidx.core.widget.NestedScrollView>
 
         <View
-            android:id="@+id/adBannerDividerVw"
+            android:id="@+id/adBannerDivider"
             style="@style/AdDivider"
             android:layout_width="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

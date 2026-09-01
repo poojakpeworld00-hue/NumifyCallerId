@@ -6,7 +6,7 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/dialerRootVw"
+        android:id="@+id/dialerRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
@@ -14,7 +14,7 @@
 
         <!-- Top bar -->
         <LinearLayout
-            android:id="@+id/crownBar"
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/padBack"
+                android:id="@+id/buttonBack"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -45,18 +45,18 @@
 
         <!-- Match block — bottom-aligned so it hugs the keypad sheet like the design -->
         <LinearLayout
-            android:id="@+id/matchesContainerVw"
+            android:id="@+id/matchesContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constrainedHeight="true"
-            app:layout_constraintBottom_toTopOf="@id/dialpadPanelVw"
-            app:layout_constraintTop_toBottomOf="@id/crownBar"
+            app:layout_constraintBottom_toTopOf="@id/dialpadPanel"
+            app:layout_constraintTop_toBottomOf="@id/topBar"
             app:layout_constraintVertical_bias="1">
 
             <!-- Section label — shown while matches exist -->
             <TextView
-                android:id="@+id/lblMatchesLabel"
+                android:id="@+id/textMatchesLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
@@ -71,7 +71,7 @@
 
             <!-- Match list (vertical, filtered by the dialed number) -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rollFrequent"
+                android:id="@+id/listFrequent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
@@ -84,17 +84,17 @@
 
         <!-- Zero-state (no dialed number / no matches) -->
         <LinearLayout
-            android:id="@+id/lblEmpty"
+            android:id="@+id/textEmpty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/_40sdp"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/dialpadPanelVw"
+            app:layout_constraintBottom_toTopOf="@id/dialpadPanel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/crownBar">
+            app:layout_constraintTop_toBottomOf="@id/topBar">
 
             <ImageView
                 android:layout_width="@dimen/_64sdp"
@@ -128,7 +128,7 @@
 
         <!-- Bottom dial pad + call -->
         <LinearLayout
-            android:id="@+id/dialpadPanelVw"
+            android:id="@+id/dialpadPanel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_dialer_sheet"
@@ -146,7 +146,7 @@
                  is suppressed (showSoftInputOnFocus=false) and it's not directly
                  editable. Selection is kept at the end from code. -->
             <EditText
-                android:id="@+id/lblDialNumber"
+                android:id="@+id/textDialNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -168,7 +168,7 @@
 
             <!-- Add to Contacts -->
             <LinearLayout
-                android:id="@+id/rowAddContact"
+                android:id="@+id/columnAddContact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -201,7 +201,7 @@
             </LinearLayout>
 
             <GridLayout
-                android:id="@+id/gridKeypadVw"
+                android:id="@+id/gridKeypad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:columnCount="3"
@@ -283,7 +283,7 @@
                     android:layout_weight="1" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/padDialCall"
+                    android:id="@+id/buttonDialCall"
                     style="@style/Widget.Material3.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_46sdp"
@@ -306,7 +306,7 @@
                     android:layout_weight="1">
 
                     <ImageView
-                        android:id="@+id/padBackspace"
+                        android:id="@+id/buttonBackspace"
                         android:layout_width="@dimen/_44sdp"
                         android:layout_height="@dimen/_44sdp"
                         android:layout_gravity="center"

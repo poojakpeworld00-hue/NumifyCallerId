@@ -6,14 +6,14 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/countryRootVw"
+        android:id="@+id/countryRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
         tools:context=".screen.search.CountryPickerActivity">
 
         <ImageView
-            android:id="@+id/padBack"
+            android:id="@+id/buttonBack"
             android:layout_width="@dimen/_38sdp"
             android:layout_height="@dimen/_38sdp"
             android:layout_marginStart="@dimen/_8sdp"
@@ -21,13 +21,13 @@
             android:contentDescription="@string/onboarding_skip"
             android:padding="@dimen/_8sdp"
             android:src="@drawable/ic_arrow_back"
-            app:layout_constraintBottom_toBottomOf="@id/lblTitle"
+            app:layout_constraintBottom_toBottomOf="@id/textTitle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/lblTitle"
+            app:layout_constraintTop_toTopOf="@id/textTitle"
             app:tint="@color/on_surface" />
 
         <TextView
-            android:id="@+id/lblTitle"
+            android:id="@+id/textTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_4sdp"
@@ -38,11 +38,11 @@
             android:textSize="@dimen/_16ssp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/padBack"
+            app:layout_constraintStart_toEndOf="@id/buttonBack"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/inpSearch"
+            android:id="@+id/inputSearch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_16sdp"
@@ -62,10 +62,10 @@
             android:textSize="@dimen/_12ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lblTitle" />
+            app:layout_constraintTop_toBottomOf="@id/textTitle" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rollCountries"
+            android:id="@+id/listCountries"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/_8sdp"
@@ -74,7 +74,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inpSearch"
+            app:layout_constraintTop_toBottomOf="@id/inputSearch"
             tools:listitem="@layout/item_country" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

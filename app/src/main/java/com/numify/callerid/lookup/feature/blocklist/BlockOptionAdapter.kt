@@ -32,10 +32,10 @@ class BlockOptionAdapter(
 
         fun bind(entry: CallRecord) {
             val name = entry.name?.takeIf { it.isNotBlank() }
-            binding.lblName.text = name ?: entry.number
+            binding.textName.text = name ?: entry.number
             // Hide the secondary line when there's no name to avoid showing the number twice.
-            binding.lblNumber.text = entry.number
-            binding.lblNumber.visibility =
+            binding.textNumber.text = entry.number
+            binding.textNumber.visibility =
                 if (name == null) android.view.View.GONE else android.view.View.VISIBLE
             binding.root.setOnClickListener { onPick(entry) }
         }

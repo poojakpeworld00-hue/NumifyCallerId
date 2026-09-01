@@ -24,7 +24,7 @@
         android:textSize="@dimen/_11ssp" />
 
     <TextView
-        android:id="@+id/padGotIt"
+        android:id="@+id/buttonGotIt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"

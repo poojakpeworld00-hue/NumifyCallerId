@@ -11,7 +11,7 @@
     android:paddingVertical="@dimen/_10sdp">
 
     <TextView
-        android:id="@+id/lblSortLabel"
+        android:id="@+id/textSortLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -20,7 +20,7 @@
         tools:text="Newest first" />
 
     <ImageView
-        android:id="@+id/picSortCheck"
+        android:id="@+id/imageSortCheck"
         android:layout_width="@dimen/_16sdp"
         android:layout_height="@dimen/_16sdp"
         android:layout_marginStart="@dimen/_8sdp"

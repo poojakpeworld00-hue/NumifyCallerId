@@ -55,7 +55,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/lblDetailNumber"
+        android:id="@+id/textDetailNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_16sdp"
@@ -65,7 +65,7 @@
         tools:text="+1 (555) 012-3456" />
 
     <TextView
-        android:id="@+id/lblDetailAdded"
+        android:id="@+id/textDetailAdded"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_4sdp"
@@ -81,7 +81,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/padUnblock"
+            android:id="@+id/buttonUnblock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
@@ -94,7 +94,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/padClose"
+            android:id="@+id/buttonClose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"

@@ -6,7 +6,7 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/detailRootVw"
+        android:id="@+id/detailRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
@@ -14,7 +14,7 @@
 
         <!-- Top bar -->
         <LinearLayout
-            android:id="@+id/crownBar"
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/padBack"
+                android:id="@+id/buttonBack"
                 android:layout_width="@dimen/_34sdp"
                 android:layout_height="@dimen/_34sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -49,8 +49,8 @@
             android:clipToPadding="false"
             android:paddingHorizontal="@dimen/_12sdp"
             android:paddingBottom="@dimen/_10sdp"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
-            app:layout_constraintTop_toBottomOf="@id/crownBar">
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
+            app:layout_constraintTop_toBottomOf="@id/topBar">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -66,14 +66,14 @@
                     android:orientation="vertical">
 
                     <FrameLayout
-                        android:id="@+id/avatarRingVw"
+                        android:id="@+id/avatarRing"
                         android:layout_width="@dimen/_70sdp"
                         android:layout_height="@dimen/_70sdp"
                         android:background="@drawable/bg_detail_avatar_ring"
                         android:padding="@dimen/_3sdp">
 
                         <TextView
-                            android:id="@+id/lblAvatar"
+                            android:id="@+id/textAvatar"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/bg_avatar"
@@ -85,7 +85,7 @@
                     </FrameLayout>
 
                     <TextView
-                        android:id="@+id/lblName"
+                        android:id="@+id/textName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
@@ -99,7 +99,7 @@
                         tools:text="Emergency · 112" />
 
                     <TextView
-                        android:id="@+id/lblNumber"
+                        android:id="@+id/textNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
@@ -109,7 +109,7 @@
 
                     <!-- "Not identified yet" chip — shown only for unknown numbers -->
                     <TextView
-                        android:id="@+id/lblVerified"
+                        android:id="@+id/textVerified"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
@@ -127,7 +127,7 @@
 
                     <!-- Identify CTA — shown only for unknown numbers -->
                     <LinearLayout
-                        android:id="@+id/padIdentify"
+                        android:id="@+id/buttonIdentify"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_12sdp"
@@ -168,7 +168,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:id="@+id/padCall"
+                        android:id="@+id/buttonCall"
                         style="@style/DetailAction">
 
                         <ImageView
@@ -184,7 +184,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/padMessage"
+                        android:id="@+id/buttonMessage"
                         style="@style/DetailAction">
 
                         <ImageView
@@ -200,7 +200,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/padWhatsapp"
+                        android:id="@+id/buttonWhatsapp"
                         style="@style/DetailAction">
 
                         <ImageView
@@ -216,7 +216,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/padBlock"
+                        android:id="@+id/buttonBlock"
                         style="@style/DetailAction">
 
                         <ImageView
@@ -234,7 +234,7 @@
 
                 <!-- Summary strip (single line) -->
                 <LinearLayout
-                    android:id="@+id/summaryStripVw"
+                    android:id="@+id/summaryStrip"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_12sdp"
@@ -248,7 +248,7 @@
                     android:paddingVertical="@dimen/_11sdp">
 
                     <TextView
-                        android:id="@+id/lblCallCount"
+                        android:id="@+id/textCallCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/on_surface"
@@ -274,7 +274,7 @@
                         android:textSize="@dimen/_12ssp" />
 
                     <TextView
-                        android:id="@+id/lblTotal"
+                        android:id="@+id/textTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/on_surface_variant"
@@ -299,7 +299,7 @@
 
                 <!-- Call history -->
                 <LinearLayout
-                    android:id="@+id/historyCardVw"
+                    android:id="@+id/historyCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -334,14 +334,14 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/rowHistory"
+                        android:id="@+id/columnHistory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
                         android:orientation="vertical" />
 
                     <View
-                        android:id="@+id/historyDividerVw"
+                        android:id="@+id/historyDivider"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"
                         android:layout_marginTop="@dimen/_6sdp"
@@ -349,7 +349,7 @@
                         android:background="@color/on_surface_variant" />
 
                     <TextView
-                        android:id="@+id/padViewAll"
+                        android:id="@+id/buttonViewAll"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
@@ -363,7 +363,7 @@
 
                 <!-- Empty history state (no calls with this number) -->
                 <LinearLayout
-                    android:id="@+id/lblEmptyHistory"
+                    android:id="@+id/textEmptyHistory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_22sdp"
@@ -406,10 +406,10 @@
 
         <!-- Full-bleed hairline separating app content from the ad below -->
         <View
-            android:id="@+id/adBannerDividerVw"
+            android:id="@+id/adBannerDivider"
             style="@style/AdDivider"
             android:layout_width="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameVw"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
