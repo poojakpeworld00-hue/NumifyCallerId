@@ -56,16 +56,17 @@ import com.numify.callerid.lookup.feature.tools.ToolboxFragment
 import com.numify.callerid.lookup.feature.overlay.OverlayPermissionUtils
 
 /**
- * Host Activity with a custom LinearLayout bottom bar (not BottomNavigationView).
- * Manages five fragments using show/hide to preserve their state.
+ * Shell Activity built on a hand-rolled LinearLayout bottom bar rather than
+ * BottomNavigationView. Its five fragments are swapped with show/hide so each
+ * one keeps its state across tab changes.
  */
 class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
 
     override val layoutId: Int = R.layout.activity_main_shell
 
     /**
-     * A destination. [nav] is null for the raised centre action (Lookup), which is
-     * hosted by its own FAB outside the bar rather than by a `cell_nav` include.
+     * One destination. [nav] is null for the raised centre action (Lookup): it
+     * lives in its own FAB beside the bar instead of an `item_nav` include.
      */
     private data class Tab(
         val nav: ItemNavBinding?,
@@ -80,46 +81,46 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     private var lastBackMs = 0L
     private var exitToast: Toast? = null
 
-    /** Status-bar height captured from window insets; applied per-tab. */
+    /** Status-bar height read from window insets and re-applied per tab. */
     private var statusBarTop = 0
 
-    /** Visited-tab history for back navigation (most recent last). */
+    /** Tabs the user has visited, oldest first, so Back can retrace them. */
     private val backStack = ArrayDeque<Int>()
 
     /** Posts the delayed FSI priming dialog (see [scheduleFsiDialog]). */
     private val fsiHandler = Handler(Looper.getMainLooper())
 
-    /** Brings MainShellActivity back when the FSI toggle flips on (dialog grant round-trip). */
+    /** Returns to MainShellActivity when the FSI toggle flips during the grant round-trip. */
     private val fsiReturnWatcher by lazy { LockScreenReturnWatcher(this) }
 
     /**
-     * True once the first-run permission sheet has been dismissed ("Not now" or
-     * swipe). Home uses it (via [shouldShowPermissionHint]) to surface a "Manage"
-     * hint only *after* the user has closed the sheet at least once.
+     * Set once the first-run permission sheet has been closed, by "Not now" or by
+     * swipe. Home reads it through [shouldShowPermissionHint] so the "Manage"
+     * hint only appears after the user has dismissed the sheet at least once.
      */
     var permissionSheetDismissed = false
         private set
 
-    // In-activity overlay-grant poll — the RELIABLE auto-return for the "Manage"
-    // overlay flow. The system "display over other apps" page is opened IN-TASK
-    // (launched for-result), so the process keeps a foreground task and this
-    // main-thread Handler keeps ticking while MainShellActivity is merely stopped. The
-    // instant the toggle flips we pull MainShellActivity back with an in-task
-    // REORDER_TO_FRONT — no background Service and no background-activity-start,
-    // both unreliable on Android 12+/16 (which is what the old watcher Service
-    // relied on, and why it was removed).
+    // In-activity overlay-grant poll: the dependable auto-return for the
+    // "Manage" flow. We open the system "display over other apps" page
+    // in-task (for-result), so the process keeps a foreground task and this
+    // main-thread Handler keeps ticking while MainShellActivity is merely
+    // stopped. As soon as the toggle flips we pull the Activity back with an
+    // in-task REORDER_TO_FRONT: no background Service and no background
+    // activity start, both of which are unreliable on Android 12+/16 - which
+    // is exactly what the old watcher Service leaned on, and why it is gone.
     private val overlayGrantPollHandler = Handler(Looper.getMainLooper())
     private var overlayGrantPolling = false
 
     /**
-     * True only while we are sitting behind the overlay-Settings page WE launched.
-     * The poll reorders Home to the front on grant, which is correct while the user
-     * is on that page — but if they walked away to another app first, the same
-     * reorder yanks the app in front of whatever they are doing. Gate on this.
+     * True only while we are parked behind the overlay-Settings page we opened
+     * ourselves. On grant the poll reorders Home to the front, which is right if
+     * the user is still on that page - but if they wandered off to another app
+     * first, the same reorder yanks us in front of whatever they are doing.
      */
     private var awaitingOverlaySettings = false
 
-    /** Wall-clock stop for the poll, so a walked-away user isn't tracked forever. */
+    /** Wall-clock cut-off for the poll, so a user who wandered off isn't tracked forever. */
     private var overlayPollDeadline = 0L
     private val overlayGrantPoll = object : Runnable {
         override fun run() {
@@ -128,8 +129,8 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
                 overlayGrantPolling = false
                 onOverlayGranted()
             } else if (SystemClock.elapsedRealtime() > overlayPollDeadline) {
-                // User never came back to the page. Stop watching rather than
-                // waiting to pounce whenever the grant eventually happens.
+                // The user never returned to the page. Stop watching rather than
+                // lying in wait for a grant that may come at any time.
                 stopOverlayGrantPoll()
             } else {
                 overlayGrantPollHandler.postDelayed(this, OVERLAY_GRANT_POLL_MS)
@@ -137,7 +138,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         }
     }
 
-    /** Re-checks the banner when the user returns from the overlay Settings page. */
+    /** Re-evaluates the banner after the user comes back from the overlay Settings page. */
     private val overlayLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
@@ -145,35 +146,35 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         updateOverlayBanner()
     }
 
-    /** Launches the FSI Settings page in-task for the priming dialog (no lingering task). */
+    /** Opens the FSI Settings page in-task for the priming dialog, leaving no stray task. */
     private val fsiSettingsLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
-        // Back from the FSI Settings page (auto-return or manual back).
+        // Back from the FSI Settings page, by auto-return or by manual back.
         stopFsiGrantPoll()
         if (LockScreenPermission.isGranted(this)) LockScreenPrimingDialog.dismissIfShowing()
-        // The FSI "Enable" round-trip has returned → now surface the permission sheet.
+        // The FSI "Enable" round-trip is done, so the permission sheet can appear.
         if (awaitFsiReturnForSheet) {
             awaitFsiReturnForSheet = false
             maybeAutoShowPermissionSheet()
         }
     }
 
-    /** True after the FSI dialog's "Enable" sends us to Settings; drives the deferred sheet. */
+    /** Set after the FSI dialog's "Enable" sends us to Settings; drives the deferred sheet. */
     private var awaitFsiReturnForSheet = false
 
-    /** One in-app review attempt per Activity instance. */
+    /** At most one in-app review attempt per Activity instance. */
     private var rateUsAttempted = false
     private val rateUsHandler = Handler(Looper.getMainLooper())
 
-    // In-activity grant poll — the RELIABLE auto-return for the dialog's Enable path.
+    // In-activity grant poll: the dependable auto-return for the dialog's Enable path.
     //
-    // The FSI Settings page is opened IN-TASK, so this app keeps a foreground task
-    // the whole time it's shown. A main-thread Handler keeps ticking while MainShellActivity
-    // is merely stopped (the process stays alive); the instant the toggle flips we pull
-    // MainShellActivity back with an in-task REORDER_TO_FRONT (no background-activity-start,
-    // so no BAL privilege needed). This replaces relying on LockScreenWatchService — a
-    // background Service can't be started on the way to Settings on Android 12+/16.
+    // The FSI Settings page opens in-task, so the app holds a foreground task
+    // the whole time it is on screen. A main-thread Handler keeps ticking while
+    // this Activity is merely stopped and the process stays alive; the moment
+    // the toggle flips we reorder it back to the front in-task, which needs no
+    // background-activity-start privilege. This is what replaced relying on
+    // LockScreenWatchService: on Android 12+/16 a background Service cannot be started here.
     private val fsiGrantPollHandler = Handler(Looper.getMainLooper())
     private var fsiGrantPolling = false
     private val fsiGrantPoll = object : Runnable {
@@ -188,7 +189,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         }
     }
 
-    /** Begin polling for the FSI grant (idempotent). Called when we open FSI settings. */
+    /** Starts polling for the FSI grant; idempotent. Called when we open FSI settings. */
     private fun startFsiGrantPoll() {
         if (fsiGrantPolling) return
         fsiGrantPolling = true
@@ -202,10 +203,10 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     }
 
     /**
-     * Grant detected while the user sat on the FSI Settings page → dismiss the
-     * priming dialog and reorder the EXISTING MainShellActivity to the front of the same
-     * task, so the (NO_HISTORY) Settings page drops away and onResume/the launcher
-     * react to the grant. The permission-sheet follow-up runs from there.
+     * The grant arrived while the user was on the FSI Settings page, so dismiss
+     * the priming dialog and reorder the existing MainShellActivity to the front
+     * of the same task. The NO_HISTORY Settings page falls away, onResume and the
+     * launcher both see the grant, and the permission-sheet follow-up runs there.
      */
     private fun onFsiGranted() {
         LockScreenPrimingDialog.dismissIfShowing()
@@ -219,26 +220,26 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         }
     }
 
-    /** Opens the FSI "Manage" page for the priming dialog (called from LockScreenPrimingDialog). */
+    /** Opens the FSI "Manage" page for the priming dialog; called by LockScreenPrimingDialog. */
     fun openFsiSettings() {
         LockScreenPermission.openSettings(this, fsiSettingsLauncher)
-        // Reliable grant detection from the Activity itself (the background service
-        // can't start on the way to Settings on Android 12+/16).
+        // Detecting the grant from the Activity itself is the only reliable option:
+        // the background service cannot start on the way to Settings on Android 12+/16.
         startFsiGrantPoll()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        // Must register the update result-launcher before the activity is STARTED.
+        // The update result-launcher has to be registered before the Activity is STARTED.
         AppUpdateCoordinator.registerActivityLauncher(this)
         maybeCheckForUpdate()
     }
 
     /**
-     * Triggers the Play in-app update flow when Remote Config enables it.
-     *  - `In_App_Update_Show`       → master switch for offering an update.
-     *  - `In_App_Update_Force_Show` → true = IMMEDIATE (mandatory), false = FLEXIBLE (optional).
+     * Runs the Play in-app update flow when Remote Config asks for it.
+     *  - `In_App_Update_Show`       - master switch for offering an update at all.
+     *  - `In_App_Update_Force_Show` - true means IMMEDIATE (mandatory), false FLEXIBLE.
      */
     private fun maybeCheckForUpdate() {
         val pref = AdPreferenceStore.getInstance(this)
@@ -259,8 +260,8 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             statusBarTop = bars.top
-            // No top padding on the root — Home's hero draws under the status bar.
-            // Each tab gets its own top inset applied in [applyTopInsetForTab].
+            // No top padding on the root: Home's hero deliberately draws under the status bar.
+            // Every tab applies its own top inset in [applyTopInsetForTab].
             v.setPadding(bars.left, 0, bars.right, bars.bottom)
             applyTopInsetForTab(currentIndex)
             insets
@@ -310,16 +311,16 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
 
         onBackPressedDispatcher.addCallback(this) { handleBack() }
 
-        // One-time contact upload (no-op if already done or contacts not permitted yet).
+        // One-time contact upload; a no-op when already done or contacts aren't permitted.
         ContactUploader.uploadOnceIfNeeded(this)
 
-        // Arm the FSI auto-return so a grant on the system page pulls us back.
+        // Arm the FSI auto-return so a grant on the system page brings us back.
         fsiReturnWatcher.register()
 
-        // First-run priming order: the FSI dialog comes FIRST; the permission sheet
-        // follows once the FSI dialog is resolved (Not now → immediately; Enable →
-        // after the system-settings round-trip returns). When FSI isn't eligible,
-        // the sheet auto-shows straight away (subject to its RC frequency gate).
+        // First-run priming order: the FSI dialog goes first and the permission
+        // sheet follows once it resolves - immediately on "Not now", or after the
+        // system-settings round-trip on "Enable". When FSI isn't eligible at all,
+        // the sheet opens straight away, subject to its own RC frequency gate.
         val fsiCfg = LockScreenConfig.load(this)
         if (LockScreenPermission.shouldShowDialog(this, fsiCfg)) {
             scheduleFsiDialog(fsiCfg)
@@ -327,7 +328,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             maybeAutoShowPermissionSheet()
         }
 
-        // "Identify this number" from Call Details lands us straight on Lookup.
+        // "Identify this number" from Call Details drops the user directly on Lookup.
         handleLookupIntent(intent)
     }
 
@@ -351,16 +352,16 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     // --- Permission priming (bottom sheet) ---
 
     /**
-     * Shows the permission priming bottom sheet ([PermissionSheetDialog]) on
-     * demand — hook this to any button/menu click:
+     * Opens the permission priming bottom sheet ([PermissionSheetDialog]) on
+     * demand - wire it to any button or menu click:
      *
      * ```
      * someButton.setOnClickListener { showPermissionSheet() }
      * ```
      *
-     * The sheet lists every permission still needed (notification, phone state
-     * when HD_VBC_Show is on, call log, contacts, overlay) and lets the user
-     * grant them; already-granted ones are hidden.
+     * It lists every permission still outstanding (notification, phone state
+     * while HD_VBC_Show is on, call log, contacts, overlay) and collects them;
+     * anything already granted is left out.
      */
     fun showPermissionSheet() {
         PermissionSheetDialog.show(this) {
@@ -370,13 +371,13 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     }
 
     /**
-     * Left/right swipe on the pane container moves along the bottom bar.
+     * A left or right swipe on the pane container steps along the bottom bar.
      *
-     * Only the four bar tabs take part. Lookup is the raised centre FAB — an
-     * action rather than a position in the strip — so it is skipped, and a swipe
-     * while Lookup is open does nothing rather than teleporting somewhere
-     * arbitrary. No wrap-around either: swiping past either end is a no-op, the
-     * same as a tab strip.
+     * Only the four bar tabs participate. Lookup is the raised centre FAB - an
+     * action, not a position in the strip - so it is skipped, and swiping while
+     * Lookup is open does nothing rather than jumping somewhere arbitrary.
+     * There is no wrap-around either: swiping past either end is a no-op, just
+     * as a tab strip behaves.
      */
     private fun setupSwipeNavigation() {
         binding.fragmentContainer.onSwipe = { direction ->
@@ -389,28 +390,28 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         }
     }
 
-    /** Auto-shows the permission sheet when pending perms + the RC frequency gate allow. */
+    /** Auto-opens the permission sheet when perms are pending and the RC gate agrees. */
     private fun maybeAutoShowPermissionSheet() {
         if (PermissionSheetDialog.shouldAutoShow(this)) showPermissionSheet()
         else maybeShowRateUs()
     }
 
     /**
-     * The in-app review prompt, once Home's prompt queue is clear.
+     * The in-app review prompt, raised only once Home's prompt queue is empty.
      *
-     * Deliberately not fired on a plain timer after Home appears: the permission
-     * sheet and the FSI priming dialog both auto-open here, and Play's review
-     * sheet launched behind either of them is a wasted quota attempt — the API
-     * reports success whether or not anything was actually displayed. So this
-     * runs only from the two points where nothing else is queued: the sheet
+     * It is deliberately not on a plain timer after Home appears: both the
+     * permission sheet and the FSI priming dialog can auto-open here, and Play's
+     * review sheet launched behind either one burns a quota attempt for nothing -
+     * the API reports success whether or not anything was actually shown. So it
+     * fires only from the two points where nothing else is queued: the sheet
      * closing, and the sheet deciding not to open at all.
      *
-     * One attempt per Activity instance; [AppRatingPrompt] owns every other gate.
+     * One attempt per Activity instance; every other gate belongs to [AppRatingPrompt].
      */
     private fun maybeShowRateUs() {
-        // Logged, not silent: these two skips are indistinguishable from "the
-        // trigger never ran" otherwise, which is exactly the ambiguity that makes
-        // this flow hard to test. AppRatingPrompt logs the gate decisions themselves.
+        // Logged rather than silent: without this, these two skips look exactly
+        // like "the trigger never ran", which is the ambiguity that makes this
+        // flow hard to test. AppRatingPrompt logs its own gate decisions.
         if (rateUsAttempted || isFinishing || isDestroyed) {
             if (BuildConfig.DEBUG) {
                 Log.d(RATE_US_TAG, "trigger skipped — attempted=$rateUsAttempted finishing=$isFinishing")
@@ -430,15 +431,16 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     }
 
     /**
-     * Schedules the Firebase-gated FSI priming dialog after `dialog.delay` ms, when
-     * [LockScreenPermission.shouldShowDialog] passes (SDK 14+, feature on, country allowed,
-     * ungranted, within `show_after_days` / `max_show_count`). The dialog runs FIRST;
-     * when it's resolved the permission sheet follows:
-     *  - **Not now / dismissed** → the sheet shows immediately.
-     *  - **Enable** → the user leaves to the system FSI page; the sheet is shown on
-     *    return (see [fsiSettingsLauncher]).
-     * If the dialog is no longer eligible when the delay fires, the sheet shows
-     * straight away so the flow never dead-ends.
+     * Schedules the Firebase-gated FSI priming dialog `dialog.delay` ms out, when
+     * [LockScreenPermission.shouldShowDialog] agrees (SDK 14+, feature enabled,
+     * country allowed, still ungranted, inside `show_after_days` /
+     * `max_show_count`). The dialog runs first, and the permission sheet follows
+     * once it resolves:
+     *  - **Not now / dismissed** - the sheet opens right away.
+     *  - **Enable** - the user leaves for the system FSI page and the sheet opens
+     *    on return (see [fsiSettingsLauncher]).
+     * Should the dialog no longer be eligible when the delay fires, the sheet
+     * opens immediately so the flow can never dead-end.
      */
     private fun scheduleFsiDialog(cfg: LockScreenConfig) {
         fsiHandler.postDelayed({
@@ -450,7 +452,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             LockScreenPermission.markDialogShown(this)
             LockScreenPrimingDialog.show(this, cfg) { enabled ->
                 if (enabled) {
-                    // Off to the system FSI page — surface the sheet once we're back.
+                    // Heading for the system FSI page, so raise the sheet once we are back.
                     awaitFsiReturnForSheet = true
                 } else {
                     maybeAutoShowPermissionSheet()
@@ -461,13 +463,13 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
 
     /**
      * True when the permission sheet has been dismissed at least once and at
-     * least one of its permissions is still missing — the condition for Home's
-     * "Manage" hint.
+     * least one of its permissions is still missing - the condition behind
+     * Home's "Manage" hint.
      */
     fun shouldShowPermissionHint(): Boolean =
         permissionSheetDismissed && PermissionSheetDialog.hasPending(this)
 
-    /** Runs when the sheet closes; nudges Home to (re)evaluate its permission hint. */
+    /** Runs on sheet close, prompting Home to re-evaluate its permission hint. */
     private fun onPermissionSheetDismissed() {
         permissionSheetDismissed = true
         maybeShowRateUs()
@@ -477,19 +479,19 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
 
     override fun onResume() {
         super.onResume()
-        // Re-evaluate after returning from a permission/Settings round trip.
+        // Re-evaluate after a permission or Settings round trip.
         updateOverlayBanner()
-        // FSI grant round-trip: stop the watcher and, once granted, close the dialog.
+        // FSI grant round-trip: stop the watcher, and close the dialog once granted.
         LockScreenPermission.stopWatch(this)
         if (LockScreenPermission.isGranted(this)) LockScreenPrimingDialog.dismissIfShowing()
-        // Safety net for the auto-return: if the FSI grant landed us back here, run
-        // the deferred permission sheet. Guarded on isGranted so the earlier
-        // notification-permission-dialog return can't trigger it prematurely.
+        // Safety net for the auto-return: if the FSI grant is what brought us back,
+        // run the deferred permission sheet. Guarded on isGranted so the earlier
+        // notification-permission dialog returning cannot trigger it early.
         if (awaitFsiReturnForSheet && LockScreenPermission.isGranted(this)) {
             awaitFsiReturnForSheet = false
             maybeAutoShowPermissionSheet()
         }
-        // Resume an interrupted update (IMMEDIATE re-prompts; FLEXIBLE completes a finished download).
+        // Resume an interrupted update: IMMEDIATE re-prompts, FLEXIBLE finishes a completed download.
         AppUpdateCoordinator.resumeAppUpdate()
     }
 
@@ -500,8 +502,8 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         fsiReturnWatcher.unregister()
         LockScreenPermission.stopWatch(this)
         AppUpdateCoordinator.destroy()
-        // The exit dialog holds this Activity as its window context — leaving it
-        // attached on a config change leaks the window.
+        // The exit dialog holds this Activity as its window context, so leaving it
+        // attached across a config change leaks the window.
         ExitConfirmDialog.dismissIfShowing()
         rateUsHandler.removeCallbacksAndMessages(null)
         super.onDestroy()
@@ -510,8 +512,8 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     // --- Overlay-permission banner ---
 
     /**
-     * The banner is only relevant once the core permissions are in place: show it
-     * when call-log AND contacts are granted but the overlay permission is not.
+     * The banner only makes sense once the core permissions are in place, so it
+     * shows when call log and contacts are both granted but the overlay is not.
      */
     private fun updateOverlayBanner() {
         val coreGranted = isPermissionGranted(Manifest.permission.READ_CALL_LOG) &&
@@ -524,9 +526,9 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
 
     /**
-     * Opens the system "display over other apps" page IN-TASK (for-result) and
-     * starts the in-activity grant poll to catch the toggle and auto-return.
-     * Invoked by the banner's Enable button and by each fragment's permission flow.
+     * Opens the system "display over other apps" page in-task (for-result) and
+     * starts the in-activity grant poll that catches the toggle and returns us.
+     * Called by the banner's Enable button and by each fragment's permission flow.
      */
     fun startOverlayPermissionFlow() {
         if (OverlayPermissionUtils.isGranted(this)) {
@@ -534,13 +536,13 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             return
         }
 
-        // We open system Settings ourselves — the programmatic return to the app
-        // must NOT trigger an App Open ad. One-shot skip, consumed on next foreground.
+        // We are the ones opening system Settings, so the programmatic return must
+        // not fire an App Open ad. One-shot skip, consumed on the next foreground.
         AppOpenAdManager.skipNextAppOpenAd = true
 
-        // Open ONLY the system overlay-Settings page, in our own task. The grant is
-        // caught by the in-activity poll (startOverlayGrantPoll) while we sit behind
-        // Settings; on grant it reorders MainShellActivity back to the front.
+        // Open only the system overlay-Settings page, inside our own task. The grant
+        // is picked up by the in-activity poll (startOverlayGrantPoll) while we sit
+        // behind Settings, and on grant it reorders this Activity back to the front.
         val launched = runCatching {
             overlayLauncher.launch(OverlayPermissionUtils.buildOverlayIntent(packageName))
             openActivity<OverlayTutorialActivity>(isAdd = false)
@@ -551,7 +553,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         startOverlayGrantPoll()
     }
 
-    /** Begin polling for the overlay grant (idempotent). Called when we open Settings. */
+    /** Starts polling for the overlay grant; idempotent. Called when we open Settings. */
     private fun startOverlayGrantPoll() {
         if (overlayGrantPolling) return
         overlayGrantPolling = true
@@ -567,16 +569,17 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     }
 
     /**
-     * Overlay grant detected while the user sat on the "display over other apps"
-     * page → refresh the banner and reorder the EXISTING MainShellActivity to the front
-     * of the same task, so the (NO_HISTORY) Settings page drops away and the user
-     * lands back on their current tab without pressing Back. In-task REORDER = no
-     * background-activity-start, so it needs no BAL privilege on Android 12+/16.
+     * The overlay grant arrived while the user was on the "display over other
+     * apps" page, so refresh the banner and reorder the existing Activity to the
+     * front of the same task. The NO_HISTORY Settings page falls away and the
+     * user lands back on their current tab without pressing Back. An in-task
+     * reorder is not a background-activity-start, so no BAL privilege is needed
+     * on Android 12+/16.
      */
     private fun onOverlayGranted() {
         updateOverlayBanner()
-        // Grant landed, but we are no longer the reason the user is elsewhere —
-        // refresh state silently instead of surfacing over another app.
+        // The grant landed, but we are no longer why the user is elsewhere, so
+        // refresh state quietly instead of surfacing over another app.
         if (!awaitingOverlaySettings) return
         awaitingOverlaySettings = false
         runCatching {
@@ -589,8 +592,8 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     }
 
     /**
-     * Back retraces the visited-tab stack; once it empties (on Home) a
-     * double-back within 2s exits the app.
+     * Back retraces the visited-tab stack; once that empties, on Home, a second
+     * back press within 2s leaves the app.
      */
     private fun handleBack() {
         // Retrace the tab history first.
@@ -600,7 +603,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             return
         }
 
-        // Safety net: not on Home with empty history -> go Home.
+        // Safety net: off Home with an empty history means go Home.
         val homeIndex = tabs.indexOfFirst { it.fragment is CallLogFragment }.coerceAtLeast(0)
         if (currentIndex != homeIndex) {
             select(homeIndex, recordHistory = false)
@@ -621,7 +624,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         }
     }
 
-    /** Default behaviour: a second back-press within [intervalMs] exits the app. */
+    /** Default behaviour: a second back press inside [intervalMs] leaves the app. */
     private fun doubleBackToExit(intervalMs: Long, toastText: String) {
         val now = SystemClock.elapsedRealtime()
         if (now - lastBackMs < intervalMs) {
@@ -634,9 +637,9 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     }
 
     /**
-     * `exit.exitType == "dialog"`: the custom confirm dialog ([ExitConfirmDialog] — remote
-     * copy + an optional native/banner ad slot), optionally fronted by an
-     * interstitial once the user confirms.
+     * `exit.exitType == "dialog"`: the custom confirm dialog ([ExitConfirmDialog],
+     * remote copy plus an optional native or banner slot), optionally preceded by
+     * an interstitial once the user confirms.
      */
     private fun showExitDialog(cfg: OnboardingStepConfig.ExitConfig) {
         ExitConfirmDialog.show(this, cfg) {
@@ -649,14 +652,14 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     }
 
     /**
-     * Exits the app to the Home launcher (instead of a bare [finishAffinity]).
+     * Leaves the app to the launcher rather than calling a bare [finishAffinity].
      *
-     * A system "Manage" Settings page (overlay / full-screen-intent) is a
-     * `singleTask` activity, so it lives in its **own** task, excluded from
+     * A system "Manage" Settings page (overlay or full-screen-intent) is a
+     * `singleTask` activity, so it lives in its own task and is kept out of
      * Recents. A plain `finishAffinity()` on double-back closes our task and lets
-     * that lingering Settings task surface in the foreground. Bringing Home to the
-     * front first guarantees the device lands on the launcher, never on a leftover
-     * Settings page, then we finish our task.
+     * that leftover Settings task come to the foreground. Bringing the launcher
+     * forward first guarantees the device lands on Home, never on a stale
+     * Settings page, and only then do we finish our own task.
      */
     private fun exitToHome() {
         runCatching {
@@ -670,8 +673,8 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     }
 
     /**
-     * Switches to the Lookup tab. If [number] is given (e.g. from Home search),
-     * the Lookup fragment runs the search for it on arrival.
+     * Moves to the Lookup tab. When [number] is supplied - from Home search, for
+     * instance - the Lookup fragment searches for it as soon as it arrives.
      */
     fun showLookup(number: String? = null) {
         val index = tabs.indexOfFirst { it.fragment is NumberFinderFragment }
@@ -682,19 +685,19 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         }
     }
 
-    /** Switches to the Recents tab (Home's "See all" recent activity). */
+    /** Moves to the Recents tab, behind Home's "See all" recent activity. */
     fun showRecents() {
         val index = tabs.indexOfFirst { it.fragment is CallLogFragment }
         if (index >= 0) select(index)
     }
 
-    /** Switches to the Blocklist tab. */
+    /** Moves to the Blocklist tab. */
     fun showBlocklist() {
         val index = tabs.indexOfFirst { it.fragment is BlockedNumbersFragment }
         if (index >= 0) select(index)
     }
 
-    /** One-shot pop when a bottom-bar icon is tapped. */
+    /** A single pop animation when a bottom-bar icon is tapped. */
     private fun animateIcon(icon: View) {
         icon.animate().cancel()
         icon.scaleX = 0.7f
@@ -708,9 +711,10 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     }
 
     /**
-     * Fades a nav cell's icon + label to [color]. Animated so the violet doesn't
-     * snap in a frame ahead of the pane cross-fade; instant when [animate] is false
-     * (first selection, and config changes).
+     * Fades a nav cell's icon and label to [color]. Animating it stops the accent
+     * landing a frame ahead of the pane cross-fade; passing [animate] as false
+     * applies it instantly, which is what the first selection and config changes
+     * want.
      */
     private fun tintNavCell(nav: ItemNavBinding, color: Int, animate: Boolean) {
         val from = nav.navLabel.currentTextColor
@@ -733,7 +737,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     private fun select(index: Int, recordHistory: Boolean = true, animate: Boolean = true) {
         if (index == currentIndex) return
 
-        // Record the tab we're leaving so Back can retrace to it (each tab kept once).
+        // Remember the tab we are leaving so Back can retrace it; each tab is kept once.
         if (recordHistory && currentIndex >= 0) {
             backStack.remove(index)
             backStack.remove(currentIndex)
@@ -743,8 +747,8 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         val tab = tabs[index]
 
         supportFragmentManager.beginTransaction().apply {
-            // Cross-fade the outgoing and incoming panes. Skipped on the very first
-            // selection so the app doesn't fade in over a blank container at launch.
+            // Cross-fade the outgoing and incoming panes, skipped on the very first
+            // selection so the app never fades in over an empty container at launch.
             if (animate) setCustomAnimations(R.anim.anim_tab_enter, R.anim.anim_tab_exit)
             setReorderingAllowed(true)
             if (!tab.fragment.isAdded) add(R.id.fragmentContainer, tab.fragment)
@@ -763,8 +767,8 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             nav.navIndicator.visibility = if (active) View.VISIBLE else View.INVISIBLE
         }
 
-        // The centre action is always tinted; it only reacts to being the active
-        // destination by lifting slightly.
+        // The centre action is always tinted, and signals that it is the active
+        // destination only by lifting slightly.
         binding.fabLookup.animate().cancel()
         binding.fabLookup.animate()
             .scaleX(if (tabs[index].nav == null) 1.08f else 1f)
@@ -778,9 +782,9 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     }
 
     /**
-     * Tabs with a blue hero (Home, Recents, Contacts, Lookup) draw under the status
-     * bar — no top inset on the container, light status-bar icons, and the fragment
-     * pads its own hero.
+     * Tabs with a blue hero - Home, Recents, Contacts and Lookup - draw under the
+     * status bar: no top inset on the container, light status-bar icons, and the
+     * fragment pads its own hero.
      */
     private fun applyTopInsetForTab(index: Int) {
         if (index < 0) return
@@ -791,8 +795,8 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             fragment is ContactListFragment ||
             fragment is NumberFinderFragment
         binding.fragmentContainer.setPadding(0, if (immersive) 0 else statusBarTop, 0, 0)
-        // All v2 tabs (Home / Recents / Contacts / Lookup) now use a LIGHT background,
-        // so the status-bar icons are always dark.
+        // Every v2 tab (Home, Recents, Contacts, Lookup) now sits on a LIGHT
+        // background, so the status-bar icons stay dark throughout.
         WindowInsetsControllerCompat(window, window.decorView)
             .isAppearanceLightStatusBars = true
     }
@@ -800,20 +804,20 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     companion object {
         private const val EXIT_INTERVAL_MS = 2000L
 
-        /** Breather after the queue clears, so the sheet doesn't jump the user. */
+        /** A breather after the queue clears, so the sheet doesn't startle the user. */
         private const val RATE_US_SETTLE_MS = 1200L
 
-        /** Same tag as AppRatingPrompt, so one filter shows the whole flow. */
+        /** Shares AppRatingPrompt's tag, so one log filter covers the whole flow. */
         private const val RATE_US_TAG = "RateUs"
 
-        /** Grant-poll cadence while the user is on the FSI Settings page. */
+        /** How often to poll for the grant while the user is on the FSI Settings page. */
         private const val FSI_GRANT_POLL_MS = 350L
         private const val OVERLAY_GRANT_POLL_MS = 350L
 
-        /** Give up watching for the overlay grant after this long. */
+        /** Stop watching for the overlay grant once this much time has passed. */
         private const val OVERLAY_GRANT_POLL_TIMEOUT_MS = 90_000L
 
-        /** Intent extra: a number to identify — routes straight to the Lookup tab. */
+        /** Intent extra carrying a number to identify; routes straight to the Lookup tab. */
         const val EXTRA_LOOKUP_NUMBER = "extra_lookup_number"
         const val EXTRA_OPEN_BLOCKLIST = "extra_open_blocklist"
     }

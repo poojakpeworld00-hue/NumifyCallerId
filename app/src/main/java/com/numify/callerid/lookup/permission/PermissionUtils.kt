@@ -8,38 +8,38 @@ import androidx.core.content.ContextCompat
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
 
 /**
- * Central registry + grant helpers for the Permission Engine.
+ * Permission catalog and grant checks for the runtime-permission engine.
  *
- * [CATALOG] is the single source of truth for which OS permissions the engine
- * can request. Adding a new permission = adding one line here (future-proof).
+ * Everything the engine is allowed to ask for lives in [CATALOG]; supporting
+ * one more permission means adding a single entry there and nothing else.
  */
 object PermissionUtils {
 
     /**
-     * Registry of supported permissions, keyed by the Remote Config key.
+     * Supported permissions indexed by their Remote Config key.
      *
-     * `minSdk` is the SDK level at/above which the permission is a *runtime*
-     * permission. Below that level the OS grants it at install time, so the
-     * engine treats it as already-granted and never prompts.
+     * `minSdk` marks the API level from which the OS treats the permission as a
+     * runtime grant. Below that level it is granted at install time, so the
+     * engine reports it as already held and never raises a prompt.
      */
     val CATALOG: Map<String, PermissionSpec> = listOf(
         PermissionSpec(
             key = "notification",
             androidPermission = Manifest.permission.POST_NOTIFICATIONS,
-            minSdk = Build.VERSION_CODES.TIRAMISU, // 33
+            minSdk = Build.VERSION_CODES.TIRAMISU, // Android 13
         ),
         PermissionSpec(
             key = "phone_state",
             androidPermission = Manifest.permission.READ_PHONE_STATE,
-            minSdk = Build.VERSION_CODES.M, // 23
-            // Deliberately NOT gated on HD_VBC_Show. That flag is the geo switch
-            // for the post-call Callback screen, but READ_PHONE_STATE is what the
-            // OS requires to deliver ACTION_PHONE_STATE_CHANGED at all — the
-            // broadcast is sent with READ_PHONE_STATE as the receiver permission.
-            // Gating it here meant CallStateReceiver never fired in allow-listed
-            // regions, so the caller-ID card (a core feature, not an ad surface)
-            // silently never appeared. The Callback screen keeps its own
-            // HD_VBC_Show check in CallStateReceiver.handlePostCall().
+            minSdk = Build.VERSION_CODES.M, // Android 6
+            // Intentionally outside the HD_VBC_Show gate. That flag only decides
+            // whether the post-call Callback screen appears in a given region, but
+            // READ_PHONE_STATE is what makes the OS deliver
+            // ACTION_PHONE_STATE_CHANGED at all: the broadcast carries
+            // READ_PHONE_STATE as its receiver permission. Gating here stopped
+            // CallStateReceiver firing in allow-listed regions, which silently
+            // killed the caller-ID card - a core feature, not an ad surface. The
+            // Callback screen keeps its own HD_VBC_Show check in handlePostCall().
         ),
         PermissionSpec(
             key = "call_log",
@@ -53,28 +53,29 @@ object PermissionUtils {
         ),
     ).associateBy { it.key }
 
-    /** Returns the spec for a Remote Config key, or null if the key is unknown. */
+    /** The spec registered for a Remote Config key, or null when the key is unrecognised. */
     fun spec(key: String): PermissionSpec? = CATALOG[key]
 
     /**
-     * Resolves a raw `android.permission.*` string (as used by the
-     * `screen.<key>.permissions[].permission_name` Remote Config shape) to its
-     * [PermissionSpec] by matching [PermissionSpec.androidPermission] in [CATALOG] — so
-     * gating (SDK floor, pref gate) keeps applying. Null when the permission
-     * isn't catalogued yet; same extension model as the rest of the engine —
-     * add one line to [CATALOG] to support a new permission string.
+     * Maps a raw `android.permission.*` string - the shape used by
+     * `screen.<key>.permissions[].permission_name` in Remote Config - onto its
+     * [PermissionSpec], by matching [PermissionSpec.androidPermission] against
+     * [CATALOG] so the SDK floor and the pref gate both still apply. Returns
+     * null for a permission that has not been catalogued; as everywhere else in
+     * the engine, one new [CATALOG] entry is all another string needs.
      */
     fun specForAndroidPermission(androidPermission: String): PermissionSpec? =
         CATALOG.values.firstOrNull { it.androidPermission == androidPermission }
 
-    /** True when this permission is even applicable on the current OS version. */
+    /** Whether this permission means anything at all on the running OS version. */
     fun isApplicableOnThisSdk(spec: PermissionSpec): Boolean =
         Build.VERSION.SDK_INT >= spec.minSdk
 
     /**
-     * True when the spec's optional business gate allows requesting it. A spec
-     * with no [PermissionSpec.enabledPrefGate] is always allowed; otherwise the
-     * named `AdPreferenceStore` boolean must be true (defaults to false when unset).
+     * Whether the spec's optional business gate permits a request. A spec with
+     * no [PermissionSpec.enabledPrefGate] is always permitted; the rest need the
+     * named `AdPreferenceStore` boolean to be true, and that defaults to false
+     * until something writes it.
      */
     fun isPrefGateOpen(context: Context, spec: PermissionSpec): Boolean {
         val gate = spec.enabledPrefGate ?: return true
@@ -82,8 +83,8 @@ object PermissionUtils {
     }
 
     /**
-     * True when the permission is already granted (or not required on this SDK).
-     * Callers should skip requesting when this returns true.
+     * Whether the permission is already held, or is not required at this SDK
+     * level. Callers should not request while this returns true.
      */
     fun isGranted(context: Context, spec: PermissionSpec): Boolean {
         if (Build.VERSION.SDK_INT < spec.minSdk) return true
