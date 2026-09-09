@@ -154,5 +154,4 @@
     <color name="ds_nav_idle">#7B8398</color>
     <color name="ds_nav_chip_active">#1B2440</color>
     <color name="ds_nav_chip_danger">#3A1F21</color>
-    <color name="ds_nav_shadow">#80000000</color>
 </resources>

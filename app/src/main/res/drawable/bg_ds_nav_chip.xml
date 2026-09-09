@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 38dp rounded-square behind a nav icon. The fill is a placeholder: every cell
-     tints it from MainShellActivity, because the active colour is per tab (blue
-     everywhere, red on Blocklist). -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="@color/ds_nav_chip_idle" />
-    <corners android:radius="13dp" />
-</shape>

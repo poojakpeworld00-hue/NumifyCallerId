@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- One bottom-navigation cell: a 38dp rounded chip holding the tab's glyph, with
-     its label beneath.
+<!-- One bottom-navigation cell: a wide pill holding the tab's glyph, with its
+     label beneath.
 
-     The chip replaces the previous top indicator bar — the design carries the
-     selected state in the chip's fill and the label's weight rather than in a
-     separate rule, so there is nothing left for an indicator to do.
+     The pill replaces the previous top indicator bar — the selected state lives in
+     the pill's fill and the label's weight, so there is nothing left for an
+     indicator to do. It is wider than it is tall (46x26) rather than a square
+     chip: that is Material 3's own active shape, and at five destinations on a
+     360dp phone it gives the glyph room without pushing the labels together.
 
      Both the chip's tint and the icon's are set from MainShellActivity: the active
      accent is per tab, blue everywhere except Blocklist. -->
@@ -25,10 +27,11 @@
 
         <ImageView
             android:id="@+id/navIcon"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:background="@drawable/bg_ds_nav_chip"
-            android:padding="10dp"
+            android:layout_width="46dp"
+            android:layout_height="26dp"
+            android:background="@drawable/bg_ds_nav_pill"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="5dp"
             android:src="@drawable/ic_ds_nav_recents"
             app:tint="@color/ds_nav_idle"
             tools:ignore="ContentDescription" />
@@ -37,7 +40,7 @@
             android:id="@+id/navLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="@font/mulish_semibold"
             android:includeFontPadding="false"
             android:textColor="@color/ds_nav_idle"

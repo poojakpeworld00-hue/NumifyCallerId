@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bottom navigation as a full-bleed bar.
+
+     A layer-list rather than a shape with a stroke: a shape strokes all four
+     sides, and this needs a hairline on the top edge only. The lower layer is the
+     divider colour, the upper layer is the surface inset 1dp from the top, so
+     exactly 1dp of the layer beneath shows through.
+
+     No elevation goes with this — the bar sits flush on the banner ad below it,
+     and a shadow cast onto an ad is what made the floating pill read as two
+     stacked objects. The hairline does the separating instead. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/ds_divider" />
+        </shape>
+    </item>
+    <item android:top="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/ds_surface" />
+        </shape>
+    </item>
+</layer-list>

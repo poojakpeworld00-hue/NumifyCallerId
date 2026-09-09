@@ -81,23 +81,22 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Bottom navigation: a floating pill rather than a full-bleed bar, inset
-             from the page edges and lifted off it. The shadow is real elevation, so
-             it follows the 26dp outline instead of being baked into the drawable. -->
+        <!-- Bottom navigation: full-bleed, flush on the banner ad beneath it.
+             A floating pill was tried first and lost on this screen — its shadow,
+             its side margins and its bottom gap all landed on top of an ad rather
+             than on the page, so the foot of every tab read as three stacked
+             objects, and it cost about 26dp of content to do it.
+             Flush and hairlined, the nav and the ad read as one bottom edge. -->
         <LinearLayout
             android:id="@+id/footerBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="14dp"
-            android:background="@drawable/bg_ds_nav_bar"
+            android:background="@drawable/bg_ds_nav_bar_flat"
             android:baselineAligned="false"
-            android:elevation="10dp"
             android:orientation="horizontal"
-            android:outlineAmbientShadowColor="@color/ds_nav_shadow"
-            android:outlineSpotShadowColor="@color/ds_nav_shadow"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="12dp"
+            android:paddingHorizontal="4dp"
+            android:paddingTop="9dp"
+            android:paddingBottom="11dp"
             app:layout_constraintBottom_toTopOf="@+id/bannerAdFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -138,19 +137,20 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-        <!-- Lookup, the centre action. The redesign seats it INSIDE the pill rather
-             than straddling its top edge — it is the middle cell of the row, just
-             larger than the others and on the one violet gradient in the palette.
-             It is still a sibling of footerBar rather than a child so it can sit
-             above the bar's own elevation and keep its own shadow. -->
+        <!-- Lookup, the centre action. It sits INSIDE the bar rather than straddling
+             its top edge: an overhang eats into the last list row, which on a call
+             log is exactly the row you are most likely to want to tap.
+
+             Still a sibling of footerBar rather than a child, so its elevation puts
+             it above the bar and it keeps its own shadow. -->
         <FrameLayout
             android:id="@+id/fabLookup"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
             android:background="@drawable/bg_ds_nav_fab"
             android:clickable="true"
             android:contentDescription="@string/nav_lookup"
-            android:elevation="14dp"
+            android:elevation="8dp"
             android:focusable="true"
             android:outlineAmbientShadowColor="@color/ds_fab_shadow"
             android:outlineSpotShadowColor="@color/ds_fab_shadow"
@@ -161,8 +161,8 @@
 
             <ImageView
                 android:id="@+id/fabLookupIcon"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_ds_nav_lookup" />

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The active-state pill behind a nav glyph: wider than it is tall, fully
+     rounded. Material 3's own shape for this, which reads as familiar rather than
+     generic, and it holds the Blocklist tab's red as readily as the brand blue.
+
+     The fill is a placeholder — every cell tints it from MainShellActivity,
+     because the active colour is per tab. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_nav_chip_idle" />
+    <corners android:radius="13dp" />
+</shape>
