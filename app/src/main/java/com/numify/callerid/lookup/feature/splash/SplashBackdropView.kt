@@ -68,7 +68,7 @@ class SplashBackdropView @JvmOverloads constructor(
         ContextCompat.getColor(context, R.color.splash_cs_grad_bottom),
     )
 
-    /** Stop offsets: `#2E5FE8 0%, #1F3FAE 55%, #101B4D 100%`. */
+    /** Stop offsets from the design: 0%, 55%, 100%. The colours come from tokens. */
     private val gradientPositions = floatArrayOf(0f, 0.55f, 1f)
 
     private var contentLeft = 0

@@ -6,7 +6,7 @@
     grouped white cards — "Suggested" and "All languages" — each introduced by a
     small-caps label with a rule running out to the edge. Rows carry a coloured
     two-letter chip, the endonym over the English name, and a trailing checkbox;
-    the selected row takes a #EAF0FE wash. Rows fade and rise in on a 60ms stagger
+    the selected row takes the brand wash. Rows fade and rise in on a 60ms stagger
     (RowEntrance), which is the handoff's `.lang-row` keyframe.
 
     Flow is untouched: the same two RecyclerViews, the same Continue button, and

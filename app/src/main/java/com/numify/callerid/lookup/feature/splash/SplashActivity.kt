@@ -112,7 +112,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
         // The splash is one fixed deep-blue surface in both themes, so the bars are
         // handed straight through to the gradient and their icons stay light
-        // whatever the app theme is — light icons over #2E5FE8 is what the design's
+        // whatever the app theme is — light icons over the gradient is what the design's
         // own device frame draws.
         //
         // setDecorFitsSystemWindows(false) is what actually makes that work below

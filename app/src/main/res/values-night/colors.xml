@@ -24,7 +24,7 @@
     <color name="outline">#2A3145</color>
     <color name="ad_divider">#26FFFFFF</color>       <!-- hairline between app content and ads -->
     <color name="primary_container">#1C2231</color>
-    <color name="on_primary_container">#A8C7FF</color>
+    <color name="on_primary_container">#8CA0EB</color>
 
     <!-- Language screen: unselected radio ring (dark) -->
     <color name="radio_unselected">#5D6579</color>
@@ -40,7 +40,7 @@
 
     <!-- Splash redesign dark overrides. Per Visual System, the hero gradient stays
          a rich Indigo→Orchid even in dark (just deepened) — not near-black. -->
-    <color name="splash_grad_start">#1E3A8F</color>
+    <color name="splash_grad_start">#13256A</color>
     <!-- Phone illustration (dark navy) -->
 
     <!-- FSI intro Activity — dark (navy) variant of the design. -->
@@ -121,11 +121,11 @@
     <color name="ds_ink">#F2F4FA</color>
     <color name="ds_ink_muted">#8A93A8</color>
     <color name="ds_ink_subtle">#98A0B4</color>
-    <color name="ds_accent">#5B8CFF</color>
-    <color name="ds_accent_deep">#2E5FE8</color>
-    <color name="ds_accent_bright">#5B8CFF</color>
-    <color name="ds_accent_on_tint">#9DB4FF</color>
-    <color name="ds_selected_tint">#1B2440</color>
+    <color name="ds_accent">#5F7DF2</color>
+    <color name="ds_accent_deep">#123AD4</color>
+    <color name="ds_accent_bright">#5F7DF2</color>
+    <color name="ds_accent_on_tint">#889EF2</color>
+    <color name="ds_selected_tint">#1B2340</color>
     <color name="ds_rule">#262C3A</color>
     <color name="ds_divider">#222834</color>
     <color name="ds_check_idle">#3A4256</color>
@@ -152,6 +152,6 @@
     <!-- Bottom navigation -->
     <color name="ds_nav_chip_idle">#1E2430</color>
     <color name="ds_nav_idle">#7B8398</color>
-    <color name="ds_nav_chip_active">#1B2440</color>
+    <color name="ds_nav_chip_active">#1B2340</color>
     <color name="ds_nav_chip_danger">#3A1F21</color>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Row background inside a grouped card. The selected row takes the design's
-     #EAF0FE wash; everything else stays on the card's own white so the divider
+     selected-row wash; everything else stays on the card's own white so the divider
      hairlines read continuously down the group. -->
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="?attr/colorControlHighlight">

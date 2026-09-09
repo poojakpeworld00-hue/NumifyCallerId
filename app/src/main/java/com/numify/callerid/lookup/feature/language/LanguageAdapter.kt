@@ -85,7 +85,7 @@ class LanguageAdapter(
                 else item.name
 
             // On the tinted row both lines shift into the brand ramp, which is what
-            // keeps the pair legible against #EAF0FE instead of only the top line.
+            // keeps the pair legible against the tinted row instead of only the top line.
             textNative.setTextColor(
                 ContextCompat.getColor(ctx, if (selected) R.color.ds_accent else R.color.ds_ink)
             )

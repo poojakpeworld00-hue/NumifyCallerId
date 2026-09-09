@@ -6,11 +6,11 @@
     <!-- ===== Brand / Material 3 tokens — Visual System v1 =====
          One calm brand violet (Indigo). Verdict colors are fixed and never take
          a "brand" role. Light values here; dark overrides in values-night. -->
-    <color name="primary">#2563EB</color>            <!-- Indigo · seed -->
-    <color name="primary_dark">#1D4ED8</color>       <!-- pressed / status scrim -->
+    <color name="primary">#1238CE</color>            <!-- Indigo · seed -->
+    <color name="primary_dark">#0F32B6</color>       <!-- pressed / status scrim -->
     <color name="on_primary">#FFFFFFFF</color>
-    <color name="primary_container">#DBEAFE</color>
-    <color name="on_primary_container">#1D4ED8</color>
+    <color name="primary_container">#DBE2FE</color>
+    <color name="on_primary_container">#0F32B6</color>
     <color name="accent">#1E8E5A</color>             <!-- verdict · identified -->
     <color name="danger">#D93B3B</color>             <!-- verdict · spam -->
     <color name="warn">#E5920A</color>               <!-- verdict · suspicious -->
@@ -86,7 +86,7 @@
     <!-- ===== Splash redesign (2026) — scoped to the splash so the app-wide
          palette is untouched. Night overrides live in values-night/colors.xml,
          so the hero gradient + card flip light/dark automatically. ===== -->
-    <color name="splash_grad_start">#2563EB</color>
+    <color name="splash_grad_start">#1238CE</color>
     <color name="splash_accent">#2563EB</color>
     <color name="splash_accent_2">#1E40AF</color>
     <!-- Phone illustration -->
@@ -160,9 +160,9 @@
          same deep-blue gradient in light and dark, so none of these are overridden
          in values-night. Kept in their own block, and prefixed `splash_cs_`, so the
          app-wide palette stays free of one screen's one-off tints. -->
-    <color name="splash_cs_grad_top">#2E5FE8</color>            <!-- 155deg gradient · 0% -->
-    <color name="splash_cs_grad_mid">#1F3FAE</color>            <!-- 155deg gradient · 55% -->
-    <color name="splash_cs_grad_bottom">#101B4D</color>         <!-- 155deg gradient · 100% -->
+    <color name="splash_cs_grad_top">#123AD4</color>            <!-- 155deg gradient · 0% -->
+    <color name="splash_cs_grad_mid">#0D2B9C</color>            <!-- 155deg gradient · 55% -->
+    <color name="splash_cs_grad_bottom">#0A1852</color>         <!-- 155deg gradient · 100% -->
     <color name="splash_cs_decor_lg">#1AFFFFFF</color>          <!-- top-left disc · white 10% -->
     <color name="splash_cs_decor_sm">#14FFFFFF</color>          <!-- bottom-right disc · white 8% -->
     <color name="splash_cs_card_glass">#24FFFFFF</color>        <!-- card face · white 14% -->
@@ -193,16 +193,16 @@
     <color name="ds_ink">#12172B</color>               <!-- primary text -->
     <color name="ds_ink_muted">#8A91A6</color>         <!-- secondary text / section labels -->
     <color name="ds_ink_subtle">#7B8398</color>        <!-- header subtitle -->
-    <color name="ds_accent">#2E5FE8</color>            <!-- brand blue -->
-    <color name="ds_accent_deep">#1F3FAE</color>       <!-- gradient end -->
-    <color name="ds_accent_bright">#3466F0</color>     <!-- gradient start -->
-    <color name="ds_accent_on_tint">#5B79E8</color>    <!-- sub-text on a tinted row -->
-    <color name="ds_selected_tint">#EAF0FE</color>     <!-- selected row wash -->
+    <color name="ds_accent">#123AD4</color>            <!-- brand blue -->
+    <color name="ds_accent_deep">#0C2891</color>       <!-- gradient end -->
+    <color name="ds_accent_bright">#0F3BE5</color>     <!-- gradient start -->
+    <color name="ds_accent_on_tint">#3558DE</color>    <!-- sub-text on a tinted row -->
+    <color name="ds_selected_tint">#EAEEFE</color>     <!-- selected row wash -->
     <color name="ds_rule">#E1E5EE</color>              <!-- section rule -->
     <color name="ds_divider">#F0F2F7</color>           <!-- row divider inside a card -->
     <color name="ds_check_idle">#D6DAE5</color>        <!-- unchecked box border -->
     <color name="ds_card_shadow">#0F141E3C</color>     <!-- 0 6px 20px rgba(20,30,60,0.06) -->
-    <color name="ds_accent_shadow">#592E5FE8</color>   <!-- 0 8px 18px rgba(46,95,232,0.35) -->
+    <color name="ds_accent_shadow">#59123AD4</color>   <!-- 0 8px 18px rgba(46,95,232,0.35) -->
 
     <!-- Onboarding heroes: the blue "identified" card and the red "blocked" one. -->
     <color name="ds_hero_blue_wash">#EAF0FE</color>       <!-- hero gradient start -->
@@ -220,7 +220,7 @@
     <color name="ds_success_wash">#EAF6EF</color>        <!-- protection-active strip -->
 
     <!-- Ask AI tile: the four stops its gradient travels through. -->
-    <color name="ds_ai_1">#3466F0</color>
+    <color name="ds_ai_1">#0F3BE5</color>
     <color name="ds_ai_2">#8B7CFF</color>
     <color name="ds_ai_3">#4EE0D6</color>
 
@@ -229,11 +229,11 @@
          destructive one and the design says so in colour. -->
     <color name="ds_nav_chip_idle">#EEF1F7</color>
     <color name="ds_nav_idle">#AAB0C0</color>
-    <color name="ds_nav_chip_active">#EAF0FE</color>
+    <color name="ds_nav_chip_active">#EAEEFE</color>
     <color name="ds_nav_chip_danger">#FDE9EA</color>
     <color name="ds_fab_start">#8B7CFF</color>            <!-- centre action gradient -->
-    <color name="ds_fab_end">#3466F0</color>
-    <color name="ds_fab_shadow">#664650E8</color>
+    <color name="ds_fab_end">#0F3BE5</color>
+    <color name="ds_fab_shadow">#660F3BE5</color>
 
     <!-- Per-language avatar chips, in the handoff's own order. -->
     <color name="ds_lang_en">#2E5FE8</color>
