@@ -31,7 +31,6 @@
 
     <!-- Verdict containers (dark) -->
     <color name="identified_container">#143126</color>
-    <color name="identified_on">#7BD8A8</color>
     <color name="spam_container">#2A1518</color>
     <color name="spam_on">#F09A9A</color>
     <color name="spam_avatar_bg">#47232A</color>
@@ -42,20 +41,7 @@
     <!-- Splash redesign dark overrides. Per Visual System, the hero gradient stays
          a rich Indigo→Orchid even in dark (just deepened) — not near-black. -->
     <color name="splash_grad_start">#1E3A8F</color>
-    <color name="splash_grad_center">#3B34C4</color>
-    <color name="splash_grad_end">#4A2AC0</color>
-    <color name="splash_card_bg">#141824</color>
-    <color name="splash_card_name">#F2F4FA</color>
-    <color name="splash_card_sub">#8A93A8</color>
-    <color name="splash_chip_bg">#1C2231</color>
-    <color name="splash_chip_fg">#8A93A8</color>
-    <color name="splash_verdict_container">#143126</color>
-    <color name="splash_verdict_on">#7BD8A8</color>
     <!-- Phone illustration (dark navy) -->
-    <color name="splash_phone_bg">#171F36</color>
-    <color name="splash_phone_stroke">#2E3A5C</color>
-    <color name="splash_content_line">#243050</color>
-    <color name="splash_notch">#2A3352</color>
 
     <!-- FSI intro Activity — dark (navy) variant of the design. -->
     <color name="fsi_bg_center">#221A3F</color>
@@ -90,21 +76,10 @@
     <color name="splash_sl_bg_center">#151027</color>
     <color name="splash_sl_bg_edge">#07050C</color>
     <color name="splash_sl_bar_track">#3A4256</color>
-    <color name="splash_sl_bar_lit">#60A5FA</color>
     <color name="splash_sl_sweep">#7360A5FA</color>
     <color name="splash_sl_sweep_edge">#0060A5FA</color>
-    <color name="splash_sl_bubble_lg">#1AA37FFF</color>
-    <color name="splash_sl_bubble_sm">#24A37FFF</color>
-    <color name="splash_sl_bubble_md">#14A37FFF</color>
-    <color name="splash_sl_sparkle_a">#99A37FFF</color>
-    <color name="splash_sl_sparkle_b">#9960A5FA</color>
     <color name="splash_sl_badge_bg">#1A1626</color>
-    <color name="splash_sl_shadow">#80000000</color>
-    <color name="splash_sl_tile_shadow">#80000000</color>
-    <color name="splash_sl_title">#F2F4FA</color>
-    <color name="splash_sl_tagline">#8A93A8</color>
     <color name="splash_sl_footer">#6A7285</color>
-    <color name="splash_sl_icon_red">#F0736F</color>
     <color name="splash_sl_icon_amber">#F0B03C</color>
     <color name="splash_sl_icon_blue">#A37FFF</color>
     <color name="splash_sl_icon_green">#38B47C</color>
@@ -116,14 +91,7 @@
          without the layouts branching on the theme. The accents only lift enough
          to stay legible; their hue does not move. -->
     <color name="cid_900">#F2ECFF</color>
-    <color name="cid_800">#D9CCF7</color>
-    <color name="cid_700">#B79AF0</color>
-    <color name="cid_600">#60A5FA</color>
-    <color name="cid_500">#3B82F6</color>
-    <color name="cid_200">#2E2545</color>
-    <color name="cid_100">#211A33</color>
     <color name="cid_050">#181327</color>
-    <color name="cid_on_accent">#14091F</color>
 
     <color name="cid_amber">#F0B03C</color>
     <color name="cid_amber_100">#3A2C12</color>

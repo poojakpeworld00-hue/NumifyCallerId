@@ -166,6 +166,10 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
     private fun buildRows(): List<Row> {
         val list = mutableListOf<Row>()
 
+        // Glyphs are the handoff's own (ic_ds_*), which are drawn as single-colour
+        // paths so the row can tint them; the notification row keeps the app icon
+        // because the design does not draw that permission.
+
         // Notification + phone state are handled by the PermissionCoordinator (see
         // requestSingle / onContinueClicked), so the sheet only primes them here.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -180,23 +184,23 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
         // caller-ID card cannot appear at all.
         list += Row(
             "phone_state", R.string.perm_phone_title, R.string.perm_phone_desc,
-            R.drawable.ic_phone_solid, androidPermission = Manifest.permission.READ_PHONE_STATE,
+            R.drawable.ic_ds_phone, androidPermission = Manifest.permission.READ_PHONE_STATE,
             engineManaged = true,
         )
         list += Row(
             "call_log", R.string.permsheet_calllog_title, R.string.perm_calllog_desc,
-            R.drawable.ic_history, androidPermission = Manifest.permission.READ_CALL_LOG,
+            R.drawable.ic_ds_clock, androidPermission = Manifest.permission.READ_CALL_LOG,
         )
         list += Row(
             "contacts", R.string.permsheet_contacts_title, R.string.perm_contacts_desc,
-            R.drawable.ic_group, androidPermission = Manifest.permission.READ_CONTACTS,
+            R.drawable.ic_ds_person, androidPermission = Manifest.permission.READ_CONTACTS,
         )
         // Always asked, for the same reason as phone_state: the caller-ID card is
         // drawn as a TYPE_APPLICATION_OVERLAY window, so without this permission
         // the card is skipped regardless of the Callback screen's geo gate.
         list += Row(
             "overlay", R.string.perm_overlay_title, R.string.perm_overlay_desc,
-            R.drawable.ic_apps, isOverlay = true,
+            R.drawable.ic_ds_grid, isOverlay = true,
         )
         return list
     }

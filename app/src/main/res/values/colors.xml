@@ -37,7 +37,6 @@
 
     <!-- Verdict containers (Visual System) — fixed roles; dark variants in values-night -->
     <color name="identified_container">#DDF2E7</color>
-    <color name="identified_on">#14663F</color>
     <color name="spam_container">#FCEEEE</color>
     <color name="spam_on">#A32626</color>
     <color name="spam_avatar_bg">#F6D2D2</color>
@@ -49,8 +48,6 @@
     <color name="success_soft">#1F1E8E5A</color>
     <color name="danger_soft">#1FD93B3B</color>
     <color name="neutral_soft">#1F6A7285</color>
-    <color name="accent_indigo">#1D4ED8</color>
-    <color name="accent_indigo_soft">#1F1D4ED8</color>
 
     <!-- ===== CID03 tool-screen ramp =====
          The design ships these screens on a green ramp (its g-050 … g-900 CSS
@@ -65,14 +62,7 @@
          distinct per-tool signal colours, and turning them violet too would
          collapse the whole palette into one hue. Dark values in values-night. -->
     <color name="cid_900">#2B1354</color>
-    <color name="cid_800">#3A1B6E</color>
-    <color name="cid_700">#1D4ED8</color>
-    <color name="cid_600">#2563EB</color>
-    <color name="cid_500">#3B82F6</color>
-    <color name="cid_200">#DDD3F7</color>
-    <color name="cid_100">#EFE9FC</color>
     <color name="cid_050">#F8F5FF</color>
-    <color name="cid_on_accent">#FFFFFF</color>
 
     <color name="cid_amber">#E5920A</color>
     <color name="cid_amber_100">#FDF0DC</color>
@@ -84,7 +74,6 @@
     <!-- Tools grid · the controlled 6-hue glyph palette. These are decorative
          category hues for the utility tiles only — they never carry a verdict
          meaning, so `danger`/`warn` are deliberately NOT reused here. -->
-    <color name="tool_indigo">#2563EB</color>
     <color name="tool_sky">#3B82F6</color>
     <color name="tool_teal">#0D9488</color>
     <color name="tool_green">#1E8E5A</color>
@@ -92,59 +81,20 @@
     <color name="tool_rose">#D93B3B</color>
 
     <!-- Dark stat card (Call Details total duration) -->
-    <color name="surface_dark">#1B2430</color>
-    <color name="on_surface_dark">#94A3B8</color>
     <color name="online_green">#22C55E</color>
-    <color name="whatsapp_green">#25D366</color>
-    <color name="teal">#0D9488</color>
-    <color name="teal_dark">#0F5563</color>
 
     <!-- ===== Splash redesign (2026) — scoped to the splash so the app-wide
          palette is untouched. Night overrides live in values-night/colors.xml,
          so the hero gradient + card flip light/dark automatically. ===== -->
     <color name="splash_grad_start">#2563EB</color>
-    <color name="splash_grad_center">#4A48E8</color>
-    <color name="splash_grad_end">#1E40AF</color>
     <color name="splash_accent">#2563EB</color>
     <color name="splash_accent_2">#1E40AF</color>
-    <color name="splash_ring">#47FFFFFF</color>
-    <color name="splash_field_bg">#F2F4FA</color>
-    <color name="splash_field_text">#101319</color>
-    <color name="splash_card_bg">#FFFFFF</color>
-    <color name="splash_card_name">#101319</color>
-    <color name="splash_card_sub">#6A7285</color>
-    <color name="splash_chip_bg">#EEF0F6</color>
-    <color name="splash_chip_fg">#4A5265</color>
-    <color name="splash_verdict_container">#DDF2E7</color>
-    <color name="splash_verdict_on">#14663F</color>
-    <color name="splash_verified">#1E8E5A</color>
     <!-- Phone illustration -->
-    <color name="splash_phone_bg">#FFFFFF</color>
-    <color name="splash_phone_stroke">#E3E9F7</color>
-    <color name="splash_content_line">#D9E1F5</color>
-    <color name="splash_notch">#C9D2E8</color>
 
     <!-- ===== Splash "Caller Information" redesign (2026) — white-on-gradient
          tokens shared by light & dark (both hero gradients are deep blue/purple,
          so white content reads on both; only the gradient itself flips). ===== -->
-    <color name="splash_orbit">#73FFFFFF</color>          <!-- dashed orbit ring -->
-    <color name="splash_orb">#33FFFFFF</color>            <!-- ambient blurred orb core -->
-    <color name="splash_orb_edge">#00FFFFFF</color>       <!-- orb fade-out edge -->
-    <color name="splash_star">#E6FFFFFF</color>          <!-- twinkling star -->
-    <color name="splash_scan">#F2FFFFFF</color>          <!-- bright AI-scan arc -->
-    <color name="splash_scan_faint">#40FFFFFF</color>    <!-- faint scan ring track -->
-    <color name="splash_icon_tile_top">#FFFFFF</color>   <!-- app-icon tile gradient -->
-    <color name="splash_icon_tile_bottom">#E8EDFF</color>
-    <color name="splash_pill_bg">#F7FFFFFF</color>       <!-- white verdict pills -->
-    <color name="splash_pill_fg">#101319</color>
-    <color name="splash_incoming_dot">#DBEAFE</color>    <!-- dot behind incoming glyph -->
-    <color name="splash_incoming_icon">#1D4ED8</color>
-    <color name="splash_fraud_fg">#A32626</color>        <!-- "Fraud blocked" text -->
     <color name="splash_fraud_icon">#D93B3B</color>      <!-- circle-slash icon -->
-    <color name="splash_bar_bg">#40FFFFFF</color>        <!-- progress track -->
-    <color name="splash_bar_fill">#FFFFFF</color>
-    <color name="splash_footer">#B8FFFFFF</color>        <!-- ad + secure footer text -->
-    <color name="splash_tagline_on">#D9FFFFFF</color>
 
     <!-- ===== FSI intro Activity (design: All Screen Light+Dark). Own palette
          (#2563EB / #0F172A / greens); theme-aware via values-night. The floating
@@ -196,21 +146,10 @@
          light-up still lands. The scan band is likewise carried up to 40%; below
          that it disappears into a near-white background. -->
     <color name="splash_sl_bar_track">#CBD0DB</color>     <!-- waveform bar, unlit (neutral grey — the brand hue is reserved for lit) -->
-    <color name="splash_sl_bar_lit">#2563EB</color>       <!-- waveform bar, lit -->
     <color name="splash_sl_sweep">#662563EB</color>       <!-- 40% band that lights the bars -->
     <color name="splash_sl_sweep_edge">#002563EB</color>  <!-- same hue at 0 alpha, no grey fringe -->
-    <color name="splash_sl_bubble_lg">#122563EB</color>   <!-- ambient bubbles: 7% / 10% / 6% -->
-    <color name="splash_sl_bubble_sm">#1A2563EB</color>
-    <color name="splash_sl_bubble_md">#0F2563EB</color>
-    <color name="splash_sl_sparkle_a">#802563EB</color>   <!-- drifting sparkles -->
-    <color name="splash_sl_sparkle_b">#8C60A5FA</color>
     <color name="splash_sl_badge_bg">#FFFFFF</color>      <!-- the six feature badges -->
-    <color name="splash_sl_shadow">#24101319</color>      <!-- badge drop shadow (14%) -->
-    <color name="splash_sl_tile_shadow">#4D2563EB</color> <!-- icon-tile shadow (Indigo, 30%) -->
-    <color name="splash_sl_title">#101319</color>
-    <color name="splash_sl_tagline">#6A7285</color>
     <color name="splash_sl_footer">#9BA3B4</color>
-    <color name="splash_sl_icon_red">#D93B3B</color>      <!-- badge · block -->
     <color name="splash_sl_icon_amber">#E5920A</color>    <!-- badge · spam -->
     <color name="splash_sl_icon_blue">#2563EB</color>     <!-- badge · lookup / contact / location (brand hue) -->
     <color name="splash_sl_icon_green">#1E8E5A</color>    <!-- badge · protection -->
