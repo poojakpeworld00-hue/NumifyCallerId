@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Six tiles — the "display over other apps" row. Filled rather than stroked,
+     which is what separates it at a glance from the line icons above it. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="@color/ds_accent">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M5 4h2a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1H5a1 1 0 0 1 -1 -1V5a1 1 0 0 1 1 -1z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M11 4h2a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1V5a1 1 0 0 1 1 -1z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M17 4h2a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1V5a1 1 0 0 1 1 -1z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M5 10h2a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1H5a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M11 10h2a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M17 10h2a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1z" />
+</vector>

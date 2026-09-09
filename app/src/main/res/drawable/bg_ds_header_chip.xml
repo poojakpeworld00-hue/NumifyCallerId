@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 40dp rounded-square behind a header's secondary action (filter, settings).
+     Neutral rather than branded: these sit beside a display title and must not
+     compete with the screen's one primary action. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_nav_chip_idle" />
+    <corners android:radius="12dp" />
+</shape>

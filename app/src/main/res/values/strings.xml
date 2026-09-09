@@ -16,6 +16,7 @@
     <string name="splash_fraud_blocked">Fraud blocked</string>
     <string name="splash_avatar_initials" translatable="false">RS</string>
     <string name="splash_secure_version">Secure v%1$s</string>
+    <string name="splash_card_verified">Verified</string>
 
     <!-- Language -->
     <string name="language_title">Choose language</string>
@@ -55,6 +56,41 @@
     <string name="onboarding_title_3">Search any number</string>
     <string name="onboarding_desc_3">Enter any digits and get back the owner, network region and business in seconds.</string>
     <string name="onboarding_get_started">Get started</string>
+
+    <!-- Home's protection strip is one line in the redesign rather than a title over
+         a subtitle, so the two halves are joined here instead of at the view. -->
+    <string name="home_protection_on_line">Protection is on — spam calls are blocked automatically</string>
+    <string name="home_protection_off_line">Protection is off — spam calls will ring normally</string>
+    <!-- The design sets this over two lines ("Who\'s calling? Search / a number").
+         A single-line EditText clips rather than wraps, and making it multiline
+         would turn the IME's Search key into a newline — so the placeholder is
+         shortened to fit one line instead of being cut off mid-word. -->
+    <string name="home_search_placeholder">Search a number</string>
+
+    <!-- Onboarding headlines are set in two lines, the second in an accent colour.
+         They are stored split rather than as one string with markup so translators
+         get two short, self-contained phrases and the line break stays where the
+         design puts it. -->
+    <string name="onboarding_title_lead">Know who\'s</string>
+    <string name="onboarding_title_accent">calling</string>
+    <string name="onboarding_title_2_lead">Stop scam calls</string>
+    <string name="onboarding_title_2_accent">cold</string>
+    <string name="onboarding_title_3_lead">Search any</string>
+    <string name="onboarding_title_3_accent">number</string>
+
+    <!-- Sample content inside the onboarding illustrations. The labels translate;
+         the specimen names, initials and number do not — they are artwork. -->
+    <string name="onboarding_hero_incoming">Incoming call</string>
+    <string name="onboarding_hero_verified">Business · Verified</string>
+    <string name="onboarding_hero_blocked">Blocked call</string>
+    <string name="onboarding_hero_spam_tag">Spam · Robocall</string>
+    <string name="onboarding_hero_unknown">Unknown Number</string>
+    <string name="onboarding_hero_caller_initials" translatable="false">JA</string>
+    <string name="onboarding_hero_caller_name" translatable="false">John Anderson</string>
+    <string name="onboarding_hero_query" translatable="false">+1 415 555…</string>
+    <string name="onboarding_hero_lookup_initials" translatable="false">MJ</string>
+    <string name="onboarding_hero_lookup_name" translatable="false">Michael Johnson</string>
+    <string name="onboarding_hero_lookup_region" translatable="false">San Francisco, CA</string>
 
     <!-- Onboarding illustrations. These label a picture of the product, so the
          status labels translate; the sample caller, city and number are stand-in
@@ -113,7 +149,7 @@
     <string name="nav_recents">Recents</string>
     <string name="nav_contacts">Contacts</string>
     <string name="recents_subtitle">Your call history</string>
-    <string name="contacts_count_fmt">%1$d Contacts</string>
+    <string name="contacts_count_fmt">%1$d contacts</string>
     <string name="action_more">More</string>
     <string name="nav_lookup">Lookup</string>
     <string name="nav_blocklist">Blocklist</string>

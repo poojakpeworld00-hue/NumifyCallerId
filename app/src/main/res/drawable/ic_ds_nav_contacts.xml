@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Contacts tab: head and shoulders, filled. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0 -8z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M4 20c0 -4 3.6 -7 8 -7s8 3 8 7v0.5a1 1 0 0 1 -1 1H5a1 1 0 0 1 -1 -1V20z" />
+</vector>

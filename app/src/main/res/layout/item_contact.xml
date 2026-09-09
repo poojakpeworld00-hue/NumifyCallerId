@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- One contact row (design: Numify Contacts): a 44dp avatar, the name over the
+     number, and a tinted call disc on the trailing edge.
+
+     The avatar is a FrameLayout holding both the coloured initials and the real
+     photo, with the photo laid over the initials when one exists — that way a
+     contact without a picture still gets a solid, per-contact colour rather than a
+     grey placeholder, which is what the design draws.
+
+     dp/sp throughout, not sdp/ssp; see item_language.xml for why. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,23 +16,23 @@
     android:background="?attr/selectableItemBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingHorizontal="@dimen/_16sdp"
-    android:paddingVertical="@dimen/_7sdp">
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="13dp">
 
     <FrameLayout
-        android:layout_width="@dimen/_36sdp"
-        android:layout_height="@dimen/_36sdp">
+        android:layout_width="44dp"
+        android:layout_height="44dp">
 
         <TextView
             android:id="@+id/textAvatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_avatar"
-            android:backgroundTint="@color/primary_container"
+            android:background="@drawable/bg_ds_avatar_circle"
+            android:fontFamily="@font/mulish_bold"
             android:gravity="center"
-            android:textColor="@color/on_primary_container"
-            android:textSize="@dimen/_11ssp"
-            android:textStyle="bold"
+            android:includeFontPadding="false"
+            android:textColor="@color/ds_on_accent"
+            android:textSize="14sp"
             tools:text="AL" />
 
         <!-- Real contact photo, loaded over the initials when one exists -->
@@ -39,7 +48,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginStart="12dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -48,29 +57,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:fontFamily="@font/mulish_bold"
+            android:includeFontPadding="false"
             android:maxLines="1"
-            android:textColor="@color/on_surface"
-            android:textSize="@dimen/_11ssp"
-            android:textStyle="bold"
+            android:textColor="@color/ds_ink"
+            android:textSize="14.5sp"
             tools:text="Aisha Lawson" />
 
         <TextView
             android:id="@+id/textNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:textColor="@color/on_surface_variant"
-            android:textSize="@dimen/_10ssp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/mulish_semibold"
+            android:includeFontPadding="false"
+            android:textColor="@color/ds_ink_muted"
+            android:textSize="12sp"
             tools:text="+1 (415) 555-0178" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/buttonCall"
-        android:layout_width="@dimen/_32sdp"
-        android:layout_height="@dimen/_32sdp"
-        android:background="@drawable/bg_circle_surface"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/bg_ds_call_disc"
         android:contentDescription="@string/action_call"
-        android:padding="@dimen/_7sdp"
-        android:src="@drawable/ic_call"
-        app:tint="@color/primary" />
+        android:padding="10dp"
+        android:src="@drawable/ic_ds_phone"
+        app:tint="@color/ds_accent" />
 </LinearLayout>

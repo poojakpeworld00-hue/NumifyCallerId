@@ -1,20 +1,28 @@
 package com.numify.callerid.lookup.feature.language
 
+import androidx.annotation.ColorRes
+import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.feature.finder.CountryCatalog
 
 /**
  * A language the user can pick. [name], in English, and [nativeName] are proper
  * nouns shown identically whatever the current locale is, so they are constants
  * here. [flagIso] is the ISO-3166 alpha-2 code of the country whose flag stands
- * for this language in the list, rendered as an emoji flag by
- * [CountryCatalog.flag].
+ * for this language, rendered as an emoji flag by [CountryCatalog.flag].
+ *
+ * [chipColor] is the flat colour behind the row's two-letter [code]. The redesign
+ * leads each row with that chip rather than the flag: a language is not a country
+ * (Spanish, Portuguese and Arabic all span many), and emoji flags render
+ * differently or not at all depending on the OEM font. [flagIso] and [flag] are
+ * kept because the finder screens still show a real country.
  */
 data class LanguageOption(
     val tag: String,        // BCP-47 tag, e.g. "en", "es"
     val code: String,       // short badge, e.g. "EN"
     val name: String,       // English name
     val nativeName: String, // endonym
-    val flagIso: String     // country ISO-2 for the flag, e.g. "US", "IN"
+    val flagIso: String,    // country ISO-2 for the flag, e.g. "US", "IN"
+    @ColorRes val chipColor: Int = R.color.ds_accent,
 ) {
     /** Emoji flag for the row's leading edge. */
     val flag: String get() = CountryCatalog.flag(flagIso)
@@ -22,17 +30,17 @@ data class LanguageOption(
 
 object LocaleCatalog {
     val all: List<LanguageOption> = listOf(
-        LanguageOption("en", "EN", "English", "English", "US"),
-        LanguageOption("hi", "HI", "Hindi", "हिन्दी", "IN"),
-        LanguageOption("es", "ES", "Spanish", "Español", "ES"),
-        LanguageOption("fr", "FR", "French", "Français", "FR"),
-        LanguageOption("pt", "PT", "Portuguese", "Português", "PT"),
-        LanguageOption("th", "TH", "Thai", "ไทย", "TH"),
-        LanguageOption("zh", "ZH", "Chinese", "中文", "CN"),
-        LanguageOption("ja", "JA", "Japanese", "日本語", "JP"),
-        LanguageOption("ru", "RU", "Russian", "Русский", "RU"),
-        LanguageOption("vi", "VI", "Vietnamese", "Tiếng Việt", "VN"),
-        LanguageOption("tr", "TR", "Turkish", "Türkçe", "TR")
+        LanguageOption("en", "EN", "English", "English", "US", R.color.ds_lang_en),
+        LanguageOption("hi", "HI", "Hindi", "हिन्दी", "IN", R.color.ds_lang_hi),
+        LanguageOption("es", "ES", "Spanish", "Español", "ES", R.color.ds_lang_es),
+        LanguageOption("fr", "FR", "French", "Français", "FR", R.color.ds_lang_fr),
+        LanguageOption("pt", "PT", "Portuguese", "Português", "PT", R.color.ds_lang_pt),
+        LanguageOption("th", "TH", "Thai", "ไทย", "TH", R.color.ds_lang_th),
+        LanguageOption("zh", "ZH", "Chinese", "中文", "CN", R.color.ds_lang_zh),
+        LanguageOption("ja", "JA", "Japanese", "日本語", "JP", R.color.ds_lang_ja),
+        LanguageOption("ru", "RU", "Russian", "Русский", "RU", R.color.ds_lang_ru),
+        LanguageOption("vi", "VI", "Vietnamese", "Tiếng Việt", "VN", R.color.ds_lang_vi),
+        LanguageOption("tr", "TR", "Turkish", "Türkçe", "TR", R.color.ds_lang_tr)
     )
 
     private fun byTag(tag: String): LanguageOption? = all.firstOrNull { it.tag == tag }

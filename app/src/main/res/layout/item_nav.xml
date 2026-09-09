@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- One bottom-navigation cell: a 38dp rounded chip holding the tab's glyph, with
+     its label beneath.
+
+     The chip replaces the previous top indicator bar — the design carries the
+     selected state in the chip's fill and the label's weight rather than in a
+     separate rule, so there is nothing left for an indicator to do.
+
+     Both the chip's tint and the icon's are set from MainShellActivity: the active
+     accent is per tab, blue everywhere except Blocklist. -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -14,33 +23,25 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <!-- Top indicator bar; only visible on the selected tab. -->
-        <View
-            android:id="@+id/navIndicator"
-            android:layout_width="@dimen/_22sdp"
-            android:layout_height="@dimen/_3sdp"
-            android:background="@drawable/bg_nav_indicator"
-            android:visibility="invisible" />
-
         <ImageView
             android:id="@+id/navIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_24sdp"
-            android:layout_marginTop="@dimen/_7sdp"
-            android:paddingHorizontal="@dimen/_14sdp"
-            android:src="@drawable/navtab_home_unselected"
-            app:tint="@color/on_surface_variant"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/bg_ds_nav_chip"
+            android:padding="10dp"
+            android:src="@drawable/ic_ds_nav_recents"
+            app:tint="@color/ds_nav_idle"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/navLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_3sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
-            android:textColor="@color/on_surface_variant"
-            android:textSize="@dimen/_8ssp"
-            android:textStyle="bold"
-            tools:text="Home" />
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/mulish_semibold"
+            android:includeFontPadding="false"
+            android:textColor="@color/ds_nav_idle"
+            android:textSize="10sp"
+            tools:text="Recents" />
     </LinearLayout>
 </layout>

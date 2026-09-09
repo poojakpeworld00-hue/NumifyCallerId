@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Protection strip, inactive. Neutral rather than red: protection being off is a
+     state to fix, not a failure to alarm about. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_nav_chip_idle" />
+    <corners android:radius="14dp" />
+</shape>

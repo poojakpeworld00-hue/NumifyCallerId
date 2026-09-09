@@ -131,4 +131,60 @@
     <color name="cid_teal_100">#123230</color>
     <color name="cid_clay">#DE8B63</color>
     <color name="cid_clay_100">#3A2118</color>
+
+    <!-- ===== Redesign 2026 — dark counterpart =====
+         The handoff only draws a light treatment, so these are derived rather than
+         given. Two rules kept it honest:
+
+         1. Surfaces darken and ink inverts, but hues do not drift. A card is still
+            a card and the brand is still the brand.
+         2. The accent LIGHTENS. #2E5FE8 is a mid-blue that reads well on white and
+            muddies against a dark page, so the ramp shifts up a step; the deep and
+            bright ends move with it so gradients keep their direction.
+
+         `ds_on_accent` is deliberately absent: it is what sits ON a brand fill, and
+         a gradient pill is the same blue in both themes, so its label stays white.
+         Same for the language chips — those are the flags' own backdrop.
+
+         The splash is likewise untouched: `splash_cs_*` is a fixed branded surface
+         that is meant to look identical whatever the theme is. -->
+    <color name="ds_page">#0E1117</color>
+    <color name="ds_surface">#171B24</color>
+    <color name="ds_ink">#F2F4FA</color>
+    <color name="ds_ink_muted">#8A93A8</color>
+    <color name="ds_ink_subtle">#98A0B4</color>
+    <color name="ds_accent">#5B8CFF</color>
+    <color name="ds_accent_deep">#2E5FE8</color>
+    <color name="ds_accent_bright">#5B8CFF</color>
+    <color name="ds_accent_on_tint">#9DB4FF</color>
+    <color name="ds_selected_tint">#1B2440</color>
+    <color name="ds_rule">#262C3A</color>
+    <color name="ds_divider">#222834</color>
+    <color name="ds_check_idle">#3A4256</color>
+    <color name="ds_card_shadow">#66000000</color>
+    <!-- A tinted glow reads as haze on a dark page; the lift comes from a plain
+         black shadow instead. -->
+    <color name="ds_accent_shadow">#8C000000</color>
+
+    <!-- Onboarding heroes -->
+    <color name="ds_hero_blue_wash">#16203A</color>
+    <color name="ds_hero_blue_border">#24304F</color>
+    <color name="ds_hero_red_wash">#2A1719</color>
+    <color name="ds_hero_red_border">#4A2226</color>
+    <color name="ds_danger">#F0736F</color>
+    <color name="ds_danger_tint">#3A1F21</color>
+    <color name="ds_success">#38B47C</color>
+    <color name="ds_field_border">#2A3352</color>
+    <color name="ds_placeholder">#6A7285</color>
+    <color name="ds_track_idle">#3A4256</color>
+    <color name="ds_rail">#222834</color>
+    <color name="ds_chip_ink">#C3C9D6</color>
+    <color name="ds_success_wash">#14291F</color>
+
+    <!-- Bottom navigation -->
+    <color name="ds_nav_chip_idle">#1E2430</color>
+    <color name="ds_nav_idle">#7B8398</color>
+    <color name="ds_nav_chip_active">#1B2440</color>
+    <color name="ds_nav_chip_danger">#3A1F21</color>
+    <color name="ds_nav_shadow">#80000000</color>
 </resources>

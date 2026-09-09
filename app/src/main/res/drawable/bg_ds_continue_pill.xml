@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Header action pill: `linear-gradient(135deg, #3466F0, #1F3FAE)` on a 24dp
+     radius. CSS 135deg travels down-and-right, which is Android's angle 315 —
+     one of the few CSS angles that lands exactly on the 45-degree step a shape
+     drawable allows, so no custom view is needed here. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:endColor="@color/ds_accent_deep"
+        android:startColor="@color/ds_accent_bright"
+        android:type="linear" />
+    <corners android:radius="24dp" />
+</shape>

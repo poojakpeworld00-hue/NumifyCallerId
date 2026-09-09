@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    The "block a number" form body: header, the number row (country chip + field),
-    and the two shortcut chips that fill that field.
+    The "block a number" form (design: Numify Blocklist).
 
-    Shared by the add dialog and the blocklist's empty state so the two cannot
-    drift apart. It carries no card background and no confirm button — those
-    belong to the host, because the dialog needs Cancel beside Block and the
-    empty state does not.
+    Header, then the country picker and number field on one white row, then the two
+    ways to fill that field without typing. Shared verbatim between the empty
+    state's inline card and the add dialog, so the two cannot drift apart — which is
+    why the Block action itself is NOT here: the card and the dialog each own their
+    own confirm.
+
+    Every id is unchanged (buttonCountry, textFlag, textDialCode, inputNumber,
+    buttonFromContacts, buttonFromRecents); only the surface is new.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,194 +18,192 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <!-- ===== Header ===== -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="@dimen/_38sdp"
-            android:layout_height="@dimen/_38sdp"
-            android:background="@drawable/bg_block_icon_chip"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_ds_block_tile"
             android:contentDescription="@null"
-            android:padding="@dimen/_9sdp"
-            android:src="@drawable/ic_block_circle"
-            app:tint="@color/danger" />
+            android:padding="12dp"
+            android:src="@drawable/ic_ds_block_slash"
+            app:tint="@color/ds_danger" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginStart="12dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:includeFontPadding="false"
+                android:fontFamily="@font/space_grotesk_bold"
                 android:text="@string/blocklist_add_title"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_14ssp"
-                android:textStyle="bold" />
+                android:textColor="@color/ds_ink"
+                android:textSize="16.5sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:includeFontPadding="false"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/mulish_semibold"
                 android:text="@string/blocklist_add_sub"
-                android:textColor="@color/on_surface_variant"
-                android:textSize="@dimen/_10ssp" />
+                android:textColor="@color/ds_ink_muted"
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 
-    <!-- ===== Number row: country chip + field ===== -->
+    <!-- Country picker and number, on one field. The 6dp padding is what lets the
+         picker read as a chip sitting inside the field rather than beside it. -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_44sdp"
-        android:layout_marginTop="@dimen/_14sdp"
-        android:background="@drawable/bg_block_field"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_ds_inner_field"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="@dimen/_6sdp"
-        android:paddingEnd="@dimen/_12sdp">
+        android:padding="6dp">
 
         <LinearLayout
             android:id="@+id/buttonCountry"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_32sdp"
+            android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
-            android:contentDescription="@string/blocklist_country_code"
             android:focusable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/_6sdp">
+            android:paddingStart="10dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp">
 
-            <!-- Fixed height + centre gravity on both: an emoji flag's font
-                 metrics do not match the Latin dial code beside it, so with
-                 wrap_content the two optical centres never line up. -->
             <TextView
                 android:id="@+id/textFlag"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_22sdp"
-                android:gravity="center"
+                android:layout_height="wrap_content"
                 android:includeFontPadding="false"
-                android:textSize="@dimen/_11ssp"
+                android:textSize="15dp"
+                tools:ignore="SpUsage"
                 tools:text="🇮🇳" />
 
             <TextView
                 android:id="@+id/textDialCode"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_22sdp"
-                android:layout_marginStart="@dimen/_4sdp"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_12ssp"
-                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/mulish_bold"
+                android:textColor="@color/ds_ink"
+                android:textSize="13.5sp"
                 tools:text="+91" />
 
             <ImageView
-                android:layout_width="@dimen/_12sdp"
-                android:layout_height="@dimen/_12sdp"
-                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="4dp"
                 android:contentDescription="@null"
-                android:src="@drawable/ic_caret_down"
-                app:tint="@color/on_surface_variant" />
+                android:src="@drawable/ic_ds_chevron_down"
+                app:tint="@color/ds_ink_muted" />
         </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="18dp"
+            android:background="@color/ds_rail" />
 
         <EditText
             android:id="@+id/inputNumber"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:background="@null"
+            android:fontFamily="@font/mulish_semibold"
             android:hint="@string/blocklist_add_hint"
             android:importantForAutofill="no"
             android:inputType="phone"
             android:maxLines="1"
-            android:singleLine="true"
-            android:textColor="@color/on_surface"
-            android:textColorHint="@color/on_surface_variant"
-            android:textCursorDrawable="@null"
-            android:textSize="@dimen/_12ssp" />
+            android:paddingVertical="8dp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/ds_ink"
+            android:textColorHint="@color/ds_placeholder"
+            android:textSize="13.5sp"
+            tools:ignore="RtlSymmetry" />
     </LinearLayout>
 
-    <!-- ===== Fill-from shortcuts ===== -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="10dp"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/buttonFromContacts"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_38sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/bg_block_source_chip"
+            android:background="@drawable/bg_ds_source_button"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp">
 
             <ImageView
-                android:layout_width="@dimen/_14sdp"
-                android:layout_height="@dimen/_14sdp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:contentDescription="@null"
-                android:src="@drawable/ic_group"
-                app:tint="@color/primary" />
+                android:src="@drawable/ic_ds_person"
+                app:tint="@color/ds_accent" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:ellipsize="end"
-                android:includeFontPadding="false"
-                android:maxLines="1"
+                android:layout_marginStart="6dp"
+                android:fontFamily="@font/mulish_bold"
                 android:text="@string/blocklist_method_contacts_title"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_11ssp"
-                android:textStyle="bold" />
+                android:textColor="@color/ds_ink"
+                android:textSize="12.5sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/buttonFromRecents"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_38sdp"
-            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:background="@drawable/bg_block_source_chip"
+            android:background="@drawable/bg_ds_source_button"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp">
 
             <ImageView
-                android:layout_width="@dimen/_14sdp"
-                android:layout_height="@dimen/_14sdp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:contentDescription="@null"
-                android:src="@drawable/ic_history"
-                app:tint="@color/primary" />
+                android:src="@drawable/ic_ds_clock"
+                app:tint="@color/ds_accent" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:ellipsize="end"
-                android:includeFontPadding="false"
-                android:maxLines="1"
+                android:layout_marginStart="6dp"
+                android:fontFamily="@font/mulish_bold"
                 android:text="@string/blocklist_from_recents"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_11ssp"
-                android:textStyle="bold" />
+                android:textColor="@color/ds_ink"
+                android:textSize="12.5sp" />
         </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

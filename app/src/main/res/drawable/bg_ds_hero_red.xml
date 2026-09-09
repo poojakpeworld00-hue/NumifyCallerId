@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Onboarding hero card, "blocked" variant. Same geometry as bg_ds_hero_blue in
+     the danger ramp: `linear-gradient(155deg,#FDEEEE,#F6F8FC)` over #FADADA. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:endColor="@color/ds_page"
+        android:startColor="@color/ds_hero_red_wash"
+        android:type="linear" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/ds_hero_red_border" />
+    <corners android:radius="22dp" />
+</shape>

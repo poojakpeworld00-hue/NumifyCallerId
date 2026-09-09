@@ -29,6 +29,7 @@ import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.feature.MainShellActivity
 import com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig
 import com.numify.callerid.lookup.feature.overlay.OverlayPermissionUtils
+import com.numify.callerid.lookup.common.RowEntrance
 import com.numify.callerid.lookup.common.WindowInsetsHelper
 
 /**
@@ -110,7 +111,9 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
             rowView.findViewById<ImageView>(R.id.imageIcon).setImageResource(row.icon)
             rowView.findViewById<TextView>(R.id.textTitle).setText(row.title)
             rowView.findViewById<TextView>(R.id.textDesc).setText(row.desc)
-            rowView.findViewById<TextView>(R.id.buttonAllow).setOnClickListener { requestSingle(row) }
+            // Typed as View, not TextView: the redesign's grant control is an
+            // ImageView carrying a plus glyph rather than an "Allow" label.
+            rowView.findViewById<View>(R.id.buttonAllow).setOnClickListener { requestSingle(row) }
             // Granted (and permanently-denied engine rows) are hidden entirely.
             rowView.visibility = if (shouldHideRow(row)) View.GONE else View.VISIBLE
             rowsContainer.addView(rowView)
@@ -121,6 +124,8 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
             context?.recordEvent("PermissionSheet_NotNow")
             finishFlow()
         }
+
+        playEntrance(root, rowsContainer)
 
         context?.recordEvent("PermissionSheet_Show")
         return root
@@ -232,6 +237,35 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
      * reached after the second refusal from *any* screen. Call log, contacts and
      * overlay stay on screen until they are granted.
      */
+    /**
+     * The sheet's entrance, from the design's keyframes.
+     *
+     * Each step fades up 10dp on a 70ms stagger starting at 120ms, and the footer
+     * follows at 420ms. Only rows that are actually on screen take part — a row
+     * whose permission is already granted is GONE, and animating it would leave a
+     * hole in the cascade where a hidden row's slot used to be.
+     *
+     * The design also slides the whole sheet up 40px as it appears. That is not
+     * reproduced here because BottomSheetDialog already performs exactly that
+     * entrance itself; adding a second one would play the move twice.
+     */
+    private fun playEntrance(root: View, rowsContainer: LinearLayout) {
+        val visibleRows = (0 until rowsContainer.childCount)
+            .map { rowsContainer.getChildAt(it) }
+            .filter { it.visibility == View.VISIBLE }
+
+        RowEntrance.playStaggered(
+            views = visibleRows,
+            startDelayMs = STEP_START_MS,
+            stepMs = STEP_STAGGER_MS,
+        )
+
+        listOfNotNull(
+            root.findViewById<View>(R.id.buttonContinue),
+            root.findViewById<View>(R.id.buttonNotNow),
+        ).forEach { RowEntrance.play(it, FOOTER_DELAY_MS, riseUnits = SHEET_RISE_UNITS) }
+    }
+
     private fun shouldHideRow(row: Row): Boolean {
         if (isGranted(row)) return true
         if (!row.engineManaged) return false
@@ -328,6 +362,15 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
 
     companion object {
         const val TAG = "permission_sheet"
+
+        // Entrance timings, from the sheet design's `.step1`…`.step4` and
+        // `.footer-in` animation-delay values.
+        private const val STEP_START_MS = 120L
+        private const val STEP_STAGGER_MS = 70L
+        private const val FOOTER_DELAY_MS = 420L
+
+        /** `translateY(10px)` — the sheet's fadeUp travel, in design units. */
+        private const val SHEET_RISE_UNITS = 10f
 
         /**
          * True while at least one of the sheet's permissions is still ungranted.

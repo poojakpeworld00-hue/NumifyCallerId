@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.repository.ContactRecord
+import com.numify.callerid.lookup.common.AvatarPalette
 import com.numify.callerid.lookup.databinding.ItemContactBinding
 import com.numify.callerid.lookup.databinding.ItemSectionHeaderBinding
 
@@ -28,6 +29,10 @@ class ContactListAdapter(
 
     override fun getItemViewType(position: Int): Int =
         if (rows[position] is ContactRowUi.Header) TYPE_HEADER else TYPE_CONTACT
+
+    /** Lets the divider decoration skip the boundaries either side of a letter. */
+    fun isHeader(position: Int): Boolean =
+        position in rows.indices && rows[position] is ContactRowUi.Header
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -52,7 +57,7 @@ class ContactListAdapter(
         fun bind(letter: String) {
             binding.textHeader.text = letter
             binding.textHeader.setTextColor(
-                ContextCompat.getColor(binding.root.context, R.color.primary)
+                ContextCompat.getColor(binding.root.context, R.color.ds_ink)
             )
         }
     }
@@ -62,6 +67,10 @@ class ContactListAdapter(
         fun bind(row: ContactRowUi.Item) {
             val c = row.contact
             binding.textAvatar.text = c.initials
+            // Every avatar takes its own colour, keyed off the contact so it stays
+            // the same person's colour on every launch.
+            binding.textAvatar.backgroundTintList =
+                AvatarPalette.tintFor(binding.root.context, c.name.ifEmpty { c.detail })
             binding.textName.text = c.name
             binding.textNumber.text = c.detail
             loadContactPhoto(c)

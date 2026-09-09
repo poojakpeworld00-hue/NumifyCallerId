@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Grouped card: white, 18dp radius. The design pairs it with
+     `box-shadow: 0 6px 20px rgba(20,30,60,0.06)`, which the layout supplies via
+     elevation + outlineSpotShadowColor rather than a baked-in shadow, so the card
+     casts a real shadow that tracks its rounded outline. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_surface" />
+    <corners android:radius="18dp" />
+</shape>

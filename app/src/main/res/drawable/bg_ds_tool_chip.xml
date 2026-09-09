@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 42dp rounded-square behind a tool's glyph. The fill is a placeholder: each tool
+     tints it from ToolboxFragment's own palette. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_selected_tint" />
+    <corners android:radius="13dp" />
+</shape>

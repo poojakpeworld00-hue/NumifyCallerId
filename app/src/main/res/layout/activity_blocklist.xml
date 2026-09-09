@@ -9,8 +9,8 @@
         android:id="@+id/blocklistRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
-        tools:context=".screen.spamlist.BlockedNumbersFragment">
+        android:background="@color/ds_page"
+        tools:context=".feature.blocklist.BlockedNumbersFragment">
 
         <!-- Top bar -->
         <LinearLayout
@@ -19,8 +19,9 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:paddingVertical="@dimen/_8sdp"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="14dp"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -31,16 +32,16 @@
                 android:contentDescription="@string/onboarding_skip"
                 android:padding="@dimen/_5sdp"
                 android:src="@drawable/ic_arrow_back"
-                app:tint="@color/on_surface" />
+                app:tint="@color/ds_ink" />
 
             <TextView
+                android:id="@+id/textBlocklistTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_2sdp"
+                android:fontFamily="@font/space_grotesk_bold"
                 android:text="@string/blocklist_title"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_14ssp"
-                android:textStyle="bold" />
+                android:textColor="@color/ds_ink"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <!-- ===== POPULATED ===== -->
@@ -94,21 +95,27 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Mid-native ad slot, top of the tab. Anchored to crownBar, NOT to
-             summaryStripVw: the strip belongs to populatedGroupVw and goes GONE on
-             an empty list, which collapsed this slot up into the empty state and
-             drew the two on top of each other. Both the populated strip and the
-             empty state now flow *below* this slot instead. -->
+        <!-- Mid-native ad slot. It sits BELOW the empty column, which is where the
+             design puts it: block card, then the "nothing blocked yet" note, then
+             the ad.
+
+             It is anchored to emptyScroll rather than to the note itself so that one
+             slot serves both states. On a populated list emptyScroll is GONE, and a
+             gone widget collapses to a point at its own resolved top — which is the
+             bottom of topBar — so the ad lands directly under the toolbar and
+             summaryStrip flows below it, exactly as it did before. Anchoring to
+             summaryStrip instead would collapse the slot INTO the empty state and
+             draw the two on top of each other. -->
         <FrameLayout
             android:id="@+id/adNativeFrame"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_14sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topBar">
+            app:layout_constraintTop_toBottomOf="@id/emptyScroll">
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/adShimmer"
@@ -170,60 +177,33 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/emptyScroll"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:clipToPadding="false"
-            android:paddingBottom="@dimen/_12sdp"
             android:visibility="gone"
+            app:layout_constrainedHeight="true"
             app:layout_constraintBottom_toTopOf="@id/adBannerDivider"
-            app:layout_constraintTop_toBottomOf="@id/adNativeFrame">
+            app:layout_constraintTop_toBottomOf="@id/topBar"
+            app:layout_constraintVertical_bias="0">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/_20sdp">
+                android:paddingHorizontal="20dp">
 
-                <com.numify.callerid.lookup.feature.widgets.RippleIconView
-                    android:id="@+id/emptyIcon"
-                    android:layout_width="@dimen/_74sdp"
-                    android:layout_height="@dimen/_74sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    app:ripple_disc="@drawable/bg_empty_circle_spam"
-                    app:ripple_icon="@drawable/ic_block_circle"
-                    app:ripple_iconSize="@dimen/_32sdp"
-                    app:ripple_ring="@drawable/bg_ring_spam" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:text="@string/blocklist_empty"
-                    android:textColor="@color/on_surface"
-                    android:textSize="@dimen/_14ssp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:gravity="center"
-                    android:text="@string/blocklist_empty_subtitle"
-                    android:textColor="@color/on_surface_variant"
-                    android:textSize="@dimen/_11ssp" />
-
-                <!-- Empty state carries the add form itself, not a menu that opens
-                     it: with nothing blocked yet the only thing to do here is add
-                     the first number, so make it typable on the spot. Same
-                     part_block_add_form as the dialog, so the two cannot drift. -->
+                <!-- The action card leads the screen. With nothing blocked yet the
+                     only useful thing here is adding the first number, so it is
+                     typable on the spot rather than behind a menu — and the
+                     "nothing here" note is demoted to a quiet line beneath it
+                     instead of being the hero. Same include as the add dialog, so
+                     the two cannot drift. -->
                 <LinearLayout
                     android:id="@+id/emptyFormCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:background="@drawable/bg_row_neutral"
+                    android:background="@drawable/bg_ds_hero_red"
                     android:orientation="vertical"
-                    android:padding="@dimen/_14sdp">
+                    android:padding="18dp">
 
                     <include
                         android:id="@+id/emptyForm"
@@ -234,15 +214,64 @@
                     <TextView
                         android:id="@+id/buttonEmptyBlock"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_44sdp"
-                        android:layout_marginTop="@dimen/_14sdp"
-                        android:background="@drawable/bg_btn_danger"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_ds_block_cta"
+                        android:fontFamily="@font/mulish_bold"
                         android:foreground="?attr/selectableItemBackground"
                         android:gravity="center"
+                        android:paddingVertical="13dp"
                         android:text="@string/action_block"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_12ssp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/ds_on_accent"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <!-- Deliberately understated: an empty blocklist is a good state,
+                     not an error, so this reports it rather than dramatising it. -->
+                <LinearLayout
+                    android:id="@+id/emptyNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="4dp"
+                    android:paddingVertical="14dp">
+
+                    <ImageView
+                        android:id="@+id/emptyIcon"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:background="@drawable/bg_ds_empty_disc"
+                        android:contentDescription="@null"
+                        android:padding="11dp"
+                        android:src="@drawable/ic_ds_block_slash"
+                        app:tint="@color/ds_nav_idle" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mulish_bold"
+                            android:text="@string/blocklist_empty"
+                            android:textColor="@color/ds_ink"
+                            android:textSize="13.5sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            android:fontFamily="@font/mulish_semibold"
+                            android:text="@string/blocklist_empty_subtitle"
+                            android:textColor="@color/ds_ink_muted"
+                            android:textSize="11.5sp" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

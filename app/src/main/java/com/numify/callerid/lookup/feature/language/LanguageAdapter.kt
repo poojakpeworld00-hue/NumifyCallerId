@@ -1,11 +1,13 @@
 package com.numify.callerid.lookup.feature.language
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.numify.callerid.lookup.R
+import com.numify.callerid.lookup.common.RowEntrance
 import com.numify.callerid.lookup.databinding.ItemLanguageBinding
 
 class LanguageAdapter(
@@ -18,10 +20,24 @@ class LanguageAdapter(
     /** The language currently applied; its row shows "Current language". */
     private var currentTag: String = ""
 
+    /**
+     * How far into the screen's stagger this list starts, in rows.
+     *
+     * The design runs one continuous 60ms cascade down the page rather than
+     * restarting it per card — its "all languages" rows begin at `60 * (i + 2)`,
+     * picking up exactly where the two suggested rows left off. Setting this on
+     * the second list reproduces that.
+     */
+    var staggerOffset: Int = 0
+
+    /** Positions whose entrance has already run, so scrolling back does not replay it. */
+    private val entranceShown = mutableSetOf<Int>()
+
     @SuppressLint("NotifyDataSetChanged")
     fun submitList(list: List<LanguageOption>) {
         items.clear()
         items.addAll(list)
+        entranceShown.clear()
         notifyDataSetChanged()
     }
 
@@ -57,22 +73,46 @@ class LanguageAdapter(
         val selected = item.tag == selectedTag
         with(holder.binding) {
             val ctx = root.context
-            textFlag.text = item.flag
+
+            // Country flag on the language's own colour.
+            textChip.text = item.flag
+            textChip.backgroundTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(ctx, item.chipColor))
+
             textNative.text = item.nativeName
             textName.text =
                 if (item.tag == currentTag) ctx.getString(R.string.language_current)
                 else item.name
-            // Native name leads; on the selected (primaryContainer) row it takes the
-            // on-container color so contrast holds in both light and dark.
+
+            // On the tinted row both lines shift into the brand ramp, which is what
+            // keeps the pair legible against #EAF0FE instead of only the top line.
             textNative.setTextColor(
+                ContextCompat.getColor(ctx, if (selected) R.color.ds_accent else R.color.ds_ink)
+            )
+            textName.setTextColor(
                 ContextCompat.getColor(
-                    ctx, if (selected) R.color.on_primary_container else R.color.on_surface
+                    ctx, if (selected) R.color.ds_accent_on_tint else R.color.ds_ink_muted
                 )
             )
-            // Selection tint (row) + filled radio are both driven by activated state.
+
+            // Row wash and filled checkbox are both driven by activated state.
             root.isActivated = selected
-            radio.isActivated = selected
+            checkBox.isActivated = selected
+
+            // First time this row is bound it rides in on the cascade; after that it
+            // sits still, so scrolling the long list back up does not re-animate it.
+            if (entranceShown.add(position)) {
+                RowEntrance.play(root, RowEntrance.STAGGER_MS * (position + staggerOffset))
+            } else {
+                RowEntrance.reset(root)
+            }
         }
+    }
+
+    override fun onViewRecycled(holder: VH) {
+        super.onViewRecycled(holder)
+        // A recycled row must not carry a half-played entrance into its next use.
+        RowEntrance.reset(holder.binding.root)
     }
 
     override fun getItemCount(): Int = items.size

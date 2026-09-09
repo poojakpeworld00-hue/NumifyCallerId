@@ -1,56 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- One onboarding page: floating illustration card, headline, and body copy,
-     packed and centred. The art layout is inflated into artContainer. -->
+<!-- One onboarding page: the hero card, then a left-aligned two-line headline and
+     its supporting copy.
+
+     The design breaks from the app's previous centred layout deliberately — the
+     copy is ragged-right against the left margin, and the headline's second line
+     carries the page's accent colour (blue, or red on the scam page). The colour
+     split is applied as a span from IntroPagerAdapter rather than being two
+     TextViews, so the two lines share one text block and wrap together.
+
+     The art layout is inflated into artContainer. -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingHorizontal="@dimen/_20sdp">
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/artContainer"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_210sdp"
-        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:clipChildren="false"
         android:clipToPadding="false"
-        app:layout_constraintBottom_toTopOf="@id/textTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textTitle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_26sdp"
-        android:gravity="center"
-        android:letterSpacing="-0.02"
-        android:textColor="@color/on_surface"
-        android:textSize="@dimen/_20ssp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/textDesc"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="34dp"
+        android:fontFamily="@font/space_grotesk_bold"
+        android:lineSpacingMultiplier="1.15"
+        android:textColor="@color/ds_ink"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/artContainer"
-        tools:text="Know who's calling" />
+        tools:text="Know who's\ncalling" />
 
+    <!-- Capped short of the full width: the design keeps this column narrow so the
+         rag stays close to the headline above it rather than running the page.
+
+         The cap is layout_constraintWidth_max, not android:maxWidth — on a 0dp
+         (MATCH_CONSTRAINT) child the solver decides the width and TextView's own
+         maxWidth is never consulted. -->
     <TextView
         android:id="@+id/textDesc"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:gravity="center"
-        android:lineSpacingMultiplier="1.35"
-        android:paddingHorizontal="@dimen/_8sdp"
-        android:textColor="@color/on_surface_variant"
-        android:textSize="@dimen/_12ssp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="14dp"
+        android:fontFamily="@font/mulish_semibold"
+        android:lineSpacingMultiplier="1.55"
+        android:textColor="@color/ds_ink_subtle"
+        android:textSize="14.5sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_max="260dp"
         app:layout_constraintTop_toBottomOf="@id/textTitle"
-        tools:text="Instantly identify unknown numbers and block spam." />
+        tools:text="See the name, company and region behind an unknown number before you pick up." />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

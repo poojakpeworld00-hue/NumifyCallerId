@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Blocklist tab: a filled disc with the slash knocked out of it. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- evenOdd, not the default nonZero: the slash is cut out of the disc by two
+         counter-wound subpaths, and under nonZero winding they fill in instead of
+         knocking through, leaving a solid dot. -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0 -20zm5.7 5.3L6.3 18.7A8 8 0 0 0 17.7 7.3zM6.3 7.3A8 8 0 0 0 17.7 18.7L6.3 7.3z" />
+</vector>

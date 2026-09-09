@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/ds_page"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,8 +13,9 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/_16sdp"
-        android:paddingTop="@dimen/_10sdp">
+        android:paddingHorizontal="20dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="14dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -25,47 +26,47 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/space_grotesk_bold"
                 android:includeFontPadding="false"
-                android:letterSpacing="-0.03"
                 android:text="@string/home_caller_id"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_20ssp"
-                android:textStyle="bold" />
+                android:textColor="@color/ds_ink"
+                android:textSize="24sp" />
 
             <!-- Live counts, set from CallLogFragment. -->
             <TextView
                 android:id="@+id/textRecentsCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/mulish_semibold"
                 android:includeFontPadding="false"
-                android:textColor="@color/on_surface_variant"
-                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/ds_ink_muted"
+                android:textSize="13sp"
                 tools:text="32 calls · 14 missed" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/buttonRecentsFilter"
-            android:layout_width="@dimen/_36sdp"
-            android:layout_height="@dimen/_36sdp"
-            android:background="@drawable/bg_cid_pill_neutral"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_ds_header_chip"
             android:contentDescription="@string/filter_all"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:padding="@dimen/_9sdp"
+            android:padding="11dp"
             android:src="@drawable/ic_filter_list"
-            app:tint="@color/on_surface" />
+            app:tint="@color/ds_ink" />
 
         <ImageView
             android:id="@+id/buttonSettings"
-            android:layout_width="@dimen/_36sdp"
-            android:layout_height="@dimen/_36sdp"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:background="@drawable/bg_cid_pill_neutral"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_ds_header_chip"
             android:contentDescription="@string/nav_settings"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:padding="@dimen/_9sdp"
+            android:padding="11dp"
             android:src="@drawable/ic_settings"
-            app:tint="@color/on_surface" />
+            app:tint="@color/ds_ink" />
     </LinearLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -76,7 +77,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background"
+        android:background="@color/ds_page"
         android:stateListAnimator="@null"
         app:elevation="0dp"
         app:liftOnScroll="false">
@@ -102,66 +103,56 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/bg_cid_card"
-                android:elevation="@dimen/_1sdp"
-                android:outlineAmbientShadowColor="@color/card_shadow"
-                android:outlineSpotShadowColor="@color/card_shadow"
+                android:background="@drawable/bg_ds_protection_on"
                 android:clickable="true"
                 android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/_10sdp"
-                android:paddingVertical="@dimen/_10sdp">
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="12dp">
 
                 <ImageView
                     android:id="@+id/imageProtection"
-                    android:layout_width="@dimen/_36sdp"
-                    android:layout_height="@dimen/_36sdp"
-                    android:background="@drawable/bg_cid_chip_brand"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:contentDescription="@null"
-                    android:padding="@dimen/_7sdp"
-                    android:src="@drawable/ic_shield_check"
-                    app:tint="@color/on_surface_variant" />
+                    android:src="@drawable/ic_ds_shield_check" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/textProtectionTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_9sdp"
+                    android:layout_marginStart="12dp"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:fontFamily="@font/mulish_bold"
+                    android:lineSpacingMultiplier="1.25"
+                    android:text="@string/home_protection_off_line"
+                    android:textColor="@color/ds_success"
+                    android:textSize="12.5sp" />
 
-                    <TextView
-                        android:id="@+id/textProtectionTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/home_protection_off_title"
-                        android:textColor="@color/on_surface"
-                        android:textSize="@dimen/_11ssp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/textProtectionSub"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_1sdp"
-                        android:text="@string/home_protection_off_sub"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="@dimen/_9ssp" />
-                </LinearLayout>
+                <!-- The two-line form is gone; kept (and hidden) because
+                     CallLogFragment still sets it, and a status line reads better
+                     as one sentence than as a heading with a caption. -->
+                <TextView
+                    android:id="@+id/textProtectionSub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <TextView
                     android:id="@+id/buttonProtectionAction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:background="@drawable/bg_cid_cta_pill"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:paddingHorizontal="@dimen/_14sdp"
-                    android:paddingVertical="@dimen/_7sdp"
-                    android:text="@string/home_protection_turn_on"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_10ssp"
-                    android:textStyle="bold" />
+                    android:layout_marginStart="10dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:fontFamily="@font/mulish_bold"
+                    android:minHeight="32dp"
+                    android:gravity="center"
+                    android:text="@string/home_protection_manage"
+                    android:textColor="@color/ds_success"
+                    android:textSize="12.5sp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -186,7 +177,7 @@
                 android:layout_height="@dimen/_18sdp"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_shield_check"
-                app:tint="@color/primary" />
+                app:tint="@color/ds_accent" />
 
             <TextView
                 android:layout_width="0dp"
@@ -194,7 +185,7 @@
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_weight="1"
                 android:text="@string/home_perm_hint"
-                android:textColor="@color/on_surface"
+                android:textColor="@color/ds_ink"
                 android:textSize="@dimen/_10ssp" />
 
             <TextView
@@ -215,29 +206,14 @@
             android:id="@+id/cardLookup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/bg_lookup_card"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/_14sdp"
-            android:paddingVertical="@dimen/_13sdp">
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:letterSpacing="-0.01"
-                android:text="@string/home_whos_calling"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_12ssp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:text="@string/home_whos_calling_sub"
-                android:textColor="@color/on_surface_variant"
-                android:textSize="@dimen/_9ssp" />
+            <!-- No heading above the field any more: the design folds the question
+                 into the placeholder ("Who\'s calling? Search a number") and lets
+                 the row stand on its own, which is what keeps the top of Home to a
+                 title, a field and a status line instead of three stacked cards. -->
 
             <!-- Search and Ask AI share a row: asking about a number and
                  searching for one are the same intent, so they read as a pair.
@@ -246,7 +222,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_11sdp"
                 android:baselineAligned="false"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -255,12 +230,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/bg_lookup_field"
+                android:background="@drawable/bg_ds_home_field"
+                android:elevation="4dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingStart="@dimen/_6sdp"
-                android:paddingEnd="@dimen/_6sdp"
-                android:paddingVertical="@dimen/_6sdp">
+                android:outlineAmbientShadowColor="@color/ds_card_shadow"
+                android:outlineSpotShadowColor="@color/ds_card_shadow"
+                android:padding="6dp">
 
                 <LinearLayout
                     android:id="@+id/columnHomeCountry"
@@ -294,7 +270,7 @@
                         android:layout_marginStart="@dimen/_4sdp"
                         android:gravity="center"
                         android:includeFontPadding="false"
-                        android:textColor="@color/on_surface"
+                        android:textColor="@color/ds_ink"
                         android:textSize="@dimen/_11ssp"
                         android:textStyle="bold"
                         tools:text="+91" />
@@ -307,7 +283,7 @@
                         android:layout_marginStart="@dimen/_3sdp"
                         android:contentDescription="@null"
                         android:src="@drawable/ic_caret_down"
-                        app:tint="@color/on_surface_variant" />
+                        app:tint="@color/ds_ink_muted" />
                 </LinearLayout>
 
                 <View
@@ -315,7 +291,7 @@
                     android:layout_height="@dimen/_20sdp"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_9sdp"
-                    android:background="@color/outline" />
+                    android:background="@color/ds_rule" />
 
                 <EditText
                     android:id="@+id/inputSearch"
@@ -323,68 +299,66 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="@string/home_search_any"
+                    android:fontFamily="@font/mulish_semibold"
+                    android:hint="@string/home_search_placeholder"
                     android:imeOptions="actionSearch"
                     android:importantForAutofill="no"
+                    android:includeFontPadding="false"
                     android:inputType="text"
-                    android:maxLines="1"
-                    android:textColor="@color/on_surface"
-                    android:textColorHint="@color/on_surface_variant"
-                    android:textSize="@dimen/_11ssp" />
+                    android:lineSpacingMultiplier="1.15"
+                    android:paddingHorizontal="2dp"
+                    android:textColor="@color/ds_ink"
+                    android:textColorHint="@color/ds_placeholder"
+                    android:textSize="13.5sp"
+                    tools:ignore="TextFields" />
 
                 <ImageView
                     android:id="@+id/buttonClearSearch"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/action_cancel"
                     android:padding="@dimen/_5sdp"
                     android:src="@drawable/ic_close"
                     android:visibility="gone"
-                    app:tint="@color/on_surface_variant" />
+                    app:tint="@color/ds_ink_muted" />
 
                 <ImageView
                     android:id="@+id/buttonHomeSearch"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
-                    android:layout_marginStart="@dimen/_4sdp"
-                    android:background="@drawable/bg_circle_primary"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/bg_ds_search_square"
                     android:contentDescription="@string/lookup_hint"
-                    android:padding="@dimen/_8sdp"
-                    android:src="@drawable/ic_search"
-                    app:tint="@color/on_primary" />
+                    android:padding="9dp"
+                    android:src="@drawable/ic_ds_search"
+                    app:tint="@color/ds_on_accent" />
             </LinearLayout>
 
-                <LinearLayout
+                <!-- Icon-only, as the design draws it. The label is carried by
+                     contentDescription for screen readers and by the first-run
+                     tooltip below for everyone else, so dropping it costs nothing. -->
+                <com.numify.callerid.lookup.feature.widgets.AiTileView
                     android:id="@+id/buttonAskAi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_7sdp"
-                    android:background="@drawable/bg_ai_pill"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:clickable="true"
+                    android:contentDescription="@string/ai_ask_button"
+                    android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:paddingVertical="@dimen/_9sdp"
+                    android:outlineAmbientShadowColor="@color/ds_fab_shadow"
+                    android:outlineSpotShadowColor="@color/ds_fab_shadow"
                     android:visibility="gone">
 
                     <ImageView
-                        android:layout_width="@dimen/_13sdp"
-                        android:layout_height="@dimen/_13sdp"
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:layout_gravity="center"
                         android:contentDescription="@null"
                         android:src="@drawable/ic_ai_sparkle"
-                        app:tint="@color/on_primary" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:includeFontPadding="false"
-                        android:text="@string/ai_ask_button"
-                        android:textColor="@color/on_primary"
-                        android:textSize="@dimen/_9ssp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        app:tint="@color/ds_on_accent" />
+                </com.numify.callerid.lookup.feature.widgets.AiTileView>
             </LinearLayout>
 
             <!-- First-run only, 3s, then never again. Right-aligned so it points
@@ -399,7 +373,7 @@
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:paddingVertical="@dimen/_6sdp"
                 android:text="@string/ai_tooltip_first_run"
-                android:textColor="@color/background"
+                android:textColor="@color/ds_page"
                 android:textSize="@dimen/_9ssp"
                 android:visibility="gone" />
         </LinearLayout>
@@ -436,7 +410,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:letterSpacing="-0.01"
             android:text="@string/home_recent_label"
-            android:textColor="@color/on_surface"
+            android:textColor="@color/ds_ink"
             android:textSize="@dimen/_13ssp"
             android:textStyle="bold" />
 
@@ -504,7 +478,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/recents_empty"
-            android:textColor="@color/on_surface_variant"
+            android:textColor="@color/ds_ink_muted"
             android:textSize="@dimen/_12ssp"
             android:visibility="gone" />
 
@@ -521,8 +495,8 @@
             android:focusable="true"
             android:gravity="center"
             android:orientation="horizontal"
-            android:outlineAmbientShadowColor="@color/card_shadow"
-            android:outlineSpotShadowColor="@color/card_shadow"
+            android:outlineAmbientShadowColor="@color/ds_card_shadow"
+            android:outlineSpotShadowColor="@color/ds_card_shadow"
             android:paddingHorizontal="@dimen/_18sdp"
             android:paddingVertical="@dimen/_12sdp">
 
@@ -559,14 +533,14 @@
                 android:contentDescription="@string/perm_calllog_title"
                 android:padding="@dimen/_16sdp"
                 android:src="@drawable/ic_history"
-                app:tint="@color/primary" />
+                app:tint="@color/ds_accent" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_14sdp"
                 android:text="@string/perm_calllog_title"
-                android:textColor="@color/on_surface"
+                android:textColor="@color/ds_ink"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
 
@@ -576,7 +550,7 @@
                 android:layout_marginTop="@dimen/_6sdp"
                 android:gravity="center"
                 android:text="@string/perm_calllog_message"
-                android:textColor="@color/on_surface_variant"
+                android:textColor="@color/ds_ink_muted"
                 android:textSize="@dimen/_11ssp" />
 
             <TextView

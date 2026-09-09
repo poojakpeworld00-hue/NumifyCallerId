@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Protection strip, active: a soft green wash. Deliberately not a white card —
+     this is a status line, and giving it the same surface as the content cards
+     would make a passive statement look like something to act on. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_success_wash" />
+    <corners android:radius="14dp" />
+</shape>

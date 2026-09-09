@@ -95,7 +95,13 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
         //    initObservers), so they render the region-correct list immediately.
         val onPick: (LanguageOption) -> Unit = { viewModel.select(it.tag) }
         suggestedAdapter = LanguageAdapter(onPick).apply { setCurrent(current) }
-        allAdapter = LanguageAdapter(onPick).apply { setCurrent(current) }
+        // The row cascade runs once down the whole page rather than restarting per
+        // card, so the "all languages" list picks the stagger up two rows in —
+        // exactly the `60 * (i + 2)` the design gives its own rows.
+        allAdapter = LanguageAdapter(onPick).apply {
+            setCurrent(current)
+            staggerOffset = SUGGESTED_ROW_COUNT
+        }
 
         binding.listSuggested.layoutManager = LinearLayoutManager(this)
         binding.listSuggested.adapter = suggestedAdapter
@@ -274,6 +280,9 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
 
     companion object {
         private const val TAG = "LanguagePickerActivity"
+
+        /** Rows in the "Suggested" card, which the second list's stagger follows on from. */
+        private const val SUGGESTED_ROW_COUNT = 2
         private const val EXTRA_STANDALONE = "extra_standalone"
 
         /** Standalone = opened from Settings to change language (returns on Continue). */

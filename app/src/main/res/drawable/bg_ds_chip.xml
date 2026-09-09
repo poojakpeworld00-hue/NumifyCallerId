@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Filter chip. Selected fills with the brand; the rest sit on the page colour,
+     which inside a white card reads as a soft recess rather than another surface. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_activated="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/ds_accent" />
+            <corners android:radius="11dp" />
+        </shape>
+    </item>
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/ds_accent" />
+            <corners android:radius="11dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/ds_page" />
+            <corners android:radius="11dp" />
+        </shape>
+    </item>
+</selector>

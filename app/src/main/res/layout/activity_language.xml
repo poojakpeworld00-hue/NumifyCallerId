@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Language — "Language + empty state".
-    Toolbar (back · title · info · filled confirm ✓) over two grouped cards:
-    a compact "Suggested" list and a scrollable "All languages" list, each row
-    56dp with the native name leading. Tapping a row previews the selection
-    (radio fills, row tints); the ✓ button confirms and applies. The native ad
-    stays pinned below the list as a standard labelled card — never mistakable
-    for the confirm action.
+    Language (design: Numify Language Screen).
+
+    A title block and a gradient "Continue" pill sit across the top, then two
+    grouped white cards — "Suggested" and "All languages" — each introduced by a
+    small-caps label with a rule running out to the edge. Rows carry a coloured
+    two-letter chip, the endonym over the English name, and a trailing checkbox;
+    the selected row takes a #EAF0FE wash. Rows fade and rise in on a 60ms stagger
+    (RowEntrance), which is the handoff's `.lang-row` keyframe.
+
+    Flow is untouched: the same two RecyclerViews, the same Continue button, and
+    the native ad still pinned below the list. Only the surface changed.
+
+    Sizes are the design's px carried straight over as dp. The project's sdp/ssp
+    scale is not 1:1 with dp — `_20sdp` is 24dp on a sw360dp phone — so using it
+    here would inflate the screen by a fifth against the design.
 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -18,48 +26,49 @@
         android:id="@+id/languageRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/_10sdp"
-        android:background="@color/background"
-        tools:context=".screen.locale.LanguagePickerActivity">
+        android:background="@color/ds_page"
+        tools:context=".feature.language.LanguagePickerActivity">
 
-        <!-- ===== Toolbar ===== -->
+        <!-- ===== Header ===== -->
         <ImageView
             android:id="@+id/buttonBack"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:visibility="gone"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/onboarding_skip"
             android:src="@drawable/ic_arrow_back"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/textTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/textTitle"
-            app:tint="@color/on_surface" />
+            app:tint="@color/ds_ink" />
 
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:letterSpacing="-0.01"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/space_grotesk_bold"
+            android:letterSpacing="0.0038"
             android:text="@string/language_title"
-            android:textColor="@color/on_surface"
-            android:textSize="@dimen/_17ssp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/buttonInfo"
-            app:layout_constraintStart_toEndOf="@id/buttonBack"
+            android:textColor="@color/ds_ink"
+            android:textSize="26sp"
+            app:layout_constraintEnd_toStartOf="@id/buttonContinue"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Which language is live right now — set from LanguagePickerActivity, so the
-             row the user is about to change is named before they change it. -->
+        <!-- Which language is live right now — set from LanguagePickerActivity, so
+             the row the user is about to change is named before they change it. -->
         <TextView
             android:id="@+id/textSubtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_1sdp"
-            android:textColor="@color/on_surface_variant"
-            android:textSize="@dimen/_11ssp"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/mulish_semibold"
+            android:textColor="@color/ds_ink_subtle"
+            android:textSize="13.5sp"
             app:layout_constraintEnd_toEndOf="@id/textTitle"
             app:layout_constraintStart_toStartOf="@id/textTitle"
             app:layout_constraintTop_toBottomOf="@id/textTitle"
@@ -67,37 +76,41 @@
 
         <ImageView
             android:id="@+id/buttonInfo"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/language_info_title"
-            android:padding="@dimen/_6sdp"
-            android:visibility="gone"
+            android:padding="6dp"
             android:src="@drawable/ic_info"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/buttonContinue"
             app:layout_constraintEnd_toStartOf="@id/buttonContinue"
             app:layout_constraintTop_toTopOf="@id/buttonContinue"
-            app:tint="@color/on_surface_variant" />
+            app:tint="@color/ds_ink_muted" />
 
-        <!-- Filled confirm pill. It carries a label, not just a glyph: this is the
-             only action on the screen, and a bare disc gave no clue what it did. -->
+        <!-- Gradient confirm pill. It carries a label, not just a glyph: this is
+             the only action on the screen. -->
         <TextView
             android:id="@+id/buttonContinue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:background="@drawable/bg_btn_primary"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_ds_continue_pill"
             android:drawableStart="@drawable/ic_check"
-            android:drawablePadding="@dimen/_4sdp"
+            android:drawablePadding="6dp"
+            android:elevation="8dp"
+            android:fontFamily="@font/mulish_bold"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
-            android:minHeight="@dimen/_32sdp"
-            android:paddingHorizontal="@dimen/_14sdp"
+            android:outlineAmbientShadowColor="@color/ds_accent_shadow"
+            android:outlineSpotShadowColor="@color/ds_accent_shadow"
+            android:paddingHorizontal="18dp"
+            android:paddingVertical="10dp"
             android:text="@string/language_continue"
-            android:textColor="@color/on_primary"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold"
-            app:drawableTint="@color/on_primary"
+            android:textColor="@color/ds_on_accent"
+            android:textSize="14sp"
+            app:drawableTint="@color/ds_on_accent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -117,7 +130,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"
-            android:paddingBottom="@dimen/_10sdp"
+            android:paddingHorizontal="20dp"
+            android:paddingBottom="32dp"
             app:layout_constraintBottom_toTopOf="@id/adNativeFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -126,94 +140,101 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:orientation="vertical">
 
-                <!-- Suggested -->
+                <!-- Suggested — the dot marks this as the recommended group -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_18sdp"
-                    android:layout_marginEnd="@dimen/_18sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <View
-                        android:layout_width="@dimen/_5sdp"
-                        android:layout_height="@dimen/_5sdp"
+                        android:layout_width="6dp"
+                        android:layout_height="6dp"
                         android:background="@drawable/bg_section_dot" />
 
                     <TextView
                         android:id="@+id/textSuggested"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:letterSpacing="0.08"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/mulish_bold"
+                        android:letterSpacing="0.1217"
                         android:text="@string/language_suggested"
                         android:textAllCaps="true"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="@dimen/_10ssp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/ds_ink_muted"
+                        android:textSize="11.5sp" />
 
                     <!-- Rule runs from the label to the edge, so the eye is carried
                          across the group it labels rather than stopping at the text. -->
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginStart="8dp"
                         android:layout_weight="1"
-                        android:background="@color/outline" />
+                        android:background="@color/ds_rule" />
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/listSuggested"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:background="@drawable/bg_search_pill"
+                    android:background="@drawable/bg_ds_card"
                     android:clipToOutline="true"
                     android:clipToPadding="false"
-                    android:elevation="@dimen/_1sdp"
+                    android:elevation="6dp"
                     android:nestedScrollingEnabled="false"
-                    android:outlineAmbientShadowColor="@color/card_shadow"
-                    android:outlineSpotShadowColor="@color/card_shadow"
+                    android:outlineAmbientShadowColor="@color/ds_card_shadow"
+                    android:outlineSpotShadowColor="@color/ds_card_shadow"
                     android:overScrollMode="never"
-                    android:paddingHorizontal="@dimen/_6sdp"
-                    android:paddingVertical="@dimen/_6sdp"
                     tools:itemCount="2"
                     tools:listitem="@layout/item_language" />
 
                 <!-- All languages -->
-                <TextView
-                    android:id="@+id/textAll"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_18sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:letterSpacing="0.08"
-                    android:text="@string/language_all"
-                    android:textAllCaps="true"
-                    android:textColor="@color/on_surface_variant"
-                    android:textSize="@dimen/_10ssp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/mulish_bold"
+                        android:letterSpacing="0.1217"
+                        android:text="@string/language_all"
+                        android:textAllCaps="true"
+                        android:textColor="@color/ds_ink_muted"
+                        android:textSize="11.5sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@color/ds_rule" />
+                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/listLanguages"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:background="@drawable/bg_search_pill"
+                    android:background="@drawable/bg_ds_card"
                     android:clipToOutline="true"
                     android:clipToPadding="false"
-                    android:elevation="@dimen/_1sdp"
+                    android:elevation="6dp"
                     android:nestedScrollingEnabled="false"
-                    android:outlineAmbientShadowColor="@color/card_shadow"
-                    android:outlineSpotShadowColor="@color/card_shadow"
+                    android:outlineAmbientShadowColor="@color/ds_card_shadow"
+                    android:outlineSpotShadowColor="@color/ds_card_shadow"
                     android:overScrollMode="never"
-                    android:paddingHorizontal="@dimen/_6sdp"
-                    android:paddingVertical="@dimen/_6sdp"
                     tools:listitem="@layout/item_language" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

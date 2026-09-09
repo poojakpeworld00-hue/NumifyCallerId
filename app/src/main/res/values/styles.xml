@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Filter chip, shared by Contacts and Recents (design: Numify Contacts).
+         Selected fills with the brand and its label goes white; the rest sit on the
+         page colour. Sized in dp/sp rather than sdp/ssp: that scale is not 1:1 with
+         dp, so the design's numbers would come out a fifth larger. -->
     <style name="RecentFilterTab">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginEnd">@dimen/_7sdp</item>
-        <item name="android:background">@drawable/bg_chip</item>
-        <item name="android:minHeight">@dimen/_32sdp</item>
-        <item name="android:paddingHorizontal">@dimen/_12sdp</item>
-        <item name="android:paddingVertical">@dimen/_5sdp</item>
-        <item name="android:textColor">@color/selector_filter_tab</item>
-        <item name="android:textSize">@dimen/_10ssp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:background">@drawable/bg_ds_chip</item>
+        <item name="android:paddingHorizontal">14dp</item>
+        <item name="android:paddingVertical">7dp</item>
+        <item name="android:textColor">@color/selector_ds_chip_text</item>
+        <item name="android:textSize">12.5sp</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:gravity">center</item>
-        <item name="android:drawablePadding">@dimen/_3sdp</item>
+        <item name="android:drawablePadding">5dp</item>
     </style>
 
     <!-- Dial-pad key cell (digit + letters), one per GridLayout column. -->

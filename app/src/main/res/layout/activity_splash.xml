@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Splash — "Scanline" (design: Splash Redesign · direction 1a).
+    Splash — "Call card stack" (design: Numify Splash Redesign).
 
-    The app icon sits on a call waveform that runs behind it. The bars light up
-    left to right as a sweep band passes across, so the icon reads as the point
-    being identified. Six unlabelled feature badges — block, spam, lookup,
-    protection, contact, location — pop in around it, mirrored three per side.
-    Behind everything, three soft bubbles and two sparkles drift slowly.
+    Three frosted call cards fly in from off-screen, settle into a fanned stack,
+    and the top one turns over to a "Verified" face. The wordmark and tagline rise
+    in underneath, then the ad disclosure, loader pill and build stamp fade up at
+    the foot of the screen. Behind all of it sits a 155-degree three-stop gradient
+    with two soft white discs bleeding off opposite corners.
 
-    Wordmark + tagline rise in under the composition and the ad disclosure sits
-    at the bottom. Geometry is lifted from the design's 412×892 frame, so the
-    badge offsets and bar heights below are the design's own numbers in sdp.
-    All motion is driven from SplashActivity (UI only — navigation is owned by
-    getData()).
+    Two custom views carry the parts XML cannot express: SplashBackdropView draws
+    the off-axis gradient (shape drawables only do 45-degree steps) and the discs,
+    and CallCardStackView draws and animates the three cards, including the flip.
+    Everything else is ordinary ConstraintLayout.
+
+    Geometry comes from the design's 396x812 content box — that is its 412x892
+    frame less the 8px bezel, the 40px status bar and the 24px gesture bar. The
+    vertical anchors below are that box's fractions, so the composition keeps its
+    proportions on any aspect ratio; the custom views scale their own internals off
+    the same box. Motion is driven from SplashActivity against SplashTimeline
+    (UI only — navigation is owned by getData()).
 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -20,505 +26,144 @@
 
     <data />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:id="@+id/splashRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_splash_sl_bg"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        tools:context=".screen.launch.SplashActivity">
+        android:background="@color/splash_cs_grad_mid"
+        tools:context=".feature.splash.SplashActivity">
 
-        <!-- ===== Ambient layer: four drifting bubbles + two sparkles =====
-             Every element is constrained on BOTH axes (start+end, top+bottom) —
-             ConstraintLayout ignores a bias unless the view is pinned on both
-             sides of that axis. Biases spread the six across all four quadrants
-             and keep clear of the centre composition and the wordmark block, so
-             the page reads balanced rather than clustered. -->
-        <View
-            android:id="@+id/bubbleLg"
-            android:layout_width="@dimen/_58sdp"
-            android:layout_height="@dimen/_58sdp"
-            android:background="@drawable/bg_splash_sl_bubble"
-            android:backgroundTint="@color/splash_sl_bubble_lg"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.10"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.14" />
+        <!-- Layer 0 · the gradient and its two discs, edge to edge behind the
+             transparent system bars. It is told where those bars are so the discs
+             stay anchored to the content box rather than sliding under them. -->
+        <com.numify.callerid.lookup.feature.splash.SplashBackdropView
+            android:id="@+id/splashBackdrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:importantForAccessibility="no" />
 
-        <View
-            android:id="@+id/bubbleSm"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:background="@drawable/bg_splash_sl_bubble"
-            android:backgroundTint="@color/splash_sl_bubble_sm"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.90"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.28" />
+        <!-- Layer 1 · everything that has to keep clear of the system bars. The
+             window insets are applied as padding here, which makes this view the
+             on-device equivalent of the design's 396x812 content box. -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/splashContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <View
-            android:id="@+id/bubbleMd"
-            android:layout_width="@dimen/_42sdp"
-            android:layout_height="@dimen/_42sdp"
-            android:background="@drawable/bg_splash_sl_bubble"
-            android:backgroundTint="@color/splash_sl_bubble_md"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.18"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.82" />
+            <!-- The stack is full-bleed within the content box: the cards start
+                 well outside the frame and are meant to be clipped by its edges on
+                 the way in, exactly as the design's overflow:hidden does. -->
+            <com.numify.callerid.lookup.feature.splash.CallCardStackView
+                android:id="@+id/cardStack"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:importantForAccessibility="no"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/bubbleXs"
-            android:layout_width="@dimen/_22sdp"
-            android:layout_height="@dimen/_22sdp"
-            android:background="@drawable/bg_splash_sl_bubble"
-            android:backgroundTint="@color/splash_sl_bubble_sm"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.85"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.86" />
-
-        <ImageView
-            android:id="@+id/sparkleA"
-            android:layout_width="@dimen/_18sdp"
-            android:layout_height="@dimen/_18sdp"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_sl_sparkle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.80"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.13"
-            app:tint="@color/splash_sl_sparkle_a" />
-
-        <ImageView
-            android:id="@+id/sparkleB"
-            android:layout_width="@dimen/_14sdp"
-            android:layout_height="@dimen/_14sdp"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_sl_sparkle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.14"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.31"
-            app:tint="@color/splash_sl_sparkle_b" />
-
-        <!-- ===== Composition: waveform + sweep + icon tile + six badges =====
-             Packed vertical chain with the wordmark and tagline, so the whole
-             group sits optically centred like the design's flex column. -->
-        <FrameLayout
-            android:id="@+id/composition"
-            android:layout_width="@dimen/_268sdp"
-            android:layout_height="@dimen/_136sdp"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            app:layout_constraintBottom_toTopOf="@id/textAppName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed">
-
-            <!-- Waveform. The wrapper hugs the bar row so the sweep can be
-                 seated on its left edge and driven by translationX. It DOES clip,
-                 unlike the rest of the scene, so the repeating scan band enters
-                 and leaves at the ends of the wave instead of floating past the
-                 badges — but `android:clipChildren` cannot do that here, because
-                 compositionVw above switches clipping off for this whole subtree.
-                 SplashActivity.startScan() applies the outline clip instead. -->
-            <FrameLayout
-                android:id="@+id/waveWrap"
+            <!-- Design tops of 468 and 512 in an 812-tall box. -->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideWordmark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5764" />
 
-                <LinearLayout
-                    android:id="@+id/waveRow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_64sdp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideTagline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.6305" />
 
-                    <View
-                        android:id="@+id/bar1"
-                        android:layout_width="@dimen/_5sdp"
-                        android:layout_height="@dimen/_14sdp"
-                        android:background="@drawable/bg_splash_sl_bar" />
+            <!-- The footer block sits 60 up from the bottom of the same box. -->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideFooter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.9261" />
 
-                    <View
-                        android:id="@+id/bar2"
-                        android:layout_width="@dimen/_5sdp"
-                        android:layout_height="@dimen/_27sdp"
-                        android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/bg_splash_sl_bar" />
+            <TextView
+                android:id="@+id/textAppName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/space_grotesk_bold"
+                android:letterSpacing="0.0059"
+                android:text="@string/splash_title"
+                android:textColor="@color/splash_cs_ink"
+                android:textSize="@dimen/splash_wordmark_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/guideWordmark" />
 
-                    <View
-                        android:id="@+id/bar3"
-                        android:layout_width="@dimen/_5sdp"
-                        android:layout_height="@dimen/_22sdp"
-                        android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/bg_splash_sl_bar" />
+            <TextView
+                android:id="@+id/textTagline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mulish_semibold"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="@dimen/splash_footer_gap"
+                android:text="@string/splash_tagline"
+                android:textColor="@color/splash_cs_muted"
+                android:textSize="@dimen/splash_tagline_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/guideTagline" />
 
-                    <View
-                        android:id="@+id/bar4"
-                        android:layout_width="@dimen/_5sdp"
-                        android:layout_height="@dimen/_38sdp"
-                        android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/bg_splash_sl_bar" />
-
-                    <View
-                        android:id="@+id/bar5"
-                        android:layout_width="@dimen/_5sdp"
-                        android:layout_height="@dimen/_58sdp"
-                        android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/bg_splash_sl_bar" />
-
-                    <View
-                        android:id="@+id/bar6"
-                        android:layout_width="@dimen/_5sdp"
-                        android:layout_height="@dimen/_34sdp"
-                        android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/bg_splash_sl_bar" />
-
-                    <View
-                        android:id="@+id/bar7"
-                        android:layout_width="@dimen/_5sdp"
-                        android:layout_height="@dimen/_64sdp"
-                        android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/bg_splash_sl_bar" />
-
-                    <View
-                        android:id="@+id/bar8"
-                        android:layout_width="@dimen/_5sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/bg_splash_sl_bar" />
-
-                    <View
-                        android:id="@+id/bar9"
-                        android:layout_width="@dimen/_5sdp"
-                        android:layout_height="@dimen/_46sdp"
-                        android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/bg_splash_sl_bar" />
-
-                    <View
-                        android:id="@+id/bar10"
-                        android:layout_width="@dimen/_5sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/bg_splash_sl_bar" />
-
-                    <View
-                        android:id="@+id/bar11"
-                        android:layout_width="@dimen/_5sdp"
-                        android:layout_height="@dimen/_33sdp"
-                        android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/bg_splash_sl_bar" />
-
-                    <View
-                        android:id="@+id/bar12"
-                        android:layout_width="@dimen/_5sdp"
-                        android:layout_height="@dimen/_15sdp"
-                        android:layout_marginStart="@dimen/_11sdp"
-                        android:background="@drawable/bg_splash_sl_bar" />
-                </LinearLayout>
-
-                <!-- Scan band. Taller than the row so it overhangs top and
-                     bottom like the design's -6px inset. -->
-                <View
-                    android:id="@+id/sweep"
-                    android:layout_width="@dimen/_56sdp"
-                    android:layout_height="@dimen/_76sdp"
-                    android:layout_gravity="start|center_vertical"
-                    android:alpha="0"
-                    android:background="@drawable/bg_splash_sl_sweep" />
-            </FrameLayout>
-
-            <!-- Centred app-icon tile -->
-            <FrameLayout
-                android:id="@+id/iconTile"
-                android:layout_width="@dimen/_76sdp"
-                android:layout_height="@dimen/_76sdp"
-                android:layout_gravity="center"
-                android:alpha="0"
-                android:background="@drawable/bg_splash_sl_tile"
-                android:elevation="@dimen/_12sdp"
-                android:outlineAmbientShadowColor="@color/splash_sl_tile_shadow"
-                android:outlineSpotShadowColor="@color/splash_sl_tile_shadow"
-                tools:targetApi="p">
-
-                <ImageView
-                    android:layout_width="@dimen/_38sdp"
-                    android:layout_height="@dimen/_38sdp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@null"
-                    android:src="@drawable/ic_phone_solid"
-                    app:tint="@color/white" />
-            </FrameLayout>
-
-            <!-- ===== Six feature badges, mirrored three per side =====
-                 Offsets are the design's, measured inside this 268×136 box. -->
-            <FrameLayout
-                android:id="@+id/badgeBlock"
-                android:layout_width="@dimen/_38sdp"
-                android:layout_height="@dimen/_38sdp"
-                android:layout_gravity="start|top"
-                android:layout_marginStart="@dimen/_6sdp"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:alpha="0"
-                android:background="@drawable/bg_splash_sl_badge"
-                android:elevation="@dimen/_6sdp"
-                android:outlineAmbientShadowColor="@color/splash_sl_shadow"
-                android:outlineSpotShadowColor="@color/splash_sl_shadow"
-                tools:targetApi="p">
-
-                <ImageView
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="@dimen/_18sdp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@null"
-                    android:src="@drawable/ic_block_circle"
-                    app:tint="@color/splash_sl_icon_red" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/badgeSpam"
-                android:layout_width="@dimen/_38sdp"
-                android:layout_height="@dimen/_38sdp"
-                android:layout_gravity="end|top"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:layout_marginEnd="@dimen/_6sdp"
-                android:alpha="0"
-                android:background="@drawable/bg_splash_sl_badge"
-                android:elevation="@dimen/_6sdp"
-                android:outlineAmbientShadowColor="@color/splash_sl_shadow"
-                android:outlineSpotShadowColor="@color/splash_sl_shadow"
-                tools:targetApi="p">
-
-                <ImageView
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="@dimen/_18sdp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@null"
-                    android:src="@drawable/ic_sl_spam"
-                    app:tint="@color/splash_sl_icon_amber" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/badgeLookup"
-                android:layout_width="@dimen/_38sdp"
-                android:layout_height="@dimen/_38sdp"
-                android:layout_gravity="end|bottom"
-                android:layout_marginEnd="@dimen/_16sdp"
-                android:layout_marginBottom="@dimen/_4sdp"
-                android:alpha="0"
-                android:background="@drawable/bg_splash_sl_badge"
-                android:elevation="@dimen/_6sdp"
-                android:outlineAmbientShadowColor="@color/splash_sl_shadow"
-                android:outlineSpotShadowColor="@color/splash_sl_shadow"
-                tools:targetApi="p">
-
-                <ImageView
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="@dimen/_18sdp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@null"
-                    android:src="@drawable/ic_search"
-                    app:tint="@color/splash_sl_icon_blue" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/badgeProtection"
-                android:layout_width="@dimen/_38sdp"
-                android:layout_height="@dimen/_38sdp"
-                android:layout_gravity="start|bottom"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginBottom="@dimen/_4sdp"
-                android:alpha="0"
-                android:background="@drawable/bg_splash_sl_badge"
-                android:elevation="@dimen/_6sdp"
-                android:outlineAmbientShadowColor="@color/splash_sl_shadow"
-                android:outlineSpotShadowColor="@color/splash_sl_shadow"
-                tools:targetApi="p">
-
-                <ImageView
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="@dimen/_18sdp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@null"
-                    android:src="@drawable/ic_sl_protection"
-                    app:tint="@color/splash_sl_icon_green" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/badgeContact"
-                android:layout_width="@dimen/_38sdp"
-                android:layout_height="@dimen/_38sdp"
-                android:layout_gravity="start|top"
-                android:layout_marginStart="@dimen/_2sdp"
-                android:layout_marginTop="@dimen/_50sdp"
-                android:alpha="0"
-                android:background="@drawable/bg_splash_sl_badge"
-                android:elevation="@dimen/_6sdp"
-                android:outlineAmbientShadowColor="@color/splash_sl_shadow"
-                android:outlineSpotShadowColor="@color/splash_sl_shadow"
-                tools:targetApi="p">
-
-                <ImageView
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="@dimen/_18sdp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@null"
-                    android:src="@drawable/ic_sl_contact"
-                    app:tint="@color/splash_sl_icon_blue" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/badgeLocation"
-                android:layout_width="@dimen/_38sdp"
-                android:layout_height="@dimen/_38sdp"
-                android:layout_gravity="end|top"
-                android:layout_marginTop="@dimen/_50sdp"
-                android:layout_marginEnd="@dimen/_2sdp"
-                android:alpha="0"
-                android:background="@drawable/bg_splash_sl_badge"
-                android:elevation="@dimen/_6sdp"
-                android:outlineAmbientShadowColor="@color/splash_sl_shadow"
-                android:outlineSpotShadowColor="@color/splash_sl_shadow"
-                tools:targetApi="p">
-
-                <ImageView
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="@dimen/_18sdp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@null"
-                    android:src="@drawable/ic_row_city"
-                    app:tint="@color/splash_sl_icon_blue" />
-            </FrameLayout>
-        </FrameLayout>
-
-        <!-- ===== Wordmark + tagline ===== -->
-        <TextView
-            android:id="@+id/textAppName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_22sdp"
-            android:alpha="0"
-            android:fontFamily="@font/figtree_bold"
-            android:letterSpacing="-0.025"
-            android:text="@string/splash_title"
-            android:textColor="@color/splash_sl_title"
-            android:textSize="@dimen/_30ssp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/textTagline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/composition" />
-
-        <TextView
-            android:id="@+id/textTagline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:alpha="0"
-            android:fontFamily="@font/figtree_semibold"
-            android:gravity="center"
-            android:text="@string/splash_tagline"
-            android:textColor="@color/splash_sl_tagline"
-            android:textSize="@dimen/_14ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textAppName" />
-
-        <!-- ===== Ad disclosure ===== -->
-        <TextView
-            android:id="@+id/textAdDisclosure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_14sdp"
-            android:alpha="0"
-            android:fontFamily="@font/figtree_semibold"
-            android:gravity="center"
-            android:text="@string/splash_footer"
-            android:textColor="@color/splash_sl_footer"
-            android:textSize="@dimen/_11ssp"
-            app:layout_constraintBottom_toTopOf="@id/progressTrack"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <!-- ===== Boot progress + build stamp =====
-             The bar fills while the getData() chain (consent → remote config →
-             geo → permissions) runs, so a slow cold start still looks like it is
-             getting somewhere. It is a progress INDICATOR, not a progress report:
-             nothing here drives navigation. -->
-        <View
-            android:id="@+id/progressTrack"
-            android:layout_width="@dimen/_110sdp"
-            android:layout_height="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_12sdp"
-            android:alpha="0"
-            android:background="@drawable/bg_splash_sl_prog_track"
-            app:layout_constraintBottom_toTopOf="@id/secureRow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <!-- Seeded to a small nub so the bar never reads as empty; SplashActivity
-             animates its real width (not scaleX, which would stretch the rounded
-             caps into a lens). -->
-        <View
-            android:id="@+id/progressFill"
-            android:layout_width="@dimen/_8sdp"
-            android:layout_height="@dimen/_4sdp"
-            android:alpha="0"
-            android:background="@drawable/bg_splash_sl_prog_fill"
-            app:layout_constraintBottom_toBottomOf="@id/progressTrack"
-            app:layout_constraintStart_toStartOf="@id/progressTrack"
-            app:layout_constraintTop_toTopOf="@id/progressTrack" />
-
-        <LinearLayout
-            android:id="@+id/secureRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_18sdp"
-            android:alpha="0"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <ImageView
-                android:layout_width="@dimen/_11sdp"
-                android:layout_height="@dimen/_11sdp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_sl_shield_check" />
-
-            <!-- Text is set from BuildConfig in SplashActivity, so it tracks the
-                 real build instead of a hardcoded string. -->
+            <!-- Footer, built bottom-up so the build stamp pins to the guideline
+                 and the disclosure and loader stack above it on the design's
+                 14-unit gaps. -->
             <TextView
                 android:id="@+id/textSecureVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_4sdp"
-                android:fontFamily="@font/figtree_semibold"
-                android:letterSpacing="0.04"
-                android:textColor="@color/splash_sl_footer"
-                android:textSize="@dimen/_10ssp"
-                tools:text="Secure v1.2 (3)" />
-        </LinearLayout>
+                android:alpha="0.85"
+                android:fontFamily="@font/mulish_semibold"
+                android:textColor="@color/splash_cs_muted"
+                android:textSize="@dimen/splash_version_text"
+                app:layout_constraintBottom_toBottomOf="@id/guideFooter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Secure v1.0.1 (2)" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <FrameLayout
+                android:id="@+id/loaderTrack"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/splash_loader_height"
+                android:layout_marginBottom="@dimen/splash_footer_gap"
+                android:background="@drawable/bg_splash_cs_loader_track"
+                android:importantForAccessibility="no"
+                app:layout_constraintBottom_toTopOf="@id/textSecureVersion"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintWidth_percent="0.5051">
+
+                <View
+                    android:id="@+id/loaderFill"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_splash_cs_loader_fill" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/textAdDisclosure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/splash_footer_gap"
+                android:fontFamily="@font/mulish_semibold"
+                android:text="@string/splash_footer"
+                android:textColor="@color/splash_cs_muted"
+                android:textSize="@dimen/splash_disclosure_text"
+                app:layout_constraintBottom_toTopOf="@id/loaderTrack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
 </layout>

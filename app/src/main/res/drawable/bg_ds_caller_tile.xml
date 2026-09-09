@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 56dp initials tile on the incoming-call hero: `linear-gradient(150deg,#3466F0,#1F3FAE)`,
+     18dp radius. Angle rounded to the nearest 45-degree step for the same reason
+     as bg_ds_hero_blue; across 56dp the difference is sub-pixel. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:endColor="@color/ds_accent_deep"
+        android:startColor="@color/ds_accent_bright"
+        android:type="linear" />
+    <corners android:radius="18dp" />
+</shape>

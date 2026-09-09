@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 56dp tile holding the blocked shield on the scam hero. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_danger_tint" />
+    <corners android:radius="18dp" />
+</shape>

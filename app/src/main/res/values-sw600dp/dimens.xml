@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Tablet step-up for the splash. The composition itself (backdrop discs, card
+         stack, loader width) is already proportional to screen width, but type held
+         at phone sizes reads undersized on a 600dp+ panel, so it takes one 1.35x
+         step here rather than scaling continuously and going soft on phones. -->
+    <dimen name="splash_wordmark_text">46sp</dimen>
+    <dimen name="splash_tagline_text">19.5sp</dimen>
+    <dimen name="splash_disclosure_text">16sp</dimen>
+    <dimen name="splash_version_text">15.5sp</dimen>
+
+    <dimen name="splash_loader_height">8dp</dimen>
+    <dimen name="splash_loader_radius">4dp</dimen>
+    <dimen name="splash_footer_gap">19dp</dimen>
+
+</resources>

@@ -2,14 +2,12 @@ package com.numify.callerid.lookup.feature.splash
 
 import android.animation.Animator
 import android.animation.AnimatorSet
-import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.ColorStateList
-import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -18,11 +16,8 @@ import android.provider.Settings
 import android.util.Base64
 import android.util.Log
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.DecelerateInterpolator
-import android.view.animation.PathInterpolator
+import androidx.core.animation.doOnEnd
 import androidx.core.view.updateLayoutParams
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -39,10 +34,9 @@ import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.lookup.repository.SettingsRepository
 import com.numify.callerid.lookup.databinding.ActivitySplashBinding
 import com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig
-import com.numify.callerid.lookup.common.clipToRect
+import com.numify.callerid.lookup.common.DesignEasing
 import com.numify.callerid.lookup.common.openActivity
 import java.security.MessageDigest
-import kotlin.math.abs
 
 /**
  * Entry point. Shows branding briefly, then routes to the correct screen
@@ -73,11 +67,16 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         const val SPLASH_FLOW_TAG = "SplashFlow"
 
         // Minimum time the intro animation is allowed to play before we navigate,
-        // even when getData is ready sooner. Covers the reveal (icon → waveform →
-        // badges → wordmark; the last badge lands ~1.26s) plus a short hold. The
-        // design settles at ~1.1s, so there is nothing to gain by waiting longer —
-        // only the ambient bubbles/sparkles move after that.
-        const val ANIM_MIN_MS = 1800L
+        // even when getData is ready sooner.
+        //
+        // This is the frame the tagline finishes rising — the last thing the
+        // composition does. Nothing is added after it: the footer and its loader
+        // are on screen from the very first frame, so no part of the splash is
+        // waiting on them, and once the wordmark and tagline have landed there is
+        // nothing left to see. Everything before it is the design's own timeline
+        // playing out: cards at 0.1s, the flip at 2.4s, the wordmark at 3.2s.
+        const val ANIM_MIN_MS = SplashTimeline.TAGLINE_START +
+                SplashTimeline.TAGLINE_RISE_DURATION
 
         // Shorter floor when the user has animations disabled — the scene is shown
         // as a static final frame, so there's nothing to wait for.
@@ -90,13 +89,15 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         // runtime permission prompt for that session (requested next launch).
         const val WATCHDOG_TIMEOUT_MS = 20_000L
 
-        // How long the scan band takes to cross the waveform once. Matches the
-        // 2.6s loop the design previews the screen at.
-        const val SWEEP_CYCLE_MS = 2600L
+        // The design frame's content box is 396 units wide. Distances authored
+        // against it are converted through this, so a "16 unit" rise is the same
+        // fraction of the screen here as it is in the design.
+        const val DESIGN_CONTENT_WIDTH = 396f
 
-        // Beat the scan waits before it starts crossing, so the icon tile has
-        // landed and the bars have begun springing up first.
-        const val SCAN_ENTRY_MS = 180L
+        // translateY start values for the two reveal lines, in design units.
+        const val WORDMARK_RISE_UNITS = 16f
+        const val TAGLINE_RISE_UNITS = 12f
+
     }
 
     override fun initView() {
@@ -109,24 +110,38 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         // `app_launches` frequency counts this launch.
         prefs.appLaunchCount = prefs.appLaunchCount + 1
 
-        // The Scanline splash is a near-white surface in light mode and a deep
-        // navy one in dark, so the system bars take the splash's own colours and
-        // the icons flip with the theme (dark icons on the light backdrop).
-        window.statusBarColor = ContextCompat.getColor(this, R.color.splash_sl_bg_center)
-        window.navigationBarColor = ContextCompat.getColor(this, R.color.splash_sl_bg_edge)
-        val lightBars = !isNightMode()
+        // The splash is one fixed deep-blue surface in both themes, so the bars are
+        // handed straight through to the gradient and their icons stay light
+        // whatever the app theme is — light icons over #2E5FE8 is what the design's
+        // own device frame draws.
+        //
+        // setDecorFitsSystemWindows(false) is what actually makes that work below
+        // API 35, where edge-to-edge is not yet the default: without it the window
+        // stops at the status bar, and a transparent bar colour just exposes the
+        // theme's near-white window background above the gradient.
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.statusBarColor = Color.TRANSPARENT
+        window.navigationBarColor = Color.TRANSPARENT
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            // Otherwise the platform paints its own translucent scrim behind the
+            // gesture bar, which reads as a band across the bottom of the gradient.
+            window.isNavigationBarContrastEnforced = false
+        }
         WindowCompat.getInsetsController(window, window.decorView).apply {
-            isAppearanceLightStatusBars = lightBars
-            isAppearanceLightNavigationBars = lightBars
+            isAppearanceLightStatusBars = false
+            isAppearanceLightNavigationBars = false
         }
 
-        // Edge-to-edge (default on Android 15+): pad the root by the system-bar
-        // insets so the title/footer never sit under the status or navigation bar
-        // (incl. the Android 16 gesture pill). The gradient still draws full-bleed
-        // because a View's background fills its padding.
-        ViewCompat.setOnApplyWindowInsetsListener(binding.splashRoot) { v, insets ->
+        // Edge-to-edge (default on Android 15+). Only splashContent is inset, which
+        // makes it the on-device stand-in for the design's 396x812 content box and
+        // keeps the wordmark and footer clear of the status bar and the Android 16
+        // gesture pill. The gradient still draws full-bleed underneath, and the
+        // backdrop is handed the same insets so its two discs stay anchored to the
+        // content box rather than riding up behind the status bar.
+        ViewCompat.setOnApplyWindowInsetsListener(binding.splashRoot) { _, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
+            binding.splashContent.setPadding(bars.left, bars.top, bars.right, bars.bottom)
+            binding.splashBackdrop.setContentInsets(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
 
@@ -200,11 +215,12 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         val redirectLink = AdPreferenceStore.getInstance(this).getString("In_App_Update_Link")
         if (!redirectLink.isNullOrEmpty()) {
             Log.d(SPLASH_FLOW_TAG, "proceedNow → showAppRedirectPopup")
-            // After the redirect popup is dismissed, launch the next screen.
-            showAppRedirectPopup { launchNext() }
+            // After the redirect popup is dismissed, fade out and launch the next
+            // screen. The fade waits for the popup rather than running under it.
+            showAppRedirectPopup { playExitTransition { launchNext() } }
         } else {
             Log.d(SPLASH_FLOW_TAG, "proceedNow → launchNext")
-            launchNext()
+            playExitTransition { launchNext() }
         }
     }
 
@@ -234,45 +250,18 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     }
 
     // ─────────────────────────── Splash animation (UI only) ───────────────────────────
-    // Design: Splash Redesign · direction 1a, "Scanline". The icon tile scales up
-    // on the waveform while a scan band crosses left→right, lighting each bar 40ms
-    // after the last; the six feature badges then pop in 120ms apart as the
-    // wordmark and tagline rise. Settled at ~1.1s — after that only the ambient
-    // bubbles and sparkles move, which is what keeps the screen alive while the
-    // getData() chain finishes. Purely decorative: it never drives navigation.
-
-    /** The design's easing for every entrance: `cubic-bezier(0.22, 1, 0.36, 1)`. */
-    private val entranceEasing = PathInterpolator(0.22f, 1f, 0.36f, 1f)
-
-    private val argb = ArgbEvaluator()
-
-    /** The twelve waveform bars, left to right — the order they light up in. */
-    private val waveBars by lazy {
-        listOf(
-            binding.bar1, binding.bar2, binding.bar3, binding.bar4,
-            binding.bar5, binding.bar6, binding.bar7, binding.bar8,
-            binding.bar9, binding.bar10, binding.bar11, binding.bar12,
-        )
-    }
-
-    /** Feature badges in the design's pop order (block → spam → lookup →
-     *  protection → contact → location), which alternates across the icon. */
-    private val featureBadges by lazy {
-        listOf(
-            binding.badgeBlock, binding.badgeSpam, binding.badgeLookup,
-            binding.badgeProtection, binding.badgeContact, binding.badgeLocation,
-        )
-    }
-
-    private val barTrackColor by lazy { ContextCompat.getColor(this, R.color.splash_sl_bar_track) }
-    private val barLitColor by lazy { ContextCompat.getColor(this, R.color.splash_sl_bar_lit) }
+    // Design: Numify Splash Redesign, "Call card stack". Three call cards fly in
+    // from off-screen on an overshoot and settle into a fanned stack; the top one
+    // then turns over to a Verified face; the wordmark and tagline rise in beneath
+    // it; and the ad disclosure, loader pill and build stamp fade up at the foot of
+    // the screen while the loader fills.
+    //
+    // Every delay, duration and curve below is read from SplashTimeline and
+    // DesignEasing, which are transcriptions of the design's own scene list and
+    // easing table rather than lookalikes. Nothing here drives navigation — that
+    // stays with getData() and the two gates above.
 
     private fun alive() = !isFinishing && !isDestroyed
-
-    /** True when the app is currently showing its dark theme. */
-    private fun isNightMode() =
-        (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
-                Configuration.UI_MODE_NIGHT_YES
 
     /** True when the user has turned system animations off ("Remove animations"). */
     private fun animationsDisabled() = Settings.Global.getFloat(
@@ -286,66 +275,95 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
             return
         }
 
-        // 0–260 · the app-icon tile scales up out of the waveform.
-        binding.iconTile.scaleX = 0.72f
-        binding.iconTile.scaleY = 0.72f
-        start(AnimatorSet().apply {
-            duration = 260L
-            interpolator = entranceEasing
-            playTogether(
-                ObjectAnimator.ofFloat(binding.iconTile, View.ALPHA, 0f, 1f),
-                ObjectAnimator.ofFloat(binding.iconTile, View.SCALE_X, 0.72f, 1f),
-                ObjectAnimator.ofFloat(binding.iconTile, View.SCALE_Y, 0.72f, 1f),
-            )
+        binding.splashBackdrop.alpha = 0f
+        binding.textAppName.alpha = 0f
+        binding.textAppName.translationY = designPx(WORDMARK_RISE_UNITS)
+        binding.textTagline.alpha = 0f
+        binding.textTagline.translationY = designPx(TAGLINE_RISE_UNITS)
+        setLoaderWidth(0)
+
+        // 0–500 · the gradient blooms in underneath everything else.
+        start(ObjectAnimator.ofFloat(binding.splashBackdrop, View.ALPHA, 0f, 1f).apply {
+            duration = SplashTimeline.BACKDROP_FADE_DURATION
+            interpolator = DesignEasing.easeInOutCubic
         })
 
-        // 180–1060 · the scan band crosses, and 260–1020 the bars light under it,
-        // one every 40ms, so the sweep reads as the thing doing the lighting.
-        startScan()
-        waveBars.forEachIndexed { i, bar -> lightBar(bar, delay = 260L + i * 40L) }
+        // 100–1060 · the three cards fly in and land, then 2400–2950 · the top one
+        // flips. The stack builds that itself: the cards are drawn rather than laid
+        // out, so their stagger belongs with the geometry, not here.
+        start(binding.cardStack.buildIntroAnimator())
 
-        // 360–1260 · the six feature badges pop in, 120ms apart.
-        featureBadges.forEachIndexed { i, badge -> popIn(badge, delay = 360L + i * 120L) }
+        // 3200 · the wordmark rises 16 design units as it fades in…
+        start(riseIn(
+            view = binding.textAppName,
+            delay = SplashTimeline.WORDMARK_START,
+            riseDuration = SplashTimeline.WORDMARK_RISE_DURATION,
+            fadeDuration = SplashTimeline.WORDMARK_FADE_DURATION,
+            riseUnits = WORDMARK_RISE_UNITS,
+        ))
+        // …and 3350 · the tagline follows it up, 12 units and a beat behind.
+        start(riseIn(
+            view = binding.textTagline,
+            delay = SplashTimeline.TAGLINE_START,
+            riseDuration = SplashTimeline.TAGLINE_RISE_DURATION,
+            fadeDuration = SplashTimeline.TAGLINE_FADE_DURATION,
+            riseUnits = TAGLINE_RISE_UNITS,
+        ))
 
-        // 420–1040 · wordmark, then tagline, then the ad disclosure rise in.
-        start(riseIn(binding.textAppName, delay = 420L, dur = 360L))
-        start(riseIn(binding.textTagline, delay = 560L, dur = 340L))
-        start(riseIn(binding.textAdDisclosure, delay = 700L, dur = 340L))
+        // The footer needs no entrance: the disclosure, loader and build stamp are
+        // up from the first frame and stay up. See SplashTimeline.FOOTER_START.
 
-        // 820ms on · the boot progress bar and build stamp fade in, then the bar
-        // fills while getData() works.
-        start(fadeIn(binding.progressTrack, delay = 820L, dur = 320L))
-        start(fadeIn(binding.progressFill, delay = 820L, dur = 320L))
-        start(riseIn(binding.secureRow, delay = 900L, dur = 340L))
-        startProgressFill(delay = 860L)
-
-        // 1300ms on · the wave keeps breathing like a live level meter, each bar
-        // offset from the last. Without this the waveform freezes the moment it
-        // has lit and the screen looks stalled for however long getData() takes.
-        waveBars.forEachIndexed { i, bar -> breatheBar(bar, delay = 1300L + i * 60L) }
-
-        // Ambient and endless: four bubbles drift (7.5–11s round trips) and two
-        // sparkles twinkle (3.2–4.1s), spread across the page.
-        drift(binding.bubbleLg, dxDp = 10f, dyDp = -22f, halfCycle = 4500L)
-        drift(binding.bubbleSm, dxDp = -14f, dyDp = 18f, halfCycle = 3750L)
-        drift(binding.bubbleMd, dxDp = 8f, dyDp = 16f, halfCycle = 5500L)
-        drift(binding.bubbleXs, dxDp = -9f, dyDp = -15f, halfCycle = 4100L)
-        twinkle(binding.sparkleA, halfCycle = 1600L, delay = 0L)
-        twinkle(binding.sparkleB, halfCycle = 2050L, delay = 600L)
+        // …and the loader starts sweeping with them, and keeps sweeping.
+        startLoaderFill()
     }
 
     /** The scene as it looks once every entrance has finished — used when the user
      *  has animations turned off, so they still get the composed screen. */
     private fun showSettledFrame() {
-        (featureBadges + listOf(
-            binding.iconTile, binding.textAppName, binding.textTagline,
-            binding.textAdDisclosure, binding.progressTrack, binding.progressFill,
-            binding.secureRow,
-        )).forEach { it.alpha = 1f }
-        waveBars.forEach { it.backgroundTintList = ColorStateList.valueOf(barTrackColor) }
-        binding.progressTrack.post {
-            if (alive()) setFillWidth((binding.progressTrack.width * 0.94f).toInt())
+        binding.splashBackdrop.alpha = 1f
+        binding.cardStack.showSettledFrame()
+        binding.textAppName.alpha = 1f
+        binding.textAppName.translationY = 0f
+        binding.textTagline.alpha = 1f
+        binding.textTagline.translationY = 0f
+        binding.loaderTrack.post {
+            if (alive()) setLoaderWidth(binding.loaderTrack.width)
         }
+    }
+
+    /**
+     * The design's Exit scene, spent as the hand-off to the next screen rather than
+     * as the seam of a loop: the composition fades over 500ms on easeInOutCubic
+     * after a 50ms beat, then [onDone] runs.
+     *
+     * Only the backdrop and the content fade — the root keeps its solid brand fill,
+     * so the last frame before the next Activity is deep blue rather than a flash
+     * of the window background.
+     */
+    private fun playExitTransition(onDone: () -> Unit) {
+        if (animationsDisabled()) {
+            onDone()
+            return
+        }
+        var handedOff = false
+        val handOff = {
+            if (!handedOff) {
+                handedOff = true
+                if (alive()) onDone()
+            }
+        }
+        start(AnimatorSet().apply {
+            startDelay = SplashTimeline.EXIT_DELAY
+            duration = SplashTimeline.EXIT_DURATION
+            interpolator = DesignEasing.easeInOutCubic
+            playTogether(
+                ObjectAnimator.ofFloat(binding.splashBackdrop, View.ALPHA, 1f, 0f),
+                ObjectAnimator.ofFloat(binding.splashContent, View.ALPHA, 1f, 0f),
+            )
+            // doOnEnd also fires on cancel, and onDestroy cancels this — the latch
+            // plus the alive() check keep that from launching a dead Activity.
+            doOnEnd { handOff() }
+        })
     }
 
     /** Starts [anim] and tracks it so onDestroy can cancel it. */
@@ -354,160 +372,64 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         anim.start()
     }
 
-    private fun dp(v: Float): Float = v * resources.displayMetrics.density
+    /**
+     * Converts a distance authored against the design's 396-unit-wide content box
+     * into pixels, the same way [CallCardStackView] scales its own geometry — so a
+     * 16-unit rise stays the same fraction of the screen on every device instead of
+     * being a fixed dp that reads differently on a 360dp phone and a tablet.
+     */
+    private fun designPx(units: Float): Float =
+        units * (resources.displayMetrics.widthPixels / DESIGN_CONTENT_WIDTH)
 
-    /** A single waveform bar's entrance: it springs up from 28% of its height in the
-     *  unlit track grey. Colour is not animated here, because [startScan] owns
-     *  every bar's tint so the highlight always sits where the band actually is. */
-    private fun lightBar(bar: View, delay: Long) {
-        bar.scaleY = 0.28f
-        bar.backgroundTintList = ColorStateList.valueOf(barTrackColor)
-        start(ObjectAnimator.ofFloat(bar, View.SCALE_Y, 0.28f, 1f).apply {
-            startDelay = delay
-            duration = 320L
-            interpolator = entranceEasing
-        })
-    }
-
-    /** The scan: a single driver positions the band and tints every bar from the
-     *  band's current head, so the lit bars really are the ones it is passing over.
-     *
-     *  Bars rest in the unlit track grey and light up only near the band, which
-     *  keeps the wave a calm grey level-meter with one travelling highlight,
-     *  rather than latching fully brand-coloured after the first pass. It loops on
-     *  the same 2.6s cycle the design previews at, so the screen goes on reading
-     *  as "scanning" for as long as it is up. */
-    private fun startScan() {
-        val sweep = binding.sweep
-        binding.waveRow.post {
-            if (!alive()) return@post
-            val rowWidth = binding.waveRow.width
-            if (rowWidth <= 0) return@post
-
-            // The wrapper sits under an ancestor with clipChildren="false", so it
-            // needs the outline clip for the band to enter and leave at the wave's
-            // ends rather than float out over the feature badges.
-            binding.waveWrap.clipToRect()
-
-            val bandWidth = sweep.width.toFloat()
-            // Bar centres in row space — what the band's head is measured against.
-            val centres = waveBars.map { it.left + it.width / 2f }
-            // How far either side of the head a bar still picks up light.
-            val reach = bandWidth / 2f
-
-            sweep.translationX = -bandWidth
-            start(ObjectAnimator.ofFloat(sweep, View.ALPHA, 0f, 1f).apply {
-                startDelay = SCAN_ENTRY_MS
-                duration = 240L
-            })
-            start(ValueAnimator.ofFloat(-bandWidth, rowWidth.toFloat()).apply {
-                startDelay = SCAN_ENTRY_MS
-                duration = SWEEP_CYCLE_MS
-                repeatCount = ValueAnimator.INFINITE
-                interpolator = AccelerateDecelerateInterpolator()
-                addUpdateListener {
-                    val x = it.animatedValue as Float
-                    sweep.translationX = x
-                    val head = x + reach
-                    waveBars.forEachIndexed { i, bar ->
-                        val lit = (1f - abs(centres[i] - head) / reach).coerceIn(0f, 1f)
-                        bar.backgroundTintList = ColorStateList.valueOf(
-                            argb.evaluate(lit, barTrackColor, barLitColor) as Int
-                        )
-                    }
-                }
-            })
-        }
-    }
-
-    /** Endless level-meter breathe for one already-lit waveform bar. */
-    private fun breatheBar(bar: View, delay: Long) {
-        start(pingPong(ObjectAnimator.ofFloat(bar, View.SCALE_Y, 1f, 0.72f), 900L, delay))
-    }
-
-    /** Straight fade for a view that is already in place. */
-    private fun fadeIn(v: View, delay: Long, dur: Long) =
-        ObjectAnimator.ofFloat(v, View.ALPHA, 0f, 1f).apply {
-            startDelay = delay
-            duration = dur
-        }
-
-    /** Sets the progress fill's width in px. Width — not scaleX, which would
-     *  stretch the drawable's rounded caps into a lens. */
-    private fun setFillWidth(px: Int) {
-        binding.progressFill.updateLayoutParams { width = px }
-    }
-
-    /** Grows the boot bar from its seeded nub out to roughly 94% of the track. It
-     *  deliberately stops short of the end: the splash leaves when getData()
-     *  resolves, not when the bar finishes, and a bar sitting at 100% while the
-     *  screen was still up would be claiming something that has not happened. */
-    private fun startProgressFill(delay: Long) {
-        binding.progressTrack.post {
-            if (!alive()) return@post
-            val track = binding.progressTrack.width
-            if (track <= 0) return@post
-            val from = binding.progressFill.width.coerceAtLeast(dp(8f).toInt())
-            val to = (track * 0.94f).toInt()
-            start(ValueAnimator.ofInt(from, to).apply {
-                startDelay = delay
-                duration = 4200L
-                interpolator = DecelerateInterpolator()
-                addUpdateListener { setFillWidth(it.animatedValue as Int) }
-            })
-        }
-    }
-
-    /** Pop-in (scale 0.7 → 1 + fade) for one feature badge. */
-    private fun popIn(v: View, delay: Long) {
-        v.scaleX = 0.7f
-        v.scaleY = 0.7f
-        start(AnimatorSet().apply {
-            startDelay = delay
-            duration = 300L
-            interpolator = entranceEasing
-            playTogether(
-                ObjectAnimator.ofFloat(v, View.ALPHA, 0f, 1f),
-                ObjectAnimator.ofFloat(v, View.SCALE_X, 0.7f, 1f),
-                ObjectAnimator.ofFloat(v, View.SCALE_Y, 0.7f, 1f),
-            )
-        })
-    }
-
-    /** Text rises 10dp into place as it fades in. */
-    private fun riseIn(v: View, delay: Long, dur: Long) = AnimatorSet().apply {
+    /** Text rises [riseUnits] design units into place as it fades in. The two legs
+     *  have different lengths and different curves in the design, so they are built
+     *  as siblings rather than as one animator with a shared duration. */
+    private fun riseIn(
+        view: View,
+        delay: Long,
+        riseDuration: Long,
+        fadeDuration: Long,
+        riseUnits: Float,
+    ) = AnimatorSet().apply {
         startDelay = delay
-        duration = dur
-        interpolator = entranceEasing
         playTogether(
-            ObjectAnimator.ofFloat(v, View.ALPHA, 0f, 1f),
-            ObjectAnimator.ofFloat(v, View.TRANSLATION_Y, dp(10f), 0f),
+            ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, designPx(riseUnits), 0f).apply {
+                duration = riseDuration
+                interpolator = DesignEasing.easeOutCubic
+            },
+            ObjectAnimator.ofFloat(view, View.ALPHA, 0f, 1f).apply {
+                duration = fadeDuration
+                interpolator = DesignEasing.easeInOutCubic
+            },
         )
     }
 
-    /** Endless slow drift for one ambient bubble. */
-    private fun drift(v: View, dxDp: Float, dyDp: Float, halfCycle: Long) {
-        start(pingPong(ObjectAnimator.ofFloat(v, View.TRANSLATION_X, 0f, dp(dxDp)), halfCycle, 0L))
-        start(pingPong(ObjectAnimator.ofFloat(v, View.TRANSLATION_Y, 0f, dp(dyDp)), halfCycle, 0L))
+    /**
+     * Sweeps the loader pill across its track, from the first frame, on a loop.
+     *
+     * Width, not scaleX — scaling would stretch the drawable's rounded caps into a
+     * lens. It repeats rather than filling once and stopping: the splash is up for
+     * however long getData() takes, and a bar parked at 100% under a screen that
+     * is still working claims something that has not happened.
+     */
+    private fun startLoaderFill() {
+        binding.loaderTrack.post {
+            if (!alive()) return@post
+            val track = binding.loaderTrack.width
+            if (track <= 0) return@post
+            start(ValueAnimator.ofInt(0, track).apply {
+                startDelay = SplashTimeline.PROGRESS_START
+                duration = SplashTimeline.PROGRESS_DURATION
+                interpolator = DesignEasing.easeInOutCubic
+                repeatCount = ValueAnimator.INFINITE
+                repeatMode = ValueAnimator.RESTART
+                addUpdateListener { setLoaderWidth(it.animatedValue as Int) }
+            })
+        }
     }
 
-    /** Endless fade + scale pulse for one sparkle. */
-    private fun twinkle(v: View, halfCycle: Long, delay: Long) {
-        v.alpha = 0.25f
-        v.scaleX = 0.8f
-        v.scaleY = 0.8f
-        start(pingPong(ObjectAnimator.ofFloat(v, View.ALPHA, 0.25f, 1f), halfCycle, delay))
-        start(pingPong(ObjectAnimator.ofFloat(v, View.SCALE_X, 0.8f, 1.15f), halfCycle, delay))
-        start(pingPong(ObjectAnimator.ofFloat(v, View.SCALE_Y, 0.8f, 1.15f), halfCycle, delay))
-    }
-
-    /** Runs [anim] forever, easing back and forth — one leg per [halfCycle]. */
-    private fun pingPong(anim: ObjectAnimator, halfCycle: Long, delay: Long) = anim.apply {
-        startDelay = delay
-        duration = halfCycle
-        repeatCount = ValueAnimator.INFINITE
-        repeatMode = ValueAnimator.REVERSE
-        interpolator = AccelerateDecelerateInterpolator()
+    private fun setLoaderWidth(px: Int) {
+        binding.loaderFill.updateLayoutParams { width = px }
     }
 
     override fun onDestroy() {

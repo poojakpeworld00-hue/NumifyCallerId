@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Recent-call card for a spam-flagged number: the same 18dp card as every other
+     row, tinted. No stroke — the tint is the signal, and adding a border as well
+     made the row read as an input field. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_danger_tint" />
+    <corners android:radius="18dp" />
+</shape>

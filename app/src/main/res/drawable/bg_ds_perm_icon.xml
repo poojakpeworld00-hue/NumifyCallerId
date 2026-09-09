@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 38dp disc behind a permission's icon. It is opaque so it punches through the
+     rail running down behind the column. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/ds_selected_tint" />
+</shape>

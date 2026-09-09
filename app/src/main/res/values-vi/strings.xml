@@ -291,7 +291,7 @@
     <string name="home_brand_sub">Nhận diện gọi &amp; chặn rác</string>
     <string name="home_quick_actions">Thao tác nhanh</string>
     <string name="recents_subtitle">Lịch sử cuộc gọi của bạn</string>
-    <string name="contacts_count_fmt">%1$d Liên hệ</string>
+    <string name="contacts_count_fmt">%1$d liên hệ</string>
     <string name="action_more">Thêm</string>
     <string name="recents_search_hint">Tìm cuộc gọi</string>
     <string name="sort_title">Sắp xếp theo</string>

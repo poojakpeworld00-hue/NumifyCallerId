@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.CallerIDPhoneLookup" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- App-wide Poppins font (regular 400) -->
-        <item name="android:fontFamily">@font/figtree_regular</item>
-        <item name="fontFamily">@font/figtree_regular</item>
+        <item name="android:fontFamily">@font/mulish</item>
+        <item name="fontFamily">@font/mulish</item>
 
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>

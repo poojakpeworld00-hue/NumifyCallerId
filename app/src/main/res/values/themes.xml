@@ -1,9 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.CallerIDPhoneLookup" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- App-wide Poppins font (regular 400) -->
-        <item name="android:fontFamily">@font/figtree_regular</item>
-        <item name="fontFamily">@font/figtree_regular</item>
+        <!-- App-wide body face: Mulish, the handoff's body font, as a weight family
+             so textStyle="bold" resolves to real Mulish Bold rather than a
+             synthesised one. Display text sets Space Grotesk explicitly where the
+             design calls for it. -->
+        <item name="android:fontFamily">@font/mulish</item>
+        <item name="fontFamily">@font/mulish</item>
 
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ===== Splash redesign (2026) — "Call card stack" =====
+         Type and loader metrics, in the design's own units.
+
+         These deliberately do NOT use the project's sdp/ssp scale. That library is
+         not 1:1 with dp — on a sw360dp phone `_14ssp` resolves to 16.8sp — so
+         feeding it the design's numbers would render the whole screen about 20%
+         larger than the design draws it. The card stack and the backdrop scale
+         themselves proportionally in code instead, and the values below carry the
+         design's exact sizes, with one deliberate step up for tablets in
+         values-sw600dp. -->
+    <dimen name="splash_wordmark_text">34sp</dimen>
+    <dimen name="splash_tagline_text">14.5sp</dimen>
+    <dimen name="splash_disclosure_text">12sp</dimen>
+    <dimen name="splash_version_text">11.5sp</dimen>
+
+    <!-- The loader pill: 200x6 with a 3 radius, and the 14 gaps above and below it. -->
+    <dimen name="splash_loader_height">6dp</dimen>
+    <dimen name="splash_loader_radius">3dp</dimen>
+    <dimen name="splash_footer_gap">14dp</dimen>
+
+</resources>

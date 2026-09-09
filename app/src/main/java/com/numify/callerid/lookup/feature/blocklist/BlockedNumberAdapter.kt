@@ -63,25 +63,13 @@ class BlockedNumberAdapter(
             binding.textLabel.text = row.label
             binding.textNumber.text = row.entry.number
 
-            if (row.isSpam) {
-                binding.blockRow.setBackgroundResource(R.drawable.bg_row_spam)
-                binding.avatarBox.setBackgroundResource(R.drawable.bg_avatar_spam)
-                binding.textBang.visibility = View.VISIBLE
-                binding.imageAvatar.visibility = View.GONE
-                binding.textLabel.setTextColor(ContextCompat.getColor(ctx, R.color.spam_on))
-                binding.textNumber.setTextColor(ContextCompat.getColor(ctx, R.color.spam_on))
-                binding.buttonUnblock.setBackgroundResource(R.drawable.bg_unblock_spam)
-                binding.buttonUnblock.setTextColor(ContextCompat.getColor(ctx, R.color.spam_on))
-            } else {
-                binding.blockRow.setBackgroundResource(R.drawable.bg_row_neutral)
-                binding.avatarBox.setBackgroundResource(R.drawable.bg_avatar_neutral)
-                binding.textBang.visibility = View.GONE
-                binding.imageAvatar.visibility = View.VISIBLE
-                binding.textLabel.setTextColor(ContextCompat.getColor(ctx, R.color.on_surface))
-                binding.textNumber.setTextColor(ContextCompat.getColor(ctx, R.color.on_surface_variant))
-                binding.buttonUnblock.setBackgroundResource(R.drawable.bg_unblock_neutral)
-                binding.buttonUnblock.setTextColor(ContextCompat.getColor(ctx, R.color.on_surface))
-            }
+            // The row itself no longer changes shape for a spam-flagged entry — the
+            // card, the danger disc and the quiet Unblock are the same on every row,
+            // because every row here is blocked. Only the title carries the extra
+            // signal, which keeps the list scannable instead of striped.
+            binding.textLabel.setTextColor(
+                ContextCompat.getColor(ctx, if (row.isSpam) R.color.ds_danger else R.color.ds_ink)
+            )
 
             binding.buttonUnblock.setOnClickListener { onUnblock(row.entry) }
             binding.blockRow.setOnClickListener { onRowClick(row.entry) }

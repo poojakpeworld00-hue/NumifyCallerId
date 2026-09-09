@@ -1,89 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Language row: round country flag leads, then native name (titleMedium) over
-     English name (bodySmall), custom radio on the trailing edge. Selection tint +
-     radio state are driven from LanguageAdapter via View.isActivated. ~56dp tall. -->
+<!-- Language row (design: Numify Language Screen).
+
+     A 40dp round chip carrying the country flag leads the row, then the endonym
+     over the English name, with the checkbox trailing. The design draws a
+     two-letter code on that chip; the flag is shown instead, on the same chip, at
+     the same size and colour.
+
+     includeFontPadding is off on both lines: the design's row is 16 + 40 + 16, and
+     the font's own leading would otherwise add ~9dp of air the mockup does not have.
+
+     Sizes are the design's own px in dp, not sdp. The sdp scale is not 1:1 with
+     dp (on a sw360dp phone `_16sdp` is 19.2dp), so feeding it design numbers
+     would inflate the whole row by a fifth. -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/columnLanguage"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/_1sdp"
-    android:background="@drawable/bg_language_row"
+    android:background="@drawable/bg_ds_row_selectable"
     android:clickable="true"
     android:focusable="true"
-    android:minHeight="@dimen/_46sdp"
-    android:paddingHorizontal="@dimen/_12sdp"
-    android:paddingVertical="@dimen/_5sdp">
+    android:padding="16dp">
 
-    <!-- Country flag leading the row. The emoji is sized SMALLER than the chip so
-         the whole flag shows at its own aspect ratio — it is deliberately not
-         cropped. The chip behind it is what gives the row a consistent leading
-         block whatever shape the flag is. -->
-    <FrameLayout
-        android:id="@+id/chipChip"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:background="@drawable/bg_flag_chip"
+    <!-- The country flag, on the design's 40dp chip. The disc is tinted per
+         language from LanguageAdapter, so one drawable serves all eleven rows.
+
+         The emoji is sized well below the chip rather than filling it: an emoji
+         flag is wider than it is tall, so scaling it to cover a 40dp circle would
+         crop the hoist and fly ends off every flag. The tinted disc behind it also
+         gives the near-white flags — Japan above all — an edge to sit against on a
+         white card. -->
+    <TextView
+        android:id="@+id/textChip"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_ds_avatar_chip"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:textSize="19dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textFlag"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:textSize="@dimen/_20sdp"
-            tools:ignore="SpUsage"
-            tools:text="🇮🇳" />
-    </FrameLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpUsage"
+        tools:text="🇮🇳" />
 
     <TextView
         android:id="@+id/textNative"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginStart="14dp"
         android:ellipsize="end"
+        android:fontFamily="@font/mulish_bold"
+        android:includeFontPadding="false"
         android:maxLines="1"
-        android:textColor="@color/on_surface"
-        android:textSize="@dimen/_13ssp"
-        android:textStyle="bold"
+        android:textColor="@color/ds_ink"
+        android:textSize="17sp"
         app:layout_constraintBottom_toTopOf="@id/textName"
-        app:layout_constraintEnd_toStartOf="@id/radio"
-        app:layout_constraintStart_toEndOf="@id/chipChip"
+        app:layout_constraintEnd_toStartOf="@id/checkBox"
+        app:layout_constraintStart_toEndOf="@id/textChip"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        tools:text="Hindi" />
+        tools:text="हिन्दी" />
 
     <TextView
         android:id="@+id/textName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_1sdp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="2dp"
         android:ellipsize="end"
+        android:fontFamily="@font/mulish_semibold"
+        android:includeFontPadding="false"
         android:maxLines="1"
-        android:textColor="@color/on_surface_variant"
-        android:textSize="@dimen/_10ssp"
+        android:textColor="@color/ds_ink_muted"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/radio"
-        app:layout_constraintStart_toEndOf="@id/chipChip"
+        app:layout_constraintEnd_toStartOf="@id/checkBox"
+        app:layout_constraintStart_toEndOf="@id/textChip"
         app:layout_constraintTop_toBottomOf="@id/textNative"
         tools:text="Hindi" />
 
+    <!-- 24dp box: 2dp outline when idle, filled brand blue with a white tick when
+         selected. Both states come from isActivated, set in the adapter. -->
     <ImageView
-        android:id="@+id/radio"
-        android:layout_width="@dimen/_18sdp"
-        android:layout_height="@dimen/_18sdp"
-        android:background="@drawable/bg_language_radio"
+        android:id="@+id/checkBox"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="14dp"
+        android:background="@drawable/bg_ds_checkbox"
         android:contentDescription="@null"
-        android:padding="@dimen/_3sdp"
+        android:padding="5dp"
         android:src="@drawable/ic_check"
-        app:tint="@color/selector_language_check"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/selector_ds_check" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

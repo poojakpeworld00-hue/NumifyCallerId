@@ -7,15 +7,16 @@ import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.doAfterTextChanged
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseFragment
 import com.numify.callerid.lookup.databinding.ActivityToolsBinding
 import com.numify.callerid.lookup.common.openActivity
 
 /**
- * Grid of mini-tools grouped into Measure · Device · Time, with instant search
- * and a friendly empty state. Each tile launches its own activity.
+ * Mini-tools grouped into Assistant · Measure · Device · Time, each category a
+ * horizontally scrolling rail, with instant search and a friendly empty state.
+ * Each card launches its own activity.
  */
 class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
 
@@ -98,12 +99,8 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
         }
         binding.buttonBack.visibility = View.GONE
 
-        val gridManager = GridLayoutManager(requireContext(), TOOL_COLUMNS)
-        gridManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int =
-                if (adapter.isHeader(position)) TOOL_COLUMNS else 1
-        }
-        binding.listTools.layoutManager = gridManager
+        // Vertical list of categories; each row draws its own horizontal rail.
+        binding.listTools.layoutManager = LinearLayoutManager(requireContext())
         binding.listTools.adapter = adapter
 
         setupSearch()
@@ -144,24 +141,20 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
         } else {
             binding.emptyTools.visibility = View.GONE
             binding.listTools.visibility = View.VISIBLE
-            adapter.submit(buildRows(filtered))
+            adapter.submit(buildCategories(filtered))
         }
     }
 
-    /** Groups filtered tools under their category headers, in display order. */
-    private fun buildRows(items: List<UtilityUi>): List<UtilityRow> {
-        val rows = mutableListOf<UtilityRow>()
-        for (category in categoryOrder) {
+    /**
+     * Groups filtered tools into their categories, in display order.
+     *
+     * A category with nothing left after a search is dropped rather than shown
+     * empty — otherwise filtering to "compass" would leave three bare headers over
+     * three empty rails.
+     */
+    private fun buildCategories(items: List<UtilityUi>): List<UtilityCategory> =
+        categoryOrder.mapNotNull { category ->
             val inCategory = items.filter { it.category == category }
-            if (inCategory.isEmpty()) continue
-            rows.add(UtilityRow.Header(category))
-            inCategory.forEach { rows.add(UtilityRow.Tool(it)) }
+            if (inCategory.isEmpty()) null else UtilityCategory(category, inCategory)
         }
-        return rows
-    }
-
-    private companion object {
-        /** Grid width. Category headers span all of it — keep the two in step. */
-        const val TOOL_COLUMNS = 3
-    }
 }

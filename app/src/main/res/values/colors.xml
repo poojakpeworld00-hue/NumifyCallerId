@@ -214,4 +214,99 @@
     <color name="splash_sl_icon_amber">#E5920A</color>    <!-- badge · spam -->
     <color name="splash_sl_icon_blue">#2563EB</color>     <!-- badge · lookup / contact / location (brand hue) -->
     <color name="splash_sl_icon_green">#1E8E5A</color>    <!-- badge · protection -->
+
+    <!-- ===== Splash redesign (2026) — "Call card stack" =====
+         Every value below is a literal from the Claude Design file, converted from
+         CSS rgba() to #AARRGGBB. The splash is a fixed branded surface: it is the
+         same deep-blue gradient in light and dark, so none of these are overridden
+         in values-night. Kept in their own block, and prefixed `splash_cs_`, so the
+         app-wide palette stays free of one screen's one-off tints. -->
+    <color name="splash_cs_grad_top">#2E5FE8</color>            <!-- 155deg gradient · 0% -->
+    <color name="splash_cs_grad_mid">#1F3FAE</color>            <!-- 155deg gradient · 55% -->
+    <color name="splash_cs_grad_bottom">#101B4D</color>         <!-- 155deg gradient · 100% -->
+    <color name="splash_cs_decor_lg">#1AFFFFFF</color>          <!-- top-left disc · white 10% -->
+    <color name="splash_cs_decor_sm">#14FFFFFF</color>          <!-- bottom-right disc · white 8% -->
+    <color name="splash_cs_card_glass">#24FFFFFF</color>        <!-- card face · white 14% -->
+    <color name="splash_cs_card_border">#52FFFFFF</color>       <!-- card hairline · white 32% -->
+    <color name="splash_cs_card_shadow">#381E0A32</color>       <!-- 0 12px 26px rgba(30,10,50,.22) -->
+    <color name="splash_cs_card_verified">#38FFD166</color>     <!-- turned face · amber 22% -->
+    <color name="splash_cs_card_verified_border">#8CFFD166</color>
+    <color name="splash_cs_avatar">#4DFFFFFF</color>            <!-- caller dot · white 30% -->
+    <color name="splash_cs_line_strong">#66FFFFFF</color>       <!-- name line · white 40% -->
+    <color name="splash_cs_line_soft">#40FFFFFF</color>         <!-- number line · white 25% -->
+    <color name="splash_cs_badge_well">#2E000000</color>        <!-- badge disc · black 18% -->
+    <color name="splash_cs_icon_info">#5FD4FF</color>           <!-- badge · blocked -->
+    <color name="splash_cs_accent">#FFD166</color>              <!-- badge · spam / verified / loader -->
+    <color name="splash_cs_ink">#FFFFFF</color>                 <!-- wordmark -->
+    <color name="splash_cs_muted">#C7FFFFFF</color>             <!-- tagline + footer · white 78% -->
+    <color name="splash_cs_track">#38FFFFFF</color>             <!-- loader track · white 22% -->
+
+    <!-- ===== Redesign 2026 — shared palette =====
+         The tokens every screen in the Claude Design handoff is built from. They
+         are literal design values, kept as one named set so ten screens agree on
+         one ink and one rule colour instead of each re-spelling the same hex.
+         Prefixed `ds_` (design system) and NOT overridden in values-night: the
+         handoff specifies a single light treatment, and half-porting it into dark
+         mode would give a screen white cards on a dark page. -->
+    <color name="ds_page">#F6F8FC</color>              <!-- screen background -->
+    <color name="ds_surface">#FFFFFF</color>           <!-- grouped card -->
+    <color name="ds_on_accent">#FFFFFF</color>         <!-- text/glyphs ON a brand fill -->
+    <color name="ds_ink">#12172B</color>               <!-- primary text -->
+    <color name="ds_ink_muted">#8A91A6</color>         <!-- secondary text / section labels -->
+    <color name="ds_ink_subtle">#7B8398</color>        <!-- header subtitle -->
+    <color name="ds_accent">#2E5FE8</color>            <!-- brand blue -->
+    <color name="ds_accent_deep">#1F3FAE</color>       <!-- gradient end -->
+    <color name="ds_accent_bright">#3466F0</color>     <!-- gradient start -->
+    <color name="ds_accent_on_tint">#5B79E8</color>    <!-- sub-text on a tinted row -->
+    <color name="ds_selected_tint">#EAF0FE</color>     <!-- selected row wash -->
+    <color name="ds_rule">#E1E5EE</color>              <!-- section rule -->
+    <color name="ds_divider">#F0F2F7</color>           <!-- row divider inside a card -->
+    <color name="ds_check_idle">#D6DAE5</color>        <!-- unchecked box border -->
+    <color name="ds_card_shadow">#0F141E3C</color>     <!-- 0 6px 20px rgba(20,30,60,0.06) -->
+    <color name="ds_accent_shadow">#592E5FE8</color>   <!-- 0 8px 18px rgba(46,95,232,0.35) -->
+
+    <!-- Onboarding heroes: the blue "identified" card and the red "blocked" one. -->
+    <color name="ds_hero_blue_wash">#EAF0FE</color>       <!-- hero gradient start -->
+    <color name="ds_hero_blue_border">#E1E9FB</color>
+    <color name="ds_hero_red_wash">#FDEEEE</color>
+    <color name="ds_hero_red_border">#FADADA</color>
+    <color name="ds_danger">#E5484D</color>               <!-- spam / blocked accent -->
+    <color name="ds_danger_tint">#FDE2E2</color>          <!-- decline disc, spam pill, icon tile -->
+    <color name="ds_success">#1E9E5A</color>              <!-- accept-call disc -->
+    <color name="ds_field_border">#DCE4F7</color>         <!-- mock search field -->
+    <color name="ds_placeholder">#A6ACBC</color>          <!-- mock search field text -->
+    <color name="ds_track_idle">#D6DAE5</color>           <!-- unreached progress segment -->
+    <color name="ds_rail">#E9EDF5</color>                 <!-- vertical rail behind the permission steps -->
+    <color name="ds_chip_ink">#3A4050</color>            <!-- unselected filter-chip label -->
+    <color name="ds_success_wash">#EAF6EF</color>        <!-- protection-active strip -->
+
+    <!-- Ask AI tile: the four stops its gradient travels through. -->
+    <color name="ds_ai_1">#3466F0</color>
+    <color name="ds_ai_2">#8B7CFF</color>
+    <color name="ds_ai_3">#4EE0D6</color>
+
+    <!-- Bottom navigation. The active accent is the brand blue on every tab except
+         Blocklist, which the handoff deliberately turns red — that tab is the
+         destructive one and the design says so in colour. -->
+    <color name="ds_nav_chip_idle">#EEF1F7</color>
+    <color name="ds_nav_idle">#AAB0C0</color>
+    <color name="ds_nav_chip_active">#EAF0FE</color>
+    <color name="ds_nav_chip_danger">#FDE9EA</color>
+    <color name="ds_nav_shadow">#291E3C3C</color>
+    <color name="ds_fab_start">#8B7CFF</color>            <!-- centre action gradient -->
+    <color name="ds_fab_end">#3466F0</color>
+    <color name="ds_fab_shadow">#664650E8</color>
+
+    <!-- Per-language avatar chips, in the handoff's own order. -->
+    <color name="ds_lang_en">#2E5FE8</color>
+    <color name="ds_lang_hi">#5FD4FF</color>
+    <color name="ds_lang_es">#FFD166</color>
+    <color name="ds_lang_fr">#7B8CA6</color>
+    <color name="ds_lang_pt">#34D399</color>
+    <color name="ds_lang_th">#A78BFA</color>
+    <color name="ds_lang_zh">#F59E0B</color>
+    <color name="ds_lang_ja">#F97066</color>
+    <color name="ds_lang_ru">#64748B</color>
+    <color name="ds_lang_vi">#22C55E</color>
+    <color name="ds_lang_tr">#38BDF8</color>
 </resources>

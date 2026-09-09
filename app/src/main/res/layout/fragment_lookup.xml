@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/ds_page"
     android:orientation="vertical">
 
     <!-- Compact header (pads the status-bar inset from LookupFragment) -->
@@ -14,8 +14,9 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/_16sdp"
-        android:paddingTop="@dimen/_10sdp">
+        android:paddingHorizontal="20dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="14dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -26,33 +27,33 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/space_grotesk_bold"
                 android:includeFontPadding="false"
-                android:letterSpacing="-0.03"
                 android:text="@string/nav_lookup"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_20ssp"
-                android:textStyle="bold" />
+                android:textColor="@color/ds_ink"
+                android:textSize="24sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/mulish_semibold"
                 android:includeFontPadding="false"
                 android:text="@string/lookup_header_sub"
-                android:textColor="@color/on_surface_variant"
-                android:textSize="@dimen/_10ssp" />
+                android:textColor="@color/ds_ink_muted"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/buttonLookupHistory"
-            android:layout_width="@dimen/_36sdp"
-            android:layout_height="@dimen/_36sdp"
-            android:background="@drawable/bg_cid_pill_neutral"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_ds_inner_search"
             android:contentDescription="@string/recent_lookups"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:padding="@dimen/_9sdp"
             android:src="@drawable/ic_history"
-            app:tint="@color/on_surface" />
+            app:tint="@color/ds_ink" />
     </LinearLayout>
 
     <!-- Single search pill: +country · number · clear · search -->
@@ -61,12 +62,12 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:background="@drawable/bg_home_search"
+        android:background="@drawable/bg_ds_inner_field"
         android:elevation="@dimen/_2sdp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:outlineAmbientShadowColor="@color/card_shadow"
-        android:outlineSpotShadowColor="@color/card_shadow"
+        android:outlineAmbientShadowColor="@color/ds_card_shadow"
+        android:outlineSpotShadowColor="@color/ds_card_shadow"
         android:paddingStart="@dimen/_12sdp"
         android:paddingEnd="@dimen/_6sdp"
         android:paddingVertical="@dimen/_6sdp">
@@ -102,7 +103,7 @@
                 android:layout_marginStart="@dimen/_4sdp"
                 android:gravity="center"
                 android:includeFontPadding="false"
-                android:textColor="@color/on_surface"
+                android:textColor="@color/ds_ink"
                 android:textSize="@dimen/_11ssp"
                 android:textStyle="bold"
                 tools:text="+91" />
@@ -115,7 +116,7 @@
                 android:layout_marginStart="@dimen/_3sdp"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_caret_down"
-                app:tint="@color/on_surface_variant" />
+                app:tint="@color/ds_ink_muted" />
         </LinearLayout>
 
         <View
@@ -123,7 +124,7 @@
             android:layout_height="@dimen/_22sdp"
             android:layout_marginStart="@dimen/_6sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:background="@color/outline" />
+            android:background="@color/ds_rule" />
 
         <EditText
             android:id="@+id/inputNumberInput"
@@ -136,8 +137,8 @@
             android:importantForAutofill="no"
             android:inputType="phone"
             android:maxLines="1"
-            android:textColor="@color/on_surface"
-            android:textColorHint="@color/on_surface_variant"
+            android:textColor="@color/ds_ink"
+            android:textColorHint="@color/ds_ink_muted"
             android:textSize="@dimen/_11ssp" />
 
         <ImageView
@@ -149,7 +150,7 @@
             android:padding="@dimen/_6sdp"
             android:src="@drawable/ic_close"
             android:visibility="gone"
-            app:tint="@color/on_surface_variant" />
+            app:tint="@color/ds_ink_muted" />
 
         <ImageView
             android:id="@+id/buttonSearch"
@@ -161,7 +162,7 @@
             android:contentDescription="@string/lookup_search_number"
             android:padding="@dimen/_9sdp"
             android:src="@drawable/ic_search"
-            app:tint="@color/on_primary" />
+            app:tint="@color/ds_on_accent" />
     </LinearLayout>
 
     <!-- Paste suggestion — shown only when the clipboard holds a phone number.
@@ -187,14 +188,14 @@
             android:layout_height="@dimen/_15sdp"
             android:contentDescription="@string/lookup_paste"
             android:src="@drawable/ic_paste"
-            app:tint="@color/on_primary_container" />
+            app:tint="@color/ds_accent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:text="@string/lookup_paste"
-            android:textColor="@color/on_primary_container"
+            android:textColor="@color/ds_accent"
             android:textSize="@dimen/_11ssp"
             android:textStyle="bold" />
 
@@ -206,7 +207,7 @@
             android:ellipsize="end"
             android:fontFamily="monospace"
             android:maxLines="1"
-            android:textColor="@color/on_primary_container"
+            android:textColor="@color/ds_accent"
             android:textSize="@dimen/_11ssp"
             tools:text="+91 98220 41177" />
     </LinearLayout>
@@ -278,7 +279,7 @@
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginVertical="@dimen/_14sdp"
                     android:alpha="0.12"
-                    android:background="@color/on_surface_variant" />
+                    android:background="@color/ds_ink_muted" />
 
                 <View
                     android:layout_width="@dimen/_140sdp"
@@ -313,11 +314,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:background="@drawable/bg_cid_card"
+                    android:background="@drawable/bg_ds_card"
                     android:elevation="@dimen/_1sdp"
                     android:orientation="vertical"
-                    android:outlineAmbientShadowColor="@color/card_shadow"
-                    android:outlineSpotShadowColor="@color/card_shadow"
+                    android:outlineAmbientShadowColor="@color/ds_card_shadow"
+                    android:outlineSpotShadowColor="@color/ds_card_shadow"
                     android:padding="@dimen/_14sdp"
                     android:visibility="gone">
 
@@ -334,7 +335,7 @@
                             android:contentDescription="@null"
                             android:padding="@dimen/_9sdp"
                             android:src="@drawable/ic_search"
-                            app:tint="@color/primary" />
+                            app:tint="@color/ds_accent" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -350,7 +351,7 @@
                                 android:letterSpacing="0.1"
                                 android:text="@string/number_lookup"
                                 android:textAllCaps="true"
-                                android:textColor="@color/on_surface_variant"
+                                android:textColor="@color/ds_ink_muted"
                                 android:textSize="@dimen/_9ssp"
                                 android:textStyle="bold" />
 
@@ -363,7 +364,7 @@
                                 android:includeFontPadding="false"
                                 android:letterSpacing="-0.02"
                                 android:maxLines="1"
-                                android:textColor="@color/on_surface"
+                                android:textColor="@color/ds_ink"
                                 android:textSize="@dimen/_16ssp"
                                 android:textStyle="bold"
                                 tools:text="+91 846 085 3367" />
@@ -382,7 +383,7 @@
                                     android:ellipsize="end"
                                     android:includeFontPadding="false"
                                     android:maxLines="1"
-                                    android:textColor="@color/on_surface_variant"
+                                    android:textColor="@color/ds_ink_muted"
                                     android:textSize="@dimen/_11ssp"
                                     tools:text="N••••" />
 
@@ -395,7 +396,7 @@
                                     android:padding="@dimen/_2sdp"
                                     android:src="@drawable/ic_view"
                                     android:visibility="gone"
-                                    app:tint="@color/primary" />
+                                    app:tint="@color/ds_accent" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -467,7 +468,7 @@
                             <ImageView
                                 style="@style/LookupFactIcon"
                                 android:src="@drawable/ic_sim_card"
-                                app:tint="@color/primary" />
+                                app:tint="@color/ds_accent" />
 
                             <TextView
                                 style="@style/LookupFactLabel"
@@ -517,7 +518,7 @@
                             android:insetBottom="0dp"
                             android:text="@string/action_share"
                             android:textAllCaps="false"
-                            android:textColor="@color/on_surface"
+                            android:textColor="@color/ds_ink"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold"
                             app:cornerRadius="@dimen/_21sdp"
@@ -525,8 +526,8 @@
                             app:iconGravity="textStart"
                             app:iconPadding="@dimen/_5sdp"
                             app:iconSize="@dimen/_15sdp"
-                            app:iconTint="@color/on_surface"
-                            app:strokeColor="@color/outline" />
+                            app:iconTint="@color/ds_ink"
+                            app:strokeColor="@color/ds_rule" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/buttonShowFullDetail"
@@ -538,10 +539,10 @@
                             android:insetBottom="0dp"
                             android:text="@string/show_full_detail"
                             android:textAllCaps="false"
-                            android:textColor="@color/on_primary"
+                            android:textColor="@color/ds_on_accent"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold"
-                            app:backgroundTint="@color/primary"
+                            app:backgroundTint="@color/ds_accent"
                             app:cornerRadius="@dimen/_21sdp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -577,7 +578,7 @@
                             app:ripple_disc="@drawable/bg_empty_circle_tools"
                             app:ripple_icon="@drawable/ic_search_plus"
                             app:ripple_iconSize="@dimen/_34sdp"
-                            app:ripple_iconTint="@color/on_primary_container"
+                            app:ripple_iconTint="@color/ds_accent"
                             app:ripple_ring="@drawable/bg_ring_tools" />
 
                         <ImageView
@@ -611,7 +612,7 @@
                         android:letterSpacing="-0.025"
                         android:lineSpacingMultiplier="1.15"
                         android:text="@string/lookup_empty_title"
-                        android:textColor="@color/on_surface"
+                        android:textColor="@color/ds_ink"
                         android:textSize="@dimen/_17ssp"
                         android:textStyle="bold" />
 
@@ -622,7 +623,7 @@
                         android:gravity="center"
                         android:lineSpacingMultiplier="1.2"
                         android:text="@string/lookup_empty_sub"
-                        android:textColor="@color/on_surface_variant"
+                        android:textColor="@color/ds_ink_muted"
                         android:textSize="@dimen/_11ssp" />
 
                     <LinearLayout
@@ -642,14 +643,14 @@
                             android:layout_height="@dimen/_15sdp"
                             android:contentDescription="@string/lookup_empty_cta"
                             android:src="@drawable/ic_search"
-                            app:tint="@color/on_primary" />
+                            app:tint="@color/ds_on_accent" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_8sdp"
                             android:text="@string/lookup_empty_cta"
-                            android:textColor="@color/on_primary"
+                            android:textColor="@color/ds_on_accent"
                             android:textSize="@dimen/_12ssp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -681,7 +682,7 @@
                         android:letterSpacing="0.1"
                         android:text="@string/recent_lookups"
                         android:textAllCaps="true"
-                        android:textColor="@color/on_surface"
+                        android:textColor="@color/ds_ink"
                         android:textSize="@dimen/_9ssp"
                         android:textStyle="bold" />
 
@@ -692,7 +693,7 @@
                         android:background="?attr/selectableItemBackground"
                         android:padding="@dimen/_4sdp"
                         android:text="@string/clear_all"
-                        android:textColor="@color/primary"
+                        android:textColor="@color/ds_accent"
                         android:textSize="@dimen/_11ssp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -722,14 +723,14 @@
                         android:layout_height="@dimen/_12sdp"
                         android:contentDescription="@null"
                         android:src="@drawable/ic_lock"
-                        app:tint="@color/primary" />
+                        app:tint="@color/ds_accent" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_6sdp"
                         android:text="@string/lookup_privacy"
-                        android:textColor="@color/on_surface_variant"
+                        android:textColor="@color/ds_ink_muted"
                         android:textSize="@dimen/_9ssp" />
                 </LinearLayout>
 

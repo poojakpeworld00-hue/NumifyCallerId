@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The check glyph only exists on a filled box; unselected rows show the bare
+     outline, so the tick is tinted fully transparent rather than hidden with
+     visibility (which would make the box jump as the View is measured). -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/ds_on_accent" android:state_activated="true" />
+    <item android:color="@android:color/transparent" />
+</selector>

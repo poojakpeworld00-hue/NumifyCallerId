@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/ds_page"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,8 +13,9 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/_16sdp"
-        android:paddingTop="@dimen/_10sdp">
+        android:paddingHorizontal="20dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="14dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -25,33 +26,36 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/space_grotesk_bold"
                 android:includeFontPadding="false"
-                android:letterSpacing="-0.03"
                 android:text="@string/nav_contacts"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_20ssp"
-                android:textStyle="bold" />
+                android:textColor="@color/ds_ink"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/textContactsCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/mulish_semibold"
                 android:includeFontPadding="false"
-                android:textColor="@color/on_surface_variant"
-                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/ds_ink_muted"
+                android:textSize="13sp"
                 tools:text="3 contacts" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/buttonContactsAdd"
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="@dimen/_32sdp"
-            android:background="@drawable/bg_onb_circle_lavender"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_ds_action_tile"
             android:contentDescription="@string/action_add"
-            android:padding="@dimen/_8sdp"
+            android:elevation="8dp"
+            android:outlineAmbientShadowColor="@color/ds_accent_shadow"
+            android:outlineSpotShadowColor="@color/ds_accent_shadow"
+            android:padding="13dp"
             android:src="@drawable/ic_person_add"
-            app:tint="@color/on_primary_container" />
+            app:tint="@color/ds_on_accent" />
     </LinearLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -62,7 +66,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background"
+        android:background="@color/ds_page"
         android:stateListAnimator="@null"
         app:elevation="0dp"
         app:liftOnScroll="false">
@@ -74,42 +78,51 @@
             app:layout_scrollFlags="scroll">
 
 
-        <!-- Search pill -->
+        <!-- Directory card: the search field and the filter rail are one object in
+             the design, not two floating controls, so they share a card. -->
+        <LinearLayout
+            android:id="@+id/directoryCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/bg_ds_card"
+            android:elevation="6dp"
+            android:orientation="vertical"
+            android:outlineAmbientShadowColor="@color/ds_card_shadow"
+            android:outlineSpotShadowColor="@color/ds_card_shadow"
+            android:padding="12dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/bg_home_search"
-            android:elevation="@dimen/_2sdp"
+            android:background="@drawable/bg_ds_inner_search"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:outlineAmbientShadowColor="@color/card_shadow"
-            android:outlineSpotShadowColor="@color/card_shadow"
-            android:paddingHorizontal="@dimen/_14sdp"
-            android:paddingVertical="@dimen/_9sdp">
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="10dp">
 
             <ImageView
-                android:layout_width="@dimen/_16sdp"
-                android:layout_height="@dimen/_16sdp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:contentDescription="@string/contacts_search_hint"
-                android:src="@drawable/ic_search"
-                app:tint="@color/on_surface_variant" />
+                android:src="@drawable/ic_ds_search"
+                app:tint="@color/ds_ink_muted" />
 
             <EditText
                 android:id="@+id/inputSearch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:background="@null"
+                android:fontFamily="@font/mulish_semibold"
                 android:hint="@string/contacts_search_hint"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:maxLines="1"
-                android:textColor="@color/on_surface"
-                android:textColorHint="@color/on_surface_variant"
-                android:textSize="@dimen/_11ssp" />
+                android:textColor="@color/ds_ink"
+                android:textColorHint="@color/ds_placeholder"
+                android:textSize="13.5sp" />
 
             <ImageView
                 android:id="@+id/buttonClearSearch"
@@ -120,16 +133,15 @@
                 android:padding="@dimen/_5sdp"
                 android:src="@drawable/ic_close"
                 android:visibility="gone"
-                app:tint="@color/on_surface_variant" />
+                app:tint="@color/ds_ink_muted" />
         </LinearLayout>
 
         <!-- Filter chips -->
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="10dp"
             android:overScrollMode="never"
-            android:paddingHorizontal="@dimen/_16sdp"
             android:scrollbars="none">
 
             <LinearLayout
@@ -164,6 +176,7 @@
                     android:text="@string/contacts_tab_groups" />
             </LinearLayout>
         </HorizontalScrollView>
+        </LinearLayout>
 
         <!-- Favourites. Hidden by ContactListFragment when nobody is starred, so the
              section header never sits over an empty rail. -->
@@ -171,34 +184,21 @@
             android:id="@+id/favSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginTop="16dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingHorizontal="20dp"
             android:visibility="gone">
-
-            <View
-                android:layout_width="@dimen/_5sdp"
-                android:layout_height="@dimen/_5sdp"
-                android:background="@drawable/bg_cid_dot_amber" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_6sdp"
-                android:letterSpacing="0.1"
+                android:fontFamily="@font/mulish_bold"
+                android:letterSpacing="0.0909"
                 android:text="@string/contacts_tab_favorites"
                 android:textAllCaps="true"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_9ssp"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_weight="1"
-                android:background="@color/outline" />
+                android:textColor="@color/ds_ink_muted"
+                android:textSize="11sp" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -249,15 +249,25 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <!-- One grouped card rather than loose rows, which is how the design frames
+             the directory. The end margin clears the alphabet index so the card
+             stops before it instead of running underneath it. -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listContacts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_ds_card"
+            android:clipToOutline="true"
             android:clipToPadding="false"
-            android:paddingStart="0dp"
-            android:paddingEnd="@dimen/_16sdp"
-            android:paddingBottom="@dimen/_12sdp"
+            android:elevation="6dp"
+            android:outlineAmbientShadowColor="@color/ds_card_shadow"
+            android:outlineSpotShadowColor="@color/ds_card_shadow"
+            android:overScrollMode="never"
+            android:paddingBottom="12dp"
             tools:listitem="@layout/item_contact" />
 
         <!-- Alphabet fast-scroll index -->

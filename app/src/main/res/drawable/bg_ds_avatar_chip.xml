@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 40dp round chip behind a language's two-letter code. The fill is a
+     placeholder: every row tints this per language from LanguageOption.chipColor. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/ds_accent" />
+</shape>

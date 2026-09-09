@@ -1,38 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Permission priming bottom sheet: grabber · title/subtitle · a scrollable
-     list of permission rows (added at runtime) · Continue button. Compact so it
-     stays roughly half-height; the row list scrolls if it ever overflows. -->
+<!--
+    Permission priming sheet (design: Numify Permissions Sheet).
+
+    Grabber, then a gradient lock tile beside the ask, then the reason, then the
+    permission rows on a vertical rail, then the Continue pill and a quiet
+    "Not now". Rows are still inflated into containerRows at runtime and the
+    Continue / Not now ids are unchanged, so the sheet's flow is untouched.
+
+    Sizes are the design's px as dp rather than sdp — see item_language.xml.
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/permSheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_overlay_sheet"
+    android:background="@drawable/bg_ds_sheet"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/_16sdp"
-    android:paddingTop="@dimen/_8sdp"
-    android:paddingBottom="@dimen/_14sdp">
+    android:paddingHorizontal="18dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="18dp">
 
     <View
-        android:layout_width="@dimen/_32sdp"
-        android:layout_height="@dimen/_4sdp"
+        android:layout_width="40dp"
+        android:layout_height="4dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:background="@drawable/bg_sheet_grabber" />
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/bg_ds_grabber" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/perm_sheet_title"
-        android:textColor="@color/on_surface"
-        android:textSize="@dimen/_14ssp"
-        android:textStyle="bold" />
-
-    <TextView
+    <LinearLayout
+        android:id="@+id/permHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_ds_header_tile"
+            android:contentDescription="@null"
+            android:elevation="8dp"
+            android:outlineAmbientShadowColor="@color/ds_accent_shadow"
+            android:outlineSpotShadowColor="@color/ds_accent_shadow"
+            android:padding="15dp"
+            android:src="@drawable/ic_ds_lock"
+            app:tint="@color/ds_on_accent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/space_grotesk_bold"
+            android:lineSpacingMultiplier="1.25"
+            android:text="@string/perm_sheet_title"
+            android:textColor="@color/ds_ink"
+            android:textSize="19sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/permSubtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:fontFamily="@font/mulish_semibold"
+        android:lineSpacingMultiplier="1.5"
         android:text="@string/perm_sheet_subtitle"
-        android:textColor="@color/on_surface_variant"
-        android:textSize="@dimen/_10ssp" />
+        android:textColor="@color/ds_ink_subtle"
+        android:textSize="13.5sp" />
 
     <!-- Permission rows are inflated into containerRows at runtime. The scroll
          view keeps the sheet bounded on small screens. -->
@@ -40,42 +76,62 @@
         android:id="@+id/rowsScroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
         android:overScrollMode="never"
         android:scrollbars="none">
 
-        <LinearLayout
-            android:id="@+id/containerRows"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_height="wrap_content">
+
+            <!-- The rail threads the icon discs together into one sequence. It is
+                 declared first so it draws behind them, and centred on the 38dp
+                 disc column (18dp + its own 2dp) exactly as the design's
+                 absolutely-positioned line is. -->
+            <View
+                android:id="@+id/permRail"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="18dp"
+                android:layout_marginVertical="6dp"
+                android:background="@color/ds_rail" />
+
+            <LinearLayout
+                android:id="@+id/containerRows"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </FrameLayout>
     </androidx.core.widget.NestedScrollView>
 
     <TextView
         android:id="@+id/buttonContinue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:background="@drawable/bg_btn_primary"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/bg_ds_next_pill"
+        android:elevation="12dp"
+        android:fontFamily="@font/mulish_bold"
+        android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
-        android:paddingVertical="@dimen/_11sdp"
+        android:outlineAmbientShadowColor="@color/ds_accent_shadow"
+        android:outlineSpotShadowColor="@color/ds_accent_shadow"
+        android:paddingVertical="15dp"
         android:text="@string/perm_sheet_continue"
-        android:textColor="@color/on_primary"
-        android:textSize="@dimen/_12ssp"
-        android:textStyle="bold" />
+        android:textColor="@color/ds_on_accent"
+        android:textSize="15.5sp" />
 
     <TextView
         android:id="@+id/buttonNotNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginTop="10dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:paddingHorizontal="@dimen/_16sdp"
-        android:paddingVertical="@dimen/_7sdp"
+        android:fontFamily="@font/mulish_bold"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="6dp"
         android:text="@string/perm_sheet_not_now"
-        android:textColor="@color/on_surface_variant"
-        android:textSize="@dimen/_11ssp"
-        android:textStyle="bold" />
+        android:textColor="@color/ds_ink_muted"
+        android:textSize="13.5sp" />
 
 </LinearLayout>

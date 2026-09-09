@@ -1,34 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Tool card — a circular tinted icon chip over a centred name, three to a row.
-    The chip tint and glyph colour are set per tool in ToolboxFragment's table and
-    applied by ToolboxAdapter (controlled 6-hue palette).
+    Tool card (design: Numify Tools) — a tinted icon chip over a centred name, in a
+    horizontally scrolling rail.
 
-    There is no one-line hint here: at three columns a subtitle either wraps to
-    two lines or ellipsises to nothing useful, and the tool names already say
-    what each one does.
+    Fixed 84dp wide, which is what makes it a rail item rather than a grid cell: the
+    width has to be the card's own, not the parent's, or every card would fill the
+    RecyclerView. The 10dp end margin is the design's gap between cards.
+
+    The chip tint and glyph colour are set per tool in ToolboxFragment's table and
+    applied by ToolRailAdapter (controlled 6-hue palette).
+
+    There is no one-line hint here: at 84dp a subtitle either wraps to three lines
+    or ellipsises to nothing useful, and the tool names already say what each does.
+
+    The label always reserves two lines (minLines = maxLines = 2). In a rail every
+    card sets its own height, so a two-word name like "Unsaved callers" would
+    otherwise stand taller than its neighbours and leave the row visibly ragged.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolCard"
-    android:layout_width="match_parent"
+    android:layout_width="84dp"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_4sdp"
-    android:background="@drawable/bg_row_neutral"
+    android:layout_marginEnd="10dp"
+    android:layout_marginVertical="4dp"
+    android:background="@drawable/bg_ds_tool_card"
     android:clickable="true"
+    android:elevation="4dp"
     android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/_6sdp"
-    android:paddingTop="@dimen/_12sdp"
-    android:paddingBottom="@dimen/_10sdp">
+    android:outlineAmbientShadowColor="@color/ds_card_shadow"
+    android:outlineSpotShadowColor="@color/ds_card_shadow"
+    android:paddingHorizontal="6dp"
+    android:paddingVertical="12dp">
 
     <ImageView
         android:id="@+id/imageToolIcon"
-        android:layout_width="@dimen/_38sdp"
-        android:layout_height="@dimen/_38sdp"
-        android:background="@drawable/bg_tool_chip_violet"
-        android:padding="@dimen/_9sdp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:background="@drawable/bg_ds_tool_chip"
+        android:padding="12dp"
         tools:src="@drawable/ic_tool_compass"
         tools:ignore="ContentDescription" />
 
@@ -36,13 +49,15 @@
         android:id="@+id/textToolTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
+        android:fontFamily="@font/mulish_bold"
         android:gravity="center"
         android:includeFontPadding="false"
+        android:lineSpacingMultiplier="1.2"
         android:maxLines="2"
-        android:textColor="@color/on_surface"
-        android:textSize="@dimen/_10ssp"
-        android:textStyle="bold"
+        android:minLines="2"
+        android:textColor="@color/ds_ink"
+        android:textSize="10.5sp"
         tools:text="Compass" />
 </LinearLayout>

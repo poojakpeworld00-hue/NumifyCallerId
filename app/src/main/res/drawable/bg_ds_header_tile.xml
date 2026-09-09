@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 52dp gradient tile at the head of the permission sheet. Same brand ramp as the
+     onboarding avatar tile on a slightly tighter 16dp radius. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:endColor="@color/ds_accent_deep"
+        android:startColor="@color/ds_accent_bright"
+        android:type="linear" />
+    <corners android:radius="16dp" />
+</shape>

@@ -296,7 +296,7 @@
     <string name="home_brand_sub">Arayan kimliği ve spam engel</string>
     <string name="home_quick_actions">Hızlı İşlemler</string>
     <string name="recents_subtitle">Arama geçmişiniz</string>
-    <string name="contacts_count_fmt">%1$d Kişi</string>
+    <string name="contacts_count_fmt">%1$d kişi</string>
     <string name="action_more">Daha fazla</string>
     <string name="recents_search_hint">Aramalarda ara</string>
     <string name="sort_title">Sırala</string>

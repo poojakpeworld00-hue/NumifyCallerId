@@ -18,9 +18,11 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -73,7 +75,14 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         val fragment: Fragment,
         @param:DrawableRes val selectedIcon: Int,
         @param:DrawableRes val unselectedIcon: Int,
-        @param:StringRes val label: Int
+        @param:StringRes val label: Int,
+        /**
+         * What this tab turns when it is the current one. Blue on every tab except
+         * Blocklist, which the design deliberately turns red — that destination is
+         * the destructive one and it says so in colour.
+         */
+        @param:ColorRes val activeColor: Int = R.color.ds_accent,
+        @param:ColorRes val activeChip: Int = R.color.ds_nav_chip_active,
     )
 
     private lateinit var tabs: List<Tab>
@@ -268,25 +277,28 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         }
 
         tabs = listOf(
+            // One glyph per tab now: the redesign carries the selected state in the
+            // chip's fill and the label's weight, not in a second icon.
             Tab(
                 binding.navRecents, CallLogFragment(),
-                R.drawable.navtab_recent_selected, R.drawable.navtab_recent_unselected, R.string.nav_recents
+                R.drawable.ic_ds_nav_recents, R.drawable.ic_ds_nav_recents, R.string.nav_recents
             ),
             Tab(
                 binding.navContacts, ContactListFragment(),
-                R.drawable.navtab_contact_selected, R.drawable.navtab_contact_unselected, R.string.nav_contacts
+                R.drawable.ic_ds_nav_contacts, R.drawable.ic_ds_nav_contacts, R.string.nav_contacts
             ),
             Tab(
                 binding.navBlocklist, BlockedNumbersFragment(),
-                R.drawable.ic_block, R.drawable.ic_block, R.string.nav_blocklist
+                R.drawable.ic_ds_nav_blocklist, R.drawable.ic_ds_nav_blocklist, R.string.nav_blocklist,
+                activeColor = R.color.ds_danger, activeChip = R.color.ds_nav_chip_danger,
             ),
             Tab(
                 binding.navTools, ToolboxFragment(),
-                R.drawable.ic_qa_tools, R.drawable.ic_qa_tools, R.string.nav_tools
+                R.drawable.ic_ds_nav_tools, R.drawable.ic_ds_nav_tools, R.string.nav_tools
             ),
             Tab(
                 null, NumberFinderFragment(),
-                R.drawable.navtab_lookup_selected, R.drawable.navtab_lookup_unselected, R.string.nav_lookup
+                R.drawable.ic_ds_nav_lookup, R.drawable.ic_ds_nav_lookup, R.string.nav_lookup
             )
         )
 
@@ -716,23 +728,37 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
      * applies it instantly, which is what the first selection and config changes
      * want.
      */
-    private fun tintNavCell(nav: ItemNavBinding, color: Int, animate: Boolean) {
+    private fun tintNavCell(
+        nav: ItemNavBinding,
+        color: Int,
+        chipColor: Int,
+        animate: Boolean,
+    ) {
         val from = nav.navLabel.currentTextColor
+        val fromChip = (nav.navIcon.backgroundTintList?.defaultColor) ?: chipColor
         if (!animate || from == color) {
             nav.navIcon.imageTintList = ColorStateList.valueOf(color)
+            nav.navIcon.backgroundTintList = ColorStateList.valueOf(chipColor)
             nav.navLabel.setTextColor(color)
             return
         }
-        ValueAnimator.ofArgb(from, color).apply {
+        // Glyph, label and chip are crossfaded on one animator so they cannot
+        // arrive a frame apart from each other.
+        ValueAnimator.ofFloat(0f, 1f).apply {
             duration = 200L
             addUpdateListener {
-                val c = it.animatedValue as Int
+                val t = it.animatedValue as Float
+                val c = argb.evaluate(t, from, color) as Int
+                val chip = argb.evaluate(t, fromChip, chipColor) as Int
                 nav.navIcon.imageTintList = ColorStateList.valueOf(c)
+                nav.navIcon.backgroundTintList = ColorStateList.valueOf(chip)
                 nav.navLabel.setTextColor(c)
             }
             start()
         }
     }
+
+    private val argb = android.animation.ArgbEvaluator()
 
     private fun select(index: Int, recordHistory: Boolean = true, animate: Boolean = true) {
         if (index == currentIndex) return
@@ -761,10 +787,17 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             val active = i == index
             nav.navIcon.setImageResource(if (active) t.selectedIcon else t.unselectedIcon)
             val color = ContextCompat.getColor(
-                this, if (active) R.color.primary else R.color.on_surface_variant
+                this, if (active) t.activeColor else R.color.ds_nav_idle
             )
-            tintNavCell(nav, color, animate)
-            nav.navIndicator.visibility = if (active) View.VISIBLE else View.INVISIBLE
+            val chip = ContextCompat.getColor(
+                this, if (active) t.activeChip else R.color.ds_nav_chip_idle
+            )
+            tintNavCell(nav, color, chip, animate)
+            // The design also thickens the selected label rather than only
+            // recolouring it, which is what carries the state at 10sp.
+            nav.navLabel.typeface = ResourcesCompat.getFont(
+                this, if (active) R.font.mulish_bold else R.font.mulish_semibold
+            )
         }
 
         // The centre action is always tinted, and signals that it is the active

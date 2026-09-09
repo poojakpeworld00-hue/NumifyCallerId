@@ -1,207 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    Onboarding step 1 — "Know who's calling".
+<!-- Onboarding hero 1 — the incoming call, identified.
 
-    A verified incoming caller, presented as one elevated card (obCard · obFloat).
-    A live dot at the top pushes out a ring (obRing1 · obPulse) and the green
-    verified badge pops onto the avatar (obChip · obPop).
-
-    The animation ids here are the contract with IntroAnimations.attach() — it
-    binds loops by id, so renaming one silently drops that loop.
--->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     A gradient card holding the caller's initials tile, the "INCOMING CALL"
+     eyebrow over the resolved name and its verified line, and the answer/decline
+     pair stacked on the trailing edge. Every id below is animated in by
+     IntroAnimations; the ids are what pair a view with its authored delay. -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/heroCard"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:clipToPadding="false">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_ds_hero_blue"
+    android:padding="16dp">
 
-    <!-- Soft halo behind the card. -->
-    <ImageView
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_150sdp"
-        android:layout_gravity="center"
-        android:contentDescription="@null"
-        android:src="@drawable/bg_onb_halo_blue" />
+    <TextView
+        android:id="@+id/heroAvatar"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/bg_ds_caller_tile"
+        android:elevation="8dp"
+        android:fontFamily="@font/space_grotesk_bold"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:outlineAmbientShadowColor="@color/ds_accent_shadow"
+        android:outlineSpotShadowColor="@color/ds_accent_shadow"
+        android:text="@string/onboarding_hero_caller_initials"
+        android:textColor="@color/ds_on_accent"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Eyebrow, name and verified line move as one block, so they sit in a
+         packed chain rather than each being pinned to the avatar. -->
+    <TextView
+        android:id="@+id/heroEyebrow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:fontFamily="@font/mulish_bold"
+        android:letterSpacing="0.0952"
+        android:textAllCaps="true"
+        android:text="@string/onboarding_hero_incoming"
+        android:textColor="@color/ds_accent"
+        android:textSize="10.5sp"
+        app:layout_constraintBottom_toTopOf="@id/heroName"
+        app:layout_constraintEnd_toStartOf="@id/heroActions"
+        app:layout_constraintStart_toEndOf="@id/heroAvatar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/heroName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="3dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/space_grotesk_bold"
+        android:maxLines="1"
+        android:text="@string/onboarding_hero_caller_name"
+        android:textColor="@color/ds_ink"
+        android:textSize="16.5sp"
+        app:layout_constraintBottom_toTopOf="@id/heroVerifiedRow"
+        app:layout_constraintEnd_toStartOf="@id/heroActions"
+        app:layout_constraintStart_toEndOf="@id/heroAvatar"
+        app:layout_constraintTop_toBottomOf="@id/heroEyebrow" />
 
     <LinearLayout
-        android:id="@+id/onboardingCard"
-        android:layout_width="@dimen/_200sdp"
-        android:layout_height="@dimen/_182sdp"
-        android:layout_gravity="center"
-        android:background="@drawable/bg_onb_card_brand"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:elevation="@dimen/_8sdp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:outlineAmbientShadowColor="@color/card_shadow"
-        android:outlineSpotShadowColor="@color/card_shadow"
-        android:paddingHorizontal="@dimen/_16sdp"
-        android:paddingTop="@dimen/_14sdp"
-        android:paddingBottom="@dimen/_12sdp">
+        android:id="@+id/heroVerifiedRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="3dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/heroActions"
+        app:layout_constraintStart_toEndOf="@id/heroAvatar"
+        app:layout_constraintTop_toBottomOf="@id/heroName">
 
-        <!-- Status row: live dot + label. -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <FrameLayout
-                android:layout_width="@dimen/_10sdp"
-                android:layout_height="@dimen/_10sdp"
-                android:clipChildren="false"
-                android:clipToPadding="false">
-
-                <!-- Two rings, 900ms apart, so the dot reads as a repeating pulse
-                     rather than a single blink. -->
-                <View
-                    android:id="@+id/onboardingRing1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="@drawable/bg_onb_pulse_brand" />
-
-                <View
-                    android:id="@+id/onboardingRing2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="@drawable/bg_onb_pulse_brand" />
-
-                <View
-                    android:layout_width="@dimen/_5sdp"
-                    android:layout_height="@dimen/_5sdp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/bg_onb_dot_brand" />
-            </FrameLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:includeFontPadding="false"
-                android:letterSpacing="0.1"
-                android:text="@string/onb_incoming_call"
-                android:textAllCaps="true"
-                android:textColor="@color/on_surface_variant"
-                android:textSize="@dimen/_7ssp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- Avatar + verified badge. -->
-        <FrameLayout
-            android:layout_width="@dimen/_54sdp"
-            android:layout_height="@dimen/_54sdp"
-            android:layout_marginTop="@dimen/_11sdp"
-            android:clipChildren="false"
-            android:clipToPadding="false">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_onb_avatar_brand"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:text="@string/onb_caller_initials"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14ssp"
-                android:textStyle="bold" />
-
-            <FrameLayout
-                android:id="@+id/onboardingChip"
-                android:layout_width="@dimen/_21sdp"
-                android:layout_height="@dimen/_21sdp"
-                android:layout_gravity="bottom|end"
-                android:background="@drawable/bg_onb_badge_verified">
-
-                <ImageView
-                    android:layout_width="@dimen/_10sdp"
-                    android:layout_height="@dimen/_10sdp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@null"
-                    android:src="@drawable/ic_check"
-                    app:tint="@color/white" />
-            </FrameLayout>
-        </FrameLayout>
+        <ImageView
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_ds_shield_check" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:includeFontPadding="false"
-            android:text="@string/onb_caller_name"
-            android:textColor="@color/on_surface"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold" />
-
-        <!-- "BUSINESS · VERIFIED" pill. -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:background="@drawable/bg_onb_chip_brand"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/_7sdp"
-            android:paddingVertical="@dimen/_2sdp">
-
-            <ImageView
-                android:layout_width="@dimen/_8sdp"
-                android:layout_height="@dimen/_8sdp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_verified"
-                app:tint="@color/on_primary_container" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_3sdp"
-                android:includeFontPadding="false"
-                android:letterSpacing="0.03"
-                android:text="@string/onb_business_verified"
-                android:textAllCaps="true"
-                android:textColor="@color/on_primary_container"
-                android:textSize="@dimen/_7ssp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <!-- Decline / answer. -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="@dimen/_28sdp"
-                android:layout_height="@dimen/_28sdp"
-                android:layout_marginEnd="@dimen/_18sdp"
-                android:background="@drawable/bg_onb_circle_spam"
-                android:contentDescription="@null"
-                android:padding="@dimen/_7sdp"
-                android:rotation="135"
-                android:src="@drawable/ic_phone_solid"
-                app:tint="@color/danger" />
-
-            <ImageView
-                android:layout_width="@dimen/_28sdp"
-                android:layout_height="@dimen/_28sdp"
-                android:background="@drawable/bg_onb_circle_green"
-                android:contentDescription="@null"
-                android:padding="@dimen/_7sdp"
-                android:src="@drawable/ic_phone_solid"
-                app:tint="@color/white" />
-        </LinearLayout>
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/mulish_bold"
+            android:text="@string/onboarding_hero_verified"
+            android:textColor="@color/ds_accent_on_tint"
+            android:textSize="11sp" />
     </LinearLayout>
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/heroActions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/heroAccept"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/bg_ds_accept_disc"
+            android:contentDescription="@null"
+            android:padding="11dp"
+            android:src="@drawable/ic_ds_phone" />
+
+        <!-- Same handset, turned 135 degrees: that is how the design draws
+             "decline" rather than shipping a second glyph. -->
+        <ImageView
+            android:id="@+id/heroDecline"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_ds_decline_disc"
+            android:contentDescription="@null"
+            android:padding="11dp"
+            android:rotation="135"
+            android:src="@drawable/ic_ds_phone"
+            app:tint="@color/ds_danger" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

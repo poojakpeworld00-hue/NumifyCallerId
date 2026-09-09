@@ -71,23 +71,28 @@ class CallLogAdapter(
                 if (duration.isNotEmpty()) append(" · ").append(duration)
             }
 
-            // Verdict-tinted row + avatar (matches the Home list): spam reads red,
-            // everything else sits on a neutral card with a primary-container avatar.
+            // Verdict-tinted row + avatar: spam reads red, everything else sits on
+            // the plain card.
+            //
+            // These MUST stay in step with item_call.xml's own background — setting
+            // it here overrides whatever the layout declared, so the row was picking
+            // up bg_home_tile's 1dp outline and its `_18sdp` radius (which is 21.6dp
+            // on a sw360 phone, not 18dp) instead of the card the layout asked for.
             binding.columnCall.setBackgroundResource(
-                if (isSpam) R.drawable.bg_home_tile_spam else R.drawable.bg_home_tile
+                if (isSpam) R.drawable.bg_ds_card_spam else R.drawable.bg_ds_card
             )
             binding.textAvatar.backgroundTintList =
-                tint(if (isSpam) R.color.spam_avatar_bg else R.color.primary_container)
+                tint(if (isSpam) R.color.ds_danger_tint else R.color.ds_selected_tint)
             binding.textAvatar.setTextColor(
-                color(if (isSpam) R.color.spam_on else R.color.on_primary_container)
+                color(if (isSpam) R.color.ds_danger else R.color.ds_accent)
             )
-            binding.textName.setTextColor(color(if (isSpam) R.color.spam_on else R.color.on_surface))
+            binding.textName.setTextColor(color(if (isSpam) R.color.ds_danger else R.color.ds_ink))
 
             // Icon + subtitle colour by verdict/type.
             val subColorRes = when (e.type) {
-                CallType.MISSED -> R.color.danger
-                CallType.SPAM -> R.color.spam_on
-                else -> R.color.on_surface_variant
+                CallType.MISSED -> R.color.ds_danger
+                CallType.SPAM -> R.color.ds_danger
+                else -> R.color.ds_ink_muted
             }
             binding.imageType.setImageResource(CallActionHandler.typeIconRes(e.type))
             binding.imageType.imageTintList = tint(subColorRes)

@@ -1,30 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- One compact permission row inside the permission bottom sheet:
-     icon · title/desc · Allow button (or a "Granted" chip once granted). -->
+<!-- One permission row in the sheet: a tinted icon disc, the permission's name over
+     what it buys the user, and a disc that grants just that one.
+
+     The trailing control is a plus disc rather than the previous "Allow" label —
+     that is what the design draws. A bare glyph tells a screen reader nothing, so
+     it carries the Allow string as its contentDescription and keeps a 48dp touch
+     target through minWidth/minHeight even though the disc itself is 30dp.
+
+     The icon disc is opaque on purpose: the sheet runs a rail down behind this
+     column, and the disc is what punches through it. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/_7sdp"
-    android:background="@drawable/bg_overlay_row"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingHorizontal="@dimen/_10sdp"
-    android:paddingVertical="@dimen/_9sdp">
+    android:paddingVertical="6dp">
 
     <ImageView
         android:id="@+id/imageIcon"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:background="@drawable/bg_ds_perm_icon"
         android:contentDescription="@null"
-        android:src="@drawable/ic_notifications"
-        app:tint="@color/primary" />
+        android:padding="10dp"
+        android:src="@drawable/ic_ds_person"
+        app:tint="@color/ds_accent" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginHorizontal="10dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -32,32 +39,34 @@
             android:id="@+id/textTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/on_surface"
-            android:textSize="@dimen/_11ssp"
-            android:textStyle="bold"
-            tools:text="Notifications" />
+            android:fontFamily="@font/mulish_bold"
+            android:textColor="@color/ds_ink"
+            android:textSize="14.5sp"
+            tools:text="Contacts" />
 
         <TextView
             android:id="@+id/textDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_1sdp"
-            android:textColor="@color/on_surface_variant"
-            android:textSize="@dimen/_9ssp"
-            tools:text="Get spam and call alerts" />
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/mulish_semibold"
+            android:textColor="@color/ds_ink_muted"
+            android:textSize="12sp"
+            tools:text="Match names to numbers" />
     </LinearLayout>
 
     <!-- The row is hidden entirely once its permission is granted. -->
-    <TextView
+    <ImageView
         android:id="@+id/buttonAllow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_btn_primary"
-        android:paddingHorizontal="@dimen/_14sdp"
-        android:paddingVertical="@dimen/_6sdp"
-        android:text="@string/permsheet_allow"
-        android:textColor="@color/on_primary"
-        android:textSize="@dimen/_10ssp"
-        android:textStyle="bold" />
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_ds_perm_action"
+        android:contentDescription="@string/permsheet_allow"
+        android:elevation="6dp"
+        android:outlineAmbientShadowColor="@color/ds_accent_shadow"
+        android:outlineSpotShadowColor="@color/ds_accent_shadow"
+        android:padding="7dp"
+        android:src="@drawable/ic_ds_plus"
+        app:tint="@color/ds_on_accent" />
 
 </LinearLayout>

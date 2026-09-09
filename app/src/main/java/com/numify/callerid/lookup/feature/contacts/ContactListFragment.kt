@@ -27,6 +27,7 @@ import com.numify.callerid.lookup.R
 import com.numify.callerid.monetize.delivery.NativeBannerPresenter
 import com.numify.callerid.lookup.foundation.BaseFragment
 import com.numify.callerid.lookup.common.openActivity
+import com.numify.callerid.lookup.common.ListDividerDecoration
 import com.numify.callerid.lookup.databinding.FragmentContactsBinding
 import com.numify.callerid.lookup.feature.MainShellActivity
 import com.numify.callerid.lookup.feature.calldetails.CallDetailsActivity
@@ -60,6 +61,10 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
         layoutManager = LinearLayoutManager(requireContext())
         binding.listContacts.layoutManager = layoutManager
         binding.listContacts.adapter = adapter
+        // Hairlines between rows inside the card, skipping the letter headings.
+        binding.listContacts.addItemDecoration(
+            ListDividerDecoration(binding.listContacts) { adapter.isHeader(it) }
+        )
 
         // Native banner at the bottom of the contacts screen.
         // Ad slot + dividers are handled by BaseFragment.showScreenAd() — see

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The raised centre action: a magnifier whose lens is filled at 20% white, so it
+     reads as glass against the gradient tile rather than as an outline. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillAlpha="0.2"
+        android:fillColor="#FFFFFF"
+        android:pathData="M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0 -13z" />
+    <path
+        android:pathData="M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0 -13z"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.3" />
+    <path
+        android:pathData="M15.5 15.5L21 21"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.3"
+        android:strokeLineCap="round" />
+</vector>

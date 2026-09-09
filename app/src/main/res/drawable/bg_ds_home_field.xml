@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Home's compact lookup field. It sits directly on the page, so it carries its
+     own hairline and a 6dp inner padding that lets the country chip and the search
+     square read as inlays rather than as neighbours. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_surface" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/ds_rail" />
+    <corners android:radius="16dp" />
+</shape>

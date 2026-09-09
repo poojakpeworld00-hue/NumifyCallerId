@@ -208,23 +208,36 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         binding.columnPermHint.visibility = if (show) View.VISIBLE else View.GONE
     }
 
+    /**
+     * Paints the protection strip for the current overlay-permission state.
+     *
+     * Active is the design's green wash; inactive is neutral rather than red —
+     * protection being off is something to switch on, not an error to alarm about.
+     * The whole strip recolours together (wash, shield, sentence and action) so it
+     * reads as one status line rather than a card with a coloured badge on it.
+     */
     private fun refreshProtectionState() {
         val active = Settings.canDrawOverlays(requireContext())
+        val ctx = requireContext()
+
         binding.textProtectionTitle.setText(
-            if (active) R.string.home_protection_on_title else R.string.home_protection_off_title
-        )
-        binding.textProtectionSub.setText(
-            if (active) R.string.home_protection_on_sub else R.string.home_protection_off_sub
+            if (active) R.string.home_protection_on_line else R.string.home_protection_off_line
         )
         binding.buttonProtectionAction.setText(
             if (active) R.string.home_protection_manage else R.string.home_protection_turn_on
         )
-        binding.imageProtection.imageTintList = ColorStateList.valueOf(
-            ContextCompat.getColor(
-                requireContext(),
-                if (active) R.color.accent else R.color.on_surface_variant
-            )
+        binding.cardProtection.setBackgroundResource(
+            if (active) R.drawable.bg_ds_protection_on else R.drawable.bg_ds_protection_off
         )
+
+        val accent = ContextCompat.getColor(
+            ctx, if (active) R.color.ds_success else R.color.ds_accent
+        )
+        binding.textProtectionTitle.setTextColor(
+            ContextCompat.getColor(ctx, if (active) R.color.ds_success else R.color.ds_ink)
+        )
+        binding.buttonProtectionAction.setTextColor(accent)
+        binding.imageProtection.imageTintList = ColorStateList.valueOf(accent)
     }
 
     /**

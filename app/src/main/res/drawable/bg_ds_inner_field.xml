@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The number field inside the block card. No stroke: it sits on the card's own
+     tinted wash, and the contrast between white and that wash is the edge. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_surface" />
+    <corners android:radius="14dp" />
+</shape>

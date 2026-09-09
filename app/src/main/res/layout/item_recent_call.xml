@@ -29,7 +29,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/figtree_medium"
             android:maxLines="1"
-            android:textColor="@color/on_surface"
+            android:textColor="@color/ds_ink"
             android:textSize="@dimen/_12ssp"
            />
 

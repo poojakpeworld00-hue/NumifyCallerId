@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Onboarding (design: Numify Onboarding — Know Caller / Stop Scam / Search Number).
+
+    A three-segment progress bar and Skip sit across the top; the pager carries the
+    hero and headline; the native ad and a trailing "Next" pill close the page.
+
+    The step indicator replaces the previous dot row. It reuses the same `dots`
+    container id and is still built and driven from IntroActivity, so the pager
+    wiring is unchanged — only the shape of what it builds is different.
+
+    Sizes are the design's px carried over as dp rather than sdp; see the note in
+    item_language.xml for why that distinction matters here.
+-->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -9,23 +22,39 @@
         android:id="@+id/onboardingRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
-        tools:context=".screen.welcome.IntroActivity">
+        android:background="@color/ds_page"
+        tools:context=".feature.intro.IntroActivity">
+
+        <!-- Step segments. They share a row with Skip and stretch to fill it, so
+             the bar reads as a track the pages advance along. -->
+        <LinearLayout
+            android:id="@+id/dots"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="18dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/buttonSkip"
+            app:layout_constraintEnd_toStartOf="@id/buttonSkip"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/buttonSkip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="22dp"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:fontFamily="@font/mulish_bold"
             android:gravity="center"
-            android:minWidth="@dimen/_44sdp"
-            android:minHeight="@dimen/_40sdp"
-            android:paddingHorizontal="@dimen/_10sdp"
+            android:minWidth="44dp"
+            android:minHeight="40dp"
             android:text="@string/onboarding_skip"
-            android:textColor="@color/on_surface_variant"
-            android:textSize="@dimen/_13ssp"
-            android:textStyle="bold"
+            android:textColor="@color/ds_ink_muted"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,49 +62,11 @@
             android:id="@+id/viewPager"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/dots"
+            android:layout_marginTop="22dp"
+            app:layout_constraintBottom_toTopOf="@id/adNativeDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/buttonSkip" />
-
-        <!-- Dots sit centred under the page copy, on their own row. They are
-             outside the pager on purpose: they report the pager's position, so
-             they must not scroll with it. -->
-        <LinearLayout
-            android:id="@+id/dots"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_14sdp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/buttonNext"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <!-- CTA — full width, and the only filled button on the screen, so the
-             advert below can never out-rank the app's own action. Anchored to the
-             ad so it keeps a real gap above it at any system font scale. -->
-        <TextView
-            android:id="@+id/buttonNext"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@drawable/bg_btn_primary"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:minHeight="@dimen/_44sdp"
-            android:paddingHorizontal="@dimen/_18sdp"
-            android:paddingVertical="@dimen/_8sdp"
-            android:text="@string/onboarding_next"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_14ssp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/adNativeFrame"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
 
         <!-- Full-bleed hairline separating the pager content from the ad below -->
         <View
@@ -86,13 +77,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Big native ad pinned at the bottom. -->
+        <!-- Native ad, above the CTA. That is the design's stacking order, and it
+             is the reverse of the previous layout — worth knowing if the ad's
+             proximity to the CTA ever needs revisiting: swapping them back is a
+             matter of exchanging these two views' vertical constraints. -->
         <FrameLayout
             android:id="@+id/adNativeFrame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_5sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/buttonNext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -105,6 +98,34 @@
                 <include layout="@layout/admob_mid_native_two" />
             </com.facebook.shimmer.ShimmerFrameLayout>
         </FrameLayout>
+
+        <!-- CTA: a compact gradient pill on the trailing edge, not a full-width
+             bar. It reads "Next" through the deck and morphs to "Get started" on
+             the final page (IntroActivity). -->
+        <TextView
+            android:id="@+id/buttonNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="22dp"
+            android:background="@drawable/bg_ds_next_pill"
+            android:drawableEnd="@drawable/ic_ds_chevron_right"
+            android:drawablePadding="8dp"
+            android:elevation="12dp"
+            android:fontFamily="@font/mulish_bold"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:outlineAmbientShadowColor="@color/ds_accent_shadow"
+            android:outlineSpotShadowColor="@color/ds_accent_shadow"
+            android:paddingHorizontal="26dp"
+            android:paddingVertical="14dp"
+            android:text="@string/onboarding_next"
+            android:textColor="@color/ds_on_accent"
+            android:textSize="15.5sp"
+            app:drawableTint="@color/ds_on_accent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

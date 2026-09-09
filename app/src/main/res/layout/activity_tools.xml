@@ -9,7 +9,7 @@
         android:id="@+id/toolsRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
+        android:background="@color/ds_page"
         android:orientation="vertical">
 
                 <LinearLayout
@@ -18,8 +18,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="@dimen/_8sdp"
-                    android:paddingVertical="@dimen/_8sdp">
+                    android:paddingHorizontal="20dp"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="14dp">
 
                     <ImageView
                         android:id="@+id/buttonBack"
@@ -29,16 +30,15 @@
                         android:contentDescription="@string/onboarding_skip"
                         android:padding="@dimen/_5sdp"
                         android:src="@drawable/ic_arrow_back"
-                        app:tint="@color/on_surface" />
+                        app:tint="@color/ds_ink" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_2sdp"
+                        android:fontFamily="@font/space_grotesk_bold"
                         android:text="@string/tools_title"
-                        android:textColor="@color/on_surface"
-                        android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/ds_ink"
+                        android:textSize="24sp" />
                 </LinearLayout>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -63,39 +63,39 @@
                 <LinearLayout
                     android:id="@+id/searchBar"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_38sdp"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/bg_search_bar"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:background="@drawable/bg_ds_outlined_field"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="@dimen/_14sdp">
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="10dp">
 
                     <ImageView
-                        android:layout_width="@dimen/_15sdp"
-                        android:layout_height="@dimen/_15sdp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
                         android:contentDescription="@string/tools_search_hint"
-                        android:src="@drawable/ic_search"
-                        app:tint="@color/on_surface_variant" />
+                        android:src="@drawable/ic_ds_search"
+                        app:tint="@color/ds_ink_muted" />
 
                     <EditText
                         android:id="@+id/inputSearch"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:fontFamily="sans-serif"
+                        android:fontFamily="@font/mulish_semibold"
                         android:hint="@string/tools_search_hint"
                         android:imeOptions="actionSearch"
+                        android:includeFontPadding="false"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:paddingVertical="@dimen/_2sdp"
                         android:singleLine="true"
-                        android:textColor="@color/on_surface"
-                        android:textColorHint="@color/on_surface_variant"
+                        android:textColor="@color/ds_ink"
+                        android:textColorHint="@color/ds_placeholder"
                         android:textCursorDrawable="@null"
-                        android:textSize="@dimen/_11ssp" />
+                        android:textSize="13.5sp" />
 
                     <ImageView
                         android:id="@+id/buttonClearSearch"
@@ -106,7 +106,7 @@
                         android:padding="@dimen/_3sdp"
                         android:src="@drawable/ic_close"
                         android:visibility="gone"
-                        app:tint="@color/on_surface_variant" />
+                        app:tint="@color/ds_ink_muted" />
                 </LinearLayout>
                 <FrameLayout
                     android:id="@+id/adNativeFrame"
@@ -137,11 +137,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:paddingHorizontal="@dimen/_14sdp"
-                android:paddingTop="@dimen/_6sdp"
-                android:paddingBottom="@dimen/_40sdp"
-                tools:listitem="@layout/item_tool"
-                tools:spanCount="2" />
+                android:paddingTop="6dp"
+                android:paddingBottom="40dp"
+                tools:listitem="@layout/item_tool_category" />
 
             <LinearLayout
                 android:id="@+id/emptyTools"
