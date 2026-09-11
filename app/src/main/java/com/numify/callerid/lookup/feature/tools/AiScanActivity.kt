@@ -15,6 +15,8 @@ import com.numify.callerid.lookup.common.ListDividerDecoration
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.databinding.ActivityAiScanBinding
 import com.numify.callerid.lookup.foundation.BaseActivity
+import com.numify.callerid.monetize.delivery.RewardedAdPresenter
+import com.numify.callerid.lookup.feature.blocklist.BlockReward
 import com.numify.callerid.lookup.repository.BlocklistRepository
 import com.numify.callerid.lookup.repository.CallLogRepository
 import com.numify.callerid.lookup.repository.ContactRepository
@@ -79,6 +81,8 @@ class AiScanActivity : BaseActivity<ActivityAiScanBinding>() {
     override fun onResume() {
         super.onResume()
         if (binding.listScan.adapter != null && !binding.progressScan.isVisible) scan()
+        // Warm the ad BlockReward shows once the free block slots are gone.
+        RewardedAdPresenter.preload(this)
     }
 
     private fun scan() {
@@ -150,12 +154,14 @@ class AiScanActivity : BaseActivity<ActivityAiScanBinding>() {
 
     private fun runRowAction(row: AiScanRow) {
         if (mode == MODE_SPAM) {
-            blocklist.add(row.number)
-            adapter.remove(row)
-            Toast.makeText(
-                this, getString(R.string.ai_blocked_toast, row.number), Toast.LENGTH_SHORT
-            ).show()
-            if (adapter.itemCount == 0) scan()
+            BlockReward.allow(this, row.number) {
+                blocklist.add(row.number)
+                adapter.remove(row)
+                Toast.makeText(
+                    this, getString(R.string.ai_blocked_toast, row.number), Toast.LENGTH_SHORT
+                ).show()
+                if (adapter.itemCount == 0) scan()
+            }
         } else {
             // Hands off to the system contact editor rather than writing the
             // contact here: that would need WRITE_CONTACTS, a permission this app

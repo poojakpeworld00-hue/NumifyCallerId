@@ -80,7 +80,10 @@ object AdConfigIngest {
                 "NativeCounter", "MarketNativeCounter", "MidNativeCounter", "BannerCounter",
                 "MarketBannerCounter", "MarketAppopenCounter", "AppopenCounter",
                 "HD_VBC_Hrs",
-                "ai_assistant_free_queries"
+                "ai_assistant_free_queries",
+                // How many numbers may be blocked before the rewarded-ad gate
+                // starts (BlockReward). Negative switches the gate off.
+                "blocklist_free_quota"
             ).forEach { key -> if (root.has(key)) putInt(key, root.optInt(key, 0)) }
 
             applyNativeTheme(context, root) // DEFAULT theme

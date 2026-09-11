@@ -16,6 +16,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseActivity
+import com.numify.callerid.monetize.delivery.RewardedAdPresenter
+import com.numify.callerid.lookup.feature.blocklist.BlockReward
 import com.numify.callerid.lookup.repository.BlocklistRepository
 import com.numify.callerid.lookup.repository.CallRecord
 import com.numify.callerid.lookup.repository.CallType
@@ -60,6 +62,10 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
         binding.buttonBlock.setOnClickListener { block() }
         binding.buttonIdentify.setOnClickListener { identifyNumber() }
         binding.buttonViewAll.setOnClickListener { expanded = true; renderHistory() }
+
+        // Ready for the block gate, which shows a rewarded ad once the free
+        // slots are used up.
+        RewardedAdPresenter.preload(this)
     }
 
     override fun initObservers() {
@@ -203,8 +209,10 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
 
     private fun block() {
         if (number.isBlank()) return
-        BlocklistRepository(this).add(number)
-        Toast.makeText(this, R.string.blocklist_added, Toast.LENGTH_SHORT).show()
+        BlockReward.allow(this, number) {
+            BlocklistRepository(this).add(number)
+            Toast.makeText(this, R.string.blocklist_added, Toast.LENGTH_SHORT).show()
+        }
     }
 
     companion object {

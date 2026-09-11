@@ -48,6 +48,7 @@ import com.numify.callerid.lookup.common.ListDividerDecoration
 import com.numify.callerid.lookup.feature.finder.CountryCatalog
 import com.numify.callerid.lookup.feature.finder.CountryPickerActivity
 import com.numify.callerid.monetize.delivery.AppOpenAdManager
+import com.numify.callerid.monetize.delivery.RewardedAdPresenter
 import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
@@ -379,7 +380,13 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
         dialog.show()
     }
 
-    /** Single funnel for all three methods: de-dupes and reports the outcome. */
+    /**
+     * Single funnel for all three methods: de-dupes, clears the reward gate and
+     * reports the outcome.
+     *
+     * The duplicate check runs first, so re-adding a number that is already
+     * blocked never costs an ad.
+     */
     private fun blockNumber(raw: String) {
         val number = raw.trim()
         if (number.isEmpty()) return
@@ -387,8 +394,11 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
             Toast.makeText(requireContext(), R.string.blocklist_already_blocked, Toast.LENGTH_SHORT).show()
             return
         }
-        viewModel.add(number)
-        Toast.makeText(requireContext(), R.string.blocklist_added, Toast.LENGTH_SHORT).show()
+        val host = activity ?: return
+        BlockReward.allow(host, number) {
+            viewModel.add(number)
+            Toast.makeText(requireContext(), R.string.blocklist_added, Toast.LENGTH_SHORT).show()
+        }
     }
 
     // --- Caller-ID gate (all block management requires the CallScreening role) ---
@@ -597,6 +607,10 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
     override fun onResume() {
         super.onResume()
         refreshCallerIdGate()
+        // Warm the rewarded ad that BlockReward shows once the free slots are
+        // gone. Without this every gated block falls through to the fallback and
+        // the gate never actually shows an ad.
+        RewardedAdPresenter.preload(requireContext())
     }
 
     /** Re-checks the gate when this tab becomes visible again (show/hide keeps it resumed). */

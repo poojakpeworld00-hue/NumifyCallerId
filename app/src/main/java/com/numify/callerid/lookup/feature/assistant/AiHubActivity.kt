@@ -21,6 +21,8 @@ import com.numify.callerid.lookup.entity.AiMessage
 import com.numify.callerid.lookup.entity.AiSuggestion
 import com.numify.callerid.lookup.feature.calldetails.CallDetailsActivity
 import com.numify.callerid.lookup.foundation.BaseActivity
+import com.numify.callerid.monetize.delivery.RewardedAdPresenter
+import com.numify.callerid.lookup.feature.blocklist.BlockReward
 import com.numify.callerid.lookup.repository.BlocklistRepository
 import com.numify.callerid.lookup.repository.assistant.AiAssistantRepository
 import com.numify.callerid.lookup.repository.assistant.AskIntent
@@ -89,6 +91,10 @@ class AiHubActivity : BaseActivity<ActivityAiHubBinding>() {
         }
 
         loadSuggestions()
+
+        // The assistant offers "Block this number" as an action, so warm the ad
+        // BlockReward shows once the free block slots are gone.
+        RewardedAdPresenter.preload(this)
     }
 
     /**
@@ -152,7 +158,7 @@ class AiHubActivity : BaseActivity<ActivityAiHubBinding>() {
 
     private fun runAction(action: AiAction) {
         when (action.kind) {
-            AiActionKind.BLOCK -> {
+            AiActionKind.BLOCK -> BlockReward.allow(this, action.number) {
                 blocklist.add(action.number)
                 Toast.makeText(
                     this,

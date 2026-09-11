@@ -16,6 +16,7 @@ import com.numify.callerid.lookup.R
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.monetize.delivery.RewardedAdPresenter
 import com.numify.callerid.lookup.foundation.BaseActivity
+import com.numify.callerid.lookup.feature.blocklist.BlockReward
 import com.numify.callerid.lookup.repository.BlocklistRepository
 import com.numify.callerid.lookup.databinding.ActivityLookupDetailBinding
 import com.numify.callerid.lookup.databinding.ItemNicknameBinding
@@ -121,17 +122,28 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
         }
     }
 
-    /** Blocks/unblocks the number and refreshes the button. */
+    /**
+     * Blocks/unblocks the number and refreshes the button.
+     *
+     * Only the blocking half goes through the reward gate — unblocking is the
+     * user giving a slot back and must never cost them an ad.
+     */
     private fun toggleBlock() {
         if (rawNumber.isBlank()) return
         val mgr = BlocklistRepository(this)
-        val msgRes = if (mgr.isNumberBlocked(rawNumber)) {
-            mgr.remove(rawNumber); R.string.blocklist_removed
-        } else {
-            mgr.add(rawNumber); R.string.blocklist_added
+
+        if (mgr.isNumberBlocked(rawNumber)) {
+            mgr.remove(rawNumber)
+            updateBlockState()
+            Toast.makeText(this, R.string.blocklist_removed, Toast.LENGTH_SHORT).show()
+            return
         }
-        updateBlockState()
-        Toast.makeText(this, msgRes, Toast.LENGTH_SHORT).show()
+
+        BlockReward.allow(this, rawNumber) {
+            mgr.add(rawNumber)
+            updateBlockState()
+            Toast.makeText(this, R.string.blocklist_added, Toast.LENGTH_SHORT).show()
+        }
     }
 
     /** Reflects the current block state on the block action (label + colors). */

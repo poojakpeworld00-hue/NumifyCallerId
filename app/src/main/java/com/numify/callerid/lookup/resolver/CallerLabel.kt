@@ -178,6 +178,13 @@ object CallerLabel {
 
         // Blocking is offered exactly where it is warranted, and never for a
         // number that is already blocked.
+        //
+        // This one block is deliberately outside BlockReward's rewarded-ad gate.
+        // The card is bound by CallerOverlayService as well as by
+        // IncomingCallActivity, and a rewarded ad needs an Activity to show in —
+        // there is none in the service. Putting a full-screen ad over a ringing
+        // spam call would be the wrong moment for one regardless. Blocks made
+        // here still occupy a free slot; they just never ask for an ad.
         block.visibility = if (alarming) View.VISIBLE else View.GONE
         block.setOnClickListener {
             runCatching { BlocklistRepository(context).add(number) }

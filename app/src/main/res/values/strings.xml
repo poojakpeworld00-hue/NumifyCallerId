@@ -566,6 +566,11 @@
     <string name="blocklist_no_recents">No recent calls found</string>
     <string name="blocklist_contact_no_number">Couldn\'t read that contact\'s number</string>
     <string name="blocklist_already_blocked">Already blocked</string>
+
+    <!-- Rewarded-ad gate on blocking, once the free slots from Remote Config are used. -->
+    <string name="block_unlock_title">Free blocks used</string>
+    <string name="block_unlock_message">Your %1$d free blocks are in use. Watch a short ad to block this number too.</string>
+    <string name="block_unlock_button">Watch ad &amp; block</string>
     <string name="blocklist_perm_calllog">Call-log access is needed to pick recent calls</string>
     <string name="blocklist_pick_contacts_title">Contacts</string>
     <string name="blocklist_no_contacts">No contacts found</string>
