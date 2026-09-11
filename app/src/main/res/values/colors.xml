@@ -228,12 +228,14 @@
          Blocklist, which the handoff deliberately turns red — that tab is the
          destructive one and the design says so in colour. -->
     <color name="ds_nav_chip_idle">#EEF1F7</color>
+    <color name="ds_nav_chip_none">#00000000</color>   <!-- idle nav cell: no wash, per the handoff -->
     <color name="ds_nav_idle">#AAB0C0</color>
     <color name="ds_nav_chip_active">#EAEEFE</color>
     <color name="ds_nav_chip_danger">#FDE9EA</color>
     <color name="ds_fab_start">#8B7CFF</color>            <!-- centre action gradient -->
     <color name="ds_fab_end">#0F3BE5</color>
     <color name="ds_fab_shadow">#660F3BE5</color>
+    <color name="ds_nav_pulse">#3466F0</color>          <!-- ring under the centre action -->
 
     <!-- Per-language avatar chips, in the handoff's own order. -->
     <color name="ds_lang_en">#2E5FE8</color>

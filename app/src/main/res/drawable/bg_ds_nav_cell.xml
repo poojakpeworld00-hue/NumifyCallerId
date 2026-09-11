@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The active destination's wash: `background:#EAF0FE; border-radius:16px`.
+
+     Solid white and tinted at runtime rather than coloured here, because the
+     active wash is per tab (blue everywhere, red on Blocklist) and the idle
+     state is the same shape at a transparent tint — which is what lets
+     MainShellActivity cross-fade between the two instead of swapping drawables. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@android:color/white" />
+    <corners android:radius="16dp" />
+</shape>

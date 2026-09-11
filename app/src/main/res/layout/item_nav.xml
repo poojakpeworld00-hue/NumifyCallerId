@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- One bottom-navigation cell: a wide pill holding the tab's glyph, with its
-     label beneath.
+<!-- One bottom-navigation cell, per the Numify Caller ID Home handoff: the glyph
+     over its label, the pair sitting in a rounded wash when the tab is active.
 
-     The pill replaces the previous top indicator bar — the selected state lives in
-     the pill's fill and the label's weight, so there is nothing left for an
-     indicator to do. It is wider than it is tall (46x26) rather than a square
-     chip: that is Material 3's own active shape, and at five destinations on a
-     360dp phone it gives the glyph room without pushing the labels together.
+     The wash is on [navPill] and not on the cell root, which is what keeps it
+     hugging its contents the way the design's `justify-content: space-around`
+     row does. The root still fills its weighted share, so the tap target stays
+     the full fifth of the bar even though the pill is narrower than that.
 
-     Both the chip's tint and the icon's are set from MainShellActivity: the active
+     Its horizontal padding is 8dp where the handoff says 14, and the label is
+     held to one line. The handoff is drawn on a 412dp frame; at five
+     destinations on a 360dp phone a fifth of the bar is ~61dp, and 14dp a side
+     pushes "Blocklist" past that and wraps it to "Blockli / st". 8dp is the
+     widest that keeps every label on one line at the narrow end.
+
+     It used to sit on the glyph alone (a 46x26 pill under the icon, label
+     outside it). The handoff wraps both, so the label is inside the active
+     colour rather than beside it.
+
+     Both the wash and the glyph are tinted from MainShellActivity: the active
      accent is per tab, blue everywhere except Blocklist. -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -22,29 +31,38 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:focusable="true"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/navIcon"
-            android:layout_width="46dp"
-            android:layout_height="26dp"
-            android:background="@drawable/bg_ds_nav_pill"
-            android:paddingHorizontal="15dp"
-            android:paddingVertical="5dp"
-            android:src="@drawable/ic_ds_nav_recents"
-            app:tint="@color/ds_nav_idle"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/navLabel"
+        <LinearLayout
+            android:id="@+id/navPill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:fontFamily="@font/mulish_semibold"
-            android:includeFontPadding="false"
-            android:textColor="@color/ds_nav_idle"
-            android:textSize="10sp"
-            tools:text="Recents" />
+            android:background="@drawable/bg_ds_nav_cell"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="8dp">
+
+            <ImageView
+                android:id="@+id/navIcon"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:src="@drawable/ic_ds_nav_recents"
+                app:tint="@color/ds_nav_idle"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/navLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/mulish_semibold"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/ds_nav_idle"
+                android:textSize="10sp"
+                tools:text="Recents" />
+        </LinearLayout>
     </LinearLayout>
 </layout>

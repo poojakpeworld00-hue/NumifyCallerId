@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The ring that pulses out from under the centre action. Sized and animated by
+     MainShellActivity; this is only its fill. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/ds_nav_pulse" />
+</shape>

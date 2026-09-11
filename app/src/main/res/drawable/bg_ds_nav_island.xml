@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bottom navigation as a floating island: `background:#fff; border-radius:28px`
+     from the handoff, with its side inset and its shadow carried by the view.
+
+     This replaces bg_ds_nav_bar_flat, which was the opposite decision — see the
+     note on footerBar in activity_main_shell.xml for what that traded away and
+     why the handoff asks for it back. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_surface" />
+    <corners android:radius="28dp" />
+</shape>
