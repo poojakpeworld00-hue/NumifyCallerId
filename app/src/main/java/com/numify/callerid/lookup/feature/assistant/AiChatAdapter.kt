@@ -11,6 +11,7 @@ import com.numify.callerid.lookup.databinding.ItemAiQuestionBinding
 import com.numify.callerid.lookup.entity.AiAction
 import com.numify.callerid.lookup.entity.AiActionKind
 import com.numify.callerid.lookup.entity.AiMessage
+import com.numify.callerid.lookup.entity.AiSuggestion
 
 /**
  * The Ask AI transcript: questions on the right, answers on the left with their
@@ -22,7 +23,7 @@ import com.numify.callerid.lookup.entity.AiMessage
  */
 class AiChatAdapter(
     private val onAction: (AiAction) -> Unit,
-    private val onFollowUp: (String) -> Unit
+    private val onFollowUp: (AiSuggestion) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<AiMessage>()
@@ -104,13 +105,16 @@ class AiChatAdapter(
 
             val chips = listOf(b.buttonAiFollowOne, b.buttonAiFollowTwo)
             chips.forEachIndexed { index, view ->
-                val text = item.followUps.getOrNull(index)
-                if (text == null) {
+                val followUp = item.followUps.getOrNull(index)
+                if (followUp == null) {
                     view.visibility = View.GONE
                 } else {
                     view.visibility = View.VISIBLE
-                    view.text = text
-                    view.setOnClickListener { onFollowUp(text) }
+                    view.text = followUp.label
+                    // The whole suggestion is handed back, not its label: it
+                    // carries the intent and subject that let the resolver
+                    // answer it without re-reading localized text.
+                    view.setOnClickListener { onFollowUp(followUp) }
                 }
             }
             b.rowAiFollowUps.visibility =

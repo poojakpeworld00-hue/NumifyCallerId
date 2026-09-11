@@ -7,6 +7,7 @@ import com.numify.callerid.lookup.repository.BlocklistRepository
 import com.numify.callerid.lookup.repository.CallLogRepository
 import com.numify.callerid.lookup.repository.CallRecord
 import com.numify.callerid.lookup.repository.CallType
+import com.numify.callerid.lookup.repository.assistant.AskIntent
 import java.util.concurrent.TimeUnit
 
 /**
@@ -52,7 +53,9 @@ class AiSuggestionEngine(private val context: Context) {
                 label = context.getString(R.string.ai_chip_is_spam, recent.number),
                 query = context.getString(R.string.ai_chip_is_spam, recent.number),
                 priority = 1,
-                highlighted = true
+                highlighted = true,
+                intent = AskIntent.SPAM,
+                subject = recent.number
             )
         )
     }
@@ -70,7 +73,11 @@ class AiSuggestionEngine(private val context: Context) {
                 label = context.getString(R.string.ai_chip_reply_to, who),
                 query = context.getString(R.string.ai_chip_reply_to, who),
                 priority = 2,
-                highlighted = true
+                highlighted = true,
+                intent = AskIntent.REPLY,
+                // The label may read as a saved name; the subject stays the
+                // number, so the draft has an unambiguous target.
+                subject = missed.number
             )
         )
     }
@@ -90,7 +97,9 @@ class AiSuggestionEngine(private val context: Context) {
                 label = context.getString(R.string.ai_chip_summarise, who),
                 query = context.getString(R.string.ai_chip_summarise, who),
                 priority = 3,
-                highlighted = true
+                highlighted = true,
+                intent = AskIntent.SUMMARY,
+                subject = done.number
             )
         )
     }
@@ -108,7 +117,9 @@ class AiSuggestionEngine(private val context: Context) {
                 label = context.getString(R.string.ai_chip_who_keeps_calling, persistent),
                 query = context.getString(R.string.ai_chip_who_keeps_calling, persistent),
                 priority = 4,
-                highlighted = true
+                highlighted = true,
+                intent = AskIntent.SPAM,
+                subject = persistent
             )
         )
     }
@@ -116,15 +127,21 @@ class AiSuggestionEngine(private val context: Context) {
     // --- backfill -----------------------------------------------------------
 
     private fun backfill(): List<AiSuggestion> = listOf(
-        suggestion(R.string.ai_follow_top_caller, 90),
-        suggestion(R.string.ai_follow_missed, 91),
-        suggestion(R.string.ai_follow_blocked_count, 92),
-        suggestion(R.string.ai_chip_this_week, 93)
+        suggestion(R.string.ai_follow_top_caller, 90, AskIntent.TOP_CALLER),
+        suggestion(R.string.ai_follow_missed, 91, AskIntent.MISSED),
+        suggestion(R.string.ai_follow_blocked_count, 92, AskIntent.BLOCKLIST),
+        suggestion(R.string.ai_chip_this_week, 93, AskIntent.WEEK)
     )
 
-    private fun suggestion(resId: Int, priority: Int): AiSuggestion {
+    /**
+     * Every chip states its own [AskIntent] rather than leaving the resolver to
+     * read it back out of [AiSuggestion.query]: these labels are translated into
+     * ten locales and the matcher reads English, so a chip that had to be
+     * re-parsed answered nothing on a device set to anything else.
+     */
+    private fun suggestion(resId: Int, priority: Int, intent: AskIntent): AiSuggestion {
         val text = context.getString(resId)
-        return AiSuggestion(text, text, priority)
+        return AiSuggestion(text, text, priority, intent = intent)
     }
 
     private fun minutesAgo(minutes: Long) =

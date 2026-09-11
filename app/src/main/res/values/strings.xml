@@ -789,6 +789,11 @@
     <string name="ai_ans_missed">%1$d missed calls this week, %2$d from numbers you have not saved. The most recent was %3$s.</string>
     <string name="ai_ans_blocklist_empty">Your blocklist is empty.</string>
     <string name="ai_ans_blocklist">%1$d numbers blocked, %2$d of them this month.</string>
+    <string name="ai_ans_spam_worst">%1$s is the number that rings you most and is never answered — %2$d calls, not one picked up.</string>
+    <string name="ai_ans_reply">Drafted a reply to %1$s. Message opens it in your SMS app so you can edit it before sending.</string>
+    <string name="ai_ans_week">%1$d calls this week: %2$d missed and %3$d from numbers you have not saved. Most of them were with %4$s.</string>
+    <string name="ai_ans_area">%1$d other calls this month from numbers starting %2$s, across %3$d different numbers.</string>
+    <string name="ai_ans_area_none">Nothing else this month from numbers starting %1$s.</string>
     <string name="ai_ans_local_only">Right now I can answer questions about your calls, contacts and blocklist. Anything wider needs the assistant service, which is not switched on yet.</string>
     <string name="ai_ans_not_configured">The assistant service is not reachable. Try again shortly.</string>
     <string name="ai_draft_missed_reply">Sorry I missed your call — what is this regarding?</string>

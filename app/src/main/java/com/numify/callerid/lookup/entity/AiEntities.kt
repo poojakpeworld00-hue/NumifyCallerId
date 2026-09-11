@@ -1,5 +1,7 @@
 package com.numify.callerid.lookup.entity
 
+import com.numify.callerid.lookup.repository.assistant.AskIntent
+
 /**
  * Everything the Ask AI surface exchanges. Kept free of Android types so the
  * intent resolver and the remote client can both be tested off-device.
@@ -14,7 +16,7 @@ sealed interface AiMessage {
     data class Answer(
         val text: String,
         val actions: List<AiAction> = emptyList(),
-        val followUps: List<String> = emptyList(),
+        val followUps: List<AiSuggestion> = emptyList(),
         val source: AiSource = AiSource.LOCAL
     ) : AiMessage
 
@@ -66,13 +68,25 @@ enum class AiSource {
 }
 
 /**
- * A starter chip on the empty hub. [priority] is what ranks it — lower sorts
- * first — so a spam call that just landed outranks the generic prompts.
+ * A prompt the app offers the user: a starter chip on the empty hub, or a
+ * follow-up under an answer. [priority] is what ranks it — lower sorts first —
+ * so a spam call that just landed outranks the generic prompts.
  */
 data class AiSuggestion(
     val label: String,
     val query: String,
     val priority: Int,
     /** Highlighted chips are the context-derived ones, not the backfill. */
-    val highlighted: Boolean = false
+    val highlighted: Boolean = false,
+    /**
+     * What this prompt asks for, carried rather than re-read off [query].
+     *
+     * [label] and [query] are localized and [AskIntent.of] matches English, so a
+     * chip whose own text had to be re-parsed answered nothing on a device set
+     * to any other language. Null only for text the user typed, which has no
+     * intent until it is parsed.
+     */
+    val intent: AskIntent? = null,
+    /** The number or contact name the prompt is about; blank when it is about no one. */
+    val subject: String = ""
 )

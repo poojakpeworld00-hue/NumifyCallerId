@@ -4,6 +4,7 @@ import android.content.Context
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.entity.AiMessage
 import com.numify.callerid.lookup.entity.AiSource
+import com.numify.callerid.lookup.entity.AiSuggestion
 import com.numify.callerid.lookup.repository.SettingsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -29,11 +30,19 @@ class AiAssistantRepository(private val context: Context) {
      * Answers [question]. Runs off the main thread: the local path reads the
      * call-log content provider, which is not a main-thread operation.
      *
+     * [intent] and [subject] are carried by every prompt the app offers, so a
+     * chip is never re-parsed from its own localized label — see [AskIntent].
+     * Typed text arrives with both empty and is classified from the words.
+     *
      * Quota is charged only for [AiSource.REMOTE] answers — see
      * [AiFeatureConfig.freeQueryLimit] for why the client count is advisory.
      */
-    suspend fun ask(question: String): AiMessage.Answer = withContext(Dispatchers.IO) {
-        local.resolve(question)?.let { return@withContext it }
+    suspend fun ask(
+        question: String,
+        intent: AskIntent? = null,
+        subject: String = ""
+    ): AiMessage.Answer = withContext(Dispatchers.IO) {
+        local.resolve(question, intent, subject)?.let { return@withContext it }
 
         val endpoint = AiFeatureConfig.endpoint(context)
         if (endpoint.isBlank()) return@withContext unconfigured()
@@ -70,12 +79,23 @@ class AiAssistantRepository(private val context: Context) {
         )
     }
 
+    /**
+     * Reached only by a typed question the on-device resolver cannot place —
+     * never by one of the app's own prompts, which all carry an intent it can
+     * answer. The two follow-ups offered here therefore carry theirs as well,
+     * so the way out of this message is not itself a dead end.
+     */
     private fun unconfigured(): AiMessage.Answer = AiMessage.Answer(
         text = context.getString(R.string.ai_ans_local_only),
         followUps = listOf(
-            context.getString(R.string.ai_follow_top_caller),
-            context.getString(R.string.ai_follow_missed)
+            followUp(R.string.ai_follow_top_caller, AskIntent.TOP_CALLER),
+            followUp(R.string.ai_follow_missed, AskIntent.MISSED)
         ),
         source = AiSource.LOCAL
     )
+
+    private fun followUp(resId: Int, intent: AskIntent): AiSuggestion {
+        val text = context.getString(resId)
+        return AiSuggestion(label = text, query = text, priority = 0, intent = intent)
+    }
 }

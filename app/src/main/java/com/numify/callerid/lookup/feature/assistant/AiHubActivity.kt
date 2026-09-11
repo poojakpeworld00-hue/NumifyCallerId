@@ -18,10 +18,12 @@ import com.numify.callerid.lookup.databinding.ActivityAiHubBinding
 import com.numify.callerid.lookup.entity.AiAction
 import com.numify.callerid.lookup.entity.AiActionKind
 import com.numify.callerid.lookup.entity.AiMessage
+import com.numify.callerid.lookup.entity.AiSuggestion
 import com.numify.callerid.lookup.feature.calldetails.CallDetailsActivity
 import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.lookup.repository.BlocklistRepository
 import com.numify.callerid.lookup.repository.assistant.AiAssistantRepository
+import com.numify.callerid.lookup.repository.assistant.AskIntent
 import kotlinx.coroutines.launch
 
 /**
@@ -42,9 +44,9 @@ class AiHubActivity : BaseActivity<ActivityAiHubBinding>() {
 
     private val chatAdapter = AiChatAdapter(
         onAction = ::runAction,
-        onFollowUp = ::submit
+        onFollowUp = { submit(it) }
     )
-    private val suggestionAdapter = AiSuggestionAdapter { submit(it.query) }
+    private val suggestionAdapter = AiSuggestionAdapter { submit(it) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -108,14 +110,23 @@ class AiHubActivity : BaseActivity<ActivityAiHubBinding>() {
         submit(text)
     }
 
-    private fun submit(question: String) {
+    /**
+     * A chip the app offered. It is asked by its intent rather than by its text:
+     * the label is localized and the on-device matcher reads English, so a chip
+     * re-parsed from its own words answered nothing outside an English locale.
+     */
+    private fun submit(suggestion: AiSuggestion) {
+        submit(suggestion.label, suggestion.intent, suggestion.subject)
+    }
+
+    private fun submit(question: String, intent: AskIntent? = null, subject: String = "") {
         showTranscript()
         chatAdapter.add(AiMessage.Question(question))
         chatAdapter.add(AiMessage.Thinking)
         scrollToEnd()
 
         lifecycleScope.launch {
-            val answer = runCatching { repository.ask(question) }.getOrElse {
+            val answer = runCatching { repository.ask(question, intent, subject) }.getOrElse {
                 AiMessage.Answer(getString(R.string.ai_ans_not_configured))
             }
             chatAdapter.replaceThinking(answer)
