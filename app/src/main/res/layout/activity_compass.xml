@@ -82,30 +82,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_2sdp"
+                    android:fontFamily="@font/space_grotesk_bold"
                     android:includeFontPadding="false"
-                    android:letterSpacing="-0.04"
-                    android:textColor="@color/on_surface"
-                    android:textSize="@dimen/_38ssp"
-                    android:textStyle="bold"
-                    tools:text="342°" />
+                    android:letterSpacing="0.02"
+                    android:textColor="@color/ds_ink"
+                    android:textSize="48sp"
+                    tools:text="024°" />
 
+                <!-- CompassActivity already writes the 16-wind abbreviation here, so
+                     this matches the handoff's "NNE" without the caps transform it
+                     used to carry. -->
                 <TextView
                     android:id="@+id/textDirection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:letterSpacing="0.12"
-                    android:textAllCaps="true"
-                    android:textColor="@color/primary"
-                    android:textSize="@dimen/_11ssp"
-                    android:textStyle="bold"
-                    tools:text="North-northwest" />
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/mulish_bold"
+                    android:textColor="@color/ds_accent"
+                    android:textSize="14sp"
+                    tools:text="NNE" />
 
                 <FrameLayout
                     android:id="@+id/dialLabels"
-                    android:layout_width="@dimen/_200sdp"
-                    android:layout_height="@dimen/_200sdp"
-                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_width="280dp"
+                    android:layout_height="280dp"
+                    android:layout_marginTop="28dp"
                     android:elevation="@dimen/_3sdp"
                     android:outlineAmbientShadowColor="@color/card_shadow"
                     android:outlineSpotShadowColor="@color/card_shadow">
@@ -118,29 +119,29 @@
                     <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_14sdp"
-                    android:background="@drawable/bg_cid_pill_neutral"
-                    android:paddingHorizontal="@dimen/_12sdp"
-                    android:paddingVertical="@dimen/_5sdp"
+                    android:layout_marginTop="28dp"
+                    android:background="@drawable/bg_ds_chip_status"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="8dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/_13sdp"
-                        android:layout_height="@dimen/_13sdp"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
                         android:contentDescription="@null"
                         android:src="@drawable/ic_compass"
-                        app:tint="@color/on_surface" />
+                        app:tint="@color/ds_accent" />
 
                     <TextView
                         android:id="@+id/textSignal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginStart="6dp"
+                        android:fontFamily="@font/mulish_bold"
                         android:includeFontPadding="false"
-                        android:textColor="@color/on_surface"
-                        android:textSize="@dimen/_10ssp"
-                        android:textStyle="bold"
+                        android:textColor="@color/ds_accent"
+                        android:textSize="13sp"
                         tools:text="Calibrated" />
                 </LinearLayout>
 

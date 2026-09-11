@@ -34,55 +34,55 @@ class CompassRoseView @JvmOverloads constructor(
 
     private val facePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = ContextCompat.getColor(context, R.color.surface)
+        color = ContextCompat.getColor(context, R.color.ds_surface)
     }
 
     private val ringPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeWidth = 1f * density
-        color = ContextCompat.getColor(context, R.color.primary_container)
+        color = ContextCompat.getColor(context, R.color.ds_nav_chip_idle)
     }
 
     private val tickPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeCap = Paint.Cap.ROUND
         strokeWidth = 1.5f * density
-        color = ContextCompat.getColor(context, R.color.primary_container)
+        color = ContextCompat.getColor(context, R.color.ds_rule)
     }
 
     private val cardinalPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textAlign = Paint.Align.CENTER
         textSize = 14f * density
         isFakeBoldText = true
-        color = ContextCompat.getColor(context, R.color.on_surface_variant)
+        color = ContextCompat.getColor(context, R.color.ds_ink_muted)
     }
 
     private val northPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textAlign = Paint.Align.CENTER
         textSize = 14f * density
         isFakeBoldText = true
-        color = ContextCompat.getColor(context, R.color.cid_clay)
+        color = ContextCompat.getColor(context, R.color.ds_danger)
     }
 
     private val needleNorthPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = ContextCompat.getColor(context, R.color.cid_clay)
+        color = ContextCompat.getColor(context, R.color.ds_danger)
     }
 
     private val needleSouthPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = ContextCompat.getColor(context, R.color.primary_container)
+        color = ContextCompat.getColor(context, R.color.ds_accent)
     }
 
     private val hubPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = ContextCompat.getColor(context, R.color.on_surface)
+        color = ContextCompat.getColor(context, R.color.ds_ink)
     }
 
     private val hubRingPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeWidth = 4f * density
-        color = ContextCompat.getColor(context, R.color.surface)
+        color = ContextCompat.getColor(context, R.color.ds_surface)
     }
 
     private val needle = Path()
