@@ -162,7 +162,7 @@
             android:outlineAmbientShadowColor="@color/ds_card_shadow"
             android:outlineSpotShadowColor="@color/ds_card_shadow"
             android:overScrollMode="never"
-            android:paddingBottom="12dp"
+            android:paddingBottom="@dimen/_80sdp"
             app:layout_constraintBottom_toTopOf="@id/adBannerDivider"
             app:layout_constraintTop_toBottomOf="@id/textHeaderBlocked"
             tools:listitem="@layout/item_blocklist" />

@@ -486,7 +486,7 @@
             android:outlineAmbientShadowColor="@color/ds_card_shadow"
             android:outlineSpotShadowColor="@color/ds_card_shadow"
             android:overScrollMode="never"
-            android:paddingBottom="12dp"
+            android:paddingBottom="@dimen/_60sdp"
             tools:listitem="@layout/item_call" />
 
         <TextView
