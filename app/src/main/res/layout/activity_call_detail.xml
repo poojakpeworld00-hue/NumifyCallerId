@@ -9,7 +9,7 @@
         android:id="@+id/detailRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
+        android:background="@color/ds_page"
         tools:context=".screen.insight.CallDetailsActivity">
 
         <!-- Top bar -->
@@ -19,35 +19,28 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:paddingVertical="@dimen/_8sdp"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="14dp"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/buttonBack"
-                android:layout_width="@dimen/_34sdp"
-                android:layout_height="@dimen/_34sdp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                style="@style/ToolHeaderBack"
                 android:contentDescription="@string/onboarding_skip"
-                android:padding="@dimen/_7sdp"
                 android:src="@drawable/ic_arrow_back"
-                app:tint="@color/on_surface" />
+                app:tint="@color/ds_ink" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_2sdp"
-                android:text="@string/call_detail_title"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_14ssp"
-                android:textStyle="bold" />
+                style="@style/ToolHeaderTitle"
+                android:text="@string/call_detail_title" />
         </LinearLayout>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clipToPadding="false"
-            android:paddingHorizontal="@dimen/_12sdp"
+            android:paddingHorizontal="20dp"
             android:paddingBottom="@dimen/_10sdp"
             app:layout_constraintBottom_toTopOf="@id/bannerAdFrame"
             app:layout_constraintTop_toBottomOf="@id/topBar">
@@ -88,23 +81,23 @@
                         android:id="@+id/textName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginTop="12dp"
                         android:ellipsize="end"
+                        android:fontFamily="@font/space_grotesk_bold"
                         android:gravity="center"
-                        android:letterSpacing="-0.02"
                         android:maxLines="1"
-                        android:textColor="@color/on_surface"
-                        android:textSize="@dimen/_17ssp"
-                        android:textStyle="bold"
+                        android:textColor="@color/ds_ink"
+                        android:textSize="21sp"
                         tools:text="Emergency · 112" />
 
                     <TextView
                         android:id="@+id/textNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="@dimen/_12ssp"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/mulish_semibold"
+                        android:textColor="@color/ds_ink_muted"
+                        android:textSize="13sp"
                         tools:text="112 · Mobile" />
 
                     <!-- "Not identified yet" chip — shown only for unknown numbers -->
@@ -112,16 +105,16 @@
                         android:id="@+id/textVerified"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:background="@drawable/bg_pill"
-                        android:backgroundTint="@color/neutral_soft"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_ds_chip_status"
+                        android:backgroundTint="@color/ds_nav_chip_idle"
+                        android:fontFamily="@font/mulish_bold"
                         android:gravity="center_vertical"
-                        android:paddingHorizontal="@dimen/_12sdp"
-                        android:paddingVertical="@dimen/_5sdp"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="6dp"
                         android:text="@string/detail_not_identified"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="@dimen/_10ssp"
-                        android:textStyle="bold"
+                        android:textColor="@color/ds_ink_muted"
+                        android:textSize="12.5sp"
                         android:visibility="gone"
                         tools:visibility="visible" />
 
@@ -154,7 +147,8 @@
                             android:layout_marginStart="@dimen/_8sdp"
                             android:text="@string/detail_identify"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/_12ssp"
+                            android:fontFamily="@font/mulish_bold"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>

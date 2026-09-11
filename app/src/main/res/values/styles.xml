@@ -63,7 +63,8 @@
         <item name="android:textSize">9sp</item>
     </style>
 
-    <!-- Call Details action button (circle icon + label) -->
+    <!-- Call Details action (circle icon + label). The 48dp floor is the touch
+         minimum; the icon disc sizes above it in sdp. -->
     <style name="DetailAction">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -72,15 +73,16 @@
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:gravity">center</item>
+        <item name="android:minHeight">48dp</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:paddingVertical">@dimen/_4sdp</item>
+        <item name="android:paddingVertical">6dp</item>
     </style>
 
     <style name="DetailActionIcon">
-        <item name="android:layout_width">@dimen/_46sdp</item>
-        <item name="android:layout_height">@dimen/_46sdp</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
         <item name="android:background">@drawable/bg_oval</item>
-        <item name="android:padding">@dimen/_12sdp</item>
+        <item name="android:padding">13dp</item>
     </style>
 
     <!-- One colour for every action label. Colouring each to match its own chip
@@ -89,11 +91,11 @@
     <style name="DetailActionLabel">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/_7sdp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:textColor">@color/on_surface</item>
-        <item name="android:textSize">@dimen/_10ssp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/ds_ink</item>
+        <item name="android:textSize">11.5sp</item>
     </style>
 
     <!-- Flashlight mode button: the handoff sets the glyph beside its label
