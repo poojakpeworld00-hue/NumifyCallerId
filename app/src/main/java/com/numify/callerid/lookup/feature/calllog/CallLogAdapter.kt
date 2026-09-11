@@ -2,12 +2,15 @@ package com.numify.callerid.lookup.feature.calllog
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.numify.callerid.lookup.R
+import com.numify.callerid.lookup.common.AvatarPalette
 import com.numify.callerid.lookup.repository.CallRecord
 import com.numify.callerid.lookup.repository.CallType
 import com.numify.callerid.lookup.databinding.ItemCallBinding
@@ -22,9 +25,19 @@ class CallLogAdapter(
 
     private var rows: List<HistoryRowUi> = emptyList()
 
+    /** Saved contact pictures by number tail, supplied by CallLogViewModel. */
+    private var photos: Map<String, String> = emptyMap()
+
     @SuppressLint("NotifyDataSetChanged")
     fun submit(list: List<HistoryRowUi>) {
         rows = list
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setPhotos(map: Map<String, String>) {
+        if (photos == map) return
+        photos = map
         notifyDataSetChanged()
     }
 
@@ -90,11 +103,26 @@ class CallLogAdapter(
             } else {
                 binding.columnCall.background = null
             }
-            binding.textAvatar.backgroundTintList =
-                tint(if (isSpam) R.color.ds_danger_tint else R.color.ds_selected_tint)
-            binding.textAvatar.setTextColor(
-                color(if (isSpam) R.color.ds_danger else R.color.ds_accent)
-            )
+            // The avatar takes its own colour from the caller, exactly as the
+            // contacts list does, so the same caller keeps the same colour
+            // between launches and a scroll through recents is scannable by
+            // colour.
+            //
+            // Keyed off the number rather than the displayed name: the name on a
+            // call-log row is whatever the network labelled that particular call,
+            // so one caller arrives as "Jayakar New …" on one row and a longer
+            // CNAP string on the next, and the same person got two colours.
+            //
+            // Spam is the exception and keeps the danger red: on this list the
+            // avatar is the verdict, and a spam call drawn in a cheerful palette
+            // colour would be the one row that most needs to look wrong.
+            binding.textAvatar.backgroundTintList = if (isSpam) {
+                tint(R.color.ds_danger)
+            } else {
+                AvatarPalette.tintFor(ctx, avatarKey(e))
+            }
+            binding.textAvatar.setTextColor(color(R.color.ds_on_accent))
+            loadPhoto(e)
             binding.textName.setTextColor(color(if (isSpam) R.color.ds_danger else R.color.ds_ink))
 
             // Icon + subtitle colour by verdict/type.
@@ -127,10 +155,50 @@ class CallLogAdapter(
             }
             binding.root.setOnClickListener { onOpen(e) }
         }
+
+        /**
+         * Colour key for a caller: the last [MATCH_DIGITS] digits of the number,
+         * so 0912345 6789, +91 98…, and the same number written two ways all land
+         * on one swatch. Falls back to the name for a withheld number, which has
+         * no digits to key on.
+         */
+        private fun avatarKey(e: CallRecord): String {
+            val tail = e.number.filter(Char::isDigit).takeLast(MATCH_DIGITS)
+            return tail.ifEmpty { e.name.orEmpty() }
+        }
+
+        /**
+         * Lays the saved contact's picture over the coloured initials, exactly as
+         * the contacts list does, so a caller you have saved looks like the same
+         * person in both places.
+         *
+         * Cleared explicitly when there is none: a recycled row would otherwise
+         * keep the previous caller's face.
+         */
+        private fun loadPhoto(e: CallRecord) {
+            val iv = binding.imageAvatar
+            val tail = e.number.filter(Char::isDigit).takeLast(MATCH_DIGITS)
+            val uri = photos[tail]
+
+            if (uri.isNullOrBlank()) {
+                Glide.with(iv).clear(iv)
+                iv.setImageDrawable(null)
+                iv.visibility = View.GONE
+                return
+            }
+            iv.visibility = View.VISIBLE
+            Glide.with(iv)
+                .load(Uri.parse(uri))
+                .circleCrop()
+                .into(iv)
+        }
     }
 
     companion object {
         private const val TYPE_HEADER = 0
         private const val TYPE_CALL = 1
+
+        /** Match numbers on their last N digits, as the rest of the app does. */
+        private const val MATCH_DIGITS = 10
     }
 }

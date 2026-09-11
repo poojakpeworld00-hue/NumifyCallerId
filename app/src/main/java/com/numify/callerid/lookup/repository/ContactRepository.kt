@@ -29,6 +29,47 @@ class ContactRepository(private val context: Context) {
         }.getOrNull()
     }
 
+    /**
+     * Every saved number that has a picture, keyed by its last [MATCH_DIGITS]
+     * digits — the same rule the rest of the app compares numbers by.
+     *
+     * One query for the whole address book rather than a PhoneLookup per row:
+     * the call log is bound in bulk, and a lookup per row would put a content
+     * query inside onBindViewHolder.
+     */
+    fun photoUriByNumber(): Map<String, String> {
+        val out = HashMap<String, String>()
+        val projection = arrayOf(
+            ContactsContract.CommonDataKinds.Phone.NUMBER,
+            ContactsContract.CommonDataKinds.Phone.PHOTO_THUMBNAIL_URI,
+        )
+
+        runCatching {
+            context.contentResolver.query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                projection,
+                // Only rows that actually carry a picture.
+                "${ContactsContract.CommonDataKinds.Phone.PHOTO_THUMBNAIL_URI} IS NOT NULL",
+                null,
+                null
+            )?.use { cursor ->
+                val numberIdx = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                val photoIdx =
+                    cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_THUMBNAIL_URI)
+                if (numberIdx < 0 || photoIdx < 0) return@use
+
+                while (cursor.moveToNext()) {
+                    val photo = cursor.getString(photoIdx)?.takeIf { it.isNotBlank() } ?: continue
+                    val tail = cursor.getString(numberIdx).orEmpty()
+                        .filter(Char::isDigit)
+                        .takeLast(MATCH_DIGITS)
+                    if (tail.isNotEmpty()) out.putIfAbsent(tail, photo)
+                }
+            }
+        }
+        return out
+    }
+
     fun getContacts(): List<ContactRecord> {
         val groupContactIds = queryGroupContactIds()
 
@@ -94,5 +135,10 @@ class ContactRepository(private val context: Context) {
             }
         }
         return ids
+    }
+
+    private companion object {
+        /** Compare on the last N digits, the rule the whole app matches numbers by. */
+        const val MATCH_DIGITS = 10
     }
 }

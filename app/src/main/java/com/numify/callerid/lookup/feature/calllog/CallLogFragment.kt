@@ -381,6 +381,9 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
                 if (rows.isEmpty() && hasCallLogPermission()) View.VISIBLE else View.GONE
             showCounts(rows)
         }
+        // Saved callers show their contact picture over the coloured initials,
+        // so a caller you know looks the same here as in the directory.
+        viewModel.photos.observe(viewLifecycleOwner) { adapter.setPhotos(it) }
         viewModel.filter.observe(viewLifecycleOwner) { active ->
             highlightTab(binding.tabAll, active == CallLogFilter.ALL)
             highlightTab(binding.tabIncoming, active == CallLogFilter.INCOMING)

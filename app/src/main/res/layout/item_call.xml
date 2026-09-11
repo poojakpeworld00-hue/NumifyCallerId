@@ -33,17 +33,35 @@
     android:paddingHorizontal="16dp"
     android:paddingVertical="14dp">
 
-    <TextView
-        android:id="@+id/textAvatar"
+    <FrameLayout
+        android:id="@+id/avatarBox"
         android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/bg_ds_call_disc"
-        android:fontFamily="@font/mulish_bold"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:textColor="@color/ds_accent"
-        android:textSize="15sp"
-        tools:text="112" />
+        android:layout_height="40dp">
+
+        <!-- Coloured initials underneath, the saved contact's picture over the top
+             when there is one — the same two-layer avatar item_contact uses, so a
+             caller looks the same in recents as in the directory. -->
+        <TextView
+            android:id="@+id/textAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_ds_avatar_circle"
+            android:fontFamily="@font/mulish_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textColor="@color/ds_on_accent"
+            android:textSize="14sp"
+            tools:text="AL" />
+
+        <ImageView
+            android:id="@+id/imageAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            tools:ignore="ContentDescription" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="0dp"

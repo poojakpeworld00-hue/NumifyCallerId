@@ -10,6 +10,7 @@ import com.numify.callerid.lookup.repository.CallRecord
 import com.numify.callerid.lookup.repository.CallLogRepository
 import com.numify.callerid.lookup.repository.CallLogTotals
 import com.numify.callerid.lookup.repository.CallType
+import com.numify.callerid.lookup.repository.ContactRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,6 +20,7 @@ import java.util.Locale
 class CallLogViewModel(app: Application) : AndroidViewModel(app) {
 
     private val repository = CallLogRepository(app)
+    private val contacts = ContactRepository(app)
     private var allCalls: List<CallRecord> = emptyList()
     private var query: String = ""
 
@@ -38,13 +40,24 @@ class CallLogViewModel(app: Application) : AndroidViewModel(app) {
     private val _totals = MutableLiveData(CallLogTotals(0, 0))
     val totals: LiveData<CallLogTotals> = _totals
 
+    /**
+     * Saved contact pictures, keyed by the last ten digits of their number.
+     *
+     * Read once alongside the log rather than per row: the adapter needs a photo
+     * for whichever caller it is binding, and a PhoneLookup inside
+     * onBindViewHolder would be a content query per scrolled row.
+     */
+    private val _photos = MutableLiveData<Map<String, String>>(emptyMap())
+    val photos: LiveData<Map<String, String>> = _photos
+
     fun load() {
         viewModelScope.launch {
-            val (calls, totals) = withContext(Dispatchers.IO) {
-                repository.getCalls() to repository.getTotals()
+            val (calls, totals, photos) = withContext(Dispatchers.IO) {
+                Triple(repository.getCalls(), repository.getTotals(), contacts.photoUriByNumber())
             }
             allCalls = calls
             _totals.value = totals
+            _photos.value = photos
             rebuild()
         }
     }
