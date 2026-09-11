@@ -36,24 +36,16 @@
 
             <ImageView
                 android:id="@+id/buttonBack"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                style="@style/ToolHeaderBack"
                 android:contentDescription="@string/onboarding_skip"
-                android:padding="@dimen/_9sdp"
                 android:src="@drawable/ic_arrow_back"
-                app:tint="@color/on_surface" />
+                app:tint="@color/ds_ink" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_2sdp"
-                android:layout_weight="1"
-                android:letterSpacing="-0.02"
-                android:text="@string/timer_tool"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_15ssp"
-                android:textStyle="bold" />
+                style="@style/ToolHeaderTitle"
+                android:text="@string/timer_tool" />
 
             <!-- Stopwatch / Timer. Both tools are separate activities, so the
                  inactive half navigates rather than swapping a view. -->
