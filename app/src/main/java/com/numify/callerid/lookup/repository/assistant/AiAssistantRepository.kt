@@ -3,11 +3,13 @@ package com.numify.callerid.lookup.repository.assistant
 import android.content.Context
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.entity.AiMessage
+import com.numify.callerid.lookup.entity.AiQueryRequest
 import com.numify.callerid.lookup.entity.AiSource
 import com.numify.callerid.lookup.entity.AiSuggestion
 import com.numify.callerid.lookup.repository.SettingsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.Locale
 
 /**
  * The single entry point behind the Ask AI screen.
@@ -16,15 +18,16 @@ import kotlinx.coroutines.withContext
  * the local resolver has nothing — which keeps the common cases free, instant
  * and offline, and means the paid quota is spent on genuinely open questions.
  *
- * The remote half is deliberately not wired to a provider yet. It routes through
- * a backend proxy identified by [AiFeatureConfig.endpoint]; until that endpoint
- * is configured, [ask] returns a stated limitation rather than pretending, and
- * nothing is billed.
+ * The remote half goes to a backend proxy named by [AiFeatureConfig.endpoint] —
+ * never to a provider directly, because the proxy is what holds the model key.
+ * While that endpoint is blank the feature is simply on-device: [ask] says so
+ * rather than pretending, and nothing is billed.
  */
 class AiAssistantRepository(private val context: Context) {
 
     private val local = LocalIntentResolver(context)
     private val settings = SettingsRepository(context)
+    private val contextBuilder = AiContextBuilder(context)
 
     /**
      * Answers [question]. Runs off the main thread: the local path reads the
@@ -61,23 +64,75 @@ class AiAssistantRepository(private val context: Context) {
     // --- remote -------------------------------------------------------------
 
     /**
-     * Placeholder for the `/ai/query` call.
+     * The `/ai/query` call.
      *
-     * Not implemented against a provider on purpose. The model key must never
-     * reach the APK — the same reasoning already written on
+     * It posts the question and the digest from [AiContextBuilder] to the proxy
+     * named by Remote Config, and nothing else. **The model key is never in this
+     * app** — the same reasoning already written on
      * [com.numify.callerid.lookup.resolver.CredentialProvider], only sharper
      * here, because a leaked model key is spent money rather than a rate-limited
-     * lookup. When the backend exists this posts the question plus the minimum
-     * context to that proxy, and the key stays server-side.
+     * lookup. The proxy holds it and calls the provider server-side.
+     *
+     * The quota is charged on a delivered answer only. Charging on the attempt
+     * would let a flaky network eat a user's free questions without ever
+     * answering one.
      */
-    @Suppress("UNUSED_PARAMETER")
-    private fun remote(question: String, endpoint: String): AiMessage.Answer {
+    private suspend fun remote(question: String, endpoint: String): AiMessage.Answer {
+        if (!hasQuotaLeft()) return quotaSpent()
+
+        val payload = AiQueryRequest(
+            question = question,
+            locale = Locale.getDefault().toLanguageTag(),
+            context = contextBuilder.build()
+        )
+
+        val response = runCatching {
+            AiProxyClient.service(endpoint).ask(endpoint, payload)
+        }.getOrNull() ?: return unreachable()
+
+        val body = response.body()?.takeIf { response.isSuccessful } ?: return unreachable()
+        val text = body.answer?.takeIf { it.isNotBlank() } ?: return unreachable()
+
         settings.aiQueryCount = settings.aiQueryCount + 1
         return AiMessage.Answer(
-            text = context.getString(R.string.ai_ans_not_configured),
+            text = text,
+            followUps = modelFollowUps(body.followUps),
             source = AiSource.REMOTE
         )
     }
+
+    /**
+     * Follow-ups the model proposed. They carry no [AskIntent] — unlike the app's
+     * own prompts, nobody has checked that these can be answered, so they are
+     * treated exactly like text the user typed: classified on the device first,
+     * and escalated only if that finds nothing.
+     *
+     * Capped at two because the answer bubble renders two chips.
+     */
+    private fun modelFollowUps(proposed: List<String>?): List<AiSuggestion> =
+        proposed.orEmpty()
+            .mapNotNull { it.trim().takeIf(String::isNotEmpty) }
+            .take(MAX_FOLLOW_UPS)
+            .map { AiSuggestion(label = it, query = it, priority = 0) }
+
+    private fun unreachable(): AiMessage.Answer = AiMessage.Answer(
+        text = context.getString(R.string.ai_ans_not_configured),
+        source = AiSource.REMOTE
+    )
+
+    /**
+     * The client-side end of the allowance. It exists to explain the stop, not
+     * to enforce it — a SharedPreferences edit resets this, which is why
+     * [AiFeatureConfig.freeQueryLimit] says the real cap belongs to the proxy.
+     */
+    private fun quotaSpent(): AiMessage.Answer = AiMessage.Answer(
+        text = context.getString(R.string.ai_ans_quota_spent, freeLimit()),
+        followUps = listOf(
+            followUp(R.string.ai_follow_top_caller, AskIntent.TOP_CALLER),
+            followUp(R.string.ai_follow_missed, AskIntent.MISSED)
+        ),
+        source = AiSource.LOCAL
+    )
 
     /**
      * Reached only by a typed question the on-device resolver cannot place —
@@ -122,5 +177,10 @@ class AiAssistantRepository(private val context: Context) {
             intent = intent,
             subject = subject
         )
+    }
+
+    private companion object {
+        /** The answer bubble renders two follow-up chips; the rest are dropped. */
+        const val MAX_FOLLOW_UPS = 2
     }
 }

@@ -801,6 +801,7 @@
     <string name="ai_ans_yesterday_none">No calls logged yesterday.</string>
     <string name="ai_ans_local_only">Right now I can answer questions about your calls, contacts and blocklist. Anything wider needs the assistant service, which is not switched on yet.</string>
     <string name="ai_ans_not_configured">The assistant service is not reachable. Try again shortly.</string>
+    <string name="ai_ans_quota_spent">That is your %1$d free questions used. Anything your phone can answer on its own stays free.</string>
     <string name="ai_draft_missed_reply">Sorry I missed your call — what is this regarding?</string>
     <string name="ai_action_block">Block</string>
     <string name="ai_action_report">Report</string>
