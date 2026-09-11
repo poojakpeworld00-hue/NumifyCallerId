@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The appearance hero on Settings: `linear-gradient(155deg,#EAF0FE,#F6F8FC)`
+     inside a 1px #E1E9FB hairline on a 22dp radius.
+
+     Android gradient angles are multiples of 45 anticlockwise from east, so 270
+     (top to bottom) is the nearest to the design's 155deg; the design's gradient
+     is only a few degrees off vertical. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="270"
+        android:endColor="@color/ds_page"
+        android:startColor="@color/ds_nav_chip_active"
+        android:type="linear" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/ds_hero_border" />
+    <corners android:radius="22dp" />
+</shape>

@@ -199,6 +199,9 @@
     <color name="ds_accent_on_tint">#3558DE</color>    <!-- sub-text on a tinted row -->
     <color name="ds_selected_tint">#EAEEFE</color>     <!-- selected row wash -->
     <color name="ds_rule">#E1E5EE</color>              <!-- section rule -->
+    <color name="ds_chevron">#C3C8D6</color>            <!-- row trailing chevron -->
+    <color name="ds_hero_border">#E1E9FB</color>         <!-- appearance hero hairline -->
+    <color name="ds_hero_label">#6B84D6</color>          <!-- appearance hero label -->
     <color name="ds_divider">#F0F2F7</color>           <!-- row divider inside a card -->
     <color name="ds_check_idle">#D6DAE5</color>        <!-- unchecked box border -->
     <color name="ds_card_shadow">#0F141E3C</color>     <!-- 0 6px 20px rgba(20,30,60,0.06) -->

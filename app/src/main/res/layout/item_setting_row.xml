@@ -13,21 +13,25 @@
         android:focusable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:paddingVertical="@dimen/_10sdp">
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="14dp">
 
+        <!-- The icon sits in a 38dp tinted chip on an 11dp radius. The tint is
+             per row and set by SettingsActivity, which is what the handoff's
+             `r.bg` does - a different wash for each destination so the list is
+             scannable by colour as well as by label. -->
         <ImageView
             android:id="@+id/imageIcon"
-            android:layout_width="@dimen/_34sdp"
-            android:layout_height="@dimen/_34sdp"
-
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:padding="10dp"
             tools:src="@drawable/ic_star"
             tools:ignore="ContentDescription" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginStart="12dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -35,29 +39,30 @@
                 android:id="@+id/textTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/on_surface"
+                android:fontFamily="@font/mulish_bold"
                 android:includeFontPadding="false"
-                android:textSize="@dimen/_12ssp"
-                android:textStyle="bold"
+                android:textColor="@color/ds_ink"
+                android:textSize="14.5sp"
                 tools:text="Rate Us" />
 
             <TextView
                 android:id="@+id/textSub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/mulish_semibold"
                 android:includeFontPadding="false"
-                android:textColor="@color/on_surface_variant"
-                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/ds_ink_muted"
+                android:textSize="11.5sp"
                 tools:text="Love the app? Let us know." />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/imageTrailing"
-            android:layout_width="@dimen/_14sdp"
-            android:layout_height="@dimen/_14sdp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:src="@drawable/ic_chevron_right"
-            app:tint="@color/on_surface_variant"
+            app:tint="@color/ds_chevron"
             tools:ignore="ContentDescription" />
     </LinearLayout>
 </layout>
