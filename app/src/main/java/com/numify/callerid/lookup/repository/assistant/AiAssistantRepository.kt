@@ -45,7 +45,7 @@ class AiAssistantRepository(private val context: Context) {
         local.resolve(question, intent, subject)?.let { return@withContext it }
 
         val endpoint = AiFeatureConfig.endpoint(context)
-        if (endpoint.isBlank()) return@withContext unconfigured()
+        if (endpoint.isBlank()) return@withContext unconfigured(question)
 
         remote(question, endpoint)
     }
@@ -82,20 +82,45 @@ class AiAssistantRepository(private val context: Context) {
     /**
      * Reached only by a typed question the on-device resolver cannot place —
      * never by one of the app's own prompts, which all carry an intent it can
-     * answer. The two follow-ups offered here therefore carry theirs as well,
-     * so the way out of this message is not itself a dead end.
+     * answer. The follow-ups offered here therefore carry theirs as well, so
+     * the way out of this message is not itself a dead end.
+     *
+     * When the question named a number, the first of them is about that number
+     * rather than a generic prompt: someone who typed a number wants something
+     * about it, and the verdict is the nearest answerable reading.
      */
-    private fun unconfigured(): AiMessage.Answer = AiMessage.Answer(
-        text = context.getString(R.string.ai_ans_local_only),
-        followUps = listOf(
-            followUp(R.string.ai_follow_top_caller, AskIntent.TOP_CALLER),
-            followUp(R.string.ai_follow_missed, AskIntent.MISSED)
-        ),
-        source = AiSource.LOCAL
-    )
+    private fun unconfigured(question: String): AiMessage.Answer {
+        val number = NumberInText.find(question)
+        val first = if (number != null) {
+            followUp(R.string.ai_chip_is_spam, AskIntent.SPAM, number, number)
+        } else {
+            followUp(R.string.ai_follow_top_caller, AskIntent.TOP_CALLER)
+        }
 
-    private fun followUp(resId: Int, intent: AskIntent): AiSuggestion {
-        val text = context.getString(resId)
-        return AiSuggestion(label = text, query = text, priority = 0, intent = intent)
+        return AiMessage.Answer(
+            text = context.getString(R.string.ai_ans_local_only),
+            followUps = listOf(first, followUp(R.string.ai_follow_missed, AskIntent.MISSED)),
+            source = AiSource.LOCAL
+        )
+    }
+
+    private fun followUp(
+        resId: Int,
+        intent: AskIntent,
+        subject: String = "",
+        vararg formatArgs: Any
+    ): AiSuggestion {
+        val text = if (formatArgs.isEmpty()) {
+            context.getString(resId)
+        } else {
+            context.getString(resId, *formatArgs)
+        }
+        return AiSuggestion(
+            label = text,
+            query = text,
+            priority = 0,
+            intent = intent,
+            subject = subject
+        )
     }
 }

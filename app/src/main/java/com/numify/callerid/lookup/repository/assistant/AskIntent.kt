@@ -41,6 +41,9 @@ enum class AskIntent {
     /** "Who else called from this area?" */
     AREA,
 
+    /** "How many calls today?" — today or yesterday, as a day rather than a week. */
+    DAY,
+
     /** "What happened this week?" */
     WEEK;
 
@@ -61,23 +64,51 @@ enum class AskIntent {
          *   "who called me most".
          * - TOP_CALLER before WEEK, because "who called me most this week"
          *   contains "this week" and is not the weekly digest.
+         * - MISSED and DAY before WEEK, so "how many calls did I miss" and
+         *   "how many calls today" are not both swallowed by "how many calls".
          * - WEEK last, as the widest net of the set.
+         *
+         * The lists are wider than the app's own prompts on purpose. Anything
+         * that lands nowhere is answered with "not switched on yet", which is
+         * an honest sentence and a disappointing one — so a phrasing that the
+         * call log can in fact settle belongs here rather than at the wall.
          */
         private val KEYWORDS: List<Pair<AskIntent, List<String>>> = listOf(
-            SPAM to listOf("spam", "scam", "fraud", "safe", "legit", "who is", "keep calling", "keeps calling"),
-            REPLY to listOf("reply", "respond", "text back", "message back", "get back to"),
-            SUMMARY to listOf("summarise", "summarize", "summary", "call with", "how did my call"),
+            SPAM to listOf(
+                "spam", "scam", "fraud", "safe", "legit", "who is", "keep calling", "keeps calling",
+                "fake", "robocall", "telemarket", "suspicious", "unknown number", "kaun"
+            ),
             // "block" covers blocked, blocklist, block list and blocking in one
             // word, and SPAM has already had its turn — so "is it spam, should
-            // I block it" still reads as the verdict it is asking for.
+            // I block it" still reads as the verdict it is asking for. It sits
+            // above SUMMARY so that "how long is my blocklist" is not read as a
+            // question about the length of a call.
             BLOCKLIST to listOf("block"),
-            AREA to listOf("area", "same code", "this code", "prefix"),
-            TOP_CALLER to listOf("most", "top caller", "frequent", "who called me"),
+            REPLY to listOf(
+                "reply", "respond", "text back", "message back", "get back to",
+                "message to", "sms to", "text to", "send a message"
+            ),
+            SUMMARY to listOf(
+                "summarise", "summarize", "summary", "call with", "how did my call",
+                "how long", "last call with", "about my call"
+            ),
+            AREA to listOf("area", "same code", "this code", "prefix", "same area", "starting with"),
+            TOP_CALLER to listOf(
+                "most", "top caller", "frequent", "who called me", "who calls me",
+                "most called", "busiest", "top number"
+            ),
             // "miss" rather than "missed": the app's own prompt is "How many
             // calls did I miss?", which the longer form does not match. That
             // exact gap is what made every tap on that chip fall through.
-            MISSED to listOf("miss", "not answer", "no answer", "unanswered"),
-            WEEK to listOf("this week", "what happened", "week"),
+            MISSED to listOf(
+                "miss", "not answer", "no answer", "unanswered", "did not pick",
+                "didn't pick", "not pick"
+            ),
+            DAY to listOf("today", "yesterday", "last 24"),
+            WEEK to listOf(
+                "this week", "what happened", "week", "recent call", "how many call",
+                "call log", "overview", "digest"
+            ),
         )
     }
 }

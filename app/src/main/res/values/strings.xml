@@ -794,6 +794,11 @@
     <string name="ai_ans_week">%1$d calls this week: %2$d missed and %3$d from numbers you have not saved. Most of them were with %4$s.</string>
     <string name="ai_ans_area">%1$d other calls this month from numbers starting %2$s, across %3$d different numbers.</string>
     <string name="ai_ans_area_none">Nothing else this month from numbers starting %1$s.</string>
+    <string name="ai_ans_block_offer">%1$s is not on your blocklist. Block adds it, and calls from it stop ringing.</string>
+    <string name="ai_ans_today">%1$d calls today: %2$d missed and %3$d from numbers you have not saved.</string>
+    <string name="ai_ans_today_none">No calls logged today.</string>
+    <string name="ai_ans_yesterday">%1$d calls yesterday: %2$d missed and %3$d from numbers you have not saved.</string>
+    <string name="ai_ans_yesterday_none">No calls logged yesterday.</string>
     <string name="ai_ans_local_only">Right now I can answer questions about your calls, contacts and blocklist. Anything wider needs the assistant service, which is not switched on yet.</string>
     <string name="ai_ans_not_configured">The assistant service is not reachable. Try again shortly.</string>
     <string name="ai_draft_missed_reply">Sorry I missed your call — what is this regarding?</string>

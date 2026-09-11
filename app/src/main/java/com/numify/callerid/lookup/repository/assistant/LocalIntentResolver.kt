@@ -11,6 +11,7 @@ import com.numify.callerid.lookup.repository.BlocklistRepository
 import com.numify.callerid.lookup.repository.CallLogRepository
 import com.numify.callerid.lookup.repository.CallRecord
 import com.numify.callerid.lookup.repository.CallType
+import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
@@ -56,8 +57,9 @@ class LocalIntentResolver(private val context: Context) {
             AskIntent.SUMMARY -> callSummary(q, subject)
             AskIntent.TOP_CALLER -> topCaller()
             AskIntent.MISSED -> missedSummary()
-            AskIntent.BLOCKLIST -> blocklistSummary()
+            AskIntent.BLOCKLIST -> blocklistSummary(q, subject)
             AskIntent.AREA -> areaSummary(q, subject)
+            AskIntent.DAY -> dayDigest(q)
             AskIntent.WEEK -> weekDigest()
         }
     }
@@ -264,8 +266,39 @@ class LocalIntentResolver(private val context: Context) {
         )
     }
 
-    /** "How many numbers have I blocked?" */
-    private fun blocklistSummary(): AiMessage.Answer {
+    /**
+     * "How many numbers have I blocked?" — and, when the question names a
+     * number, the far more likely reading of it: "block this one".
+     *
+     * The block itself stays behind the button rather than happening here. An
+     * answer that had already blocked a number by the time the user read it
+     * would be the one action in this screen with no way back.
+     */
+    private fun blocklistSummary(q: String, subject: String): AiMessage.Answer {
+        numberIn(subject, q)?.let { number ->
+            if (blocklist.isNumberBlocked(number)) {
+                val calls = calls().count {
+                    it.number.filter(Char::isDigit).endsWith(NumberInText.tail(number, DIGIT_MATCH))
+                }
+                return answer(
+                    context.getString(R.string.ai_ans_spam_blocked, number, calls),
+                    listOf(AiAction(AiActionKind.DETAILS, number)),
+                    listOf(
+                        followUp(R.string.ai_follow_blocked_count, AskIntent.BLOCKLIST),
+                        followUp(R.string.ai_follow_missed, AskIntent.MISSED)
+                    )
+                )
+            }
+            return answer(
+                context.getString(R.string.ai_ans_block_offer, number),
+                listOf(AiAction(AiActionKind.BLOCK, number), AiAction(AiActionKind.DETAILS, number)),
+                listOf(
+                    followUp(R.string.ai_follow_who_else, AskIntent.AREA, number),
+                    followUp(R.string.ai_follow_blocked_count, AskIntent.BLOCKLIST)
+                )
+            )
+        }
+
         val entries = blocklist.getEntries()
         if (entries.isEmpty()) return answer(context.getString(R.string.ai_ans_blocklist_empty))
 
@@ -327,6 +360,49 @@ class LocalIntentResolver(private val context: Context) {
             listOf(
                 followUp(R.string.ai_follow_top_caller, AskIntent.TOP_CALLER),
                 followUp(R.string.ai_follow_blocked_count, AskIntent.BLOCKLIST)
+            )
+        )
+    }
+
+    /**
+     * "How many calls today?" — a day rather than a week, because a question
+     * about today answered with a weekly total is a wrong answer delivered
+     * confidently.
+     *
+     * The boundary is local midnight, not the last 24 hours: "today" means the
+     * calendar day to the person asking at 9am.
+     */
+    private fun dayDigest(q: String): AiMessage.Answer {
+        val yesterday = YESTERDAY_WORD in q
+        val midnight = startOfToday()
+        val from = if (yesterday) midnight - TimeUnit.DAYS.toMillis(1) else midnight
+        val until = if (yesterday) midnight else Long.MAX_VALUE
+
+        val day = calls().filter { it.date >= from && it.date < until }
+        if (day.isEmpty()) {
+            return answer(
+                context.getString(
+                    if (yesterday) R.string.ai_ans_yesterday_none else R.string.ai_ans_today_none
+                ),
+                emptyList(),
+                listOf(
+                    followUp(R.string.ai_follow_missed, AskIntent.MISSED),
+                    followUp(R.string.ai_follow_top_caller, AskIntent.TOP_CALLER)
+                )
+            )
+        }
+
+        val missed = day.count { it.type == CallType.MISSED }
+        val unknown = day.count { it.name.isNullOrBlank() }
+        return answer(
+            context.getString(
+                if (yesterday) R.string.ai_ans_yesterday else R.string.ai_ans_today,
+                day.size, missed, unknown
+            ),
+            emptyList(),
+            listOf(
+                followUp(R.string.ai_follow_missed, AskIntent.MISSED),
+                followUp(R.string.ai_follow_top_caller, AskIntent.TOP_CALLER)
             )
         )
     }
@@ -425,7 +501,18 @@ class LocalIntentResolver(private val context: Context) {
     private fun sinceDays(days: Long): Long =
         System.currentTimeMillis() - TimeUnit.DAYS.toMillis(days)
 
+    /** Local midnight, so a day is the calendar day and not a rolling window. */
+    private fun startOfToday(): Long = Calendar.getInstance().apply {
+        set(Calendar.HOUR_OF_DAY, 0)
+        set(Calendar.MINUTE, 0)
+        set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
+    }.timeInMillis
+
     private companion object {
+        /** Lower-cased by [resolve] before any of this runs. */
+        const val YESTERDAY_WORD = "yesterday"
+
         /** Compare on the last N digits, matching BlocklistRepository's rule. */
         const val DIGIT_MATCH = 10
 

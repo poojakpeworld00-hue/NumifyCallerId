@@ -81,6 +81,33 @@ class AskIntentTest {
         assertEquals(AskIntent.BLOCKLIST, AskIntent.of("how many numbers did I block this week"))
     }
 
+    @Test
+    fun `a question about a day is not answered with a week`() {
+        assertEquals(AskIntent.DAY, AskIntent.of("how many calls today"))
+        assertEquals(AskIntent.DAY, AskIntent.of("what happened yesterday"))
+        // "how many call" is in the week net, so only the day word separates
+        // these two — and a weekly total given for today is a wrong answer.
+        assertEquals(AskIntent.WEEK, AskIntent.of("how many calls this week"))
+    }
+
+    @Test
+    fun `the length of a blocklist is not the length of a call`() {
+        assertEquals(AskIntent.BLOCKLIST, AskIntent.of("how long is my blocklist"))
+        assertEquals(AskIntent.SUMMARY, AskIntent.of("how long was my last call"))
+    }
+
+    // --- loose typed phrasings ----------------------------------------------
+
+    @Test
+    fun `everyday wordings reach the intent they mean`() {
+        assertEquals(AskIntent.BLOCKLIST, AskIntent.of("block 9820041255"))
+        assertEquals(AskIntent.SPAM, AskIntent.of("kaun hai ye number"))
+        assertEquals(AskIntent.REPLY, AskIntent.of("send a message to asha"))
+        assertEquals(AskIntent.TOP_CALLER, AskIntent.of("busiest caller"))
+        assertEquals(AskIntent.MISSED, AskIntent.of("calls I did not pick"))
+        assertEquals(AskIntent.WEEK, AskIntent.of("show my recent calls"))
+    }
+
     // --- typed questions ----------------------------------------------------
 
     @Test
@@ -121,6 +148,7 @@ class AskIntentTest {
             "did I miss anything",
             "what is on my blocklist",
             "who else called from this area",
+            "how many calls today",
             "what happened this week",
         ).mapNotNull { AskIntent.of(it) }.toSet()
 
