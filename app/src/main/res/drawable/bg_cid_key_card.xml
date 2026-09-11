@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- One keypad key. The design gives each digit its own card so the pad reads as
-     a grid of targets rather than numbers floating on the sheet. -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <solid android:color="@color/surface" />
-    <stroke
-        android:width="1dp"
-        android:color="@color/outline" />
-    <corners android:radius="@dimen/_18sdp" />
+<!-- One keypad key: the page tint on a 16dp radius, no outline.
+
+     The keys used to be white with a hairline, sitting on a white sheet — the
+     outline was the only thing separating a key from its background, and a 1dp
+     line is a thin cue for the one control in the app you hit without looking.
+     Filling them with the page colour makes each target a shape instead. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_page" />
+    <corners android:radius="16dp" />
 </shape>

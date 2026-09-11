@@ -25,12 +25,18 @@
     <!-- Key card. The ripple is the FOREGROUND, not the background: the card
          drawable owns the background, and putting the ripple there instead would
          simply replace it. -->
+    <!-- The key's height is in sdp so the pad scales with the screen, but sdp is
+         not dp: on the smallest buckets _46sdp resolves below Android's 48dp
+         minimum touch target, and a dial pad is the one place in the app where a
+         mis-hit costs a wrong number. minHeight pins the floor at 48dp and the
+         sdp height takes over above it. -->
     <style name="DialKey">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/_46sdp</item>
+        <item name="android:minHeight">48dp</item>
         <item name="android:layout_columnWeight">1</item>
         <item name="android:layout_gravity">fill_horizontal</item>
-        <item name="android:layout_margin">@dimen/_3sdp</item>
+        <item name="android:layout_margin">4dp</item>
         <item name="android:background">@drawable/bg_cid_key_card</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
@@ -42,18 +48,19 @@
     <style name="DialKeyDigit">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/space_grotesk_bold</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:textColor">@color/on_surface</item>
-        <item name="android:textSize">@dimen/_17ssp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/ds_ink</item>
+        <item name="android:textSize">22sp</item>
     </style>
 
     <style name="DialKeyLetters">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
         <item name="android:letterSpacing">0.1</item>
-        <item name="android:textColor">@color/on_surface_variant</item>
-        <item name="android:textSize">@dimen/_7ssp</item>
+        <item name="android:textColor">@color/ds_ink_muted</item>
+        <item name="android:textSize">9sp</item>
     </style>
 
     <!-- Call Details action button (circle icon + label) -->

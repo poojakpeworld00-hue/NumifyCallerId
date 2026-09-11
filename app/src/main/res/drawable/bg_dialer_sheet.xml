@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Keypad sheet — surface with 28dp top corners (Visual System bottom-sheet shape). -->
+<!-- Keypad sheet: white with 28dp top corners, matching the Enable-Caller-ID
+     sheet. In dp rather than sdp — _22sdp resolved to about 26dp on a sw360
+     phone, so the app's two bottom sheets were meeting the screen edge at two
+     different radii. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="@color/surface" />
+    <solid android:color="@color/ds_surface" />
     <corners
-        android:topLeftRadius="@dimen/_22sdp"
-        android:topRightRadius="@dimen/_22sdp" />
+        android:topLeftRadius="28dp"
+        android:topRightRadius="28dp" />
 </shape>
