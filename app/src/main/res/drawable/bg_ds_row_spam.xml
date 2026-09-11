@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The spam wash on a call row, flat.
+
+     bg_ds_card_spam is the same fill on an 18dp radius, which was right while
+     every row was its own card. Inside the grouped container the rows are
+     flush, so a rounded wash would draw its own corners in the middle of the
+     list and cut a notch out of the container's edge. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_danger_tint" />
+</shape>

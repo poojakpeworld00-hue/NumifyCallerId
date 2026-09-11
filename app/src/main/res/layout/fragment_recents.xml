@@ -463,13 +463,30 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <!-- One grouped card rather than loose rows — the handoff's
+             `background:#fff; border-radius:18px; overflow:hidden`, and the same
+             frame item_contact already sits in.
+
+             The 16dp bottom margin is the handoff's `margin-bottom:16px`, and it
+             is doing real work here: the content area ends flush with the top of
+             the nav island, so without it a row is guillotined exactly where the
+             island's white begins and the two read as one shape. This keeps a
+             band of page colour between them at every scroll position. -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listRecents"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_ds_card"
+            android:clipToOutline="true"
             android:clipToPadding="false"
-            android:paddingBottom="@dimen/_70sdp"
+            android:elevation="6dp"
+            android:outlineAmbientShadowColor="@color/ds_card_shadow"
+            android:outlineSpotShadowColor="@color/ds_card_shadow"
+            android:overScrollMode="never"
+            android:paddingBottom="12dp"
             tools:listitem="@layout/item_call" />
 
         <TextView

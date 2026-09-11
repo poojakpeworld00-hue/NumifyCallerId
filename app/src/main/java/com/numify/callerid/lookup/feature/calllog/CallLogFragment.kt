@@ -34,6 +34,7 @@ import com.numify.callerid.monetize.delivery.NativeBannerPresenter
 import com.numify.callerid.lookup.feature.assistant.AiHubActivity
 import com.numify.callerid.lookup.foundation.BaseFragment
 import com.numify.callerid.lookup.repository.assistant.AiFeatureConfig
+import com.numify.callerid.lookup.common.ListDividerDecoration
 import com.numify.callerid.lookup.common.openActivity
 import com.numify.callerid.lookup.databinding.FragmentRecentsBinding
 import com.numify.callerid.lookup.feature.MainShellActivity
@@ -136,6 +137,11 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
 
         binding.listRecents.layoutManager = LinearLayoutManager(requireContext())
         binding.listRecents.adapter = adapter
+        // Hairlines between rows inside the card, skipping the date headings —
+        // the same treatment the contacts directory already gets.
+        binding.listRecents.addItemDecoration(
+            ListDividerDecoration(binding.listRecents) { adapter.isHeader(it) }
+        )
 
         // Native banner at the bottom of the recents screen.
         // Ad slot + dividers are handled by BaseFragment.showScreenAd(), which

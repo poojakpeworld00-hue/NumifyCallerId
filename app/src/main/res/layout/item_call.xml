@@ -9,26 +9,29 @@
      "Identify" as plain text with a chevron. Text rather than a filled pill: a row
      action should not out-rank the screen's own primary buttons.
 
-     Row background + avatar colours are still set per verdict in CallAdapter
-     (spam rows get a red-tinted container). -->
+     A flat row, not a card. The handoff draws this list as one white container
+     — `border-radius:18px` with a single soft shadow — holding rows divided by
+     `1px solid #F0F2F7`, which is the same shape item_contact already sits in.
+     Rows carrying their own card, margin and elevation made five floating white
+     rectangles that read as siblings of the white nav island beneath them, and
+     at the foot of the screen the last one and the island merged into a single
+     shape. The container now owns the surface; the row owns nothing but its
+     padding.
+
+     Avatar and text colours are still set per verdict in CallLogAdapter, and so
+     is the spam wash — flat now, so it cannot round a corner inside the
+     container's own outline. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/columnCall"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="20dp"
-    android:layout_marginTop="8dp"
-    android:background="@drawable/bg_ds_card"
-    android:clipToOutline="true"
-    android:elevation="4dp"
     android:foreground="?attr/selectableItemBackground"
-    android:outlineAmbientShadowColor="@color/ds_card_shadow"
-    android:outlineSpotShadowColor="@color/ds_card_shadow"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingHorizontal="16dp"
-    android:paddingVertical="13dp">
+    android:paddingVertical="14dp">
 
     <TextView
         android:id="@+id/textAvatar"

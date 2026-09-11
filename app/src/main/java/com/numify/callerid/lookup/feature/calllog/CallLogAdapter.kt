@@ -31,6 +31,13 @@ class CallLogAdapter(
     override fun getItemViewType(position: Int): Int =
         if (rows[position] is HistoryRowUi.Header) TYPE_HEADER else TYPE_CALL
 
+    /**
+     * Whether [position] is a date heading. Read by the divider decoration so a
+     * hairline is not drawn against a heading, which is a break in the list
+     * rather than another row of it.
+     */
+    fun isHeader(position: Int): Boolean = rows.getOrNull(position) is HistoryRowUi.Header
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return if (viewType == TYPE_HEADER) {
@@ -71,16 +78,18 @@ class CallLogAdapter(
                 if (duration.isNotEmpty()) append(" · ").append(duration)
             }
 
-            // Verdict-tinted row + avatar: spam reads red, everything else sits on
-            // the plain card.
+            // Verdict-tinted row + avatar: spam reads red, everything else shows
+            // the container's own white through.
             //
-            // These MUST stay in step with item_call.xml's own background — setting
-            // it here overrides whatever the layout declared, so the row was picking
-            // up bg_home_tile's 1dp outline and its `_18sdp` radius (which is 21.6dp
-            // on a sw360 phone, not 18dp) instead of the card the layout asked for.
-            binding.columnCall.setBackgroundResource(
-                if (isSpam) R.drawable.bg_ds_card_spam else R.drawable.bg_ds_card
-            )
+            // Both are flat now. The rows sit flush inside one grouped card, so a
+            // rounded wash would draw corners mid-list and notch the container's
+            // outline; and a row that painted white would hide the hairline the
+            // divider decoration draws on top of it.
+            if (isSpam) {
+                binding.columnCall.setBackgroundResource(R.drawable.bg_ds_row_spam)
+            } else {
+                binding.columnCall.background = null
+            }
             binding.textAvatar.backgroundTintList =
                 tint(if (isSpam) R.color.ds_danger_tint else R.color.ds_selected_tint)
             binding.textAvatar.setTextColor(
