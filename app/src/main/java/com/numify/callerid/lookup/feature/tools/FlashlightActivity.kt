@@ -196,7 +196,7 @@ class FlashlightActivity : BaseActivity<ActivityFlashlightBinding>() {
         container.setBackgroundResource(
             if (selected) R.drawable.bg_cid_mode_on else R.drawable.bg_cid_mode_off
         )
-        val ink = ContextCompat.getColor(this, if (selected) R.color.white else R.color.on_surface)
+        val ink = ContextCompat.getColor(this, if (selected) R.color.ds_on_accent else R.color.ds_ink_muted)
         icon.imageTintList = ColorStateList.valueOf(ink)
         label.setTextColor(ink)
     }

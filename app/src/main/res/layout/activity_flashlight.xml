@@ -120,21 +120,22 @@
                     android:id="@+id/textState"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:letterSpacing="0.12"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/mulish_bold"
+                    android:letterSpacing="0.067"
                     android:text="@string/flashlight_state_off"
                     android:textAllCaps="true"
-                    android:textColor="@color/on_surface_variant"
-                    android:textSize="@dimen/_12ssp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/ds_ink_muted"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginTop="6dp"
+                    android:fontFamily="@font/mulish_semibold"
                     android:text="@string/flashlight_tap_hint"
-                    android:textColor="@color/on_surface_variant"
-                    android:textSize="@dimen/_10ssp" />
+                    android:textColor="@color/ds_ink_subtle"
+                    android:textSize="13sp" />
 
                 <!-- ===== Brightness ===== -->
                 <LinearLayout

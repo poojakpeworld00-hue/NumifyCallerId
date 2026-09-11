@@ -202,6 +202,7 @@
     <color name="ds_chevron">#C3C8D6</color>            <!-- row trailing chevron -->
     <color name="ds_hero_border">#E1E9FB</color>         <!-- appearance hero hairline -->
     <color name="ds_hero_label">#6B84D6</color>          <!-- appearance hero label -->
+    <color name="ds_warning">#F2A93B</color>             <!-- torch amber / caution accent -->
     <color name="ds_divider">#F0F2F7</color>           <!-- row divider inside a card -->
     <color name="ds_check_idle">#D6DAE5</color>        <!-- unchecked box border -->
     <color name="ds_card_shadow">#0F141E3C</color>     <!-- 0 6px 20px rgba(20,30,60,0.06) -->
