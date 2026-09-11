@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A fact tile inside the lookup result card: `background:#F6F8FC;
+     border-radius:14px`. The page tint, so the tiles read as insets in the white
+     card rather than as cards of their own stacked on it. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_page" />
+    <corners android:radius="14dp" />
+</shape>

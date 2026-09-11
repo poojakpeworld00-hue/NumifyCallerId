@@ -520,6 +520,39 @@
     </style>
 
     <!-- One "icon · label · value" line inside the lookup result card. -->
+    <!-- Country / Carrier / Line, three across inside the result card. -->
+    <style name="LookupFactTile">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/bg_ds_fact_tile</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingHorizontal">6dp</item>
+        <item name="android:paddingVertical">10dp</item>
+    </style>
+
+    <style name="LookupFactTileLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/ds_ink_muted</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="LookupFactTileValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/ds_ink</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
     <style name="LookupFactRow">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
