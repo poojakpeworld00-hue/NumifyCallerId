@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The neutral count badge on a blocked row: how many calls this number has in
+     the log when none of them came after the block. Grey, because a history from
+     before the block is context rather than an alarm. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_nav_chip_idle" />
+    <corners android:radius="8dp" />
+</shape>

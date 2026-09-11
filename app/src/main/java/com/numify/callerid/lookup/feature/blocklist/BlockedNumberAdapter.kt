@@ -1,15 +1,19 @@
 package com.numify.callerid.lookup.feature.blocklist
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.repository.BlockedNumber
+import com.numify.callerid.lookup.repository.CallType
 import com.numify.callerid.lookup.databinding.ItemBlockAttemptBinding
 import com.numify.callerid.lookup.databinding.ItemBlocklistBinding
 import java.text.SimpleDateFormat
@@ -100,16 +104,23 @@ class BlockedNumberAdapter(
         }
 
         /**
-         * The count badge, the last-attempt line and the expandable history.
+         * The count badge, the last-call line and the expandable history.
          *
-         * A number that has not tried since being blocked shows none of it: an
-         * empty history behind a disclosure is a control that does nothing.
+         * The badge counts every logged call, not only the ones the block turned
+         * away: a number blocked a minute ago has no attempts yet but usually has
+         * the history that got it blocked, and that history is why the user is
+         * looking at the row. When some of those calls did come after the block,
+         * the badge says so instead and turns red — that is the sharper fact.
+         *
+         * A number with nothing in the log shows none of it: an empty history
+         * behind a disclosure is a control that does nothing.
          */
         private fun bindAttempts(row: BlockedNumberState) {
             val ctx = binding.root.context
-            val count = row.attemptCount
+            val calls = row.callCount
+            val attempts = row.attemptCount
 
-            if (count == 0) {
+            if (calls == 0) {
                 binding.badgeAttempts.visibility = View.GONE
                 binding.rowLastAttempt.visibility = View.GONE
                 binding.columnAttempts.visibility = View.GONE
@@ -117,13 +128,22 @@ class BlockedNumberAdapter(
             }
 
             binding.badgeAttempts.visibility = View.VISIBLE
-            binding.badgeAttempts.text =
-                ctx.resources.getQuantityString(R.plurals.blocklist_attempts, count, count)
+            if (attempts > 0) {
+                binding.badgeAttempts.text =
+                    ctx.resources.getQuantityString(R.plurals.blocklist_attempts, attempts, attempts)
+                binding.badgeAttempts.setBackgroundResource(R.drawable.bg_ds_attempt_badge)
+                binding.badgeAttempts.setTextColor(ContextCompat.getColor(ctx, R.color.ds_danger))
+            } else {
+                binding.badgeAttempts.text =
+                    ctx.resources.getQuantityString(R.plurals.blocklist_calls, calls, calls)
+                binding.badgeAttempts.setBackgroundResource(R.drawable.bg_ds_call_badge)
+                binding.badgeAttempts.setTextColor(ContextCompat.getColor(ctx, R.color.ds_ink_muted))
+            }
 
             binding.rowLastAttempt.visibility = View.VISIBLE
             binding.textLastAttempt.text = ctx.getString(
-                R.string.blocklist_last_attempt,
-                relative(row.lastAttemptMs ?: 0L)
+                R.string.blocklist_last_call,
+                relative(row.lastCallMs ?: 0L)
             )
 
             val isOpen = row.entry.number in expanded
@@ -145,18 +165,45 @@ class BlockedNumberAdapter(
             }
         }
 
-        /** Rebuilds the attempt rows. Cheap: this is a handful of views, not a list. */
+        /**
+         * Rebuilds the history rows. Cheap: this is a handful of views, not a list.
+         *
+         * Each row carries its own call type, so a call the block turned away is
+         * distinguishable from the ones that got through before it — the whole
+         * point of showing history rather than a count.
+         */
         private fun fillAttempts(row: BlockedNumberState) {
             val container = binding.columnAttemptRows
             container.removeAllViews()
             val inflater = LayoutInflater.from(container.context)
+            val ctx = container.context
 
-            row.attempts.take(MAX_ATTEMPTS_SHOWN).forEach { at ->
+            row.history.take(MAX_ATTEMPTS_SHOWN).forEach { call ->
                 val item = ItemBlockAttemptBinding.inflate(inflater, container, false)
-                item.textAttemptDate.text = dayLabel(at)
-                item.textAttemptTime.text = timeFormat.format(Date(at))
+                item.textAttemptDate.text = dayLabel(call.at)
+                item.textAttemptTime.text = timeFormat.format(Date(call.at))
+                item.imageAttemptType.setImageResource(iconFor(call))
+                item.imageAttemptType.imageTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(ctx, tintFor(call))
+                )
                 container.addView(item.root)
             }
+        }
+
+        @DrawableRes
+        private fun iconFor(call: BlockedCall): Int = when {
+            call.blockedAttempt || call.type == CallType.SPAM -> R.drawable.ic_ds_block_slash
+            call.type == CallType.OUTGOING -> R.drawable.filter_outgoing
+            call.type == CallType.MISSED -> R.drawable.ic_call_missed
+            else -> R.drawable.filter_incoming
+        }
+
+        @ColorRes
+        private fun tintFor(call: BlockedCall): Int = when {
+            call.blockedAttempt || call.type == CallType.SPAM -> R.color.ds_danger
+            call.type == CallType.MISSED -> R.color.ds_danger
+            call.type == CallType.OUTGOING -> R.color.ds_accent
+            else -> R.color.ds_success
         }
 
         /** "Today" / "Yesterday" / a short date, as the handoff groups attempts. */

@@ -63,11 +63,16 @@ class BlocklistViewModel(app: Application) : AndroidViewModel(app) {
 
                 entries.map { entry ->
                     val tail = entry.number.filter(Char::isDigit).takeLast(DIGIT_MATCH)
-                    val attempts = calls[tail].orEmpty()
-                        .filter { it.date >= entry.addedAt }
-                        .map { it.date }
-                        .sortedDescending()
-                    entry.toRow(attempts)
+                    val history = calls[tail].orEmpty()
+                        .sortedByDescending { it.date }
+                        .map {
+                            BlockedCall(
+                                at = it.date,
+                                type = it.type,
+                                blockedAttempt = it.date >= entry.addedAt,
+                            )
+                        }
+                    entry.toRow(history)
                 }
             }
             _rows.value = rows
@@ -79,7 +84,7 @@ class BlocklistViewModel(app: Application) : AndroidViewModel(app) {
      * renders with the neutral treatment. The label is the contact name wherever
      * one can be resolved, and a friendly fallback otherwise.
      */
-    private fun BlockedNumber.toRow(attempts: List<Long>): BlockedNumberState {
+    private fun BlockedNumber.toRow(history: List<BlockedCall>): BlockedNumberState {
         // The number itself is the fallback title, not "Unknown caller": the row's
         // subtitle now carries when it was blocked, so a placeholder on top would
         // leave the entry showing nothing that identifies it.
@@ -88,7 +93,7 @@ class BlocklistViewModel(app: Application) : AndroidViewModel(app) {
             entry = this,
             label = name ?: number,
             isSpam = false,
-            attempts = attempts,
+            history = history,
         )
     }
 

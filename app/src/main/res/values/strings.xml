@@ -307,8 +307,13 @@
     <string name="blocklist_more_options">More options</string>
     <string name="blocklist_view_details">View Details</string>
     <string name="blocklist_unblock">Unblock</string>
-    <string name="blocklist_call_attempts">Call attempts</string>
+    <string name="blocklist_call_attempts">Call history</string>
     <string name="blocklist_last_attempt">Last attempt: %1$s</string>
+    <string name="blocklist_last_call">Last call: %1$s</string>
+    <plurals name="blocklist_calls">
+        <item quantity="one">%1$d call</item>
+        <item quantity="other">%1$d calls</item>
+    </plurals>
     <plurals name="blocklist_attempts">
         <item quantity="one">%1$d attempt</item>
         <item quantity="other">%1$d attempts</item>

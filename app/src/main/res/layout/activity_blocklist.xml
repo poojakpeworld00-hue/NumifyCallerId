@@ -147,11 +147,18 @@
 
              The bottom margin keeps a band of page colour between the card and
              the nav island below it. Both are white, so without it the two
-             surfaces meet on a seam and read as one shape. -->
+             surfaces meet on a seam and read as one shape.
+
+             The card wraps its rows rather than filling the viewport, capped by
+             constrainedHeight so a long list still scrolls. Filling it meant one
+             blocked number produced a white panel most of a screen tall, with
+             the add button floating in the middle of the emptiness. -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listBlocklist"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintVertical_bias="0"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="@dimen/_6sdp"
             android:layout_marginBottom="20dp"
