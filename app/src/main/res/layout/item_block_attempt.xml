@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    One call attempt under a blocked number: when it tried, and at what time.
+
+    Inflated per attempt by BlockedNumberAdapter into the row's expanded section
+    rather than being a nested RecyclerView — a handful of rows inside an item
+    does not need a recycler, and nesting one inside a vertically scrolling list
+    costs more than it saves.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingVertical="5dp">
+
+    <ImageView
+        android:layout_width="11dp"
+        android:layout_height="11dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_ds_block_slash"
+        app:tint="@color/ds_danger" />
+
+    <TextView
+        android:id="@+id/textAttemptDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/mulish_semibold"
+        android:includeFontPadding="false"
+        android:textColor="@color/ds_ink_strong"
+        android:textSize="12.5sp"
+        tools:text="Today" />
+
+    <TextView
+        android:id="@+id/textAttemptTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/mulish_semibold"
+        android:includeFontPadding="false"
+        android:textColor="@color/ds_ink_muted"
+        android:textSize="12sp"
+        tools:text="2:14 pm" />
+</LinearLayout>

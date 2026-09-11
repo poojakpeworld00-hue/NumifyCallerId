@@ -303,9 +303,16 @@
     </plurals>
     <string name="blocklist_entry_title">Blocked number</string>
     <string name="blocklist_status_blocked">Blocked</string>
+    <string name="blocklist_blocked_when">Blocked · %1$s</string>
     <string name="blocklist_more_options">More options</string>
     <string name="blocklist_view_details">View Details</string>
     <string name="blocklist_unblock">Unblock</string>
+    <string name="blocklist_call_attempts">Call attempts</string>
+    <string name="blocklist_last_attempt">Last attempt: %1$s</string>
+    <plurals name="blocklist_attempts">
+        <item quantity="one">%1$d attempt</item>
+        <item quantity="other">%1$d attempts</item>
+    </plurals>
     <string name="blocklist_report">Report</string>
     <string name="blocklist_reported">Reported. Thanks for the feedback.</string>
     <string name="blocklist_details_title">Blocked number</string>

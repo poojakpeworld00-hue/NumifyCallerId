@@ -205,6 +205,8 @@
     <color name="ds_warning">#F2A93B</color>             <!-- torch amber / caution accent -->
     <color name="ds_band_label">#AAB0C0</color>          <!-- inactive scale label -->
     <color name="ds_second_hand">#D6482F</color>         <!-- stopwatch sweep hand -->
+    <color name="ds_attempt_sheet">#FAFBFD</color>       <!-- expanded attempt history ground -->
+    <color name="ds_ink_strong">#3A4050</color>          <!-- body text inside a nested sheet -->
     <color name="ds_divider">#F0F2F7</color>           <!-- row divider inside a card -->
     <color name="ds_check_idle">#D6DAE5</color>        <!-- unchecked box border -->
     <color name="ds_card_shadow">#0F141E3C</color>     <!-- 0 6px 20px rgba(20,30,60,0.06) -->
