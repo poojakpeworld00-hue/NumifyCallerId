@@ -323,6 +323,35 @@
     </style>
 
     <!-- Section heading: brand dot, label, then a rule out to the edge. -->
+    <!-- The tool handoffs' header, shared by all ten tool screens: a 36dp back
+         chip, a Space Grotesk title, and an optional 36dp accent chip for the
+         screen's one action. -->
+    <style name="ToolHeaderBack">
+        <item name="android:layout_width">36dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:background">@drawable/bg_ds_header_chip</item>
+        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="ToolHeaderTitle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">14dp</item>
+        <item name="android:fontFamily">@font/space_grotesk_bold</item>
+        <item name="android:textColor">@color/ds_ink</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="ToolHeaderAction">
+        <item name="android:layout_width">36dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:background">@drawable/bg_ds_header_chip_accent</item>
+        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
     <style name="NetSectionRow">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -331,15 +360,18 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
+    <!-- Section heading on a tool screen: `font-size:11px; font-weight:800;
+         letter-spacing:1.3px` in the muted ink — 1.3px against 11px is 0.118em.
+         The dot before it and the hairline after are in the layout. -->
     <style name="NetSectionLabel">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/_6sdp</item>
-        <item name="android:letterSpacing">0.1</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
+        <item name="android:letterSpacing">0.118</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/on_surface</item>
-        <item name="android:textSize">@dimen/_9ssp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/ds_ink_muted</item>
+        <item name="android:textSize">11sp</item>
     </style>
 
     <style name="NetSignalBar">

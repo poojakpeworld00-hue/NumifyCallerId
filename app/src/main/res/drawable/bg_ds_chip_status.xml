@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The live-status pill on a tool screen: `background:#EAF0FE; border-radius:16px`
+     with `padding:8px 18px`. Wider radius than the header chips because it sits
+     under a large readout and reads as a caption to it. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_nav_chip_active" />
+    <corners android:radius="16dp" />
+</shape>

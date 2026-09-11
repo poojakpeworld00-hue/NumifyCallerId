@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The handoff's header icon-action chip: `background:#EAF0FE; border-radius:11px`.
+     A tighter radius than bg_ds_chip_accent, which carries text and sits at 14. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_nav_chip_active" />
+    <corners android:radius="11dp" />
+</shape>
