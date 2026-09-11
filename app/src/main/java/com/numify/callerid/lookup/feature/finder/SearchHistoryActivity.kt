@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.numify.callerid.monetize.delivery.RewardedAdPresenter
+import com.numify.callerid.lookup.common.ListDividerDecoration
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.lookup.databinding.ActivityLookupHistoryBinding
@@ -45,6 +46,7 @@ class SearchHistoryActivity : BaseActivity<ActivityLookupHistoryBinding>() {
         binding.buttonClearAll.setOnClickListener { viewModel.clear() }
         binding.listHistory.layoutManager = LinearLayoutManager(this)
         binding.listHistory.adapter = adapter
+        binding.listHistory.addItemDecoration(ListDividerDecoration(binding.listHistory))
         // Warm up the rewarded ad that gates revealing caller names.
         RewardedAdPresenter.preload(this)
     }

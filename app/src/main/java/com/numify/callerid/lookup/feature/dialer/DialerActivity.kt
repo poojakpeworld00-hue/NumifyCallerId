@@ -15,6 +15,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.numify.callerid.lookup.common.ListDividerDecoration
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.lookup.repository.ContactRepository
@@ -62,6 +63,8 @@ class DialerActivity : BaseActivity<ActivityDialerBinding>() {
 
         binding.listFrequent.layoutManager = LinearLayoutManager(this)
         binding.listFrequent.adapter = adapter
+        // Hairlines between rows inside the card, as on every other list.
+        binding.listFrequent.addItemDecoration(ListDividerDecoration(binding.listFrequent))
 
         // Keypad builds the dialed number display.
         binding.buttonBackspace.setOnClickListener { backspaceDial() }

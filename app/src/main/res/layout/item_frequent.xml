@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Dialer match row — avatar + name/number + one-tap call, styled like a recents card. -->
+<!-- Dialer match row — avatar + name/number + one-tap call.
+
+     Flat, like every other row in the app: the list's container carries the
+     white, the 18dp radius and the one shadow, and hairlines divide the rows
+     inside it. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/_6sdp"
-    android:background="@drawable/bg_home_tile"
-    android:elevation="@dimen/_1sdp"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:outlineAmbientShadowColor="@color/card_shadow"
-    android:outlineSpotShadowColor="@color/card_shadow"
-    android:paddingHorizontal="@dimen/_12sdp"
-    android:paddingVertical="@dimen/_8sdp">
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="14dp">
 
     <TextView
         android:id="@+id/textAvatar"

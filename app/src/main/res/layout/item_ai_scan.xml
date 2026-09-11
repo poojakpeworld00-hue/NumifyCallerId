@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- One scanned number: who, why it is here, and the single action for it. -->
+<!-- One scanned number: who, why it is here, and the single action for it.
+
+     Flat, like every other row in the app: the list's container carries the
+     white, the 18dp radius and the one shadow, and hairlines divide the rows
+     inside it. -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -8,13 +12,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:background="@drawable/bg_card"
         android:baselineAligned="false"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/_12sdp"
-        android:paddingVertical="@dimen/_11sdp">
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="14dp">
 
         <TextView
             android:id="@+id/textScanAvatar"

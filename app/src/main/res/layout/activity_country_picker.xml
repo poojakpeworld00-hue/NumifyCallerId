@@ -64,12 +64,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textTitle" />
 
+        <!-- One grouped card, as on every other list in the app. -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listCountries"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_ds_card"
+            android:clipToOutline="true"
             android:clipToPadding="false"
+            android:elevation="6dp"
+            android:outlineAmbientShadowColor="@color/ds_card_shadow"
+            android:outlineSpotShadowColor="@color/ds_card_shadow"
+            android:overScrollMode="never"
             android:paddingBottom="@dimen/_12sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

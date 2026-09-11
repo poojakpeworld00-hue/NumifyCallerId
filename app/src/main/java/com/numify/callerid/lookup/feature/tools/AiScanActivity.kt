@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.numify.callerid.lookup.common.ListDividerDecoration
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.databinding.ActivityAiScanBinding
 import com.numify.callerid.lookup.foundation.BaseActivity
@@ -65,6 +66,8 @@ class AiScanActivity : BaseActivity<ActivityAiScanBinding>() {
         )
         binding.listScan.layoutManager = LinearLayoutManager(this)
         binding.listScan.adapter = adapter
+        // Hairlines between rows inside the card, as on every other list.
+        binding.listScan.addItemDecoration(ListDividerDecoration(binding.listScan))
         scan()
     }
 

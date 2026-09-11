@@ -26,6 +26,7 @@ import androidx.fragment.app.viewModels
 import androidx.core.widget.TextViewCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.numify.callerid.lookup.common.ListDividerDecoration
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.repository.RegionDetector
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
@@ -111,6 +112,7 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
         )
         binding.listHistory.layoutManager = LinearLayoutManager(requireContext())
         binding.listHistory.adapter = historyAdapter
+        binding.listHistory.addItemDecoration(ListDividerDecoration(binding.listHistory))
 
         binding.inputNumberInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}

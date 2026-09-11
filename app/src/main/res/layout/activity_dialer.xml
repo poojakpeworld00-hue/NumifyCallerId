@@ -69,16 +69,24 @@
                 android:textStyle="bold"
                 android:visibility="gone" />
 
-            <!-- Match list (vertical, filtered by the dialed number) -->
+            <!-- Match list (vertical, filtered by the dialed number), in one
+                 grouped card like every other list in the app. It wraps its
+                 content rather than filling the screen, so the card ends where
+                 the matches do. -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listFrequent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:background="@drawable/bg_ds_card"
+                android:clipToOutline="true"
                 android:clipToPadding="false"
+                android:elevation="6dp"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/_16sdp"
-                android:paddingTop="@dimen/_2sdp"
-                android:paddingBottom="@dimen/_8sdp"
+                android:outlineAmbientShadowColor="@color/ds_card_shadow"
+                android:outlineSpotShadowColor="@color/ds_card_shadow"
+                android:overScrollMode="never"
                 tools:listitem="@layout/item_frequent" />
         </LinearLayout>
 

@@ -99,15 +99,23 @@
                 tools:text="Nothing worth blocking" />
         </LinearLayout>
 
+        <!-- One grouped card, as on recents, contacts and the blocklist. -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listScan"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginBottom="20dp"
             android:layout_weight="1"
+            android:background="@drawable/bg_ds_card"
+            android:clipToOutline="true"
             android:clipToPadding="false"
+            android:elevation="6dp"
+            android:outlineAmbientShadowColor="@color/ds_card_shadow"
+            android:outlineSpotShadowColor="@color/ds_card_shadow"
             android:overScrollMode="never"
-            android:paddingHorizontal="@dimen/_12sdp"
-            android:paddingBottom="@dimen/_12sdp"
+            android:paddingBottom="12dp"
             android:visibility="gone"
             tools:listitem="@layout/item_ai_scan"
             tools:visibility="visible" />

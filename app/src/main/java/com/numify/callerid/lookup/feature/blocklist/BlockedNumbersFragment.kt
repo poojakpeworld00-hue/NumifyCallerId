@@ -44,6 +44,7 @@ import com.numify.callerid.lookup.databinding.DialogBlockRecentsBinding
 import com.numify.callerid.lookup.databinding.DialogEnableCallerIdBinding
 import com.numify.callerid.lookup.databinding.IncludeBlockAddFormBinding
 import com.numify.callerid.lookup.common.CallerIdCoordinator
+import com.numify.callerid.lookup.common.ListDividerDecoration
 import com.numify.callerid.lookup.feature.finder.CountryCatalog
 import com.numify.callerid.lookup.feature.finder.CountryPickerActivity
 import com.numify.callerid.monetize.delivery.AppOpenAdManager
@@ -202,6 +203,11 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
         binding.buttonBack.visibility = View.GONE
         binding.listBlocklist.layoutManager = LinearLayoutManager(requireContext())
         binding.listBlocklist.adapter = adapter
+        // Hairlines between rows inside the card — the same decoration the
+        // recents and contacts lists use. No headings here to skip.
+        binding.listBlocklist.addItemDecoration(
+            ListDividerDecoration(binding.listBlocklist)
+        )
 
         // With nothing blocked yet, the empty state IS the add form — no menu in
         // front of it. The FAB opens the same form in a dialog.

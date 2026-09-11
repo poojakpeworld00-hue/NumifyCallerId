@@ -6,6 +6,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.numify.callerid.lookup.common.ListDividerDecoration
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.lookup.databinding.ActivityCountryPickerBinding
@@ -36,6 +37,7 @@ class CountryPickerActivity : BaseActivity<ActivityCountryPickerBinding>() {
         }
         binding.listCountries.layoutManager = LinearLayoutManager(this)
         binding.listCountries.adapter = adapter
+        binding.listCountries.addItemDecoration(ListDividerDecoration(binding.listCountries))
         adapter.submit(CountryCatalog.all)
 
         binding.buttonBack.setOnClickListener { goBack() }

@@ -13,6 +13,11 @@
 
     Unblock is plain text, not a pill: it is a quiet, reversible action and a filled
     button would out-rank the Block CTA on the card above it.
+
+    Flat, like item_call and item_contact: the list's own container carries the
+    white, the 18dp radius and the single shadow, and the rows inside it are
+    divided by hairlines. A row that brought its own card made every list on the
+    screen a stack of floating rectangles competing with the nav island.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -20,18 +25,13 @@
     android:id="@+id/blockRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:background="@drawable/bg_ds_card"
     android:clickable="true"
-    android:elevation="4dp"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:outlineAmbientShadowColor="@color/ds_card_shadow"
-    android:outlineSpotShadowColor="@color/ds_card_shadow"
     android:paddingHorizontal="16dp"
-    android:paddingVertical="13dp">
+    android:paddingVertical="14dp">
 
     <FrameLayout
         android:id="@+id/avatarBox"
