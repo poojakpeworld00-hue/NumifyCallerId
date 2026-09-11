@@ -9,7 +9,7 @@
     <string name="splash_footer">Cette application peut afficher des publicités</string>
 
     <!-- Language -->
-    <string name="language_title">Choisir la langue</string>
+    <string name="language_title">Langue</string>
     <string name="language_continue">Continuer</string>
     <string name="language_search_hint">Rechercher des langues</string>
     <string name="language_suggested">Langues suggérées</string>

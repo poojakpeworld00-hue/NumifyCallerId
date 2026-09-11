@@ -10,7 +10,7 @@
     <string name="splash_footer">Bu uygulamada reklam görünebilir</string>
 
     <!-- Language -->
-    <string name="language_title">Dil seçin</string>
+    <string name="language_title">Dil</string>
     <string name="language_continue">Devam</string>
     <string name="language_search_hint">Dil ara</string>
     <string name="language_suggested">Önerilen diller</string>

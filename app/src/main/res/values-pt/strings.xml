@@ -9,7 +9,7 @@
     <string name="splash_footer">Este app pode exibir anúncios</string>
 
     <!-- Language -->
-    <string name="language_title">Escolha o idioma</string>
+    <string name="language_title">Idioma</string>
     <string name="language_continue">Continuar</string>
     <string name="language_search_hint">Pesquisar idiomas</string>
     <string name="language_suggested">Idiomas sugeridos</string>

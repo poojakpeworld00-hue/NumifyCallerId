@@ -19,7 +19,7 @@
     <string name="splash_card_verified">Verified</string>
 
     <!-- Language -->
-    <string name="language_title">Choose language</string>
+    <string name="language_title">Language</string>
     <string name="language_continue">Continue</string>
     <string name="language_search_hint">Search languages</string>
     <string name="language_suggested">Suggested</string>

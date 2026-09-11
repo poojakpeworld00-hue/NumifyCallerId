@@ -517,14 +517,33 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <LinearLayout
+        <!--
+            A NestedScrollView, not a plain column, and that is load-bearing.
+
+            Everything above the list — protection banner, permission hint,
+            lookup card, native ad, Recent label, filter tabs — rides in the
+            AppBarLayout, which only scrolls off when a nested-scrolling child
+            reports a drag. While the permission state is up, [listRecents] is
+            GONE, so if this were a LinearLayout nothing would report anything:
+            the header could not collapse, and on a shorter phone its lower half
+            (and every button in it) sat below the fold, unreachable and
+            untappable. fillViewport keeps the content centred when it does fit.
+        -->
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/permState"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:paddingBottom="@dimen/_70sdp"
+            android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/_32sdp"
-            android:visibility="gone">
+            android:paddingHorizontal="@dimen/_32sdp">
 
             <ImageView
                 android:layout_width="@dimen/_60sdp"
@@ -566,6 +585,7 @@
                 android:textSize="@dimen/_12ssp"
                 android:textStyle="bold" />
         </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>

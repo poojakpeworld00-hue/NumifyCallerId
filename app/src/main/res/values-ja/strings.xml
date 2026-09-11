@@ -10,7 +10,7 @@
     <string name="splash_footer">このアプリには広告が表示される場合があります</string>
 
     <!-- Language -->
-    <string name="language_title">言語を選択</string>
+    <string name="language_title">言語</string>
     <string name="language_continue">続ける</string>
     <string name="language_search_hint">言語を検索</string>
     <string name="language_suggested">おすすめの言語</string>

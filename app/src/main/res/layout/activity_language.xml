@@ -53,26 +53,12 @@
             android:fontFamily="@font/space_grotesk_bold"
             android:letterSpacing="0.0038"
             android:text="@string/language_title"
+            tools:text="Language: English"
             android:textColor="@color/ds_ink"
             android:textSize="26sp"
             app:layout_constraintEnd_toStartOf="@id/buttonContinue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Which language is live right now — set from LanguagePickerActivity, so
-             the row the user is about to change is named before they change it. -->
-        <TextView
-            android:id="@+id/textSubtitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:fontFamily="@font/mulish_semibold"
-            android:textColor="@color/ds_ink_subtle"
-            android:textSize="13.5sp"
-            app:layout_constraintEnd_toEndOf="@id/textTitle"
-            app:layout_constraintStart_toStartOf="@id/textTitle"
-            app:layout_constraintTop_toBottomOf="@id/textTitle"
-            tools:text="Current language: English" />
 
         <ImageView
             android:id="@+id/buttonInfo"
@@ -114,15 +100,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- The list starts below whichever of the two-line title block or the
-             confirm pill runs deeper — at a large system font scale that is the
-             subtitle, at the default it is the pill. -->
+        <!-- The list starts below whichever of the title block or the confirm pill
+             runs deeper — at a large system font scale, or with a long language
+             name wrapping the title, that is the title; at the default it is the
+             pill. -->
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/headerBottomBarrier"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="textSubtitle,buttonContinue" />
+            app:constraint_referenced_ids="textTitle,buttonContinue" />
 
         <!-- ===== Suggested + All languages — one continuous scroll ===== -->
         <androidx.core.widget.NestedScrollView

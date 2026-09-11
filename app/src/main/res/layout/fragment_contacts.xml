@@ -304,15 +304,28 @@
             android:textSize="@dimen/_12ssp"
             android:visibility="gone" />
 
-        <!-- Permission state -->
-        <LinearLayout
+        <!--
+            Permission state. A NestedScrollView for the same reason as the one
+            in fragment_recents: while this is up [listContacts] is GONE, so
+            without a nested-scrolling child here the AppBarLayout header above
+            cannot scroll off, and on a shorter phone its lower half is left
+            unreachable and untappable.
+        -->
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/permState"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:paddingBottom="@dimen/_70sdp"
+            android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/_32sdp"
-            android:visibility="gone">
+            android:paddingHorizontal="@dimen/_32sdp">
 
             <ImageView
                 android:layout_width="@dimen/_60sdp"
@@ -354,6 +367,7 @@
                 android:textSize="@dimen/_12ssp"
                 android:textStyle="bold" />
         </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>

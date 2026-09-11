@@ -10,7 +10,7 @@
     <string name="splash_footer">แอปนี้อาจแสดงโฆษณา</string>
 
     <!-- Language -->
-    <string name="language_title">เลือกภาษา</string>
+    <string name="language_title">ภาษา</string>
     <string name="language_continue">ดำเนินการต่อ</string>
     <string name="language_search_hint">ค้นหาภาษา</string>
     <string name="language_suggested">ภาษาที่แนะนำ</string>

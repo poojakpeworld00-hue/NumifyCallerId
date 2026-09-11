@@ -9,7 +9,7 @@
     <string name="splash_footer">قد تظهر إعلانات في هذا التطبيق</string>
 
     <!-- Language -->
-    <string name="language_title">اختر اللغة</string>
+    <string name="language_title">اللغة</string>
     <string name="language_continue">متابعة</string>
     <string name="language_search_hint">البحث عن اللغات</string>
     <string name="language_suggested">اللغات المقترحة</string>

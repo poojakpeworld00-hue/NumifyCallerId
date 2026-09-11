@@ -10,7 +10,7 @@
     <string name="splash_footer">本应用可能显示广告</string>
 
     <!-- Language -->
-    <string name="language_title">选择语言</string>
+    <string name="language_title">语言</string>
     <string name="language_continue">继续</string>
     <string name="language_search_hint">搜索语言</string>
     <string name="language_suggested">推荐语言</string>

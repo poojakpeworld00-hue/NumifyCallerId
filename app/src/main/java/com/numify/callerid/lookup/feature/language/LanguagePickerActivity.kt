@@ -4,6 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import android.telephony.TelephonyManager
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +34,7 @@ import com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig
 import com.numify.callerid.lookup.common.PreferenceStore
 import com.numify.callerid.lookup.common.WindowInsetsHelper
 import kotlinx.coroutines.launch
+import java.util.Locale
 import com.numify.callerid.lookup.common.followAdContainer
 
 class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
@@ -68,11 +73,9 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
         val current = PreferenceStore.language(this) ?: PreferenceStore.LANGUAGE_DEFAULT
         viewModel.init(current)
 
-        // Name the language that is live right now, under the title. Falls back to
-        // the raw tag if the current one is not in the catalogue (a locale carried
-        // over from an older build, say) — better than showing nothing.
-        val currentName = LocaleCatalog.all.firstOrNull { it.tag == current }?.nativeName ?: current
-        binding.textSubtitle.text = "${getString(R.string.language_current)}: $currentName"
+        // The live language is named in the title itself rather than on a line of
+        // its own, so the header is one thing instead of two.
+        binding.textTitle.text = titleWith(currentLanguageName(current))
 
         // Mid native ad shown above the Continue button.
         OnboardingFooterAd.render(
@@ -177,6 +180,46 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
      *  2. Refine asynchronously from IP geo, updating the lists only when it
      *     disagrees; confirmCountry is idempotent per country.
      */
+    /**
+     * "Language: English", with the language name at a smaller size and in the
+     * subtle ink — one header line that still reads as a title first.
+     *
+     * The name is spanned rather than put in its own TextView so the two can
+     * never disagree about wrapping: a long endonym flows under the word
+     * "Language" instead of being clipped by the Continue pill.
+     */
+    private fun titleWith(languageName: String?): CharSequence {
+        val title = getString(R.string.language_title)
+        if (languageName.isNullOrBlank()) return title
+
+        val suffix = ": $languageName"
+        return SpannableString(title + suffix).apply {
+            val from = title.length
+            val to = length
+            setSpan(RelativeSizeSpan(TITLE_NAME_SCALE), from, to, SPAN_FLAGS)
+            setSpan(ForegroundColorSpan(getColor(R.color.ds_ink_subtle)), from, to, SPAN_FLAGS)
+        }
+    }
+
+    /**
+     * The language the app is actually running in.
+     *
+     * [PreferenceStore.LANGUAGE_DEFAULT] is the empty string — "follow the
+     * system" — and on a first launch that is what is stored. Looking an empty
+     * tag up in the catalogue finds nothing, which is why the header used to
+     * read "Current language:" with the name missing. So an unset preference
+     * resolves through the device locale instead, and only a locale outside the
+     * catalogue falls back to the platform's own display name.
+     */
+    private fun currentLanguageName(current: String): String? {
+        val tag = current.takeIf { it.isNotBlank() } ?: Locale.getDefault().language
+        LocaleCatalog.all.firstOrNull { it.tag == tag }?.let { return it.nativeName }
+
+        val locale = Locale.forLanguageTag(tag)
+        return locale.getDisplayLanguage(locale).takeIf { it.isNotBlank() }
+            ?.replaceFirstChar { it.uppercase(locale) }
+    }
+
     private fun resolveRegion() {
         val device = deviceCountry()
         WindowInsetsHelper.log(TAG, "resolveRegion: device=$device (sync seed)")
@@ -284,6 +327,11 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
         /** Rows in the "Suggested" card, which the second list's stagger follows on from. */
         private const val SUGGESTED_ROW_COUNT = 2
         private const val EXTRA_STANDALONE = "extra_standalone"
+
+        /** The language name against the 26sp title: small enough to read as a note. */
+        private const val TITLE_NAME_SCALE = 0.5f
+
+        private const val SPAN_FLAGS = Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 
         /** Standalone = opened from Settings to change language (returns on Continue). */
         fun newIntent(context: Context, standalone: Boolean = false): Intent =

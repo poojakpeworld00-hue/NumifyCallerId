@@ -10,7 +10,7 @@
     <string name="splash_footer">В приложении может быть реклама</string>
 
     <!-- Language -->
-    <string name="language_title">Выберите язык</string>
+    <string name="language_title">Язык</string>
     <string name="language_continue">Продолжить</string>
     <string name="language_search_hint">Поиск языков</string>
     <string name="language_suggested">Рекомендуемые языки</string>

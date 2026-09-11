@@ -9,7 +9,7 @@
     <string name="splash_footer">इस ऐप में विज्ञापन दिख सकते हैं</string>
 
     <!-- Language -->
-    <string name="language_title">भाषा चुनें</string>
+    <string name="language_title">भाषा</string>
     <string name="language_continue">जारी रखें</string>
     <string name="language_search_hint">भाषाएँ खोजें</string>
     <string name="language_suggested">सुझाई गई भाषाएँ</string>

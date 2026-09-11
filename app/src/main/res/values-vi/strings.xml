@@ -10,7 +10,7 @@
     <string name="splash_footer">Ứng dụng này có thể hiển thị quảng cáo</string>
 
     <!-- Language -->
-    <string name="language_title">Chọn ngôn ngữ</string>
+    <string name="language_title">Ngôn ngữ</string>
     <string name="language_continue">Tiếp tục</string>
     <string name="language_search_hint">Tìm ngôn ngữ</string>
     <string name="language_suggested">Ngôn ngữ gợi ý</string>
