@@ -293,44 +293,49 @@
 
 
     <!-- One "label · value" row on the Network info screen. -->
+    <!-- A network-info row: the handoff's white card on a 16dp radius with a soft
+         shadow, a 38dp tinted disc, a 14.5sp label and a 13.5sp muted value. Same
+         anatomy as a settings row, which is why the two read as one family. -->
     <style name="NetRowCard">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/_8sdp</item>
-        <item name="android:background">@drawable/bg_cid_card</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:background">@drawable/bg_ds_stat_card</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:outlineAmbientShadowColor">@color/ds_card_shadow</item>
+        <item name="android:outlineSpotShadowColor">@color/ds_card_shadow</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:paddingStart">@dimen/_9sdp</item>
-        <item name="android:paddingEnd">@dimen/_12sdp</item>
-        <item name="android:paddingVertical">@dimen/_9sdp</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:paddingVertical">14dp</item>
     </style>
 
     <style name="NetRowIcon">
-        <item name="android:layout_width">@dimen/_34sdp</item>
-        <item name="android:layout_height">@dimen/_34sdp</item>
+        <item name="android:layout_width">38dp</item>
+        <item name="android:layout_height">38dp</item>
         <item name="android:contentDescription">@null</item>
-        <item name="android:padding">@dimen/_8sdp</item>
+        <item name="android:padding">11dp</item>
     </style>
 
     <style name="NetRowLabel">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/_10sdp</item>
+        <item name="android:layout_marginStart">14dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:textColor">@color/on_surface</item>
-        <item name="android:textSize">@dimen/_11ssp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
+        <item name="android:textColor">@color/ds_ink</item>
+        <item name="android:textSize">14.5sp</item>
     </style>
 
     <style name="NetRowValue">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/_8sdp</item>
+        <item name="android:layout_marginStart">8dp</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
         <item name="android:maxLines">1</item>
-        <item name="android:textColor">@color/on_surface_variant</item>
-        <item name="android:textSize">@dimen/_11ssp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/ds_ink_muted</item>
+        <item name="android:textSize">13.5sp</item>
     </style>
 
     <!-- Section heading: brand dot, label, then a rule out to the edge. -->

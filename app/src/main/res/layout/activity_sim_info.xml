@@ -103,25 +103,26 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
+                            android:fontFamily="@font/space_grotesk_bold"
                             android:includeFontPadding="false"
                             android:maxLines="1"
                             android:textColor="@color/cid_050"
-                            android:textSize="@dimen/_14ssp"
-                            android:textStyle="bold"
-                            tools:text="Airtel" />
+                            android:textSize="18sp"
+                            tools:text="Vi India" />
 
                         <TextView
                             android:id="@+id/textStatus"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:alpha="0.72"
+                            android:layout_marginTop="2dp"
+                            android:alpha="0.6"
                             android:ellipsize="end"
+                            android:fontFamily="@font/mulish_semibold"
                             android:includeFontPadding="false"
                             android:maxLines="1"
                             android:textColor="@color/cid_050"
-                            android:textSize="@dimen/_10ssp"
-                            tools:text="5G SA · connected" />
+                            android:textSize="12.5sp"
+                            tools:text="Unknown · Connected" />
                     </LinearLayout>
 
                     <!-- Signal bars. Tinted per level in SimInfoActivity. -->
