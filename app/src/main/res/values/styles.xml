@@ -349,35 +349,42 @@
     </style>
 
     <!-- "Right now" tile on the Battery screen: two per row. -->
+    <!-- The tool handoffs' stat tile, shared by battery, bubble level and light
+         meter: `background:#fff; border-radius:16px; padding:14px` under
+         `box-shadow: 0 4px 12px rgba(20,30,60,0.05)`. -->
     <style name="BattStatCard">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@drawable/bg_cid_stat_card</item>
+        <item name="android:background">@drawable/bg_ds_stat_card</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:outlineAmbientShadowColor">@color/ds_card_shadow</item>
+        <item name="android:outlineSpotShadowColor">@color/ds_card_shadow</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:paddingHorizontal">@dimen/_11sdp</item>
-        <item name="android:paddingVertical">@dimen/_11sdp</item>
+        <item name="android:padding">14dp</item>
     </style>
 
+    <!-- `font-size:10.5px; font-weight:800; letter-spacing:0.6px` — 0.6px against
+         10.5px is 0.057em, which is what letterSpacing takes. -->
     <style name="BattStatLabel">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/_5sdp</item>
-        <item name="android:letterSpacing">0.08</item>
+        <item name="android:layout_marginStart">6dp</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
+        <item name="android:letterSpacing">0.057</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/on_surface_variant</item>
-        <item name="android:textSize">@dimen/_8ssp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/ds_ink_muted</item>
+        <item name="android:textSize">10.5sp</item>
     </style>
 
     <style name="BattStatValue">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/_5sdp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:fontFamily">@font/space_grotesk_bold</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:textColor">@color/on_surface</item>
-        <item name="android:textSize">@dimen/_15ssp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/ds_ink</item>
+        <item name="android:textSize">19sp</item>
     </style>
 
     <style name="TorchModeChip">

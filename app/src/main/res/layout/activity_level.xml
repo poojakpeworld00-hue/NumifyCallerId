@@ -29,39 +29,42 @@
             android:paddingVertical="@dimen/_5sdp"
             app:layout_constraintTop_toTopOf="parent">
 
+            <!-- The handoff puts back in a 36dp chip rather than leaving it a bare
+                 glyph, which is also how the home header carries its two actions. -->
             <ImageView
                 android:id="@+id/buttonBack"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_ds_header_chip"
                 android:contentDescription="@string/onboarding_skip"
-                android:padding="@dimen/_9sdp"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:padding="10dp"
                 android:src="@drawable/ic_arrow_back"
-                app:tint="@color/on_surface" />
+                app:tint="@color/ds_ink" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginStart="14dp"
                 android:layout_weight="1"
-                android:letterSpacing="-0.02"
+                android:fontFamily="@font/space_grotesk_bold"
                 android:text="@string/tools_level"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_15ssp"
-                android:textStyle="bold" />
+                android:textColor="@color/ds_ink"
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/buttonCalibrate"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_32sdp"
-                android:background="@drawable/bg_cid_pill_neutral"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_ds_chip_accent"
+                android:fontFamily="@font/mulish_bold"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
-                android:paddingHorizontal="@dimen/_12sdp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="9dp"
                 android:text="@string/level_calibrate"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_10ssp"
-                android:textStyle="bold" />
+                android:textColor="@color/ds_accent"
+                android:textSize="12.5sp" />
         </LinearLayout>
 
         <androidx.core.widget.NestedScrollView
@@ -83,32 +86,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
+                    android:fontFamily="@font/space_grotesk_bold"
                     android:includeFontPadding="false"
-                    android:letterSpacing="-0.04"
-                    android:textColor="@color/on_surface"
-                    android:textSize="@dimen/_38ssp"
-                    android:textStyle="bold"
-                    tools:text="0.4°" />
+                    android:textColor="@color/ds_ink"
+                    android:textSize="40sp"
+                    tools:text="1.1°" />
 
                 <TextView
                     android:id="@+id/textStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_7sdp"
-                    android:background="@drawable/bg_cid_pill_neutral"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_ds_chip_accent"
+                    android:fontFamily="@font/mulish_bold"
                     android:includeFontPadding="false"
-                    android:paddingHorizontal="@dimen/_12sdp"
-                    android:paddingVertical="@dimen/_5sdp"
-                    android:textColor="@color/on_surface"
-                    android:textSize="@dimen/_10ssp"
-                    android:textStyle="bold"
-                    tools:text="Almost level" />
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="6dp"
+                    android:textColor="@color/ds_accent"
+                    android:textSize="12.5sp"
+                    tools:text="Adjusting" />
 
                 <FrameLayout
                     android:id="@+id/dialArea"
-                    android:layout_width="@dimen/_205sdp"
-                    android:layout_height="@dimen/_205sdp"
-                    android:layout_marginTop="@dimen/_14sdp"
+                    android:layout_width="280dp"
+                    android:layout_height="280dp"
+                    android:layout_marginTop="24dp"
                     android:elevation="@dimen/_3sdp"
                     android:outlineAmbientShadowColor="@color/card_shadow"
                     android:outlineSpotShadowColor="@color/card_shadow">
@@ -138,8 +140,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:text="@string/level_hint"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="@dimen/_10ssp" />
+                        android:textColor="@color/ds_ink_muted"
+                        android:textSize="12.5sp" />
                 </LinearLayout>
 
                 <LinearLayout

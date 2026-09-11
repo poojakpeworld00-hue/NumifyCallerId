@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The handoff's accent chip: `background:#EAF0FE; border-radius:14px`. Used for
+     a tool screen's header action and its live status pill. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_nav_chip_active" />
+    <corners android:radius="14dp" />
+</shape>
