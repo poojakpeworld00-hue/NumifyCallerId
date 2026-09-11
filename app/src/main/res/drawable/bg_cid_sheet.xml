@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Enable-Caller-ID bottom sheet: surface with top-rounded 28dp corners. -->
+<!-- Enable-Caller-ID bottom sheet: `border-radius:28px 28px 0 0` on white. The
+     radius is in dp, not sdp: sdp is not 1:1 with dp, so _26sdp came out at 31dp
+     on a sw360 phone against the handoff's 28. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="@color/surface" />
+    <solid android:color="@color/ds_surface" />
     <corners
-        android:topLeftRadius="@dimen/_26sdp"
-        android:topRightRadius="@dimen/_26sdp" />
+        android:topLeftRadius="28dp"
+        android:topRightRadius="28dp" />
 </shape>

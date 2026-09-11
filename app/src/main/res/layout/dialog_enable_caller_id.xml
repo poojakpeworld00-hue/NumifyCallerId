@@ -12,9 +12,9 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_cid_sheet"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/_22sdp"
-    android:paddingTop="@dimen/_22sdp"
-    android:paddingBottom="@dimen/_16sdp">
+    android:paddingHorizontal="24dp"
+    android:paddingTop="28dp"
+    android:paddingBottom="26dp">
 
     <!-- Shield tile with pulse ring -->
     <FrameLayout
@@ -23,22 +23,22 @@
 
         <View
             android:id="@+id/shieldRing"
-            android:layout_width="@dimen/_52sdp"
-            android:layout_height="@dimen/_52sdp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_gravity="center"
             android:background="@drawable/bg_cid_ring" />
 
         <FrameLayout
             android:id="@+id/shieldTile"
-            android:layout_width="@dimen/_52sdp"
-            android:layout_height="@dimen/_52sdp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_gravity="center"
             android:background="@drawable/bg_cid_shield_tile">
 
             <ImageView
                 android:id="@+id/shieldIcon"
-                android:layout_width="@dimen/_26sdp"
-                android:layout_height="@dimen/_26sdp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/blocklist_enable_cid_title"
                 android:src="@drawable/ic_cid_shield" />
@@ -49,29 +49,30 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_14sdp"
-        android:letterSpacing="-0.01"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/space_grotesk_bold"
         android:text="@string/blocklist_enable_cid_title"
-        android:textColor="@color/on_surface"
-        android:textSize="@dimen/_16ssp"
+        android:textColor="@color/ds_ink"
+        android:textSize="21sp"
         android:textStyle="bold" />
 
     <!-- Description -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_6sdp"
-        android:lineSpacingMultiplier="1.35"
+        android:layout_marginTop="8dp"
+        android:lineSpacingMultiplier="1.5"
         android:text="@string/blocklist_enable_cid_message"
-        android:textColor="@color/fsi_subtitle"
-        android:textSize="@dimen/_12ssp" />
+        android:fontFamily="@font/mulish_semibold"
+        android:textColor="@color/ds_ink_subtle"
+        android:textSize="14sp" />
 
     <!-- "Next step" hint strip: previews the system Caller-ID toggle -->
     <LinearLayout
         android:id="@+id/hintStrip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/bg_cid_hint"
         android:orientation="vertical">
 
@@ -80,11 +81,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginHorizontal="@dimen/_14sdp"
-            android:letterSpacing="0.08"
+            android:letterSpacing="0.095"
             android:text="@string/blocklist_enable_cid_hint_label"
             android:textAllCaps="true"
-            android:textColor="@color/on_surface_variant"
-            android:textSize="@dimen/_8ssp"
+            android:textColor="@color/ds_hero_label"
+            android:textSize="10.5sp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -172,33 +173,42 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:gravity="end|center_vertical"
+        android:layout_marginTop="22dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
+        <!-- "Not now" is plain text at the same size as the CTA's label, and the
+             CTA takes the rest of the row. The handoff weights the choice that
+             way deliberately: declining stays available without being styled as
+             an equal-and-opposite button. -->
         <TextView
             android:id="@+id/buttonNotNow"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_44sdp"
+            android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:fontFamily="@font/mulish_bold"
             android:gravity="center"
-            android:paddingHorizontal="@dimen/_16sdp"
+            android:minHeight="48dp"
+            android:paddingHorizontal="8dp"
             android:text="@string/blocklist_enable_cid_not_now"
-            android:textColor="@color/on_surface_variant"
-            android:textSize="@dimen/_13ssp"
-            android:textStyle="bold" />
+            android:textColor="@color/ds_ink_muted"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/buttonEnable"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_44sdp"
-            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_weight="1"
             android:background="@drawable/bg_cid_cta"
+            android:elevation="8dp"
+            android:fontFamily="@font/mulish_bold"
             android:gravity="center"
-            android:paddingHorizontal="@dimen/_22sdp"
+            android:outlineAmbientShadowColor="@color/ds_fab_shadow"
+            android:outlineSpotShadowColor="@color/ds_fab_shadow"
+            android:paddingVertical="15dp"
             android:text="@string/blocklist_enable_cid_confirm"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp"
-            android:textStyle="bold" />
+            android:textColor="@color/ds_on_accent"
+            android:textSize="15.5sp" />
     </LinearLayout>
 </LinearLayout>

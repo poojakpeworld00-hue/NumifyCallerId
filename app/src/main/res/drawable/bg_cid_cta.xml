@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Primary CTA pill (48dp) · fully rounded, FSI blue. -->
+<!-- Primary CTA: `linear-gradient(135deg,#3466F0,#1F3FAE)` on an 18dp radius, the
+     same gradient the raised nav action carries. Not a full-round pill any more -
+     the handoff gives it a rounded rectangle so it reads as a button rather than
+     as a chip. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="@color/fsi_blue" />
-    <corners android:radius="@dimen/_30sdp" />
+    <gradient
+        android:angle="315"
+        android:endColor="@color/ds_fab_end"
+        android:startColor="@color/ds_fab_start"
+        android:type="linear" />
+    <corners android:radius="18dp" />
 </shape>
