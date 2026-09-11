@@ -102,37 +102,36 @@
                                 android:id="@+id/textSpeed"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/space_grotesk_bold"
                                 android:includeFontPadding="false"
-                                android:letterSpacing="-0.04"
-                                android:textColor="@color/on_surface"
-                                android:textSize="@dimen/_34ssp"
-                                android:textStyle="bold"
-                                tools:text="184" />
+                                android:textColor="@color/ds_ink"
+                                android:textSize="52sp"
+                                tools:text="42" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_3sdp"
+                                android:layout_marginStart="4dp"
+                                android:fontFamily="@font/mulish_bold"
                                 android:includeFontPadding="false"
                                 android:text="@string/speedometer_unit"
-                                android:textColor="@color/on_surface_variant"
-                                android:textSize="@dimen/_11ssp"
-                                android:textStyle="bold" />
+                                android:textColor="@color/ds_ink_muted"
+                                android:textSize="20sp" />
                         </LinearLayout>
 
+                        <!-- Plain text, not a chip: the handoff labels the readout
+                             ("Current speed") rather than giving it a status pill.
+                             A pill here would read as a state the number is in. -->
                         <TextView
                             android:id="@+id/textStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_7sdp"
-                            android:background="@drawable/bg_cid_pill_neutral"
+                            android:layout_marginTop="6dp"
+                            android:fontFamily="@font/mulish_semibold"
                             android:includeFontPadding="false"
-                            android:paddingHorizontal="@dimen/_10sdp"
-                            android:paddingVertical="@dimen/_4sdp"
                             android:text="@string/speedtest_download"
-                            android:textColor="@color/on_surface"
-                            android:textSize="@dimen/_9ssp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/ds_ink_muted"
+                            android:textSize="13sp" />
                     </LinearLayout>
                 </FrameLayout>
 

@@ -32,21 +32,21 @@ class SpeedometerView @JvmOverloads constructor(
 
     private val discPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = ContextCompat.getColor(context, R.color.surface)
+        color = ContextCompat.getColor(context, R.color.ds_surface)
     }
 
     private val majorTickPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeCap = Paint.Cap.ROUND
         strokeWidth = 2.5f * density * SCALE
-        color = ContextCompat.getColor(context, R.color.primary)
+        color = ContextCompat.getColor(context, R.color.ds_accent)
     }
 
     private val minorTickPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeCap = Paint.Cap.ROUND
         strokeWidth = 1.5f * density * SCALE
-        color = ContextCompat.getColor(context, R.color.primary)
+        color = ContextCompat.getColor(context, R.color.ds_chevron)
         alpha = 128
     }
 
@@ -55,32 +55,32 @@ class SpeedometerView @JvmOverloads constructor(
         style = Paint.Style.STROKE
         strokeCap = Paint.Cap.ROUND
         strokeWidth = 2.5f * density * SCALE
-        color = ContextCompat.getColor(context, R.color.cid_clay)
+        color = ContextCompat.getColor(context, R.color.ds_accent)
     }
 
     private val labelPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textAlign = Paint.Align.CENTER
         textSize = 10f * density * SCALE
         isFakeBoldText = true
-        color = ContextCompat.getColor(context, R.color.on_surface_variant)
+        color = ContextCompat.getColor(context, R.color.ds_ink_muted)
     }
 
     private val needlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeCap = Paint.Cap.ROUND
         strokeWidth = 4f * density * SCALE
-        color = ContextCompat.getColor(context, R.color.cid_clay)
+        color = ContextCompat.getColor(context, R.color.ds_ink)
     }
 
     private val hubPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = ContextCompat.getColor(context, R.color.on_surface)
+        color = ContextCompat.getColor(context, R.color.ds_ink)
     }
 
     private val hubRingPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeWidth = 4f * density * SCALE
-        color = ContextCompat.getColor(context, R.color.surface)
+        color = ContextCompat.getColor(context, R.color.ds_surface)
     }
 
     private var angle = SWEEP_START
