@@ -42,26 +42,26 @@ class TimerArcView @JvmOverloads constructor(
     private val trackPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeWidth = this@TimerArcView.strokeWidth
-        color = ContextCompat.getColor(context, R.color.primary_container)
+        color = ContextCompat.getColor(context, R.color.ds_nav_chip_idle)
     }
 
     private val arcPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeWidth = this@TimerArcView.strokeWidth
         strokeCap = Paint.Cap.ROUND
-        color = ContextCompat.getColor(context, R.color.primary)
+        color = ContextCompat.getColor(context, R.color.ds_accent)
     }
 
     private val knobPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = ContextCompat.getColor(context, R.color.primary_dark)
+        color = ContextCompat.getColor(context, R.color.ds_accent)
     }
 
     /** Punches the gap between knob and ring, so it reads as sitting on top. */
     private val knobGapPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeWidth = knobGap
-        color = ContextCompat.getColor(context, R.color.background)
+        color = ContextCompat.getColor(context, R.color.ds_page)
     }
 
     private val oval = RectF()

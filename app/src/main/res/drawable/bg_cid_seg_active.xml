@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- The selected half of the segmented control: lifts off the track. -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <solid android:color="@color/surface" />
-    <corners android:radius="100dp" />
+<!-- The selected segment: the brand fill on an 11dp radius, not a white chip on
+     a grey track. The handoff fills the active half so the choice is legible at
+     a glance rather than by which half looks recessed. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_accent" />
+    <corners android:radius="11dp" />
 </shape>

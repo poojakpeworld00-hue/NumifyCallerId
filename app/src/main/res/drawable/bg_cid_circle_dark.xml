@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- The primary run/pause control. Uses the app's brand fill, not the design's
-     near-black ink: every other filled action in this app is @color/primary, and
-     a black disc here read as belonging to a different product. -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
-    <solid android:color="@color/primary" />
+<!-- The primary transport action: `linear-gradient(150deg,#3466F0,#1F3FAE)` on a
+     circle, the same gradient the raised nav action and the sheet CTA carry. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <gradient
+        android:angle="315"
+        android:endColor="@color/ds_fab_end"
+        android:startColor="@color/ds_fab_start"
+        android:type="linear" />
 </shape>

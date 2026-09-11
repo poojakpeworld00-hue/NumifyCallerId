@@ -33,7 +33,7 @@ class StopwatchDialView @JvmOverloads constructor(
 
     private val discPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = ContextCompat.getColor(context, R.color.surface)
+        color = ContextCompat.getColor(context, R.color.ds_surface)
     }
 
     /** Every fifth tick: longer, heavier, brand-coloured. */
@@ -41,14 +41,14 @@ class StopwatchDialView @JvmOverloads constructor(
         style = Paint.Style.STROKE
         strokeCap = Paint.Cap.ROUND
         strokeWidth = 2f * density
-        color = ContextCompat.getColor(context, R.color.primary)
+        color = ContextCompat.getColor(context, R.color.ds_nav_chip_idle)
     }
 
     private val minorTickPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeCap = Paint.Cap.ROUND
         strokeWidth = 1f * density
-        color = ContextCompat.getColor(context, R.color.outline)
+        color = ContextCompat.getColor(context, R.color.ds_rule)
     }
 
     /**
@@ -59,18 +59,18 @@ class StopwatchDialView @JvmOverloads constructor(
         style = Paint.Style.STROKE
         strokeCap = Paint.Cap.ROUND
         strokeWidth = 3f * density
-        color = ContextCompat.getColor(context, R.color.cid_clay)
+        color = ContextCompat.getColor(context, R.color.ds_second_hand)
     }
 
     private val hubPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = ContextCompat.getColor(context, R.color.on_surface)
+        color = ContextCompat.getColor(context, R.color.ds_ink)
     }
 
     private val hubRingPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeWidth = 4f * density
-        color = ContextCompat.getColor(context, R.color.surface)
+        color = ContextCompat.getColor(context, R.color.ds_surface)
     }
 
     /** Seconds within the current minute, fractional so the hand sweeps smoothly. */

@@ -59,25 +59,27 @@
                 <TextView
                     android:id="@+id/buttonSegStopwatch"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_28sdp"
+                    android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"
+                    android:fontFamily="@font/mulish_bold"
                     android:gravity="center"
-                    android:paddingHorizontal="@dimen/_11sdp"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="8dp"
                     android:text="@string/tools_stopwatch"
-                    android:textColor="@color/primary"
-                    android:textSize="@dimen/_10ssp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/ds_ink_muted"
+                    android:textSize="12.5sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_28sdp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/bg_cid_seg_active"
+                    android:fontFamily="@font/mulish_bold"
                     android:gravity="center"
-                    android:paddingHorizontal="@dimen/_11sdp"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="8dp"
                     android:text="@string/timer_tool"
-                    android:textColor="@color/on_surface"
-                    android:textSize="@dimen/_10ssp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/ds_on_accent"
+                    android:textSize="12.5sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -98,8 +100,8 @@
 
                 <!-- ===== Dial ===== -->
                 <FrameLayout
-                    android:layout_width="@dimen/_210sdp"
-                    android:layout_height="@dimen/_210sdp"
+                    android:layout_width="280dp"
+                    android:layout_height="280dp"
                     android:layout_marginTop="@dimen/_8sdp">
 
                     <com.numify.callerid.lookup.feature.tools.TimerArcView
@@ -117,38 +119,37 @@
                             android:id="@+id/textTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/space_grotesk_bold"
                             android:includeFontPadding="false"
-                            android:letterSpacing="-0.04"
-                            android:textColor="@color/on_surface"
-                            android:textSize="@dimen/_36ssp"
-                            android:textStyle="bold"
+                            android:textColor="@color/ds_ink"
+                            android:textSize="46sp"
                             tools:text="04:37" />
                             <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_9sdp"
-                            android:background="@drawable/bg_cid_pill_neutral"
-                            android:paddingHorizontal="@dimen/_10sdp"
-                            android:paddingVertical="@dimen/_5sdp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_ds_chip_accent"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="6dp"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="@dimen/_13sdp"
-                                android:layout_height="@dimen/_13sdp"
+                                android:layout_width="13dp"
+                                android:layout_height="13dp"
                                 android:contentDescription="@null"
                                 android:src="@drawable/ic_timer"
-                                app:tint="@color/on_surface" />
+                                app:tint="@color/ds_accent" />
 
                             <TextView
                                 android:id="@+id/textTotal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_marginStart="6dp"
+                                android:fontFamily="@font/mulish_bold"
                                 android:includeFontPadding="false"
-                                android:textColor="@color/on_surface"
-                                android:textSize="@dimen/_9ssp"
-                                android:textStyle="bold"
+                                android:textColor="@color/ds_accent"
+                                android:textSize="12.5sp"
                                 tools:text="of 10:00" />
                         </LinearLayout>
                     </LinearLayout>

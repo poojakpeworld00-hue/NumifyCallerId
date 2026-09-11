@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Track behind the Stopwatch/Timer segmented control. -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <solid android:color="@color/primary_container" />
-    <corners android:radius="100dp" />
+<!-- Stopwatch/Timer segmented track: `background:#EEF1F7; border-radius:14px`
+     with 4px of padding, which the layout supplies. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_nav_chip_idle" />
+    <corners android:radius="14dp" />
 </shape>

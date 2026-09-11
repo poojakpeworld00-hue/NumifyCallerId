@@ -55,26 +55,28 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_28sdp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/bg_cid_seg_active"
+                    android:fontFamily="@font/mulish_bold"
                     android:gravity="center"
-                    android:paddingHorizontal="@dimen/_11sdp"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="8dp"
                     android:text="@string/tools_stopwatch"
-                    android:textColor="@color/on_surface"
-                    android:textSize="@dimen/_10ssp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/ds_on_accent"
+                    android:textSize="12.5sp" />
 
                 <TextView
                     android:id="@+id/buttonSegTimer"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_28sdp"
+                    android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"
+                    android:fontFamily="@font/mulish_bold"
                     android:gravity="center"
-                    android:paddingHorizontal="@dimen/_11sdp"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="8dp"
                     android:text="@string/timer_tool"
-                    android:textColor="@color/primary"
-                    android:textSize="@dimen/_10ssp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/ds_ink_muted"
+                    android:textSize="12.5sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -126,38 +128,40 @@
                                 android:id="@+id/textTime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/space_grotesk_bold"
                                 android:includeFontPadding="false"
-                                android:letterSpacing="-0.04"
-                                android:textColor="@color/on_surface"
-                                android:textSize="@dimen/_32ssp"
-                                android:textStyle="bold"
-                                tools:text="02:14" />
+                                android:textColor="@color/ds_ink"
+                                android:textSize="46sp"
+                                tools:text="00:00" />
 
+                            <!-- The hundredths stay blue at half the size: they are
+                                 the part that never stops moving, and at the same
+                                 weight as the seconds they pull the eye off the
+                                 figure that actually matters. -->
                             <TextView
                                 android:id="@+id/textFraction"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_1sdp"
+                                android:fontFamily="@font/space_grotesk_bold"
                                 android:includeFontPadding="false"
-                                android:textColor="@color/primary"
-                                android:textSize="@dimen/_16ssp"
-                                android:textStyle="bold"
-                                tools:text=".38" />
+                                android:textColor="@color/ds_accent"
+                                android:textSize="22sp"
+                                tools:text=".00" />
                         </LinearLayout>
 
                         <TextView
                             android:id="@+id/textStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_7sdp"
-                            android:background="@drawable/bg_cid_pill_neutral"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_ds_chip_accent"
+                            android:fontFamily="@font/mulish_bold"
                             android:includeFontPadding="false"
-                            android:paddingHorizontal="@dimen/_10sdp"
-                            android:paddingVertical="@dimen/_4sdp"
-                            android:textColor="@color/on_surface"
-                            android:textSize="@dimen/_9ssp"
-                            android:textStyle="bold"
-                            tools:text="Running" />
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="6dp"
+                            android:textColor="@color/ds_accent"
+                            android:textSize="12.5sp"
+                            tools:text="Ready" />
                     </LinearLayout>
                 </FrameLayout>
 
