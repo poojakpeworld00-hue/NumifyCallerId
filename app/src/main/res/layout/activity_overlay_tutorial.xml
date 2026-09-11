@@ -38,7 +38,7 @@
             android:background="@drawable/bg_sheet_grabber" />
 
         <TextView
-            android:fontFamily="@font/figtree_bold"
+            android:fontFamily="@font/mulish_bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
@@ -80,7 +80,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:fontFamily="@font/figtree_semibold"
+                    android:fontFamily="@font/mulish_semibold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
