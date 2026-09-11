@@ -84,36 +84,35 @@
                         android:id="@+id/textDb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/space_grotesk_bold"
                         android:includeFontPadding="false"
-                        android:letterSpacing="-0.04"
-                        android:textColor="@color/on_surface"
-                        android:textSize="@dimen/_36ssp"
-                        android:textStyle="bold"
-                        tools:text="62" />
+                        android:textColor="@color/ds_ink"
+                        android:textSize="52sp"
+                        tools:text="55" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/mulish_bold"
                         android:includeFontPadding="false"
                         android:text="@string/sound_unit"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="@dimen/_12ssp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/ds_ink_muted"
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/textCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@drawable/bg_cid_pill_neutral"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/bg_ds_chip_accent"
+                    android:fontFamily="@font/mulish_bold"
                     android:includeFontPadding="false"
-                    android:paddingHorizontal="@dimen/_12sdp"
-                    android:paddingVertical="@dimen/_5sdp"
-                    android:textColor="@color/on_surface"
-                    android:textSize="@dimen/_10ssp"
-                    android:textStyle="bold"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="6dp"
+                    android:textColor="@color/ds_accent"
+                    android:textSize="13sp"
                     tools:text="Normal conversation" />
 
                 <TextView

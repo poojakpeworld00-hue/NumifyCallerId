@@ -158,15 +158,20 @@
     <!-- Speed-test stat tile (Upload / Ping / Jitter). Three share a row, so the
          width is a weight rather than a size — a fixed width overflows at large
          system font scales. -->
+    <!-- Three-across stat tile, shared by the sound meter and the speedometer:
+         the handoff's white tile on a 16dp radius with a soft shadow. -->
     <style name="SpeedStatCard">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@drawable/bg_cid_stat_card</item>
+        <item name="android:background">@drawable/bg_ds_stat_card</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:outlineAmbientShadowColor">@color/ds_card_shadow</item>
+        <item name="android:outlineSpotShadowColor">@color/ds_card_shadow</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:paddingHorizontal">@dimen/_6sdp</item>
-        <item name="android:paddingVertical">@dimen/_11sdp</item>
+        <item name="android:paddingHorizontal">6dp</item>
+        <item name="android:paddingVertical">12dp</item>
     </style>
 
     <style name="SpeedStatIcon">
@@ -178,22 +183,23 @@
     <style name="SpeedStatValue">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/_5sdp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:fontFamily">@font/space_grotesk_bold</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:textColor">@color/on_surface</item>
-        <item name="android:textSize">@dimen/_14ssp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/ds_ink</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
+    <!-- The label sits ABOVE its value on these tiles, so it carries no top
+         margin — the handoff puts MIN / AVG / MAX first and the reading under. -->
     <style name="SpeedStatLabel">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/_3sdp</item>
-        <item name="android:letterSpacing">0.06</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
+        <item name="android:letterSpacing">0.057</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/on_surface_variant</item>
-        <item name="android:textSize">@dimen/_8ssp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/ds_ink_muted</item>
+        <item name="android:textSize">10.5sp</item>
     </style>
 
     <!-- SIM info detail tile (card cell) -->
