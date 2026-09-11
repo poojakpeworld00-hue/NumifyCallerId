@@ -467,13 +467,16 @@
         <item name="android:background">@drawable/bg_cid_band_off</item>
     </style>
 
+    <!-- Scale label under a lux band. The inactive tone is its own token rather
+         than the muted ink: the handoff sets these lighter than body text so the
+         one LightMeterActivity lights up is the only label that reads. -->
     <style name="LuxBandLabel">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/_5sdp</item>
-        <item name="android:textColor">@color/on_surface_variant</item>
-        <item name="android:textSize">@dimen/_8ssp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
+        <item name="android:textColor">@color/ds_band_label</item>
+        <item name="android:textSize">11sp</item>
     </style>
 
     <!-- Full-width action at the foot of a tool screen.

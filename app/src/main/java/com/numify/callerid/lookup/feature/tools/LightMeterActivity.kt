@@ -119,7 +119,7 @@ class LightMeterActivity : BaseActivity<ActivityLightMeterBinding>(), SensorEven
             label.setTextColor(
                 ContextCompat.getColor(
                     this,
-                    if (i == active) R.color.cid_amber else R.color.on_surface_variant
+                    if (i == active) R.color.ds_warning else R.color.ds_band_label
                 )
             )
         }

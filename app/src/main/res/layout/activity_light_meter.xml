@@ -113,37 +113,39 @@
                         android:id="@+id/textLux"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/space_grotesk_bold"
                         android:includeFontPadding="false"
-                        android:letterSpacing="-0.04"
-                        android:textColor="@color/on_surface"
-                        android:textSize="@dimen/_36ssp"
-                        android:textStyle="bold"
-                        tools:text="486" />
+                        android:textColor="@color/ds_ink"
+                        android:textSize="48sp"
+                        tools:text="47" />
 
+                    <!-- The unit rides the readout's baseline at 20sp in the muted
+                         ink, as the handoff sets it — a unit at the same weight as
+                         its number competes with the number. -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_4sdp"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/mulish_bold"
                         android:includeFontPadding="false"
                         android:text="@string/light_unit"
-                        android:textColor="@color/on_surface_variant"
-                        android:textSize="@dimen/_12ssp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/ds_ink_muted"
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/textCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginTop="12dp"
                     android:background="@drawable/bg_cid_chip_amber"
+                    android:fontFamily="@font/mulish_bold"
                     android:includeFontPadding="false"
-                    android:paddingHorizontal="@dimen/_12sdp"
-                    android:paddingVertical="@dimen/_5sdp"
-                    android:textColor="@color/cid_amber"
-                    android:textSize="@dimen/_10ssp"
-                    android:textStyle="bold"
-                    tools:text="Good for reading" />
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="6dp"
+                    android:textColor="@color/ds_warning"
+                    android:textSize="13sp"
+                    tools:text="Dim" />
 
                 <!-- Five bands; the active one is lit by LightMeterActivity. -->
                 <LinearLayout
