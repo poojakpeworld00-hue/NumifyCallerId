@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    One preference tile in the Settings 2x2 grid (design: Numify Settings).
+
+    The same four destinations the settings list used to stack as rows. As tiles
+    they take a 36dp icon chip over a 14sp title and an 11sp subtitle, and drop
+    the trailing chevron: in a grid the whole tile is the target, so a chevron
+    would be pointing nowhere in particular.
+
+    View ids match item_setting_row on purpose — SettingsActivity binds both
+    through the same helper, so a destination can move between a row and a tile
+    without touching its binding.
+-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_ds_stat_card"
+        android:clickable="true"
+        android:elevation="4dp"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:orientation="vertical"
+        android:outlineAmbientShadowColor="@color/ds_card_shadow"
+        android:outlineSpotShadowColor="@color/ds_card_shadow"
+        android:padding="14dp">
+
+        <ImageView
+            android:id="@+id/imageIcon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:padding="10dp"
+            tools:src="@drawable/ic_language"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/mulish_bold"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/ds_ink"
+            android:textSize="14sp"
+            tools:text="Language" />
+
+        <TextView
+            android:id="@+id/textSub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/mulish_semibold"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/ds_ink_muted"
+            android:textSize="11sp"
+            tools:text="English" />
+    </LinearLayout>
+</layout>

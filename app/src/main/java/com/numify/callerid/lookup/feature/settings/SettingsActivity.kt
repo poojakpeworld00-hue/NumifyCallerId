@@ -27,6 +27,7 @@ import com.numify.callerid.lookup.feature.MainShellActivity
 import com.numify.callerid.lookup.repository.SettingsRepository
 import com.numify.callerid.lookup.databinding.ActivitySettingsBinding
 import com.numify.callerid.lookup.databinding.ItemPrefCardBinding
+import com.numify.callerid.lookup.databinding.ItemPrefTileBinding
 import com.numify.callerid.lookup.databinding.ItemSettingRowBinding
 import com.numify.callerid.lookup.feature.widgets.CoachMarkOverlay
 import com.numify.callerid.lookup.feature.language.LanguagePickerActivity
@@ -154,11 +155,16 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
     }
 
     /**
-     * Binds one navigable preference row. The icon chip's tint travels with its
-     * background so a row can never end up with, say, a teal glyph on a clay chip.
+     * Binds one preference tile in the 2x2 grid. The icon chip's tint travels
+     * with its background, so a tile can never end up with, say, a teal glyph on
+     * a clay chip.
+     *
+     * item_pref_tile keeps item_setting_row's view ids, so the two are bound the
+     * same way and a destination can move between the grid and a list without
+     * its binding changing — only the type of the include does.
      */
     private fun bindPanel(
-        row: ItemSettingRowBinding,
+        tile: ItemPrefTileBinding,
         @DrawableRes icon: Int,
         @DrawableRes chip: Int,
         @ColorRes tint: Int,
@@ -166,11 +172,11 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
         sub: String,
         onClick: () -> Unit
     ) {
-        row.imageIcon.setImageResource(icon)
-        chipIcon(row.imageIcon, chip, tint)
-        row.textTitle.setText(title)
-        row.textSub.text = sub
-        row.root.setOnClickListener { onClick() }
+        tile.imageIcon.setImageResource(icon)
+        chipIcon(tile.imageIcon, chip, tint)
+        tile.textTitle.setText(title)
+        tile.textSub.text = sub
+        tile.root.setOnClickListener { onClick() }
     }
 
     private fun bindRow(

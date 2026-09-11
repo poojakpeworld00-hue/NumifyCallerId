@@ -152,43 +152,54 @@
                       />
                 </LinearLayout>
 
-                <LinearLayout
-                    style="@style/SettingsGroupCard"
-                    android:layout_marginTop="@dimen/_10sdp">
+                <!-- Preferences as a 2x2 tile grid, per the handoff, rather than a
+                     stacked list. GridLayout with two equal columns: these are four
+                     peer destinations, and a list implies an order they do not have.
+
+                     The second way into AI settings lives here. The first is the
+                     gear on the Ask AI screen, which the Home switch can hide — a
+                     setting that can conceal its own way back is a trap. -->
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:columnCount="2"
+                    android:useDefaultMargins="false">
 
                     <include
                         android:id="@+id/cardLanguage"
-                        layout="@layout/item_setting_row"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        layout="@layout/item_pref_tile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="10dp" />
 
-                    <View style="@style/SettingsRowDivider" />
-
-                    <!-- Second way into AI settings. The first is the gear on the
-                         Ask AI screen, which the Home switch can hide — a setting
-                         that can conceal its own way back is a trap. -->
                     <include
                         android:id="@+id/cardAiSettings"
-                        layout="@layout/item_setting_row"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <View style="@style/SettingsRowDivider" />
+                        layout="@layout/item_pref_tile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="10dp" />
 
                     <include
                         android:id="@+id/cardBlocklist"
-                        layout="@layout/item_setting_row"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <View style="@style/SettingsRowDivider" />
+                        layout="@layout/item_pref_tile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_marginEnd="5dp" />
 
                     <include
                         android:id="@+id/cardSim"
-                        layout="@layout/item_setting_row"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                        layout="@layout/item_pref_tile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_marginStart="5dp" />
+                </GridLayout>
 
                 <!-- ===== Caller protection =====
                      Header + card are hidden together with panelCallScreening
