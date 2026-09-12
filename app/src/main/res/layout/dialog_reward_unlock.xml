@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The rewarded-ad prompt (design: Numify Unlock Record Dialog).
+
+     ONE dialog for every rewarded ad in the app — revealing a caller name from
+     Lookup, revealing one "Also known as" name, and blocking past the free
+     slots. There were two near-identical layouts and one flow with no prompt at
+     all, so the same bargain was offered three different ways and, in one place,
+     not offered at all. RewardPrompt fills this in; nothing else inflates it.
+
+     What the dialog has to do is make the trade legible before the ad starts.
+     The dark strip shows what is being withheld — the name's real length as
+     dots, over its number — so the user can see there is something behind it.
+     The copy says what an ad buys, the blue note says it costs exactly one, and
+     the two actions are weighted: "Not now" is plain text, "Watch Ad" is the
+     filled gradient.
+
+     Dark mode: ds_ tokens throughout. The hero strip is dark in both themes, so
+     what sits on it (ds_on_hero*) does not flip. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp">
+
+    <LinearLayout
+        android:id="@+id/rewardCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_ds_reward_dialog"
+        android:clipToOutline="true"
+        android:elevation="24dp"
+        android:orientation="vertical"
+        android:outlineAmbientShadowColor="@color/ds_scrim_shadow"
+        android:outlineSpotShadowColor="@color/ds_scrim_shadow">
+
+        <!-- ===== Masked identity ===== -->
+        <FrameLayout
+            android:id="@+id/rewardHero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ds_reward_hero">
+
+            <!-- Swept left-to-right by RewardPrompt: the strip reads as something
+                 being scanned rather than something broken.
+
+                 Sized to nothing here and measured in code, NOT match_parent: a
+                 match_parent child of a wrap_content FrameLayout is measured
+                 against the full space available and then sets the parent's
+                 wrapped height, so this band stretched the strip down the whole
+                 screen and pushed the dialog's body off the bottom. LinearLayout
+                 does not do this, which is why it only showed up here. -->
+            <View
+                android:id="@+id/viewHeroShimmer"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_ds_shimmer_sweep" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="20dp">
+
+                <FrameLayout
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_ds_reward_glyph">
+
+                    <ImageView
+                        android:id="@+id/imageRewardGlyph"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_ds_eye"
+                        app:tint="@color/ds_on_hero" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <!-- First letter, then one dot per hidden character. The dots
+                         are added by RewardPrompt so the mask is the real length
+                         of the real name. -->
+                    <LinearLayout
+                        android:id="@+id/rowMask"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textMaskInitial"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/space_grotesk_bold"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/ds_on_hero"
+                            android:textSize="20sp"
+                            tools:text="M" />
+
+                        <LinearLayout
+                            android:id="@+id/columnMaskDots"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textRewardSubject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/mulish_semibold"
+                        android:includeFontPadding="false"
+                        android:maxLines="1"
+                        android:textColor="@color/ds_on_hero_dim"
+                        android:textSize="13sp"
+                        tools:text="+91 704 602 4874" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- ===== Copy and actions ===== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/textRewardTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/space_grotesk_bold"
+                android:includeFontPadding="false"
+                android:text="@string/watch_ad_title"
+                android:textColor="@color/ds_ink"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/textRewardMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/mulish_semibold"
+                android:lineSpacingMultiplier="1.35"
+                android:text="@string/watch_ad_message"
+                android:textColor="@color/ds_ink_subtle"
+                android:textSize="13.5sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_ds_reward_note"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="13dp"
+                android:paddingVertical="11dp">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_shield_check"
+                    app:tint="@color/ds_accent" />
+
+                <TextView
+                    android:id="@+id/textRewardNote"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/mulish_bold"
+                    android:lineSpacingMultiplier="1.25"
+                    android:text="@string/reward_note_name"
+                    android:textColor="@color/ds_accent"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:baselineAligned="false"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!-- Plain text, not an outlined button: declining should be easy
+                     to find and obviously the lesser of the two. -->
+                <TextView
+                    android:id="@+id/buttonCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:fontFamily="@font/mulish_bold"
+                    android:gravity="center"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
+                    android:paddingHorizontal="6dp"
+                    android:text="@string/watch_ad_cancel"
+                    android:textColor="@color/ds_ink_muted"
+                    android:textSize="14.5sp" />
+
+                <LinearLayout
+                    android:id="@+id/buttonWatchAd"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_ds_identify_cta"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:minHeight="48dp"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="15dp">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_play"
+                        app:tint="@color/ds_on_accent" />
+
+                    <TextView
+                        android:id="@+id/textRewardCta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/mulish_bold"
+                        android:includeFontPadding="false"
+                        android:text="@string/watch_ad_button"
+                        android:textColor="@color/ds_on_accent"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

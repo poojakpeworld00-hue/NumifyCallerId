@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The band swept across the dialog's masked strip: transparent → 14% white →
+     transparent, so it reads as a highlight passing over the surface rather than
+     a panel sliding across it. Width and travel are set by RewardPrompt. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="0"
+        android:startColor="@color/ds_shimmer_edge"
+        android:centerColor="@color/ds_shimmer_peak"
+        android:endColor="@color/ds_shimmer_edge"
+        android:type="linear" />
+</shape>

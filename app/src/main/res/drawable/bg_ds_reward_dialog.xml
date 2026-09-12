@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The rewarded-ad dialog card: white, 26dp radius. Larger than the app's 18dp
+     card radius on purpose — this is a modal over a dimmed screen, not a card in
+     a list, and the softer corner is what separates the two. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_surface" />
+    <corners android:radius="26dp" />
+</shape>

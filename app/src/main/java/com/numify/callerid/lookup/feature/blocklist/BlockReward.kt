@@ -1,16 +1,10 @@
 package com.numify.callerid.lookup.feature.blocklist
 
 import android.app.Activity
-import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.view.ViewGroup
-import android.view.Window
 import com.numify.callerid.lookup.R
-import com.numify.callerid.lookup.databinding.DialogBlockUnlockBinding
 import com.numify.callerid.lookup.repository.BlocklistRepository
-import com.numify.callerid.monetize.delivery.RewardedAdPresenter
+import com.numify.callerid.monetize.delivery.RewardPrompt
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
 
 /**
@@ -86,28 +80,16 @@ object BlockReward {
         return repository.getAll().size >= quota
     }
 
+    /**
+     * The shared rewarded-ad prompt, with nothing masked — blocking reveals no
+     * hidden value, so the strip carries the number itself rather than a row of
+     * dots standing for something withheld.
+     */
     private fun confirm(activity: Activity, number: String, onAllowed: () -> Unit) {
-        val binding = DialogBlockUnlockBinding.inflate(activity.layoutInflater)
-        val dialog = Dialog(activity).apply {
-            requestWindowFeature(Window.FEATURE_NO_TITLE)
-            setContentView(binding.root)
-            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            window?.setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-        }
-
-        binding.textUnlockNumber.text = number
-        binding.textUnlockMessage.text = activity.getString(
-            R.string.block_unlock_message,
-            freeQuota(activity)
+        RewardPrompt.show(
+            activity,
+            RewardPrompt.blockUnlock(number, freeQuota(activity)),
+            onAllowed,
         )
-        binding.buttonWatchAd.setOnClickListener {
-            dialog.dismiss()
-            RewardedAdPresenter().show(activity) { onAllowed() }
-        }
-        binding.buttonCancel.setOnClickListener { dialog.dismiss() }
-        dialog.show()
     }
 }

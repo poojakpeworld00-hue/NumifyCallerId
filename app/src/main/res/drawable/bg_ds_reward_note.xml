@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The reassurance strip under the dialog's copy: a blue wash, 14dp radius.
+     Deliberately not a warning colour — it is telling the user the cost is one
+     ad and it is over immediately. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_hero_blue_wash" />
+    <corners android:radius="14dp" />
+</shape>

@@ -155,6 +155,37 @@
                     android:textSize="12.5sp" />
             </LinearLayout>
 
+            <!-- Ask AI sits beside the protection strip rather than beside the
+                 search field. It was competing with the field for the same row,
+                 which cost the field about a sixth of its width and made the two
+                 read as one control with a coloured end-cap. Up here it is the
+                 trailing action on the status line — the same shape as Manage
+                 opposite it — and the field below gets the whole width.
+
+                 Icon-only, as the design draws it. The label is carried by
+                 contentDescription for screen readers and by the first-run
+                 tooltip for everyone else. -->
+            <com.numify.callerid.lookup.feature.widgets.AiTileView
+                android:id="@+id/buttonAskAi"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:clickable="true"
+                android:contentDescription="@string/ai_ask_button"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:outlineAmbientShadowColor="@color/ds_fab_shadow"
+                android:outlineSpotShadowColor="@color/ds_fab_shadow"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_ai_sparkle"
+                    app:tint="@color/ds_on_accent" />
+            </com.numify.callerid.lookup.feature.widgets.AiTileView>
         </LinearLayout>
 
         <LinearLayout
@@ -215,21 +246,11 @@
                  the row stand on its own, which is what keeps the top of Home to a
                  title, a field and a status line instead of three stacked cards. -->
 
-            <!-- Search and Ask AI share a row: asking about a number and
-                 searching for one are the same intent, so they read as a pair.
-                 Deliberately NOT in the header icon cluster next to the gear,
-                 where an entry point this new gets missed. -->
+            <!-- The field takes the whole row. Ask AI used to share it and now
+                 sits on the protection strip above; see the note there. -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:background="@drawable/bg_ds_home_field"
                 android:elevation="4dp"
                 android:gravity="center_vertical"
@@ -333,32 +354,6 @@
                     android:padding="9dp"
                     android:src="@drawable/ic_ds_search"
                     app:tint="@color/ds_on_accent" />
-            </LinearLayout>
-
-                <!-- Icon-only, as the design draws it. The label is carried by
-                     contentDescription for screen readers and by the first-run
-                     tooltip below for everyone else, so dropping it costs nothing. -->
-                <com.numify.callerid.lookup.feature.widgets.AiTileView
-                    android:id="@+id/buttonAskAi"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="8dp"
-                    android:clickable="true"
-                    android:contentDescription="@string/ai_ask_button"
-                    android:focusable="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:outlineAmbientShadowColor="@color/ds_fab_shadow"
-                    android:outlineSpotShadowColor="@color/ds_fab_shadow"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:layout_width="19dp"
-                        android:layout_height="19dp"
-                        android:layout_gravity="center"
-                        android:contentDescription="@null"
-                        android:src="@drawable/ic_ai_sparkle"
-                        app:tint="@color/ds_on_accent" />
-                </com.numify.callerid.lookup.feature.widgets.AiTileView>
             </LinearLayout>
 
             <!-- First-run only, 3s, then never again. Right-aligned so it points

@@ -59,8 +59,10 @@
 
     <!-- Home's protection strip is one line in the redesign rather than a title over
          a subtitle, so the two halves are joined here instead of at the view. -->
-    <string name="home_protection_on_line">Protection is on — spam calls are blocked automatically</string>
-    <string name="home_protection_off_line">Protection is off — spam calls will ring normally</string>
+    <!-- Two lines at most: the strip shares its row with Manage and the Ask AI
+         tile, and "automatically" pushed it to three. -->
+    <string name="home_protection_on_line">Protection is on — spam calls are blocked</string>
+    <string name="home_protection_off_line">Protection is off — spam calls will ring</string>
     <!-- The design sets this over two lines ("Who\'s calling? Search / a number").
          A single-line EditText clips rather than wraps, and making it multiline
          would turn the IME's Search key into a newline — so the placeholder is
@@ -249,6 +251,11 @@
     <string name="watch_ad_message">Play a short ad to reveal the complete caller name and details.</string>
     <string name="watch_ad_button">Watch Ad</string>
     <string name="watch_ad_cancel">Not now</string>
+
+    <!-- Rewarded-ad prompt: the blue note under the copy, one per flow. -->
+    <string name="reward_note_name">One ad · full name unlocked instantly</string>
+    <string name="reward_note_block">One ad · this number blocked instantly</string>
+    <string name="reward_title_block">Block this number</string>
     <string name="action_whatsapp">WhatsApp</string>
     <string name="whatsapp_not_installed">WhatsApp is not installed</string>
     <string name="detail_verified">Verified</string>

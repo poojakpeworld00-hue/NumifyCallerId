@@ -232,6 +232,7 @@
     <color name="ds_detail_hero_end">#12172B</color>
     <color name="ds_on_hero">#FFFFFF</color>
     <color name="ds_on_hero_muted">#BFFFFFFF</color>      <!-- rgba(255,255,255,0.75) -->
+    <color name="ds_on_hero_dim">#9EFFFFFF</color>        <!-- rgba(255,255,255,0.62) masked-name subtitle -->
     <color name="ds_on_hero_faint">#80FFFFFF</color>      <!-- rgba(255,255,255,0.50) stat captions -->
     <color name="ds_hero_tile">#14FFFFFF</color>          <!-- rgba(255,255,255,0.08) stat chip -->
     <color name="ds_hero_chip">#1AFFFFFF</color>          <!-- rgba(255,255,255,0.10) avatar / pill -->
@@ -239,6 +240,9 @@
     <color name="ds_hero_shadow">#4714143C</color>        <!-- 0 14px 32px rgba(20,20,50,0.28) -->
     <color name="ds_on_hero_danger">#FF8A85</color>   <!-- verdict pill glyph on the dark hero -->
     <color name="ds_on_hero_success">#5BD79A</color>
+    <color name="ds_shimmer_edge">#00FFFFFF</color>       <!-- sweep band, transparent ends -->
+    <color name="ds_shimmer_peak">#24FFFFFF</color>       <!-- rgba(255,255,255,0.14) -->
+    <color name="ds_scrim_shadow">#730A0C1E</color>       <!-- 0 24px 60px rgba(10,12,30,0.45) -->
     <color name="ds_back_chip">#EEF1F7</color>            <!-- 36dp rounded-square back tile -->
     <color name="ds_timeline_rail">#E1E5EE</color>        <!-- 2dp vertical rail behind the dots -->
     <color name="ds_chip_ink">#3A4050</color>            <!-- unselected filter-chip label -->

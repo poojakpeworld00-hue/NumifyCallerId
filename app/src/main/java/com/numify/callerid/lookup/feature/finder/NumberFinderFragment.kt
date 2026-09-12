@@ -37,7 +37,6 @@ import kotlinx.coroutines.withContext
 import com.numify.callerid.lookup.foundation.BaseFragment
 import com.numify.callerid.lookup.repository.SettingsRepository
 import com.numify.callerid.lookup.common.openActivity
-import com.numify.callerid.lookup.databinding.DialogWatchAdBinding
 import com.numify.callerid.lookup.databinding.FragmentLookupBinding
 import java.util.Locale
 
@@ -310,33 +309,13 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
             }
         }
 
-        // Ads off → straight to detail, no ad, no dialog.
-        if (!AdPreferenceStore.getInstance(act).getBoolean("IsAdsON")) {
-            open()
-            return
-        }
-
-        // Ads on → confirm with a dialog, then play the rewarded ad, then open.
-        val db = DialogWatchAdBinding.inflate(layoutInflater)
-        val dialog = Dialog(act).apply {
-            requestWindowFeature(Window.FEATURE_NO_TITLE)
-            setContentView(db.root)
-            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        }
-        db.textPreviewName.text = blurName(fullName)
-        db.textPreviewNumber.text = result.number
-        db.buttonWatchAd.setOnClickListener {
-            dialog.dismiss()
-            RewardedAdPresenter().show(act) { open() }
-        }
-        db.buttonCancel.setOnClickListener { dialog.dismiss() }
-        dialog.show()
+        // The dialog, the ads-off short circuit and the ad are all RewardPrompt's
+        // now — this used to inflate its own copy of the same dialog.
+        NameRevealReward.reveal(act, fullName, result.number) { open() }
     }
 
     /** First letter + dots (e.g. "John" → "J•••"). */
-    private fun blurName(name: String): String =
-        if (name.isNotEmpty()) name[0] + "•".repeat(name.length - 1) else name
+    private fun blurName(name: String): String = NameRevealReward.blur(name)
 
     /** Recent-list name tap: gate the reveal behind a rewarded ad, then un-mask that row. */
     private fun revealHistoryName(entry: SearchHistoryEntry) {

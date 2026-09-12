@@ -45,6 +45,12 @@ import java.security.MessageDigest
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     override val layoutId: Int = R.layout.activity_splash
+
+    /**
+     * The splash is a deep blue gradient in both themes, so its icons are white
+     * in both — this is the screen the theme default is wrong for.
+     */
+    override val usesLightSystemBarIcons: Boolean = true
     private val handler = Handler(Looper.getMainLooper())
 
     /** Running splash animators, cancelled in onDestroy so nothing leaks. */
@@ -127,10 +133,9 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
             // gesture bar, which reads as a band across the bottom of the gradient.
             window.isNavigationBarContrastEnforced = false
         }
-        WindowCompat.getInsetsController(window, window.decorView).apply {
-            isAppearanceLightStatusBars = false
-            isAppearanceLightNavigationBars = false
-        }
+        // The icons themselves come from the usesLightSystemBarIcons override
+        // below, which BaseActivity applies to every screen — this used to set
+        // them here and was one of several screens doing it its own way.
 
         // Edge-to-edge (default on Android 15+). Only splashContent is inset, which
         // makes it the on-device stand-in for the design's 396x812 content box and

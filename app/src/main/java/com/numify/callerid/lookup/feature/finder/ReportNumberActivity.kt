@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.TextViewCompat
 import com.numify.callerid.lookup.R
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
+import com.numify.callerid.monetize.delivery.RewardPrompt
 import com.numify.callerid.monetize.delivery.RewardedAdPresenter
 import com.numify.callerid.lookup.foundation.BaseActivity
 import com.numify.callerid.lookup.feature.blocklist.BlockReward
@@ -234,12 +235,18 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
         else getString(R.string.lookup_x_of_n_revealed, count, total)
     }
 
-    /** One rewarded ad reveals just this name (goes straight through if ads are off). */
+    /**
+     * One rewarded ad reveals just this name (goes straight through if ads are
+     * off).
+     *
+     * It asks first. This was the one rewarded flow in the app that dropped the
+     * user into a full-screen ad on a single tap, with no statement of what the
+     * ad was for and no way back — every other one confirmed. It now shows the
+     * same [RewardPrompt] dialog as the rest, with the name masked.
+     */
     private fun revealOne(nick: String) {
         val doReveal = { if (!isFinishing) { markRevealed(nick); renderNicknames() } }
-        if (AdPreferenceStore.getInstance(this).getBoolean("IsAdsON")) {
-            RewardedAdPresenter().show(this) { doReveal() }
-        } else doReveal()
+        RewardPrompt.show(this, RewardPrompt.nameReveal(nick, number)) { doReveal() }
     }
 
     private fun color(res: Int) = ContextCompat.getColor(this, res)

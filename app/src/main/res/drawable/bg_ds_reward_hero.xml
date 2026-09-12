@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The masked-identity strip at the head of the rewarded-ad dialog:
+     `linear-gradient(150deg,#2A2154,#12172B)`.
+
+     Square corners, not rounded: the dialog card clips it to its own 26dp
+     outline, so rounding here would round twice and leave the strip's corners
+     floating inside the card's.
+
+     Angle 315 = CSS 135deg; a shape drawable only accepts 45-degree steps, the
+     same rounding bg_ds_detail_hero documents. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:startColor="@color/ds_detail_hero_start"
+        android:endColor="@color/ds_detail_hero_end"
+        android:type="linear" />
+</shape>

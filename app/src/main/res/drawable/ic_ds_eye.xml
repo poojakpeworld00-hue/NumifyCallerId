@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- "Reveal" glyph: an eye. Tinted at the use site. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?attr/colorControlNormal">
+    <path
+        android:pathData="M2,12S6,5 12,5s10,7 10,7-4,7 -10,7S2,12 2,12z"
+        android:strokeWidth="1.9"
+        android:strokeColor="#FFFFFF" />
+    <path
+        android:pathData="M12,9a3,3 0 1,0 0,6a3,3 0 1,0 0,-6z"
+        android:fillColor="#FFFFFF" />
+</vector>

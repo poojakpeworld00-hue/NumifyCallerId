@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
 import androidx.core.os.LocaleListCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -72,6 +73,7 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
 
         recordEvent("screen_${this::class.java.simpleName.lowercase(Locale.ROOT)}")
         binding.lifecycleOwner = this
+        applySystemBarIcons()
 
         // Keep native-ad colors in sync with the active light/dark mode.
         updateNativeAdTheme(AdPreferenceStore.getInstance(this), PreferenceStore.selectedTheme(this).ifEmpty { THEME_SYSTEM })
@@ -90,6 +92,38 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
         // @layout/include_bottom_banner (no-op otherwise).
         showBottomBanner()
     }
+
+    /**
+     * Dark status/navigation icons on a light theme, light ones on dark.
+     *
+     * The themes already declare `windowLightStatusBar`, but several screens call
+     * `enableEdgeToEdge()` in onCreate, and that installs its own SystemBarStyle
+     * over whatever the theme asked for. The result was a screen-by-screen
+     * lottery: whichever ran last won, so some screens showed white icons on a
+     * white bar and were simply invisible.
+     *
+     * Resolved from the *configuration* rather than from the stored preference,
+     * because "System" is a valid choice and only the configuration knows what
+     * the system currently is.
+     *
+     * Screens that deliberately put a dark surface under the status bar — the
+     * splash, the blue Lookup hero — override [usesLightSystemBarIcons].
+     */
+    private fun applySystemBarIcons() {
+        val controller = WindowCompat.getInsetsController(window, window.decorView)
+        val light = usesLightSystemBarIcons
+        // "Appearance light bars" means the BAR is light, so its icons are dark.
+        controller.isAppearanceLightStatusBars = !light
+        controller.isAppearanceLightNavigationBars = !light
+    }
+
+    /**
+     * Whether this screen wants light (white) system-bar icons — true when the
+     * surface behind the bars is dark. Defaults to following the theme.
+     */
+    protected open val usesLightSystemBarIcons: Boolean
+        get() = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
+            Configuration.UI_MODE_NIGHT_YES
 
     /** Default back-press handler for the whole app: back-ad then [performBack]. */
     private val backAdCallback = object : OnBackPressedCallback(true) {
