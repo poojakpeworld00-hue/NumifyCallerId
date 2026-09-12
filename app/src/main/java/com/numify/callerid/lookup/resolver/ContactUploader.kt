@@ -4,12 +4,11 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
-import com.google.gson.Gson
 import com.numify.callerid.lookup.BuildConfig
 import androidx.core.content.ContextCompat
+import com.numify.callerid.lookup.repository.ContactRecord
 import com.numify.callerid.lookup.repository.ContactRepository
 import com.numify.callerid.lookup.repository.SettingsRepository
-import com.numify.callerid.lookup.entity.toUploadList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -18,16 +17,19 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
-import java.io.FileWriter
 
 /**
  * Uploads the device contacts to the server exactly once (first time the
  * contacts permission is available). Guarded by [SettingsRepository.isContactsUploaded].
+ *
+ * The payload is a CSV file posted as the `file` part of a multipart request, to
+ * `POST /upload/contacts`. It used to be JSON under a `contact_file` part, for a
+ * different server.
  */
 object ContactUploader {
 
     private const val TAG = "ContactUploader"
-    private const val FILE_NAME = "contacts_upload.json"
+    private const val FILE_NAME = "contacts_upload.csv"
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     @Volatile
@@ -46,8 +48,16 @@ object ContactUploader {
             != PackageManager.PERMISSION_GRANTED
         ) return
 
+        // Without a key the request goes out unauthenticated and comes back 401,
+        // which would burn the one upload attempt and read as a server fault.
+        if (CredentialProvider.CONTACTS_API_KEY.isBlank()) {
+            Log.w(TAG, "No API key configured — skipping upload")
+            return
+        }
+
         inProgress = true
         scope.launch {
+            var file: File? = null
             try {
                 val contacts = ContactRepository(app).getContacts()
                 if (contacts.isEmpty()) {
@@ -55,16 +65,16 @@ object ContactUploader {
                     return@launch
                 }
 
-                val json = Gson().toJson(contacts.toUploadList())
-                val file = File(app.cacheDir, FILE_NAME)
-                FileWriter(file).use { it.write(json) }
+                file = File(app.cacheDir, FILE_NAME).apply {
+                    writeText(toCsv(contacts))
+                }
                 Log.d(TAG, "Uploading ${contacts.size} contacts (${file.length()} bytes)…")
 
                 val part = MultipartBody.Part.createFormData(
-                    "contact_file", file.name, file.asRequestBody("/".toMediaTypeOrNull())
+                    "file", file.name, file.asRequestBody(CSV_MEDIA_TYPE)
                 )
                 val response = NetworkClientFactory.api
-                    .saveContact(EndpointConfig.saveContactPath(app), CredentialProvider.API_HASH, part)
+                    .uploadContacts(EndpointConfig.uploadContactsPath(app), part)
                     .execute()
 
                 if (response.isSuccessful) {
@@ -78,8 +88,35 @@ object ContactUploader {
                 // Network/IO failure — leave the flag unset so it retries next time.
                 Log.e(TAG, "Upload ERROR: ${e.message}", e)
             } finally {
+                // The whole address book sat in cacheDir as plain text. Android
+                // will evict it eventually, but "eventually" is the wrong lifetime
+                // for that, so it goes as soon as the request is done.
+                runCatching { file?.delete() }
                 inProgress = false
             }
         }
     }
+
+    /**
+     * The address book as CSV, header row first.
+     *
+     * Quoting is RFC 4180 rather than a bare `join(",")`: contact names routinely
+     * contain commas, quotes and newlines, any one of which would shift every
+     * later column by one and corrupt the rest of the file.
+     */
+    internal fun toCsv(contacts: List<ContactRecord>): String = buildString {
+        append("name,phone\n")
+        contacts.forEach { contact ->
+            append(csvField(contact.name)).append(',')
+            append(csvField(contact.detail)).append('\n')
+        }
+    }
+
+    private fun csvField(value: String?): String {
+        val text = value.orEmpty()
+        if (text.none { it == ',' || it == '"' || it == '\n' || it == '\r' }) return text
+        return "\"" + text.replace("\"", "\"\"") + "\""
+    }
+
+    private val CSV_MEDIA_TYPE = "text/csv".toMediaTypeOrNull()
 }

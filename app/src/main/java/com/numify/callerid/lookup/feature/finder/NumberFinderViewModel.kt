@@ -123,9 +123,7 @@ class NumberFinderViewModel(app: Application) : AndroidViewModel(app) {
     private suspend fun fetchFromApi(phone: String): List<CallerFacts> = runCatching {
         val response = NetworkClientFactory.api.checkPhoneNumber(
             url = EndpointConfig.similarPhonePath(getApplication()),
-            phone = phone,
-            hashKey = CredentialProvider.API_HASH,
-            token = CredentialProvider.API_TOKEN
+            phone = phone
         )
         if (response.isSuccessful) {
             response.body()?.data.orEmpty()

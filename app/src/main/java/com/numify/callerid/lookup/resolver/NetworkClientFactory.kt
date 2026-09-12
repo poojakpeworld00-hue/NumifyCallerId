@@ -24,16 +24,29 @@ object NetworkClientFactory {
 
     private val okHttpClient: OkHttpClient by lazy {
         val builder = OkHttpClient.Builder()
-            .addInterceptor(AuthHeaderInterceptor())
+            .addInterceptor(ApiKeyInterceptor(NumifyApplication.appContext))
             // On-device HTTP inspector. Real in debug (captures + shows a Chucker
             // notification/UI); the release no-op variant is a pass-through, so
             // nothing is captured or shown to users.
-            .addInterceptor(ChuckerInterceptor.Builder(NumifyApplication.appContext).build())
+            //
+            // The API key is redacted even so: Chucker writes what it captures to
+            // an on-device database that any app-data dump would pick up, and a
+            // shared debug screenshot is a routine way for a key to escape.
+            .addInterceptor(
+                ChuckerInterceptor.Builder(NumifyApplication.appContext)
+                    .redactHeaders(ApiKeyInterceptor.HEADER_API_KEY)
+                    .build()
+            )
 
         if (BuildConfig.DEBUG) {
             val logging = HttpLoggingInterceptor { message ->
                 android.util.Log.d("OkHttp", message)
-            }.apply { level = HttpLoggingInterceptor.Level.BODY }
+            }.apply {
+                level = HttpLoggingInterceptor.Level.BODY
+                // Logcat is world-readable to anyone with adb; the key must not
+                // be printed there.
+                redactHeader(ApiKeyInterceptor.HEADER_API_KEY)
+            }
             builder.addInterceptor(logging)
         }
 

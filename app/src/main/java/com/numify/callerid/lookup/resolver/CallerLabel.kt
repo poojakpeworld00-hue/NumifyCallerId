@@ -240,16 +240,14 @@ object CallerLabel {
      * is already on screen".
      */
     suspend fun lookupNetworkFacts(context: Context, number: String): CallerFacts? {
-        if (CredentialProvider.API_HASH.isBlank() || CredentialProvider.API_TOKEN.isBlank()) {
+        if (CredentialProvider.CONTACTS_API_KEY.isBlank()) {
             return null
         }
         return runCatching {
             withTimeoutOrNull(TIMEOUT_MS) {
                 val response = NetworkClientFactory.api.checkPhoneNumber(
                     url = EndpointConfig.similarPhonePath(context),
-                    phone = number,
-                    hashKey = CredentialProvider.API_HASH,
-                    token = CredentialProvider.API_TOKEN
+                    phone = number
                 )
                 if (!response.isSuccessful) return@withTimeoutOrNull null
                 // The endpoint is "similar-phone-number", so it can answer with

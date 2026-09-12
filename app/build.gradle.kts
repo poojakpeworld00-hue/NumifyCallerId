@@ -21,11 +21,15 @@ fun secret(propKey: String, envKey: String): String? =
 val lhApiKey: String = localProps.getProperty("lighthouse.apiKey", "")
 val lhBaseUrl: String = localProps.getProperty("lighthouse.baseUrl", "")
 
-// Number lookup API. Same treatment as the LightHouse key: kept
-// out of source, XOR-obfuscated into BuildConfig, decoded at runtime by SecretDecoder.
-val lookupApiId: String = localProps.getProperty("lookup.apiId", "")
-val lookupApiHash: String = localProps.getProperty("lookup.apiHash", "")
-val lookupApiToken: String = localProps.getProperty("lookup.apiToken", "")
+// Contact-saver API (number lookup + contact upload). Same treatment as the
+// LightHouse key: kept out of source, XOR-obfuscated into BuildConfig, decoded at
+// runtime by SecretDecoder. Sent as the x-api-key header, never as a query
+// parameter — see docs/credentials.md.
+//
+// This replaces the old callerid.kpeworld.com credentials (lookup.apiId /
+// apiHash / apiToken), which are no longer read by anything and can be deleted
+// from local.properties.
+val contactsApiKey: String = localProps.getProperty("contactsaver.apiKey", "")
 
 // --- Release signing -------------------------------------------------------
 // Credentials live in local.properties (gitignored) or CI env vars — never in
@@ -76,10 +80,8 @@ android {
         buildConfigField("byte[]", "LH_API_KEY", xorByteArrayLiteral(lhApiKey))
         buildConfigField("byte[]", "LH_BASE_URL", xorByteArrayLiteral(lhBaseUrl))
 
-        // Lookup API credentials — same mechanism (see CredentialProvider.kt).
-        buildConfigField("byte[]", "LOOKUP_API_ID", xorByteArrayLiteral(lookupApiId))
-        buildConfigField("byte[]", "LOOKUP_API_HASH", xorByteArrayLiteral(lookupApiHash))
-        buildConfigField("byte[]", "LOOKUP_API_TOKEN", xorByteArrayLiteral(lookupApiToken))
+        // Contact-saver API key — same mechanism (see CredentialProvider.kt).
+        buildConfigField("byte[]", "CONTACTS_API_KEY", xorByteArrayLiteral(contactsApiKey))
     }
 
     signingConfigs {
@@ -152,9 +154,7 @@ if (!canSignRelease) {
 // Empty credentials compile fine and then fail at runtime with a 401 that looks
 // like a server problem — name the real cause here instead.
 listOf(
-    "lookup.apiId" to lookupApiId,
-    "lookup.apiHash" to lookupApiHash,
-    "lookup.apiToken" to lookupApiToken,
+    "contactsaver.apiKey" to contactsApiKey,
     "lighthouse.apiKey" to lhApiKey,
     "lighthouse.baseUrl" to lhBaseUrl,
 ).filter { (_, value) -> value.isBlank() }.forEach { (key, _) ->
