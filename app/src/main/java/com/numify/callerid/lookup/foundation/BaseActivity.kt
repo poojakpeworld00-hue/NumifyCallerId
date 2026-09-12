@@ -109,7 +109,7 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
      * Screens that deliberately put a dark surface under the status bar — the
      * splash, the blue Lookup hero — override [usesLightSystemBarIcons].
      */
-    private fun applySystemBarIcons() {
+    protected fun applySystemBarIcons() {
         val controller = WindowCompat.getInsetsController(window, window.decorView)
         val light = usesLightSystemBarIcons
         // "Appearance light bars" means the BAR is light, so its icons are dark.

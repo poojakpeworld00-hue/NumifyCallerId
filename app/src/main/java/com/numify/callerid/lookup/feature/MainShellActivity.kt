@@ -886,10 +886,12 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             fragment is ContactListFragment ||
             fragment is NumberFinderFragment
         binding.fragmentContainer.setPadding(0, if (immersive) 0 else statusBarTop, 0, 0)
-        // Every v2 tab (Home, Recents, Contacts, Lookup) now sits on a LIGHT
-        // background, so the status-bar icons stay dark throughout.
-        WindowInsetsControllerCompat(window, window.decorView)
-            .isAppearanceLightStatusBars = true
+        // Re-assert the theme's icon colour on every tab change. This used to pin
+        // it dark, on the reasoning that every tab sits on a light background —
+        // true in light mode and wrong in dark, where the page is #0E1117 and the
+        // dark icons disappeared into it. The tabs still all share one background,
+        // so one call covers them; it just has to ask the theme what that is.
+        applySystemBarIcons()
     }
 
     companion object {
