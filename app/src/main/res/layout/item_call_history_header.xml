@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Date-group header inside the Call History card (e.g. YESTERDAY, JUL 11). -->
+<!-- Date group on the call-history timeline (e.g. YESTERDAY, JUL 11).
+
+     It sits in the rows' own column rather than out in the rail lane: the rail is
+     a run of calls and a date is a label on that run, not a node in it. Quieter
+     and smaller than the times beneath it, so a day's worth of calls reads as one
+     block with a caption instead of a list of equal headings. -->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/_10sdp"
-    android:layout_marginBottom="@dimen/_2sdp"
-    android:letterSpacing="0.08"
+    android:layout_marginStart="26dp"
+    android:layout_marginBottom="6dp"
+    android:fontFamily="@font/mulish_bold"
+    android:includeFontPadding="false"
+    android:letterSpacing="0.09"
     android:textAllCaps="true"
-    android:textColor="@color/on_surface_variant"
-    android:textSize="@dimen/_9ssp"
-    android:textStyle="bold"
+    android:textColor="@color/ds_band_label"
+    android:textSize="10.5sp"
     tools:ignore="HardcodedText"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:text="Yesterday" />

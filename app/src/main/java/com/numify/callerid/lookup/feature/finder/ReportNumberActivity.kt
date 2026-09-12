@@ -64,6 +64,9 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
         val spamType = intent.getStringExtra(EXTRA_SPAM_TYPE)
         if (!spamType.isNullOrBlank()) {
             binding.spamRow.visibility = View.VISIBLE
+            // Its divider goes with it, or the card ends on a hairline under the
+            // last visible row.
+            binding.spamDivider.visibility = View.VISIBLE
             binding.textSpamType.text = spamType
         }
 
@@ -76,27 +79,39 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
         updateBlockState()
     }
 
+    /**
+     * The verdict pill, which now sits on the dark hero rather than on the page.
+     *
+     * The label is white and the glyph carries the verdict, instead of the whole
+     * pill taking a soft tint: `success_soft` and `danger_soft` are 12% washes
+     * built to sit on white, and their text colours — a mid-green, a mid-red —
+     * fall to about 3:1 against near-black. The colour moves to the icon, where
+     * a brighter tone is legible, and the text keeps full contrast.
+     */
     private fun bindStatus() {
         val isSpam = intent.getBooleanExtra(EXTRA_IS_SPAM, false)
         val valid = intent.getIntExtra(EXTRA_VALID, -1) // 1 = valid, 0 = invalid, -1 = unknown
         val inContacts = intent.getBooleanExtra(EXTRA_IN_CONTACTS, false)
 
-        val (textRes, fg, bg, icon) = when {
-            isSpam -> Quad(R.string.lookup_spam_risk, R.color.danger, R.color.danger_soft, R.drawable.ic_warning)
-            valid == 1 -> Quad(R.string.lookup_valid_number, R.color.success, R.color.success_soft, R.drawable.ic_verified)
-            valid == 0 -> Quad(R.string.lookup_invalid_number, R.color.danger, R.color.danger_soft, R.drawable.ic_warning)
-            else -> Quad(
+        val (textRes, glyphColor, icon) = when {
+            isSpam -> Triple(R.string.lookup_spam_risk, R.color.ds_on_hero_danger, R.drawable.ic_warning)
+            valid == 1 -> Triple(R.string.lookup_valid_number, R.color.ds_on_hero_success, R.drawable.ic_verified)
+            valid == 0 -> Triple(R.string.lookup_invalid_number, R.color.ds_on_hero_danger, R.drawable.ic_warning)
+            else -> Triple(
                 if (inContacts) R.string.lookup_in_contacts else R.string.lookup_not_in_contacts,
-                R.color.on_surface_variant, R.color.neutral_soft, R.drawable.ic_info
+                R.color.ds_on_hero_muted, R.drawable.ic_info
             )
         }
-        val color = ContextCompat.getColor(this, fg)
         binding.textStatus.apply {
             setText(textRes)
-            setTextColor(color)
-            backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this@ReportNumberActivity, bg))
+            setTextColor(ContextCompat.getColor(this@ReportNumberActivity, R.color.ds_on_hero))
             setCompoundDrawablesRelativeWithIntrinsicBounds(icon, 0, 0, 0)
-            TextViewCompat.setCompoundDrawableTintList(this, ColorStateList.valueOf(color))
+            TextViewCompat.setCompoundDrawableTintList(
+                this,
+                ColorStateList.valueOf(
+                    ContextCompat.getColor(this@ReportNumberActivity, glyphColor)
+                )
+            )
         }
     }
 
@@ -150,12 +165,15 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
     private fun updateBlockState() {
         val blocked = rawNumber.isNotBlank() && BlocklistRepository(this).isNumberBlocked(rawNumber)
         val labelRes = if (blocked) R.string.action_unblock else R.string.action_block
-        val fg = if (blocked) R.color.success else R.color.danger
-        val soft = if (blocked) R.color.success_soft else R.color.danger_soft
+        val fg = if (blocked) R.color.ds_success else R.color.ds_danger
+        val soft = if (blocked) R.color.ds_success_wash else R.color.ds_danger_tint
 
         val color = ContextCompat.getColor(this, fg)
         binding.textBlockLabel.setText(labelRes)
-        binding.textBlockLabel.setTextColor(color)
+        // The label stays the same ink as its three neighbours; the tile carries
+        // the state. Colouring one label of four made the strip read as three
+        // buttons and a warning.
+        binding.textBlockLabel.setTextColor(ContextCompat.getColor(this, R.color.ds_ink))
         binding.imageBlockIcon.imageTintList = ColorStateList.valueOf(color)
         binding.imageBlockIcon.backgroundTintList =
             ColorStateList.valueOf(ContextCompat.getColor(this, soft))
@@ -233,7 +251,6 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
     private fun textOrDash(value: String?) =
         value?.takeIf { it.isNotBlank() } ?: getString(R.string.lookup_unknown_value)
 
-    private data class Quad(val text: Int, val fg: Int, val bg: Int, val icon: Int)
 
     companion object {
         private const val EXTRA_NAME = "extra_name"

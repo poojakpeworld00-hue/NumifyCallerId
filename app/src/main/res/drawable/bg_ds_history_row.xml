@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One call on the history timeline. Its own card rather than a row inside a
+     grouped list: the timeline rail runs between them, so they cannot be flush. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_surface" />
+    <corners android:radius="16dp" />
+</shape>

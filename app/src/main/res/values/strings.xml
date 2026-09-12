@@ -271,9 +271,17 @@
     <string name="detail_yesterday">Yesterday, %1$s</string>
     <string name="detail_dot_join">%1$s · %2$s</string>
     <string name="detail_no_talk_time">No talk time</string>
+    <!-- The same fact inside the hero chip, which is a third of the screen wide. -->
+    <string name="detail_no_talk_short">None</string>
     <string name="detail_not_answered">Not answered</string>
     <string name="detail_not_identified">Not identified yet</string>
     <string name="detail_identify">Identify this number</string>
+    <!-- Detail hero stat captions. -->
+    <string name="lookup_section_about">About this number</string>
+    <string name="detail_stat_calls">Calls</string>
+    <string name="detail_stat_talk">Talk time</string>
+    <string name="detail_stat_window">Window</string>
+    <string name="detail_window_value">30d</string>
     <string name="detail_history_empty_title">No calls with this number yet</string>
     <string name="detail_history_empty_sub">When you call or receive calls from this number, the history shows up here.</string>
     <string name="detail_today_short">Today</string>

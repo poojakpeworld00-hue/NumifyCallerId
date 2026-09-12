@@ -224,6 +224,23 @@
     <color name="ds_placeholder">#A6ACBC</color>          <!-- mock search field text -->
     <color name="ds_track_idle">#D6DAE5</color>           <!-- unreached progress segment -->
     <color name="ds_rail">#E9EDF5</color>                 <!-- vertical rail behind the permission steps -->
+
+    <!-- Call / lookup detail hero: the one dark surface in a light app, so the
+         number it is about outranks everything around it. Its own scale of white
+         alphas, because #8A91A6 body text on near-black is unreadable. -->
+    <color name="ds_detail_hero_start">#2A2154</color>    <!-- linear-gradient(155deg, …) -->
+    <color name="ds_detail_hero_end">#12172B</color>
+    <color name="ds_on_hero">#FFFFFF</color>
+    <color name="ds_on_hero_muted">#BFFFFFFF</color>      <!-- rgba(255,255,255,0.75) -->
+    <color name="ds_on_hero_faint">#80FFFFFF</color>      <!-- rgba(255,255,255,0.50) stat captions -->
+    <color name="ds_hero_tile">#14FFFFFF</color>          <!-- rgba(255,255,255,0.08) stat chip -->
+    <color name="ds_hero_chip">#1AFFFFFF</color>          <!-- rgba(255,255,255,0.10) avatar / pill -->
+    <color name="ds_hero_stroke">#29FFFFFF</color>        <!-- rgba(255,255,255,0.16) -->
+    <color name="ds_hero_shadow">#4714143C</color>        <!-- 0 14px 32px rgba(20,20,50,0.28) -->
+    <color name="ds_on_hero_danger">#FF8A85</color>   <!-- verdict pill glyph on the dark hero -->
+    <color name="ds_on_hero_success">#5BD79A</color>
+    <color name="ds_back_chip">#EEF1F7</color>            <!-- 36dp rounded-square back tile -->
+    <color name="ds_timeline_rail">#E1E5EE</color>        <!-- 2dp vertical rail behind the dots -->
     <color name="ds_chip_ink">#3A4050</color>            <!-- unselected filter-chip label -->
     <color name="ds_success_wash">#EAF6EF</color>        <!-- protection-active strip -->
 

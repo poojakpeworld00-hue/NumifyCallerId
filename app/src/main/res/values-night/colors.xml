@@ -149,6 +149,21 @@
     <color name="ds_chip_ink">#C3C9D6</color>
     <color name="ds_success_wash">#14291F</color>
 
+    <!-- Call / lookup detail hero.
+         The light hero is near-black, which would vanish against a #0E1117 page —
+         a dark card on a dark screen with nothing to separate them. So it lifts
+         instead of darkening: both stops move UP, keeping the indigo cast and the
+         gradient's direction, so the hero still reads as the raised surface it is.
+
+         The white alphas on top of it (ds_on_hero*, ds_hero_tile/chip/stroke) are
+         deliberately absent: the hero is a dark surface in both themes, so what
+         sits on it does not change. -->
+    <color name="ds_detail_hero_start">#302764</color>
+    <color name="ds_detail_hero_end">#1C2236</color>
+    <color name="ds_hero_shadow">#8C000000</color>
+    <color name="ds_back_chip">#1E2430</color>
+    <color name="ds_timeline_rail">#262C3A</color>
+
     <!-- Bottom navigation -->
     <color name="ds_nav_chip_idle">#1E2430</color>
     <color name="ds_nav_idle">#7B8398</color>

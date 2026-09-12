@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 36dp rounded-square tile behind the back chevron on the detail screens. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_back_chip" />
+    <corners android:radius="11dp" />
+</shape>

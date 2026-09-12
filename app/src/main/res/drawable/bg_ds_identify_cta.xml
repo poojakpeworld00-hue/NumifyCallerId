@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- "Identify this number" — the one action inside the hero, so it takes the
+     brand gradient rather than the flat accent every other button uses.
+     Angle 315 = CSS 135deg; see bg_ds_detail_hero for why it is not 155. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:startColor="@color/ds_accent_bright"
+        android:endColor="@color/ds_accent_deep"
+        android:type="linear" />
+    <corners android:radius="16dp" />
+</shape>

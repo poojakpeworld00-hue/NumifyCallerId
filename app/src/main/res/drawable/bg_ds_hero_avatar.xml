@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 56dp avatar inside the detail hero. A rounded square, not a circle: the
+     circular avatars in this app mean "a person in your lists", and this is the
+     subject of the screen rather than a row in one. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_hero_chip" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/ds_hero_stroke" />
+    <corners android:radius="18dp" />
+</shape>

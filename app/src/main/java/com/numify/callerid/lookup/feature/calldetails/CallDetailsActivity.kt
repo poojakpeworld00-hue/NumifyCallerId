@@ -3,7 +3,6 @@ package com.numify.callerid.lookup.feature.calldetails
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -79,22 +78,27 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
         viewModel.load(number, fallbackName)
     }
 
-    /** Identified numbers get a green ring + name; unknown ones get a "?" + Identify CTA. */
+    /**
+     * Identified numbers get their initials and the number beneath the name;
+     * unknown ones get a "?", the amber "Not identified yet" pill, and the
+     * Identify CTA.
+     *
+     * The avatar's own surface no longer changes between the two states — inside
+     * the hero it is a translucent tile either way, and swapping it for a solid
+     * brand disc put a second filled shape on a card that already has one.
+     */
     private fun bindHero(ui: CallInsightUi) {
         val identified = ui.verified
-        if (identified) {
-            binding.avatarRing.setBackgroundResource(R.drawable.bg_detail_avatar_ring)
-            binding.textAvatar.setBackgroundResource(R.drawable.bg_avatar)
-            binding.textAvatar.setTextColor(ContextCompat.getColor(this, R.color.white))
-            binding.textAvatar.text = CallActionHandler.initials(ui.name, ui.number)
-            binding.textName.typeface = Typeface.DEFAULT_BOLD
-        } else {
-            binding.avatarRing.setBackgroundResource(R.drawable.bg_circle_surface)
-            binding.textAvatar.setBackgroundResource(0)
-            binding.textAvatar.setTextColor(ContextCompat.getColor(this, R.color.on_surface_variant))
-            binding.textAvatar.text = "?"
-            binding.textName.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD)
-        }
+
+        binding.textAvatar.text =
+            if (identified) CallActionHandler.initials(ui.name, ui.number) else "?"
+        binding.textAvatar.setTextColor(
+            ContextCompat.getColor(
+                this,
+                if (identified) R.color.ds_on_hero else R.color.ds_on_hero_muted
+            )
+        )
+
         binding.textName.text = ui.name
         binding.textNumber.text =
             getString(R.string.detail_dot_join, ui.number, getString(R.string.detail_line_mobile))
@@ -151,8 +155,20 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
         val missed = e.type == CallType.MISSED || e.type == CallType.SPAM
 
         row.imageDir.setImageResource(CallActionHandler.typeIconRes(e.type))
-        val iconColor = ContextCompat.getColor(this, if (missed) R.color.danger else R.color.primary)
+        val iconColor =
+            ContextCompat.getColor(this, if (missed) R.color.ds_danger else R.color.ds_accent)
         row.imageDir.imageTintList = ColorStateList.valueOf(iconColor)
+        // The disc behind the arrow follows it, so a missed call is red end to
+        // end rather than a red arrow on a blue ground.
+        row.imageDir.backgroundTintList = ColorStateList.valueOf(
+            ContextCompat.getColor(
+                this,
+                if (missed) R.color.ds_danger_tint else R.color.ds_hero_blue_wash
+            )
+        )
+        row.textDuration.setTextColor(
+            ContextCompat.getColor(this, if (missed) R.color.ds_danger else R.color.ds_ink_muted)
+        )
 
         row.textWhen.text = timeLabel(e.date)
 

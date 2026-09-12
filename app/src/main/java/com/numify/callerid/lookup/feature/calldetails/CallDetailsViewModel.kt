@@ -80,13 +80,18 @@ class CallDetailsViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    /**
+     * Short enough for a third of the hero's width. The zero case reads "None"
+     * rather than "No talk time" — the chip is already captioned TALK TIME, so
+     * the long form both repeated the caption and ellipsized to "No talk …".
+     */
     private fun formatDuration(sec: Long): String {
         val h = sec / 3600
         val m = (sec % 3600) / 60
         return when {
             h > 0 -> "${h}h ${m}m"
             m > 0 -> "${m}m"
-            else -> getApplication<Application>().getString(R.string.detail_no_talk_time)
+            else -> getApplication<Application>().getString(R.string.detail_no_talk_short)
         }
     }
 

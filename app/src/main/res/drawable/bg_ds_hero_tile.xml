@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A stat chip inside the detail hero: 8% white at a 14dp radius. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_hero_tile" />
+    <corners android:radius="14dp" />
+</shape>

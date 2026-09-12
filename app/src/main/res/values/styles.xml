@@ -78,11 +78,50 @@
         <item name="android:paddingVertical">6dp</item>
     </style>
 
+    <!-- A rounded square, not a disc. The circular tiles read as avatars on a
+         screen whose hero already carries one, and the handoff draws these as
+         44dp / 14dp-radius squares. Tinted per action at the use site. -->
     <style name="DetailActionIcon">
-        <item name="android:layout_width">48dp</item>
-        <item name="android:layout_height">48dp</item>
-        <item name="android:background">@drawable/bg_oval</item>
+        <item name="android:layout_width">44dp</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:background">@drawable/bg_ds_action_tile</item>
         <item name="android:padding">13dp</item>
+    </style>
+
+    <!-- One stat inside the detail hero. Three of them share a row, so each takes
+         an equal weight and centres its own value over its caption. -->
+    <style name="DetailHeroStat">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/bg_ds_hero_tile</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingHorizontal">8dp</item>
+        <item name="android:paddingVertical">10dp</item>
+    </style>
+
+    <style name="DetailHeroStatValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/space_grotesk_bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/ds_on_hero</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="DetailHeroStatCaption">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">0.07</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/ds_on_hero_faint</item>
+        <item name="android:textSize">9.5sp</item>
     </style>
 
     <!-- One colour for every action label. Colouring each to match its own chip

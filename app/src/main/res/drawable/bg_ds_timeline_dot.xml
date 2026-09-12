@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Timeline node on the call-history rail: a white disc ringed in accent, so
+     the rail appears to pass behind it rather than through it. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/ds_surface" />
+    <stroke
+        android:width="3dp"
+        android:color="@color/ds_accent" />
+</shape>

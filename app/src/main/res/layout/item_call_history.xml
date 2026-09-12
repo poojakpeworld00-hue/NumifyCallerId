@@ -1,44 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Call History row — direction icon + time, with duration / "Not answered" on the right. -->
+<!-- One call on the history timeline (design: Numify Call Details).
+
+     The node occupies a real 26dp gutter at the head of the row — 7dp, the 12dp
+     dot, 7dp — so its centre lands on the rail the container draws at 13dp. It
+     was briefly hung outside the row on a negative margin instead, which put it
+     beyond the row's own bounds and every ancestor clipped it away; a gutter
+     needs no clipChildren="false" on three levels to survive.
+
+     The time is the loud element and the outcome is quiet beside it — the
+     opposite of the old row, where "Not answered" in monospace out-shouted the
+     time it belonged to. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:paddingVertical="@dimen/_9sdp">
+    android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/imageDir"
-        android:layout_width="@dimen/_36sdp"
-        android:layout_height="@dimen/_36sdp"
-        android:background="@drawable/bg_circle_surface"
-        android:contentDescription="@string/detail_call_history"
-        android:padding="@dimen/_9sdp"
-        android:src="@drawable/ic_call_received"
-        app:tint="@color/primary" />
+    <View
+        android:id="@+id/timelineNode"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
+        android:background="@drawable/bg_ds_timeline_dot" />
 
-    <TextView
-        android:id="@+id/textWhen"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_12sdp"
         android:layout_weight="1"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@color/on_surface"
-        android:textSize="@dimen/_12ssp"
-        android:textStyle="bold"
-        tools:text="4:54 PM" />
+        android:background="@drawable/bg_ds_history_row"
+        android:elevation="3dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:outlineAmbientShadowColor="@color/ds_card_shadow"
+        android:outlineSpotShadowColor="@color/ds_card_shadow"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="13dp">
 
-    <TextView
-        android:id="@+id/textDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:fontFamily="monospace"
-        android:textColor="@color/on_surface_variant"
-        android:textSize="@dimen/_11ssp"
-        tools:text="Not answered" />
+        <ImageView
+            android:id="@+id/imageDir"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_ds_history_disc"
+            android:contentDescription="@string/detail_call_history"
+            android:padding="10dp"
+            android:src="@drawable/ic_call_received"
+            app:tint="@color/ds_accent" />
+
+        <TextView
+            android:id="@+id/textWhen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="@font/space_grotesk_bold"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/ds_ink"
+            android:textSize="16sp"
+            tools:text="4:54 PM" />
+
+        <TextView
+            android:id="@+id/textDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/mulish_bold"
+            android:includeFontPadding="false"
+            android:textColor="@color/ds_ink_muted"
+            android:textSize="12sp"
+            tools:text="Not answered" />
+    </LinearLayout>
 </LinearLayout>
