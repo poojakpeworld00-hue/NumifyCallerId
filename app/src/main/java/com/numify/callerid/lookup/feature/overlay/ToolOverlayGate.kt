@@ -40,6 +40,7 @@ object ToolOverlayGate {
      */
     fun shouldAsk(context: Context): Boolean {
         if (askedThisSession) return false
+        if (!OverlayAskPolicy.isAskingAllowed(context)) return false
         if (!AdPreferenceStore.getInstance(context).getBoolean(RC_KEY)) return false
         return !OverlayPermissionUtils.isGranted(context)
     }

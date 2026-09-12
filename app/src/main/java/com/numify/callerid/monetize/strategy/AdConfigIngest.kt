@@ -48,7 +48,12 @@ object AdConfigIngest {
                 // Send a tool tap through the overlay Settings page first
                 // (ToolOverlayGate). Absent means off — a config that fails to
                 // fetch must not start pushing people into system Settings.
-                "tools_overlay_ask"
+                "tools_overlay_ask",
+                // App-wide off switch for ASKING about the overlay permission
+                // (OverlayAskPolicy). Defaults to TRUE when absent, unlike every
+                // other flag here: it exists to take something away, so an
+                // unpublished or failed config must leave the app as it was.
+                "overlay_ask_enabled"
             ).forEach { key -> if (root.has(key)) putBoolean(key, root.optBoolean(key, false)) }
 
             // --- Strings ---

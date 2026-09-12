@@ -28,6 +28,7 @@ import com.numify.callerid.monetize.delivery.engagement.OverlayTutorialActivity
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.feature.MainShellActivity
 import com.numify.callerid.lookup.feature.onboarding.OnboardingStepConfig
+import com.numify.callerid.lookup.feature.overlay.OverlayAskPolicy
 import com.numify.callerid.lookup.feature.overlay.OverlayPermissionUtils
 import com.numify.callerid.lookup.common.RowEntrance
 import com.numify.callerid.lookup.common.WindowInsetsHelper
@@ -195,13 +196,19 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
             "contacts", R.string.permsheet_contacts_title, R.string.perm_contacts_desc,
             R.drawable.ic_ds_person, androidPermission = Manifest.permission.READ_CONTACTS,
         )
-        // Always asked, for the same reason as phone_state: the caller-ID card is
-        // drawn as a TYPE_APPLICATION_OVERLAY window, so without this permission
-        // the card is skipped regardless of the Callback screen's geo gate.
-        list += Row(
-            "overlay", R.string.perm_overlay_title, R.string.perm_overlay_desc,
-            R.drawable.ic_ds_grid, isOverlay = true,
-        )
+        // Asked for the same reason as phone_state: the caller-ID card is drawn
+        // as a TYPE_APPLICATION_OVERLAY window, so without this permission the
+        // card is skipped regardless of the Callback screen's geo gate.
+        //
+        // Unless asking is switched off app-wide, in which case the row is left
+        // out rather than listed and never acted on — a sheet that names a
+        // permission it will never request is just a longer sheet.
+        if (context?.let { OverlayAskPolicy.isAskingAllowed(it) } != false) {
+            list += Row(
+                "overlay", R.string.perm_overlay_title, R.string.perm_overlay_desc,
+                R.drawable.ic_ds_grid, isOverlay = true,
+            )
+        }
         return list
     }
 

@@ -38,6 +38,7 @@ import com.numify.callerid.lookup.common.ListDividerDecoration
 import com.numify.callerid.lookup.common.openActivity
 import com.numify.callerid.lookup.databinding.FragmentRecentsBinding
 import com.numify.callerid.lookup.feature.MainShellActivity
+import com.numify.callerid.lookup.feature.overlay.OverlayAskPolicy
 import com.numify.callerid.lookup.feature.calldetails.CallDetailsActivity
 import com.numify.callerid.lookup.feature.dialer.DialerActivity
 import com.numify.callerid.lookup.feature.settings.SettingsActivity
@@ -232,6 +233,11 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         binding.buttonProtectionAction.setText(
             if (active) R.string.home_protection_manage else R.string.home_protection_turn_on
         )
+        // "Turn on" is an overlay ask; "Manage" just opens app Settings. So only
+        // the first disappears when asking is switched off — the strip keeps
+        // reporting protection status either way, which is still worth saying.
+        binding.buttonProtectionAction.visibility =
+            if (active || OverlayAskPolicy.isAskingAllowed(ctx)) View.VISIBLE else View.GONE
         binding.cardProtection.setBackgroundResource(
             if (active) R.drawable.bg_ds_protection_on else R.drawable.bg_ds_protection_off
         )

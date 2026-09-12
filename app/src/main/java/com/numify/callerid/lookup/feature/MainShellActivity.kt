@@ -60,6 +60,7 @@ import com.numify.callerid.lookup.feature.finder.NumberFinderFragment
 import com.numify.callerid.lookup.feature.calllog.CallLogFragment
 import com.numify.callerid.lookup.feature.blocklist.BlockedNumbersFragment
 import com.numify.callerid.lookup.feature.tools.ToolboxFragment
+import com.numify.callerid.lookup.feature.overlay.OverlayAskPolicy
 import com.numify.callerid.lookup.feature.overlay.OverlayPermissionUtils
 import com.numify.callerid.lookup.feature.overlay.ToolOverlayGate
 
@@ -600,7 +601,11 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     private fun updateOverlayBanner() {
         val coreGranted = isPermissionGranted(Manifest.permission.READ_CALL_LOG) &&
             isPermissionGranted(Manifest.permission.READ_CONTACTS)
-        val show = coreGranted && !OverlayPermissionUtils.isGranted(this)
+        // The banner exists only to ask. With asking switched off it is hidden
+        // rather than left showing an Enable button that would do nothing.
+        val show = coreGranted &&
+            !OverlayPermissionUtils.isGranted(this) &&
+            OverlayAskPolicy.isAskingAllowed(this)
         binding.overlayBanner.visibility = if (show) View.VISIBLE else View.GONE
     }
 
@@ -614,6 +619,15 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
      */
     fun startOverlayPermissionFlow() {
         if (OverlayPermissionUtils.isGranted(this)) {
+            updateOverlayBanner()
+            return
+        }
+
+        // The single funnel every overlay ask goes through, so the app-wide
+        // switch is enforced here once rather than at each of the six callers.
+        // The callers that are a visible control hide themselves as well; this
+        // is the backstop for the automatic ones.
+        if (!OverlayAskPolicy.isAskingAllowed(this)) {
             updateOverlayBanner()
             return
         }
