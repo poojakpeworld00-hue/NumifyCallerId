@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsetsController
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import com.numify.callerid.monetize.strategy.AdPreferenceStore
 import com.numify.callerid.lookup.R
@@ -23,16 +22,6 @@ fun isNightMode(context: Context): Boolean {
     val mode = context.resources.configuration.uiMode and
             Configuration.UI_MODE_NIGHT_MASK
     return mode == Configuration.UI_MODE_NIGHT_YES
-}
-
-fun Activity.setStatusBar(
-    color: Int,
-    isLightIcons: Boolean
-) {
-    window.statusBarColor = color
-
-    val controller = WindowInsetsControllerCompat(window, window.decorView)
-    controller.isAppearanceLightStatusBars = isLightIcons
 }
 
 fun Activity.setTransparentStatusBarWhiteText() {
