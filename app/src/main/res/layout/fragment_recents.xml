@@ -75,6 +75,7 @@
         android:layout_weight="1">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarRecents"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/ds_page"
@@ -536,67 +537,95 @@
             lookup card, native ad, Recent label, filter tabs — rides in the
             AppBarLayout, which only scrolls off when a nested-scrolling child
             reports a drag. While the permission state is up, [listRecents] is
-            GONE, so if this were a LinearLayout nothing would report anything:
-            the header could not collapse, and on a shorter phone its lower half
-            (and every button in it) sat below the fold, unreachable and
-            untappable. fillViewport keeps the content centred when it does fit.
+            GONE, so if this were a LinearLayout nothing would report anything
+            and the header could not collapse.
+
+            It used to also set fillViewport with the column centred, which put
+            it straight back into that hole: fillViewport stretches the child to
+            the viewport, so a short column had nothing to scroll, reported no
+            drag, and the header stayed put — and centring what was left in the
+            sliver below a 1100px header pushed the title, the message and the
+            Grant button off the bottom of the screen. All that showed was the
+            icon, half behind the nav island.
+
+            So: no fillViewport, content top-aligned, and CallLogFragment
+            collapses the header while this is up. The card is then the first
+            thing in view, and if it ever does outgrow the space it scrolls.
         -->
         <androidx.core.widget.NestedScrollView
             android:id="@+id/permState"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:fillViewport="true"
-            android:paddingBottom="@dimen/_70sdp"
+            android:paddingBottom="120dp"
             android:visibility="gone">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/_32sdp">
-
-            <ImageView
-                android:layout_width="@dimen/_60sdp"
-                android:layout_height="@dimen/_60sdp"
-                android:background="@drawable/bg_icon_box"
-                android:contentDescription="@string/perm_calllog_title"
-                android:padding="@dimen/_16sdp"
-                android:src="@drawable/ic_history"
-                app:tint="@color/ds_accent" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- A card, like everything else the user is asked to act on. As
+                 loose centred text it read as an empty state — something to be
+                 waited out — rather than a thing with a button on it. -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:text="@string/perm_calllog_title"
-                android:textColor="@color/ds_ink"
-                android:textSize="@dimen/_13ssp"
-                android:textStyle="bold" />
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_ds_card"
+                android:elevation="4dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:outlineAmbientShadowColor="@color/ds_card_shadow"
+                android:outlineSpotShadowColor="@color/ds_card_shadow"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="22dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:gravity="center"
-                android:text="@string/perm_calllog_message"
-                android:textColor="@color/ds_ink_muted"
-                android:textSize="@dimen/_11ssp" />
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_icon_box"
+                    android:contentDescription="@string/perm_calllog_title"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_history"
+                    app:tint="@color/ds_accent" />
 
-            <TextView
-                android:id="@+id/buttonGrant"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:background="@drawable/bg_btn_primary"
-                android:paddingHorizontal="@dimen/_24sdp"
-                android:paddingVertical="@dimen/_10sdp"
-                android:text="@string/action_grant"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12ssp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/space_grotesk_bold"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="@string/perm_calllog_title"
+                    android:textColor="@color/ds_ink"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:fontFamily="@font/mulish_semibold"
+                    android:gravity="center"
+                    android:lineSpacingMultiplier="1.3"
+                    android:text="@string/perm_calllog_message"
+                    android:textColor="@color/ds_ink_muted"
+                    android:textSize="12.5sp" />
+
+                <!-- Full width and 48dp tall: this is the only thing to do on
+                     the screen, so it should be impossible to miss or mis-tap. -->
+                <TextView
+                    android:id="@+id/buttonGrant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/bg_ds_identify_cta"
+                    android:fontFamily="@font/mulish_bold"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:minHeight="48dp"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="14dp"
+                    android:text="@string/action_grant"
+                    android:textColor="@color/ds_on_accent"
+                    android:textSize="14.5sp" />
+            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

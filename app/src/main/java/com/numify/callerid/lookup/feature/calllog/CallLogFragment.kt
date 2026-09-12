@@ -542,13 +542,27 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
     private fun onPermissionGranted() {
         binding.permState.visibility = View.GONE
         binding.listRecents.visibility = View.VISIBLE
+        binding.appBarRecents.setExpanded(true, false)
         viewModel.load()
     }
 
+    /**
+     * Shown when the call log cannot be read — including straight after the
+     * permission sheet is dismissed with "Not now", which grants nothing.
+     *
+     * The header is collapsed with it. Everything above the list rides in the
+     * AppBarLayout, and expanded it leaves a sliver at the bottom of the screen;
+     * the card is what the user has to act on now, so it takes the space and the
+     * header is a scroll away rather than the other way round.
+     */
     private fun showPermissionState() {
         binding.permState.visibility = View.VISIBLE
         binding.listRecents.visibility = View.GONE
         binding.textEmpty.visibility = View.GONE
+        // Posted: an AppBarLayout ignores setExpanded before it has been laid
+        // out, and this runs from initView and onResume, both of which can beat
+        // the first layout pass.
+        binding.appBarRecents.post { binding.appBarRecents.setExpanded(false, false) }
     }
 
     private fun dialNumber(number: String) = placeCall(number)
