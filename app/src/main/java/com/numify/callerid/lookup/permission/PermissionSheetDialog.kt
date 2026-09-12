@@ -405,7 +405,13 @@ class PermissionSheetDialog : BottomSheetDialogFragment() {
             ) return true
             if (!granted(Manifest.permission.READ_CALL_LOG)) return true
             if (!granted(Manifest.permission.READ_CONTACTS)) return true
-            if (!OverlayPermissionUtils.isGranted(activity)) return true
+            // Only pending if the sheet would actually offer it. With asking
+            // switched off the row is not built, so counting it here left Home's
+            // "Manage" hint up over a sheet with nothing in it, which opened and
+            // closed again on the same tap — a dead button.
+            if (OverlayAskPolicy.isAskingAllowed(activity) &&
+                !OverlayPermissionUtils.isGranted(activity)
+            ) return true
             return false
         }
 
