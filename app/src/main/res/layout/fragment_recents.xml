@@ -163,12 +163,14 @@
                  trailing action on the status line — the same shape as Manage
                  opposite it — and the field below gets the whole width.
 
-                 Icon-only, as the design draws it. The label is carried by
-                 contentDescription for screen readers and by the first-run
-                 tooltip for everyone else. -->
+                 It carries its label now rather than relying on the glyph alone.
+                 A sparkle on a gradient says "something new" but not what, and
+                 the first-run tooltip that explained it shows once and never
+                 again — so for everyone past their first launch the app's only
+                 AI entry point was an unlabelled square. -->
             <com.numify.callerid.lookup.feature.widgets.AiTileView
                 android:id="@+id/buttonAskAi"
-                android:layout_width="48dp"
+                android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
                 android:clickable="true"
@@ -179,13 +181,31 @@
                 android:outlineSpotShadowColor="@color/ds_fab_shadow"
                 android:visibility="gone">
 
-                <ImageView
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@null"
-                    android:src="@drawable/ic_ai_sparkle"
-                    app:tint="@color/ds_on_accent" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="13dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_ai_sparkle"
+                        app:tint="@color/ds_on_accent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:fontFamily="@font/mulish_bold"
+                        android:includeFontPadding="false"
+                        android:maxLines="1"
+                        android:text="@string/ai_ask_button"
+                        android:textColor="@color/ds_on_accent"
+                        android:textSize="12.5sp" />
+                </LinearLayout>
             </com.numify.callerid.lookup.feature.widgets.AiTileView>
         </LinearLayout>
 

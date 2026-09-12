@@ -13,7 +13,9 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
+import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.numify.callerid.lookup.R
 
@@ -167,7 +169,7 @@ class AiTileView @JvmOverloads constructor(
             start()
         }
 
-        getChildAt(0)?.let { sparkle ->
+        glyph()?.let { sparkle ->
             animators += ValueAnimator.ofFloat(0f, 1f).apply {
                 duration = TWINKLE_MS
                 interpolator = AccelerateDecelerateInterpolator()
@@ -189,11 +191,28 @@ class AiTileView @JvmOverloads constructor(
     private fun stopLoops() {
         animators.forEach { it.cancel() }
         animators.clear()
-        getChildAt(0)?.apply {
+        glyph()?.apply {
             scaleX = 1f
             scaleY = 1f
             rotation = 0f
             alpha = 1f
         }
+    }
+
+    /**
+     * The thing the twinkle is applied to: the first ImageView inside the tile.
+     *
+     * It used to be `getChildAt(0)`, which was the sparkle back when the tile
+     * held nothing else. Now that it can carry an "Ask AI" label beside the
+     * glyph, animating the first child would scale and — worse — *rotate* the
+     * words with it.
+     */
+    private fun glyph(): View? = firstImage(this)
+
+    private fun firstImage(view: View): View? = when (view) {
+        is ImageView -> view
+        is ViewGroup -> (0 until view.childCount)
+            .firstNotNullOfOrNull { firstImage(view.getChildAt(it)) }
+        else -> null
     }
 }
