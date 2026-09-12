@@ -61,6 +61,7 @@ import com.numify.callerid.lookup.feature.calllog.CallLogFragment
 import com.numify.callerid.lookup.feature.blocklist.BlockedNumbersFragment
 import com.numify.callerid.lookup.feature.tools.ToolboxFragment
 import com.numify.callerid.lookup.feature.overlay.OverlayPermissionUtils
+import com.numify.callerid.lookup.feature.overlay.ToolOverlayGate
 
 /**
  * Shell Activity built on a hand-rolled LinearLayout bottom bar rather than
@@ -161,7 +162,18 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     ) {
         stopOverlayGrantPoll()
         updateOverlayBanner()
+        // Back, Done, or a grant made after the poll gave up — whichever way the
+        // user left that page, the tool they actually tapped is still owed them.
+        resumePendingTool()
     }
+
+    /**
+     * The tool the user tapped, held while the overlay Settings page is up.
+     *
+     * Both return paths consume it — the poll's grant handler and the launcher
+     * callback above — whichever fires first; the second finds it already null.
+     */
+    private var pendingToolIntent: Intent? = null
 
     /** Opens the FSI Settings page in-task for the priming dialog, leaving no stray task. */
     private val fsiSettingsLauncher = registerForActivityResult(
@@ -659,6 +671,42 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
                 )
             )
         }
+        // After the reorder, so the tool lands on top of the shell rather than
+        // under it.
+        resumePendingTool()
+    }
+
+    /**
+     * Opens a tool, with the two detours that belong in front of it: the
+     * transition interstitial, then — when [ToolOverlayGate] says so — the
+     * overlay Settings page.
+     *
+     * The tool opens either way. The overlay permission is an engagement ask,
+     * not something any of these tools needs, so declining it must not cost the
+     * user the thing they tapped.
+     */
+    fun openToolGated(intent: Intent) {
+        TransitionInterstitialAd().showInterstitial(this) {
+            if (!ToolOverlayGate.shouldAsk(this)) {
+                runCatching { startActivity(intent) }
+                return@showInterstitial
+            }
+
+            ToolOverlayGate.markAsked()
+            pendingToolIntent = intent
+            startOverlayPermissionFlow()
+            // startOverlayPermissionFlow gives up silently if the Settings page
+            // cannot be opened. Without this the tool would be held for a return
+            // that never comes, and the tap would look ignored.
+            if (!awaitingOverlaySettings) resumePendingTool()
+        }
+    }
+
+    /** Starts the held tool, exactly once. */
+    private fun resumePendingTool() {
+        val intent = pendingToolIntent ?: return
+        pendingToolIntent = null
+        runCatching { startActivity(intent) }
     }
 
     /**

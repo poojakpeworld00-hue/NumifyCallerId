@@ -12,6 +12,7 @@ import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseFragment
 import com.numify.callerid.lookup.databinding.ActivityToolsBinding
 import com.numify.callerid.lookup.common.openActivity
+import com.numify.callerid.lookup.feature.MainShellActivity
 
 /**
  * Mini-tools grouped into Assistant · Measure · Device · Time, each category a
@@ -24,11 +25,14 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
     override val screenAdFormat = ScreenAdFormat.MID_NATIVE
 
     private val adapter = ToolboxAdapter { tool ->
-        requireActivity().openActivity(
-            Intent(requireContext(), tool.target).apply {
-                tool.mode?.let { putExtra(AiScanActivity.EXTRA_MODE, it) }
-            }
-        )
+        val intent = Intent(requireContext(), tool.target).apply {
+            tool.mode?.let { putExtra(AiScanActivity.EXTRA_MODE, it) }
+        }
+        // The shell owns the overlay round-trip, because it owns the launcher the
+        // Settings page returns through. Outside it — this fragment is only ever
+        // a tab today — fall back to the plain ad-then-open path.
+        val shell = activity as? MainShellActivity
+        if (shell != null) shell.openToolGated(intent) else requireActivity().openActivity(intent)
     }
 
     /** Full tool set, in display order, with the controlled 6-hue palette. */

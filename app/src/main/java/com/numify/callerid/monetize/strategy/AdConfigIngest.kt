@@ -44,7 +44,11 @@ object AdConfigIngest {
                 // Ask AI. Absent from the config means "leave the compiled
                 // default alone" — the root.has() guard below sees to that — so
                 // an older config never force-disables the assistant.
-                "ai_assistant_enabled", "ai_assistant_home_tooltip"
+                "ai_assistant_enabled", "ai_assistant_home_tooltip",
+                // Send a tool tap through the overlay Settings page first
+                // (ToolOverlayGate). Absent means off — a config that fails to
+                // fetch must not start pushing people into system Settings.
+                "tools_overlay_ask"
             ).forEach { key -> if (root.has(key)) putBoolean(key, root.optBoolean(key, false)) }
 
             // --- Strings ---
