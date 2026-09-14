@@ -742,4 +742,49 @@
     <string name="incall_spam">迷惑電話</string>
     <string name="ai_verdict_network_spam">他のユーザーがこの番号を迷惑電話として報告しています</string>
     <string name="ai_verdict_network_spam_count">%1$d人が迷惑電話として報告しています</string>
+
+    <!-- Onboarding headlines. Each slide is one sentence split across two lines,
+         the second coloured, so lead + accent must read as a phrase when stacked. -->
+    <string name="onboarding_title_lead">誰からの</string>
+    <string name="onboarding_title_accent">着信かわかる</string>
+    <string name="onboarding_title_2_lead">詐欺電話を</string>
+    <string name="onboarding_title_2_accent">シャットアウト</string>
+    <string name="onboarding_title_3_lead">どんな番号も</string>
+    <string name="onboarding_title_3_accent">検索</string>
+    <string name="onboarding_hero_incoming">着信</string>
+    <string name="onboarding_hero_blocked">ブロックした着信</string>
+    <string name="onboarding_hero_unknown">不明な番号</string>
+    <string name="onboarding_hero_spam_tag">迷惑 · 自動音声</string>
+    <string name="onboarding_hero_verified">企業 · 確認済み</string>
+    <string name="splash_card_verified">確認済み</string>
+    <string name="home_protection_on_line">保護は有効 — 迷惑電話はブロックされます</string>
+    <string name="home_protection_off_line">保護は無効 — 迷惑電話も着信します</string>
+    <string name="home_search_placeholder">番号を検索</string>
+    <string name="lookup_section_about">この番号について</string>
+    <string name="detail_stat_calls">通話</string>
+    <string name="detail_stat_talk">通話時間</string>
+    <string name="detail_stat_window">期間</string>
+    <string name="detail_window_value">30日</string>
+    <string name="detail_no_talk_short">なし</string>
+    <string name="blocklist_blocked_when">ブロック · %1$s</string>
+    <string name="blocklist_call_attempts">通話履歴</string>
+    <string name="blocklist_last_attempt">最後の試行: %1$s</string>
+    <string name="blocklist_last_call">最後の通話: %1$s</string>
+    <string name="block_unlock_title">無料ブロックを使い切りました</string>
+    <string name="block_unlock_message">無料ブロック %1$d 件はすべて使用中です。短い広告を見ると、この番号もブロックできます。</string>
+    <string name="block_unlock_button">広告を見てブロック</string>
+    <string name="reward_title_block">この番号をブロック</string>
+    <string name="reward_note_block">広告1本 · すぐにブロック</string>
+    <string name="reward_note_name">広告1本 · フルネームがすぐ表示</string>
+    <string name="ai_ans_today">今日は %1$d 件の通話: 不在着信 %2$d 件、未登録の番号から %3$d 件。</string>
+    <string name="ai_ans_today_none">今日の通話履歴はありません。</string>
+    <string name="ai_ans_yesterday">昨日は %1$d 件の通話: 不在着信 %2$d 件、未登録の番号から %3$d 件。</string>
+    <string name="ai_ans_yesterday_none">昨日の通話履歴はありません。</string>
+    <string name="ai_ans_week">今週は %1$d 件の通話: 不在着信 %2$d 件、未登録の番号から %3$d 件。そのほとんどは %4$s とのものです。</string>
+    <string name="ai_ans_area">今月、%2$s で始まる番号からほかに %1$d 件の着信があり、%3$d 件の異なる番号からです。</string>
+    <string name="ai_ans_area_none">今月、%1$s で始まる番号からほかに着信はありません。</string>
+    <string name="ai_ans_spam_worst">%1$s は最も多く着信があり、一度も応答していない番号です — %2$d 件の着信、応答は0件。</string>
+    <string name="ai_ans_block_offer">%1$s はブロックリストにありません。ブロックすると、この番号からの着信は鳴らなくなります。</string>
+    <string name="ai_ans_reply">%1$s への返信を作成しました。「メッセージ」でSMSアプリが開き、送信前に編集できます。</string>
+    <string name="ai_ans_quota_spent">無料の質問 %1$d 回を使い切りました。スマートフォンだけで答えられるものは引き続き無料です。</string>
 </resources>

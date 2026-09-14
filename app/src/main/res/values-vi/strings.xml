@@ -742,4 +742,49 @@
     <string name="incall_spam">Spam</string>
     <string name="ai_verdict_network_spam">Người khác đã báo cáo số này là spam</string>
     <string name="ai_verdict_network_spam_count">%1$d người đã báo cáo là spam</string>
+
+    <!-- Onboarding headlines. Each slide is one sentence split across two lines,
+         the second coloured, so lead + accent must read as a phrase when stacked. -->
+    <string name="onboarding_title_lead">Biết ai</string>
+    <string name="onboarding_title_accent">đang gọi</string>
+    <string name="onboarding_title_2_lead">Chặn cuộc gọi lừa đảo</string>
+    <string name="onboarding_title_2_accent">tận gốc</string>
+    <string name="onboarding_title_3_lead">Tra cứu mọi</string>
+    <string name="onboarding_title_3_accent">số điện thoại</string>
+    <string name="onboarding_hero_incoming">Cuộc gọi đến</string>
+    <string name="onboarding_hero_blocked">Cuộc gọi đã chặn</string>
+    <string name="onboarding_hero_unknown">Số không xác định</string>
+    <string name="onboarding_hero_spam_tag">Spam · Gọi tự động</string>
+    <string name="onboarding_hero_verified">Doanh nghiệp · Đã xác minh</string>
+    <string name="splash_card_verified">Đã xác minh</string>
+    <string name="home_protection_on_line">Bảo vệ đang bật — cuộc gọi spam bị chặn</string>
+    <string name="home_protection_off_line">Bảo vệ đang tắt — cuộc gọi spam vẫn đổ chuông</string>
+    <string name="home_search_placeholder">Tìm một số</string>
+    <string name="lookup_section_about">Về số này</string>
+    <string name="detail_stat_calls">Cuộc gọi</string>
+    <string name="detail_stat_talk">Thời gian gọi</string>
+    <string name="detail_stat_window">Khoảng thời gian</string>
+    <string name="detail_window_value">30 ngày</string>
+    <string name="detail_no_talk_short">Không có</string>
+    <string name="blocklist_blocked_when">Đã chặn · %1$s</string>
+    <string name="blocklist_call_attempts">Lịch sử cuộc gọi</string>
+    <string name="blocklist_last_attempt">Lần gần nhất: %1$s</string>
+    <string name="blocklist_last_call">Cuộc gọi gần nhất: %1$s</string>
+    <string name="block_unlock_title">Đã dùng hết lượt chặn miễn phí</string>
+    <string name="block_unlock_message">%1$d lượt chặn miễn phí của bạn đã dùng hết. Xem một quảng cáo ngắn để chặn cả số này.</string>
+    <string name="block_unlock_button">Xem quảng cáo và chặn</string>
+    <string name="reward_title_block">Chặn số này</string>
+    <string name="reward_note_block">Một quảng cáo · chặn số này ngay</string>
+    <string name="reward_note_name">Một quảng cáo · hiện tên đầy đủ ngay</string>
+    <string name="ai_ans_today">Hôm nay %1$d cuộc gọi: %2$d nhỡ và %3$d từ những số bạn chưa lưu.</string>
+    <string name="ai_ans_today_none">Hôm nay không có cuộc gọi nào được ghi nhận.</string>
+    <string name="ai_ans_yesterday">Hôm qua %1$d cuộc gọi: %2$d nhỡ và %3$d từ những số bạn chưa lưu.</string>
+    <string name="ai_ans_yesterday_none">Hôm qua không có cuộc gọi nào được ghi nhận.</string>
+    <string name="ai_ans_week">Tuần này %1$d cuộc gọi: %2$d nhỡ và %3$d từ những số bạn chưa lưu. Phần lớn là với %4$s.</string>
+    <string name="ai_ans_area">Tháng này còn %1$d cuộc gọi khác từ những số bắt đầu bằng %2$s, thuộc %3$d số khác nhau.</string>
+    <string name="ai_ans_area_none">Tháng này không còn cuộc gọi nào khác từ những số bắt đầu bằng %1$s.</string>
+    <string name="ai_ans_spam_worst">%1$s là số gọi bạn nhiều nhất và chưa từng được nghe máy — %2$d cuộc gọi, không một cuộc nào được bắt.</string>
+    <string name="ai_ans_block_offer">%1$s không có trong danh sách chặn của bạn. Chặn sẽ thêm nó vào và cuộc gọi từ số này sẽ không đổ chuông nữa.</string>
+    <string name="ai_ans_reply">Đã soạn câu trả lời cho %1$s. Tin nhắn sẽ mở trong ứng dụng SMS để bạn sửa trước khi gửi.</string>
+    <string name="ai_ans_quota_spent">Bạn đã dùng hết %1$d câu hỏi miễn phí. Những gì điện thoại tự trả lời được vẫn miễn phí.</string>
 </resources>

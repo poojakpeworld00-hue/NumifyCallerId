@@ -742,4 +742,49 @@
     <string name="incall_spam">骚扰电话</string>
     <string name="ai_verdict_network_spam">其他用户已将此号码举报为骚扰电话</string>
     <string name="ai_verdict_network_spam_count">%1$d 人举报为骚扰电话</string>
+
+    <!-- Onboarding headlines. Each slide is one sentence split across two lines,
+         the second coloured, so lead + accent must read as a phrase when stacked. -->
+    <string name="onboarding_title_lead">来电是谁</string>
+    <string name="onboarding_title_accent">一看就知道</string>
+    <string name="onboarding_title_2_lead">拦截诈骗来电</string>
+    <string name="onboarding_title_2_accent">干干净净</string>
+    <string name="onboarding_title_3_lead">任意号码</string>
+    <string name="onboarding_title_3_accent">都能查</string>
+    <string name="onboarding_hero_incoming">来电</string>
+    <string name="onboarding_hero_blocked">已拦截的来电</string>
+    <string name="onboarding_hero_unknown">未知号码</string>
+    <string name="onboarding_hero_spam_tag">骚扰 · 机器人来电</string>
+    <string name="onboarding_hero_verified">商家 · 已验证</string>
+    <string name="splash_card_verified">已验证</string>
+    <string name="home_protection_on_line">保护已开启 — 骚扰来电会被拦截</string>
+    <string name="home_protection_off_line">保护已关闭 — 骚扰来电仍会响铃</string>
+    <string name="home_search_placeholder">搜索号码</string>
+    <string name="lookup_section_about">关于此号码</string>
+    <string name="detail_stat_calls">通话</string>
+    <string name="detail_stat_talk">通话时长</string>
+    <string name="detail_stat_window">时间范围</string>
+    <string name="detail_window_value">30天</string>
+    <string name="detail_no_talk_short">无</string>
+    <string name="blocklist_blocked_when">已拦截 · %1$s</string>
+    <string name="blocklist_call_attempts">通话记录</string>
+    <string name="blocklist_last_attempt">最近尝试：%1$s</string>
+    <string name="blocklist_last_call">最近通话：%1$s</string>
+    <string name="block_unlock_title">免费拦截已用完</string>
+    <string name="block_unlock_message">您的 %1$d 个免费拦截名额已用完。观看一段短广告即可拦截此号码。</string>
+    <string name="block_unlock_button">看广告并拦截</string>
+    <string name="reward_title_block">拦截此号码</string>
+    <string name="reward_note_block">一条广告 · 立即拦截该号码</string>
+    <string name="reward_note_name">一条广告 · 立即显示全名</string>
+    <string name="ai_ans_today">今天共 %1$d 通电话：%2$d 通未接，%3$d 通来自未保存的号码。</string>
+    <string name="ai_ans_today_none">今天没有通话记录。</string>
+    <string name="ai_ans_yesterday">昨天共 %1$d 通电话：%2$d 通未接，%3$d 通来自未保存的号码。</string>
+    <string name="ai_ans_yesterday_none">昨天没有通话记录。</string>
+    <string name="ai_ans_week">本周共 %1$d 通电话：%2$d 通未接，%3$d 通来自未保存的号码。其中大多数是与 %4$s 的通话。</string>
+    <string name="ai_ans_area">本月还有 %1$d 通来自以 %2$s 开头的号码，共涉及 %3$d 个不同号码。</string>
+    <string name="ai_ans_area_none">本月没有其他以 %1$s 开头的号码来电。</string>
+    <string name="ai_ans_spam_worst">%1$s 是给您打得最多、却从未接听的号码 — 共 %2$d 通，一通都没接。</string>
+    <string name="ai_ans_block_offer">%1$s 不在您的拦截名单中。拦截后，来自它的来电将不再响铃。</string>
+    <string name="ai_ans_reply">已为 %1$s 拟好回复。“信息”会在您的短信应用中打开，发送前可以修改。</string>
+    <string name="ai_ans_quota_spent">您的 %1$d 次免费提问已用完。手机自己能回答的内容仍然免费。</string>
 </resources>

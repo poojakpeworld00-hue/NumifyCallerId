@@ -20,3 +20,7 @@ keystore.properties
 # Build output
 /app/build
 /build
+
+# Signing material without a .jks/.keystore extension — the rules above match
+# on suffix, and a keystore named just "numify" slipped past them into a commit.
+/certificate/

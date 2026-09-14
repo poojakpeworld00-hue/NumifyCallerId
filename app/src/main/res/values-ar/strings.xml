@@ -793,4 +793,49 @@
     <string name="incall_spam">مزعج</string>
     <string name="ai_verdict_network_spam">أبلغ مستخدمون آخرون عن هذا الرقم كرقم مزعج</string>
     <string name="ai_verdict_network_spam_count">أبلغ %1$d أشخاص عنه كرقم مزعج</string>
+
+    <!-- Onboarding headlines. Each slide is one sentence split across two lines,
+         the second coloured, so lead + accent must read as a phrase when stacked. -->
+    <string name="onboarding_title_lead">اعرف من</string>
+    <string name="onboarding_title_accent">يتصل بك</string>
+    <string name="onboarding_title_2_lead">أوقف مكالمات الاحتيال</string>
+    <string name="onboarding_title_2_accent">تمامًا</string>
+    <string name="onboarding_title_3_lead">ابحث عن أي</string>
+    <string name="onboarding_title_3_accent">رقم</string>
+    <string name="onboarding_hero_incoming">مكالمة واردة</string>
+    <string name="onboarding_hero_blocked">مكالمة محظورة</string>
+    <string name="onboarding_hero_unknown">رقم غير معروف</string>
+    <string name="onboarding_hero_spam_tag">مزعج · مكالمة آلية</string>
+    <string name="onboarding_hero_verified">شركة · موثّقة</string>
+    <string name="splash_card_verified">موثّق</string>
+    <string name="home_protection_on_line">الحماية مفعّلة — يتم حظر المكالمات المزعجة</string>
+    <string name="home_protection_off_line">الحماية متوقفة — ستصلك المكالمات المزعجة</string>
+    <string name="home_search_placeholder">ابحث عن رقم</string>
+    <string name="lookup_section_about">عن هذا الرقم</string>
+    <string name="detail_stat_calls">المكالمات</string>
+    <string name="detail_stat_talk">مدة التحدث</string>
+    <string name="detail_stat_window">المدة</string>
+    <string name="detail_window_value">30 يومًا</string>
+    <string name="detail_no_talk_short">لا شيء</string>
+    <string name="blocklist_blocked_when">محظور · %1$s</string>
+    <string name="blocklist_call_attempts">سجل المكالمات</string>
+    <string name="blocklist_last_attempt">آخر محاولة: %1$s</string>
+    <string name="blocklist_last_call">آخر مكالمة: %1$s</string>
+    <string name="block_unlock_title">انتهت عمليات الحظر المجانية</string>
+    <string name="block_unlock_message">عمليات الحظر المجانية لديك (%1$d) مستخدمة. شاهد إعلانًا قصيرًا لحظر هذا الرقم أيضًا.</string>
+    <string name="block_unlock_button">شاهد الإعلان واحظر</string>
+    <string name="reward_title_block">حظر هذا الرقم</string>
+    <string name="reward_note_block">إعلان واحد · حظر الرقم فورًا</string>
+    <string name="reward_note_name">إعلان واحد · الاسم الكامل فورًا</string>
+    <string name="ai_ans_today">%1$d مكالمة اليوم: %2$d فائتة و%3$d من أرقام لم تحفظها.</string>
+    <string name="ai_ans_today_none">لا مكالمات مسجّلة اليوم.</string>
+    <string name="ai_ans_yesterday">%1$d مكالمة أمس: %2$d فائتة و%3$d من أرقام لم تحفظها.</string>
+    <string name="ai_ans_yesterday_none">لا مكالمات مسجّلة أمس.</string>
+    <string name="ai_ans_week">%1$d مكالمة هذا الأسبوع: %2$d فائتة و%3$d من أرقام لم تحفظها. معظمها مع %4$s.</string>
+    <string name="ai_ans_area">%1$d مكالمة أخرى هذا الشهر من أرقام تبدأ بـ %2$s، من %3$d أرقام مختلفة.</string>
+    <string name="ai_ans_area_none">لا شيء آخر هذا الشهر من أرقام تبدأ بـ %1$s.</string>
+    <string name="ai_ans_spam_worst">%1$s هو الرقم الذي يتصل بك أكثر من غيره ولم يُرد عليه قط — %2$d مكالمة، ولا واحدة مُجابة.</string>
+    <string name="ai_ans_block_offer">%1$s ليس في قائمة الحظر لديك. الحظر يضيفه، فتتوقف مكالماته عن الرنين.</string>
+    <string name="ai_ans_reply">تمت صياغة رد على %1$s. «رسالة» يفتحه في تطبيق الرسائل لتعديله قبل الإرسال.</string>
+    <string name="ai_ans_quota_spent">استخدمت أسئلتك المجانية (%1$d). ما يستطيع هاتفك الإجابة عنه بنفسه يبقى مجانيًا.</string>
 </resources>

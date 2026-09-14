@@ -742,4 +742,49 @@
     <string name="incall_spam">สแปม</string>
     <string name="ai_verdict_network_spam">มีผู้ใช้รายอื่นรายงานหมายเลขนี้ว่าเป็นสแปม</string>
     <string name="ai_verdict_network_spam_count">มีผู้รายงานว่าเป็นสแปม %1$d คน</string>
+
+    <!-- Onboarding headlines. Each slide is one sentence split across two lines,
+         the second coloured, so lead + accent must read as a phrase when stacked. -->
+    <string name="onboarding_title_lead">รู้ว่าใคร</string>
+    <string name="onboarding_title_accent">กำลังโทรมา</string>
+    <string name="onboarding_title_2_lead">หยุดสายหลอกลวง</string>
+    <string name="onboarding_title_2_accent">ให้สิ้นซาก</string>
+    <string name="onboarding_title_3_lead">ค้นหาเบอร์</string>
+    <string name="onboarding_title_3_accent">ไหนก็ได้</string>
+    <string name="onboarding_hero_incoming">สายเรียกเข้า</string>
+    <string name="onboarding_hero_blocked">สายที่ถูกบล็อก</string>
+    <string name="onboarding_hero_unknown">เบอร์ไม่รู้จัก</string>
+    <string name="onboarding_hero_spam_tag">สแปม · สายอัตโนมัติ</string>
+    <string name="onboarding_hero_verified">ธุรกิจ · ยืนยันแล้ว</string>
+    <string name="splash_card_verified">ยืนยันแล้ว</string>
+    <string name="home_protection_on_line">เปิดการป้องกันแล้ว — สายสแปมถูกบล็อก</string>
+    <string name="home_protection_off_line">ปิดการป้องกันอยู่ — สายสแปมจะดังตามปกติ</string>
+    <string name="home_search_placeholder">ค้นหาเบอร์</string>
+    <string name="lookup_section_about">เกี่ยวกับเบอร์นี้</string>
+    <string name="detail_stat_calls">สาย</string>
+    <string name="detail_stat_talk">เวลาสนทนา</string>
+    <string name="detail_stat_window">ช่วงเวลา</string>
+    <string name="detail_window_value">30 วัน</string>
+    <string name="detail_no_talk_short">ไม่มี</string>
+    <string name="blocklist_blocked_when">บล็อกแล้ว · %1$s</string>
+    <string name="blocklist_call_attempts">ประวัติการโทร</string>
+    <string name="blocklist_last_attempt">ครั้งล่าสุด: %1$s</string>
+    <string name="blocklist_last_call">สายล่าสุด: %1$s</string>
+    <string name="block_unlock_title">ใช้การบล็อกฟรีหมดแล้ว</string>
+    <string name="block_unlock_message">การบล็อกฟรี %1$d ครั้งของคุณถูกใช้หมดแล้ว ดูโฆษณาสั้น ๆ เพื่อบล็อกเบอร์นี้ด้วย</string>
+    <string name="block_unlock_button">ดูโฆษณาแล้วบล็อก</string>
+    <string name="reward_title_block">บล็อกเบอร์นี้</string>
+    <string name="reward_note_block">โฆษณาเดียว · บล็อกเบอร์นี้ทันที</string>
+    <string name="reward_note_name">โฆษณาเดียว · เห็นชื่อเต็มทันที</string>
+    <string name="ai_ans_today">วันนี้ %1$d สาย: ไม่ได้รับ %2$d และ %3$d จากเบอร์ที่คุณยังไม่ได้บันทึก</string>
+    <string name="ai_ans_today_none">วันนี้ไม่มีบันทึกการโทร</string>
+    <string name="ai_ans_yesterday">เมื่อวาน %1$d สาย: ไม่ได้รับ %2$d และ %3$d จากเบอร์ที่คุณยังไม่ได้บันทึก</string>
+    <string name="ai_ans_yesterday_none">เมื่อวานไม่มีบันทึกการโทร</string>
+    <string name="ai_ans_week">สัปดาห์นี้ %1$d สาย: ไม่ได้รับ %2$d และ %3$d จากเบอร์ที่คุณยังไม่ได้บันทึก ส่วนใหญ่เป็นสายกับ %4$s</string>
+    <string name="ai_ans_area">เดือนนี้มีอีก %1$d สายจากเบอร์ที่ขึ้นต้นด้วย %2$s จากทั้งหมด %3$d เบอร์ที่ต่างกัน</string>
+    <string name="ai_ans_area_none">เดือนนี้ไม่มีสายอื่นจากเบอร์ที่ขึ้นต้นด้วย %1$s</string>
+    <string name="ai_ans_spam_worst">%1$s คือเบอร์ที่โทรหาคุณบ่อยที่สุดและไม่เคยถูกรับสาย — %2$d สาย ไม่มีสักสายที่รับ</string>
+    <string name="ai_ans_block_offer">%1$s ไม่อยู่ในรายการบล็อกของคุณ เมื่อบล็อกแล้ว สายจากเบอร์นี้จะไม่ดังอีก</string>
+    <string name="ai_ans_reply">ร่างข้อความตอบกลับถึง %1$s แล้ว ปุ่มข้อความจะเปิดในแอป SMS ให้คุณแก้ไขก่อนส่ง</string>
+    <string name="ai_ans_quota_spent">คุณใช้คำถามฟรี %1$d ข้อครบแล้ว สิ่งที่โทรศัพท์ตอบได้เองยังคงฟรี</string>
 </resources>

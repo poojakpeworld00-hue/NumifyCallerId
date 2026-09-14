@@ -799,4 +799,49 @@
     <string name="incall_spam">Спам</string>
     <string name="ai_verdict_network_spam">Другие пользователи пожаловались на этот номер</string>
     <string name="ai_verdict_network_spam_count">На этот номер пожаловались %1$d человек</string>
+
+    <!-- Onboarding headlines. Each slide is one sentence split across two lines,
+         the second coloured, so lead + accent must read as a phrase when stacked. -->
+    <string name="onboarding_title_lead">Узнайте, кто</string>
+    <string name="onboarding_title_accent">вам звонит</string>
+    <string name="onboarding_title_2_lead">Остановите мошенников</string>
+    <string name="onboarding_title_2_accent">разом</string>
+    <string name="onboarding_title_3_lead">Найдите любой</string>
+    <string name="onboarding_title_3_accent">номер</string>
+    <string name="onboarding_hero_incoming">Входящий вызов</string>
+    <string name="onboarding_hero_blocked">Заблокированный вызов</string>
+    <string name="onboarding_hero_unknown">Неизвестный номер</string>
+    <string name="onboarding_hero_spam_tag">Спам · Робозвонок</string>
+    <string name="onboarding_hero_verified">Компания · Проверено</string>
+    <string name="splash_card_verified">Проверено</string>
+    <string name="home_protection_on_line">Защита включена — спам-звонки блокируются</string>
+    <string name="home_protection_off_line">Защита выключена — спам-звонки будут звонить</string>
+    <string name="home_search_placeholder">Поиск номера</string>
+    <string name="lookup_section_about">Об этом номере</string>
+    <string name="detail_stat_calls">Звонки</string>
+    <string name="detail_stat_talk">Время разговора</string>
+    <string name="detail_stat_window">Период</string>
+    <string name="detail_window_value">30 дн.</string>
+    <string name="detail_no_talk_short">Нет</string>
+    <string name="blocklist_blocked_when">Заблокирован · %1$s</string>
+    <string name="blocklist_call_attempts">История звонков</string>
+    <string name="blocklist_last_attempt">Последняя попытка: %1$s</string>
+    <string name="blocklist_last_call">Последний звонок: %1$s</string>
+    <string name="block_unlock_title">Бесплатные блокировки закончились</string>
+    <string name="block_unlock_message">Ваши %1$d бесплатные блокировки заняты. Посмотрите короткую рекламу, чтобы заблокировать и этот номер.</string>
+    <string name="block_unlock_button">Смотреть рекламу и заблокировать</string>
+    <string name="reward_title_block">Заблокировать этот номер</string>
+    <string name="reward_note_block">Одна реклама · номер блокируется сразу</string>
+    <string name="reward_note_name">Одна реклама · полное имя сразу</string>
+    <string name="ai_ans_today">Сегодня %1$d звонков: %2$d пропущено и %3$d с несохранённых номеров.</string>
+    <string name="ai_ans_today_none">Сегодня звонков не записано.</string>
+    <string name="ai_ans_yesterday">Вчера %1$d звонков: %2$d пропущено и %3$d с несохранённых номеров.</string>
+    <string name="ai_ans_yesterday_none">Вчера звонков не записано.</string>
+    <string name="ai_ans_week">На этой неделе %1$d звонков: %2$d пропущено и %3$d с несохранённых номеров. Больше всего — с %4$s.</string>
+    <string name="ai_ans_area">Ещё %1$d звонков в этом месяце с номеров, начинающихся на %2$s, всего с %3$d разных номеров.</string>
+    <string name="ai_ans_area_none">Больше ничего в этом месяце с номеров, начинающихся на %1$s.</string>
+    <string name="ai_ans_spam_worst">%1$s — номер, который звонит чаще всего и на который ни разу не ответили: %2$d звонков, ни одного принятого.</string>
+    <string name="ai_ans_block_offer">%1$s нет в вашем чёрном списке. После блокировки звонки с него перестанут звонить.</string>
+    <string name="ai_ans_reply">Ответ для %1$s подготовлен. «Сообщение» откроет его в вашем SMS-приложении, чтобы вы отредактировали перед отправкой.</string>
+    <string name="ai_ans_quota_spent">Вы использовали свои %1$d бесплатных вопроса. То, на что телефон отвечает сам, остаётся бесплатным.</string>
 </resources>

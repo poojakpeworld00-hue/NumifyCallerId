@@ -747,4 +747,49 @@
     <string name="incall_spam">Spam</string>
     <string name="ai_verdict_network_spam">Diğer kullanıcılar bu numarayı spam olarak bildirdi</string>
     <string name="ai_verdict_network_spam_count">%1$d kişi spam olarak bildirdi</string>
+
+    <!-- Onboarding headlines. Each slide is one sentence split across two lines,
+         the second coloured, so lead + accent must read as a phrase when stacked. -->
+    <string name="onboarding_title_lead">Kimin aradığını</string>
+    <string name="onboarding_title_accent">hemen görün</string>
+    <string name="onboarding_title_2_lead">Dolandırıcı aramaları</string>
+    <string name="onboarding_title_2_accent">kökten durdurun</string>
+    <string name="onboarding_title_3_lead">Her numarayı</string>
+    <string name="onboarding_title_3_accent">sorgulayın</string>
+    <string name="onboarding_hero_incoming">Gelen arama</string>
+    <string name="onboarding_hero_blocked">Engellenen arama</string>
+    <string name="onboarding_hero_unknown">Bilinmeyen numara</string>
+    <string name="onboarding_hero_spam_tag">Spam · Robot arama</string>
+    <string name="onboarding_hero_verified">İşletme · Doğrulanmış</string>
+    <string name="splash_card_verified">Doğrulanmış</string>
+    <string name="home_protection_on_line">Koruma açık — spam aramalar engelleniyor</string>
+    <string name="home_protection_off_line">Koruma kapalı — spam aramalar çalacak</string>
+    <string name="home_search_placeholder">Numara ara</string>
+    <string name="lookup_section_about">Bu numara hakkında</string>
+    <string name="detail_stat_calls">Arama</string>
+    <string name="detail_stat_talk">Konuşma süresi</string>
+    <string name="detail_stat_window">Dönem</string>
+    <string name="detail_window_value">30 gün</string>
+    <string name="detail_no_talk_short">Yok</string>
+    <string name="blocklist_blocked_when">Engellendi · %1$s</string>
+    <string name="blocklist_call_attempts">Arama geçmişi</string>
+    <string name="blocklist_last_attempt">Son deneme: %1$s</string>
+    <string name="blocklist_last_call">Son arama: %1$s</string>
+    <string name="block_unlock_title">Ücretsiz engellemeler bitti</string>
+    <string name="block_unlock_message">%1$d ücretsiz engelleme hakkınız dolu. Bu numarayı da engellemek için kısa bir reklam izleyin.</string>
+    <string name="block_unlock_button">Reklamı izle ve engelle</string>
+    <string name="reward_title_block">Bu numarayı engelle</string>
+    <string name="reward_note_block">Tek reklam · numara anında engellenir</string>
+    <string name="reward_note_name">Tek reklam · tam ad anında görünür</string>
+    <string name="ai_ans_today">Bugün %1$d arama: %2$d cevapsız ve %3$d kaydetmediğiniz numaralardan.</string>
+    <string name="ai_ans_today_none">Bugün kayıtlı arama yok.</string>
+    <string name="ai_ans_yesterday">Dün %1$d arama: %2$d cevapsız ve %3$d kaydetmediğiniz numaralardan.</string>
+    <string name="ai_ans_yesterday_none">Dün kayıtlı arama yok.</string>
+    <string name="ai_ans_week">Bu hafta %1$d arama: %2$d cevapsız ve %3$d kaydetmediğiniz numaralardan. Çoğu %4$s ile.</string>
+    <string name="ai_ans_area">Bu ay %2$s ile başlayan numaralardan %1$d arama daha, %3$d farklı numaradan.</string>
+    <string name="ai_ans_area_none">Bu ay %1$s ile başlayan numaralardan başka arama yok.</string>
+    <string name="ai_ans_spam_worst">%1$s sizi en çok arayan ve hiç açılmayan numara — %2$d arama, tek biri bile açılmamış.</string>
+    <string name="ai_ans_block_offer">%1$s engelleme listenizde değil. Engellediğinizde bu numaradan gelen aramalar çalmaz.</string>
+    <string name="ai_ans_reply">%1$s için bir yanıt hazırlandı. Mesaj, göndermeden önce düzenleyebilmeniz için SMS uygulamanızda açar.</string>
+    <string name="ai_ans_quota_spent">%1$d ücretsiz sorunuzu kullandınız. Telefonunuzun kendi başına yanıtlayabildikleri ücretsiz kalır.</string>
 </resources>

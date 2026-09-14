@@ -787,4 +787,49 @@
     <string name="incall_spam">स्पैम</string>
     <string name="ai_verdict_network_spam">अन्य लोगों ने इस नंबर को स्पैम बताया है</string>
     <string name="ai_verdict_network_spam_count">%1$d लोगों ने इसे स्पैम बताया है</string>
+
+    <!-- Onboarding headlines. Each slide is one sentence split across two lines,
+         the second coloured, so lead + accent must read as a phrase when stacked. -->
+    <string name="onboarding_title_lead">जानें कौन</string>
+    <string name="onboarding_title_accent">कॉल कर रहा है</string>
+    <string name="onboarding_title_2_lead">स्कैम कॉल रोकें</string>
+    <string name="onboarding_title_2_accent">पूरी तरह</string>
+    <string name="onboarding_title_3_lead">कोई भी नंबर</string>
+    <string name="onboarding_title_3_accent">खोजें</string>
+    <string name="onboarding_hero_incoming">इनकमिंग कॉल</string>
+    <string name="onboarding_hero_blocked">ब्लॉक की गई कॉल</string>
+    <string name="onboarding_hero_unknown">अज्ञात नंबर</string>
+    <string name="onboarding_hero_spam_tag">स्पैम · रोबोकॉल</string>
+    <string name="onboarding_hero_verified">व्यवसाय · सत्यापित</string>
+    <string name="splash_card_verified">सत्यापित</string>
+    <string name="home_protection_on_line">सुरक्षा चालू है — स्पैम कॉल ब्लॉक हैं</string>
+    <string name="home_protection_off_line">सुरक्षा बंद है — स्पैम कॉल आएंगी</string>
+    <string name="home_search_placeholder">नंबर खोजें</string>
+    <string name="lookup_section_about">इस नंबर के बारे में</string>
+    <string name="detail_stat_calls">कॉल</string>
+    <string name="detail_stat_talk">बात का समय</string>
+    <string name="detail_stat_window">अवधि</string>
+    <string name="detail_window_value">30 दिन</string>
+    <string name="detail_no_talk_short">कोई नहीं</string>
+    <string name="blocklist_blocked_when">ब्लॉक किया · %1$s</string>
+    <string name="blocklist_call_attempts">कॉल इतिहास</string>
+    <string name="blocklist_last_attempt">आखिरी प्रयास: %1$s</string>
+    <string name="blocklist_last_call">आखिरी कॉल: %1$s</string>
+    <string name="block_unlock_title">मुफ़्त ब्लॉक ख़त्म</string>
+    <string name="block_unlock_message">आपके %1$d मुफ़्त ब्लॉक इस्तेमाल हो चुके हैं। यह नंबर भी ब्लॉक करने के लिए एक छोटा विज्ञापन देखें।</string>
+    <string name="block_unlock_button">विज्ञापन देखें और ब्लॉक करें</string>
+    <string name="reward_title_block">यह नंबर ब्लॉक करें</string>
+    <string name="reward_note_block">एक विज्ञापन · यह नंबर तुरंत ब्लॉक</string>
+    <string name="reward_note_name">एक विज्ञापन · पूरा नाम तुरंत अनलॉक</string>
+    <string name="ai_ans_today">आज %1$d कॉल: %2$d मिस्ड और %3$d ऐसे नंबरों से जो सहेजे नहीं गए।</string>
+    <string name="ai_ans_today_none">आज कोई कॉल दर्ज नहीं।</string>
+    <string name="ai_ans_yesterday">कल %1$d कॉल: %2$d मिस्ड और %3$d ऐसे नंबरों से जो सहेजे नहीं गए।</string>
+    <string name="ai_ans_yesterday_none">कल कोई कॉल दर्ज नहीं।</string>
+    <string name="ai_ans_week">इस हफ़्ते %1$d कॉल: %2$d मिस्ड और %3$d ऐसे नंबरों से जो सहेजे नहीं गए। इनमें सबसे ज़्यादा %4$s के साथ।</string>
+    <string name="ai_ans_area">इस महीने %2$s से शुरू होने वाले नंबरों से %1$d अन्य कॉल, %3$d अलग-अलग नंबरों से।</string>
+    <string name="ai_ans_area_none">इस महीने %1$s से शुरू होने वाले नंबरों से और कुछ नहीं।</string>
+    <string name="ai_ans_spam_worst">%1$s वह नंबर है जो सबसे ज़्यादा कॉल करता है और कभी नहीं उठाया गया — %2$d कॉल, एक भी नहीं उठी।</string>
+    <string name="ai_ans_block_offer">%1$s आपकी ब्लॉकलिस्ट में नहीं है। ब्लॉक करने पर इससे आने वाली कॉल बजना बंद हो जाएंगी।</string>
+    <string name="ai_ans_reply">%1$s के लिए जवाब तैयार किया। संदेश इसे आपके SMS ऐप में खोलेगा ताकि आप भेजने से पहले बदल सकें।</string>
+    <string name="ai_ans_quota_spent">आपके %1$d मुफ़्त सवाल इस्तेमाल हो चुके हैं। जो आपका फ़ोन खुद जवाब दे सकता है वह मुफ़्त रहेगा।</string>
 </resources>

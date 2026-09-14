@@ -747,4 +747,49 @@
     <string name="incall_spam">Spam</string>
     <string name="ai_verdict_network_spam">D\'autres personnes ont signalé ce numéro comme spam</string>
     <string name="ai_verdict_network_spam_count">Signalé comme spam par %1$d personnes</string>
+
+    <!-- Onboarding headlines. Each slide is one sentence split across two lines,
+         the second coloured, so lead + accent must read as a phrase when stacked. -->
+    <string name="onboarding_title_lead">Sachez qui</string>
+    <string name="onboarding_title_accent">vous appelle</string>
+    <string name="onboarding_title_2_lead">Stoppez les arnaques</string>
+    <string name="onboarding_title_2_accent">net</string>
+    <string name="onboarding_title_3_lead">Recherchez tout</string>
+    <string name="onboarding_title_3_accent">numéro</string>
+    <string name="onboarding_hero_incoming">Appel entrant</string>
+    <string name="onboarding_hero_blocked">Appel bloqué</string>
+    <string name="onboarding_hero_unknown">Numéro inconnu</string>
+    <string name="onboarding_hero_spam_tag">Spam · Robocall</string>
+    <string name="onboarding_hero_verified">Entreprise · Vérifiée</string>
+    <string name="splash_card_verified">Vérifié</string>
+    <string name="home_protection_on_line">Protection activée — les appels spam sont bloqués</string>
+    <string name="home_protection_off_line">Protection désactivée — les appels spam sonneront</string>
+    <string name="home_search_placeholder">Rechercher un numéro</string>
+    <string name="lookup_section_about">À propos de ce numéro</string>
+    <string name="detail_stat_calls">Appels</string>
+    <string name="detail_stat_talk">Temps d\'appel</string>
+    <string name="detail_stat_window">Période</string>
+    <string name="detail_window_value">30 j</string>
+    <string name="detail_no_talk_short">Aucun</string>
+    <string name="blocklist_blocked_when">Bloqué · %1$s</string>
+    <string name="blocklist_call_attempts">Historique des appels</string>
+    <string name="blocklist_last_attempt">Dernière tentative : %1$s</string>
+    <string name="blocklist_last_call">Dernier appel : %1$s</string>
+    <string name="block_unlock_title">Blocages gratuits épuisés</string>
+    <string name="block_unlock_message">Vos %1$d blocages gratuits sont utilisés. Regardez une courte publicité pour bloquer aussi ce numéro.</string>
+    <string name="block_unlock_button">Voir la pub et bloquer</string>
+    <string name="reward_title_block">Bloquer ce numéro</string>
+    <string name="reward_note_block">Une pub · ce numéro bloqué aussitôt</string>
+    <string name="reward_note_name">Une pub · nom complet aussitôt</string>
+    <string name="ai_ans_today">%1$d appels aujourd\'hui : %2$d manqués et %3$d de numéros non enregistrés.</string>
+    <string name="ai_ans_today_none">Aucun appel enregistré aujourd\'hui.</string>
+    <string name="ai_ans_yesterday">%1$d appels hier : %2$d manqués et %3$d de numéros non enregistrés.</string>
+    <string name="ai_ans_yesterday_none">Aucun appel enregistré hier.</string>
+    <string name="ai_ans_week">%1$d appels cette semaine : %2$d manqués et %3$d de numéros non enregistrés. La plupart avec %4$s.</string>
+    <string name="ai_ans_area">%1$d autres appels ce mois-ci depuis des numéros commençant par %2$s, répartis sur %3$d numéros différents.</string>
+    <string name="ai_ans_area_none">Rien d\'autre ce mois-ci depuis des numéros commençant par %1$s.</string>
+    <string name="ai_ans_spam_worst">%1$s est le numéro qui vous appelle le plus et qui n\'est jamais décroché — %2$d appels, aucun pris.</string>
+    <string name="ai_ans_block_offer">%1$s n\'est pas dans votre liste de blocage. Le bloquer empêchera ses appels de sonner.</string>
+    <string name="ai_ans_reply">Réponse rédigée pour %1$s. Message l\'ouvre dans votre app SMS pour la modifier avant l\'envoi.</string>
+    <string name="ai_ans_quota_spent">Vous avez utilisé vos %1$d questions gratuites. Ce que votre téléphone peut répondre seul reste gratuit.</string>
 </resources>
