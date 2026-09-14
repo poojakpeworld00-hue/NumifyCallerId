@@ -46,11 +46,12 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     override val layoutId: Int = R.layout.activity_splash
 
-    /**
-     * The splash is a deep blue gradient in both themes, so its icons are white
-     * in both — this is the screen the theme default is wrong for.
-     */
-    override val usesLightSystemBarIcons: Boolean = true
+    // The splash sits on ds_page like every other screen now, so its system-bar
+    // icons follow the theme through BaseActivity's default. It used to force
+    // them light, which was right while the screen was a deep blue gradient and
+    // would have left white icons on a near-white bar the moment it stopped
+    // being one.
+
     private val handler = Handler(Looper.getMainLooper())
 
     /** Running splash animators, cancelled in onDestroy so nothing leaks. */
@@ -104,6 +105,13 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         const val WORDMARK_RISE_UNITS = 16f
         const val TAGLINE_RISE_UNITS = 12f
 
+        /** The chips are the last thing up, a beat behind the tagline. */
+        const val CHIPS_RISE_UNITS = 10f
+        const val CHIPS_LAG = 150L
+
+        /** `mark-in`: the tile scales from 0.82 to 1 over 0.7s as it fades in. */
+        const val MARK_IN_SCALE = 0.82f
+        const val MARK_IN_DURATION = 700L
     }
 
     override fun initView() {
@@ -116,37 +124,31 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         // `app_launches` frequency counts this launch.
         prefs.appLaunchCount = prefs.appLaunchCount + 1
 
-        // The splash is one fixed deep-blue surface in both themes, so the bars are
-        // handed straight through to the gradient and their icons stay light
-        // whatever the app theme is — light icons over the gradient is what the design's
-        // own device frame draws.
+        // The bars are transparent so the page colour and its bloom run under
+        // them edge to edge.
         //
         // setDecorFitsSystemWindows(false) is what actually makes that work below
         // API 35, where edge-to-edge is not yet the default: without it the window
-        // stops at the status bar, and a transparent bar colour just exposes the
-        // theme's near-white window background above the gradient.
+        // stops at the status bar and a transparent bar colour just exposes the
+        // theme's own window background above the page.
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.statusBarColor = Color.TRANSPARENT
         window.navigationBarColor = Color.TRANSPARENT
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             // Otherwise the platform paints its own translucent scrim behind the
-            // gesture bar, which reads as a band across the bottom of the gradient.
+            // gesture bar, which reads as a band across the foot of the screen.
             window.isNavigationBarContrastEnforced = false
         }
-        // The icons themselves come from the usesLightSystemBarIcons override
-        // below, which BaseActivity applies to every screen — this used to set
-        // them here and was one of several screens doing it its own way.
+        // The icon colour is BaseActivity's job and follows the theme — see the
+        // note on the class.
 
         // Edge-to-edge (default on Android 15+). Only splashContent is inset, which
         // makes it the on-device stand-in for the design's 396x812 content box and
         // keeps the wordmark and footer clear of the status bar and the Android 16
-        // gesture pill. The gradient still draws full-bleed underneath, and the
-        // backdrop is handed the same insets so its two discs stay anchored to the
-        // content box rather than riding up behind the status bar.
+        // gesture pill. The wash still draws full-bleed underneath.
         ViewCompat.setOnApplyWindowInsetsListener(binding.splashRoot) { _, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             binding.splashContent.setPadding(bars.left, bars.top, bars.right, bars.bottom)
-            binding.splashBackdrop.setContentInsets(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
 
@@ -280,23 +282,36 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
             return
         }
 
-        binding.splashBackdrop.alpha = 0f
+        binding.splashWash.alpha = 0f
+        binding.markBox.alpha = 0f
+        binding.markBox.scaleX = MARK_IN_SCALE
+        binding.markBox.scaleY = MARK_IN_SCALE
+        binding.rowChips.alpha = 0f
+        binding.rowChips.translationY = designPx(CHIPS_RISE_UNITS)
         binding.textAppName.alpha = 0f
         binding.textAppName.translationY = designPx(WORDMARK_RISE_UNITS)
         binding.textTagline.alpha = 0f
         binding.textTagline.translationY = designPx(TAGLINE_RISE_UNITS)
         setLoaderWidth(0)
 
-        // 0–500 · the gradient blooms in underneath everything else.
-        start(ObjectAnimator.ofFloat(binding.splashBackdrop, View.ALPHA, 0f, 1f).apply {
+        // 0–500 · the bloom comes up underneath everything else.
+        start(ObjectAnimator.ofFloat(binding.splashWash, View.ALPHA, 0f, 1f).apply {
             duration = SplashTimeline.BACKDROP_FADE_DURATION
             interpolator = DesignEasing.easeInOutCubic
         })
 
-        // 100–1060 · the three cards fly in and land, then 2400–2950 · the top one
-        // flips. The stack builds that itself: the cards are drawn rather than laid
-        // out, so their stagger belongs with the geometry, not here.
-        start(binding.cardStack.buildIntroAnimator())
+        // `mark-in 0.7s` — the tile scales up from 0.82 as it fades. The rings
+        // around it turn on their own from the moment the view is attached, so
+        // the mark is already alive when the tile lands in it.
+        start(AnimatorSet().apply {
+            duration = MARK_IN_DURATION
+            interpolator = DesignEasing.easeInOutCubic
+            playTogether(
+                ObjectAnimator.ofFloat(binding.markBox, View.ALPHA, 0f, 1f),
+                ObjectAnimator.ofFloat(binding.markBox, View.SCALE_X, MARK_IN_SCALE, 1f),
+                ObjectAnimator.ofFloat(binding.markBox, View.SCALE_Y, MARK_IN_SCALE, 1f),
+            )
+        })
 
         // 3200 · the wordmark rises 16 design units as it fades in…
         start(riseIn(
@@ -314,6 +329,14 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
             fadeDuration = SplashTimeline.TAGLINE_FADE_DURATION,
             riseUnits = TAGLINE_RISE_UNITS,
         ))
+        // …and the three chips come up last, a beat behind the tagline.
+        start(riseIn(
+            view = binding.rowChips,
+            delay = SplashTimeline.TAGLINE_START + CHIPS_LAG,
+            riseDuration = SplashTimeline.TAGLINE_RISE_DURATION,
+            fadeDuration = SplashTimeline.TAGLINE_FADE_DURATION,
+            riseUnits = CHIPS_RISE_UNITS,
+        ))
 
         // The footer needs no entrance: the disclosure, loader and build stamp are
         // up from the first frame and stay up. See SplashTimeline.FOOTER_START.
@@ -325,12 +348,17 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     /** The scene as it looks once every entrance has finished — used when the user
      *  has animations turned off, so they still get the composed screen. */
     private fun showSettledFrame() {
-        binding.splashBackdrop.alpha = 1f
-        binding.cardStack.showSettledFrame()
+        binding.splashWash.alpha = 1f
+        binding.markBox.alpha = 1f
+        binding.markBox.scaleX = 1f
+        binding.markBox.scaleY = 1f
+        binding.splashMark.showSettledFrame()
         binding.textAppName.alpha = 1f
         binding.textAppName.translationY = 0f
         binding.textTagline.alpha = 1f
         binding.textTagline.translationY = 0f
+        binding.rowChips.alpha = 1f
+        binding.rowChips.translationY = 0f
         binding.loaderTrack.post {
             if (alive()) setLoaderWidth(binding.loaderTrack.width)
         }
@@ -362,7 +390,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
             duration = SplashTimeline.EXIT_DURATION
             interpolator = DesignEasing.easeInOutCubic
             playTogether(
-                ObjectAnimator.ofFloat(binding.splashBackdrop, View.ALPHA, 1f, 0f),
+                ObjectAnimator.ofFloat(binding.splashWash, View.ALPHA, 1f, 0f),
                 ObjectAnimator.ofFloat(binding.splashContent, View.ALPHA, 1f, 0f),
             )
             // doOnEnd also fires on cancel, and onDestroy cancels this — the latch
@@ -379,7 +407,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     /**
      * Converts a distance authored against the design's 396-unit-wide content box
-     * into pixels, the same way [CallCardStackView] scales its own geometry — so a
+     * into pixels, the same way SplashMarkView scales its own rings — so a
      * 16-unit rise stays the same fraction of the screen on every device instead of
      * being a fixed dp that reads differently on a 360dp phone and a tablet.
      */

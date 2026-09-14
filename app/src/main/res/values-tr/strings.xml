@@ -792,4 +792,6 @@
     <string name="ai_ans_block_offer">%1$s engelleme listenizde değil. Engellediğinizde bu numaradan gelen aramalar çalmaz.</string>
     <string name="ai_ans_reply">%1$s için bir yanıt hazırlandı. Mesaj, göndermeden önce düzenleyebilmeniz için SMS uygulamanızda açar.</string>
     <string name="ai_ans_quota_spent">%1$d ücretsiz sorunuzu kullandınız. Telefonunuzun kendi başına yanıtlayabildikleri ücretsiz kalır.</string>
+    <string name="splash_chip_shield">Spam kalkanı</string>
+    <string name="splash_chip_lookup">Sorgu</string>
 </resources>

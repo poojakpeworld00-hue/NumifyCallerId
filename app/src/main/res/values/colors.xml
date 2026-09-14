@@ -223,6 +223,11 @@
     <color name="ds_field_border">#DCE4F7</color>         <!-- mock search field -->
     <color name="ds_placeholder">#A6ACBC</color>          <!-- mock search field text -->
     <color name="ds_track_idle">#D6DAE5</color>           <!-- unreached progress segment -->
+    <!-- Splash v2: the bloom behind the mark and the two faint orbit rings. -->
+    <color name="splash_wash_core">#21123AD4</color>    <!-- rgba(accent, 0.13) -->
+    <color name="splash_wash_edge">#00123AD4</color>
+    <color name="splash_ring_dashed">#59123AD4</color>  <!-- rgba(accent, 0.35) -->
+    <color name="splash_ring_faint">#29123AD4</color>   <!-- rgba(accent, 0.16) -->
     <color name="ds_rail">#E9EDF5</color>                 <!-- vertical rail behind the permission steps -->
 
     <!-- Call / lookup detail hero: the one dark surface in a light app, so the

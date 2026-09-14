@@ -787,4 +787,6 @@
     <string name="ai_ans_block_offer">%1$s không có trong danh sách chặn của bạn. Chặn sẽ thêm nó vào và cuộc gọi từ số này sẽ không đổ chuông nữa.</string>
     <string name="ai_ans_reply">Đã soạn câu trả lời cho %1$s. Tin nhắn sẽ mở trong ứng dụng SMS để bạn sửa trước khi gửi.</string>
     <string name="ai_ans_quota_spent">Bạn đã dùng hết %1$d câu hỏi miễn phí. Những gì điện thoại tự trả lời được vẫn miễn phí.</string>
+    <string name="splash_chip_shield">Chắn spam</string>
+    <string name="splash_chip_lookup">Tra cứu</string>
 </resources>

@@ -10,47 +10,33 @@ package com.numify.callerid.lookup.feature.splash
  * running sum in milliseconds, and every offset is the literal `start`/`end` pair
  * from the design's own `animate({…})` calls.
  *
- * Keeping them in one place means [SplashActivity] and [CallCardStackView] cannot
+ * Keeping them in one place means [SplashActivity] and the splash views cannot
  * drift apart: both read the same numbers the design was authored against.
  */
 internal object SplashTimeline {
 
-    // ── Scene cues (running sum of the authored durations) ───────────────────
-    const val CUE_ENTER = 0L
-    const val CUE_SORT = 1_100L
-    const val CUE_VERIFY = 2_400L
-    const val CUE_REVEAL = 3_200L
-    const val CUE_HOLD = 4_200L
-    const val CUE_EXIT = 5_500L
-
     // ── Backdrop ────────────────────────────────────────────────────────────
-    /** `animate({from:0, to:1, start:0, end:0.5})` — the gradient blooming in. */
+    /** `animate({from:0, to:1, start:0, end:0.5})` — the wash blooming in. */
     const val BACKDROP_FADE_DURATION = 500L
 
-    // ── Call cards ──────────────────────────────────────────────────────────
-    /** Each card's fly-in runs `start:delay → delay + 0.6` on easeOutBack. */
-    const val CARD_TRAVEL_DURATION = 600L
-
-    /** …while its opacity runs the shorter `delay → delay + 0.35`. */
-    const val CARD_FADE_DURATION = 350L
-
-    /** The three staggered `delay` values, in card order (back to front). */
-    val CARD_DELAYS = longArrayOf(100L, 280L, 460L)
-
-    /** `start: CUES.Verify, end: CUES.Verify + 0.55` — the top card's Y flip. */
-    const val FLIP_START = CUE_VERIFY
-    const val FLIP_DURATION = 550L
-
-    /** The flip's full sweep, in degrees; the back face takes over past 90. */
-    const val FLIP_DEGREES = 180f
-
     // ── Wordmark and tagline ────────────────────────────────────────────────
-    const val WORDMARK_START = CUE_REVEAL
+    /**
+     * `fadeUp … delay: 420ms`.
+     *
+     * The cues this used to hang off — Enter, Sort, Verify, Reveal at 3.2s —
+     * belonged to the composition Splash v2 replaced, where three cards flew in
+     * and one turned over before the name could appear. Nothing takes that long
+     * now: the mark is up in 0.7s, so a 3.2s reveal would be the app holding a
+     * finished screen in front of the user for two and a half seconds.
+     *
+     * ANIM_MIN_MS is derived from these, so the splash itself got shorter too.
+     */
+    const val WORDMARK_START = 420L
     const val WORDMARK_RISE_DURATION = 500L
     const val WORDMARK_FADE_DURATION = 400L
 
-    /** The tagline is offset a further `+0.15` behind the wordmark. */
-    const val TAGLINE_START = CUE_REVEAL + 150L
+    /** `f2` — the tagline is a further 140ms behind the wordmark. */
+    const val TAGLINE_START = WORDMARK_START + 140L
     const val TAGLINE_RISE_DURATION = 400L
     const val TAGLINE_FADE_DURATION = 350L
 

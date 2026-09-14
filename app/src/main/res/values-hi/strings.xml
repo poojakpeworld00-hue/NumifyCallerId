@@ -832,4 +832,6 @@
     <string name="ai_ans_block_offer">%1$s आपकी ब्लॉकलिस्ट में नहीं है। ब्लॉक करने पर इससे आने वाली कॉल बजना बंद हो जाएंगी।</string>
     <string name="ai_ans_reply">%1$s के लिए जवाब तैयार किया। संदेश इसे आपके SMS ऐप में खोलेगा ताकि आप भेजने से पहले बदल सकें।</string>
     <string name="ai_ans_quota_spent">आपके %1$d मुफ़्त सवाल इस्तेमाल हो चुके हैं। जो आपका फ़ोन खुद जवाब दे सकता है वह मुफ़्त रहेगा।</string>
+    <string name="splash_chip_shield">स्पैम शील्ड</string>
+    <string name="splash_chip_lookup">लुकअप</string>
 </resources>

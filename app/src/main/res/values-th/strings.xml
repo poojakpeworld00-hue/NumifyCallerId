@@ -787,4 +787,6 @@
     <string name="ai_ans_block_offer">%1$s ไม่อยู่ในรายการบล็อกของคุณ เมื่อบล็อกแล้ว สายจากเบอร์นี้จะไม่ดังอีก</string>
     <string name="ai_ans_reply">ร่างข้อความตอบกลับถึง %1$s แล้ว ปุ่มข้อความจะเปิดในแอป SMS ให้คุณแก้ไขก่อนส่ง</string>
     <string name="ai_ans_quota_spent">คุณใช้คำถามฟรี %1$d ข้อครบแล้ว สิ่งที่โทรศัพท์ตอบได้เองยังคงฟรี</string>
+    <string name="splash_chip_shield">กันสแปม</string>
+    <string name="splash_chip_lookup">ค้นหา</string>
 </resources>

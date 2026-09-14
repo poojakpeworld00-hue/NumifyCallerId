@@ -792,4 +792,6 @@
     <string name="ai_ans_block_offer">%1$s n\'est pas dans votre liste de blocage. Le bloquer empêchera ses appels de sonner.</string>
     <string name="ai_ans_reply">Réponse rédigée pour %1$s. Message l\'ouvre dans votre app SMS pour la modifier avant l\'envoi.</string>
     <string name="ai_ans_quota_spent">Vous avez utilisé vos %1$d questions gratuites. Ce que votre téléphone peut répondre seul reste gratuit.</string>
+    <string name="splash_chip_shield">Bouclier spam</string>
+    <string name="splash_chip_lookup">Recherche</string>
 </resources>

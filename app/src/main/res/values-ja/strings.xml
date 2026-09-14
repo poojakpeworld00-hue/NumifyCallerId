@@ -787,4 +787,6 @@
     <string name="ai_ans_block_offer">%1$s はブロックリストにありません。ブロックすると、この番号からの着信は鳴らなくなります。</string>
     <string name="ai_ans_reply">%1$s への返信を作成しました。「メッセージ」でSMSアプリが開き、送信前に編集できます。</string>
     <string name="ai_ans_quota_spent">無料の質問 %1$d 回を使い切りました。スマートフォンだけで答えられるものは引き続き無料です。</string>
+    <string name="splash_chip_shield">迷惑ブロック</string>
+    <string name="splash_chip_lookup">番号検索</string>
 </resources>

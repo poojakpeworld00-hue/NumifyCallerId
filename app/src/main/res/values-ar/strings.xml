@@ -838,4 +838,6 @@
     <string name="ai_ans_block_offer">%1$s ليس في قائمة الحظر لديك. الحظر يضيفه، فتتوقف مكالماته عن الرنين.</string>
     <string name="ai_ans_reply">تمت صياغة رد على %1$s. «رسالة» يفتحه في تطبيق الرسائل لتعديله قبل الإرسال.</string>
     <string name="ai_ans_quota_spent">استخدمت أسئلتك المجانية (%1$d). ما يستطيع هاتفك الإجابة عنه بنفسه يبقى مجانيًا.</string>
+    <string name="splash_chip_shield">درع المزعج</string>
+    <string name="splash_chip_lookup">بحث</string>
 </resources>

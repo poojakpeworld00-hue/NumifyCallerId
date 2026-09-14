@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The soft blue bloom behind the mark: `radial-gradient(circle,
+     rgba(46,95,232,0.13), rgba(46,95,232,0) 68%)`.
+
+     gradientRadius is 0.34 of the shape rather than 0.68, because Android
+     measures the radius from the centre while CSS quotes it as a fraction of the
+     whole 440-unit circle. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <gradient
+        android:type="radial"
+        android:gradientRadius="34%p"
+        android:startColor="@color/splash_wash_core"
+        android:endColor="@color/splash_wash_edge" />
+</shape>

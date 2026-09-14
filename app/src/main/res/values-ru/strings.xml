@@ -844,4 +844,6 @@
     <string name="ai_ans_block_offer">%1$s нет в вашем чёрном списке. После блокировки звонки с него перестанут звонить.</string>
     <string name="ai_ans_reply">Ответ для %1$s подготовлен. «Сообщение» откроет его в вашем SMS-приложении, чтобы вы отредактировали перед отправкой.</string>
     <string name="ai_ans_quota_spent">Вы использовали свои %1$d бесплатных вопроса. То, на что телефон отвечает сам, остаётся бесплатным.</string>
+    <string name="splash_chip_shield">Защита от спама</string>
+    <string name="splash_chip_lookup">Поиск</string>
 </resources>

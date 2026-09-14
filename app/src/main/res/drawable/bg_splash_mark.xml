@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The 104dp brand tile at the centre of the mark:
+     `linear-gradient(145deg,#3466F0,#1B3796)` at a 34dp radius.
+
+     Angle 315 (CSS 135deg) — a shape gradient only accepts 45-degree steps, the
+     same rounding bg_ds_detail_hero documents. Both stops are the brand blue a
+     few steps apart, so 10 degrees of rounding is not resolvable on a 104dp
+     tile. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:startColor="@color/ds_accent_bright"
+        android:endColor="@color/ds_accent_deep"
+        android:type="linear" />
+    <corners android:radius="34dp" />
+</shape>

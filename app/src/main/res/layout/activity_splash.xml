@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Splash — "Call card stack" (design: Numify Splash Redesign).
+    Splash (design: Numify Splash v2).
 
-    Three frosted call cards fly in from off-screen, settle into a fanned stack,
-    and the top one turns over to a "Verified" face. The wordmark and tagline rise
-    in underneath, then the ad disclosure, loader pill and build stamp fade up at
-    the foot of the screen. Behind all of it sits a 155-degree three-stop gradient
-    with two soft white discs bleeding off opposite corners.
+    The screen is now the app's own light page rather than a deep blue gradient,
+    and the composition is a single centred mark: three rings turning at three
+    speeds around the brand tile, the wordmark and tagline under it, three
+    capability chips under those, and the loader and disclosure at the foot.
 
-    Two custom views carry the parts XML cannot express: SplashBackdropView draws
-    the off-axis gradient (shape drawables only do 45-degree steps) and the discs,
-    and CallCardStackView draws and animates the three cards, including the flip.
-    Everything else is ordinary ConstraintLayout.
+    That replaces the "call card stack" — three frosted cards flying in and one
+    flipping over — which took the best part of four seconds to finish telling
+    its story. A splash is a screen the user wants to be past; this one says the
+    app's name and what it does and gets out of the way, and the getData chain
+    behind it is usually what the wait is really spent on.
 
-    Geometry comes from the design's 396x812 content box — that is its 412x892
-    frame less the 8px bezel, the 40px status bar and the 24px gesture bar. The
-    vertical anchors below are that box's fractions, so the composition keeps its
-    proportions on any aspect ratio; the custom views scale their own internals off
-    the same box. Motion is driven from SplashActivity against SplashTimeline
-    (UI only — navigation is owned by getData()).
+    SplashMarkView draws the rings. Everything else is ordinary views: the wash,
+    the tile, the chips and the loader are all shape drawables.
+
+    Being light rather than branded-dark also means the system bars follow the
+    theme here like everywhere else — SplashActivity no longer overrides them.
 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -30,137 +29,209 @@
         android:id="@+id/splashRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/splash_cs_grad_mid"
+        android:background="@color/ds_page"
         tools:context=".feature.splash.SplashActivity">
 
-        <!-- Layer 0 · the gradient and its two discs, edge to edge behind the
-             transparent system bars. It is told where those bars are so the discs
-             stay anchored to the content box rather than sliding under them. -->
-        <com.numify.callerid.lookup.feature.splash.SplashBackdropView
-            android:id="@+id/splashBackdrop"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <!-- The bloom sits behind everything and bleeds off the top edge, which is
+             why it is outside the inset content box. -->
+        <View
+            android:id="@+id/splashWash"
+            android:layout_width="440dp"
+            android:layout_height="440dp"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="-120dp"
+            android:background="@drawable/bg_splash_wash"
             android:importantForAccessibility="no" />
 
-        <!-- Layer 1 · everything that has to keep clear of the system bars. The
-             window insets are applied as padding here, which makes this view the
-             on-device equivalent of the design's 396x812 content box. -->
+        <!-- Everything that has to clear the system bars. The window insets are
+             applied here as padding, so this is the on-device stand-in for the
+             design's content box. -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/splashContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!-- The stack is full-bleed within the content box: the cards start
-                 well outside the frame and are meant to be clipped by its edges on
-                 the way in, exactly as the design's overflow:hidden does. -->
-            <com.numify.callerid.lookup.feature.splash.CallCardStackView
-                android:id="@+id/cardStack"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:importantForAccessibility="no"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <!-- Design tops of 468 and 512 in an 812-tall box. -->
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideWordmark"
-                android:layout_width="wrap_content"
+            <!-- ===== Centre block: mark, wordmark, tagline, chips ===== -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/splashCentre"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.5764" />
+                app:layout_constraintBottom_toTopOf="@id/loaderTrack"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.44">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideTagline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.6305" />
+                <FrameLayout
+                    android:id="@+id/markBox"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <!-- The footer block sits 60 up from the bottom of the same box. -->
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideFooter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.9261" />
+                    <com.numify.callerid.lookup.feature.splash.SplashMarkView
+                        android:id="@+id/splashMark"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:importantForAccessibility="no" />
 
-            <TextView
-                android:id="@+id/textAppName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/space_grotesk_bold"
-                android:letterSpacing="0.0059"
-                android:text="@string/splash_title"
-                android:textColor="@color/splash_cs_ink"
-                android:textSize="@dimen/splash_wordmark_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/guideWordmark" />
+                    <ImageView
+                        android:id="@+id/imageMarkTile"
+                        android:layout_width="104dp"
+                        android:layout_height="104dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_splash_mark"
+                        android:contentDescription="@null"
+                        android:elevation="12dp"
+                        android:outlineAmbientShadowColor="@color/ds_accent_shadow"
+                        android:outlineSpotShadowColor="@color/ds_accent_shadow"
+                        android:padding="29dp"
+                        android:src="@drawable/ic_ds_phone"
+                        app:tint="@color/ds_on_accent" />
+                </FrameLayout>
 
-            <TextView
-                android:id="@+id/textTagline"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/mulish_semibold"
-                android:gravity="center_horizontal"
-                android:paddingHorizontal="@dimen/splash_footer_gap"
-                android:text="@string/splash_tagline"
-                android:textColor="@color/splash_cs_muted"
-                android:textSize="@dimen/splash_tagline_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/guideTagline" />
+                <TextView
+                    android:id="@+id/textAppName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/space_grotesk_bold"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.0125"
+                    android:text="@string/splash_title"
+                    android:textColor="@color/ds_ink"
+                    android:textSize="40sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/markBox" />
 
-            <!-- Footer, built bottom-up so the build stamp pins to the guideline
-                 and the disclosure and loader stack above it on the design's
-                 14-unit gaps. -->
-            <TextView
-                android:id="@+id/textSecureVersion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:alpha="0.85"
-                android:fontFamily="@font/mulish_semibold"
-                android:textColor="@color/splash_cs_muted"
-                android:textSize="@dimen/splash_version_text"
-                app:layout_constraintBottom_toBottomOf="@id/guideFooter"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:text="Secure v1.0.1 (2)" />
+                <TextView
+                    android:id="@+id/textTagline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/mulish_semibold"
+                    android:gravity="center_horizontal"
+                    android:paddingHorizontal="32dp"
+                    android:text="@string/splash_tagline"
+                    android:textColor="@color/ds_ink_subtle"
+                    android:textSize="14.5sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textAppName" />
 
+                <!-- Three chips naming what the app is for. They are the one place
+                     the splash says anything beyond the name, so they carry the
+                     app's three verbs rather than decoration. -->
+                <LinearLayout
+                    android:id="@+id/rowChips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textTagline">
+
+                    <LinearLayout
+                        android:id="@+id/chipShield"
+                        style="@style/SplashChip">
+
+                        <ImageView
+                            style="@style/SplashChipIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_ds_shield_check"
+                            app:tint="@color/ds_accent" />
+
+                        <TextView
+                            style="@style/SplashChipLabel"
+                            android:text="@string/splash_chip_shield" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/chipLookup"
+                        style="@style/SplashChip"
+                        android:layout_marginStart="8dp">
+
+                        <ImageView
+                            style="@style/SplashChipIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_ds_search"
+                            app:tint="@color/ds_success" />
+
+                        <TextView
+                            style="@style/SplashChipLabel"
+                            android:text="@string/splash_chip_lookup" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/chipAi"
+                        style="@style/SplashChip"
+                        android:layout_marginStart="8dp">
+
+                        <ImageView
+                            style="@style/SplashChipIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_ai_sparkle"
+                            app:tint="@color/ds_warning" />
+
+                        <TextView
+                            style="@style/SplashChipLabel"
+                            android:text="@string/ai_ask_button" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ===== Foot: loader, disclosure, build stamp ===== -->
             <FrameLayout
                 android:id="@+id/loaderTrack"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/splash_loader_height"
-                android:layout_marginBottom="@dimen/splash_footer_gap"
-                android:background="@drawable/bg_splash_cs_loader_track"
+                android:layout_height="5dp"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/bg_splash_v2_track"
+                android:clipToOutline="true"
                 android:importantForAccessibility="no"
-                app:layout_constraintBottom_toTopOf="@id/textSecureVersion"
+                app:layout_constraintBottom_toTopOf="@id/textAdDisclosure"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintWidth_percent="0.5051">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <View
                     android:id="@+id/loaderFill"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_splash_cs_loader_fill" />
-
+                    android:background="@drawable/bg_splash_v2_bar" />
             </FrameLayout>
 
             <TextView
                 android:id="@+id/textAdDisclosure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/splash_footer_gap"
+                android:layout_marginBottom="6dp"
+                android:drawablePadding="6dp"
                 android:fontFamily="@font/mulish_semibold"
+                android:gravity="center_vertical"
                 android:text="@string/splash_footer"
-                android:textColor="@color/splash_cs_muted"
-                android:textSize="@dimen/splash_disclosure_text"
-                app:layout_constraintBottom_toTopOf="@id/loaderTrack"
+                android:textColor="@color/ds_band_label"
+                android:textSize="11.5sp"
+                app:drawableStartCompat="@drawable/ic_info"
+                app:drawableTint="@color/ds_band_label"
+                app:layout_constraintBottom_toTopOf="@id/textSecureVersion"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textSecureVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="26dp"
+                android:fontFamily="@font/mulish_semibold"
+                android:textColor="@color/ds_chevron"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="v1.0.1 (2)" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -704,4 +704,34 @@
         <item name="android:includeFontPadding">false</item>
         <item name="android:visibility">gone</item>
     </style>
+
+    <!-- Splash v2 capability chip: icon + label on the app surface, lifted by a
+         soft shadow rather than outlined. -->
+    <style name="SplashChip">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_splash_chip</item>
+        <item name="android:elevation">3dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:outlineAmbientShadowColor">@color/ds_card_shadow</item>
+        <item name="android:outlineSpotShadowColor">@color/ds_card_shadow</item>
+        <item name="android:paddingHorizontal">12dp</item>
+        <item name="android:paddingVertical">8dp</item>
+    </style>
+
+    <style name="SplashChipIcon">
+        <item name="android:layout_width">12dp</item>
+        <item name="android:layout_height">12dp</item>
+    </style>
+
+    <style name="SplashChipLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/ds_ink_strong</item>
+        <item name="android:textSize">11sp</item>
+    </style>
 </resources>

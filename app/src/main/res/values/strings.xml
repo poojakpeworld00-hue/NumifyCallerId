@@ -12,6 +12,9 @@
     <string name="splash_title">Numify</string>
     <string name="splash_tagline">See every caller. Shut out the rest.</string>
     <string name="splash_footer">Ads may appear in this app</string>
+    <!-- Splash v2: the three capability chips under the tagline. -->
+    <string name="splash_chip_shield">Spam shield</string>
+    <string name="splash_chip_lookup">Lookup</string>
     <string name="splash_incoming_call">Incoming call…</string>
     <string name="splash_fraud_blocked">Fraud blocked</string>
     <string name="splash_avatar_initials" translatable="false">RS</string>

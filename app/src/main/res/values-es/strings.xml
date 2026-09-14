@@ -836,4 +836,6 @@
     <string name="ai_ans_block_offer">%1$s no está en tu lista de bloqueo. Al bloquearlo, sus llamadas dejarán de sonar.</string>
     <string name="ai_ans_reply">Se redactó una respuesta para %1$s. Mensaje la abre en tu app de SMS para que la edites antes de enviarla.</string>
     <string name="ai_ans_quota_spent">Has usado tus %1$d preguntas gratis. Lo que tu teléfono puede responder por sí solo sigue siendo gratis.</string>
+    <string name="splash_chip_shield">Escudo antispam</string>
+    <string name="splash_chip_lookup">Búsqueda</string>
 </resources>

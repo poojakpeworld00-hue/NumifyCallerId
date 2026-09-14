@@ -787,4 +787,6 @@
     <string name="ai_ans_block_offer">%1$s 不在您的拦截名单中。拦截后，来自它的来电将不再响铃。</string>
     <string name="ai_ans_reply">已为 %1$s 拟好回复。“信息”会在您的短信应用中打开，发送前可以修改。</string>
     <string name="ai_ans_quota_spent">您的 %1$d 次免费提问已用完。手机自己能回答的内容仍然免费。</string>
+    <string name="splash_chip_shield">骚扰拦截</string>
+    <string name="splash_chip_lookup">号码查询</string>
 </resources>
