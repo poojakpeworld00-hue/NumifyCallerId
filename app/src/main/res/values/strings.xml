@@ -151,6 +151,7 @@
 
     <!-- Bottom navigation -->
     <string name="nav_home">Home</string>
+    <string name="nav_dialer">Dialer</string>
     <string name="nav_recents">Recents</string>
     <string name="nav_contacts">Contacts</string>
     <string name="recents_subtitle">Your call history</string>

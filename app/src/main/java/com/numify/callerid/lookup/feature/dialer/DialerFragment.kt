@@ -3,21 +3,21 @@ package com.numify.callerid.lookup.feature.dialer
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Bundle
 import android.provider.ContactsContract
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.numify.callerid.lookup.common.ListDividerDecoration
 import com.numify.callerid.lookup.R
-import com.numify.callerid.lookup.foundation.BaseActivity
+import com.numify.callerid.lookup.foundation.BaseFragment
 import com.numify.callerid.lookup.repository.ContactRepository
 import com.numify.callerid.lookup.databinding.ActivityDialerBinding
 import kotlinx.coroutines.Dispatchers
@@ -26,42 +26,37 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
- * Dialer screen. The on-screen keypad assembles the number displayed in
+ * Dialer. The on-screen keypad assembles the number displayed in
  * [ActivityDialerBinding.textDialNumber] - dialled by Call, saved by "Add to
  * contacts" - and filters the most-used list into the "Matches" section above the
  * keypad sheet.
+ *
+ * A tab rather than its own Activity: the dialer is one of the four places the
+ * bottom bar goes now, and a nav chip that launched an Activity would leave the
+ * bar behind and come back with no tab selected. Same move ToolboxFragment made,
+ * down to reusing the `activity_` layout and hiding its back button — the shell
+ * owns the chrome here.
  */
-class DialerActivity : BaseActivity<ActivityDialerBinding>() {
-
-    override val layoutId: Int = R.layout.activity_dialer
+class DialerFragment : BaseFragment<ActivityDialerBinding>() {
 
     private val viewModel: DialerViewModel by viewModels()
     private val adapter = SpeedDialAdapter(onClick = ::setDial, onCall = ::fillAndDial)
-    private val contactsRepo by lazy { ContactRepository(this) }
+    private val contactsRepo by lazy { ContactRepository(requireContext()) }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
-        // Mirrors the manifest's windowSoftInputMode. `showSoftInputOnFocus =
-        // false` alone only blocks the tap/focus path — the window still enters
-        // with stateUnspecified, and OEM IMEs auto-open for the focused number
-        // field on entry. Setting it here too survives any theme override.
-        window.setSoftInputMode(
-            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN or
-                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
-        )
-        super.onCreate(savedInstanceState)
-    }
+    override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
+        ActivityDialerBinding.inflate(inflater, container, false)
 
     override fun initView() {
+        // Hosted as a tab: the shell owns the bottom nav, so only the top inset
+        // applies here.
         ViewCompat.setOnApplyWindowInsetsListener(binding.dialerRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
+            v.setPadding(bars.left, bars.top, bars.right, 0)
             insets
         }
+        binding.buttonBack.visibility = View.GONE
 
-        binding.buttonBack.setOnClickListener { goBack() }
-
-        binding.listFrequent.layoutManager = LinearLayoutManager(this)
+        binding.listFrequent.layoutManager = LinearLayoutManager(requireContext())
         binding.listFrequent.adapter = adapter
         // Hairlines between rows inside the card, as on every other list.
         binding.listFrequent.addItemDecoration(ListDividerDecoration(binding.listFrequent))
@@ -84,7 +79,7 @@ class DialerActivity : BaseActivity<ActivityDialerBinding>() {
     }
 
     override fun initObservers() {
-        viewModel.frequent.observe(this) { list ->
+        viewModel.frequent.observe(viewLifecycleOwner) { list ->
             adapter.submit(list)
             val hasMatches = list.isNotEmpty()
             binding.textEmpty.visibility = if (hasMatches) View.GONE else View.VISIBLE
@@ -100,17 +95,57 @@ class DialerActivity : BaseActivity<ActivityDialerBinding>() {
     }
 
     /**
-     * The keypad is the only input on this screen, so the IME is dismissed
-     * whenever the window takes focus. That includes returning from Contacts or
-     * the call screen, where a keyboard left open by the previous screen would
-     * otherwise sit over the dialpad.
+     * The keypad is the only input here, so the IME is kept shut whenever this tab
+     * is in front — returning from Contacts or the call screen, or simply
+     * switching tabs, could otherwise leave a keyboard sitting over the dialpad.
      */
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) hideSystemKeyboard()
+    override fun onResume() {
+        super.onResume()
+        if (!isHidden) claimSoftInput()
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (hidden) releaseSoftInput() else claimSoftInput()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        releaseSoftInput()
+    }
+
+    /**
+     * Holds the host window shut against the IME while this tab is up.
+     *
+     * As its own Activity this was a manifest attribute —
+     * `windowSoftInputMode="stateAlwaysHidden|adjustNothing"`. A fragment has no
+     * manifest entry, and `showSoftInputOnFocus = false` alone is not enough:
+     * that blocks the tap/focus path, but the window still enters with
+     * stateUnspecified and OEM IMEs open themselves for a focused number field.
+     * The first build of this tab came up with the system keypad over the app's
+     * own one.
+     *
+     * It is released again on the way out, or the setting would follow the user
+     * to Tools and Lookup, whose search fields do need a keyboard and need the
+     * window to resize for it.
+     */
+    private fun claimSoftInput() {
+        activity?.window?.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN or
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
+        )
+        hideSystemKeyboard()
+    }
+
+    private fun releaseSoftInput() {
+        activity?.window?.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED or
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
+        )
     }
 
     private fun hideSystemKeyboard() {
+        val window = activity?.window ?: return
         runCatching {
             WindowCompat.getInsetsController(window, binding.textDialNumber)
                 .hide(WindowInsetsCompat.Type.ime())
@@ -184,12 +219,12 @@ class DialerActivity : BaseActivity<ActivityDialerBinding>() {
     /** Re-checks whether the exact dialed number is a saved contact, then updates the pill. */
     private fun refreshAddContact(number: String) {
         addContactJob?.cancel()
-        addContactJob = lifecycleScope.launch {
+        addContactJob = viewLifecycleOwner.lifecycleScope.launch {
             val saved = withContext(Dispatchers.IO) {
                 contactsRepo.lookupNameByNumber(number) != null
             }
             // Drop stale results if the dialed number changed while querying.
-            if (dialedNumber() == number) {
+            if (view != null && dialedNumber() == number) {
                 savedExact = saved
                 applyAddContactVisibility()
             }
@@ -225,7 +260,7 @@ class DialerActivity : BaseActivity<ActivityDialerBinding>() {
 
     private fun loadFrequentIfAllowed() {
         val granted = ContextCompat.checkSelfPermission(
-            this, Manifest.permission.READ_CALL_LOG
+            requireContext(), Manifest.permission.READ_CALL_LOG
         ) == PackageManager.PERMISSION_GRANTED
         if (granted) viewModel.load() else binding.textEmpty.visibility = View.VISIBLE
     }

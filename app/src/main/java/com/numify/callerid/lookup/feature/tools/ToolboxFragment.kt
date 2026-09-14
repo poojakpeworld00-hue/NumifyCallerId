@@ -1,18 +1,30 @@
 package com.numify.callerid.lookup.feature.tools
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.telephony.TelephonyManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.view.inputmethod.EditorInfo
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.numify.callerid.lookup.R
 import com.numify.callerid.lookup.foundation.BaseFragment
 import com.numify.callerid.lookup.databinding.ActivityToolsBinding
 import com.numify.callerid.lookup.common.openActivity
 import com.numify.callerid.lookup.feature.MainShellActivity
+import com.numify.callerid.lookup.feature.finder.CountryCatalog
+import com.numify.callerid.lookup.feature.finder.CountryPickerActivity
+import com.numify.callerid.lookup.repository.RegionDetector
+import com.numify.callerid.lookup.repository.SettingsRepository
+import kotlinx.coroutines.launch
+import java.util.Locale
 
 /**
  * Mini-tools grouped into Assistant · Measure · Device · Time, each category a
@@ -23,6 +35,8 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
 
     /** Tools: mid native above the tools grid. */
     override val screenAdFormat = ScreenAdFormat.MID_NATIVE
+
+    private val prefs by lazy { SettingsRepository(requireContext()) }
 
     private val adapter = ToolboxAdapter { tool ->
         val intent = Intent(requireContext(), tool.target).apply {
@@ -108,7 +122,111 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
         binding.listTools.adapter = adapter
 
         setupSearch()
+        setupNumberLookup()
         applyQuery("")
+    }
+
+    // ── Number lookup ───────────────────────────────────────────────────────
+    //
+    // Moved off the top of Recents. It never belonged over a call log — that is
+    // a list you read, and a field above it competed with the list for the same
+    // attention. Here it sits with the other things you go to Tools to *do*.
+    //
+    // The field does not search in place: submitting hands the number to the
+    // Lookup screen, which owns the result card, the history and the reveal.
+
+    /** Dialling code of the country chip (no leading '+'). */
+    private var homeDial: String = ""
+
+    private val countryLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { res ->
+        if (res.resultCode == Activity.RESULT_OK) {
+            val data = res.data ?: return@registerForActivityResult
+            val iso = data.getStringExtra(CountryPickerActivity.EXTRA_ISO)
+                ?: return@registerForActivityResult
+            val dial = data.getStringExtra(CountryPickerActivity.EXTRA_DIAL).orEmpty()
+            prefs.homeCountryIso = iso // keep Tools and Lookup on the same country
+            applyHomeCountry(iso, dial)
+        }
+    }
+
+    private fun setupNumberLookup() {
+        setupHomeCountry()
+        binding.columnLookupCountry.setOnClickListener {
+            countryLauncher.launch(Intent(requireContext(), CountryPickerActivity::class.java))
+        }
+        binding.buttonLookupSearch.setOnClickListener { submitLookup() }
+        binding.inputLookupNumber.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                submitLookup(); true
+            } else false
+        }
+        binding.inputLookupNumber.doAfterTextChanged { text ->
+            binding.buttonLookupClear.visibility =
+                if (text.isNullOrEmpty()) View.GONE else View.VISIBLE
+        }
+        binding.buttonLookupClear.setOnClickListener { binding.inputLookupNumber.setText("") }
+    }
+
+    /**
+     * Picks the country chip: the saved choice if any, otherwise the device region
+     * straight away, refined to the IP-detected country in the background.
+     */
+    private fun setupHomeCountry() {
+        val saved = prefs.homeCountryIso
+        if (saved.length == 2) {
+            applyHomeCountry(saved, dialFor(saved))
+            return
+        }
+        val sim = simCountryIso()
+        if (sim != null) {
+            applyHomeCountry(sim, dialFor(sim))
+            return
+        }
+        val region = Locale.getDefault().country
+        applyHomeCountry(if (region.length == 2) region else "US", dialFor(region))
+        detectCountryByIp()
+    }
+
+    /** SIM (then network) registered country as an uppercase ISO-2, or null. */
+    private fun simCountryIso(): String? {
+        val tm = context?.getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager
+            ?: return null
+        val iso = tm.simCountryIso?.takeIf { it.length == 2 }
+            ?: tm.networkCountryIso?.takeIf { it.length == 2 }
+        return iso?.uppercase()
+    }
+
+    private fun dialFor(iso: String): String =
+        (CountryCatalog.byIso(iso)?.dial ?: CountryCatalog.dialOf(iso)).orEmpty()
+
+    /** Resolves the country from the user's IP and updates the chip (best-effort). */
+    private fun detectCountryByIp() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val geo = RegionDetector.detectCountry(requireContext()) ?: return@launch
+            if (view == null || prefs.homeCountryIso.isNotBlank()) return@launch
+            applyHomeCountry(geo.iso, geo.dial.ifBlank { dialFor(geo.iso) })
+        }
+    }
+
+    private fun applyHomeCountry(iso: String, dial: String) {
+        homeDial = dial
+        binding.textLookupFlag.text = CountryCatalog.flag(iso)
+        binding.textLookupDial.text = if (dial.isBlank()) iso else "+$dial"
+    }
+
+    /** Hands the typed number to the Lookup screen and clears the field. */
+    private fun submitLookup() {
+        val typed = binding.inputLookupNumber.text?.toString()?.trim().orEmpty()
+        val number = when {
+            typed.isBlank() -> ""
+            typed.startsWith("+") -> typed
+            homeDial.isNotBlank() -> "+$homeDial" + typed.filter { it.isDigit() }
+            else -> typed
+        }
+        (activity as? MainShellActivity)?.showLookup(number.ifBlank { null })
+        binding.inputLookupNumber.setText("")
     }
 
     private fun setupSearch() {

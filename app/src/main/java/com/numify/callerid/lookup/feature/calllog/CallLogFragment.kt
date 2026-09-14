@@ -40,14 +40,9 @@ import com.numify.callerid.lookup.databinding.FragmentRecentsBinding
 import com.numify.callerid.lookup.feature.MainShellActivity
 import com.numify.callerid.lookup.feature.overlay.OverlayAskPolicy
 import com.numify.callerid.lookup.feature.calldetails.CallDetailsActivity
-import com.numify.callerid.lookup.feature.dialer.DialerActivity
 import com.numify.callerid.lookup.feature.settings.SettingsActivity
-import com.numify.callerid.lookup.feature.finder.CountryCatalog
-import com.numify.callerid.lookup.feature.finder.CountryPickerActivity
-import com.numify.callerid.lookup.feature.widgets.CoachMarkOverlay
 import com.numify.callerid.lookup.repository.CallType
 import com.numify.callerid.lookup.repository.CallLogTotals
-import com.numify.callerid.lookup.repository.RegionDetector
 import com.numify.callerid.lookup.repository.SettingsRepository
 import com.numify.callerid.monetize.strategy.recordPermissionOutcome
 import com.numify.callerid.lookup.common.followAdContainer
@@ -65,8 +60,6 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
     )
     private val prefs by lazy { SettingsRepository(requireContext()) }
 
-    /** Dialing code selected in the search country chip (no leading '+'). */
-    private var homeDial: String = ""
 
     /** Core-permission queue + its result launcher (see [withCorePermissions]). */
     private val corePermQueue = ArrayDeque<String>()
@@ -77,18 +70,6 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
     ) { granted ->
         lastCorePermission?.let { context?.recordPermissionOutcome(it, granted) }
         advanceCorePermissions()
-    }
-
-    private val countryLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { res ->
-        if (res.resultCode == Activity.RESULT_OK) {
-            val data = res.data ?: return@registerForActivityResult
-            val iso = data.getStringExtra(CountryPickerActivity.EXTRA_ISO) ?: return@registerForActivityResult
-            val dial = data.getStringExtra(CountryPickerActivity.EXTRA_DIAL).orEmpty()
-            prefs.homeCountryIso = iso
-            applyHomeCountry(iso, dial)
-        }
     }
 
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
@@ -103,7 +84,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
             insets
         }
         binding.buttonRecentsDial.setOnClickListener {
-            requireActivity().openActivity<DialerActivity>()
+            (activity as? MainShellActivity)?.showDialer()
         }
         binding.buttonRecentsFilter.setOnClickListener { showSortMenu(it) }
         setupAskAi()
@@ -123,17 +104,6 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
 
         binding.buttonPermManage.setOnClickListener {
             (activity as? MainShellActivity)?.showPermissionSheet()
-        }
-
-        setupHomeCountry()
-        binding.columnHomeCountry.setOnClickListener {
-            countryLauncher.launch(Intent(requireContext(), CountryPickerActivity::class.java))
-        }
-        binding.buttonHomeSearch.setOnClickListener { submitSearch() }
-        binding.inputSearch.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                submitSearch(); true
-            } else false
         }
 
         binding.listRecents.layoutManager = LinearLayoutManager(requireContext())
@@ -163,21 +133,16 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
             }
         }
 
-        binding.inputSearch.addTextChangedListener(object : android.text.TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
-            override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
-            override fun afterTextChanged(s: android.text.Editable?) {
-                val text = s?.toString().orEmpty()
-                viewModel.applyQuery(text)
-                binding.buttonClearSearch.visibility = if (text.isEmpty()) View.GONE else View.VISIBLE
-            }
-        })
-        binding.buttonClearSearch.setOnClickListener { binding.inputSearch.setText("") }
+        // The field that used to sit at the top of this screen typed a number for
+        // the Lookup screen AND filtered the call log as you typed. It has moved to
+        // Tools, which takes the call-log filter with it — the four chips below
+        // (All / Incoming / Outgoing / Missed) are what narrows this list now.
+        // viewModel.applyQuery is still there for whoever wants to put a
+        // list-filter back, and is simply never called from here.
 
         if (hasCallLogPermission()) onPermissionGranted() else showPermissionState()
         refreshProtectionState()
         refreshPermissionHint()
-        maybeShowSearchHint()
     }
 
     /** Re-evaluates when this tab becomes visible again (show/hide keeps the fragment resumed). */
@@ -304,81 +269,8 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         action?.invoke()
     }
 
-    /**
-     * First-run coach-mark: dims the screen, spotlights the lookup card and shows a
-     * hint bubble beneath it. Shown once, persisted via [SettingsRepository.isSearchHintShown].
-     */
-    private fun maybeShowSearchHint() {
-        if (prefs.isSearchHintShown) return
-        val anchor = binding.cardLookup
-        anchor.post {
-            if (!isAdded || view == null) return@post
-            val act = activity ?: return@post
-            prefs.isSearchHintShown = true
-            CoachMarkOverlay.show(act, anchor, R.layout.include_search_hint)
-        }
-    }
-
-    /**
-     * Picks the search country chip. Uses the saved choice if any; otherwise shows the
-     * device region immediately and refines it to the IP-detected country in the background.
-     */
-    private fun setupHomeCountry() {
-        val saved = prefs.homeCountryIso
-        if (saved.length == 2) {
-            applyHomeCountry(saved, dialFor(saved))
-            return
-        }
-        val sim = simCountryIso()
-        if (sim != null) {
-            applyHomeCountry(sim, dialFor(sim))
-            return
-        }
-        val region = java.util.Locale.getDefault().country
-        val fallbackIso = if (region.length == 2) region else "US"
-        applyHomeCountry(fallbackIso, dialFor(fallbackIso))
-        detectCountryByIp()
-    }
-
-    /** SIM (then network) registered country as an uppercase ISO-2, or null. */
-    private fun simCountryIso(): String? {
-        val tm = context?.getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager ?: return null
-        val iso = tm.simCountryIso?.takeIf { it.length == 2 }
-            ?: tm.networkCountryIso?.takeIf { it.length == 2 }
-        return iso?.uppercase()
-    }
-
-    private fun dialFor(iso: String): String =
-        (CountryCatalog.byIso(iso)?.dial ?: CountryCatalog.dialOf(iso)).orEmpty()
-
-    /** Resolves the country from the user's IP and updates the chip (best-effort). */
-    private fun detectCountryByIp() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            val geo = RegionDetector.detectCountry(requireContext()) ?: return@launch
-            if (view == null || prefs.homeCountryIso.isNotBlank()) return@launch
-            val dial = geo.dial.ifBlank { dialFor(geo.iso) }
-            applyHomeCountry(geo.iso, dial)
-        }
-    }
-
-    private fun applyHomeCountry(iso: String, dial: String) {
-        homeDial = dial
-        binding.textHomeFlag.text = CountryCatalog.flag(iso)
-        binding.textHomeDial.text = if (dial.isBlank()) iso else "+$dial"
-    }
-
-    /** Navigates to the Lookup tab and runs the lookup for the entered number. */
-    private fun submitSearch() {
-        val typed = binding.inputSearch.text?.toString()?.trim().orEmpty()
-        val number = when {
-            typed.isBlank() -> ""
-            typed.startsWith("+") -> typed
-            homeDial.isNotBlank() -> "+$homeDial" + typed.filter { it.isDigit() }
-            else -> typed
-        }
-        (activity as? MainShellActivity)?.showLookup(number.ifBlank { null })
-        binding.inputSearch.setText("")
-    }
+    // The first-run coach-mark that spotlighted the lookup card went with the card
+    // itself: it pointed at a field that is no longer on this screen.
 
     override fun initObservers() {
         viewModel.rows.observe(viewLifecycleOwner) { rows ->
@@ -459,8 +351,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
     }
 
     private fun showCounts(rows: List<HistoryRowUi>) {
-        val filtering = (viewModel.filter.value ?: CallLogFilter.ALL) != CallLogFilter.ALL ||
-            binding.inputSearch.text?.isNotBlank() == true
+        val filtering = (viewModel.filter.value ?: CallLogFilter.ALL) != CallLogFilter.ALL
 
         val (total, missed) = if (filtering) {
             val calls = rows.filterIsInstance<HistoryRowUi.Call>()

@@ -109,15 +109,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
+            <!-- Dialer · Recent · (Lookup) · Contact · Tools.
+                 Blocklist gave up its chip to the dialer: it is a place you go to
+                 manage something you already did, not one of the four things the
+                 app is for, and it is still a tap away from Settings and from the
+                 protection strip on Recents. -->
             <include
-                android:id="@+id/navRecents"
+                android:id="@+id/navDialer"
                 layout="@layout/item_nav"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <include
-                android:id="@+id/navContacts"
+                android:id="@+id/navRecents"
                 layout="@layout/item_nav"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -131,7 +136,7 @@
                 android:layout_weight="1" />
 
             <include
-                android:id="@+id/navBlocklist"
+                android:id="@+id/navContacts"
                 layout="@layout/item_nav"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

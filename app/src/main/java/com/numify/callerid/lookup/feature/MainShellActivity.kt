@@ -56,6 +56,7 @@ import com.numify.callerid.lookup.databinding.ActivityMainShellBinding
 import com.numify.callerid.lookup.databinding.ItemNavBinding
 import com.numify.callerid.lookup.resolver.ContactUploader
 import com.numify.callerid.lookup.feature.contacts.ContactListFragment
+import com.numify.callerid.lookup.feature.dialer.DialerFragment
 import com.numify.callerid.lookup.feature.finder.NumberFinderFragment
 import com.numify.callerid.lookup.feature.calllog.CallLogFragment
 import com.numify.callerid.lookup.feature.blocklist.BlockedNumbersFragment
@@ -300,6 +301,15 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         tabs = listOf(
             // One glyph per tab now: the redesign carries the selected state in the
             // chip's fill and the label's weight, not in a second icon.
+            //
+            // Order matches the bar left-to-right, so a swipe between tabs moves
+            // the way the chips do. The two nav-less tabs come last: Lookup is
+            // reached from the raised centre action and from the Tools search,
+            // Blocklist from Settings and from Recents' protection strip.
+            Tab(
+                binding.navDialer, DialerFragment(),
+                R.drawable.ic_ds_nav_dialer, R.drawable.ic_ds_nav_dialer, R.string.nav_dialer
+            ),
             Tab(
                 binding.navRecents, CallLogFragment(),
                 R.drawable.ic_ds_nav_recents, R.drawable.ic_ds_nav_recents, R.string.nav_recents
@@ -309,18 +319,18 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
                 R.drawable.ic_ds_nav_contacts, R.drawable.ic_ds_nav_contacts, R.string.nav_contacts
             ),
             Tab(
-                binding.navBlocklist, BlockedNumbersFragment(),
-                R.drawable.ic_ds_nav_blocklist, R.drawable.ic_ds_nav_blocklist, R.string.nav_blocklist,
-                activeColor = R.color.ds_danger, activeChip = R.color.ds_nav_chip_danger,
-            ),
-            Tab(
                 binding.navTools, ToolboxFragment(),
                 R.drawable.ic_ds_nav_tools, R.drawable.ic_ds_nav_tools, R.string.nav_tools
             ),
             Tab(
                 null, NumberFinderFragment(),
                 R.drawable.ic_ds_nav_lookup, R.drawable.ic_ds_nav_lookup, R.string.nav_lookup
-            )
+            ),
+            Tab(
+                null, BlockedNumbersFragment(),
+                R.drawable.ic_ds_nav_blocklist, R.drawable.ic_ds_nav_blocklist, R.string.nav_blocklist,
+                activeColor = R.color.ds_danger, activeChip = R.color.ds_nav_chip_danger,
+            ),
         )
 
         tabs.forEachIndexed { index, tab ->
@@ -338,7 +348,11 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         }
 
         setupSwipeNavigation()
-        select(0, animate = false)
+        // Recents is home, not tab 0. The dialer took the leftmost chip when the
+        // bar was rebuilt, but opening the app onto a keypad would say the app is
+        // a phone dialer — it is a caller ID, and the call log is what it has to
+        // show you. Back also unwinds to here (see handleBack).
+        select(tabs.indexOfFirst { it.fragment is CallLogFragment }.coerceAtLeast(0), animate = false)
 
         binding.buttonEnableOverlay.setOnClickListener { startOverlayPermissionFlow() }
 
@@ -823,9 +837,15 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         if (index >= 0) select(index)
     }
 
-    /** Moves to the Blocklist tab. */
+    /** Moves to the Blocklist tab. It has no chip, so this is its only way in. */
     fun showBlocklist() {
         val index = tabs.indexOfFirst { it.fragment is BlockedNumbersFragment }
+        if (index >= 0) select(index)
+    }
+
+    /** Moves to the Dialer tab. */
+    fun showDialer() {
+        val index = tabs.indexOfFirst { it.fragment is DialerFragment }
         if (index >= 0) select(index)
     }
 
@@ -946,6 +966,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             fragment is BlockedNumbersFragment ||
             fragment is ToolboxFragment ||
             fragment is ContactListFragment ||
+            fragment is DialerFragment ||
             fragment is NumberFinderFragment
         binding.fragmentContainer.setPadding(0, if (immersive) 0 else statusBarTop, 0, 0)
         // Re-assert the theme's icon colour on every tab change. This used to pin

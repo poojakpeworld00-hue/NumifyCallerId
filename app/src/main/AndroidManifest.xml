@@ -137,15 +137,6 @@
             android:noHistory="true"
             android:exported="false" />
 
-        <!-- The keypad is the only input on this screen: never let the system
-             keyboard open (stateAlwaysHidden) and never resize the dialpad for
-             it (adjustNothing). -->
-        <activity
-            android:screenOrientation="portrait"
-            android:name=".feature.dialer.DialerActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
-            android:exported="false" />
-
         <activity
             android:screenOrientation="portrait"
             android:name=".feature.calldetails.CallDetailsActivity"
