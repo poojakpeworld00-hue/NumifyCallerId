@@ -37,10 +37,17 @@
         </LinearLayout>
 
         <!--
-            Matches and the number actions share the band above the keypad, and
-            both hug the sheet: content is bottom-aligned (fillViewport plus
-            gravity=bottom) so a single match sits just above the keypad rather
-            than stranded under the title.
+            Matches and the number actions share the band between the title and
+            the keypad, and both start at the top of it.
+
+            They were bottom-aligned, hugging the keypad, on the reasoning that a
+            single match should not be stranded up by the title. What that
+            actually produced was the opposite complaint: a short card pushed to
+            the bottom leaves a hand's width of empty page directly under
+            "Dialer", which reads as a missing element rather than as breathing
+            room. Top-aligned, the band fills from the title downwards and the
+            slack collects above the keypad, where it looks like the gap it is —
+            which is also how the handoff's reference dialer draws it.
 
             It scrolls because the two together can outgrow the band — four
             action rows plus a few matches is taller than what is left over a
@@ -61,7 +68,7 @@
                 android:id="@+id/matchesContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="bottom"
+                android:gravity="top"
                 android:orientation="vertical">
 
                 <!-- Section label — shown while matches exist -->
