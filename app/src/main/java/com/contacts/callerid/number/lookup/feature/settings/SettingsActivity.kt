@@ -23,7 +23,7 @@ import com.contacts.callerid.number.lookup.monetize.delivery.NativeAdPresenter
 import com.contacts.callerid.number.lookup.BuildConfig
 import com.contacts.callerid.number.lookup.R
 import com.contacts.callerid.number.lookup.foundation.BaseActivity
-import com.contacts.callerid.number.lookup.feature.MainShellActivity
+import com.contacts.callerid.number.lookup.feature.blocklist.BlocklistActivity
 import com.contacts.callerid.number.lookup.repository.SettingsRepository
 import com.contacts.callerid.number.lookup.databinding.ActivitySettingsBinding
 import com.contacts.callerid.number.lookup.databinding.ItemPrefCardBinding
@@ -94,11 +94,11 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
             binding.cardBlocklist, R.drawable.settings_blocklist, R.drawable.bg_cid_chip_clay,
             R.color.cid_clay, R.string.settings_blocklist, getString(R.string.settings_blocklist_sub)
         ) {
-            openActivity(
-                Intent(this, MainShellActivity::class.java)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                    .putExtra(MainShellActivity.EXTRA_OPEN_BLOCKLIST, true)
-            )
+            // Straight to the Activity. This used to relaunch the shell with
+            // CLEAR_TOP and an extra, which finished this screen on the way past
+            // — so Back from the blocklist had no Settings to return to and fell
+            // through to the shell's tab history, landing on Recents.
+            openActivity(BlocklistActivity.newIntent(this))
         }
         bindPanel(
             binding.cardSim, R.drawable.ic_sim_card, R.drawable.bg_cid_chip_amber,

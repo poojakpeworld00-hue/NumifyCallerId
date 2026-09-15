@@ -336,11 +336,16 @@
                             android:text="@string/action_whatsapp" />
                     </LinearLayout>
 
+                    <!-- Block / Unblock. Both halves are this one action: the
+                         icon and label are ids because CallDetailsActivity
+                         rewrites them from the blocklist, the way the lookup
+                         detail screen already does. -->
                     <LinearLayout
                         android:id="@+id/buttonBlock"
                         style="@style/DetailAction">
 
                         <ImageView
+                            android:id="@+id/imageBlockIcon"
                             style="@style/DetailActionIcon"
                             android:backgroundTint="@color/ds_danger_tint"
                             android:contentDescription="@string/action_block"
@@ -348,6 +353,7 @@
                             app:tint="@color/ds_danger" />
 
                         <TextView
+                            android:id="@+id/textBlockLabel"
                             style="@style/DetailActionLabel"
                             android:text="@string/action_block" />
                     </LinearLayout>

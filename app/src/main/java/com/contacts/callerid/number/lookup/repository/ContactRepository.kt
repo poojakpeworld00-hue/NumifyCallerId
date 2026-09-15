@@ -5,6 +5,9 @@ import android.net.Uri
 import android.provider.ContactsContract
 import com.contacts.callerid.number.lookup.feature.widgets.CallActionHandler
 
+/** One saved phone number and the contact it belongs to. */
+data class ContactPhone(val name: String?, val number: String)
+
 /** Reads device contacts via the [ContactsContract] provider. */
 class ContactRepository(private val context: Context) {
 
@@ -64,6 +67,50 @@ class ContactRepository(private val context: Context) {
                         .filter(Char::isDigit)
                         .takeLast(MATCH_DIGITS)
                     if (tail.isNotEmpty()) out.putIfAbsent(tail, photo)
+                }
+            }
+        }
+        return out
+    }
+
+    /**
+     * Every saved phone number with the name it belongs to, one row per number.
+     *
+     * Deliberately not [getContacts], which collapses a contact to a single row
+     * keyed by display name and so drops second and third numbers. Dialer search
+     * has to match on any of them: someone who types a work number should find
+     * the person, not nothing.
+     */
+    fun phoneEntries(): List<ContactPhone> {
+        val out = mutableListOf<ContactPhone>()
+        val seen = HashSet<String>()
+        val projection = arrayOf(
+            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+            ContactsContract.CommonDataKinds.Phone.NUMBER,
+        )
+
+        runCatching {
+            context.contentResolver.query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                projection,
+                null,
+                null,
+                "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} COLLATE LOCALIZED ASC"
+            )?.use { cursor ->
+                val nameIdx = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
+                val numberIdx = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                while (cursor.moveToNext()) {
+                    val number = cursor.getString(numberIdx)?.trim().orEmpty()
+                    if (number.isEmpty()) continue
+                    // One contact can hold the same number twice (a merged
+                    // duplicate, or the same line saved with and without a
+                    // country code). Key on the digits so search shows it once.
+                    val key = number.filter(Char::isDigit).takeLast(MATCH_DIGITS)
+                    if (key.isEmpty() || !seen.add(key)) continue
+                    out += ContactPhone(
+                        name = cursor.getString(nameIdx)?.trim().orEmpty().ifEmpty { null },
+                        number = number,
+                    )
                 }
             }
         }

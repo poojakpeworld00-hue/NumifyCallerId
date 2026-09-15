@@ -195,13 +195,19 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
         ActivityBlocklistBinding.inflate(inflater, container, false)
 
     override fun initView() {
-        // Hosted as a tab: the shell owns the bottom nav, so only the top inset applies.
+        // Hosted by BlocklistActivity, which owns the window insets; only the top
+        // one lands here, on the fragment's own header.
         ViewCompat.setOnApplyWindowInsetsListener(binding.blocklistRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(bars.left, bars.top, bars.right, 0)
             insets
         }
-        binding.buttonBack.visibility = View.GONE
+        // This was a nav-less tab in the shell, where the bar was the way out and
+        // the back button was hidden. It is its own Activity now, so the header's
+        // back button is the way out and has to be there.
+        binding.buttonBack.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
         binding.listBlocklist.layoutManager = LinearLayoutManager(requireContext())
         binding.listBlocklist.adapter = adapter
         // Hairlines between rows inside the card — the same decoration the

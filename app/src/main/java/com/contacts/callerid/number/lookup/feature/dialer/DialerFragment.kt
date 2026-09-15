@@ -119,12 +119,20 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
      */
     override fun onResume() {
         super.onResume()
-        if (!isHidden) claimSoftInput()
+        if (!isHidden) {
+            claimSoftInput()
+            loadFrequentIfAllowed()
+        }
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        if (hidden) releaseSoftInput() else claimSoftInput()
+        if (hidden) {
+            releaseSoftInput()
+        } else {
+            claimSoftInput()
+            loadFrequentIfAllowed()
+        }
     }
 
     override fun onPause() {
@@ -341,10 +349,19 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         }
     }
 
+    /**
+     * Reloads the search pool if either source is readable.
+     *
+     * It gated on READ_CALL_LOG alone, from when the pool was the call log. The
+     * pool is call log *plus* contacts now, so a user who granted Contacts but
+     * refused Call log would have been left with a dialer that could not find
+     * anyone — the view model reads each side defensively and simply contributes
+     * nothing for the one that is denied.
+     */
     private fun loadFrequentIfAllowed() {
-        val granted = ContextCompat.checkSelfPermission(
-            requireContext(), Manifest.permission.READ_CALL_LOG
-        ) == PackageManager.PERMISSION_GRANTED
-        if (granted) viewModel.load() else applyZeroState()
+        val ctx = context ?: return
+        val canRead = listOf(Manifest.permission.READ_CALL_LOG, Manifest.permission.READ_CONTACTS)
+            .any { ContextCompat.checkSelfPermission(ctx, it) == PackageManager.PERMISSION_GRANTED }
+        if (canRead) viewModel.load() else applyZeroState()
     }
 }

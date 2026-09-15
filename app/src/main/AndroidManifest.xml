@@ -102,6 +102,14 @@
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />
 
+        <!-- Blocked numbers. adjustResize for the same reason: the add form sits
+             low on the empty state, and the keyboard would otherwise cover it. -->
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".feature.blocklist.BlocklistActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
+
         <activity
             android:screenOrientation="portrait"
             android:name=".feature.finder.CountryPickerActivity"

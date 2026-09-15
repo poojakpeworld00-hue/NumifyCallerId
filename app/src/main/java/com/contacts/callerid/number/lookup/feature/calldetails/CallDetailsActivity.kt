@@ -22,7 +22,7 @@ import com.contacts.callerid.number.lookup.repository.CallRecord
 import com.contacts.callerid.number.lookup.repository.CallType
 import com.contacts.callerid.number.lookup.databinding.ActivityCallDetailBinding
 import com.contacts.callerid.number.lookup.databinding.ItemCallHistoryBinding
-import com.contacts.callerid.number.lookup.feature.MainShellActivity
+import com.contacts.callerid.number.lookup.feature.finder.LookupActivity
 import com.contacts.callerid.number.lookup.feature.widgets.CallActionHandler
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -58,13 +58,24 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
         binding.buttonCall.setOnClickListener { placeCall(number) }
         binding.buttonMessage.setOnClickListener { message() }
         binding.buttonWhatsapp.setOnClickListener { whatsapp() }
-        binding.buttonBlock.setOnClickListener { block() }
+        binding.buttonBlock.setOnClickListener { toggleBlock() }
         binding.buttonIdentify.setOnClickListener { identifyNumber() }
         binding.buttonViewAll.setOnClickListener { expanded = true; renderHistory() }
 
         // Ready for the block gate, which shows a rewarded ad once the free
         // slots are used up.
         RewardedAdPresenter.preload(this)
+    }
+
+    /**
+     * Re-read on every entry, not just on create: the number can be blocked or
+     * unblocked from the blocklist screen while this one sits in the back stack,
+     * and coming back to a button that still says "Block" on a blocked number is
+     * how you end up blocking it twice.
+     */
+    override fun onResume() {
+        super.onResume()
+        updateBlockState()
     }
 
     override fun initObservers() {
@@ -107,14 +118,18 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
         binding.buttonIdentify.visibility = if (identified) View.GONE else View.VISIBLE
     }
 
-    /** Sends the number to the Lookup tab so the user can identify it. */
+    /**
+     * Opens Lookup on this number so the user can identify it.
+     *
+     * Straight to the screen. This used to bounce off MainShellActivity —
+     * REORDER_TO_FRONT with an extra the shell read and turned back into a
+     * Lookup — which made sense while Lookup was a tab the shell owned. It is an
+     * Activity now, and routing a screen through the shell to reach another
+     * screen only leaves the shell holding an extra it has to remember to clear.
+     */
     private fun identifyNumber() {
         if (number.isBlank()) return
-        startActivity(
-            Intent(this, MainShellActivity::class.java)
-                .putExtra(MainShellActivity.EXTRA_LOOKUP_NUMBER, number)
-                .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        )
+        startActivity(LookupActivity.newIntent(this, number))
         finish()
     }
 
@@ -223,12 +238,53 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
     private fun launch(intent: Intent): Boolean =
         runCatching { startActivity(intent); true }.getOrDefault(false)
 
-    private fun block() {
+    /**
+     * Blocks or unblocks the number, then repaints the action.
+     *
+     * It used to block only: tapping it a second time silently blocked an
+     * already-blocked number, and the one way back was to find it in the
+     * blocklist. Same shape as the lookup detail screen, down to the rule that
+     * only blocking goes through the reward gate — unblocking hands a slot back
+     * and must never cost an ad.
+     */
+    private fun toggleBlock() {
         if (number.isBlank()) return
+        val blocklist = BlocklistRepository(this)
+
+        if (blocklist.isNumberBlocked(number)) {
+            blocklist.remove(number)
+            updateBlockState()
+            Toast.makeText(this, R.string.blocklist_removed, Toast.LENGTH_SHORT).show()
+            return
+        }
+
         BlockReward.allow(this, number) {
-            BlocklistRepository(this).add(number)
+            blocklist.add(number)
+            updateBlockState()
             Toast.makeText(this, R.string.blocklist_added, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    /**
+     * Reflects the current block state on the action: red slash for "Block",
+     * green for "Unblock".
+     *
+     * The label keeps the same ink as its three neighbours and the tile carries
+     * the state — colouring one label of four makes the strip read as three
+     * buttons and a warning.
+     */
+    private fun updateBlockState() {
+        val blocked = number.isNotBlank() && BlocklistRepository(this).isNumberBlocked(number)
+        val labelRes = if (blocked) R.string.action_unblock else R.string.action_block
+        val fg = if (blocked) R.color.ds_success else R.color.ds_danger
+        val soft = if (blocked) R.color.ds_success_wash else R.color.ds_danger_tint
+
+        binding.textBlockLabel.setText(labelRes)
+        binding.imageBlockIcon.contentDescription = getString(labelRes)
+        binding.imageBlockIcon.imageTintList =
+            ColorStateList.valueOf(ContextCompat.getColor(this, fg))
+        binding.imageBlockIcon.backgroundTintList =
+            ColorStateList.valueOf(ContextCompat.getColor(this, soft))
     }
 
     companion object {

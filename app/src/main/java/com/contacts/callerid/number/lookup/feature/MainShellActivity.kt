@@ -57,7 +57,7 @@ import com.contacts.callerid.number.lookup.feature.contacts.ContactListFragment
 import com.contacts.callerid.number.lookup.feature.dialer.DialerFragment
 import com.contacts.callerid.number.lookup.feature.finder.LookupActivity
 import com.contacts.callerid.number.lookup.feature.calllog.CallLogFragment
-import com.contacts.callerid.number.lookup.feature.blocklist.BlockedNumbersFragment
+import com.contacts.callerid.number.lookup.feature.blocklist.BlocklistActivity
 import com.contacts.callerid.number.lookup.feature.tools.ToolboxFragment
 import com.contacts.callerid.number.lookup.feature.overlay.OverlayAskPolicy
 import com.contacts.callerid.number.lookup.feature.overlay.OverlayPermissionUtils
@@ -73,8 +73,13 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     override val layoutId: Int = R.layout.activity_main_shell
 
     /**
-     * One destination. [nav] is null for a tab the bar never shows — Blocklist,
-     * reached from Settings and from Call Details rather than from a chip.
+     * One destination.
+     *
+     * [nav] is nullable because the shell used to carry tabs the bar never showed
+     * — Lookup, then Blocklist. Both are Activities now and every remaining tab
+     * has a chip, but the field stays: a destination without a chip is a thing
+     * this shell should be able to hold, and the alternative is a non-null type
+     * that the next such tab has to unpick.
      */
     private data class Tab(
         val nav: ItemNavBinding?,
@@ -82,11 +87,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         @param:DrawableRes val selectedIcon: Int,
         @param:DrawableRes val unselectedIcon: Int,
         @param:StringRes val label: Int,
-        /**
-         * What this tab turns when it is the current one. Blue on every tab except
-         * Blocklist, which the design deliberately turns red — that destination is
-         * the destructive one and it says so in colour.
-         */
+        /** What this tab turns when it is the current one. */
         @param:ColorRes val activeColor: Int = R.color.ds_accent,
     )
 
@@ -317,11 +318,6 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
                 binding.navTools, ToolboxFragment(),
                 R.drawable.ic_ds_nav_tools, R.drawable.ic_ds_nav_tools, R.string.nav_tools
             ),
-            Tab(
-                null, BlockedNumbersFragment(),
-                R.drawable.ic_ds_nav_blocklist, R.drawable.ic_ds_nav_blocklist, R.string.nav_blocklist,
-                activeColor = R.color.ds_danger,
-            ),
         )
 
         tabs.forEachIndexed { index, tab ->
@@ -375,12 +371,17 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         handleLookupIntent(intent)
     }
 
+    /**
+     * Honours a deep link that asks the shell to open Lookup on a number.
+     *
+     * Nothing in the app uses this any more — Lookup and Blocklist are their own
+     * Activities and their callers start them directly — but it stays for an
+     * external entry point (a notification, a shortcut) that has only the shell
+     * to aim at. The extra is consumed on the way through, or a configuration
+     * change would replay it and reopen Lookup over whatever the user had moved
+     * on to.
+     */
     private fun handleLookupIntent(intent: Intent?) {
-        if (intent?.getBooleanExtra(EXTRA_OPEN_BLOCKLIST, false) == true) {
-            intent.removeExtra(EXTRA_OPEN_BLOCKLIST)
-            showBlocklist()
-            return
-        }
         val number = intent?.getStringExtra(EXTRA_LOOKUP_NUMBER)?.takeIf { it.isNotBlank() } ?: return
         intent.removeExtra(EXTRA_LOOKUP_NUMBER)
         showLookup(number)
@@ -781,10 +782,12 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         if (index >= 0) select(index)
     }
 
-    /** Moves to the Blocklist tab. It has no chip, so this is its only way in. */
+    /**
+     * Opens the Blocklist screen. Its own Activity now, not a tab — see
+     * [BlocklistActivity] for why Back demanded that.
+     */
     fun showBlocklist() {
-        val index = tabs.indexOfFirst { it.fragment is BlockedNumbersFragment }
-        if (index >= 0) select(index)
+        openActivity(BlocklistActivity.newIntent(this))
     }
 
     /** Moves to the Dialer tab. */
@@ -897,7 +900,6 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         if (index < 0) return
         val fragment = tabs.getOrNull(index)?.fragment
         val immersive = fragment is CallLogFragment ||
-            fragment is BlockedNumbersFragment ||
             fragment is ToolboxFragment ||
             fragment is ContactListFragment ||
             fragment is DialerFragment
@@ -927,7 +929,6 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         private const val OVERLAY_GRANT_POLL_TIMEOUT_MS = 90_000L
 
         /** Intent extra carrying a number to identify; opens the Lookup screen. */
-        const val EXTRA_LOOKUP_NUMBER = "extra_lookup_number"
-        const val EXTRA_OPEN_BLOCKLIST = "extra_open_blocklist"
+        const val EXTRA_LOOKUP_NUMBER = "extra_shell_lookup_number"
     }
 }
