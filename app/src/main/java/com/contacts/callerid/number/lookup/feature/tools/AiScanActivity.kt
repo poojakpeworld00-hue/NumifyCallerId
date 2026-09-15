@@ -3,7 +3,6 @@ package com.contacts.callerid.number.lookup.feature.tools
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
@@ -12,6 +11,8 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.contacts.callerid.number.lookup.common.ListDividerDecoration
+import com.contacts.callerid.number.lookup.common.openActivity
+import com.contacts.callerid.number.lookup.feature.finder.LookupActivity
 import com.contacts.callerid.number.lookup.R
 import com.contacts.callerid.number.lookup.databinding.ActivityAiScanBinding
 import com.contacts.callerid.number.lookup.foundation.BaseActivity
@@ -45,7 +46,7 @@ class AiScanActivity : BaseActivity<ActivityAiScanBinding>() {
 
     private val adapter by lazy {
         AiScanAdapter(
-            actionLabel = if (mode == MODE_SPAM) R.string.scan_action_block else R.string.scan_action_save,
+            actionLabel = if (mode == MODE_SPAM) R.string.scan_action_block else R.string.action_identify,
             destructive = mode == MODE_SPAM,
             onAction = ::runRowAction
         )
@@ -163,15 +164,16 @@ class AiScanActivity : BaseActivity<ActivityAiScanBinding>() {
                 if (adapter.itemCount == 0) scan()
             }
         } else {
-            // Hands off to the system contact editor rather than writing the
-            // contact here: that would need WRITE_CONTACTS, a permission this app
-            // does not hold and does not need for one insert the user confirms.
-            val intent = Intent(Intent.ACTION_INSERT).apply {
-                type = ContactsContract.Contacts.CONTENT_TYPE
-                putExtra(ContactsContract.Intents.Insert.PHONE, row.number)
-            }
-            runCatching { startActivity(intent) }
-                .onFailure { Toast.makeText(this, R.string.scan_no_contacts_app, Toast.LENGTH_SHORT).show() }
+            // Identify, not Save. This handed the number to the system contact
+            // editor, which asks the user to name someone they have just been
+            // told they do not know — the question they actually have is "who is
+            // this?", and that is the lookup. Saving is still one tap further
+            // on: the result screen offers it once there is a name to save.
+            //
+            // The row is left in place. Looking a number up does not make it a
+            // saved contact, so removing it here would be a lie the next scan
+            // would undo.
+            openActivity(LookupActivity.newIntent(this, row.number))
         }
     }
 

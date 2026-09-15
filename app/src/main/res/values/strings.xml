@@ -903,7 +903,6 @@
     <string name="tools_unsaved">Unsaved callers</string>
     <string name="tools_unsaved_sub">People you talk to but never saved</string>
     <string name="scan_action_block">Block</string>
-    <string name="scan_action_save">Save</string>
     <string name="scan_found_spam">%1$d numbers worth blocking</string>
     <string name="scan_found_unsaved">%1$d numbers worth saving</string>
     <string name="scan_empty_spam">Nothing worth blocking. Your call log looks clean.</string>
@@ -911,5 +910,4 @@
     <string name="scan_reason_never_answered">Rang %1$d times, never answered</string>
     <string name="scan_reason_streak">Last %1$d of %2$d calls unanswered</string>
     <string name="scan_reason_unsaved">%1$d calls, you answered %2$d</string>
-    <string name="scan_no_contacts_app">No contacts app found</string>
 </resources>

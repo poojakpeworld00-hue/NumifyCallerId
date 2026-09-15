@@ -728,7 +728,6 @@
     <string name="tools_unsaved">未保存的号码</string>
     <string name="tools_unsaved_sub">你常联系却没保存的人</string>
     <string name="scan_action_block">拉黑</string>
-    <string name="scan_action_save">保存</string>
     <string name="scan_found_spam">%1$d 个号码建议拉黑</string>
     <string name="scan_found_unsaved">%1$d 个号码建议保存</string>
     <string name="scan_empty_spam">没有需要拉黑的。你的通话记录很干净。</string>
@@ -736,7 +735,6 @@
     <string name="scan_reason_never_answered">响了 %1$d 次，从未接听</string>
     <string name="scan_reason_streak">最近 %2$d 通中有 %1$d 通未接</string>
     <string name="scan_reason_unsaved">%1$d 通电话，你接了 %2$d 通</string>
-    <string name="scan_no_contacts_app">未找到通讯录应用</string>
     <string name="incall_identified">已识别</string>
     <string name="incall_spam">骚扰电话</string>
     <string name="ai_verdict_network_spam">其他用户已将此号码举报为骚扰电话</string>

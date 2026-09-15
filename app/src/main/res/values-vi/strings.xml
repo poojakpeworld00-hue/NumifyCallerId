@@ -728,7 +728,6 @@
     <string name="tools_unsaved">Số chưa lưu</string>
     <string name="tools_unsaved_sub">Những người bạn hay nói chuyện nhưng chưa lưu</string>
     <string name="scan_action_block">Chặn</string>
-    <string name="scan_action_save">Lưu</string>
     <string name="scan_found_spam">%1$d số nên chặn</string>
     <string name="scan_found_unsaved">%1$d số nên lưu</string>
     <string name="scan_empty_spam">Không có gì để chặn. Nhật ký của bạn sạch.</string>
@@ -736,7 +735,6 @@
     <string name="scan_reason_never_answered">Đổ chuông %1$d lần, chưa từng nghe</string>
     <string name="scan_reason_streak">%1$d trong %2$d cuộc gọi gần nhất không nghe</string>
     <string name="scan_reason_unsaved">%1$d cuộc gọi, bạn nghe %2$d</string>
-    <string name="scan_no_contacts_app">Không tìm thấy ứng dụng danh bạ</string>
     <string name="incall_identified">Đã nhận diện</string>
     <string name="incall_spam">Spam</string>
     <string name="ai_verdict_network_spam">Người khác đã báo cáo số này là spam</string>

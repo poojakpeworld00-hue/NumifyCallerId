@@ -18,6 +18,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.contacts.callerid.number.lookup.common.DialedNumberCheck
 import com.contacts.callerid.number.lookup.common.ListDividerDecoration
 import com.contacts.callerid.number.lookup.common.openActivity
 import com.contacts.callerid.number.lookup.R
@@ -278,7 +279,11 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         val hasNumber = dialedNumber().isNotEmpty()
         val ctx = context ?: return
         binding.rowAddContact.isVisible = hasNumber && !savedExact && !hasNamedMatch
-        binding.rowDialLookup.isVisible = hasNumber
+        // Only once the digits amount to a real number in the user's country.
+        // Half a number has nothing to look up, and offering it anyway teaches
+        // people the feature does not work.
+        binding.rowDialLookup.isVisible =
+            hasNumber && DialedNumberCheck.isLookupable(ctx, dialedNumber())
         binding.rowDialAskAi.isVisible = hasNumber &&
             AiFeatureConfig.isEnabled(ctx) && SettingsRepository(ctx).aiHomeButtonEnabled
         binding.rowDialWhatsApp.isVisible = hasNumber && whatsAppPackage() != null

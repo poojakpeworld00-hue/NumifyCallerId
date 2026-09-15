@@ -728,7 +728,6 @@
     <string name="tools_unsaved">เบอร์ที่ยังไม่บันทึก</string>
     <string name="tools_unsaved_sub">คนที่คุณคุยด้วยแต่ยังไม่บันทึก</string>
     <string name="scan_action_block">บล็อก</string>
-    <string name="scan_action_save">บันทึก</string>
     <string name="scan_found_spam">%1$d เบอร์ที่ควรบล็อก</string>
     <string name="scan_found_unsaved">%1$d เบอร์ที่ควรบันทึก</string>
     <string name="scan_empty_spam">ไม่มีอะไรต้องบล็อก ประวัติของคุณสะอาด</string>
@@ -736,7 +735,6 @@
     <string name="scan_reason_never_answered">โทรมา %1$d ครั้ง ไม่เคยรับ</string>
     <string name="scan_reason_streak">%1$d จาก %2$d สายล่าสุดไม่ได้รับ</string>
     <string name="scan_reason_unsaved">%1$d สาย คุณรับ %2$d</string>
-    <string name="scan_no_contacts_app">ไม่พบแอปรายชื่อ</string>
     <string name="incall_identified">ระบุตัวตนแล้ว</string>
     <string name="incall_spam">สแปม</string>
     <string name="ai_verdict_network_spam">มีผู้ใช้รายอื่นรายงานหมายเลขนี้ว่าเป็นสแปม</string>

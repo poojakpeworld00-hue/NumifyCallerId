@@ -785,7 +785,6 @@
     <string name="tools_unsaved">Несохранённые номера</string>
     <string name="tools_unsaved_sub">Люди, с которыми вы говорите, но не сохранили</string>
     <string name="scan_action_block">Блокировать</string>
-    <string name="scan_action_save">Сохранить</string>
     <string name="scan_found_spam">Номеров для блокировки: %1$d</string>
     <string name="scan_found_unsaved">Номеров для сохранения: %1$d</string>
     <string name="scan_empty_spam">Блокировать нечего. Журнал чистый.</string>
@@ -793,7 +792,6 @@
     <string name="scan_reason_never_answered">Звонил %1$d раз, ни разу не принят</string>
     <string name="scan_reason_streak">Последние %1$d из %2$d звонков без ответа</string>
     <string name="scan_reason_unsaved">Звонков: %1$d, вы ответили %2$d</string>
-    <string name="scan_no_contacts_app">Приложение контактов не найдено</string>
     <string name="incall_identified">Определён</string>
     <string name="incall_spam">Спам</string>
     <string name="ai_verdict_network_spam">Другие пользователи пожаловались на этот номер</string>

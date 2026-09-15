@@ -733,7 +733,6 @@
     <string name="tools_unsaved">Numéros non enregistrés</string>
     <string name="tools_unsaved_sub">Des gens à qui vous parlez sans les avoir enregistrés</string>
     <string name="scan_action_block">Bloquer</string>
-    <string name="scan_action_save">Enregistrer</string>
     <string name="scan_found_spam">%1$d numéros à bloquer</string>
     <string name="scan_found_unsaved">%1$d numéros à enregistrer</string>
     <string name="scan_empty_spam">Rien à bloquer. Votre journal est propre.</string>
@@ -741,7 +740,6 @@
     <string name="scan_reason_never_answered">%1$d sonneries, jamais décroché</string>
     <string name="scan_reason_streak">%1$d des %2$d derniers appels sans réponse</string>
     <string name="scan_reason_unsaved">%1$d appels, vous avez répondu %2$d fois</string>
-    <string name="scan_no_contacts_app">Aucune application de contacts trouvée</string>
     <string name="incall_identified">Identifié</string>
     <string name="incall_spam">Spam</string>
     <string name="ai_verdict_network_spam">D\'autres personnes ont signalé ce numéro comme spam</string>

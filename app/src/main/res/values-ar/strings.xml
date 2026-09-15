@@ -779,7 +779,6 @@
     <string name="tools_unsaved">أرقام غير محفوظة</string>
     <string name="tools_unsaved_sub">أشخاص تتحدث معهم ولم تحفظهم</string>
     <string name="scan_action_block">حظر</string>
-    <string name="scan_action_save">حفظ</string>
     <string name="scan_found_spam">%1$d رقمًا يستحق الحظر</string>
     <string name="scan_found_unsaved">%1$d رقمًا يستحق الحفظ</string>
     <string name="scan_empty_spam">لا شيء يستحق الحظر. سجلك نظيف.</string>
@@ -787,7 +786,6 @@
     <string name="scan_reason_never_answered">رنّ %1$d مرة ولم يُرد أبدًا</string>
     <string name="scan_reason_streak">%1$d من آخر %2$d مكالمات دون رد</string>
     <string name="scan_reason_unsaved">%1$d مكالمة، أجبت على %2$d</string>
-    <string name="scan_no_contacts_app">لم يتم العثور على تطبيق جهات اتصال</string>
     <string name="incall_identified">تم التعرف عليه</string>
     <string name="incall_spam">مزعج</string>
     <string name="ai_verdict_network_spam">أبلغ مستخدمون آخرون عن هذا الرقم كرقم مزعج</string>
