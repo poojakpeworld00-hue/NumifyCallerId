@@ -10,6 +10,7 @@ import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -190,7 +191,28 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
             }
             ActivityCompat.shouldShowRequestPermissionRationale(this, permission) ->
                 launcher.launch(permission)
-            else -> openAppSettings()
+            else -> showPermissionBlockedDialog()
+        }
+    }
+
+    /**
+     * Explains a permanently-denied permission without leaving the app.
+     *
+     * This used to call [openAppSettings] outright, so a third tap threw the user
+     * into Android's App info page with no warning. The settings page is still
+     * offered — once Android stops showing its dialog it is the only way the
+     * permission can be turned back on — but the user chooses to go there rather
+     * than arriving.
+     */
+    protected fun showPermissionBlockedDialog() {
+        if (isFinishing || isDestroyed) return
+        runCatching {
+            AlertDialog.Builder(this)
+                .setTitle(R.string.perm_blocked_title)
+                .setMessage(R.string.perm_blocked_message)
+                .setNegativeButton(R.string.perm_blocked_dismiss, null)
+                .setPositiveButton(R.string.perm_blocked_open) { _, _ -> openAppSettings() }
+                .show()
         }
     }
 

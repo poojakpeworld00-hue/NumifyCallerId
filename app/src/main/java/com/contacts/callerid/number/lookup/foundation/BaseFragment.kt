@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -157,9 +158,8 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     /**
      * Requests [permission] through the supplied [launcher]. Once the user has
-     * refused it twice, the permanently-denied state in which the system stops
-     * showing its dialog, it opens the app's settings page instead so they can
-     * enable it by hand.
+     * refused it twice — the permanently-denied state where Android stops showing
+     * its dialog — it explains that in place rather than going anywhere.
      */
     protected fun requestPermissionManaged(
         permission: String,
@@ -174,8 +174,32 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
             }
             // Denied before but the system will still show the dialog → ask again.
             shouldShowRequestPermissionRationale(permission) -> launcher.launch(permission)
-            // Permanently denied → the dialog won't appear, so send them to Settings.
-            else -> openAppSettings()
+            // Permanently denied → say so, and let the user decide.
+            else -> showPermissionBlockedDialog()
+        }
+    }
+
+    /**
+     * Explains a permanently-denied permission without leaving the app.
+     *
+     * This used to call [openAppSettings] outright, so a third tap on Grant threw
+     * the user into Android's App info page with no warning — a different app, a
+     * different back stack, and nothing saying why they were there.
+     *
+     * The settings page is still offered, because it is genuinely the only place
+     * the permission can be turned back on: once Android stops showing its dialog
+     * the app cannot ask again. Offering it is the difference — the user chooses
+     * to go, rather than arriving.
+     */
+    protected fun showPermissionBlockedDialog() {
+        val ctx = context ?: return
+        runCatching {
+            AlertDialog.Builder(ctx)
+                .setTitle(R.string.perm_blocked_title)
+                .setMessage(R.string.perm_blocked_message)
+                .setNegativeButton(R.string.perm_blocked_dismiss, null)
+                .setPositiveButton(R.string.perm_blocked_open) { _, _ -> openAppSettings() }
+                .show()
         }
     }
 
@@ -184,6 +208,12 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     private val permissionChain = ArrayDeque<String>()
     private var onPermissionChainComplete: (() -> Unit)? = null
     private var lastChainPermission: String? = null
+
+    /**
+     * Set when the chain steps over a permission Android will no longer prompt
+     * for, so the end of the run can say so once instead of once per permission.
+     */
+    private var blockedInChain = false
 
     private val chainLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -205,6 +235,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     ) {
         permissionChain.clear()
         permissionChain.addAll(permissions)
+        blockedInChain = false
         onPermissionChainComplete = onComplete
         advancePermissionChain()
     }
@@ -230,8 +261,15 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
                     lastChainPermission = permission
                     chainLauncher.launch(permission)
                 }
-                // Permanently denied → divert to Settings and pause here.
-                else -> openAppSettings()
+                // Permanently denied → skip it and keep going. This used to divert
+                // to Settings and stop the chain dead, so one refused permission
+                // meant the remaining ones were never asked for at all. The sheet
+                // already shows which are missing; the chain's job is to ask for
+                // the ones Android will still let it ask for.
+                else -> {
+                    blockedInChain = true
+                    continue
+                }
             }
             return
         }

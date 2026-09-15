@@ -1,5 +1,6 @@
 package com.contacts.callerid.number.lookup.monetize.delivery.engagement
 
+import com.contacts.callerid.number.lookup.common.TimeFormats
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -110,9 +111,9 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
         bindAiSummary(phone, durationSec.toLong())
 
         // Time — show end time if available
-        val timeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
-        binding.labelTime.text = timeFormat.format(
-            if (endTimeMillis > 0) Date(endTimeMillis) else Date()
+        binding.labelTime.text = TimeFormats.clock(
+            this,
+            if (endTimeMillis > 0) endTimeMillis else System.currentTimeMillis(),
         )
 
         // Recent-call list is the default ("first") tab of the post-call screen.

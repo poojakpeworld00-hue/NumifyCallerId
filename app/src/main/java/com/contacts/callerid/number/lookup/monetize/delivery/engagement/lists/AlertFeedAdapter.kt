@@ -1,5 +1,6 @@
 package com.contacts.callerid.number.lookup.monetize.delivery.engagement.lists
 
+import com.contacts.callerid.number.lookup.common.TimeFormats
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,8 +35,8 @@ class AlertFeedAdapter(
     override fun onBindViewHolder(holder: ReminderViewHolder, position: Int) {
         val reminder = list[position]
         holder.title.text = reminder.title
-        val format = SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault())
-        holder.time.text = format.format(Date(reminder.dateTime))
+        val day = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(reminder.dateTime))
+        holder.time.text = "$day, " + TimeFormats.clock(holder.itemView.context, reminder.dateTime)
         holder.delete.triggerClick {
             onDelete(reminder)
         }

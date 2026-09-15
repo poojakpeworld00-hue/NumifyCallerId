@@ -712,6 +712,14 @@
     <string name="tools_clear_search">Clear search</string>
 
     <!-- Permission priming bottom sheet -->
+    <!-- Shown when a permission has been refused enough times that Android stops
+         offering its dialog. The app cannot grant it from here, so this is the
+         one place it names the system settings page — and only as an offer. -->
+    <string name="perm_blocked_title">Permission is switched off</string>
+    <string name="perm_blocked_message">Android won\'t ask again for this one. You can turn it on in Settings whenever you like — everything else in the app keeps working.</string>
+    <string name="perm_blocked_open">Open settings</string>
+    <string name="perm_blocked_dismiss">Not now</string>
+
     <string name="perm_sheet_title">A few permissions to go</string>
     <string name="perm_sheet_subtitle">Caller ID, spam alerts and call history each depend on one of these.</string>
     <string name="perm_sheet_continue">Continue</string>

@@ -84,7 +84,7 @@ class CallLogAdapter(
             binding.textName.text = CallActionHandler.displayName(e.name, e.number)
 
             val type = ctx.getString(CallActionHandler.typeLabelRes(e.type))
-            val time = CallActionHandler.timeLabel(e.date)
+            val time = CallActionHandler.timeLabel(ctx, e.date)
             val duration = CallActionHandler.durationLabel(e.durationSec)
             binding.textSub.text = buildString {
                 append(type).append(" · ").append(time)

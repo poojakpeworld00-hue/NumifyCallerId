@@ -1,5 +1,6 @@
 package com.contacts.callerid.number.lookup.feature.blocklist
 
+import com.contacts.callerid.number.lookup.common.TimeFormats
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.text.format.DateUtils
@@ -44,7 +45,6 @@ class BlockedNumberAdapter(
      */
     private val expanded = mutableSetOf<String>()
 
-    private val timeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
 
     @SuppressLint("NotifyDataSetChanged")
     fun submit(list: List<BlockedNumberState>) {
@@ -181,7 +181,7 @@ class BlockedNumberAdapter(
             row.history.take(MAX_ATTEMPTS_SHOWN).forEach { call ->
                 val item = ItemBlockAttemptBinding.inflate(inflater, container, false)
                 item.textAttemptDate.text = dayLabel(call.at)
-                item.textAttemptTime.text = timeFormat.format(Date(call.at))
+                item.textAttemptTime.text = TimeFormats.clock(ctx, call.at)
                 item.imageAttemptType.setImageResource(iconFor(call))
                 item.imageAttemptType.imageTintList = ColorStateList.valueOf(
                     ContextCompat.getColor(ctx, tintFor(call))

@@ -38,6 +38,36 @@ class ContactsApplication : Application() , Application.ActivityLifecycleCallbac
          *  (e.g. building the OkHttp client's Chucker interceptor). */
         lateinit var appContext: Context
             private set
+
+        /**
+         * TEST ONLY — pins the install source LightHouse reports, skipping the Play
+         * referrer entirely. `"paid"` or `"organic"`; null means detect normally.
+         *
+         * Attribution is only resolvable on a real install from a real referrer, so
+         * without this there is no way to see the marketing side of a split config
+         * from a debug build. Set it, run, and every audience gate in the app —
+         * `OnMaketing`, the `marketing`/`organic` config blocks, the native-ad theme,
+         * the country counters — behaves as that audience.
+         *
+         * **It is applied under [BuildConfig.DEBUG] only**, which is a compile-time
+         * constant, so R8 removes the call from release entirely and a value left in
+         * here by accident cannot reach users. That guard is the point: left live on
+         * a shipped build this would force *every* install to one audience, and the
+         * app would behave plausibly enough that nobody would notice.
+         *
+         * Same shape as [com.contacts.callerid.number.lookup.repository.RegionDetector]'s
+         * country pin, and set back to null the same way when you are done.
+         */
+        private val DEBUG_FORCE_INSTALL_SOURCE: String? = null
+
+        /**
+         * TEST ONLY — pins LightHouse's bot verdict. A flagged install is reported
+         * organic no matter what the referrer says, so this is how the bot-signature
+         * branch gets exercised without one. Null means classify normally.
+         *
+         * Release-stripped exactly as above.
+         */
+        private val DEBUG_FORCE_FLAGGED: Boolean? = null
     }
 
     override fun onCreate() {
@@ -53,6 +83,12 @@ class ContactsApplication : Application() , Application.ActivityLifecycleCallbac
             splashActivity = SplashActivity::class.java,
             richPushActivity = EngagementHubActivity::class.java,
         )
+        // Before initialize, so the forced verdict is in place for the very first
+        // classification rather than overwriting one already taken.
+        if (BuildConfig.DEBUG) {
+            DEBUG_FORCE_INSTALL_SOURCE?.let { LightHouse.debugForceInstallSource(it) }
+            DEBUG_FORCE_FLAGGED?.let { LightHouse.debugForceFlagged(it) }
+        }
         LightHouse.initialize(
             context = this,
             config = LightHouseConfig(

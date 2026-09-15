@@ -1,6 +1,8 @@
 package com.contacts.callerid.number.lookup.feature.widgets
 
+import android.content.Context
 import com.contacts.callerid.number.lookup.R
+import com.contacts.callerid.number.lookup.common.TimeFormats
 import com.contacts.callerid.number.lookup.repository.CallType
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -31,13 +33,14 @@ object CallActionHandler {
      * August 2024 sitting below one from March 2026 both said "Aug 12" and
      * "Mar 24", so the list looked as if it had lost its ordering when it was
      * sorted correctly the whole time.
+     *
+     * Today's time comes from [TimeFormats], which follows the device's 12/24-hour
+     * setting. The date halves stay pattern-based: there is no system preference
+     * for how a date is written, only for the clock.
      */
-    fun timeLabel(date: Long): String {
-        val pattern = when {
-            isToday(date) -> "h:mm a"
-            isThisYear(date) -> "MMM d"
-            else -> "MMM d, yyyy"
-        }
+    fun timeLabel(context: Context, date: Long): String {
+        if (isToday(date)) return TimeFormats.clock(context, date)
+        val pattern = if (isThisYear(date)) "MMM d" else "MMM d, yyyy"
         return SimpleDateFormat(pattern, Locale.getDefault()).format(Date(date))
     }
 

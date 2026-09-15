@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.contacts.callerid.number.lookup.R
+import com.contacts.callerid.number.lookup.common.TimeFormats
 import com.contacts.callerid.number.lookup.foundation.BaseActivity
 import com.contacts.callerid.number.lookup.monetize.delivery.RewardedAdPresenter
 import com.contacts.callerid.number.lookup.feature.blocklist.BlockReward
@@ -194,8 +195,7 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
         binding.columnHistory.addView(row.root)
     }
 
-    private fun timeLabel(date: Long): String =
-        SimpleDateFormat("h:mm a", Locale.getDefault()).format(Date(date))
+    private fun timeLabel(date: Long): String = TimeFormats.clock(this, date)
 
     /** Group label: Today / Yesterday / "MMM d" (upper-cased by the header style). */
     private fun dateHeader(date: Long): String = when {
