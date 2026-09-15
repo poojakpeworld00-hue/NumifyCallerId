@@ -91,8 +91,10 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
 
         setupAlphaIndexTouch()
         binding.buttonGrant.setOnClickListener {
+            // Same order as Recents: notifications, then this screen's own
+            // permission, then the overlay where Remote Config permits it.
             requestPermissionChain(
-                listOf(Manifest.permission.READ_CONTACTS)
+                notificationFirst(Manifest.permission.READ_CONTACTS)
             ) {
                 if (hasContactsPermission()) onPermissionGranted() else showPermissionState()
                 (activity as? MainShellActivity)?.startOverlayPermissionFlow()

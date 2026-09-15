@@ -107,8 +107,12 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         binding.tabOutgoing.setOnClickListener { viewModel.applyFilter(CallLogFilter.OUTGOING) }
         binding.tabMissed.setOnClickListener { viewModel.applyFilter(CallLogFilter.MISSED) }
         binding.buttonGrant.setOnClickListener {
+            // Notifications, then the call log, then — if Remote Config still
+            // allows the ask — the overlay. Someone who tapped "Not now" on the
+            // splash sheet meets notifications again here, ahead of the
+            // permission this screen needs, rather than never being asked twice.
             requestPermissionChain(
-                listOf(Manifest.permission.READ_CALL_LOG)
+                notificationFirst(Manifest.permission.READ_CALL_LOG)
             ) {
                 if (hasCallLogPermission()) onPermissionGranted() else showPermissionState()
                 (activity as? MainShellActivity)?.startOverlayPermissionFlow()

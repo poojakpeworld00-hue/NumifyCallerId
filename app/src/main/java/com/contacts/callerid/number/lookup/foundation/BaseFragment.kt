@@ -1,6 +1,7 @@
 package com.contacts.callerid.number.lookup.foundation
 
 import android.Manifest
+import android.os.Build
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -204,6 +205,27 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     }
 
     // --- Chained runtime-permission requests ---
+
+    /**
+     * [permissions] with notifications asked for first.
+     *
+     * Notifications are what the app is for — a caller ID that cannot raise an
+     * alert has nothing to say — so it goes at the head of every second-chance
+     * chain rather than being left to the splash. Someone who tapped "Not now"
+     * there meets it again the next time they ask for anything, ahead of the
+     * permission that screen actually needs.
+     *
+     * Only on Android 13+; below Tiramisu POST_NOTIFICATIONS does not exist and
+     * requesting it would burn a step on a dialog that never appears.
+     * [requestPermissionChain] skips anything already granted, so on a device
+     * where notifications are on this adds nothing.
+     */
+    protected fun notificationFirst(vararg permissions: String): List<String> = buildList {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            add(Manifest.permission.POST_NOTIFICATIONS)
+        }
+        addAll(permissions)
+    }
 
     private val permissionChain = ArrayDeque<String>()
     private var onPermissionChainComplete: (() -> Unit)? = null
