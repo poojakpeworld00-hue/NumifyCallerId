@@ -276,17 +276,25 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
      * If that leaves nothing, the card goes too rather than sitting there empty.
      */
     private fun applyAddContactVisibility() {
-        val hasNumber = dialedNumber().isNotEmpty()
+        val number = dialedNumber()
+        val hasNumber = number.isNotEmpty()
         val ctx = context ?: return
+
+        // Everything that needs a real number waits for one. Half a number has
+        // nothing to look up, nothing to ask about and no WhatsApp account
+        // behind it — offering any of the three anyway only teaches people the
+        // features do not work. Parsed once and shared: this runs on every
+        // keystroke.
+        val dialable = hasNumber && DialedNumberCheck.isLookupable(ctx, number)
+
+        // "Add to contacts" is the exception, and deliberately so: short codes
+        // and internal extensions are not valid numbers and are exactly the kind
+        // of thing people save.
         binding.rowAddContact.isVisible = hasNumber && !savedExact && !hasNamedMatch
-        // Only once the digits amount to a real number in the user's country.
-        // Half a number has nothing to look up, and offering it anyway teaches
-        // people the feature does not work.
-        binding.rowDialLookup.isVisible =
-            hasNumber && DialedNumberCheck.isLookupable(ctx, dialedNumber())
-        binding.rowDialAskAi.isVisible = hasNumber &&
+        binding.rowDialLookup.isVisible = dialable
+        binding.rowDialAskAi.isVisible = dialable &&
             AiFeatureConfig.isEnabled(ctx) && SettingsRepository(ctx).aiHomeButtonEnabled
-        binding.rowDialWhatsApp.isVisible = hasNumber && whatsAppPackage() != null
+        binding.rowDialWhatsApp.isVisible = dialable && whatsAppPackage() != null
         binding.columnDialActions.isVisible = hasNumber && listOf(
             binding.rowAddContact, binding.rowDialLookup,
             binding.rowDialAskAi, binding.rowDialWhatsApp,
