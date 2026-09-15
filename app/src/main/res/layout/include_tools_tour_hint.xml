@@ -15,8 +15,11 @@
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/_16sdp">
 
+    <!-- @id/coachCaret is a contract, not decoration: CoachMarkOverlay looks this
+         id up and slides the caret under the centre of whatever it is
+         spotlighting. The start margin is only where it sits before that runs. -->
     <ImageView
-        android:id="@+id/imageTourCaret"
+        android:id="@+id/coachCaret"
         android:layout_width="@dimen/_16sdp"
         android:layout_height="@dimen/_8sdp"
         android:layout_marginStart="@dimen/_24sdp"

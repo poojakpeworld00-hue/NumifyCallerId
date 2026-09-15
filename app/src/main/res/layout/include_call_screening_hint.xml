@@ -10,7 +10,10 @@
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/_16sdp">
 
+    <!-- See include_tools_tour_hint: CoachMarkOverlay finds @id/coachCaret and
+         centres it under the spotlight. -->
     <ImageView
+        android:id="@+id/coachCaret"
         android:layout_width="@dimen/_16sdp"
         android:layout_height="@dimen/_8sdp"
         android:layout_marginStart="@dimen/_24sdp"

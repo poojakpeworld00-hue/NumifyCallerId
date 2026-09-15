@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
+import com.contacts.callerid.number.lookup.R
 
 /**
  * Full-screen modal coach-mark. It dims the screen, cuts a rounded "spotlight"
@@ -77,8 +78,36 @@ class CoachMarkOverlay private constructor(context: Context) : FrameLayout(conte
             else (holeRect.top - dp(10f) - b.height).toInt().coerceAtLeast(dp(16f).toInt())
             (b.layoutParams as LayoutParams).topMargin = top
             b.requestLayout()
+            aimCaret(b)
         }
         invalidate()
+    }
+
+    /**
+     * Slides the bubble's caret under the centre of the spotlight.
+     *
+     * The caret sits at a fixed start margin in the layout, which is right only
+     * when the target happens to be at the left edge — spotlight the second tile
+     * in a rail and the bubble ends up pointing at the gap beside it. It is moved
+     * by translationX rather than by a margin so this can run on every layout
+     * pass without asking for another one.
+     *
+     * Clamped to the bubble's own rounded body: a caret pushed past the corner
+     * radius reads as a stray triangle rather than as part of the bubble, and a
+     * target near the screen edge would otherwise put it there.
+     */
+    private fun aimCaret(bubble: View) {
+        val caret = bubble.findViewById<View>(R.id.coachCaret) ?: return
+        if (caret.width == 0 || bubble.width == 0) return
+
+        val inset = dp(16f) + dp(12f)   // the bubble's own side padding, plus its corner
+        val minX = bubble.left + inset
+        val maxX = bubble.left + bubble.width - inset - caret.width
+        if (maxX < minX) return
+
+        val wanted = holeRect.centerX() - caret.width / 2f
+        val restingX = (bubble.left + caret.left).toFloat()
+        caret.translationX = wanted.coerceIn(minX, maxX) - restingX
     }
 
     override fun onAttachedToWindow() {
