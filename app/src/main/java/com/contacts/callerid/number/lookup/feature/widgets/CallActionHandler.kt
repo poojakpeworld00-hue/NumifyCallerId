@@ -22,9 +22,30 @@ object CallActionHandler {
         return "#"
     }
 
+    /**
+     * A call's timestamp: the time for today, the date otherwise — and the year
+     * too, once the call is from a different one.
+     *
+     * The year used to be left off always. On a log that only goes back a few
+     * weeks that reads fine; on one spanning years it is a lie. A call from
+     * August 2024 sitting below one from March 2026 both said "Aug 12" and
+     * "Mar 24", so the list looked as if it had lost its ordering when it was
+     * sorted correctly the whole time.
+     */
     fun timeLabel(date: Long): String {
-        val pattern = if (isToday(date)) "h:mm a" else "MMM d"
+        val pattern = when {
+            isToday(date) -> "h:mm a"
+            isThisYear(date) -> "MMM d"
+            else -> "MMM d, yyyy"
+        }
         return SimpleDateFormat(pattern, Locale.getDefault()).format(Date(date))
+    }
+
+    /** Whether [date] falls in the current calendar year. */
+    private fun isThisYear(date: Long): Boolean {
+        val now = Calendar.getInstance()
+        val then = Calendar.getInstance().apply { timeInMillis = date }
+        return now.get(Calendar.YEAR) == then.get(Calendar.YEAR)
     }
 
     fun durationLabel(seconds: Long): String {

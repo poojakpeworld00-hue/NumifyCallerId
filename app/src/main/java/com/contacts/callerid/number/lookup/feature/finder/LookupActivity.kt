@@ -52,6 +52,23 @@ class LookupActivity : BaseActivity<ActivityLookupBinding>() {
         }
     }
 
+    /**
+     * A second start while this screen is already up hands the number to the
+     * fragment that is here rather than building another one.
+     *
+     * The manifest marks this singleTop, so a double tap on the Tools tile — two
+     * taps through an interstitial that takes a moment to clear — reuses this
+     * instance instead of stacking a second Lookup for the user to back out of
+     * twice. Without this the reused instance would simply ignore the number.
+     */
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        val number = intent.getStringExtra(EXTRA_NUMBER)?.takeIf { it.isNotBlank() } ?: return
+        val fragment = supportFragmentManager.findFragmentById(R.id.lookupContainer)
+        (fragment as? NumberFinderFragment)?.requestSearch(number)
+    }
+
     companion object {
         /** A number to search on arrival — e.g. "Identify" from a recents row. */
         const val EXTRA_NUMBER = "extra_lookup_number"

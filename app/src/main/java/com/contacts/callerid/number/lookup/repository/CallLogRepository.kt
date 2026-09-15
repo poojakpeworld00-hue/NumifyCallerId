@@ -59,7 +59,20 @@ class CallLogRepository(private val context: Context) {
             )?.use { it.count } ?: 0
         }.getOrDefault(0)
 
-    fun getCalls(limit: Int = 500): List<CallRecord> {
+    /**
+     * The newest [limit] calls, optionally only those of the given provider
+     * [types].
+     *
+     * [types] exists because the cap and in-memory filtering do not mix. The
+     * recents tabs used to take these rows once and filter them in the view
+     * model, which quietly means "the incoming calls among the newest 500" —
+     * not "the newest 500 incoming calls". On a log where one number dominates
+     * the recent rows, a tab could show a handful of calls while the log held
+     * plenty more, and the header count (taken from the whole log) disagreed
+     * with the list underneath it. Asking the provider for the type lets each
+     * tab fill its own window.
+     */
+    fun getCalls(limit: Int = 500, types: IntArray? = null): List<CallRecord> {
         val result = mutableListOf<CallRecord>()
         val projection = arrayOf(
             CallLog.Calls.CACHED_NAME,
@@ -68,12 +81,16 @@ class CallLogRepository(private val context: Context) {
             CallLog.Calls.DATE,
             CallLog.Calls.DURATION
         )
+        val selection = types
+            ?.takeIf { it.isNotEmpty() }
+            ?.let { "${CallLog.Calls.TYPE} IN (${it.joinToString(",") { "?" }})" }
+        val args = types?.takeIf { it.isNotEmpty() }?.map { it.toString() }?.toTypedArray()
 
         context.contentResolver.query(
             CallLog.Calls.CONTENT_URI,
             projection,
-            null,
-            null,
+            selection,
+            args,
             "${CallLog.Calls.DATE} DESC"
         )?.use { cursor ->
             val nameIdx = cursor.getColumnIndex(CallLog.Calls.CACHED_NAME)

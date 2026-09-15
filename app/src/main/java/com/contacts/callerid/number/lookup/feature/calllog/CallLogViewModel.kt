@@ -50,10 +50,24 @@ class CallLogViewModel(app: Application) : AndroidViewModel(app) {
     private val _photos = MutableLiveData<Map<String, String>>(emptyMap())
     val photos: LiveData<Map<String, String>> = _photos
 
+    /**
+     * Loads the rows for the active tab, plus the whole-log counts and photos.
+     *
+     * The tab's types go to the provider rather than being applied to a shared
+     * page afterwards. Filtering in memory meant each tab showed "the incoming
+     * calls among the newest 500", not "the newest 500 incoming calls" — so on a
+     * busy log a tab could come up nearly empty while the header, counted from
+     * the whole log, insisted there were far more.
+     */
     fun load() {
+        val types = (_filter.value ?: CallLogFilter.ALL).providerTypes
         viewModelScope.launch {
             val (calls, totals, photos) = withContext(Dispatchers.IO) {
-                Triple(repository.getCalls(), repository.getTotals(), contacts.photoUriByNumber())
+                Triple(
+                    repository.getCalls(types = types),
+                    repository.getTotals(),
+                    contacts.photoUriByNumber(),
+                )
             }
             allCalls = calls
             _totals.value = totals
@@ -62,10 +76,11 @@ class CallLogViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    /** Switching tabs re-queries: each one gets its own window of the log. */
     fun applyFilter(filter: CallLogFilter) {
         if (_filter.value == filter) return
         _filter.value = filter
-        rebuild()
+        load()
     }
 
     fun applySort(sort: CallLogSort) {
@@ -111,6 +126,11 @@ class CallLogViewModel(app: Application) : AndroidViewModel(app) {
             number.lowercase(locale).contains(needle)
     }
 
+    /**
+     * Belt to the query's braces: the rows already arrive filtered, so this only
+     * catches a type the provider returned that the tab did not ask for.
+     * Cheap, and it keeps the list honest if a device reports an odd type.
+     */
     private fun CallLogFilter.accepts(type: CallType): Boolean = when (this) {
         CallLogFilter.ALL -> true
         CallLogFilter.INCOMING -> type == CallType.INCOMING

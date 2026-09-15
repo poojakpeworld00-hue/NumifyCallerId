@@ -99,6 +99,7 @@
         <activity
             android:screenOrientation="portrait"
             android:name=".feature.finder.LookupActivity"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />
 
@@ -107,6 +108,7 @@
         <activity
             android:screenOrientation="portrait"
             android:name=".feature.blocklist.BlocklistActivity"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />
 
