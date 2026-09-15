@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Round dialer action on Recents. The same hero gradient the protection card
+     wears, on an oval rather than a 21dp rect: with the label gone the button is
+     square, and a fixed corner radius on a square reads as a lozenge, not a
+     circle. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <gradient
+        android:angle="315"
+        android:startColor="@color/splash_grad_start"
+        android:endColor="@color/splash_accent_2"
+        android:type="linear" />
+</shape>

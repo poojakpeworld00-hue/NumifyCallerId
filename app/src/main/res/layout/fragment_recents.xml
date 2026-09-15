@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/space_grotesk_bold"
                 android:includeFontPadding="false"
-                android:text="@string/nav_recents"
+                android:text="@string/home_recent_label"
                 android:textColor="@color/ds_ink"
                 android:textSize="24sp" />
 
@@ -172,6 +172,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fadingEdgeLength="20dp"
+                android:requiresFadingEdge="horizontal"
                 android:overScrollMode="never"
                 android:paddingStart="@dimen/_16sdp"
                 android:paddingEnd="8dp"
@@ -322,40 +324,27 @@
             android:textSize="@dimen/_12ssp"
             android:visibility="gone" />
 
-        <LinearLayout
+        <!-- Quick dialer: the glyph alone. The label was redundant next to a
+             keypad icon and, on a list this dense, a word-wide button covered a
+             row's worth of numbers wherever it came to rest. The string stays as
+             the content description so the action is still named to TalkBack. -->
+        <ImageView
             android:id="@+id/buttonRecentsDial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_44sdp"
+            android:layout_height="@dimen/_44sdp"
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="@dimen/_16sdp"
             android:layout_marginBottom="@dimen/_16sdp"
-            android:background="@drawable/bg_home_protection"
+            android:background="@drawable/bg_dial_fab"
             android:clickable="true"
+            android:contentDescription="@string/quick_dialer"
             android:elevation="@dimen/_6sdp"
             android:focusable="true"
-            android:gravity="center"
-            android:orientation="horizontal"
             android:outlineAmbientShadowColor="@color/ds_card_shadow"
             android:outlineSpotShadowColor="@color/ds_card_shadow"
-            android:paddingHorizontal="@dimen/_18sdp"
-            android:paddingVertical="@dimen/_12sdp">
-
-            <ImageView
-                android:layout_width="@dimen/_16sdp"
-                android:layout_height="@dimen/_16sdp"
-                android:contentDescription="@string/quick_dialer"
-                android:src="@drawable/ic_dialpad"
-                app:tint="@color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:text="@string/quick_dialer"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12ssp"
-                android:textStyle="bold" />
-        </LinearLayout>
+            android:padding="@dimen/_13sdp"
+            android:src="@drawable/ic_dialpad"
+            app:tint="@color/white" />
 
         <!--
             A NestedScrollView, not a plain column, and that is load-bearing.

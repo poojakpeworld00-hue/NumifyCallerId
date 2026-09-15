@@ -81,30 +81,24 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Bottom navigation as the handoff draws it: a white island on a 28dp
-             radius, inset 20dp from each edge, lifted off the page by its own
-             shadow, with a 14dp gap under it.
+        <!-- Bottom navigation, flat and full-bleed.
 
-             This reverses an earlier call. Full-bleed was chosen because the
-             island's shadow and its bottom gap land on the banner ad rather than
-             on the page, so the foot of the screen reads as stacked objects —
-             that trade has not changed, and it is the reason the gap below is
-             14dp rather than the design's full breathing room. The handoff asks
-             for the island, so the island is what this is. -->
+             It used to be the handoff's floating white island — 28dp radius,
+             inset 20dp a side, on a 16dp shadow with a gap beneath. Sitting
+             directly above a banner ad, that stacked three separate objects at
+             the foot of every screen: island, gap, ad. Flat, it is just the last
+             row of the page, and the only thing under it is the ad.
+
+             No background of its own, so the page colour carries through; no
+             margins, so it spans the width; no padding, because each cell
+             already brings 8dp all round and the active wash still hugs its
+             own contents. -->
         <LinearLayout
             android:id="@+id/footerBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="14dp"
-            android:background="@drawable/bg_ds_nav_island"
             android:baselineAligned="false"
-            android:elevation="16dp"
             android:orientation="horizontal"
-            android:outlineAmbientShadowColor="@color/ds_fab_shadow"
-            android:outlineSpotShadowColor="@color/ds_fab_shadow"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="10dp"
             app:layout_constraintBottom_toTopOf="@+id/bannerAdFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
