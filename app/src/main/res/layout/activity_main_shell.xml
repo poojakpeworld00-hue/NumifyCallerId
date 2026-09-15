@@ -128,13 +128,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <!-- Reserves the slot the raised Lookup action sits over. -->
-            <Space
-                android:id="@+id/navFabSlot"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
             <include
                 android:id="@+id/navContacts"
                 layout="@layout/item_nav"
@@ -150,63 +143,6 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-        <!-- The ring that pulses out from under the centre action — the handoff's
-             `fabPulse`. Declared before the action so it draws behind it, and at
-             an elevation between the island and the action so it expands over the
-             white rather than under it. outlineProvider="none" because an
-             elevated oval would otherwise cast a shadow of its own, and this is
-             meant to read as light, not as a second object.
-
-             Driven from MainShellActivity, which also stops it while the screen is
-             away: a 2s loop that never ends is fine in a canvas and is not fine
-             on a battery. -->
-        <View
-            android:id="@+id/fabPulse"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:background="@drawable/bg_ds_nav_pulse"
-            android:elevation="17dp"
-            android:outlineProvider="none"
-            android:translationY="-14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/footerBar" />
-
-        <!-- Lookup, the centre action. The handoff raises it 14dp through the top
-             edge of the island (a 54dp circle at `margin-top:-24px` inside 10px of
-             bar padding), which the 4dp page-coloured ring on its drawable turns
-             into a punched-through hole rather than a sticker.
-
-             The overhang does eat into the last list row, which was the reason it
-             previously sat flush inside the bar. The list pads 70dp at the foot,
-             so what it eats is padding.
-
-             Still a sibling of footerBar rather than a child, so its elevation puts
-             it above the bar and it keeps its own shadow. -->
-        <FrameLayout
-            android:id="@+id/fabLookup"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:background="@drawable/bg_ds_nav_fab"
-            android:clickable="true"
-            android:contentDescription="@string/nav_lookup"
-            android:elevation="18dp"
-            android:focusable="true"
-            android:outlineAmbientShadowColor="@color/ds_fab_shadow"
-            android:outlineSpotShadowColor="@color/ds_fab_shadow"
-            android:translationY="-14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/footerBar">
-
-            <ImageView
-                android:id="@+id/fabLookupIcon"
-                android:layout_width="21dp"
-                android:layout_height="21dp"
-                android:layout_gravity="center"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_ds_nav_lookup" />
-        </FrameLayout>
 
         <!-- Full-bleed hairline separating app content from the ad below -->
         <View

@@ -789,4 +789,5 @@
     <string name="ai_ans_quota_spent">您的 %1$d 次免费提问已用完。手机自己能回答的内容仍然免费。</string>
     <string name="splash_chip_shield">骚扰拦截</string>
     <string name="splash_chip_lookup">号码查询</string>
+    <string name="tools_lookup_sub">查询任意号码</string>
 </resources>

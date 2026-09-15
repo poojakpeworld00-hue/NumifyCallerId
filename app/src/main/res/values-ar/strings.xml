@@ -840,4 +840,5 @@
     <string name="ai_ans_quota_spent">استخدمت أسئلتك المجانية (%1$d). ما يستطيع هاتفك الإجابة عنه بنفسه يبقى مجانيًا.</string>
     <string name="splash_chip_shield">درع المزعج</string>
     <string name="splash_chip_lookup">بحث</string>
+    <string name="tools_lookup_sub">ابحث عن أي رقم</string>
 </resources>

@@ -7,8 +7,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.os.Build
-import android.provider.Settings
-import android.telephony.TelephonyManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
@@ -16,7 +14,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupWindow
@@ -38,7 +35,6 @@ import com.numify.callerid.lookup.common.ListDividerDecoration
 import com.numify.callerid.lookup.common.openActivity
 import com.numify.callerid.lookup.databinding.FragmentRecentsBinding
 import com.numify.callerid.lookup.feature.MainShellActivity
-import com.numify.callerid.lookup.feature.overlay.OverlayAskPolicy
 import com.numify.callerid.lookup.feature.calldetails.CallDetailsActivity
 import com.numify.callerid.lookup.feature.settings.SettingsActivity
 import com.numify.callerid.lookup.repository.CallType
@@ -91,17 +87,6 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         binding.buttonSettings.setOnClickListener {
             requireActivity().openActivity<SettingsActivity>()
         }
-        binding.cardProtection.setOnClickListener {
-            (activity as? MainShellActivity)?.showBlocklist()
-        }
-        binding.buttonProtectionAction.setOnClickListener {
-            if (Settings.canDrawOverlays(requireContext())) {
-                requireActivity().openActivity<SettingsActivity>()
-            } else {
-                (activity as? MainShellActivity)?.startOverlayPermissionFlow()
-            }
-        }
-
         binding.buttonPermManage.setOnClickListener {
             (activity as? MainShellActivity)?.showPermissionSheet()
         }
@@ -141,7 +126,6 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         // list-filter back, and is simply never called from here.
 
         if (hasCallLogPermission()) onPermissionGranted() else showPermissionState()
-        refreshProtectionState()
         refreshPermissionHint()
     }
 
@@ -150,7 +134,6 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         super.onHiddenChanged(hidden)
         if (!hidden && view != null) {
             if (hasCallLogPermission()) onPermissionGranted() else showPermissionState()
-            refreshProtectionState()
             refreshPermissionHint()
             applyAskAiVisibility()
         }
@@ -162,7 +145,6 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         // granted permission shows the list without needing to leave the screen.
         if (view != null) {
             if (hasCallLogPermission()) onPermissionGranted() else showPermissionState()
-            refreshProtectionState()
             refreshPermissionHint()
             applyAskAiVisibility()
         }
@@ -180,42 +162,6 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         binding.columnPermHint.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    /**
-     * Paints the protection strip for the current overlay-permission state.
-     *
-     * Active is the design's green wash; inactive is neutral rather than red —
-     * protection being off is something to switch on, not an error to alarm about.
-     * The whole strip recolours together (wash, shield, sentence and action) so it
-     * reads as one status line rather than a card with a coloured badge on it.
-     */
-    private fun refreshProtectionState() {
-        val active = Settings.canDrawOverlays(requireContext())
-        val ctx = requireContext()
-
-        binding.textProtectionTitle.setText(
-            if (active) R.string.home_protection_on_line else R.string.home_protection_off_line
-        )
-        binding.buttonProtectionAction.setText(
-            if (active) R.string.home_protection_manage else R.string.home_protection_turn_on
-        )
-        // "Turn on" is an overlay ask; "Manage" just opens app Settings. So only
-        // the first disappears when asking is switched off — the strip keeps
-        // reporting protection status either way, which is still worth saying.
-        binding.buttonProtectionAction.visibility =
-            if (active || OverlayAskPolicy.isAskingAllowed(ctx)) View.VISIBLE else View.GONE
-        binding.cardProtection.setBackgroundResource(
-            if (active) R.drawable.bg_ds_protection_on else R.drawable.bg_ds_protection_off
-        )
-
-        val accent = ContextCompat.getColor(
-            ctx, if (active) R.color.ds_success else R.color.ds_accent
-        )
-        binding.textProtectionTitle.setTextColor(
-            ContextCompat.getColor(ctx, if (active) R.color.ds_success else R.color.ds_ink)
-        )
-        binding.buttonProtectionAction.setTextColor(accent)
-        binding.imageProtection.imageTintList = ColorStateList.valueOf(accent)
-    }
 
     /**
      * Core permissions nudged before opening a secondary screen: post-notifications

@@ -1,8 +1,6 @@
 package com.numify.callerid.lookup.feature
 
-import android.animation.Keyframe
 import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
 import android.animation.ValueAnimator
 import android.Manifest
 import android.content.Context
@@ -16,7 +14,6 @@ import android.os.Looper
 import android.os.SystemClock
 import android.util.Log
 import android.view.View
-import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.view.animation.OvershootInterpolator
 import android.widget.Toast
@@ -98,8 +95,6 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     private var lastBackMs = 0L
     private var exitToast: Toast? = null
 
-    /** The ring looping under the centre action; null whenever the screen is away. */
-    private var fabPulse: ObjectAnimator? = null
 
     /** Status-bar height read from window insets and re-applied per tab. */
     private var statusBarTop = 0
@@ -342,10 +337,8 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             }
         }
 
-        binding.fabLookup.setOnClickListener {
-            animateIcon(binding.fabLookupIcon)
-            showLookup()
-        }
+        // The raised centre action is gone. Lookup is reached from the Lookup
+        // tile in Tools, and from "Identify" on an unknown recents row.
 
         setupSwipeNavigation()
         // Recents is home, not tab 0. The dialer took the leftmost chip when the
@@ -540,57 +533,12 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         }
         // Resume an interrupted update: IMMEDIATE re-prompts, FLEXIBLE finishes a completed download.
         AppUpdateCoordinator.resumeAppUpdate()
-        startFabPulse()
     }
 
     override fun onPause() {
         super.onPause()
-        stopFabPulse()
     }
 
-    /**
-     * The handoff's `fabPulse`: a ring that swells out from under the centre
-     * action and fades, once every two seconds, forever.
-     *
-     * The keyframes are the design's — scale 1 → 1.55 and opacity 0.55 → 0 over
-     * the first 70% of the cycle, then held invisible for the remaining 30%, so
-     * the rings arrive in beats rather than as a continuous throb. Ease-out
-     * lives on the growth keyframe rather than on the animator, because an
-     * interpolator spread across the whole loop would bend the hold as well.
-     *
-     * Tied to resume/pause: an infinite animator left running behind another
-     * screen keeps a Choreographer frame callback alive for nothing.
-     */
-    private fun startFabPulse() {
-        if (fabPulse?.isRunning == true) return
-
-        val grow = Keyframe.ofFloat(PULSE_GROW_END, PULSE_MAX_SCALE)
-            .apply { interpolator = DecelerateInterpolator() }
-        val hold = Keyframe.ofFloat(1f, PULSE_MAX_SCALE)
-        val fade = Keyframe.ofFloat(PULSE_GROW_END, 0f)
-            .apply { interpolator = DecelerateInterpolator() }
-
-        fabPulse = ObjectAnimator.ofPropertyValuesHolder(
-            binding.fabPulse,
-            PropertyValuesHolder.ofKeyframe(View.SCALE_X, Keyframe.ofFloat(0f, 1f), grow, hold),
-            PropertyValuesHolder.ofKeyframe(View.SCALE_Y, Keyframe.ofFloat(0f, 1f), grow.clone(), hold.clone()),
-            PropertyValuesHolder.ofKeyframe(
-                View.ALPHA, Keyframe.ofFloat(0f, PULSE_START_ALPHA), fade, Keyframe.ofFloat(1f, 0f)
-            ),
-        ).apply {
-            duration = PULSE_DURATION_MS
-            repeatCount = ObjectAnimator.INFINITE
-            // Segment shaping is on the keyframes; the loop itself runs straight.
-            interpolator = LinearInterpolator()
-            start()
-        }
-    }
-
-    private fun stopFabPulse() {
-        fabPulse?.cancel()
-        fabPulse = null
-        binding.fabPulse.alpha = 0f
-    }
 
     override fun onDestroy() {
         stopOverlayGrantPoll()
@@ -940,15 +888,8 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             )
         }
 
-        // The centre action is always tinted, and signals that it is the active
-        // destination only by lifting slightly.
-        binding.fabLookup.animate().cancel()
-        binding.fabLookup.animate()
-            .scaleX(if (tabs[index].nav == null) 1.08f else 1f)
-            .scaleY(if (tabs[index].nav == null) 1.08f else 1f)
-            .setDuration(if (animate) 220L else 0L)
-            .setInterpolator(OvershootInterpolator())
-            .start()
+        // Nothing to light up for the nav-less tabs (Lookup, Blocklist): they no
+        // longer have a control in the bar to reflect their state.
 
         currentIndex = index
         applyTopInsetForTab(index)
@@ -992,15 +933,6 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
 
         /** Stop watching for the overlay grant once this much time has passed. */
         private const val OVERLAY_GRANT_POLL_TIMEOUT_MS = 90_000L
-
-        // The handoff's `fabPulse` keyframes, carried over exactly:
-        // `0% { scale(1); opacity 0.55 } 70%,100% { scale(1.55); opacity 0 }`
-        // over a 2s ease-out loop. The 70% mark is where growth ends and the
-        // hold begins, which is what spaces the rings into beats.
-        private const val PULSE_DURATION_MS = 2000L
-        private const val PULSE_GROW_END = 0.7f
-        private const val PULSE_MAX_SCALE = 1.55f
-        private const val PULSE_START_ALPHA = 0.55f
 
         /** Intent extra carrying a number to identify; routes straight to the Lookup tab. */
         const val EXTRA_LOOKUP_NUMBER = "extra_lookup_number"

@@ -789,4 +789,5 @@
     <string name="ai_ans_quota_spent">คุณใช้คำถามฟรี %1$d ข้อครบแล้ว สิ่งที่โทรศัพท์ตอบได้เองยังคงฟรี</string>
     <string name="splash_chip_shield">กันสแปม</string>
     <string name="splash_chip_lookup">ค้นหา</string>
+    <string name="tools_lookup_sub">ค้นหาเบอร์ใดก็ได้</string>
 </resources>

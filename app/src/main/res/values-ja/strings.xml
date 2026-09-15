@@ -789,4 +789,5 @@
     <string name="ai_ans_quota_spent">無料の質問 %1$d 回を使い切りました。スマートフォンだけで答えられるものは引き続き無料です。</string>
     <string name="splash_chip_shield">迷惑ブロック</string>
     <string name="splash_chip_lookup">番号検索</string>
+    <string name="tools_lookup_sub">どんな番号も検索</string>
 </resources>

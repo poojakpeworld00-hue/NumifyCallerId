@@ -789,4 +789,5 @@
     <string name="ai_ans_quota_spent">Bạn đã dùng hết %1$d câu hỏi miễn phí. Những gì điện thoại tự trả lời được vẫn miễn phí.</string>
     <string name="splash_chip_shield">Chắn spam</string>
     <string name="splash_chip_lookup">Tra cứu</string>
+    <string name="tools_lookup_sub">Tra cứu mọi số</string>
 </resources>

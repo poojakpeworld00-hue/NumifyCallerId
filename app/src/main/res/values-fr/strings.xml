@@ -794,4 +794,5 @@
     <string name="ai_ans_quota_spent">Vous avez utilisé vos %1$d questions gratuites. Ce que votre téléphone peut répondre seul reste gratuit.</string>
     <string name="splash_chip_shield">Bouclier spam</string>
     <string name="splash_chip_lookup">Recherche</string>
+    <string name="tools_lookup_sub">Recherchez tout numéro</string>
 </resources>

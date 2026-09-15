@@ -39,14 +39,23 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
     private val prefs by lazy { SettingsRepository(requireContext()) }
 
     private val adapter = ToolboxAdapter { tool ->
-        val intent = Intent(requireContext(), tool.target).apply {
-            tool.mode?.let { putExtra(AiScanActivity.EXTRA_MODE, it) }
-        }
-        // The shell owns the overlay round-trip, because it owns the launcher the
-        // Settings page returns through. Outside it — this fragment is only ever
-        // a tab today — fall back to the plain ad-then-open path.
         val shell = activity as? MainShellActivity
-        if (shell != null) shell.openToolGated(intent) else requireActivity().openActivity(intent)
+        val target = tool.target
+        if (target == null) {
+            // Lookup: a tab the shell owns, not an Activity. It is here because
+            // the raised centre action that used to open it is gone, and a
+            // caller-ID app cannot leave its number search with no way in.
+            shell?.showLookup()
+        } else {
+            val intent = Intent(requireContext(), target).apply {
+                tool.mode?.let { putExtra(AiScanActivity.EXTRA_MODE, it) }
+            }
+            // The shell owns the overlay round-trip, because it owns the launcher
+            // the Settings page returns through. Outside it — this fragment is
+            // only ever a tab today — fall back to the plain ad-then-open path.
+            if (shell != null) shell.openToolGated(intent)
+            else requireActivity().openActivity(intent)
+        }
     }
 
     /** Full tool set, in display order, with the controlled 6-hue palette. */
@@ -56,6 +65,11 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
         val device = getString(R.string.tools_cat_device)
         val time = getString(R.string.tools_cat_time)
         listOf(
+            // Lookup leads the Assistant rail: with the centre action gone this
+            // tile is the app's number search, so it is the first thing here.
+            UtilityUi(getString(R.string.nav_lookup), getString(R.string.tools_lookup_sub),
+                R.drawable.ic_ds_nav_lookup, R.drawable.bg_tool_chip_sky, R.color.tool_sky,
+                assistant, null),
             UtilityUi(getString(R.string.tools_spam_scan), getString(R.string.tools_spam_scan_sub),
                 R.drawable.ic_ai_sparkle, R.drawable.bg_tool_chip_rose, R.color.tool_rose,
                 assistant, AiScanActivity::class.java, AiScanActivity.MODE_SPAM),
@@ -122,111 +136,7 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
         binding.listTools.adapter = adapter
 
         setupSearch()
-        setupNumberLookup()
         applyQuery("")
-    }
-
-    // ── Number lookup ───────────────────────────────────────────────────────
-    //
-    // Moved off the top of Recents. It never belonged over a call log — that is
-    // a list you read, and a field above it competed with the list for the same
-    // attention. Here it sits with the other things you go to Tools to *do*.
-    //
-    // The field does not search in place: submitting hands the number to the
-    // Lookup screen, which owns the result card, the history and the reveal.
-
-    /** Dialling code of the country chip (no leading '+'). */
-    private var homeDial: String = ""
-
-    private val countryLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { res ->
-        if (res.resultCode == Activity.RESULT_OK) {
-            val data = res.data ?: return@registerForActivityResult
-            val iso = data.getStringExtra(CountryPickerActivity.EXTRA_ISO)
-                ?: return@registerForActivityResult
-            val dial = data.getStringExtra(CountryPickerActivity.EXTRA_DIAL).orEmpty()
-            prefs.homeCountryIso = iso // keep Tools and Lookup on the same country
-            applyHomeCountry(iso, dial)
-        }
-    }
-
-    private fun setupNumberLookup() {
-        setupHomeCountry()
-        binding.columnLookupCountry.setOnClickListener {
-            countryLauncher.launch(Intent(requireContext(), CountryPickerActivity::class.java))
-        }
-        binding.buttonLookupSearch.setOnClickListener { submitLookup() }
-        binding.inputLookupNumber.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                submitLookup(); true
-            } else false
-        }
-        binding.inputLookupNumber.doAfterTextChanged { text ->
-            binding.buttonLookupClear.visibility =
-                if (text.isNullOrEmpty()) View.GONE else View.VISIBLE
-        }
-        binding.buttonLookupClear.setOnClickListener { binding.inputLookupNumber.setText("") }
-    }
-
-    /**
-     * Picks the country chip: the saved choice if any, otherwise the device region
-     * straight away, refined to the IP-detected country in the background.
-     */
-    private fun setupHomeCountry() {
-        val saved = prefs.homeCountryIso
-        if (saved.length == 2) {
-            applyHomeCountry(saved, dialFor(saved))
-            return
-        }
-        val sim = simCountryIso()
-        if (sim != null) {
-            applyHomeCountry(sim, dialFor(sim))
-            return
-        }
-        val region = Locale.getDefault().country
-        applyHomeCountry(if (region.length == 2) region else "US", dialFor(region))
-        detectCountryByIp()
-    }
-
-    /** SIM (then network) registered country as an uppercase ISO-2, or null. */
-    private fun simCountryIso(): String? {
-        val tm = context?.getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager
-            ?: return null
-        val iso = tm.simCountryIso?.takeIf { it.length == 2 }
-            ?: tm.networkCountryIso?.takeIf { it.length == 2 }
-        return iso?.uppercase()
-    }
-
-    private fun dialFor(iso: String): String =
-        (CountryCatalog.byIso(iso)?.dial ?: CountryCatalog.dialOf(iso)).orEmpty()
-
-    /** Resolves the country from the user's IP and updates the chip (best-effort). */
-    private fun detectCountryByIp() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            val geo = RegionDetector.detectCountry(requireContext()) ?: return@launch
-            if (view == null || prefs.homeCountryIso.isNotBlank()) return@launch
-            applyHomeCountry(geo.iso, geo.dial.ifBlank { dialFor(geo.iso) })
-        }
-    }
-
-    private fun applyHomeCountry(iso: String, dial: String) {
-        homeDial = dial
-        binding.textLookupFlag.text = CountryCatalog.flag(iso)
-        binding.textLookupDial.text = if (dial.isBlank()) iso else "+$dial"
-    }
-
-    /** Hands the typed number to the Lookup screen and clears the field. */
-    private fun submitLookup() {
-        val typed = binding.inputLookupNumber.text?.toString()?.trim().orEmpty()
-        val number = when {
-            typed.isBlank() -> ""
-            typed.startsWith("+") -> typed
-            homeDial.isNotBlank() -> "+$homeDial" + typed.filter { it.isDigit() }
-            else -> typed
-        }
-        (activity as? MainShellActivity)?.showLookup(number.ifBlank { null })
-        binding.inputLookupNumber.setText("")
     }
 
     private fun setupSearch() {
