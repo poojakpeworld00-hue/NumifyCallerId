@@ -91,23 +91,6 @@
 
 
 
-        <!-- First-run only, 3s, then never again. Right-aligned so it points
-             back at the Ask AI tile on the row above. -->
-        <TextView
-            android:id="@+id/textAskAiTooltip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:background="@drawable/bg_ai_tooltip"
-            android:paddingHorizontal="@dimen/_10sdp"
-            android:paddingVertical="@dimen/_6sdp"
-            android:text="@string/ai_tooltip_first_run"
-            android:textColor="@color/ds_page"
-            android:textSize="@dimen/_9ssp"
-            android:visibility="gone" />
-
         <LinearLayout
             android:id="@+id/columnPermHint"
             android:layout_width="match_parent"
@@ -156,28 +139,19 @@
 
         <!-- The "Recent" section label is gone: the screen's own title says it now.
 
-             Ask AI is pinned at the right end of this row rather than riding
-             inside the scroller, so it stays put while the chips scroll under
-             it — an entry point that can scroll off screen is one most people
-             never find. -->
-        <LinearLayout
+             Ask AI used to be pinned at the right end of this row, which cost the
+             chips a third of their width and still clipped "Outgoing" mid-word.
+             It lives in Tools now, with the other assistant entry points, and the
+             filters have the row to themselves. -->
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:baselineAligned="false"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <HorizontalScrollView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fadingEdgeLength="20dp"
-                android:requiresFadingEdge="horizontal"
-                android:overScrollMode="never"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingEnd="8dp"
-                android:scrollbars="none">
+            android:fadingEdgeLength="20dp"
+            android:requiresFadingEdge="horizontal"
+            android:overScrollMode="never"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -210,48 +184,7 @@
                         android:drawableStart="@drawable/ic_call_missed"
                         android:text="@string/filter_missed" />
                 </LinearLayout>
-            </HorizontalScrollView>
-
-            <com.numify.callerid.lookup.feature.widgets.AiTileView
-                android:id="@+id/buttonAskAi"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginEnd="@dimen/_16sdp"
-                android:clickable="true"
-                android:contentDescription="@string/ai_ask_button"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:outlineAmbientShadowColor="@color/ds_fab_shadow"
-                android:outlineSpotShadowColor="@color/ds_fab_shadow"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="11dp">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:contentDescription="@null"
-                        android:src="@drawable/ic_ai_sparkle"
-                        app:tint="@color/ds_on_accent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:fontFamily="@font/mulish_bold"
-                        android:includeFontPadding="false"
-                        android:maxLines="1"
-                        android:text="@string/ai_ask_button"
-                        android:textColor="@color/ds_on_accent"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </com.numify.callerid.lookup.feature.widgets.AiTileView>
-        </LinearLayout>
+        </HorizontalScrollView>
 
         <!-- The ad sits under the chips, so nothing paid-for comes between the
              screen's title and the control that filters it. -->
@@ -311,7 +244,7 @@
             android:outlineAmbientShadowColor="@color/ds_card_shadow"
             android:outlineSpotShadowColor="@color/ds_card_shadow"
             android:overScrollMode="never"
-            android:paddingBottom="@dimen/_60sdp"
+            android:paddingBottom="@dimen/_76sdp"
             tools:listitem="@layout/item_call" />
 
         <TextView
@@ -327,18 +260,27 @@
         <!-- Quick dialer: the glyph alone. The label was redundant next to a
              keypad icon and, on a list this dense, a word-wide button covered a
              row's worth of numbers wherever it came to rest. The string stays as
-             the content description so the action is still named to TalkBack. -->
+             the content description so the action is still named to TalkBack.
+
+             The margins are the card's own (20dp) plus a 12dp inset, and they
+             have to be: at 16dp the button hung off the card's bottom-right
+             corner, half on white and half on the page, cutting across the round
+             and clipping the last row's call button. It sits over the card now,
+             which is what a floating action is — and above it, hence 12dp of
+             elevation against the card's 6dp. The list's bottom padding clears
+             its full height so the final row can still be scrolled out from
+             under it. -->
         <ImageView
             android:id="@+id/buttonRecentsDial"
             android:layout_width="@dimen/_44sdp"
             android:layout_height="@dimen/_44sdp"
             android:layout_gravity="bottom|end"
-            android:layout_marginEnd="@dimen/_16sdp"
-            android:layout_marginBottom="@dimen/_16sdp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/bg_dial_fab"
             android:clickable="true"
             android:contentDescription="@string/quick_dialer"
-            android:elevation="@dimen/_6sdp"
+            android:elevation="12dp"
             android:focusable="true"
             android:outlineAmbientShadowColor="@color/ds_card_shadow"
             android:outlineSpotShadowColor="@color/ds_card_shadow"

@@ -892,6 +892,7 @@
     <string name="tools_cat_assistant">Assistant</string>
     <string name="tools_spam_scan">Spam scanner</string>
     <string name="tools_lookup_sub">Search any number</string>
+    <string name="tools_ask_ai_sub">Ask about a caller</string>
     <string name="tools_spam_scan_sub">Find numbers worth blocking</string>
     <string name="tools_unsaved">Unsaved callers</string>
     <string name="tools_unsaved_sub">People you talk to but never saved</string>

@@ -28,12 +28,8 @@ data class UtilityUi(
     val tileRes: Int,
     val tintRes: Int,
     val category: String,
-    /**
-     * The Activity this tile opens, or null for a tile that goes somewhere the
-     * shell owns rather than to a screen of its own — Lookup is a tab, not an
-     * Activity, so it has no class to name here.
-     */
-    val target: Class<*>?,
+    /** The Activity this tile opens. */
+    val target: Class<*>,
     /**
      * Optional extra for tools that share one Activity. The two assistant tools
      * are the same screen in two modes, so the grid carries the mode rather than

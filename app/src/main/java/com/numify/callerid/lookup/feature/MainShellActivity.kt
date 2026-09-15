@@ -36,6 +36,7 @@ import com.numify.callerid.monetize.delivery.UpdateFlowCallback
 import com.numify.callerid.monetize.delivery.AppUpdateCoordinator
 import com.numify.callerid.monetize.delivery.fullpage.TransitionInterstitialAd
 import com.numify.callerid.monetize.delivery.openActivity
+import com.numify.callerid.lookup.common.openActivity
 import com.numify.callerid.monetize.delivery.engagement.OverlayTutorialActivity
 import com.numify.callerid.lookup.BuildConfig
 import com.numify.callerid.lookup.R
@@ -54,7 +55,7 @@ import com.numify.callerid.lookup.databinding.ItemNavBinding
 import com.numify.callerid.lookup.resolver.ContactUploader
 import com.numify.callerid.lookup.feature.contacts.ContactListFragment
 import com.numify.callerid.lookup.feature.dialer.DialerFragment
-import com.numify.callerid.lookup.feature.finder.NumberFinderFragment
+import com.numify.callerid.lookup.feature.finder.LookupActivity
 import com.numify.callerid.lookup.feature.calllog.CallLogFragment
 import com.numify.callerid.lookup.feature.blocklist.BlockedNumbersFragment
 import com.numify.callerid.lookup.feature.tools.ToolboxFragment
@@ -72,8 +73,8 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     override val layoutId: Int = R.layout.activity_main_shell
 
     /**
-     * One destination. [nav] is null for the raised centre action (Lookup): it
-     * lives in its own FAB beside the bar instead of an `item_nav` include.
+     * One destination. [nav] is null for a tab the bar never shows — Blocklist,
+     * reached from Settings and from Call Details rather than from a chip.
      */
     private data class Tab(
         val nav: ItemNavBinding?,
@@ -87,7 +88,6 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
          * the destructive one and it says so in colour.
          */
         @param:ColorRes val activeColor: Int = R.color.ds_accent,
-        @param:ColorRes val activeChip: Int = R.color.ds_nav_chip_active,
     )
 
     private lateinit var tabs: List<Tab>
@@ -298,9 +298,9 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             // chip's fill and the label's weight, not in a second icon.
             //
             // Order matches the bar left-to-right, so a swipe between tabs moves
-            // the way the chips do. The two nav-less tabs come last: Lookup is
-            // reached from the raised centre action and from the Tools search,
-            // Blocklist from Settings and from Recents' protection strip.
+            // the way the chips do. Blocklist comes last and has no chip: it is
+            // reached from Settings and from Call Details. Lookup used to sit
+            // beside it; it is its own Activity now.
             Tab(
                 binding.navDialer, DialerFragment(),
                 R.drawable.ic_ds_nav_dialer, R.drawable.ic_ds_nav_dialer, R.string.nav_dialer
@@ -318,13 +318,9 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
                 R.drawable.ic_ds_nav_tools, R.drawable.ic_ds_nav_tools, R.string.nav_tools
             ),
             Tab(
-                null, NumberFinderFragment(),
-                R.drawable.ic_ds_nav_lookup, R.drawable.ic_ds_nav_lookup, R.string.nav_lookup
-            ),
-            Tab(
                 null, BlockedNumbersFragment(),
                 R.drawable.ic_ds_nav_blocklist, R.drawable.ic_ds_nav_blocklist, R.string.nav_blocklist,
-                activeColor = R.color.ds_danger, activeChip = R.color.ds_nav_chip_danger,
+                activeColor = R.color.ds_danger,
             ),
         )
 
@@ -337,8 +333,9 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             }
         }
 
-        // The raised centre action is gone. Lookup is reached from the Lookup
-        // tile in Tools, and from "Identify" on an unknown recents row.
+        // The raised centre action is gone, and so is the Lookup tab: Lookup is
+        // its own Activity, opened from the tile in Tools and from "Identify" on
+        // an unknown recents row.
 
         setupSwipeNavigation()
         // Recents is home, not tab 0. The dialer took the leftmost chip when the
@@ -413,9 +410,9 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     /**
      * A left or right swipe on the pane container steps along the bottom bar.
      *
-     * Only the four bar tabs participate. Lookup is the raised centre FAB - an
-     * action, not a position in the strip - so it is skipped, and swiping while
-     * Lookup is open does nothing rather than jumping somewhere arbitrary.
+     * Only the four bar tabs participate. Blocklist has no chip, so it is
+     * skipped, and swiping while it is open does nothing rather than jumping
+     * somewhere arbitrary.
      * There is no wrap-around either: swiping past either end is a no-op, just
      * as a tab strip behaves.
      */
@@ -767,16 +764,15 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     }
 
     /**
-     * Moves to the Lookup tab. When [number] is supplied - from Home search, for
-     * instance - the Lookup fragment searches for it as soon as it arrives.
+     * Opens the Lookup screen. When [number] is supplied — "Identify" on a
+     * recents row, for instance — it is searched as soon as the screen arrives.
+     *
+     * Lookup was a nav-less tab here, swapped in under the bar. It is its own
+     * Activity now, so this leaves the tabs as the user left them and Back
+     * returns to whichever one they came from.
      */
     fun showLookup(number: String? = null) {
-        val index = tabs.indexOfFirst { it.fragment is NumberFinderFragment }
-        if (index < 0) return
-        select(index)
-        if (!number.isNullOrBlank()) {
-            (tabs[index].fragment as? NumberFinderFragment)?.requestSearch(number)
-        }
+        openActivity(LookupActivity.newIntent(this, number))
     }
 
     /** Moves to the Recents tab, behind Home's "See all" recent activity. */
@@ -819,27 +815,22 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     private fun tintNavCell(
         nav: ItemNavBinding,
         color: Int,
-        chipColor: Int,
         animate: Boolean,
     ) {
         val from = nav.navLabel.currentTextColor
-        val fromChip = (nav.navPill.backgroundTintList?.defaultColor) ?: chipColor
         if (!animate || from == color) {
             nav.navIcon.imageTintList = ColorStateList.valueOf(color)
-            nav.navPill.backgroundTintList = ColorStateList.valueOf(chipColor)
             nav.navLabel.setTextColor(color)
             return
         }
-        // Glyph, label and chip are crossfaded on one animator so they cannot
-        // arrive a frame apart from each other.
+        // Glyph and label are crossfaded on one animator so they cannot arrive a
+        // frame apart from each other.
         ValueAnimator.ofFloat(0f, 1f).apply {
             duration = 200L
             addUpdateListener {
                 val t = it.animatedValue as Float
                 val c = argb.evaluate(t, from, color) as Int
-                val chip = argb.evaluate(t, fromChip, chipColor) as Int
                 nav.navIcon.imageTintList = ColorStateList.valueOf(c)
-                nav.navPill.backgroundTintList = ColorStateList.valueOf(chip)
                 nav.navLabel.setTextColor(c)
             }
             start()
@@ -877,28 +868,25 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             val color = ContextCompat.getColor(
                 this, if (active) t.activeColor else R.color.ds_nav_idle
             )
-            val chip = ContextCompat.getColor(
-                this, if (active) t.activeChip else R.color.ds_nav_chip_none
-            )
-            tintNavCell(nav, color, chip, animate)
-            // The design also thickens the selected label rather than only
-            // recolouring it, which is what carries the state at 10sp.
+            tintNavCell(nav, color, animate)
+            // The selected label also thickens rather than only recolouring. With
+            // the wash gone that is half of what marks the current tab, not a
+            // flourish on top of it.
             nav.navLabel.typeface = ResourcesCompat.getFont(
                 this, if (active) R.font.mulish_bold else R.font.mulish_semibold
             )
         }
 
-        // Nothing to light up for the nav-less tabs (Lookup, Blocklist): they no
-        // longer have a control in the bar to reflect their state.
+        // Nothing to light up for Blocklist: it has no control in the bar to
+        // reflect its state.
 
         currentIndex = index
         applyTopInsetForTab(index)
     }
 
     /**
-     * Tabs with a blue hero - Home, Recents, Contacts and Lookup - draw under the
-     * status bar: no top inset on the container, light status-bar icons, and the
-     * fragment pads its own hero.
+     * Tabs with a hero of their own draw under the status bar: no top inset on
+     * the container, and the fragment pads its own header by the inset.
      */
     private fun applyTopInsetForTab(index: Int) {
         if (index < 0) return
@@ -907,8 +895,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             fragment is BlockedNumbersFragment ||
             fragment is ToolboxFragment ||
             fragment is ContactListFragment ||
-            fragment is DialerFragment ||
-            fragment is NumberFinderFragment
+            fragment is DialerFragment
         binding.fragmentContainer.setPadding(0, if (immersive) 0 else statusBarTop, 0, 0)
         // Re-assert the theme's icon colour on every tab change. This used to pin
         // it dark, on the reasoning that every tab sits on a light background —
@@ -934,7 +921,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         /** Stop watching for the overlay grant once this much time has passed. */
         private const val OVERLAY_GRANT_POLL_TIMEOUT_MS = 90_000L
 
-        /** Intent extra carrying a number to identify; routes straight to the Lookup tab. */
+        /** Intent extra carrying a number to identify; opens the Lookup screen. */
         const val EXTRA_LOOKUP_NUMBER = "extra_lookup_number"
         const val EXTRA_OPEN_BLOCKLIST = "extra_open_blocklist"
     }

@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
 import android.telephony.TelephonyManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -93,6 +94,14 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
             v.updatePadding(top = baseTop + top)
             insets
         }
+        binding.buttonLookupBack.setOnClickListener {
+            // Through the dispatcher, not finish(), so the host's back ad and any
+            // back handling it has registered still run.
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+        // A number handed in at construction — "Identify" on a recents row opens
+        // this screen with one already chosen.
+        arguments?.getString(ARG_NUMBER)?.takeIf { it.isNotBlank() }?.let { pendingNumber = it }
         setupCountryChip()
         // Preload the rewarded ad so it's ready when the user reveals a result.
         RewardedAdPresenter.preload(requireContext())
@@ -470,5 +479,22 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
         if (s.length < 6 || s.length > 20) return false
         if (s.count { it.isDigit() } < 6) return false
         return s.all { it.isDigit() || it in "+-().,  " }
+    }
+
+    companion object {
+        private const val ARG_NUMBER = "arg_number"
+
+        /**
+         * [number] is searched as soon as the view is ready. It rides in the
+         * arguments rather than in a field so it survives the fragment being
+         * recreated on a configuration change — a rotation would otherwise drop
+         * it and leave the user on an empty search field.
+         */
+        fun newInstance(number: String? = null): NumberFinderFragment =
+            NumberFinderFragment().apply {
+                if (!number.isNullOrBlank()) {
+                    arguments = Bundle().apply { putString(ARG_NUMBER, number) }
+                }
+            }
     }
 }

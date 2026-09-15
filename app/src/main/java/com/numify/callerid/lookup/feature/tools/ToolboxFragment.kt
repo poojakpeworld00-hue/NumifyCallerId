@@ -21,6 +21,9 @@ import com.numify.callerid.lookup.common.openActivity
 import com.numify.callerid.lookup.feature.MainShellActivity
 import com.numify.callerid.lookup.feature.finder.CountryCatalog
 import com.numify.callerid.lookup.feature.finder.CountryPickerActivity
+import com.numify.callerid.lookup.feature.finder.LookupActivity
+import com.numify.callerid.lookup.feature.assistant.AiHubActivity
+import com.numify.callerid.lookup.repository.assistant.AiFeatureConfig
 import com.numify.callerid.lookup.repository.RegionDetector
 import com.numify.callerid.lookup.repository.SettingsRepository
 import kotlinx.coroutines.launch
@@ -40,36 +43,43 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
 
     private val adapter = ToolboxAdapter { tool ->
         val shell = activity as? MainShellActivity
-        val target = tool.target
-        if (target == null) {
-            // Lookup: a tab the shell owns, not an Activity. It is here because
-            // the raised centre action that used to open it is gone, and a
-            // caller-ID app cannot leave its number search with no way in.
-            shell?.showLookup()
-        } else {
-            val intent = Intent(requireContext(), target).apply {
-                tool.mode?.let { putExtra(AiScanActivity.EXTRA_MODE, it) }
-            }
-            // The shell owns the overlay round-trip, because it owns the launcher
-            // the Settings page returns through. Outside it — this fragment is
-            // only ever a tab today — fall back to the plain ad-then-open path.
-            if (shell != null) shell.openToolGated(intent)
-            else requireActivity().openActivity(intent)
+        val intent = Intent(requireContext(), tool.target).apply {
+            tool.mode?.let { putExtra(AiScanActivity.EXTRA_MODE, it) }
         }
+        // The shell owns the overlay round-trip, because it owns the launcher the
+        // Settings page returns through. Outside it — this fragment is only ever
+        // a tab today — fall back to the plain ad-then-open path.
+        if (shell != null) shell.openToolGated(intent)
+        else requireActivity().openActivity(intent)
     }
 
-    /** Full tool set, in display order, with the controlled 6-hue palette. */
-    private val tools: List<UtilityUi> by lazy {
+    /**
+     * Full tool set, in display order, with the controlled 6-hue palette.
+     *
+     * Ask AI appears only when its Remote Config block and the user's own AI
+     * setting both allow it — the feature ships dark, so the tile has to be able
+     * to not exist rather than merely be greyed out.
+     *
+     * Rebuilt on every call rather than cached: the AI switch lives two screens
+     * away in settings, and this is a show/hide tab that is not recreated on the
+     * way back, so a list computed once would still be offering a tile the user
+     * had just turned off.
+     */
+    private fun tools(): List<UtilityUi> {
         val assistant = getString(R.string.tools_cat_assistant)
         val measure = getString(R.string.tools_cat_measure)
         val device = getString(R.string.tools_cat_device)
         val time = getString(R.string.tools_cat_time)
-        listOf(
+        return listOfNotNull(
             // Lookup leads the Assistant rail: with the centre action gone this
             // tile is the app's number search, so it is the first thing here.
             UtilityUi(getString(R.string.nav_lookup), getString(R.string.tools_lookup_sub),
                 R.drawable.ic_ds_nav_lookup, R.drawable.bg_tool_chip_sky, R.color.tool_sky,
-                assistant, null),
+                assistant, LookupActivity::class.java),
+            // Ask AI moved here off the Recents filter row, where it cost the
+            // filters a third of their width. It belongs with the other two
+            // assistant entries anyway.
+            askAiTile(assistant),
             UtilityUi(getString(R.string.tools_spam_scan), getString(R.string.tools_spam_scan_sub),
                 R.drawable.ic_ai_sparkle, R.drawable.bg_tool_chip_rose, R.color.tool_rose,
                 assistant, AiScanActivity::class.java, AiScanActivity.MODE_SPAM),
@@ -106,6 +116,25 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
             UtilityUi(getString(R.string.timer_tool), getString(R.string.timer_tool_sub),
                 R.drawable.ic_tool_timer, R.drawable.bg_tool_chip_sky, R.color.tool_sky,
                 time, TimerActivity::class.java),
+        )
+    }
+
+    /**
+     * The Ask AI tile, or null when the assistant is switched off.
+     *
+     * Two gates, both of which have to pass: [AiFeatureConfig.isEnabled] is the
+     * Remote Config master switch (off in release until an audience is turned
+     * on), and `aiHomeButtonEnabled` is the user's own preference in AI settings.
+     */
+    private fun askAiTile(category: String): UtilityUi? {
+        val ctx = requireContext()
+        val enabled = AiFeatureConfig.isEnabled(ctx) &&
+            SettingsRepository(ctx).aiHomeButtonEnabled
+        if (!enabled) return null
+        return UtilityUi(
+            getString(R.string.ai_ask_button), getString(R.string.tools_ask_ai_sub),
+            R.drawable.ic_ai_sparkle, R.drawable.bg_tool_chip_amber, R.color.tool_amber,
+            category, AiHubActivity::class.java
         )
     }
 
@@ -161,10 +190,26 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
         )
     }
 
+    /** Re-runs the current filter, picking up anything that changed while away. */
+    private fun refreshTools() {
+        if (view != null) applyQuery(binding.inputSearch.text?.toString().orEmpty())
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) refreshTools()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshTools()
+    }
+
     private fun applyQuery(query: String) {
         val q = query.trim()
-        val filtered = if (q.isEmpty()) tools
-        else tools.filter { it.name.contains(q, true) || it.hint.contains(q, true) }
+        val all = tools()
+        val filtered = if (q.isEmpty()) all
+        else all.filter { it.name.contains(q, true) || it.hint.contains(q, true) }
 
         if (filtered.isEmpty()) {
             binding.textEmptyTitle.text = getString(R.string.tools_empty_title, q)

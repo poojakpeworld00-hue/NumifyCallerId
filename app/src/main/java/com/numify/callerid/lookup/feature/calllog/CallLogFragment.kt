@@ -28,9 +28,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.numify.callerid.lookup.R
 import com.numify.callerid.monetize.delivery.NativeBannerPresenter
-import com.numify.callerid.lookup.feature.assistant.AiHubActivity
 import com.numify.callerid.lookup.foundation.BaseFragment
-import com.numify.callerid.lookup.repository.assistant.AiFeatureConfig
 import com.numify.callerid.lookup.common.ListDividerDecoration
 import com.numify.callerid.lookup.common.openActivity
 import com.numify.callerid.lookup.databinding.FragmentRecentsBinding
@@ -83,7 +81,6 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
             (activity as? MainShellActivity)?.showDialer()
         }
         binding.buttonRecentsFilter.setOnClickListener { showSortMenu(it) }
-        setupAskAi()
         binding.buttonSettings.setOnClickListener {
             requireActivity().openActivity<SettingsActivity>()
         }
@@ -135,7 +132,6 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         if (!hidden && view != null) {
             if (hasCallLogPermission()) onPermissionGranted() else showPermissionState()
             refreshPermissionHint()
-            applyAskAiVisibility()
         }
     }
 
@@ -146,7 +142,6 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         if (view != null) {
             if (hasCallLogPermission()) onPermissionGranted() else showPermissionState()
             refreshPermissionHint()
-            applyAskAiVisibility()
         }
     }
 
@@ -249,53 +244,6 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
      * Once a filter or search is active the rows themselves are the subject, so it
      * counts them instead and the header describes what is actually in view.
      */
-    /**
-     * Ask AI sits beside the search field rather than in the header icon
-     * cluster: asking about a number and searching for one are the same intent.
-     * The whole entry point is gated on Remote Config, so the feature ships dark
-     * and is switched on per audience without a release.
-     */
-    private fun setupAskAi() {
-        binding.buttonAskAi.setOnClickListener {
-            startActivity(AiHubActivity.newIntent(requireContext()))
-        }
-        if (applyAskAiVisibility()) maybeShowAskAiTooltip()
-    }
-
-    /**
-     * Re-read on every entry, not just when the fragment is built.
-     *
-     * The switch that controls this lives in AI settings, two screens away, and
-     * Home is a show/hide tab that is not recreated on the way back — so a
-     * one-shot read in [initView] left the button on screen after the user had
-     * just turned it off.
-     */
-    private fun applyAskAiVisibility(): Boolean {
-        val enabled = AiFeatureConfig.isEnabled(requireContext()) &&
-            SettingsRepository(requireContext()).aiHomeButtonEnabled
-        binding.buttonAskAi.isVisible = enabled
-        if (!enabled) binding.textAskAiTooltip.isVisible = false
-        return enabled
-    }
-
-    /**
-     * One showing, three seconds, then never again — the same once-only ledger
-     * pattern the search hint and the screening coach-mark already use.
-     *
-     * The hide is posted against the view, so a user who leaves within those
-     * three seconds does not come back to a tooltip pinned open.
-     */
-    private fun maybeShowAskAiTooltip() {
-        val settings = SettingsRepository(requireContext())
-        if (settings.isAiTooltipShown) return
-        if (!AiFeatureConfig.showHomeTooltip(requireContext())) return
-
-        settings.isAiTooltipShown = true
-        val tooltip = binding.textAskAiTooltip
-        tooltip.isVisible = true
-        tooltip.postDelayed({ tooltip.isVisible = false }, ASK_AI_TOOLTIP_MS)
-    }
-
     private fun showCounts(rows: List<HistoryRowUi>) {
         val filtering = (viewModel.filter.value ?: CallLogFilter.ALL) != CallLogFilter.ALL
 
@@ -412,10 +360,5 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
 
     private fun openDetail(entry: com.numify.callerid.lookup.repository.CallRecord) {
         requireActivity().openActivity(CallDetailsActivity.newIntent(requireContext(), entry.number, entry.name))
-    }
-
-    private companion object {
-        /** Long enough to read seven words, short enough not to be in the way. */
-        const val ASK_AI_TOOLTIP_MS = 3_000L
     }
 }
