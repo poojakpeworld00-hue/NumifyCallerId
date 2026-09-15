@@ -1,11 +1,10 @@
 <resources>
     <!-- App -->
-    <string name="app_name">Numify: Tra cứu số</string>
-    <string name="app_name1">#CallerID</string>
+    <string name="app_name">Contacts</string>
     <string name="dash">&#8211;</string>
 
     <!-- Splash -->
-    <string name="splash_title">Numify</string>
+    <string name="splash_title">Contacts</string>
     <string name="splash_tagline">Biết mọi người gọi. Chặn phần còn lại.</string>
     <string name="splash_footer">Ứng dụng này có thể hiển thị quảng cáo</string>
 
@@ -21,7 +20,7 @@
 
     <!-- Terms &amp; Conditions -->
     <string name="terms_title">Điều khoản sử dụng</string>
-    <string name="terms_body">Hãy đọc các điều khoản này trước khi tiếp tục. Khi chạm Đồng ý, bạn chấp nhận:\n\n• Numify hiện tên người gọi đến, gọi đi và số lạ ngay trong lúc có cuộc gọi.\n• Ứng dụng gắn cờ số rác, lừa đảo, gian lận và giúp bạn chặn chúng.\n• Bạn có thể tra bất kỳ số nào để xem thông tin người gọi mà chúng tôi có.\n• Quyền nhật ký cuộc gọi và danh bạ giúp ứng dụng gắn tên cho cuộc gọi của bạn.\n• Quyền hiển thị trên ứng dụng khác cho phép hiện thông tin người gọi khi đang gọi.\n• Dữ liệu của bạn ở lại phía bạn, chỉ dùng để nhận diện người gọi và chặn số rác.\n\nChạm “Đồng ý và tiếp tục” xác nhận bạn đã đọc và chấp nhận Điều khoản sử dụng và Chính sách bảo mật của chúng tôi.</string>
+    <string name="terms_body">Hãy đọc các điều khoản này trước khi tiếp tục. Khi chạm Đồng ý, bạn chấp nhận:\n\n• Contacts hiện tên người gọi đến, gọi đi và số lạ ngay trong lúc có cuộc gọi.\n• Ứng dụng gắn cờ số rác, lừa đảo, gian lận và giúp bạn chặn chúng.\n• Bạn có thể tra bất kỳ số nào để xem thông tin người gọi mà chúng tôi có.\n• Quyền nhật ký cuộc gọi và danh bạ giúp ứng dụng gắn tên cho cuộc gọi của bạn.\n• Quyền hiển thị trên ứng dụng khác cho phép hiện thông tin người gọi khi đang gọi.\n• Dữ liệu của bạn ở lại phía bạn, chỉ dùng để nhận diện người gọi và chặn số rác.\n\nChạm “Đồng ý và tiếp tục” xác nhận bạn đã đọc và chấp nhận Điều khoản sử dụng và Chính sách bảo mật của chúng tôi.</string>
     <string name="terms_agree">Tôi đã đọc và chấp nhận Điều khoản sử dụng và Chính sách bảo mật.</string>
     <string name="terms_accept">Đồng ý và tiếp tục</string>
     <string name="terms_please_accept">Đánh dấu ô để tiếp tục.</string>
@@ -85,7 +84,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">Hiện lịch sử cuộc gọi của bạn</string>
-    <string name="perm_calllog_message">Numify đọc nhật ký cuộc gọi để hiển thị các cuộc gọi gần đây kèm tên tại đây.</string>
+    <string name="perm_calllog_message">Contacts đọc nhật ký cuộc gọi để hiển thị các cuộc gọi gần đây kèm tên tại đây.</string>
     <string name="action_grant">Cấp quyền truy cập</string>
 
     <!-- Lookup -->
@@ -110,7 +109,7 @@
     <string name="contacts_search_hint">Tìm danh bạ</string>
     <string name="contacts_empty">Không tìm thấy liên hệ</string>
     <string name="perm_contacts_title">Ghép tên với số</string>
-    <string name="perm_contacts_message">Numify đọc danh bạ để hiển thị những người đã lưu bằng tên thay vì số.</string>
+    <string name="perm_contacts_message">Contacts đọc danh bạ để hiển thị những người đã lưu bằng tên thay vì số.</string>
 
     <!-- Settings actions -->
     <string name="language_dialog_title">Chọn ngôn ngữ</string>
@@ -149,8 +148,8 @@
     <string name="label_verified">Đã xác minh</string>
 
     <!-- Added translations -->
-    <string name="app_name_overlay">Numify</string>
-    <string name="overlay_guide_desc">Tìm Numify trong danh sách bên dưới và bật công tắc.</string>
+    <string name="app_name_overlay">Contacts</string>
+    <string name="overlay_guide_desc">Tìm Contacts trong danh sách bên dưới và bật công tắc.</string>
     <string name="overlay_guide_row_hint">Nhấn để bật</string>
     <string name="overlay_guide_dismiss">Nhấn vào bất kỳ đâu để đóng</string>
     <string name="onboarding_spam_id">ID spam</string>
@@ -247,7 +246,7 @@
     <string name="common_no">Không</string>
     <string name="common_unknown">Không rõ</string>
     <string name="press_back_again">Nhấn quay lại lần nữa để thoát</string>
-    <string name="exit_dialog_title">Thoát Numify?</string>
+    <string name="exit_dialog_title">Thoát Contacts?</string>
     <string name="exit_dialog_desc">Bạn có thể quay lại bất cứ lúc nào — danh sách chặn vẫn được lưu.</string>
     <string name="exit_dialog_positive">Thoát</string>
     <string name="exit_dialog_negative">Hủy</string>
@@ -285,9 +284,9 @@
     <string name="battery_activity_title">Thông tin pin</string>
 
     <!-- Localized: remaining keys -->
-    <string name="app_label"> Numify: Tra cứu số</string>
+    <string name="app_label">&#160;&#160;Contacts</string>
     <string name="overlay_banner_desc">Hiển thị thông tin người gọi trên các ứng dụng khác</string>
-    <string name="home_brand">Numify</string>
+    <string name="home_brand">Contacts</string>
     <string name="home_brand_sub">Nhận diện gọi &amp; chặn rác</string>
     <string name="home_quick_actions">Thao tác nhanh</string>
     <string name="recents_subtitle">Lịch sử cuộc gọi của bạn</string>
@@ -477,7 +476,7 @@
     <string name="fsi_meta_calls">68 cuộc gọi</string>
     <string name="fsi_meta_sim">JIO 4G</string>
     <string name="fsi_screen_title">Người gọi trên màn hình khóa</string>
-    <string name="fsi_screen_desc">Ngay khi có cuộc gọi, Numify hiển thị thông tin đã xác minh trên màn hình khóa.</string>
+    <string name="fsi_screen_desc">Ngay khi có cuộc gọi, Contacts hiển thị thông tin đã xác minh trên màn hình khóa.</string>
     <string name="fsi_feature_identify">Đặt tên cho số lạ</string>
     <string name="fsi_feature_spam">Nhận ra cuộc gọi lừa đảo chỉ trong nháy mắt</string>
     <string name="fsi_feature_missed">Không bỏ lỡ cuộc gọi quan trọng nữa</string>
@@ -715,7 +714,7 @@
     <string name="ai_settings_reply_title">Trả lời cuộc gọi nhỡ</string>
     <string name="ai_settings_reply_sub">Thông báo kèm tin nhắn sẵn sàng gửi</string>
     <string name="ai_settings_questions_asked">Số câu đã hỏi</string>
-    <string name="ai_settings_privacy_title">Numify dùng những gì</string>
+    <string name="ai_settings_privacy_title">Contacts dùng những gì</string>
     <string name="ai_settings_privacy_body">Câu trả lời được tính ngay trên máy bạn từ nhật ký cuộc gọi, danh bạ và danh sách chặn. Cuộc gọi không bao giờ được ghi âm, và không gì được gửi đi cho tới khi chính bạn nhấn gửi.</string>
     <string name="settings_ai">Hỏi AI</string>
     <string name="settings_ai_sub">Trợ lý và đánh giá người gọi</string>

@@ -1,7 +1,6 @@
 <resources>
     <!-- App -->
-    <string name="app_name">Numify: Búsqueda de Números</string>
-    <string name="app_name1">#CallerID</string>
+    <string name="app_name">Contacts</string>
     <string name="dash">&#8211;</string>
 
     <!-- Splash -->
@@ -20,7 +19,7 @@
 
     <!-- Terms &amp; Conditions -->
     <string name="terms_title">Términos de uso</string>
-    <string name="terms_body">Lee estos términos antes de continuar. Al tocar Aceptar admites lo siguiente:\n\n• Numify nombra a quienes llaman, reciben llamadas o son desconocidos, en el momento.\n• La app marca números de spam, estafa y fraude y te ayuda a bloquearlos.\n• Puedes buscar cualquier número y ver los datos del titular que tengamos.\n• El acceso al registro de llamadas y contactos permite etiquetar tus llamadas.\n• El permiso de superposición muestra los datos del contacto durante la llamada.\n• Tus datos se quedan contigo y solo sirven para identificar llamadas y frenar spam.\n\nAl tocar “Aceptar y continuar” confirmas que leíste y aceptas nuestros Términos de uso y la Política de privacidad.</string>
+    <string name="terms_body">Lee estos términos antes de continuar. Al tocar Aceptar admites lo siguiente:\n\n• Contacts nombra a quienes llaman, reciben llamadas o son desconocidos, en el momento.\n• La app marca números de spam, estafa y fraude y te ayuda a bloquearlos.\n• Puedes buscar cualquier número y ver los datos del titular que tengamos.\n• El acceso al registro de llamadas y contactos permite etiquetar tus llamadas.\n• El permiso de superposición muestra los datos del contacto durante la llamada.\n• Tus datos se quedan contigo y solo sirven para identificar llamadas y frenar spam.\n\nAl tocar “Aceptar y continuar” confirmas que leíste y aceptas nuestros Términos de uso y la Política de privacidad.</string>
     <string name="terms_agree">He leído y acepto los Términos de uso y la Política de privacidad.</string>
     <string name="terms_accept">Aceptar y continuar</string>
     <string name="terms_please_accept">Marca la casilla para continuar.</string>
@@ -93,7 +92,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">Muestra tu historial de llamadas</string>
-    <string name="perm_calllog_message">Numify lee tu registro de llamadas para mostrar aquí las recientes con su nombre.</string>
+    <string name="perm_calllog_message">Contacts lee tu registro de llamadas para mostrar aquí las recientes con su nombre.</string>
     <string name="action_grant">Conceder acceso</string>
 
     <!-- Lookup -->
@@ -118,7 +117,7 @@
     <string name="contacts_search_hint">Buscar contactos</string>
     <string name="contacts_empty">No se encontraron contactos</string>
     <string name="perm_contacts_title">Asocia nombres a números</string>
-    <string name="perm_contacts_message">Numify lee tus contactos para mostrar por nombre a las personas que ya guardaste.</string>
+    <string name="perm_contacts_message">Contacts lee tus contactos para mostrar por nombre a las personas que ya guardaste.</string>
 
     <!-- Settings -->
     <string name="settings_language">Idioma</string>
@@ -148,8 +147,8 @@
     <string name="action_remove">Quitar</string>
 
     <!-- Added translations -->
-    <string name="app_name_overlay">Numify</string>
-    <string name="overlay_guide_desc">Busca Numify en la lista y activa su interruptor.</string>
+    <string name="app_name_overlay">Contacts</string>
+    <string name="overlay_guide_desc">Busca Contacts en la lista y activa su interruptor.</string>
     <string name="overlay_guide_row_hint">Toca para activar</string>
     <string name="overlay_guide_dismiss">Toca en cualquier lugar para cerrar</string>
     <string name="onboarding_spam_id">ID de spam</string>
@@ -246,7 +245,7 @@
     <string name="common_no">No</string>
     <string name="common_unknown">Desconocido</string>
     <string name="press_back_again">Presiona atrás otra vez para salir</string>
-    <string name="exit_dialog_title">¿Salir de Numify?</string>
+    <string name="exit_dialog_title">¿Salir de Contacts?</string>
     <string name="exit_dialog_desc">Puedes volver cuando quieras: tu lista de bloqueo se conserva.</string>
     <string name="exit_dialog_positive">Salir</string>
     <string name="exit_dialog_negative">Cancelar</string>
@@ -286,12 +285,12 @@
         <item quantity="one">%1$d llamada</item>
         <item quantity="other">%1$d llamadas</item>
     </plurals>
-    <string name="splash_title">Numify</string>
+    <string name="splash_title">Contacts</string>
     <string name="battery_activity_title">Información de batería</string>
 
     <!-- Localized strings (es) -->
-    <string name="app_label"> Numify: Búsqueda de Números</string>
-    <string name="home_brand">Numify</string>
+    <string name="app_label">&#160;&#160;Contacts</string>
+    <string name="home_brand">Contacts</string>
     <string name="home_brand_sub">ID de llamada y antispam</string>
     <string name="home_quick_actions">Acciones rápidas</string>
 
@@ -526,7 +525,7 @@
     <string name="fsi_meta_calls">68 llamadas</string>
     <string name="fsi_meta_sim">JIO 4G</string>
     <string name="fsi_screen_title">Quién llama, en la pantalla de bloqueo</string>
-    <string name="fsi_screen_desc">En cuanto entra una llamada, Numify muestra los datos verificados en la pantalla de bloqueo.</string>
+    <string name="fsi_screen_desc">En cuanto entra una llamada, Contacts muestra los datos verificados en la pantalla de bloqueo.</string>
     <string name="fsi_feature_identify">Pon nombre a los números desconocidos</string>
     <string name="fsi_feature_spam">Detecta estafas y fraudes de un vistazo</string>
     <string name="fsi_feature_missed">Deja de perder las llamadas que importan</string>
@@ -764,7 +763,7 @@
     <string name="ai_settings_reply_title">Respuestas a llamadas perdidas</string>
     <string name="ai_settings_reply_sub">Una notificación con un mensaje listo para enviar</string>
     <string name="ai_settings_questions_asked">Preguntas realizadas</string>
-    <string name="ai_settings_privacy_title">Qué usa Numify</string>
+    <string name="ai_settings_privacy_title">Qué usa Contacts</string>
     <string name="ai_settings_privacy_body">Las respuestas se calculan en tu teléfono a partir de tu registro de llamadas, contactos y lista de bloqueo. Las llamadas nunca se graban y no se envía nada a nadie hasta que tú pulses enviar.</string>
     <string name="settings_ai">Preguntar a IA</string>
     <string name="settings_ai_sub">Asistente y veredictos de llamantes</string>

@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:188915257639:android:6867cc087c4873e9f79902",
         "android_client_info": {
-          "package_name": "com.numify.callerid"
+          "package_name": "com.contacts.callerid.number.lookup"
         }
       },
       "oauth_client": [],

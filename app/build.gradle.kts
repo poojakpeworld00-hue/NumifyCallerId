@@ -67,7 +67,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.numify.callerid"
+        applicationId = "com.contacts.callerid.number.lookup"
         minSdk = 24
         targetSdk = 36
         versionCode = 2
@@ -162,7 +162,7 @@ listOf(
 }
 
 base {
-    val appName = "Numify"
+    val appName = "Contacts"
     val formattedDate: String =
         SimpleDateFormat("MMM.dd.yyyy", Locale.getDefault()).format(Date())
     val config = android.defaultConfig

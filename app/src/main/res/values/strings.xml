@@ -1,15 +1,15 @@
 <resources>
     <!-- App -->
-    <string name="app_name">Numify: Caller ID &amp; Number Lookup</string>
-    <string name="app_name1">#CallerID</string>
+    <string name="app_name">Contacts</string>
+    <string name="app_name1" translatable="false">#Contacts</string>
     <!-- Application label with a leading space so the app sorts to the TOP of
          system lists like "Display over other apps" / "Default apps". The
          launcher icon keeps the clean name via the launcher activity's label. -->
-    <string name="app_label">&#160;&#160;Numify: Caller ID &amp; Number Lookup</string>
+    <string name="app_label">&#160;&#160;Contacts</string>
     <string name="dash">&#8211;</string>
 
     <!-- Splash -->
-    <string name="splash_title">Numify</string>
+    <string name="splash_title">Contacts</string>
     <string name="splash_tagline">See every caller. Shut out the rest.</string>
     <string name="splash_footer">Ads may appear in this app</string>
     <!-- Splash v2: the three capability chips under the tagline. -->
@@ -34,15 +34,15 @@
 
     <!-- Terms &amp; Conditions -->
     <string name="terms_title">Terms of Use</string>
-    <string name="terms_body">Read these terms before you continue. By tapping Agree you accept the following:\n\n• Numify names incoming, outgoing and unknown callers as the call happens.\n• The app flags spam, scam and fraud numbers and helps you block them.\n• You can search any phone number for the caller details we have on file.\n• Call log and contacts access is needed for the app to label your calls.\n• The display-over-other-apps permission lets caller details appear during a call.\n• Your data stays on your side and is used only for caller ID and spam protection.\n\nTapping “Agree &amp; Continue” confirms you have read and accept our Terms of Use and Privacy Policy.</string>
+    <string name="terms_body">Read these terms before you continue. By tapping Agree you accept the following:\n\n• Contacts names incoming, outgoing and unknown callers as the call happens.\n• The app flags spam, scam and fraud numbers and helps you block them.\n• You can search any phone number for the caller details we have on file.\n• Call log and contacts access is needed for the app to label your calls.\n• The display-over-other-apps permission lets caller details appear during a call.\n• Your data stays on your side and is used only for caller ID and spam protection.\n\nTapping “Agree &amp; Continue” confirms you have read and accept our Terms of Use and Privacy Policy.</string>
     <string name="terms_agree">I have read and accept the Terms of Use and Privacy Policy.</string>
     <string name="terms_accept">Agree &amp; Continue</string>
     <string name="terms_please_accept">Tick the box to continue.</string>
 
     <!-- Overlay-permission guide -->
     <string name="txt_allow_overlay_access">Allow display over other apps</string>
-    <string name="app_name_overlay">Numify</string>
-    <string name="overlay_guide_desc">Find Numify in the list below and turn its switch on.</string>
+    <string name="app_name_overlay">Contacts</string>
+    <string name="overlay_guide_desc">Find Contacts in the list below and turn its switch on.</string>
     <string name="overlay_guide_row_hint">Tap to turn on</string>
     <string name="overlay_guide_dismiss">Tap anywhere to close</string>
     <string name="overlay_system_permission">System permission</string>
@@ -120,7 +120,7 @@
     <string name="home_title">You\'re covered</string>
     <string name="home_subtitle">Caller ID and spam blocking are running</string>
     <string name="home_greeting">Good morning 👋</string>
-    <string name="home_brand">Numify</string>
+    <string name="home_brand">Contacts</string>
     <string name="home_brand_sub">Caller ID &amp; Spam Block</string>
     <string name="home_search_hint">Type a name or number…</string>
     <string name="home_protection_active">Protection active</string>
@@ -191,7 +191,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">Show your call history</string>
-    <string name="perm_calllog_message">Numify reads your call log so recent calls appear here with names attached.</string>
+    <string name="perm_calllog_message">Contacts reads your call log so recent calls appear here with names attached.</string>
     <string name="action_grant">Grant access</string>
 
     <!-- Lookup -->
@@ -525,7 +525,7 @@
     <string name="common_no">No</string>
     <string name="common_unknown">Unknown</string>
     <string name="press_back_again">Press back again to exit</string>
-    <string name="exit_dialog_title">Leave Numify?</string>
+    <string name="exit_dialog_title">Leave Contacts?</string>
     <string name="exit_dialog_desc">You can always come back — your blocklist stays saved.</string>
     <string name="exit_dialog_positive">Exit</string>
     <string name="exit_dialog_negative">Cancel</string>
@@ -556,7 +556,7 @@
     <string name="contacts_tab_groups">Groups</string>
     <string name="contacts_empty">No contacts found</string>
     <string name="perm_contacts_title">Match names to numbers</string>
-    <string name="perm_contacts_message">Numify reads your contacts so saved people show up by name instead of a number.</string>
+    <string name="perm_contacts_message">Contacts reads your contacts so saved people show up by name instead of a number.</string>
 
     <!-- Settings actions -->
     <string name="language_dialog_title">Choose language</string>
@@ -744,7 +744,7 @@
     <string name="fsi_meta_calls">68 calls</string>
     <string name="fsi_meta_sim">JIO 4G</string>
     <string name="fsi_screen_title">Callers on your lock screen</string>
-    <string name="fsi_screen_desc">The instant a call lands, Numify puts verified caller details on your lock screen.</string>
+    <string name="fsi_screen_desc">The instant a call lands, Contacts puts verified caller details on your lock screen.</string>
     <string name="fsi_feature_identify">Put a name on unknown numbers</string>
     <string name="fsi_feature_spam">Spot scam and fraud calls at a glance</string>
     <string name="fsi_feature_missed">Stop missing the calls that matter</string>
@@ -879,7 +879,7 @@
     <string name="ai_settings_reply_title">Missed call replies</string>
     <string name="ai_settings_reply_sub">A notification with a message ready to send</string>
     <string name="ai_settings_questions_asked">Questions asked</string>
-    <string name="ai_settings_privacy_title">What Numify uses</string>
+    <string name="ai_settings_privacy_title">What Contacts uses</string>
     <string name="ai_settings_privacy_body">Answers are worked out on your phone from your call log, contacts and blocklist. Calls are never recorded, and nothing is sent to anyone until you tap send yourself.</string>
     <string name="settings_ai">Ask AI</string>
     <string name="settings_ai_sub">Assistant and caller verdicts</string>

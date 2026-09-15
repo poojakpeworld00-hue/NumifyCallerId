@@ -1,11 +1,10 @@
 <resources>
     <!-- App -->
-    <string name="app_name">Numify: Поиск номера</string>
-    <string name="app_name1">#CallerID</string>
+    <string name="app_name">Contacts</string>
     <string name="dash">&#8211;</string>
 
     <!-- Splash -->
-    <string name="splash_title">Numify</string>
+    <string name="splash_title">Contacts</string>
     <string name="splash_tagline">Узнайте каждого. Остальных — в блок.</string>
     <string name="splash_footer">В приложении может быть реклама</string>
 
@@ -21,7 +20,7 @@
 
     <!-- Terms &amp; Conditions -->
     <string name="terms_title">Условия использования</string>
-    <string name="terms_body">Прочитайте условия перед продолжением. Нажимая «Принять», вы соглашаетесь с тем, что:\n\n• Numify определяет входящих, исходящих и неизвестных абонентов прямо во время звонка.\n• Приложение отмечает спам, мошеннические и подозрительные номера и помогает их блокировать.\n• Вы можете найти любой номер и увидеть доступные нам сведения об абоненте.\n• Доступ к журналу звонков и контактам нужен, чтобы подписывать ваши вызовы.\n• Разрешение показа поверх других приложений выводит данные абонента во время звонка.\n• Ваши данные остаются у вас и используются только для определения номера и защиты от спама.\n\nНажимая «Принять и продолжить», вы подтверждаете, что прочитали и принимаете Условия использования и Политику конфиденциальности.</string>
+    <string name="terms_body">Прочитайте условия перед продолжением. Нажимая «Принять», вы соглашаетесь с тем, что:\n\n• Contacts определяет входящих, исходящих и неизвестных абонентов прямо во время звонка.\n• Приложение отмечает спам, мошеннические и подозрительные номера и помогает их блокировать.\n• Вы можете найти любой номер и увидеть доступные нам сведения об абоненте.\n• Доступ к журналу звонков и контактам нужен, чтобы подписывать ваши вызовы.\n• Разрешение показа поверх других приложений выводит данные абонента во время звонка.\n• Ваши данные остаются у вас и используются только для определения номера и защиты от спама.\n\nНажимая «Принять и продолжить», вы подтверждаете, что прочитали и принимаете Условия использования и Политику конфиденциальности.</string>
     <string name="terms_agree">Я прочитал(а) и принимаю Условия использования и Политику конфиденциальности.</string>
     <string name="terms_accept">Принять и продолжить</string>
     <string name="terms_please_accept">Отметьте флажок, чтобы продолжить.</string>
@@ -85,7 +84,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">Показать историю звонков</string>
-    <string name="perm_calllog_message">Numify читает журнал вызовов, чтобы показывать здесь недавние звонки с именами.</string>
+    <string name="perm_calllog_message">Contacts читает журнал вызовов, чтобы показывать здесь недавние звонки с именами.</string>
     <string name="action_grant">Разрешить доступ</string>
 
     <!-- Lookup -->
@@ -110,7 +109,7 @@
     <string name="contacts_search_hint">Поиск контактов</string>
     <string name="contacts_empty">Контакты не найдены</string>
     <string name="perm_contacts_title">Свяжите имена с номерами</string>
-    <string name="perm_contacts_message">Numify читает контакты, чтобы показывать сохранённых людей по имени, а не номером.</string>
+    <string name="perm_contacts_message">Contacts читает контакты, чтобы показывать сохранённых людей по имени, а не номером.</string>
 
     <!-- Settings actions -->
     <string name="language_dialog_title">Выберите язык</string>
@@ -149,8 +148,8 @@
     <string name="label_verified">Проверено</string>
 
     <!-- Added translations -->
-    <string name="app_name_overlay">Numify</string>
-    <string name="overlay_guide_desc">Найдите Numify в списке ниже и включите переключатель.</string>
+    <string name="app_name_overlay">Contacts</string>
+    <string name="overlay_guide_desc">Найдите Contacts в списке ниже и включите переключатель.</string>
     <string name="overlay_guide_row_hint">Нажмите, чтобы включить</string>
     <string name="overlay_guide_dismiss">Нажмите в любом месте, чтобы закрыть</string>
     <string name="onboarding_spam_id">Определение спама</string>
@@ -247,7 +246,7 @@
     <string name="common_no">Нет</string>
     <string name="common_unknown">Неизвестно</string>
     <string name="press_back_again">Нажмите «Назад» ещё раз для выхода</string>
-    <string name="exit_dialog_title">Выйти из Numify?</string>
+    <string name="exit_dialog_title">Выйти из Contacts?</string>
     <string name="exit_dialog_desc">Вы всегда можете вернуться — список блокировки сохранится.</string>
     <string name="exit_dialog_positive">Выйти</string>
     <string name="exit_dialog_negative">Отмена</string>
@@ -300,8 +299,8 @@
     <string name="battery_activity_title">Информация о батарее</string>
 
     <!-- Localization batch: ru -->
-    <string name="app_label"> Numify: Поиск номера</string>
-    <string name="home_brand">Numify</string>
+    <string name="app_label">&#160;&#160;Contacts</string>
+    <string name="home_brand">Contacts</string>
     <string name="home_brand_sub">Определитель и антиспам</string>
     <string name="home_quick_actions">Быстрые действия</string>
     <string name="overlay_banner_desc">Показывать информацию о звонящем поверх других приложений</string>
@@ -534,7 +533,7 @@
     <string name="fsi_meta_calls">68 вызовов</string>
     <string name="fsi_meta_sim">JIO 4G</string>
     <string name="fsi_screen_title">Звонящие на экране блокировки</string>
-    <string name="fsi_screen_desc">Как только поступает вызов, Numify показывает проверенные данные на экране блокировки.</string>
+    <string name="fsi_screen_desc">Как только поступает вызов, Contacts показывает проверенные данные на экране блокировки.</string>
     <string name="fsi_feature_identify">Дайте имя неизвестным номерам</string>
     <string name="fsi_feature_spam">Замечайте мошенников с первого взгляда</string>
     <string name="fsi_feature_missed">Перестаньте пропускать важные звонки</string>
@@ -772,7 +771,7 @@
     <string name="ai_settings_reply_title">Ответы на пропущенные</string>
     <string name="ai_settings_reply_sub">Уведомление с готовым сообщением</string>
     <string name="ai_settings_questions_asked">Задано вопросов</string>
-    <string name="ai_settings_privacy_title">Что использует Numify</string>
+    <string name="ai_settings_privacy_title">Что использует Contacts</string>
     <string name="ai_settings_privacy_body">Ответы вычисляются на вашем телефоне по журналу вызовов, контактам и списку блокировки. Звонки никогда не записываются, и ничего не отправляется, пока вы сами не нажмёте «Отправить».</string>
     <string name="settings_ai">Спросить ИИ</string>
     <string name="settings_ai_sub">Ассистент и оценки звонящих</string>

@@ -1,7 +1,6 @@
 <resources>
     <!-- App -->
-    <string name="app_name">Numify: البحث عن الأرقام</string>
-    <string name="app_name1">#CallerID</string>
+    <string name="app_name">Contacts</string>
     <string name="dash">&#8211;</string>
 
     <!-- Splash -->
@@ -20,7 +19,7 @@
 
     <!-- Terms &amp; Conditions -->
     <string name="terms_title">شروط الاستخدام</string>
-    <string name="terms_body">اقرأ هذه الشروط قبل المتابعة. بالضغط على موافق فإنك تقبل ما يلي:\n\n• يعرض Numify أسماء المتصلين الواردين والصادرين والمجهولين أثناء المكالمة.\n• يضع التطبيق علامة على أرقام البريد المزعج والاحتيال ويساعدك على حظرها.\n• يمكنك البحث عن أي رقم هاتف للاطلاع على بيانات المتصل المتوفرة لدينا.\n• يحتاج التطبيق إلى الوصول لسجل المكالمات وجهات الاتصال لتسمية مكالماتك.\n• يسمح إذن العرض فوق التطبيقات بظهور بيانات المتصل أثناء المكالمة.\n• تبقى بياناتك لديك وتُستخدم فقط لتحديد هوية المتصل والحماية من البريد المزعج.\n\nبالضغط على “موافق ومتابعة” تؤكد أنك قرأت شروط الاستخدام وسياسة الخصوصية وتوافق عليها.</string>
+    <string name="terms_body">اقرأ هذه الشروط قبل المتابعة. بالضغط على موافق فإنك تقبل ما يلي:\n\n• يعرض Contacts أسماء المتصلين الواردين والصادرين والمجهولين أثناء المكالمة.\n• يضع التطبيق علامة على أرقام البريد المزعج والاحتيال ويساعدك على حظرها.\n• يمكنك البحث عن أي رقم هاتف للاطلاع على بيانات المتصل المتوفرة لدينا.\n• يحتاج التطبيق إلى الوصول لسجل المكالمات وجهات الاتصال لتسمية مكالماتك.\n• يسمح إذن العرض فوق التطبيقات بظهور بيانات المتصل أثناء المكالمة.\n• تبقى بياناتك لديك وتُستخدم فقط لتحديد هوية المتصل والحماية من البريد المزعج.\n\nبالضغط على “موافق ومتابعة” تؤكد أنك قرأت شروط الاستخدام وسياسة الخصوصية وتوافق عليها.</string>
     <string name="terms_agree">لقد قرأت شروط الاستخدام وسياسة الخصوصية وأوافق عليها.</string>
     <string name="terms_accept">موافق ومتابعة</string>
     <string name="terms_please_accept">حدّد المربع للمتابعة.</string>
@@ -93,7 +92,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">عرض سجل مكالماتك</string>
-    <string name="perm_calllog_message">يقرأ Numify سجل مكالماتك ليعرض هنا المكالمات الأخيرة مع الأسماء.</string>
+    <string name="perm_calllog_message">يقرأ Contacts سجل مكالماتك ليعرض هنا المكالمات الأخيرة مع الأسماء.</string>
     <string name="action_grant">منح الإذن</string>
 
     <!-- Lookup -->
@@ -118,7 +117,7 @@
     <string name="contacts_search_hint">ابحث في جهات الاتصال</string>
     <string name="contacts_empty">لم يتم العثور على جهات اتصال</string>
     <string name="perm_contacts_title">اربط الأسماء بالأرقام</string>
-    <string name="perm_contacts_message">يقرأ Numify جهات اتصالك ليعرض من حفظتهم بالاسم بدلًا من الرقم.</string>
+    <string name="perm_contacts_message">يقرأ Contacts جهات اتصالك ليعرض من حفظتهم بالاسم بدلًا من الرقم.</string>
 
     <!-- Settings -->
     <string name="settings_language">اللغة</string>
@@ -148,8 +147,8 @@
     <string name="action_remove">إزالة</string>
 
     <!-- Added translations -->
-    <string name="app_name_overlay">Numify</string>
-    <string name="overlay_guide_desc">ابحث عن Numify في القائمة أدناه وفعّل مفتاحه.</string>
+    <string name="app_name_overlay">Contacts</string>
+    <string name="overlay_guide_desc">ابحث عن Contacts في القائمة أدناه وفعّل مفتاحه.</string>
     <string name="overlay_guide_row_hint">اضغط للتفعيل</string>
     <string name="overlay_guide_dismiss">اضغط في أي مكان للإغلاق</string>
     <string name="onboarding_spam_id">معرّف الرسائل المزعجة</string>
@@ -246,7 +245,7 @@
     <string name="common_no">لا</string>
     <string name="common_unknown">غير معروف</string>
     <string name="press_back_again">اضغط رجوع مرة أخرى للخروج</string>
-    <string name="exit_dialog_title">الخروج من Numify؟</string>
+    <string name="exit_dialog_title">الخروج من Contacts؟</string>
     <string name="exit_dialog_desc">يمكنك العودة في أي وقت — قائمة الحظر تبقى محفوظة.</string>
     <string name="exit_dialog_positive">خروج</string>
     <string name="exit_dialog_negative">إلغاء</string>
@@ -286,12 +285,12 @@
         <item quantity="one">%1$d مكالمة</item>
         <item quantity="other">%1$d مكالمات</item>
     </plurals>
-    <string name="splash_title">Numify</string>
+    <string name="splash_title">Contacts</string>
     <string name="battery_activity_title">معلومات البطارية</string>
 
     <!-- Localized batch -->
-    <string name="app_label"> Numify: البحث عن الأرقام</string>
-    <string name="home_brand">Numify</string>
+    <string name="app_label">&#160;&#160;Contacts</string>
+    <string name="home_brand">Contacts</string>
     <string name="home_brand_sub">هوية المتصل وحظر المزعج</string>
     <string name="home_quick_actions">إجراءات سريعة</string>
 
@@ -528,7 +527,7 @@
     <string name="fsi_meta_calls">68 مكالمة</string>
     <string name="fsi_meta_sim">JIO 4G</string>
     <string name="fsi_screen_title">المتصلون على شاشة القفل</string>
-    <string name="fsi_screen_desc">بمجرد وصول المكالمة، يعرض Numify بيانات المتصل الموثقة على شاشة القفل.</string>
+    <string name="fsi_screen_desc">بمجرد وصول المكالمة، يعرض Contacts بيانات المتصل الموثقة على شاشة القفل.</string>
     <string name="fsi_feature_identify">ضع اسمًا للأرقام المجهولة</string>
     <string name="fsi_feature_spam">اكتشف مكالمات الاحتيال بنظرة واحدة</string>
     <string name="fsi_feature_missed">لا تفوّت المكالمات المهمة بعد الآن</string>
@@ -766,7 +765,7 @@
     <string name="ai_settings_reply_title">ردود المكالمات الفائتة</string>
     <string name="ai_settings_reply_sub">إشعار برسالة جاهزة للإرسال</string>
     <string name="ai_settings_questions_asked">الأسئلة المطروحة</string>
-    <string name="ai_settings_privacy_title">ما الذي يستخدمه Numify</string>
+    <string name="ai_settings_privacy_title">ما الذي يستخدمه Contacts</string>
     <string name="ai_settings_privacy_body">تُحسب الإجابات على هاتفك من سجل مكالماتك وجهات اتصالك وقائمة الحظر. لا تُسجّل المكالمات أبدًا، ولا يُرسل أي شيء حتى تضغط إرسال بنفسك.</string>
     <string name="settings_ai">اسأل الذكاء الاصطناعي</string>
     <string name="settings_ai_sub">المساعد وتقييمات المتصلين</string>

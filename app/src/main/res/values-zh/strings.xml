@@ -1,11 +1,10 @@
 <resources>
     <!-- App -->
-    <string name="app_name">Numify: 号码查询</string>
-    <string name="app_name1">#CallerID</string>
+    <string name="app_name">Contacts</string>
     <string name="dash">&#8211;</string>
 
     <!-- Splash -->
-    <string name="splash_title">Numify</string>
+    <string name="splash_title">Contacts</string>
     <string name="splash_tagline">看清每一位来电者，屏蔽其余。</string>
     <string name="splash_footer">本应用可能显示广告</string>
 
@@ -21,7 +20,7 @@
 
     <!-- Terms &amp; Conditions -->
     <string name="terms_title">使用条款</string>
-    <string name="terms_body">继续之前请阅读以下条款。点按“同意”即表示您接受：\n\n• Numify 在通话进行时标出来电、去电和陌生号码的名称。\n• 应用会标记垃圾、诈骗和欺诈号码，并协助您拦截。\n• 您可以查询任意号码，查看我们掌握的来电者信息。\n• 通话记录和通讯录权限用于为您的通话标注名称。\n• 悬浮窗权限使来电信息能在通话过程中显示。\n• 您的数据留在您这一侧，仅用于来电识别与垃圾拦截。\n\n点按“同意并继续”即确认您已阅读并接受我们的使用条款和隐私政策。</string>
+    <string name="terms_body">继续之前请阅读以下条款。点按“同意”即表示您接受：\n\n• Contacts 在通话进行时标出来电、去电和陌生号码的名称。\n• 应用会标记垃圾、诈骗和欺诈号码，并协助您拦截。\n• 您可以查询任意号码，查看我们掌握的来电者信息。\n• 通话记录和通讯录权限用于为您的通话标注名称。\n• 悬浮窗权限使来电信息能在通话过程中显示。\n• 您的数据留在您这一侧，仅用于来电识别与垃圾拦截。\n\n点按“同意并继续”即确认您已阅读并接受我们的使用条款和隐私政策。</string>
     <string name="terms_agree">我已阅读并接受使用条款与隐私政策。</string>
     <string name="terms_accept">同意并继续</string>
     <string name="terms_please_accept">勾选后继续。</string>
@@ -85,7 +84,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">显示您的通话记录</string>
-    <string name="perm_calllog_message">Numify 读取通话记录，在这里显示带姓名的最近来电。</string>
+    <string name="perm_calllog_message">Contacts 读取通话记录，在这里显示带姓名的最近来电。</string>
     <string name="action_grant">授予访问权限</string>
 
     <!-- Lookup -->
@@ -110,7 +109,7 @@
     <string name="contacts_search_hint">搜索联系人</string>
     <string name="contacts_empty">未找到联系人</string>
     <string name="perm_contacts_title">为号码匹配姓名</string>
-    <string name="perm_contacts_message">Numify 读取通讯录，用姓名而不是号码显示已保存的联系人。</string>
+    <string name="perm_contacts_message">Contacts 读取通讯录，用姓名而不是号码显示已保存的联系人。</string>
 
     <!-- Settings actions -->
     <string name="language_dialog_title">选择语言</string>
@@ -149,8 +148,8 @@
     <string name="label_verified">已认证</string>
 
     <!-- Added translations -->
-    <string name="app_name_overlay">Numify</string>
-    <string name="overlay_guide_desc">在下方列表中找到 Numify 并打开开关。</string>
+    <string name="app_name_overlay">Contacts</string>
+    <string name="overlay_guide_desc">在下方列表中找到 Contacts 并打开开关。</string>
     <string name="overlay_guide_row_hint">点按开启</string>
     <string name="overlay_guide_dismiss">点按任意处关闭</string>
     <string name="onboarding_spam_id">垃圾信息识别</string>
@@ -247,7 +246,7 @@
     <string name="common_no">否</string>
     <string name="common_unknown">未知</string>
     <string name="press_back_again">再按一次返回退出</string>
-    <string name="exit_dialog_title">退出 Numify？</string>
+    <string name="exit_dialog_title">退出 Contacts？</string>
     <string name="exit_dialog_desc">随时可以回来——你的黑名单会保留。</string>
     <string name="exit_dialog_positive">退出</string>
     <string name="exit_dialog_negative">取消</string>
@@ -285,9 +284,9 @@
     <string name="battery_activity_title">电池信息</string>
 
     <!-- Localized (zh) - batch added -->
-    <string name="app_label"> Numify: 号码查询</string>
+    <string name="app_label">&#160;&#160;Contacts</string>
     <string name="overlay_banner_desc">在其他应用上层显示来电者信息</string>
-    <string name="home_brand">Numify</string>
+    <string name="home_brand">Contacts</string>
     <string name="home_brand_sub">来电识别与垃圾拦截</string>
     <string name="home_quick_actions">快捷操作</string>
     <string name="recents_subtitle">您的通话记录</string>
@@ -477,7 +476,7 @@
     <string name="fsi_meta_calls">68 次通话</string>
     <string name="fsi_meta_sim">JIO 4G</string>
     <string name="fsi_screen_title">锁屏上显示来电者</string>
-    <string name="fsi_screen_desc">来电的瞬间，Numify 会在锁屏上显示已验证的来电信息。</string>
+    <string name="fsi_screen_desc">来电的瞬间，Contacts 会在锁屏上显示已验证的来电信息。</string>
     <string name="fsi_feature_identify">给陌生号码一个名字</string>
     <string name="fsi_feature_spam">一眼认出诈骗与欺诈来电</string>
     <string name="fsi_feature_missed">别再错过要紧的电话</string>
@@ -715,7 +714,7 @@
     <string name="ai_settings_reply_title">未接来电回复</string>
     <string name="ai_settings_reply_sub">带有现成短信的通知</string>
     <string name="ai_settings_questions_asked">提问次数</string>
-    <string name="ai_settings_privacy_title">Numify 使用了什么</string>
+    <string name="ai_settings_privacy_title">Contacts 使用了什么</string>
     <string name="ai_settings_privacy_body">答案在你的手机上根据通话记录、通讯录和黑名单得出。通话从不被录音，在你亲自点击发送前不会发出任何内容。</string>
     <string name="settings_ai">问 AI</string>
     <string name="settings_ai_sub">助手与来电判断</string>

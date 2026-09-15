@@ -1,11 +1,10 @@
 <resources>
     <!-- App -->
-    <string name="app_name">Numify: Numara Sorgulama</string>
-    <string name="app_name1">#CallerID</string>
+    <string name="app_name">Contacts</string>
     <string name="dash">&#8211;</string>
 
     <!-- Splash -->
-    <string name="splash_title">Numify</string>
+    <string name="splash_title">Contacts</string>
     <string name="splash_tagline">Her arayanı tanıyın. Gerisini kapatın.</string>
     <string name="splash_footer">Bu uygulamada reklam görünebilir</string>
 
@@ -21,7 +20,7 @@
 
     <!-- Terms &amp; Conditions -->
     <string name="terms_title">Kullanım Koşulları</string>
-    <string name="terms_body">Devam etmeden önce bu koşulları okuyun. Kabul Et\'e dokunarak şunları kabul edersiniz:\n\n• Numify gelen, giden ve bilinmeyen arayanları çağrı sırasında adlandırır.\n• Uygulama spam, dolandırıcılık ve sahtekârlık numaralarını işaretler ve engellemenize yardım eder.\n• Herhangi bir numarayı arayıp elimizdeki arayan bilgilerini görebilirsiniz.\n• Çağrı kaydı ve kişilere erişim, çağrılarınızı adlandırmak için gereklidir.\n• Diğer uygulamaların üzerinde gösterme izni, çağrı sırasında arayan bilgisini gösterir.\n• Verileriniz sizde kalır ve yalnızca arayan kimliği ile spam koruması için kullanılır.\n\n“Kabul et ve devam et”e dokunmanız, Kullanım Koşulları ve Gizlilik Politikamızı okuyup kabul ettiğinizi doğrular.</string>
+    <string name="terms_body">Devam etmeden önce bu koşulları okuyun. Kabul Et\'e dokunarak şunları kabul edersiniz:\n\n• Contacts gelen, giden ve bilinmeyen arayanları çağrı sırasında adlandırır.\n• Uygulama spam, dolandırıcılık ve sahtekârlık numaralarını işaretler ve engellemenize yardım eder.\n• Herhangi bir numarayı arayıp elimizdeki arayan bilgilerini görebilirsiniz.\n• Çağrı kaydı ve kişilere erişim, çağrılarınızı adlandırmak için gereklidir.\n• Diğer uygulamaların üzerinde gösterme izni, çağrı sırasında arayan bilgisini gösterir.\n• Verileriniz sizde kalır ve yalnızca arayan kimliği ile spam koruması için kullanılır.\n\n“Kabul et ve devam et”e dokunmanız, Kullanım Koşulları ve Gizlilik Politikamızı okuyup kabul ettiğinizi doğrular.</string>
     <string name="terms_agree">Kullanım Koşulları\'nı ve Gizlilik Politikası\'nı okudum ve kabul ediyorum.</string>
     <string name="terms_accept">Kabul et ve devam et</string>
     <string name="terms_please_accept">Devam etmek için kutuyu işaretleyin.</string>
@@ -85,7 +84,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">Çağrı geçmişinizi gösterin</string>
-    <string name="perm_calllog_message">Numify, son aramaları adlarıyla burada göstermek için arama kaydınızı okur.</string>
+    <string name="perm_calllog_message">Contacts, son aramaları adlarıyla burada göstermek için arama kaydınızı okur.</string>
     <string name="action_grant">Erişime izin ver</string>
 
     <!-- Lookup -->
@@ -110,7 +109,7 @@
     <string name="contacts_search_hint">Kişilerde ara</string>
     <string name="contacts_empty">Kişi bulunamadı</string>
     <string name="perm_contacts_title">Adları numaralarla eşleştirin</string>
-    <string name="perm_contacts_message">Numify, kayıtlı kişileri numara yerine adla göstermek için kişilerinizi okur.</string>
+    <string name="perm_contacts_message">Contacts, kayıtlı kişileri numara yerine adla göstermek için kişilerinizi okur.</string>
 
     <!-- Settings actions -->
     <string name="language_dialog_title">Dil seçin</string>
@@ -149,8 +148,8 @@
     <string name="label_verified">Doğrulandı</string>
 
     <!-- Added translations -->
-    <string name="app_name_overlay">Numify</string>
-    <string name="overlay_guide_desc">Aşağıdaki listede Numify’yı bulun ve anahtarını açın.</string>
+    <string name="app_name_overlay">Contacts</string>
+    <string name="overlay_guide_desc">Aşağıdaki listede Contacts’yı bulun ve anahtarını açın.</string>
     <string name="overlay_guide_row_hint">Açmak için dokunun</string>
     <string name="overlay_guide_dismiss">Kapatmak için herhangi bir yere dokunun</string>
     <string name="onboarding_spam_id">Spam Kimliği</string>
@@ -247,7 +246,7 @@
     <string name="common_no">Hayır</string>
     <string name="common_unknown">Bilinmiyor</string>
     <string name="press_back_again">Çıkmak için tekrar geri basın</string>
-    <string name="exit_dialog_title">Numify\'dan çıkılsın mı?</string>
+    <string name="exit_dialog_title">Contacts\'dan çıkılsın mı?</string>
     <string name="exit_dialog_desc">İstediğiniz zaman dönebilirsiniz — engelleme listeniz saklı kalır.</string>
     <string name="exit_dialog_positive">Çık</string>
     <string name="exit_dialog_negative">İptal</string>
@@ -290,9 +289,9 @@
     <string name="battery_activity_title">Pil Bilgisi</string>
 
     <!-- Batch translations -->
-    <string name="app_label"> Numify: Numara Sorgulama</string>
+    <string name="app_label">&#160;&#160;Contacts</string>
     <string name="overlay_banner_desc">Arayan bilgilerini diğer uygulamaların üzerinde göster</string>
-    <string name="home_brand">Numify</string>
+    <string name="home_brand">Contacts</string>
     <string name="home_brand_sub">Arayan kimliği ve spam engel</string>
     <string name="home_quick_actions">Hızlı İşlemler</string>
     <string name="recents_subtitle">Arama geçmişiniz</string>
@@ -482,7 +481,7 @@
     <string name="fsi_meta_calls">68 arama</string>
     <string name="fsi_meta_sim">JIO 4G</string>
     <string name="fsi_screen_title">Kilit ekranınızda arayanlar</string>
-    <string name="fsi_screen_desc">Bir arama geldiği anda Numify, doğrulanmış arayan bilgilerini kilit ekranına koyar.</string>
+    <string name="fsi_screen_desc">Bir arama geldiği anda Contacts, doğrulanmış arayan bilgilerini kilit ekranına koyar.</string>
     <string name="fsi_feature_identify">Bilinmeyen numaralara ad verin</string>
     <string name="fsi_feature_spam">Dolandırıcılık çağrılarını bir bakışta fark edin</string>
     <string name="fsi_feature_missed">Önemli çağrıları kaçırmayı bırakın</string>
@@ -720,7 +719,7 @@
     <string name="ai_settings_reply_title">Cevapsız arama yanıtları</string>
     <string name="ai_settings_reply_sub">Göndermeye hazır mesajlı bir bildirim</string>
     <string name="ai_settings_questions_asked">Sorulan sorular</string>
-    <string name="ai_settings_privacy_title">Numify neleri kullanır</string>
+    <string name="ai_settings_privacy_title">Contacts neleri kullanır</string>
     <string name="ai_settings_privacy_body">Yanıtlar telefonunuzda arama kaydınız, kişileriniz ve engelleme listenizden hesaplanır. Aramalar asla kaydedilmez ve siz gönder\'e basana kadar kimseye hiçbir şey gönderilmez.</string>
     <string name="settings_ai">Yapay zekâya sor</string>
     <string name="settings_ai_sub">Asistan ve arayan değerlendirmeleri</string>

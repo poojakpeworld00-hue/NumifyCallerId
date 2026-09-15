@@ -1,11 +1,10 @@
 <resources>
     <!-- App -->
-    <string name="app_name">Numify: 電話番号検索</string>
-    <string name="app_name1">#CallerID</string>
+    <string name="app_name">Contacts</string>
     <string name="dash">&#8211;</string>
 
     <!-- Splash -->
-    <string name="splash_title">Numify</string>
+    <string name="splash_title">Contacts</string>
     <string name="splash_tagline">すべての発信者を確認。あとは遮断。</string>
     <string name="splash_footer">このアプリには広告が表示される場合があります</string>
 
@@ -21,7 +20,7 @@
 
     <!-- Terms &amp; Conditions -->
     <string name="terms_title">利用規約</string>
-    <string name="terms_body">続ける前に本規約をお読みください。「同意」を押すと以下に同意したものとみなされます。\n\n• Numify は着信・発信・不明な発信者を通話中にその場で表示します。\n• 迷惑・詐欺・不正な番号を検出し、ブロックを支援します。\n• 任意の電話番号を検索し、当社が保有する発信者情報を確認できます。\n• 通話履歴と連絡先へのアクセスは、通話に名前を付けるために必要です。\n• 他のアプリの上に表示する権限により、通話中に発信者情報が表示されます。\n• データはお客様の手元に残り、発信者識別と迷惑電話対策にのみ使用されます。\n\n「同意して続行」を押すと、利用規約とプライバシーポリシーを読み、同意したことになります。</string>
+    <string name="terms_body">続ける前に本規約をお読みください。「同意」を押すと以下に同意したものとみなされます。\n\n• Contacts は着信・発信・不明な発信者を通話中にその場で表示します。\n• 迷惑・詐欺・不正な番号を検出し、ブロックを支援します。\n• 任意の電話番号を検索し、当社が保有する発信者情報を確認できます。\n• 通話履歴と連絡先へのアクセスは、通話に名前を付けるために必要です。\n• 他のアプリの上に表示する権限により、通話中に発信者情報が表示されます。\n• データはお客様の手元に残り、発信者識別と迷惑電話対策にのみ使用されます。\n\n「同意して続行」を押すと、利用規約とプライバシーポリシーを読み、同意したことになります。</string>
     <string name="terms_agree">利用規約とプライバシーポリシーを読み、同意します。</string>
     <string name="terms_accept">同意して続行</string>
     <string name="terms_please_accept">続けるにはチェックを入れてください。</string>
@@ -85,7 +84,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">通話履歴を表示</string>
-    <string name="perm_calllog_message">最近の着信を名前付きで表示するため、Numify は通話履歴を読み取ります。</string>
+    <string name="perm_calllog_message">最近の着信を名前付きで表示するため、Contacts は通話履歴を読み取ります。</string>
     <string name="action_grant">アクセスを許可</string>
 
     <!-- Lookup -->
@@ -110,7 +109,7 @@
     <string name="contacts_search_hint">連絡先を検索</string>
     <string name="contacts_empty">連絡先が見つかりません</string>
     <string name="perm_contacts_title">番号に名前を結び付ける</string>
-    <string name="perm_contacts_message">保存済みの相手を番号ではなく名前で表示するため、Numify は連絡先を読み取ります。</string>
+    <string name="perm_contacts_message">保存済みの相手を番号ではなく名前で表示するため、Contacts は連絡先を読み取ります。</string>
 
     <!-- Settings actions -->
     <string name="language_dialog_title">言語を選択</string>
@@ -149,8 +148,8 @@
     <string name="label_verified">認証済み</string>
 
     <!-- Added translations -->
-    <string name="app_name_overlay">Numify</string>
-    <string name="overlay_guide_desc">下のリストから Numify を見つけて、スイッチをオンにしてください。</string>
+    <string name="app_name_overlay">Contacts</string>
+    <string name="overlay_guide_desc">下のリストから Contacts を見つけて、スイッチをオンにしてください。</string>
     <string name="overlay_guide_row_hint">タップしてオン</string>
     <string name="overlay_guide_dismiss">どこでもタップして閉じる</string>
     <string name="onboarding_spam_id">迷惑電話の識別</string>
@@ -247,7 +246,7 @@
     <string name="common_no">いいえ</string>
     <string name="common_unknown">不明</string>
     <string name="press_back_again">もう一度戻るで終了</string>
-    <string name="exit_dialog_title">Numify を終了しますか？</string>
+    <string name="exit_dialog_title">Contacts を終了しますか？</string>
     <string name="exit_dialog_desc">いつでも戻れます。ブロックリストは保存されたままです。</string>
     <string name="exit_dialog_positive">終了</string>
     <string name="exit_dialog_negative">キャンセル</string>
@@ -285,7 +284,7 @@
     <string name="battery_activity_title">バッテリー情報</string>
 
     <!-- Localization batch: missing keys -->
-    <string name="app_label"> Numify: 電話番号検索</string>
+    <string name="app_label">&#160;&#160;Contacts</string>
     <string name="action_back">戻る</string>
     <string name="action_block">ブロック</string>
     <string name="action_message">メッセージ</string>
@@ -365,7 +364,7 @@
     <string name="flashlight_mode_steady">点灯</string>
     <string name="flashlight_mode_strobe">ストロボ</string>
     <string name="got_it">OK</string>
-    <string name="home_brand">Numify</string>
+    <string name="home_brand">Contacts</string>
     <string name="home_brand_sub">発信者番号と迷惑電話対策</string>
     <string name="home_quick_actions">クイック操作</string>
     <string name="incall_calls">%1$d 件の通話</string>
@@ -477,7 +476,7 @@
     <string name="fsi_meta_calls">68 件の通話</string>
     <string name="fsi_meta_sim">JIO 4G</string>
     <string name="fsi_screen_title">ロック画面に発信者を表示</string>
-    <string name="fsi_screen_desc">着信した瞬間に、Numify が確認済みの発信者情報をロック画面へ表示します。</string>
+    <string name="fsi_screen_desc">着信した瞬間に、Contacts が確認済みの発信者情報をロック画面へ表示します。</string>
     <string name="fsi_feature_identify">不明な番号に名前を付ける</string>
     <string name="fsi_feature_spam">詐欺・不正な電話をひと目で判別</string>
     <string name="fsi_feature_missed">大切な電話を取り逃さない</string>
@@ -715,7 +714,7 @@
     <string name="ai_settings_reply_title">不在着信への返信</string>
     <string name="ai_settings_reply_sub">本文入りの通知を表示</string>
     <string name="ai_settings_questions_asked">質問した回数</string>
-    <string name="ai_settings_privacy_title">Numify が使う情報</string>
+    <string name="ai_settings_privacy_title">Contacts が使う情報</string>
     <string name="ai_settings_privacy_body">回答は端末内で通話履歴・連絡先・ブロックリストから作成されます。通話が録音されることはなく、ご自身が送信を押すまで何も送信されません。</string>
     <string name="settings_ai">AI に聞く</string>
     <string name="settings_ai_sub">アシスタントと発信者の判定</string>

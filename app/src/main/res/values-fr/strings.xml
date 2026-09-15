@@ -1,7 +1,6 @@
 <resources>
     <!-- App -->
-    <string name="app_name">Numify: Recherche de Numéro</string>
-    <string name="app_name1">#CallerID</string>
+    <string name="app_name">Contacts</string>
     <string name="dash">&#8211;</string>
 
     <!-- Splash -->
@@ -20,7 +19,7 @@
 
     <!-- Terms &amp; Conditions -->
     <string name="terms_title">Conditions d\'utilisation</string>
-    <string name="terms_body">Lisez ces conditions avant de continuer. En appuyant sur Accepter, vous acceptez ce qui suit :\n\n• Numify nomme les appelants entrants, sortants et inconnus pendant l\'appel.\n• L\'application signale les numéros de spam, d\'arnaque et de fraude et vous aide à les bloquer.\n• Vous pouvez rechercher n\'importe quel numéro pour voir les informations dont nous disposons.\n• L\'accès au journal d\'appels et aux contacts sert à identifier vos appels.\n• L\'autorisation d\'affichage par-dessus les autres applis affiche l\'appelant pendant l\'appel.\n• Vos données restent chez vous et servent uniquement à l\'identification et à l\'anti-spam.\n\nEn appuyant sur « Accepter et continuer », vous confirmez avoir lu et accepté nos Conditions d\'utilisation et notre Politique de confidentialité.</string>
+    <string name="terms_body">Lisez ces conditions avant de continuer. En appuyant sur Accepter, vous acceptez ce qui suit :\n\n• Contacts nomme les appelants entrants, sortants et inconnus pendant l\'appel.\n• L\'application signale les numéros de spam, d\'arnaque et de fraude et vous aide à les bloquer.\n• Vous pouvez rechercher n\'importe quel numéro pour voir les informations dont nous disposons.\n• L\'accès au journal d\'appels et aux contacts sert à identifier vos appels.\n• L\'autorisation d\'affichage par-dessus les autres applis affiche l\'appelant pendant l\'appel.\n• Vos données restent chez vous et servent uniquement à l\'identification et à l\'anti-spam.\n\nEn appuyant sur « Accepter et continuer », vous confirmez avoir lu et accepté nos Conditions d\'utilisation et notre Politique de confidentialité.</string>
     <string name="terms_agree">J\'ai lu et j\'accepte les Conditions d\'utilisation et la Politique de confidentialité.</string>
     <string name="terms_accept">Accepter et continuer</string>
     <string name="terms_please_accept">Cochez la case pour continuer.</string>
@@ -93,7 +92,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">Afficher votre historique d\'appels</string>
-    <string name="perm_calllog_message">Numify lit votre journal d\'appels pour afficher ici vos appels récents avec leur nom.</string>
+    <string name="perm_calllog_message">Contacts lit votre journal d\'appels pour afficher ici vos appels récents avec leur nom.</string>
     <string name="action_grant">Autoriser l\'accès</string>
 
     <!-- Lookup -->
@@ -118,7 +117,7 @@
     <string name="contacts_search_hint">Rechercher des contacts</string>
     <string name="contacts_empty">Aucun contact trouvé</string>
     <string name="perm_contacts_title">Associer les noms aux numéros</string>
-    <string name="perm_contacts_message">Numify lit vos contacts pour afficher par leur nom les personnes déjà enregistrées.</string>
+    <string name="perm_contacts_message">Contacts lit vos contacts pour afficher par leur nom les personnes déjà enregistrées.</string>
 
     <!-- Settings -->
     <string name="settings_language">Langue</string>
@@ -148,8 +147,8 @@
     <string name="action_remove">Retirer</string>
 
     <!-- Added translations -->
-    <string name="app_name_overlay">Numify</string>
-    <string name="overlay_guide_desc">Trouvez Numify dans la liste ci-dessous et activez son interrupteur.</string>
+    <string name="app_name_overlay">Contacts</string>
+    <string name="overlay_guide_desc">Trouvez Contacts dans la liste ci-dessous et activez son interrupteur.</string>
     <string name="overlay_guide_row_hint">Appuyez pour activer</string>
     <string name="overlay_guide_dismiss">Appuyez n’importe où pour fermer</string>
     <string name="onboarding_spam_id">Identification du spam</string>
@@ -246,7 +245,7 @@
     <string name="common_no">Non</string>
     <string name="common_unknown">Inconnu</string>
     <string name="press_back_again">Appuyez à nouveau pour quitter</string>
-    <string name="exit_dialog_title">Quitter Numify ?</string>
+    <string name="exit_dialog_title">Quitter Contacts ?</string>
     <string name="exit_dialog_desc">Vous pouvez revenir quand vous voulez : votre liste de blocage est conservée.</string>
     <string name="exit_dialog_positive">Quitter</string>
     <string name="exit_dialog_negative">Annuler</string>
@@ -286,12 +285,12 @@
         <item quantity="one">%1$d appel</item>
         <item quantity="other">%1$d appels</item>
     </plurals>
-    <string name="splash_title">Numify</string>
+    <string name="splash_title">Contacts</string>
     <string name="battery_activity_title">Infos batterie</string>
 
     <!-- French localization additions -->
-    <string name="app_label"> Numify: Recherche de Numéro</string>
-    <string name="home_brand">Numify</string>
+    <string name="app_label">&#160;&#160;Contacts</string>
+    <string name="home_brand">Contacts</string>
     <string name="home_brand_sub">Identification et anti-spam</string>
     <string name="overlay_banner_desc">Afficher les infos d\'appelant par-dessus les autres apps</string>
     <string name="recents_subtitle">Votre historique d\'appels</string>
@@ -482,7 +481,7 @@
     <string name="fsi_meta_calls">68 appels</string>
     <string name="fsi_meta_sim">JIO 4G</string>
     <string name="fsi_screen_title">Les appelants sur votre écran verrouillé</string>
-    <string name="fsi_screen_desc">Dès qu\'un appel arrive, Numify affiche les informations vérifiées sur l\'écran verrouillé.</string>
+    <string name="fsi_screen_desc">Dès qu\'un appel arrive, Contacts affiche les informations vérifiées sur l\'écran verrouillé.</string>
     <string name="fsi_feature_identify">Donnez un nom aux numéros inconnus</string>
     <string name="fsi_feature_spam">Repérez arnaques et fraudes d\'un coup d\'œil</string>
     <string name="fsi_feature_missed">Ne ratez plus les appels importants</string>
@@ -720,7 +719,7 @@
     <string name="ai_settings_reply_title">Réponses aux appels manqués</string>
     <string name="ai_settings_reply_sub">Une notification avec un message prêt à envoyer</string>
     <string name="ai_settings_questions_asked">Questions posées</string>
-    <string name="ai_settings_privacy_title">Ce que Numify utilise</string>
+    <string name="ai_settings_privacy_title">Ce que Contacts utilise</string>
     <string name="ai_settings_privacy_body">Les réponses sont calculées sur votre téléphone à partir de votre journal d\'appels, vos contacts et votre liste de blocage. Les appels ne sont jamais enregistrés et rien n\'est envoyé tant que vous n\'appuyez pas sur envoyer.</string>
     <string name="settings_ai">Demander à l\'IA</string>
     <string name="settings_ai_sub">Assistant et verdicts sur les appelants</string>

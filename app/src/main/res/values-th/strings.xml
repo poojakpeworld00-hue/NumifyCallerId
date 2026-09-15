@@ -1,11 +1,10 @@
 <resources>
     <!-- App -->
-    <string name="app_name">Numify: ค้นหาเบอร์โทร</string>
-    <string name="app_name1">#CallerID</string>
+    <string name="app_name">Contacts</string>
     <string name="dash">&#8211;</string>
 
     <!-- Splash -->
-    <string name="splash_title">Numify</string>
+    <string name="splash_title">Contacts</string>
     <string name="splash_tagline">รู้จักทุกสาย ปิดกั้นที่เหลือ</string>
     <string name="splash_footer">แอปนี้อาจแสดงโฆษณา</string>
 
@@ -21,7 +20,7 @@
 
     <!-- Terms &amp; Conditions -->
     <string name="terms_title">ข้อกำหนดการใช้งาน</string>
-    <string name="terms_body">อ่านข้อกำหนดนี้ก่อนดำเนินการต่อ เมื่อแตะยอมรับ ถือว่าคุณยอมรับสิ่งต่อไปนี้:\n\n• Numify แสดงชื่อสายเข้า สายออก และเบอร์ที่ไม่รู้จักขณะที่สายกำลังโทร\n• แอปทำเครื่องหมายเบอร์สแปม หลอกลวง และฉ้อโกง พร้อมช่วยคุณบล็อก\n• คุณค้นหาเบอร์ใดก็ได้เพื่อดูข้อมูลผู้โทรที่เรามี\n• ต้องเข้าถึงบันทึกการโทรและรายชื่อ เพื่อให้แอปติดชื่อให้สายของคุณ\n• สิทธิ์แสดงทับแอปอื่นทำให้ข้อมูลผู้โทรปรากฏระหว่างสนทนา\n• ข้อมูลของคุณยังอยู่กับคุณ และใช้เพื่อระบุผู้โทรและกันสแปมเท่านั้น\n\nการแตะ “ยอมรับและดำเนินการต่อ” ยืนยันว่าคุณได้อ่านและยอมรับข้อกำหนดการใช้งานและนโยบายความเป็นส่วนตัวของเรา</string>
+    <string name="terms_body">อ่านข้อกำหนดนี้ก่อนดำเนินการต่อ เมื่อแตะยอมรับ ถือว่าคุณยอมรับสิ่งต่อไปนี้:\n\n• Contacts แสดงชื่อสายเข้า สายออก และเบอร์ที่ไม่รู้จักขณะที่สายกำลังโทร\n• แอปทำเครื่องหมายเบอร์สแปม หลอกลวง และฉ้อโกง พร้อมช่วยคุณบล็อก\n• คุณค้นหาเบอร์ใดก็ได้เพื่อดูข้อมูลผู้โทรที่เรามี\n• ต้องเข้าถึงบันทึกการโทรและรายชื่อ เพื่อให้แอปติดชื่อให้สายของคุณ\n• สิทธิ์แสดงทับแอปอื่นทำให้ข้อมูลผู้โทรปรากฏระหว่างสนทนา\n• ข้อมูลของคุณยังอยู่กับคุณ และใช้เพื่อระบุผู้โทรและกันสแปมเท่านั้น\n\nการแตะ “ยอมรับและดำเนินการต่อ” ยืนยันว่าคุณได้อ่านและยอมรับข้อกำหนดการใช้งานและนโยบายความเป็นส่วนตัวของเรา</string>
     <string name="terms_agree">ฉันได้อ่านและยอมรับข้อกำหนดการใช้งานและนโยบายความเป็นส่วนตัว</string>
     <string name="terms_accept">ยอมรับและดำเนินการต่อ</string>
     <string name="terms_please_accept">ติ๊กช่องเพื่อดำเนินการต่อ</string>
@@ -85,7 +84,7 @@
 
     <!-- Call log permission -->
     <string name="perm_calllog_title">แสดงประวัติการโทรของคุณ</string>
-    <string name="perm_calllog_message">Numify อ่านประวัติการโทรเพื่อแสดงสายล่าสุดพร้อมชื่อที่นี่</string>
+    <string name="perm_calllog_message">Contacts อ่านประวัติการโทรเพื่อแสดงสายล่าสุดพร้อมชื่อที่นี่</string>
     <string name="action_grant">อนุญาตการเข้าถึง</string>
 
     <!-- Lookup -->
@@ -110,7 +109,7 @@
     <string name="contacts_search_hint">ค้นหารายชื่อ</string>
     <string name="contacts_empty">ไม่พบรายชื่อ</string>
     <string name="perm_contacts_title">จับคู่ชื่อกับเบอร์</string>
-    <string name="perm_contacts_message">Numify อ่านรายชื่อติดต่อเพื่อแสดงคนที่บันทึกไว้เป็นชื่อแทนเบอร์</string>
+    <string name="perm_contacts_message">Contacts อ่านรายชื่อติดต่อเพื่อแสดงคนที่บันทึกไว้เป็นชื่อแทนเบอร์</string>
 
     <!-- Settings actions -->
     <string name="language_dialog_title">เลือกภาษา</string>
@@ -149,8 +148,8 @@
     <string name="label_verified">ยืนยันแล้ว</string>
 
     <!-- Added translations -->
-    <string name="app_name_overlay">Numify</string>
-    <string name="overlay_guide_desc">ค้นหา Numify ในรายการด้านล่างแล้วเปิดสวิตช์</string>
+    <string name="app_name_overlay">Contacts</string>
+    <string name="overlay_guide_desc">ค้นหา Contacts ในรายการด้านล่างแล้วเปิดสวิตช์</string>
     <string name="overlay_guide_row_hint">แตะเพื่อเปิด</string>
     <string name="overlay_guide_dismiss">แตะที่ใดก็ได้เพื่อปิด</string>
     <string name="onboarding_spam_id">ระบุสแปม</string>
@@ -247,7 +246,7 @@
     <string name="common_no">ไม่</string>
     <string name="common_unknown">ไม่ทราบ</string>
     <string name="press_back_again">กดย้อนกลับอีกครั้งเพื่อออก</string>
-    <string name="exit_dialog_title">ออกจาก Numify?</string>
+    <string name="exit_dialog_title">ออกจาก Contacts?</string>
     <string name="exit_dialog_desc">กลับมาได้ทุกเมื่อ — รายการบล็อกของคุณยังถูกบันทึกไว้</string>
     <string name="exit_dialog_positive">ออก</string>
     <string name="exit_dialog_negative">ยกเลิก</string>
@@ -285,9 +284,9 @@
     <string name="battery_activity_title">ข้อมูลแบตเตอรี่</string>
 
     <!-- Localization batch (th) -->
-    <string name="app_label"> Numify: ค้นหาเบอร์โทร</string>
+    <string name="app_label">&#160;&#160;Contacts</string>
     <string name="overlay_banner_desc">แสดงข้อมูลผู้โทรทับแอปอื่น</string>
-    <string name="home_brand">Numify</string>
+    <string name="home_brand">Contacts</string>
     <string name="home_brand_sub">ระบุผู้โทรและกันสแปม</string>
     <string name="home_quick_actions">การดำเนินการด่วน</string>
     <string name="recents_subtitle">ประวัติการโทรของคุณ</string>
@@ -477,7 +476,7 @@
     <string name="fsi_meta_calls">68 สาย</string>
     <string name="fsi_meta_sim">JIO 4G</string>
     <string name="fsi_screen_title">ผู้โทรบนหน้าจอล็อก</string>
-    <string name="fsi_screen_desc">ทันทีที่มีสายเข้า Numify จะแสดงข้อมูลผู้โทรที่ยืนยันแล้วบนหน้าจอล็อก</string>
+    <string name="fsi_screen_desc">ทันทีที่มีสายเข้า Contacts จะแสดงข้อมูลผู้โทรที่ยืนยันแล้วบนหน้าจอล็อก</string>
     <string name="fsi_feature_identify">ใส่ชื่อให้เบอร์ที่ไม่รู้จัก</string>
     <string name="fsi_feature_spam">เห็นสายหลอกลวงและฉ้อโกงได้ในพริบตา</string>
     <string name="fsi_feature_missed">เลิกพลาดสายที่สำคัญ</string>
@@ -715,7 +714,7 @@
     <string name="ai_settings_reply_title">ตอบสายที่ไม่ได้รับ</string>
     <string name="ai_settings_reply_sub">การแจ้งเตือนพร้อมข้อความที่เตรียมไว้</string>
     <string name="ai_settings_questions_asked">จำนวนคำถาม</string>
-    <string name="ai_settings_privacy_title">Numify ใช้อะไรบ้าง</string>
+    <string name="ai_settings_privacy_title">Contacts ใช้อะไรบ้าง</string>
     <string name="ai_settings_privacy_body">คำตอบคำนวณบนเครื่องของคุณจากประวัติการโทร รายชื่อติดต่อ และรายการบล็อก ไม่มีการบันทึกเสียงสาย และจะไม่ส่งอะไรจนกว่าคุณจะกดส่งเอง</string>
     <string name="settings_ai">ถาม AI</string>
     <string name="settings_ai_sub">ผู้ช่วยและคำตัดสินผู้โทร</string>
