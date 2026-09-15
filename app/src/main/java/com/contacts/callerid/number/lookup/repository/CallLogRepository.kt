@@ -125,18 +125,42 @@ class CallLogRepository(private val context: Context) {
     /**
      * Returns the most frequently called numbers, busiest first.
      * Caller must ensure READ_CALL_LOG is granted (otherwise the list is empty).
+     *
+     * Grouped on the last [MATCH_TAIL] digits, not on the raw string. One person
+     * dialled once as `+918336051755` and once as `8336051755` is two different
+     * strings and was therefore two rows — the same contact listed twice in the
+     * dialer, once with a country code and once without. The digits are what
+     * identify a line; the punctuation in front of them is a formatting accident.
+     *
+     * The surviving row keeps the most complete form of the number, so a contact
+     * that has ever been dialled in full international form is shown that way
+     * rather than in whatever shorthand happened to sort first.
      */
     fun getMostUsed(limit: Int = 20): List<FavoriteNumber> =
         getCalls(limit = 1000)
             .filter { it.number.isNotBlank() && !it.number.equals("Unknown", ignoreCase = true) }
-            .groupBy { it.number }
-            .map { (number, entries) ->
+            .groupBy { record ->
+                record.number.filter(Char::isDigit).takeLast(MATCH_TAIL)
+                    .ifEmpty { record.number }
+            }
+            .map { (_, entries) ->
                 FavoriteNumber(
                     name = entries.firstOrNull { !it.name.isNullOrBlank() }?.name,
-                    number = number,
+                    number = entries.maxByOrNull { it.number.length }?.number
+                        ?: entries.first().number,
                     count = entries.size
                 )
             }
             .sortedByDescending { it.count }
             .take(limit)
+
+    companion object {
+        /**
+         * Digits that identify a line, counted from the end.
+         *
+         * Ten, matching ContactRepository.MATCH_DIGITS — the whole app has to agree
+         * on this or the same number is one row in one place and two in another.
+         */
+        const val MATCH_TAIL = 10
+    }
 }

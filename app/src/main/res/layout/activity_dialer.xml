@@ -53,15 +53,25 @@
             action rows plus a few matches is taller than what is left over a
             keypad sheet on a short screen, and before this they simply had
             nowhere to go.
+
+            The bottom margin is what keeps that from reading as a bug. The band
+            ended flush against the sheet, so the last match was sliced through
+            the middle by the sheet's edge and its card lost its rounded bottom —
+            which looks like the list running underneath the number field rather
+            than a list that scrolls. A strip of page colour between the two says
+            "there is more below" instead.
         -->
         <androidx.core.widget.NestedScrollView
             android:id="@+id/matchesScroll"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:fillViewport="true"
             android:overScrollMode="never"
             android:scrollbars="none"
             app:layout_constraintBottom_toTopOf="@id/dialpadPanel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topBar">
 
             <LinearLayout

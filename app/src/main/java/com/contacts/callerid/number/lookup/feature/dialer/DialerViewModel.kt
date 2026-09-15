@@ -87,19 +87,29 @@ class DialerViewModel(app: Application) : AndroidViewModel(app) {
         if (loadJob?.isActive == true) return
         loadJob = viewModelScope.launch {
             val loaded = withContext(Dispatchers.IO) {
-                val called = repository.getMostUsed(limit = 200)
-                val seen = called.mapTo(HashSet()) { it.number.digitsKey() }
                 val phones = contacts.phoneEntries()
-                val savedKeys = HashSet<String>(phones.size)
+                // Saved numbers, keyed by their digits. Two jobs: telling whether a
+                // dialled number is already saved, and letting a call-log row be
+                // shown the way the contact itself is — same name, same number
+                // formatting — so the dialer and the contacts list agree.
+                val byKey = HashMap<String, com.contacts.callerid.number.lookup.repository.ContactPhone>(phones.size)
                 phones.forEach { phone ->
-                    phone.number.digitsKey().takeIf(String::isNotEmpty)?.let { savedKeys.add(it) }
+                    phone.number.digitsKey().takeIf(String::isNotEmpty)?.let { byKey.putIfAbsent(it, phone) }
                 }
+
+                val seen = HashSet<String>()
+                val called = repository.getMostUsed(limit = 200)
+                    .filter { seen.add(it.number.digitsKey()) }
+                    .map { record ->
+                        val saved = byKey[record.number.digitsKey()] ?: return@map record
+                        record.copy(name = saved.name ?: record.name, number = saved.number)
+                    }
                 val fromContacts = phones
                     .filter { seen.add(it.number.digitsKey()) }
                     // count = 0: never called, so it sorts below everything in
                     // the call log and carries no false "frequently used" weight.
                     .map { FavoriteNumber(name = it.name, number = it.number, count = 0) }
-                Loaded((called + fromContacts).map { it.toEntry() }, savedKeys)
+                Loaded((called + fromContacts).map { it.toEntry() }, byKey.keys.toSet())
             }
             all = loaded.entries
             savedDigits = loaded.savedDigits
