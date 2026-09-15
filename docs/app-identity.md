@@ -26,27 +26,32 @@ gone, because the name is now one word in every language.
 | Where | Value |
 | --- | --- |
 | `applicationId` | `com.contacts.callerid.number.lookup` |
-| Kotlin `namespace` | `com.numify.callerid.lookup` |
+| Kotlin `namespace` | `com.contacts.callerid.number.lookup` |
 
-**These two deliberately differ.** The applicationId is the app's identity on
-Play; the namespace is where the source lives, is invisible to users, and
-renaming ~400 files to match it would be churn with no product effect. Nothing
-outside `build.gradle.kts` and `google-services.json` referenced the old
-applicationId, so the change is those two lines.
+The two match, and the source tree matches both: everything lives under
+`com/contacts/callerid/number/lookup`. The old `com.numify.callerid` root had
+two children, `.lookup` and `.monetize`; `.lookup` became the new root (so
+`…callerid.lookup.feature` is now `…number.lookup.feature`, not a second
+`lookup` segment deeper) and `.monetize` moved in beside the feature packages
+as `…number.lookup.monetize`. The `Numify` name survives nowhere in code except
+`NumifyApplication`, which became `ContactsApplication`, and in comments citing
+design handoffs by their real filenames ("design: Numify Splash v2") — those are
+artefact names, not branding.
 
 ## Before this can ship — not done in the repo
 
-1. **Firebase.** `app/google-services.json` has had its `package_name` edited to
-   the new applicationId so the project builds, but `mobilesdk_app_id` and the
-   API key are still those of the app registered under `com.numify.callerid`.
-   Register `com.contacts.callerid.number.lookup` as a new Android app in the
-   `numify-caller-id-lookup` Firebase project and replace this file with the one
-   the console hands back. Until then Analytics, Remote Config and Crashlytics
-   all report against the old app.
+1. ~~**Firebase.**~~ Done: `app/google-services.json` is the real file for
+   `com.contacts.callerid.number.lookup` in its own project,
+   `contacts-dialer-caller-id` (project number 885272339028). The old
+   `numify-caller-id-lookup` project is no longer referenced by this app —
+   **the Remote Config template lives there, not here**, so every parameter the
+   app reads (`GET_DATA_LIST`, `ai_assistant`, `api_config`, the overlay and
+   blocklist flags — see the other files in this folder) has to be recreated in
+   the new project before a build behaves as it did.
 2. **AdMob.** The manifest's `com.google.android.gms.ads.APPLICATION_ID` is
    Google's public test id, so nothing breaks — but the real AdMob app is tied
    to a package name, so a new one has to be created for the new applicationId
    and its id put here along with the live ad unit ids.
 3. **Play Console.** An applicationId cannot be changed once an app is
-   published. If `com.numify.callerid` was ever uploaded, this is a new listing,
+   published. If `com.contacts.callerid.number.lookup` was ever uploaded, this is a new listing,
    not a rename.

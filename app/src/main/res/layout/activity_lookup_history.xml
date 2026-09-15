@@ -93,7 +93,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topBar">
 
-            <com.numify.callerid.lookup.feature.widgets.RippleIconView
+            <com.contacts.callerid.number.lookup.feature.widgets.RippleIconView
                 android:layout_width="@dimen/_76sdp"
                 android:layout_height="@dimen/_76sdp"
                 app:ripple_disc="@drawable/bg_empty_circle_tools"

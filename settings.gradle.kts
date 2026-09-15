@@ -32,6 +32,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Numify CallerID Lookup"
+rootProject.name = "Contacts Dialer Caller ID"
 include(":app")
  

@@ -257,37 +257,6 @@
             android:textSize="@dimen/_12ssp"
             android:visibility="gone" />
 
-        <!-- Quick dialer: the glyph alone. The label was redundant next to a
-             keypad icon and, on a list this dense, a word-wide button covered a
-             row's worth of numbers wherever it came to rest. The string stays as
-             the content description so the action is still named to TalkBack.
-
-             The margins are the card's own (20dp) plus a 12dp inset, and they
-             have to be: at 16dp the button hung off the card's bottom-right
-             corner, half on white and half on the page, cutting across the round
-             and clipping the last row's call button. It sits over the card now,
-             which is what a floating action is — and above it, hence 12dp of
-             elevation against the card's 6dp. The list's bottom padding clears
-             its full height so the final row can still be scrolled out from
-             under it. -->
-        <ImageView
-            android:id="@+id/buttonRecentsDial"
-            android:layout_width="@dimen/_44sdp"
-            android:layout_height="@dimen/_44sdp"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
-            android:background="@drawable/bg_dial_fab"
-            android:clickable="true"
-            android:contentDescription="@string/quick_dialer"
-            android:elevation="12dp"
-            android:focusable="true"
-            android:outlineAmbientShadowColor="@color/ds_card_shadow"
-            android:outlineSpotShadowColor="@color/ds_card_shadow"
-            android:padding="@dimen/_13sdp"
-            android:src="@drawable/ic_dialpad"
-            app:tint="@color/white" />
-
         <!--
             A NestedScrollView, not a plain column, and that is load-bearing.
 
@@ -386,5 +355,40 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </FrameLayout>
+
+    <!-- Quick dialer: the glyph alone. The label was redundant next to a keypad
+         icon and, on a list this dense, a word-wide button covered a row's worth
+         of numbers wherever it came to rest. The string stays as the content
+         description so the action is still named to TalkBack.
+
+         A direct child of the CoordinatorLayout, NOT of the scrolling frame
+         above. `appbar_scrolling_view_behavior` lays that frame out at full
+         height starting below the AppBar, so its bottom hangs off the screen by
+         the header's height — and a button gravitied to the bottom of it went
+         with it. With the header expanded, which is how the screen opens, all
+         that showed was the top of a blue disc behind the nav bar. Here it is
+         anchored to the screen, which is what a floating action is.
+
+         32dp of margin, being the card's own 20dp plus a 12dp inset, so it
+         floats over the card rather than straddling its rounded corner; 12dp of
+         elevation to clear the card's 6dp; and the list carries enough bottom
+         padding to scroll its last row out from under it. -->
+    <ImageView
+        android:id="@+id/buttonRecentsDial"
+        android:layout_width="@dimen/_44sdp"
+        android:layout_height="@dimen/_44sdp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/bg_dial_fab"
+        android:clickable="true"
+        android:contentDescription="@string/quick_dialer"
+        android:elevation="12dp"
+        android:focusable="true"
+        android:outlineAmbientShadowColor="@color/ds_card_shadow"
+        android:outlineSpotShadowColor="@color/ds_card_shadow"
+        android:padding="@dimen/_13sdp"
+        android:src="@drawable/ic_dialpad"
+        app:tint="@color/white" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>

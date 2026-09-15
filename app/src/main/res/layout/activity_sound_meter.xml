@@ -67,7 +67,7 @@
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/_16sdp">
 
-                <com.numify.callerid.lookup.feature.tools.NoiseGaugeView
+                <com.contacts.callerid.number.lookup.feature.tools.NoiseGaugeView
                     android:id="@+id/gauge"
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingVertical="@dimen/_12sdp">
 
-                    <com.numify.callerid.lookup.feature.tools.AudioWaveView
+                    <com.contacts.callerid.number.lookup.feature.tools.AudioWaveView
                         android:id="@+id/spectrum"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_62sdp" />

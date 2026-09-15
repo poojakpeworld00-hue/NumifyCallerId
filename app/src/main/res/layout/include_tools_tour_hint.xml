@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    One bubble in the first-run Tools tour. Same treatment as the search and
+    call-screening coach-marks, so all three read as one mechanism — with a step
+    counter and a Next button added, because this one is a sequence and a bubble
+    that looks identical three times running just looks stuck.
+
+    Every field is set from ToolboxFragment: one layout, three steps.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/_16sdp">
+
+    <ImageView
+        android:id="@+id/imageTourCaret"
+        android:layout_width="@dimen/_16sdp"
+        android:layout_height="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_24sdp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_hint_caret"
+        app:tint="@color/surface" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_hint_bubble"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_12sdp">
+
+        <TextView
+            android:id="@+id/textTourStep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mulish_bold"
+            android:letterSpacing="0.09"
+            android:textAllCaps="true"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/_9ssp"
+            tools:text="Step 1 of 3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageTourIcon"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/bg_cid_chip_brand"
+                android:contentDescription="@null"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/ic_hand_tap"
+                app:tint="@color/primary" />
+
+            <TextView
+                android:id="@+id/textTourTip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:lineSpacingMultiplier="1.15"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/_11ssp"
+                tools:text="Search any number to see who is behind it." />
+
+            <TextView
+                android:id="@+id/buttonTourNext"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:background="@drawable/bg_cid_cta_pill"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/_14sdp"
+                android:textColor="@color/on_primary"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold"
+                tools:text="Next" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

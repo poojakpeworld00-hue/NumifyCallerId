@@ -111,7 +111,7 @@
                     android:outlineAmbientShadowColor="@color/card_shadow"
                     android:outlineSpotShadowColor="@color/card_shadow">
 
-                    <com.numify.callerid.lookup.feature.tools.CompassRoseView
+                    <com.contacts.callerid.number.lookup.feature.tools.CompassRoseView
                         android:id="@+id/imageNeedle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

@@ -36,52 +36,158 @@
                 android:text="@string/dialer_title" />
         </LinearLayout>
 
-        <!-- Match block — bottom-aligned so it hugs the keypad sheet like the design -->
-        <LinearLayout
-            android:id="@+id/matchesContainer"
+        <!--
+            Matches and the number actions share the band above the keypad, and
+            both hug the sheet: content is bottom-aligned (fillViewport plus
+            gravity=bottom) so a single match sits just above the keypad rather
+            than stranded under the title.
+
+            It scrolls because the two together can outgrow the band — four
+            action rows plus a few matches is taller than what is left over a
+            keypad sheet on a short screen, and before this they simply had
+            nowhere to go.
+        -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/matchesScroll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constrainedHeight="true"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbars="none"
             app:layout_constraintBottom_toTopOf="@id/dialpadPanel"
-            app:layout_constraintTop_toBottomOf="@id/topBar"
-            app:layout_constraintVertical_bias="1">
+            app:layout_constraintTop_toBottomOf="@id/topBar">
 
-            <!-- Section label — shown while matches exist -->
-            <TextView
-                android:id="@+id/textMatchesLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/mulish_bold"
-                android:letterSpacing="0.118"
-                android:text="@string/dialer_matches"
-                android:textAllCaps="true"
-                android:textColor="@color/ds_ink_muted"
-                android:textSize="11sp"
-                android:visibility="gone" />
-
-            <!-- Match list (vertical, filtered by the dialed number), in one
-                 grouped card like every other list in the app. It wraps its
-                 content rather than filling the screen, so the card ends where
-                 the matches do. -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listFrequent"
+            <LinearLayout
+                android:id="@+id/matchesContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:background="@drawable/bg_ds_card"
-                android:clipToOutline="true"
-                android:clipToPadding="false"
-                android:elevation="6dp"
-                android:orientation="vertical"
-                android:outlineAmbientShadowColor="@color/ds_card_shadow"
-                android:outlineSpotShadowColor="@color/ds_card_shadow"
-                android:overScrollMode="never"
-                tools:listitem="@layout/item_frequent" />
-        </LinearLayout>
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <!-- Section label — shown while matches exist -->
+                <TextView
+                    android:id="@+id/textMatchesLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/mulish_bold"
+                    android:letterSpacing="0.118"
+                    android:text="@string/dialer_matches"
+                    android:textAllCaps="true"
+                    android:textColor="@color/ds_ink_muted"
+                    android:textSize="11sp"
+                    android:visibility="gone" />
+
+                <!-- Match list (vertical, filtered by the dialed number), in one
+                     grouped card like every other list in the app. It wraps its
+                     content rather than filling the screen, so the card ends where
+                     the matches do. -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listFrequent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:background="@drawable/bg_ds_card"
+                    android:clipToOutline="true"
+                    android:clipToPadding="false"
+                    android:elevation="6dp"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:outlineAmbientShadowColor="@color/ds_card_shadow"
+                    android:outlineSpotShadowColor="@color/ds_card_shadow"
+                    android:overScrollMode="never"
+                    tools:listitem="@layout/item_frequent" />
+
+                <!--
+                    What you can do with the number you have typed, as a list of
+                    rows above the keypad — the shape every stock dialer uses.
+
+                    This replaces a single "Add to contacts" pill that sat inside
+                    the keypad sheet. One action had room there; four do not, and
+                    a row of chips would have had to abbreviate every label.
+
+                    GONE, not INVISIBLE: the block only exists once digits are
+                    typed, and reserving four rows' worth of empty space above an
+                    untouched keypad would leave the screen looking broken. The
+                    pill needed INVISIBLE because it sat between the number and
+                    the keys, where a reflow made the number appear to blink;
+                    nothing below this moves when it appears.
+                -->
+                <LinearLayout
+                    android:id="@+id/columnDialActions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/bg_ds_card"
+                    android:clipToOutline="true"
+                    android:elevation="6dp"
+                    android:orientation="vertical"
+                    android:outlineAmbientShadowColor="@color/ds_card_shadow"
+                    android:outlineSpotShadowColor="@color/ds_card_shadow"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <LinearLayout
+                        android:id="@+id/rowAddContact"
+                        style="@style/DialerAction">
+
+                        <ImageView
+                            style="@style/DialerActionIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_person_add" />
+
+                        <TextView
+                            style="@style/DialerActionLabel"
+                            android:text="@string/add_to_contacts" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/rowDialLookup"
+                        style="@style/DialerAction">
+
+                        <ImageView
+                            style="@style/DialerActionIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_ds_nav_lookup" />
+
+                        <TextView
+                            style="@style/DialerActionLabel"
+                            android:text="@string/nav_lookup" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/rowDialAskAi"
+                        style="@style/DialerAction">
+
+                        <ImageView
+                            style="@style/DialerActionIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_ai_sparkle" />
+
+                        <TextView
+                            style="@style/DialerActionLabel"
+                            android:text="@string/ai_ask_button" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/rowDialWhatsApp"
+                        style="@style/DialerAction">
+
+                        <ImageView
+                            style="@style/DialerActionIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_whatsapp" />
+
+                        <TextView
+                            style="@style/DialerActionLabel"
+                            android:text="@string/action_whatsapp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <!-- Zero-state (no dialed number / no matches) -->
         <LinearLayout
@@ -143,67 +249,62 @@
             android:paddingBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <!-- Number display. An EditText (not a TextView) so it shows a blinking
-                 cursor, but the on-screen keypad is the only input: the soft keyboard
-                 is suppressed (showSoftInputOnFocus=false) and it's not directly
-                 editable. Selection is kept at the end from code. -->
-            <EditText
-                android:id="@+id/textDialNumber"
+            <!--
+                Number and backspace on one row. Backspace used to sit beside the
+                Call button, a keypad's height away from the digits it deletes;
+                here it is next to them, which is also where every stock dialer
+                puts it.
+
+                The end padding the field carries is the button's own width, so
+                the digits stay optically centred on the sheet rather than
+                shunted left by it.
+            -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:cursorVisible="true"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:fontFamily="monospace"
-                android:gravity="center"
-                android:importantForAutofill="no"
-                android:inputType="phone"
-                android:letterSpacing="0.04"
-                android:maxLines="1"
-                android:minHeight="48dp"
-                android:paddingVertical="6dp"
-                android:textColor="@color/ds_ink"
-                android:textColorHint="@color/ds_ink_muted"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                tools:ignore="LabelFor"
-                tools:text="+1 234 567" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <!-- Add to Contacts -->
-            <LinearLayout
-                android:id="@+id/columnAddContact"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:background="@drawable/bg_ds_chip_accent"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:minHeight="44dp"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp"
-                android:visibility="invisible">
+                <!-- Number display. An EditText (not a TextView) so it shows a blinking
+                     cursor, but the on-screen keypad is the only input: the soft keyboard
+                     is suppressed (showSoftInputOnFocus=false) and it's not directly
+                     editable. Selection is kept at the end from code. -->
+                <EditText
+                    android:id="@+id/textDialNumber"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:cursorVisible="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:importantForAutofill="no"
+                    android:inputType="phone"
+                    android:letterSpacing="0.04"
+                    android:maxLines="1"
+                    android:minHeight="48dp"
+                    android:paddingStart="@dimen/_44sdp"
+                    android:paddingEnd="0dp"
+                    android:paddingVertical="6dp"
+                    android:textColor="@color/ds_ink"
+                    android:textColorHint="@color/ds_ink_muted"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    tools:ignore="LabelFor"
+                    tools:text="+1 234 567" />
 
                 <ImageView
-                    android:layout_width="13dp"
-                    android:layout_height="@dimen/_13sdp"
-                    android:layout_marginEnd="@dimen/_4sdp"
-                    android:contentDescription="@string/add_to_contacts"
-                    android:src="@drawable/ic_person_add"
-                    app:tint="@color/ds_accent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_to_contacts"
-                    android:fontFamily="@font/mulish_bold"
-                    android:textColor="@color/ds_accent"
-                    android:textSize="12.5sp"
-                    android:textStyle="bold" />
+                    android:id="@+id/buttonBackspace"
+                    android:layout_width="@dimen/_44sdp"
+                    android:layout_height="@dimen/_44sdp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/dialer_backspace"
+                    android:padding="@dimen/_11sdp"
+                    android:src="@drawable/ic_backspace"
+                    android:visibility="invisible"
+                    app:tint="@color/on_surface_variant" />
             </LinearLayout>
 
             <GridLayout
@@ -275,55 +376,27 @@
                 </LinearLayout>
             </GridLayout>
 
-            <!-- Call pill + backspace row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <!-- Call, on its own row now that backspace has gone up to the
+                 number it edits. -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonDialCall"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_46sdp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_1sdp"
-                    android:layout_weight="1" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonDialCall"
-                    style="@style/Widget.Material3.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_46sdp"
-                    android:minWidth="@dimen/_130sdp"
-                    android:paddingHorizontal="@dimen/_24sdp"
-                    android:text="@string/action_call"
-                    android:textAllCaps="false"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold"
-                    app:backgroundTint="@color/primary"
-                    app:cornerRadius="@dimen/_24sdp"
-                    app:icon="@drawable/ic_call"
-                    app:iconGravity="textStart"
-                    app:iconSize="@dimen/_18sdp"
-                    app:iconTint="@color/white" />
-
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <ImageView
-                        android:id="@+id/buttonBackspace"
-                        android:layout_width="@dimen/_44sdp"
-                        android:layout_height="@dimen/_44sdp"
-                        android:layout_gravity="center"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="@string/dialer_backspace"
-                        android:padding="@dimen/_11sdp"
-                        android:src="@drawable/ic_backspace"
-                        android:visibility="invisible"
-                        app:tint="@color/on_surface_variant" />
-                </FrameLayout>
-            </LinearLayout>
+                android:minWidth="@dimen/_130sdp"
+                android:paddingHorizontal="@dimen/_24sdp"
+                android:text="@string/action_call"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/primary"
+                app:cornerRadius="@dimen/_24sdp"
+                app:icon="@drawable/ic_call"
+                app:iconGravity="textStart"
+                app:iconSize="@dimen/_18sdp"
+                app:iconTint="@color/white" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

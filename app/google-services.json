@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "188915257639",
-    "project_id": "numify-caller-id-lookup",
-    "storage_bucket": "numify-caller-id-lookup.firebasestorage.app"
+    "project_number": "885272339028",
+    "project_id": "contacts-dialer-caller-id",
+    "storage_bucket": "contacts-dialer-caller-id.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:188915257639:android:6867cc087c4873e9f79902",
+        "mobilesdk_app_id": "1:885272339028:android:f754cf5a2d2a7403bd03c1",
         "android_client_info": {
           "package_name": "com.contacts.callerid.number.lookup"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDJMdUPrRohM0eNaRjVkKfdwJOfjS3ZBXI"
+          "current_key": "AIzaSyBnb6axmc6yIeDwJ4fuI_6lIbADatKxg9w"
         }
       ],
       "services": {

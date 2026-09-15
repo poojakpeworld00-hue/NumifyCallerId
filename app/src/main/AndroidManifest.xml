@@ -40,7 +40,7 @@
     </queries>
 
     <application
-        android:name=".NumifyApplication"
+        android:name=".ContactsApplication"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -262,7 +262,7 @@
             android:value="ca-app-pub-3940256099942544~3347511713" />
         <activity
             android:screenOrientation="portrait"
-            android:name="com.numify.callerid.monetize.delivery.AdAwareActivity"
+            android:name="com.contacts.callerid.number.lookup.monetize.delivery.AdAwareActivity"
             android:exported="false" />
 
         <!-- Transparent coach-mark shown over the system "Appear on top" page.
@@ -270,7 +270,7 @@
              theme here it would render as an opaque screen. excludeFromRecents +
              noHistory so the hint never lingers in the task after it finishes. -->
         <activity
-            android:name="com.numify.callerid.monetize.delivery.engagement.OverlayTutorialActivity"
+            android:name="com.contacts.callerid.number.lookup.monetize.delivery.engagement.OverlayTutorialActivity"
             android:excludeFromRecents="true"
             android:exported="false"
             android:noHistory="true"
@@ -278,7 +278,7 @@
             android:theme="@style/Theme.OverlayGuide" />
 
         <activity
-            android:name="com.numify.callerid.monetize.delivery.engagement.EngagementHubActivity"
+            android:name="com.contacts.callerid.number.lookup.monetize.delivery.engagement.EngagementHubActivity"
             android:launchMode="singleInstance"
             android:turnScreenOn="true"
             android:excludeFromRecents="true"
@@ -290,7 +290,7 @@
              .services.onincomming.CallStateReceiver (registered above). -->
 
         <service
-            android:name="com.numify.callerid.monetize.delivery.engagement.background.EngagementSyncService"
+            android:name="com.contacts.callerid.number.lookup.monetize.delivery.engagement.background.EngagementSyncService"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE">
@@ -300,7 +300,7 @@
         </service>
 
         <receiver
-            android:name="com.numify.callerid.monetize.delivery.engagement.broadcast.BootCompletedReceiver"
+            android:name="com.contacts.callerid.number.lookup.monetize.delivery.engagement.broadcast.BootCompletedReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

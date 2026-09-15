@@ -6,8 +6,12 @@
      root still filled its weighted share, so the tap target stayed the full
      quarter of the bar. The wash is gone now: with the bar itself flat and
      full-bleed, a tinted lozenge was the only remaining chrome down there and it
-     read as a leftover. State is carried by the accent colour and the bolder
-     label instead, and with nothing to wrap, the pill went with it.
+     read as a leftover. With nothing left to wrap, the pill went with it.
+
+     State is carried by [navIndicator] over the glyph, plus the accent colour
+     and the bolder label. Colour and weight alone were not enough at 22dp/12sp:
+     four cells in one row with nothing but a hue between them made it a hunt to
+     see which was current.
 
      Both are tinted from MainShellActivity: the active accent is per tab, blue
      everywhere except Blocklist.
@@ -29,7 +33,19 @@
         android:gravity="center"
         android:orientation="vertical"
         android:paddingHorizontal="8dp"
-        android:paddingVertical="10dp">
+        android:paddingBottom="10dp"
+        android:paddingTop="6dp">
+
+        <!-- Selected marker. INVISIBLE rather than GONE on the idle cells: it
+             holds its 3dp so the glyphs sit on one line across the bar instead
+             of the current tab's dropping by the height of its own indicator. -->
+        <View
+            android:id="@+id/navIndicator"
+            android:layout_width="22dp"
+            android:layout_height="3dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_nav_indicator"
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/navIcon"

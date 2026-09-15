@@ -893,6 +893,12 @@
     <string name="tools_spam_scan">Spam scanner</string>
     <string name="tools_lookup_sub">Search any number</string>
     <string name="tools_ask_ai_sub">Ask about a caller</string>
+
+    <!-- First-run tour of the Tools page: three bubbles, one per stop. -->
+    <string name="tools_tour_step">Step %1$d of %2$d</string>
+    <string name="tools_tour_lookup">Look up any number and see who is behind it before you call back.</string>
+    <string name="tools_tour_ask_ai">Ask about a caller in your own words and get a straight answer.</string>
+    <string name="tools_tour_more">Everything else lives here too — compass, level, sound and light meters, flashlight, battery, SIM, stopwatch and timer.</string>
     <string name="tools_spam_scan_sub">Find numbers worth blocking</string>
     <string name="tools_unsaved">Unsaved callers</string>
     <string name="tools_unsaved_sub">People you talk to but never saved</string>

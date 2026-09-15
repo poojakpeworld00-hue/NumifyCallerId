@@ -63,6 +63,40 @@
         <item name="android:textSize">9sp</item>
     </style>
 
+    <!-- One row in the dialer's "what to do with this number" card: a glyph at
+         the accent, the action's name beside it, the whole row tappable. Every
+         stock dialer draws these the same way, and copying that is the point —
+         it is the one list in the app people arrive already knowing. -->
+    <style name="DialerAction">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingHorizontal">16dp</item>
+    </style>
+
+    <style name="DialerActionIcon">
+        <item name="android:layout_width">22dp</item>
+        <item name="android:layout_height">22dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:tint">@color/ds_accent</item>
+    </style>
+
+    <style name="DialerActionLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:fontFamily">@font/mulish_semibold</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/ds_ink</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <!-- Call Details action (circle icon + label). The 48dp floor is the touch
          minimum; the icon disc sizes above it in sdp. -->
     <style name="DetailAction">

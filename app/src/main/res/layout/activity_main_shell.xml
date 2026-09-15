@@ -12,7 +12,7 @@
         android:background="@color/ds_page"
         tools:context=".feature.MainShellActivity">
 
-        <com.numify.callerid.lookup.feature.widgets.SwipeNavigationLayout
+        <com.contacts.callerid.number.lookup.feature.widgets.SwipeNavigationLayout
             android:id="@+id/fragmentContainer"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -81,6 +81,17 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <!-- Hairline over the nav, so the bar reads as its own surface even where
+             the two colours are close. -->
+        <View
+            android:id="@+id/footerDivider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/ds_rule"
+            app:layout_constraintBottom_toTopOf="@id/footerBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <!-- Bottom navigation, flat and full-bleed.
 
              It used to be the handoff's floating white island — 28dp radius,
@@ -89,14 +100,20 @@
              the foot of every screen: island, gap, ad. Flat, it is just the last
              row of the page, and the only thing under it is the ad.
 
-             No background of its own, so the page colour carries through; no
-             margins, so it spans the width; no padding, because each cell
-             already brings 8dp all round and the active wash still hugs its
-             own contents. -->
+             It carries ds_surface rather than nothing. With no background of its
+             own the page colour ran straight through and the bar stopped looking
+             like a bar at all — the four cells floated on the same field as the
+             content above them. Surface against page is the same one-step
+             separation every card on every screen uses, and the hairline above
+             carries it where the two are only a shade apart.
+
+             No margins, so it spans the width; no padding, because each cell
+             already brings its own. -->
         <LinearLayout
             android:id="@+id/footerBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@color/ds_surface"
             android:baselineAligned="false"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/bannerAdFrame"
