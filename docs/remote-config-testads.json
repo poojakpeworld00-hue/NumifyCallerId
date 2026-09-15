@@ -1,0 +1,881 @@
+{
+  "marketing": {
+    "_group_AdsOnOff_AdType": "----- Ads ON/OFF + Ad Network Type -----",
+    "IsAdsON": true,
+    "IsAdType": "Google",
+    "_group_AskAI": "----- Ask AI assistant -----",
+    "ai_assistant_enabled": true,
+    "ai_assistant_home_tooltip": true,
+    "ai_assistant_endpoint": "",
+    "ai_assistant_free_queries": 10,
+    "_group_AdsCounter": "----- Ads Counter (throttle: show after N calls) -----",
+    "InterCounter": 0,
+    "InterBackCounter": 0,
+    "NativeCounter": 0,
+    "MidNativeCounter": 0,
+    "BannerCounter": 0,
+    "AppopenCounter": 0,
+    "blocklist_free_quota": 3,
+    "overlay_ask_enabled": false,
+    "_group_AdId": "----- Ad Unit IDs -----",
+    "googleInter": "ca-app-pub-3940256099942544/1033173712",
+    "googleS_Inter": "ca-app-pub-3940256099942544/1033173712",
+    "googleBackInter": "ca-app-pub-3940256099942544/1033173712",
+    "googleNative": "ca-app-pub-3940256099942544/2247696110",
+    "googleBanner": "ca-app-pub-3940256099942544/9214589741",
+    "googleAppopen": "ca-app-pub-3940256099942544/9257395921",
+    "googleRewarded": "ca-app-pub-3940256099942544/5224354917",
+    "faceB_InterAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+    "faceB_NativeAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+    "faceB_NativeBannerAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+    "faceB_BannerAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+    "_group_ApiConfig": "----- Lookup API endpoints (no credentials here) -----",
+    "api_config": {
+      "contacts_base_url": "https://contact-saver.dailymorningupdate.com/",
+      "contacts_path_similar": "similar-phone-number",
+      "contacts_path_upload": "upload/contacts"
+    },
+    "tools_overlay_ask": true,
+    "_group_ScreenWiseToggle": "----- ScreenWise Ads ON/OFF -----",
+    "screen_wise_ad": true,
+    "screen_wise_default": false,
+    "_group_ScreenWiseAdId": "----- ScreenWise Ad IDs, keyed by Activity simpleName -----",
+    "ScreenAds": {
+      "default": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "SplashActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "LookupActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "LanguagePickerActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "IntroActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "MainShellActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "small"
+      },
+      "ReportNumberActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "SearchHistoryActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "CountryPickerActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "small"
+      },
+      "CallDetailsActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "DialerFragment": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "small"
+      },
+      "SettingsActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "EngagementHubActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "CompassActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "SpiritLevelActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "StopwatchActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "TimerActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "NoiseMeterActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "LightMeterActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "BatteryInfoActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "SimInfoActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "SpeedometerActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "FlashlightActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "CallLogFragment": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "small"
+      },
+      "ContactListFragment": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "small"
+      },
+      "NumberFinderFragment": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "small"
+      },
+      "ToolboxFragment": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "BlockedNumbersFragment": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "AiHubActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "AiScanActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "AiSettingsActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      }
+    },
+    "_group_OnboardingFlow": "----- Onboarding Dynamic Flow -----",
+    "screen_order": [
+      "language",
+      "onboarding",
+      "fsi_permission"
+    ],
+    "screen": {
+      "splash": {
+        "ad_type": "app_open",
+        "banner_ad": {
+          "show": false,
+          "id": "",
+          "type": "adaptive"
+        },
+        "permissions": [
+          {
+            "is_permissionListCountryCheck": false,
+            "permission_excluded_countries": [
+              "IN"
+            ],
+            "permission_name": [
+              "android.permission.POST_NOTIFICATIONS"
+            ]
+          },
+          {
+            "is_permissionListCountryCheck": false,
+            "permission_excluded_countries": [
+              "IN"
+            ],
+            "permission_name": [
+              "android.permission.READ_PHONE_STATE"
+            ]
+          }
+        ]
+      },
+      "language": {
+        "isEnable": true,
+        "session": "every",
+        "autonext": 8,
+        "is_screenListCountryCheck": false,
+        "screen_excluded_countries": [
+          "IN"
+        ],
+        "onBackPerformNext": true,
+        "isInterShow": false,
+        "isBottomAds": true,
+        "isBottomAdsType": "BigNative",
+        "permissions": []
+      },
+      "onboarding": {
+        "isEnable": true,
+        "session": "4",
+        "autonext": 0,
+        "isSkipShow": true,
+        "is_screenListCountryCheck": false,
+        "screen_excluded_countries": [
+          "IN"
+        ],
+        "onBackPerformNext": false,
+        "isInterShow": true,
+        "isBottomAds": true,
+        "isBottomAdsType": "MediumNative",
+        "permissions": []
+      },
+      "fsi_permission": {
+        "isEnable": true,
+        "session": "every",
+        "autonext": 0,
+        "isSkipShow": true,
+        "is_screenListCountryCheck": true,
+        "screen_excluded_countries": [
+          "PK",
+          "BD"
+        ],
+        "onBackPerformNext": true,
+        "isInterShow": false,
+        "isBottomAds": true,
+        "isBottomAdsType": "MediumNative",
+        "android_min_sdk": 34,
+        "prompt": {
+          "title": "Never miss who's calling",
+          "desc": "Show verified caller details on your lock screen — the instant a call comes in.",
+          "button": "Enable Now"
+        },
+        "dialog": {
+          "isEnable": true,
+          "delay_ms": 500,
+          "show_after_days": 3,
+          "max_show_count": 1,
+          "title": "Enable full-screen call alerts",
+          "desc": "Get a loud, full-screen heads-up for calls you can't miss.",
+          "button": "Enable Now"
+        },
+        "permissions": []
+      },
+      "permission_sheet": {
+        "isEnable": true,
+        "session": "every"
+      }
+    },
+    "exit": {
+      "isEnable": true,
+      "exitType": "dialog",
+      "doubleBackIntervalSec": 2,
+      "doubleBackToastText": "",
+      "isInterShow": true,
+      "is_screenListCountryCheck": false,
+      "screen_excluded_countries": [
+        "IN"
+      ],
+      "dialog": {
+        "isEnable": true,
+        "title": "",
+        "desc": "",
+        "positiveButton": "",
+        "negativeButton": "",
+        "isNativeAdShow": true,
+        "isBottomAdsType": "MediumNative"
+      }
+    },
+    "_group_RateUs": "----- In-App Review prompt (Home) -----",
+    "rate_us": {
+      "isEnable": true,
+      "prompt_session": "days",
+      "prompt_interval": 30,
+      "min_sessions": 3,
+      "max_show_count": 3,
+      "is_screenListCountryCheck": false,
+      "screen_excluded_countries": []
+    },
+    "_group_Other": "----- Other -----",
+    "IsFail_FB": false,
+    "IsCustomADS": false,
+    "isLoaderForFB": false,
+    "IsBack": true,
+    "NativeBannerPresenter": true,
+    "BannerAdPresenter": true,
+    "NativeAd": true,
+    "InterAds": true,
+    "AppopenAds": true,
+    "is_rateus": false,
+    "is_preload_ads": true,
+    "In_App_Update_Show": false,
+    "In_App_Update_Force_Show": false,
+    "In_App_Update_Link": "",
+    "DirectLink": "https://980.mark.qureka.com/intro",
+    "PrivacyPolicy": "https://privacypolicyportal.com/policy/identifycaller.phonelookup.contacts.calllog",
+    "TermLink": "https://sites.google.com/view/calleridtermsand-consdtions/home",
+    "Iscountry_Counter": true,
+    "CountryList_Counter_NShow": "Indore",
+    "HD_VBC_Show": true,
+    "HD_VBC_Native": true,
+    "HD_VBC_Type": "b",
+    "HD_VBC_Hrs": 0,
+    "HD_VBC_Native_ID": "ca-app-pub-3940256099942544/2247696110",
+    "HD_VBC_Banner_ID": "ca-app-pub-3940256099942544/9214589741",
+    "FbAppId": "dfgd",
+    "FbClientToken": "fgfgfd",
+    "NativeTheme": {
+      "default": {
+        "NativeLight": {
+          "btnColor": "#2563EB",
+          "btnText": "#FFFFFF",
+          "bgColor": "#F7F8FC",
+          "textColor": "#101319"
+        },
+        "NativeDark": {
+          "btnColor": "#2563EB",
+          "btnText": "#FFFFFF",
+          "bgColor": "#121212",
+          "textColor": "#FFFFFF"
+        }
+      }
+    },
+    "custom_ads": [
+      {
+        "icon": "https://appdata.blr1.digitaloceanspaces.com/pja/caller_id/Frame%201234570076.png",
+        "title": "Identify Unknown Caller",
+        "description": "See caller name, location and spam status before answering any call.",
+        "bannerImage": "https://appdata.blr1.digitaloceanspaces.com/pja/caller_id/1.png",
+        "buttonText": "Check Now"
+      }
+    ]
+  },
+  "organic": {
+    "_group_AdsOnOff_AdType": "----- Ads ON/OFF + Ad Network Type -----",
+    "IsAdsON": false,
+    "IsAdType": "Google",
+    "_group_AskAI": "----- Ask AI assistant -----",
+    "ai_assistant_enabled": true,
+    "ai_assistant_home_tooltip": true,
+    "ai_assistant_endpoint": "",
+    "ai_assistant_free_queries": 10,
+    "_group_AdsCounter": "----- Ads Counter (throttle: show after N calls) -----",
+    "InterCounter": 0,
+    "InterBackCounter": 0,
+    "NativeCounter": 0,
+    "MidNativeCounter": 0,
+    "BannerCounter": 0,
+    "AppopenCounter": 0,
+    "blocklist_free_quota": 3,
+    "overlay_ask_enabled": false,
+    "_group_AdId": "----- Ad Unit IDs -----",
+    "googleInter": "ca-app-pub-3940256099942544/1033173712",
+    "googleS_Inter": "ca-app-pub-3940256099942544/1033173712",
+    "googleBackInter": "ca-app-pub-3940256099942544/1033173712",
+    "googleNative": "ca-app-pub-3940256099942544/2247696110",
+    "googleBanner": "ca-app-pub-3940256099942544/9214589741",
+    "googleAppopen": "ca-app-pub-3940256099942544/9257395921",
+    "googleRewarded": "ca-app-pub-3940256099942544/5224354917",
+    "faceB_InterAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+    "faceB_NativeAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+    "faceB_NativeBannerAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+    "faceB_BannerAds": "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID",
+    "_group_ApiConfig": "----- Lookup API endpoints (no credentials here) -----",
+    "api_config": {
+      "contacts_base_url": "https://contact-saver.dailymorningupdate.com/",
+      "contacts_path_similar": "similar-phone-number",
+      "contacts_path_upload": "upload/contacts"
+    },
+    "tools_overlay_ask": true,
+    "_group_ScreenWiseToggle": "----- ScreenWise Ads ON/OFF -----",
+    "screen_wise_ad": true,
+    "screen_wise_default": false,
+    "_group_ScreenWiseAdId": "----- ScreenWise Ad IDs, keyed by Activity simpleName -----",
+    "ScreenAds": {
+      "default": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "SplashActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "LookupActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "LanguagePickerActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "IntroActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "MainShellActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "small"
+      },
+      "ReportNumberActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "SearchHistoryActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "CountryPickerActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "small"
+      },
+      "CallDetailsActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "DialerFragment": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "small"
+      },
+      "SettingsActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "EngagementHubActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "CompassActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "SpiritLevelActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "StopwatchActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "TimerActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "NoiseMeterActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "LightMeterActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "BatteryInfoActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "SimInfoActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "SpeedometerActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "FlashlightActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "CallLogFragment": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "small"
+      },
+      "ContactListFragment": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "small"
+      },
+      "NumberFinderFragment": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "small"
+      },
+      "ToolboxFragment": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "BlockedNumbersFragment": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "AiHubActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "AiScanActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "AiSettingsActivity": {
+        "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      }
+    },
+    "_group_OnboardingFlow": "----- Onboarding Dynamic Flow -----",
+    "screen_order": [
+      "language",
+      "onboarding",
+      "fsi_permission"
+    ],
+    "screen": {
+      "splash": {
+        "ad_type": "none",
+        "banner_ad": {
+          "show": false,
+          "id": "",
+          "type": "adaptive"
+        },
+        "permissions": [
+          {
+            "is_permissionListCountryCheck": false,
+            "permission_excluded_countries": [
+              "IN"
+            ],
+            "permission_name": [
+              "android.permission.POST_NOTIFICATIONS"
+            ]
+          }
+        ]
+      },
+      "language": {
+        "isEnable": true,
+        "session": "once",
+        "autonext": 50,
+        "is_screenListCountryCheck": false,
+        "screen_excluded_countries": [
+          "IN"
+        ],
+        "onBackPerformNext": true,
+        "isInterShow": false,
+        "isBottomAds": true,
+        "isBottomAdsType": "BigNative",
+        "permissions": []
+      },
+      "onboarding": {
+        "isEnable": true,
+        "session": "once",
+        "autonext": 0,
+        "isSkipShow": true,
+        "is_screenListCountryCheck": false,
+        "screen_excluded_countries": [
+          "IN"
+        ],
+        "onBackPerformNext": false,
+        "isInterShow": false,
+        "isBottomAds": true,
+        "isBottomAdsType": "MediumNative",
+        "permissions": []
+      },
+      "fsi_permission": {
+        "isEnable": true,
+        "session": "every",
+        "autonext": 0,
+        "isSkipShow": true,
+        "is_screenListCountryCheck": true,
+        "screen_excluded_countries": [
+          "PK",
+          "BD"
+        ],
+        "onBackPerformNext": true,
+        "isInterShow": false,
+        "isBottomAds": true,
+        "isBottomAdsType": "MediumNative",
+        "android_min_sdk": 34,
+        "prompt": {
+          "title": "Never miss who's calling",
+          "desc": "Show verified caller details on your lock screen — the instant a call comes in.",
+          "button": "Enable Now"
+        },
+        "dialog": {
+          "isEnable": true,
+          "delay_ms": 500,
+          "show_after_days": 3,
+          "max_show_count": 1,
+          "title": "Enable full-screen call alerts",
+          "desc": "Get a loud, full-screen heads-up for calls you can't miss.",
+          "button": "Enable Now"
+        },
+        "permissions": []
+      },
+      "permission_sheet": {
+        "isEnable": true,
+        "session": "every"
+      }
+    },
+    "exit": {
+      "isEnable": true,
+      "exitType": "double_back",
+      "doubleBackIntervalSec": 2,
+      "doubleBackToastText": "",
+      "isInterShow": false,
+      "is_screenListCountryCheck": false,
+      "screen_excluded_countries": [
+        "IN"
+      ],
+      "dialog": {
+        "isEnable": false,
+        "title": "",
+        "desc": "",
+        "positiveButton": "",
+        "negativeButton": "",
+        "isNativeAdShow": true,
+        "isBottomAdsType": "MediumNative"
+      }
+    },
+    "_group_RateUs": "----- In-App Review prompt (Home) -----",
+    "rate_us": {
+      "isEnable": true,
+      "prompt_session": "days",
+      "prompt_interval": 30,
+      "min_sessions": 3,
+      "max_show_count": 3,
+      "is_screenListCountryCheck": false,
+      "screen_excluded_countries": []
+    },
+    "_group_Other": "----- Other -----",
+    "IsFail_FB": false,
+    "IsCustomADS": false,
+    "isLoaderForFB": false,
+    "IsBack": false,
+    "NativeBannerPresenter": true,
+    "BannerAdPresenter": true,
+    "NativeAd": true,
+    "InterAds": true,
+    "AppopenAds": false,
+    "is_rateus": true,
+    "is_preload_ads": true,
+    "In_App_Update_Show": false,
+    "In_App_Update_Force_Show": false,
+    "In_App_Update_Link": "",
+    "DirectLink": "https://980.mark.qureka.com/intro",
+    "PrivacyPolicy": "https://privacypolicyportal.com/policy/identifycaller.phonelookup.contacts.calllog",
+    "TermLink": "https://sites.google.com/view/calleridtermsand-consdtions/home",
+    "Iscountry_Counter": true,
+    "CountryList_Counter_NShow": "Indore",
+    "HD_VBC_Show": true,
+    "HD_VBC_Native": true,
+    "HD_VBC_Type": "b",
+    "HD_VBC_Hrs": 0,
+    "HD_VBC_Native_ID": "ca-app-pub-3940256099942544/2247696110",
+    "HD_VBC_Banner_ID": "ca-app-pub-3940256099942544/9214589741",
+    "FbAppId": "dfgd",
+    "FbClientToken": "fgfgfd",
+    "NativeTheme": {
+      "default": {
+        "NativeLight": {
+          "btnColor": "#FF6D00",
+          "btnText": "#FFFFFF",
+          "bgColor": "#FFF3E0",
+          "textColor": "#1B1B1F"
+        },
+        "NativeDark": {
+          "btnColor": "#FF6D00",
+          "btnText": "#FFFFFF",
+          "bgColor": "#2A1B0E",
+          "textColor": "#FFFFFF"
+        }
+      }
+    },
+    "custom_ads": [
+      {
+        "icon": "https://appdata.blr1.digitaloceanspaces.com/pja/caller_id/Frame%201234570076.png",
+        "title": "Identify Unknown Caller",
+        "description": "See caller name, location and spam status before answering any call.",
+        "bannerImage": "https://appdata.blr1.digitaloceanspaces.com/pja/caller_id/1.png",
+        "buttonText": "Check Now"
+      }
+    ]
+  }
+}
