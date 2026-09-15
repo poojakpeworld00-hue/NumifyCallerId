@@ -396,6 +396,7 @@
                 android:paddingHorizontal="@dimen/_24sdp"
                 android:text="@string/action_call"
                 android:textAllCaps="false"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold"
                 app:backgroundTint="@color/primary"

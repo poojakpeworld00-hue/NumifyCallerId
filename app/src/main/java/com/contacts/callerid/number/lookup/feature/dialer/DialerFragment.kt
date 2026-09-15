@@ -25,14 +25,10 @@ import com.contacts.callerid.number.lookup.R
 import com.contacts.callerid.number.lookup.foundation.BaseFragment
 import com.contacts.callerid.number.lookup.feature.assistant.AiHubActivity
 import com.contacts.callerid.number.lookup.feature.finder.LookupActivity
-import com.contacts.callerid.number.lookup.repository.ContactRepository
 import com.contacts.callerid.number.lookup.repository.SettingsRepository
 import com.contacts.callerid.number.lookup.repository.assistant.AiFeatureConfig
 import com.contacts.callerid.number.lookup.databinding.ActivityDialerBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
  * Dialer. The on-screen keypad assembles the number displayed in
@@ -50,7 +46,6 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
 
     private val viewModel: DialerViewModel by viewModels()
     private val adapter = SpeedDialAdapter(onClick = ::setDial, onCall = ::fillAndDial)
-    private val contactsRepo by lazy { ContactRepository(requireContext()) }
 
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
         ActivityDialerBinding.inflate(inflater, container, false)
@@ -120,10 +115,7 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
      */
     override fun onResume() {
         super.onResume()
-        if (!isHidden) {
-            claimSoftInput()
-            loadFrequentIfAllowed()
-        }
+        if (!isHidden) claimSoftInput()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -132,7 +124,6 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
             releaseSoftInput()
         } else {
             claimSoftInput()
-            loadFrequentIfAllowed()
         }
     }
 
@@ -208,7 +199,6 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         updateDialState()
     }
 
-    private var addContactJob: Job? = null
 
     /** The exact dialed number is a saved contact. */
     private var savedExact = false
@@ -236,32 +226,17 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         binding.textDialNumber.setSelection(number.length)
         val hasNumber = number.isNotEmpty()
         binding.buttonBackspace.visibility = if (hasNumber) View.VISIBLE else View.INVISIBLE
-        if (hasNumber) {
-            refreshAddContact(number)
-        } else {
-            addContactJob?.cancel()
-            savedExact = false
-            applyAddContactVisibility()
-        }
+        // Straight off the pool the view model already holds. This used to fire a
+        // PhoneLookup on a background thread for every keypress — a
+        // content-provider round trip per digit, on the one screen whose whole job
+        // is to keep up with digits.
+        savedExact = hasNumber && viewModel.isSavedContact(number)
+        applyAddContactVisibility()
         applyZeroState()
         viewModel.filter(number)
     }
 
     /** Re-checks whether the exact dialed number is a saved contact, then updates the pill. */
-    private fun refreshAddContact(number: String) {
-        addContactJob?.cancel()
-        addContactJob = viewLifecycleOwner.lifecycleScope.launch {
-            val saved = withContext(Dispatchers.IO) {
-                contactsRepo.lookupNameByNumber(number) != null
-            }
-            // Drop stale results if the dialed number changed while querying.
-            if (view != null && dialedNumber() == number) {
-                savedExact = saved
-                applyAddContactVisibility()
-            }
-        }
-    }
-
     /**
      * The action card exists only once digits have been typed — there is nothing
      * to do with an empty number — and each row then decides for itself:
@@ -317,11 +292,24 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         binding.textEmpty.isVisible = dialedNumber().isEmpty() && !hasFrequent
     }
 
-    /** The installed WhatsApp flavour, consumer first, or null if neither is here. */
+    /**
+     * The installed WhatsApp flavour, consumer first, or null if neither is here.
+     *
+     * Resolved once and remembered. This is read from the visibility pass, which
+     * runs on every keystroke, and `getLaunchIntentForPackage` is a binder call
+     * into the package manager — two of them per digit for an answer that cannot
+     * change while the user is typing.
+     */
+    private var whatsAppPackage: String? = null
+    private var whatsAppResolved = false
+
     private fun whatsAppPackage(): String? {
+        if (whatsAppResolved) return whatsAppPackage
         val pm = context?.packageManager ?: return null
-        return listOf("com.whatsapp", "com.whatsapp.w4b")
-            .firstOrNull { pm.getLaunchIntentForPackage(it) != null }
+        whatsAppPackage = listOf("com.whatsapp", "com.whatsapp.w4b")
+            .firstOrNull { runCatching { pm.getLaunchIntentForPackage(it) }.getOrNull() != null }
+        whatsAppResolved = true
+        return whatsAppPackage
     }
 
     /**
