@@ -70,8 +70,16 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
         // CallLogFragment for why this no longer calls NativeBannerPresenter directly.
 
         // Search is a screen now, not a field on this page.
+        //
+        // startActivity directly, NOT openActivity: that helper routes every
+        // launch through the transition interstitial, and the ad only calls back
+        // to actually start the Activity once it has decided not to show. When
+        // that decision stalls — no fill, no network, a half-initialised SDK —
+        // the tap silently does nothing. A search box that sometimes opens is
+        // worse than one that never did, and this is a control, not a screen
+        // transition worth monetising.
         binding.buttonContactsSearch.setOnClickListener {
-            requireActivity().openActivity(ContactSearchActivity.newIntent(requireContext()))
+            startActivity(ContactSearchActivity.newIntent(requireContext()))
         }
         binding.buttonContactsAdd.setOnClickListener { openAddContact() }
 
@@ -243,15 +251,35 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
     private fun toggleFavorites() {
         val prefs = SettingsRepository(requireContext())
         prefs.favoritesExpanded = !prefs.favoritesExpanded
-        applyFavoritesExpansion()
+        applyFavoritesExpansion(animate = true)
     }
 
-    private fun applyFavoritesExpansion() {
+    /**
+     * Only the caret moves.
+     *
+     * The header used to carry `selectableItemBackground`, so a tap washed grey
+     * across the full width of the screen — which announces "this row was
+     * pressed" far more loudly than it shows what actually changed. The caret
+     * turning is the feedback, and it turns rather than cuts so the eye can
+     * follow it to the rail appearing or going.
+     *
+     * [animate] is false on the paths that merely restore state — first layout,
+     * a filter change, the list reloading — where a spinning caret would be
+     * reporting a change the user did not make.
+     */
+    private fun applyFavoritesExpansion(animate: Boolean = false) {
         if (view == null) return
         val expanded = SettingsRepository(requireContext()).favoritesExpanded
         val headerShown = binding.favSection.visibility == View.VISIBLE
         binding.listFavorites.visibility = if (headerShown && expanded) View.VISIBLE else View.GONE
-        binding.iconFavExpand.rotation = if (expanded) 0f else -90f
+
+        val target = if (expanded) 0f else -90f
+        if (animate) {
+            binding.iconFavExpand.animate().rotation(target).setDuration(180L).start()
+        } else {
+            binding.iconFavExpand.animate().cancel()
+            binding.iconFavExpand.rotation = target
+        }
     }
 
     private fun highlightTab(tab: TextView, active: Boolean) {

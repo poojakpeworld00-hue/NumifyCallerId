@@ -18,6 +18,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.contacts.callerid.number.lookup.common.AvatarPalette
 import com.contacts.callerid.number.lookup.common.DialedNumberCheck
 import com.contacts.callerid.number.lookup.common.ListDividerDecoration
 import com.contacts.callerid.number.lookup.common.openActivity
@@ -25,6 +26,7 @@ import com.contacts.callerid.number.lookup.R
 import com.contacts.callerid.number.lookup.foundation.BaseFragment
 import com.contacts.callerid.number.lookup.feature.assistant.AiHubActivity
 import com.contacts.callerid.number.lookup.feature.finder.LookupActivity
+import com.contacts.callerid.number.lookup.feature.widgets.CallActionHandler
 import com.contacts.callerid.number.lookup.repository.SettingsRepository
 import com.contacts.callerid.number.lookup.repository.assistant.AiFeatureConfig
 import com.contacts.callerid.number.lookup.databinding.ActivityDialerBinding
@@ -274,6 +276,10 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         val unknown = hasNumber && !savedExact && !hasNamedMatch
 
         binding.textDialActionsNumber.text = number
+        // Same avatar rule as the Contacts and Recents rows, so one number does
+        // not get three different treatments across three tabs.
+        binding.textDialHeadAvatar.text = CallActionHandler.initials("", number)
+        binding.textDialHeadAvatar.backgroundTintList = AvatarPalette.tintFor(ctx, number)
         binding.rowAddContact.isVisible = true
         binding.rowDialMessage.isVisible = dialable
         binding.rowDialLookup.isVisible = dialable

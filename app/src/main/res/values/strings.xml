@@ -155,7 +155,7 @@
     <string name="nav_recents">Recents</string>
     <string name="nav_contacts">Contacts</string>
     <string name="recents_subtitle">Your call history</string>
-    <string name="contacts_count_fmt">%1$d contacts</string>
+    <string name="contacts_count_fmt">Contacts : %1$d</string>
     <string name="action_more">More</string>
     <string name="nav_lookup">Lookup</string>
     <string name="nav_blocklist">Blocklist</string>

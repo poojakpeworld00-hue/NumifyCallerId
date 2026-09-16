@@ -140,14 +140,23 @@
                         android:paddingHorizontal="16dp"
                         android:paddingVertical="10dp">
 
-                        <ImageView
+                        <!-- The same avatar every list in the app draws: a disc
+                             tinted from AvatarPalette with the initials over it,
+                             set by DialerFragment. It was a flat grey chip with a
+                             generic person glyph, which made this row the one
+                             place a number is shown without the avatar treatment
+                             Recents and Contacts give it. -->
+                        <TextView
+                            android:id="@+id/textDialHeadAvatar"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:background="@drawable/bg_ds_flag_chip"
-                            android:contentDescription="@null"
-                            android:padding="9dp"
-                            android:src="@drawable/ic_ds_person"
-                            app:tint="@color/ds_accent" />
+                            android:background="@drawable/bg_ds_avatar_circle"
+                            android:fontFamily="@font/mulish_bold"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/ds_on_accent"
+                            android:textSize="13sp"
+                            tools:text="+" />
 
                         <LinearLayout
                             android:layout_width="0dp"

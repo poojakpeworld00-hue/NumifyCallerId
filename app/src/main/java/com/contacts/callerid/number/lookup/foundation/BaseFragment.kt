@@ -108,6 +108,13 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
             container.visibility = View.GONE
             shimmer?.stopShimmer()
             shimmer?.visibility = View.GONE
+            // And the fences with it. This used to return here, which skipped the
+            // followAdContainer wiring at the bottom of the method entirely — so
+            // on an ads-off build the dividers kept the visible state the layout
+            // gives them and drew two grey rules across the page with nothing
+            // between them. The empty-slot case is the one that needs hiding
+            // most, so it cannot be the one that gets skipped.
+            hideAdDividers(root)
             return
         }
 
@@ -123,6 +130,12 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         // ends up empty (ads off, show:false, or load failure).
         root.findViewById<View>(R.id.adNativeDivider)?.followAdContainer(container)
         root.findViewById<View>(R.id.adNativeDivider1)?.followAdContainer(container)
+    }
+
+    /** Both ad fences, hidden outright — for the paths where no ad is even attempted. */
+    private fun hideAdDividers(root: View) {
+        root.findViewById<View>(R.id.adNativeDivider)?.visibility = View.GONE
+        root.findViewById<View>(R.id.adNativeDivider1)?.visibility = View.GONE
     }
 
     /** Set up views, listeners, adapters. */
