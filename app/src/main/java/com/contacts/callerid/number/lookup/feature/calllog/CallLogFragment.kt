@@ -34,9 +34,11 @@ import com.contacts.callerid.number.lookup.common.openActivity
 import com.contacts.callerid.number.lookup.databinding.FragmentRecentsBinding
 import com.contacts.callerid.number.lookup.feature.MainShellActivity
 import com.contacts.callerid.number.lookup.feature.calldetails.CallDetailsActivity
+import com.contacts.callerid.number.lookup.feature.premium.PremiumActivity
 import com.contacts.callerid.number.lookup.feature.settings.SettingsActivity
 import com.contacts.callerid.number.lookup.repository.CallType
 import com.contacts.callerid.number.lookup.repository.CallLogTotals
+import com.contacts.callerid.number.lookup.monetize.billing.PremiumStore
 import com.contacts.callerid.number.lookup.repository.SettingsRepository
 import com.contacts.callerid.number.lookup.monetize.strategy.recordPermissionOutcome
 import com.contacts.callerid.number.lookup.common.followAdContainer
@@ -81,6 +83,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
             (activity as? MainShellActivity)?.showDialer()
         }
         binding.buttonRecentsFilter.setOnClickListener { showSortMenu(it) }
+        bindPremiumBadge()
         binding.buttonSettings.setOnClickListener {
             requireActivity().openActivity<SettingsActivity>()
         }
@@ -139,8 +142,24 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         }
     }
 
+    /**
+     * The Premium chip at the head of the row.
+     *
+     * Hidden outright once the entitlement is held: a paying user has nothing
+     * to buy, and a permanent upgrade badge is what makes people feel they paid
+     * for nothing. Re-evaluated in [onResume] too, so buying from the paywall
+     * and coming back does not leave the offer sitting there.
+     */
+    private fun bindPremiumBadge() {
+        binding.buttonRecentsPremium.isVisible = !PremiumStore.isPremium(requireContext())
+        binding.buttonRecentsPremium.setOnClickListener {
+            startActivity(PremiumActivity.newIntent(requireContext()))
+        }
+    }
+
     override fun onResume() {
         super.onResume()
+        if (view != null) bindPremiumBadge()
         // Re-evaluate after returning from Settings (or a system dialog) so a freshly
         // granted permission shows the list without needing to leave the screen.
         if (view != null) {

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The Premium chip in a screen header: the hero crown tile at header-chip
+     size. Same gold gradient as bg_premium_crown, radius scaled from the
+     hero tile (15dp on 48) to the 40dp chip the header already uses. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:startColor="@color/premium_crown_start"
+        android:endColor="@color/premium_crown_end"
+        android:type="linear" />
+    <corners android:radius="12dp" />
+</shape>
