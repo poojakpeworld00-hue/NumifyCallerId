@@ -401,7 +401,7 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
                 if (billing.connected.value) R.string.premium_unavailable
                 else R.string.premium_loading
             )
-            binding.buttonSubscribe.isEnabled = false
+            setCtaEnabled(false)
             binding.groupA4Terms.setText(R.string.premium_fine_print_plain)
             selected = null
             return
@@ -435,7 +435,20 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
             binding.listPlans.addView(row)
         }
         highlightSelection()
-        binding.buttonSubscribe.isEnabled = true
+        setCtaEnabled(true)
+    }
+
+    /**
+     * Enables or disables the call to action, and makes that visible.
+     *
+     * The design has no disabled state because it assumes prices are there. They
+     * are not, until Play answers — and a full-strength gradient button that
+     * swallows taps is worse than one that plainly says it is not ready, so the
+     * disabled state is the design at half strength rather than a second style.
+     */
+    private fun setCtaEnabled(enabled: Boolean) {
+        binding.buttonSubscribe.isEnabled = enabled
+        binding.buttonSubscribe.alpha = if (enabled) 1f else DISABLED_CTA_ALPHA
     }
 
     /**
@@ -583,6 +596,8 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
         private const val CTA_GLOW_CYCLE_MS = 2400L
         private const val CTA_ELEVATION_LOW_DP = 12f
         private const val CTA_ELEVATION_HIGH_DP = 16f
+
+        private const val DISABLED_CTA_ALPHA = 0.45f
 
         private const val PLAN_GAP_DP = 10f
         private const val PLAN_SELECTED_ELEVATION_DP = 10f
