@@ -35,7 +35,6 @@
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center_vertical"
-            android:maxWidth="220dp"
             android:minHeight="40dp"
             android:orientation="horizontal"
             android:paddingHorizontal="14dp">
@@ -47,14 +46,27 @@
                 android:src="@drawable/ic_group"
                 app:tint="@color/ds_ink" />
 
+            <!-- maxWidth belongs here, on the TextView, and not on the chip
+                 around it: a LinearLayout does not honour maxWidth when it is
+                 measuring itself to wrap its children, so the chip grew to
+                 whatever a full email address needed and shoved the add button
+                 off the right edge of the screen. Capping the label caps the
+                 chip, because the chip is only as wide as what it holds.
+
+                 Ellipsized in the middle rather than at the end: every account
+                 here is an address, and truncating at the end leaves a column of
+                 rows that all read "poojachaudhari28…". The halves that tell
+                 them apart are the start and the domain. -->
             <TextView
                 android:id="@+id/textAccountName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:ellipsize="end"
+                android:ellipsize="middle"
                 android:fontFamily="@font/mulish_bold"
                 android:maxLines="1"
+                android:maxWidth="150dp"
+                android:singleLine="true"
                 android:text="@string/contacts_account_all"
                 android:textColor="@color/ds_ink"
                 android:textSize="13sp" />
