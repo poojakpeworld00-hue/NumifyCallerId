@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "885272339028",
-    "project_id": "contacts-dialer-caller-id",
-    "storage_bucket": "contacts-dialer-caller-id.firebasestorage.app"
+    "project_number": "752107855402",
+    "project_id": "caller-id-home",
+    "storage_bucket": "caller-id-home.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:885272339028:android:f754cf5a2d2a7403bd03c1",
+        "mobilesdk_app_id": "1:752107855402:android:5d27a352150cd335b0ed53",
         "android_client_info": {
-          "package_name": "com.contacts.callerid.number.lookup"
+          "package_name": "com.callerid.numberlookup.home"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBnb6axmc6yIeDwJ4fuI_6lIbADatKxg9w"
+          "current_key": "AIzaSyCMnqtzPQlK6tpgYnN63HQHYokyWOJAbtY"
         }
       ],
       "services": {

@@ -61,7 +61,7 @@
                 android:textColor="@color/premium_hero_vs"
                 android:textSize="16sp" />
 
-            <com.contacts.callerid.number.lookup.feature.premium.ShineTextView
+            <com.callerid.numberlookup.home.feature.premium.ShineTextView
                 android:id="@+id/teaserPremium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

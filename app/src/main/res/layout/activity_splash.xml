@@ -68,7 +68,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <com.contacts.callerid.number.lookup.feature.splash.SplashMarkView
+                    <com.callerid.numberlookup.home.feature.splash.SplashMarkView
                         android:id="@+id/splashMark"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

@@ -129,7 +129,7 @@
                 android:paddingHorizontal="@dimen/_44sdp"
                 android:visibility="gone">
 
-                <com.contacts.callerid.number.lookup.feature.widgets.RippleIconView
+                <com.callerid.numberlookup.home.feature.widgets.RippleIconView
                     android:id="@+id/emptyToolsIcon"
                     android:layout_width="@dimen/_78sdp"
                     android:layout_height="@dimen/_78sdp"

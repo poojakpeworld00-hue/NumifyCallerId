@@ -578,7 +578,7 @@
                         android:clipChildren="false"
                         android:clipToPadding="false">
 
-                        <com.contacts.callerid.number.lookup.feature.widgets.RippleIconView
+                        <com.callerid.numberlookup.home.feature.widgets.RippleIconView
                             android:layout_width="@dimen/_82sdp"
                             android:layout_height="@dimen/_82sdp"
                             android:layout_gravity="center"

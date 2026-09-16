@@ -104,7 +104,7 @@
                     android:layout_height="280dp"
                     android:layout_marginTop="@dimen/_8sdp">
 
-                    <com.contacts.callerid.number.lookup.feature.tools.TimerArcView
+                    <com.callerid.numberlookup.home.feature.tools.TimerArcView
                         android:id="@+id/ring"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

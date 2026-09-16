@@ -77,7 +77,7 @@
                 <!-- No bottom margin: the PREFERENCES header below already brings
                      the 18sdp every section boundary on this page uses, and
                      carrying one here too left a hole under the card. -->
-                <com.contacts.callerid.number.lookup.feature.premium.PremiumTeaserView
+                <com.callerid.numberlookup.home.feature.premium.PremiumTeaserView
                     android:id="@+id/cardPremium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />

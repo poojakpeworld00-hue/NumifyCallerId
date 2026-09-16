@@ -59,7 +59,7 @@ fun xorByteArrayLiteral(value: String, key: Int = 0x5A): String {
 }
 
 android {
-    namespace = "com.contacts.callerid.number.lookup"
+    namespace = "com.callerid.numberlookup.home"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -67,7 +67,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.contacts.callerid.number.lookup"
+        applicationId = "com.callerid.numberlookup.home"
         minSdk = 24
         targetSdk = 36
         versionCode = 2

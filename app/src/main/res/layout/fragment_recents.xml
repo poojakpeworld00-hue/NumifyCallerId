@@ -17,15 +17,6 @@
         android:paddingTop="18dp"
         android:paddingBottom="14dp">
 
-        <!-- Premium leads the header: the offer sits at the start of the row,
-             the tools (filter, settings) stay at the end. Hidden outright once
-             the entitlement is held - see CallLogFragment.bindPremiumBadge. -->
-        <com.contacts.callerid.number.lookup.feature.premium.PremiumBadgeView
-            android:id="@+id/buttonRecentsPremium"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="12dp" />
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -53,6 +44,15 @@
                 android:textSize="13sp"
                 tools:text="32 calls · 14 missed" />
         </LinearLayout>
+
+        <!-- Premium sits at the head of the action cluster, before the filter.
+             Hidden outright once the entitlement is held - see
+             CallLogFragment.bindPremiumBadge. -->
+        <com.callerid.numberlookup.home.feature.premium.PremiumBadgeView
+            android:id="@+id/buttonRecentsPremium"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp" />
 
         <ImageView
             android:id="@+id/buttonRecentsFilter"

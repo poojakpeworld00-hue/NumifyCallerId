@@ -115,7 +115,7 @@
                     android:outlineAmbientShadowColor="@color/card_shadow"
                     android:outlineSpotShadowColor="@color/card_shadow">
 
-                    <com.contacts.callerid.number.lookup.feature.tools.LevelIndicatorView
+                    <com.callerid.numberlookup.home.feature.tools.LevelIndicatorView
                         android:id="@+id/bubble"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

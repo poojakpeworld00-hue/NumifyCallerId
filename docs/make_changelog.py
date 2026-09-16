@@ -97,7 +97,7 @@ pdf.set_font("arial", "", 10); pdf.set_text_color(*GREY)
 pdf.ln(5)
 for line in [
     "Source:  2026/08_Aug/CalloraCallerIDSpamBlock          Clone:  2026/09_Sep/NumifyCallerId",
-    "Package: com.callora.callerid  ->  com.contacts.callerid.number.lookup          applicationId: com.contacts.callerid.number.lookup",
+    "Package: com.callora.callerid  ->  com.callerid.numberlookup.home          applicationId: com.callerid.numberlookup.home",
     "Sub-trees: adkit -> monetize     numberlookup -> lookup",
     "Accent: Amethyst #6D3BE8  ->  Indigo #2563EB",
     "Build status: BUILD SUCCESSFUL  (assembleDebug + testDebugUnitTest, 5/5 tests pass)",
@@ -125,9 +125,9 @@ table_page("Summary", "What this clone changed, by category.",
 # ---------------------------------------------------------------- identity
 table_page("1. Identity and branding", "Stage 2.",
            ["Item", "Old (Callora)", "New (Numify)"],
-           [["Root package", "com.callora.callerid", "com.contacts.callerid.number.lookup"],
-            ["namespace", "com.callora.callerid.numberlookup", "com.contacts.callerid.number.lookup"],
-            ["applicationId", "com.callora.callerid.numberlookup", "com.contacts.callerid.number.lookup"],
+           [["Root package", "com.callora.callerid", "com.callerid.numberlookup.home"],
+            ["namespace", "com.callora.callerid.numberlookup", "com.callerid.numberlookup.home"],
+            ["applicationId", "com.callora.callerid.numberlookup", "com.callerid.numberlookup.home"],
             ["rootProject.name", "Callora CallerID SpamBlock", "Numify CallerID Lookup"],
             ["app_name", "Callora: Caller ID & Spam Block", "Numify: Caller ID & Number Lookup"],
             ["app_name_overlay", "Callora", "Numify"],
@@ -339,7 +339,7 @@ table_page("15. Deliberate exclusions and follow-ups", "Read this before shippin
              "You have not supplied the Numify launcher icon or splash image yet - send the paths and "
              "these get resized to all five densities and wired in."],
             ["google-services.json is a placeholder",
-             "Replace with the real Firebase config for com.contacts.callerid.number.lookup before any build you ship."],
+             "Replace with the real Firebase config for com.callerid.numberlookup.home before any build you ship."],
             ["SDK credentials are blank",
              "local.properties needs lighthouse.apiKey / baseUrl and lookup.apiId / apiHash / apiToken. "
              "The build warns at configuration time while they are empty."],

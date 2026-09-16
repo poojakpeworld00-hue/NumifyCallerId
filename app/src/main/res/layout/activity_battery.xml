@@ -73,7 +73,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/_6sdp">
 
-                    <com.contacts.callerid.number.lookup.feature.tools.BatteryGaugeView
+                    <com.callerid.numberlookup.home.feature.tools.BatteryGaugeView
                         android:id="@+id/cell"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

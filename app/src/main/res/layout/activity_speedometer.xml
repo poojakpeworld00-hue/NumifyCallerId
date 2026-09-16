@@ -81,7 +81,7 @@
                     android:outlineAmbientShadowColor="@color/card_shadow"
                     android:outlineSpotShadowColor="@color/card_shadow">
 
-                    <com.contacts.callerid.number.lookup.feature.tools.SpeedometerView
+                    <com.callerid.numberlookup.home.feature.tools.SpeedometerView
                         android:id="@+id/gauge"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

@@ -25,11 +25,11 @@ gone, because the name is now one word in every language.
 
 | Where | Value |
 | --- | --- |
-| `applicationId` | `com.contacts.callerid.number.lookup` |
-| Kotlin `namespace` | `com.contacts.callerid.number.lookup` |
+| `applicationId` | `com.callerid.numberlookup.home` |
+| Kotlin `namespace` | `com.callerid.numberlookup.home` |
 
 The two match, and the source tree matches both: everything lives under
-`com/contacts/callerid/number/lookup`. The old `com.numify.callerid` root had
+`com/callerid/numberlookup/home`. The old `com.numify.callerid` root had
 two children, `.lookup` and `.monetize`; `.lookup` became the new root (so
 `…callerid.lookup.feature` is now `…number.lookup.feature`, not a second
 `lookup` segment deeper) and `.monetize` moved in beside the feature packages
@@ -41,7 +41,7 @@ artefact names, not branding.
 ## Before this can ship — not done in the repo
 
 1. ~~**Firebase.**~~ Done: `app/google-services.json` is the real file for
-   `com.contacts.callerid.number.lookup` in its own project,
+   `com.callerid.numberlookup.home` in its own project,
    `contacts-dialer-caller-id` (project number 885272339028). The old
    `numify-caller-id-lookup` project is no longer referenced by this app —
    **the Remote Config template lives there, not here**, so every parameter the
@@ -53,5 +53,5 @@ artefact names, not branding.
    to a package name, so a new one has to be created for the new applicationId
    and its id put here along with the live ad unit ids.
 3. **Play Console.** An applicationId cannot be changed once an app is
-   published. If `com.contacts.callerid.number.lookup` was ever uploaded, this is a new listing,
+   published. If `com.callerid.numberlookup.home` was ever uploaded, this is a new listing,
    not a rename.
