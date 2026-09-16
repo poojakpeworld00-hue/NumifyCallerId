@@ -6,15 +6,15 @@
      two-letter code on that chip; the flag is shown instead, and the code is kept
      only as the fallback for a device that cannot draw one.
 
-     Both text sizes are ~20% under the design's, in two 10% steps on request:
-     this screen carries eleven rows and wants to show as many as it can without
-     scrolling, and the app-wide text scale (Typography.scaled) already lifts
-     everything by 8%. The flag chip is deliberately not part of that — it is a
-     picture on a fixed disc, and shrinking it with the text would leave a large
-     ring around a small flag.
+     Text is at the design's sizes. The screen wants to show as many of its
+     eleven rows as it can, and the room for that came out of the spacing rather
+     than the type: cutting the row's padding from 16dp to 9dp takes 14dp off
+     every row without making a single word harder to read, which is 154dp over
+     the list — about two more rows on a phone. Shrinking type buys less and
+     costs legibility, so it was tried and reverted.
 
-     includeFontPadding is off on both lines: the design's row is 16 + 40 + 16, and
-     the font's own leading would otherwise add ~9dp of air the mockup does not have.
+     includeFontPadding is off on both lines: the row is 9 + 44 + 9, and the
+     font's own leading would otherwise add ~9dp of air on top of that.
 
      Sizes are the design's own px in dp, not sdp. The sdp scale is not 1:1 with
      dp (on a sw360dp phone `_16sdp` is 19.2dp), so feeding it design numbers
@@ -28,7 +28,7 @@
     android:background="@drawable/bg_ds_row_selectable"
     android:clickable="true"
     android:focusable="true"
-    android:padding="16dp">
+    android:padding="9dp">
 
     <!-- The country flag, on a 44dp neutral disc.
 
@@ -68,13 +68,13 @@
         android:id="@+id/textNative"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="12dp"
         android:ellipsize="end"
         android:fontFamily="@font/mulish_bold"
         android:includeFontPadding="false"
         android:maxLines="1"
         android:textColor="@color/ds_ink"
-        android:textSize="14sp"
+        android:textSize="17sp"
         app:layout_constraintBottom_toTopOf="@id/textName"
         app:layout_constraintEnd_toStartOf="@id/checkBox"
         app:layout_constraintStart_toEndOf="@id/textChip"
@@ -86,14 +86,14 @@
         android:id="@+id/textName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="2dp"
         android:ellipsize="end"
         android:fontFamily="@font/mulish_semibold"
         android:includeFontPadding="false"
         android:maxLines="1"
         android:textColor="@color/ds_ink_muted"
-        android:textSize="10.5sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/checkBox"
         app:layout_constraintStart_toEndOf="@id/textChip"
@@ -106,7 +106,7 @@
         android:id="@+id/checkBox"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="12dp"
         android:background="@drawable/bg_ds_checkbox"
         android:contentDescription="@null"
         android:padding="5dp"

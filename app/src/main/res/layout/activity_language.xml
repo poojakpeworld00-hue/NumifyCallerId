@@ -15,6 +15,13 @@
     Sizes are the design's px carried straight over as dp. The project's sdp/ssp
     scale is not 1:1 with dp — `_20sdp` is 24dp on a sw360dp phone — so using it
     here would inflate the screen by a fifth against the design.
+
+    Spacing is tighter than the design, type is not. Eleven languages plus a
+    pinned native ad leave this screen short of room, and the cheapest place to
+    find it is the air: the header block, the two section headings and the
+    scroll padding each gave back a third or so, and item_language gave back
+    7dp per row. Cutting type instead was tried and reverted — it buys less
+    height and every word pays for it.
 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -49,13 +56,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="14dp"
             android:fontFamily="@font/space_grotesk_bold"
             android:letterSpacing="0.0038"
             android:text="@string/language_title"
             tools:text="Language: English"
             android:textColor="@color/ds_ink"
-            android:textSize="21sp"
+            android:textSize="26sp"
             app:layout_constraintEnd_toStartOf="@id/buttonContinue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -80,7 +87,7 @@
             android:id="@+id/buttonContinue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/bg_ds_continue_pill"
             android:drawableStart="@drawable/ic_check"
@@ -95,7 +102,7 @@
             android:paddingVertical="10dp"
             android:text="@string/language_continue"
             android:textColor="@color/ds_on_accent"
-            android:textSize="11sp"
+            android:textSize="14sp"
             app:drawableTint="@color/ds_on_accent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -117,8 +124,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"
-            android:paddingHorizontal="20dp"
-            android:paddingBottom="32dp"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="20dp"
             app:layout_constraintBottom_toTopOf="@id/adNativeFrame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -135,8 +142,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="7dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -155,7 +162,7 @@
                         android:text="@string/language_suggested"
                         android:textAllCaps="true"
                         android:textColor="@color/ds_ink_muted"
-                        android:textSize="9.5sp" />
+                        android:textSize="11.5sp" />
 
                     <!-- Rule runs from the label to the edge, so the eye is carried
                          across the group it labels rather than stopping at the text. -->
@@ -186,8 +193,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="7dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -200,7 +207,7 @@
                         android:text="@string/language_all"
                         android:textAllCaps="true"
                         android:textColor="@color/ds_ink_muted"
-                        android:textSize="9.5sp" />
+                        android:textSize="11.5sp" />
 
                     <View
                         android:layout_width="0dp"
