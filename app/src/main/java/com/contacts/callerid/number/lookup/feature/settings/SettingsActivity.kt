@@ -17,6 +17,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
+import com.contacts.callerid.number.lookup.feature.premium.PremiumActivity
+import com.contacts.callerid.number.lookup.monetize.billing.PremiumStore
 import com.contacts.callerid.number.lookup.monetize.strategy.AdPreferenceStore
 import com.contacts.callerid.number.lookup.monetize.delivery.AppOpenAdManager
 import com.contacts.callerid.number.lookup.monetize.delivery.NativeAdPresenter
@@ -75,6 +78,8 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
 
         // Native ad at the top of the settings list (bottom adaptive banner auto-loads via BaseActivity).
         NativeAdPresenter().displayMediumNative(this, binding.adNativeFrame, binding.adShimmer)
+
+        bindPremium()
 
         // Preferences grid — Theme is an inline segmented toggle.
         setupThemeToggle()
@@ -213,6 +218,9 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
     override fun onResume() {
         super.onResume()
         refreshCallScreeningCard()
+        // Buying from the paywall and coming straight back must not leave the
+        // offer sitting there.
+        bindPremium()
     }
 
     // ── Call Screening (Android 10+ CallScreening role) ───────────────────
@@ -331,6 +339,21 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
 
 
     /** Inline Light / Dark / System segmented toggle inside the Theme card. */
+    /**
+     * The Premium banner, and its disappearing act.
+     *
+     * Hidden outright once the entitlement is held: a paying user has nothing to
+     * buy, and a permanent "upgrade" row is the thing that makes people feel they
+     * paid for nothing. Re-evaluated in [onResume] as well, so buying from the
+     * paywall and coming back does not leave the offer sitting there.
+     */
+    private fun bindPremium() {
+        binding.cardPremium.isVisible = !PremiumStore.isPremium(this)
+        binding.cardPremium.setOnClickListener {
+            openActivity(PremiumActivity.newIntent(this))
+        }
+    }
+
     private fun setupThemeToggle() {
         val card = binding.cardTheme
         val cells =

@@ -948,4 +948,35 @@
     <string name="scan_reason_never_answered">Rang %1$d times, never answered</string>
     <string name="scan_reason_streak">Last %1$d of %2$d calls unanswered</string>
     <string name="scan_reason_unsaved">%1$d calls, you answered %2$d</string>
+
+    <!-- Contacts Premium (PremiumActivity). Wording is deliberately plain about
+         what recurs and where to cancel: Play rejects subscription screens that
+         are vague about either. -->
+    <string name="premium_title">Contacts Premium</string>
+    <string name="premium_subtitle">Remove the ads and the limits. Everything the app can do, without being asked to watch anything.</string>
+    <string name="premium_benefit_ads">No ads, anywhere in the app</string>
+    <string name="premium_benefit_reveal">Reveal any caller name instantly</string>
+    <string name="premium_benefit_block">Block as many numbers as you like</string>
+    <string name="premium_benefit_ai">Unlimited Ask AI questions</string>
+    <string name="premium_cta">Continue</string>
+    <string name="premium_loading">Loading plans…</string>
+    <string name="premium_unavailable">Plans aren\'t available right now. Check your connection and try again.</string>
+    <string name="premium_restore">Restore purchase</string>
+    <string name="premium_restoring">Checking your purchases…</string>
+    <string name="premium_terms">Subscriptions renew automatically until cancelled. Cancel any time in Google Play. Payment is charged to your Google Play account.</string>
+    <string name="premium_owned_title">You\'re Premium</string>
+    <string name="premium_owned_sub">Ads are off and every limit is lifted. Thank you for supporting the app.</string>
+    <string name="premium_manage">Manage subscription</string>
+    <string name="premium_manage_unavailable">Google Play isn\'t available on this device</string>
+    <string name="premium_plan_weekly">Weekly</string>
+    <string name="premium_plan_weekly_sub">Billed every week</string>
+    <string name="premium_plan_monthly">Monthly</string>
+    <string name="premium_plan_monthly_sub">Billed every month</string>
+    <string name="premium_plan_yearly">Yearly</string>
+    <string name="premium_plan_yearly_sub">Billed every 12 months</string>
+    <string name="premium_plan_lifetime">Lifetime</string>
+    <string name="premium_plan_lifetime_sub">One payment, yours for good</string>
+    <string name="premium_plan_generic_sub">Recurring subscription</string>
+    <string name="settings_premium">Contacts Premium</string>
+    <string name="settings_premium_sub">Remove ads and all limits</string>
 </resources>

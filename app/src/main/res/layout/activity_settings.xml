@@ -70,6 +70,66 @@
                 </FrameLayout>
 
                 <!-- ===== Preferences ===== -->
+                <!-- Premium leads the page, above the section header, because it
+                     is an offer rather than a setting and because everything below
+                     it is a limit this removes. Hidden entirely once owned — see
+                     SettingsActivity.bindPremium. -->
+                <LinearLayout
+                    android:id="@+id/cardPremium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    android:background="@drawable/bg_ds_appearance_hero"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:background="@drawable/bg_cid_chip_brand"
+                        android:contentDescription="@null"
+                        android:padding="9dp"
+                        android:src="@drawable/ic_ai_sparkle"
+                        app:tint="@color/primary" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mulish_bold"
+                            android:includeFontPadding="false"
+                            android:text="@string/settings_premium"
+                            android:textColor="@color/ds_ink"
+                            android:textSize="14.5sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:fontFamily="@font/mulish_semibold"
+                            android:includeFontPadding="false"
+                            android:text="@string/settings_premium_sub"
+                            android:textColor="@color/ds_ink_muted"
+                            android:textSize="11.5sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_ds_chevron_right"
+                        app:tint="@color/ds_chevron" />
+                </LinearLayout>
+
                 <LinearLayout style="@style/SettingsSectionRow">
 
                     <TextView

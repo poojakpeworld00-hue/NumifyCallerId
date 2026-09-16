@@ -109,6 +109,13 @@
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />
 
+        <!-- Numify Premium paywall. No launchMode games: it is an ordinary
+             screen, and Play's purchase sheet returns to whatever started it. -->
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".feature.premium.PremiumActivity"
+            android:exported="false" />
+
         <!-- Contact search. adjustResize so the results list shortens for the
              keyboard instead of scrolling underneath it, and stateVisible because
              the screen exists to be typed into — arriving with the keyboard down

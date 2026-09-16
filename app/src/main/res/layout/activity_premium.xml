@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Contacts Premium.
+
+     Built against the app's own design system so it ships working and on-brand.
+     The Claude Design source ("Contacts Premium.dc.html") could not be read — the
+     design MCP is not authorised in this session — so the *visual* treatment here
+     is provisional and expected to be replaced once it can be. Nothing below the
+     surface depends on it: ids, plan rows and states are what PremiumActivity
+     drives, so a re-skin is a layout change and nothing more.
+
+     Plan rows are inflated at runtime from whatever Play returns (see
+     item_premium_plan.xml). They are not laid out statically here because the
+     number of plans is a Play Console decision, not a layout one. -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/premiumRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/ds_page">
+
+        <ImageView
+            android:id="@+id/buttonClose"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="12dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/action_back"
+            android:padding="10dp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/ds_ink_muted" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingBottom="16dp"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toTopOf="@id/buttonSubscribe"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonClose">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="24dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/space_grotesk_bold"
+                    android:text="@string/premium_title"
+                    android:textColor="@color/ds_ink"
+                    android:textSize="26sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:fontFamily="@font/mulish_semibold"
+                    android:lineSpacingMultiplier="1.3"
+                    android:text="@string/premium_subtitle"
+                    android:textColor="@color/ds_ink_muted"
+                    android:textSize="13.5sp" />
+
+                <!-- The four things Premium actually changes, in the order they
+                     matter. Each line names a limit the user has already met. -->
+                <LinearLayout
+                    android:id="@+id/listBenefits"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:orientation="vertical" />
+
+                <!-- Filled by PremiumActivity from Play's response. -->
+                <LinearLayout
+                    android:id="@+id/listPlans"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:orientation="vertical" />
+
+                <!-- Shown while Play is still answering, and replaced by
+                     textPlansError if it answers with nothing. -->
+                <TextView
+                    android:id="@+id/textPlansLoading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/mulish_semibold"
+                    android:gravity="center"
+                    android:text="@string/premium_loading"
+                    android:textColor="@color/ds_ink_muted"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/textPlansError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/mulish_semibold"
+                    android:gravity="center"
+                    android:lineSpacingMultiplier="1.3"
+                    android:text="@string/premium_unavailable"
+                    android:textColor="@color/ds_ink_muted"
+                    android:textSize="13sp"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <!-- Play requires that a subscription's terms are visible before
+                     purchase, and that restoring is reachable without paying. -->
+                <TextView
+                    android:id="@+id/textTerms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/mulish_semibold"
+                    android:gravity="center"
+                    android:lineSpacingMultiplier="1.35"
+                    android:text="@string/premium_terms"
+                    android:textColor="@color/ds_ink_muted"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/buttonRestore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="@font/mulish_bold"
+                    android:minHeight="44dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="16dp"
+                    android:text="@string/premium_restore"
+                    android:textColor="@color/ds_accent"
+                    android:textSize="12.5sp" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSubscribe"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="18dp"
+            android:enabled="false"
+            android:fontFamily="@font/mulish_bold"
+            android:text="@string/premium_cta"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:backgroundTint="@color/selector_premium_cta"
+            app:cornerRadius="26dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Everything above is replaced by this once the user owns Premium, so
+             the screen is also the place that confirms they do. -->
+        <LinearLayout
+            android:id="@+id/stateOwned"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/ds_page"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="40dp"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="@drawable/bg_circle_surface"
+                android:contentDescription="@null"
+                android:padding="20dp"
+                android:src="@drawable/ic_check"
+                app:tint="@color/ds_success" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/space_grotesk_bold"
+                android:gravity="center"
+                android:text="@string/premium_owned_title"
+                android:textColor="@color/ds_ink"
+                android:textSize="19sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/mulish_semibold"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.35"
+                android:text="@string/premium_owned_sub"
+                android:textColor="@color/ds_ink_muted"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/buttonManage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:background="?attr/selectableItemBackground"
+                android:fontFamily="@font/mulish_bold"
+                android:gravity="center"
+                android:minHeight="44dp"
+                android:paddingHorizontal="16dp"
+                android:text="@string/premium_manage"
+                android:textColor="@color/ds_accent"
+                android:textSize="12.5sp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

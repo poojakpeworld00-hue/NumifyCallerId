@@ -11,6 +11,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.multidex.MultiDex
 import com.google.firebase.FirebaseApp
+import com.contacts.callerid.number.lookup.monetize.billing.BillingRepository
+import com.contacts.callerid.number.lookup.monetize.billing.PremiumStore
 import com.contacts.callerid.number.lookup.monetize.model.AdPlacementType
 import com.contacts.callerid.number.lookup.monetize.strategy.AdPreferenceStore
 import com.contacts.callerid.number.lookup.monetize.delivery.AppOpenAdManager
@@ -75,7 +77,21 @@ class ContactsApplication : Application() , Application.ActivityLifecycleCallbac
         appContext = applicationContext
 
         MultiDex.install(this)
+
+        // Premium first, and before AdPreferenceStore: every ad gate in the app
+        // reads `IsAdsON` through that store, and the store answers "no ads" for
+        // a Premium install. Warming the cached entitlement here means a paying
+        // user is never shown ads for the first moments of a launch while
+        // billing connects.
+        PremiumStore.init(this)
         AdPreferenceStore.getInstance(this)
+
+        // Opens the Play connection and, on connect, re-reads what this account
+        // owns. That restore is what makes a reinstall, a second device or a new
+        // phone come back Premium without the user doing anything — and what
+        // takes the entitlement away again after a refund or a lapsed
+        // subscription. It runs every launch for exactly that reason.
+        BillingRepository.getInstance(this).start()
 
         // Register the splash + rich-push activities so the SDK can forward a
         // push-launched cold start from the splash (see SplashActivity.handleFromSplash).

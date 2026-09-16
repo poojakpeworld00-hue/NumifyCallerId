@@ -1,6 +1,7 @@
 package com.contacts.callerid.number.lookup.repository.assistant
 
 import android.content.Context
+import com.contacts.callerid.number.lookup.monetize.billing.PremiumStore
 import com.contacts.callerid.number.lookup.R
 import com.contacts.callerid.number.lookup.entity.AiMessage
 import com.contacts.callerid.number.lookup.entity.AiQueryRequest
@@ -53,9 +54,16 @@ class AiAssistantRepository(private val context: Context) {
         remote(question, endpoint)
     }
 
-    /** True once the free allowance is spent, so the caller can raise the paywall. */
+    /**
+     * True once the free allowance is spent, so the caller can raise the paywall.
+     *
+     * Premium has no allowance to spend. This is the one gate in the app that
+     * does not route through `IsAdsON` — it counts questions rather than showing
+     * an ad — so it is the one that has to name Premium explicitly.
+     */
     fun hasQuotaLeft(): Boolean =
-        settings.aiQueryCount < AiFeatureConfig.freeQueryLimit(context)
+        PremiumStore.isPremium(context) ||
+            settings.aiQueryCount < AiFeatureConfig.freeQueryLimit(context)
 
     fun queriesUsed(): Int = settings.aiQueryCount
 

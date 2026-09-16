@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The paywall's Continue button. Disabled has to *look* disabled: the button
+     is dead until Play returns a plan, and a fully-branded button that ignores
+     taps reads as a broken app rather than a waiting one. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/ds_track_idle" android:state_enabled="false" />
+    <item android:color="@color/primary" />
+</selector>

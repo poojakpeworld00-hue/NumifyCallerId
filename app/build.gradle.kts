@@ -181,6 +181,9 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.intuit.sdp)
     implementation(libs.intuit.ssp)
+
+    // Google Play Billing — Numify Premium (BillingRepository).
+    implementation(libs.play.billing)
     implementation(libs.lottie)
 
     annotationProcessor(libs.glide.compiler)
