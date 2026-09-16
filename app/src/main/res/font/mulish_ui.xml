@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The app's UI weight ramp — Mulish, shifted one step heavier than its own
+    nominal weights.
+
+    @font/mulish is the honest mapping: 400 is Regular, 700 is Bold. It is what a
+    typographer would write and what anything needing the real face should use.
+    This file is what the *theme* points at, and it deliberately lies about 400
+    and 600:
+
+        400 (normal)     -> Mulish Medium      (was Regular)
+        500              -> Mulish SemiBold    (was Medium)
+        600              -> Mulish SemiBold
+        700 (bold)       -> Mulish Bold        (unchanged)
+
+    Every TextView that never names a face lands on 400, and across ~320 of them
+    Mulish Regular read thin and washed-out on phone screens — worst on the grey
+    secondary lines, which are small and low-contrast to begin with. Shifting the
+    default up one weight fixes all of them at once, with no layout edits and no
+    risk of the sweep missing a screen.
+
+    700 is left alone on purpose. Pushing bold any further would flatten it
+    against the new default and the hierarchy would go with it; the point is to
+    raise the floor, not to make everything the same weight.
+-->
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+    <font
+        android:font="@font/mulish_medium"
+        android:fontStyle="normal"
+        android:fontWeight="400" />
+    <font
+        android:font="@font/mulish_semibold"
+        android:fontStyle="normal"
+        android:fontWeight="500" />
+    <font
+        android:font="@font/mulish_semibold"
+        android:fontStyle="normal"
+        android:fontWeight="600" />
+    <font
+        android:font="@font/mulish_bold"
+        android:fontStyle="normal"
+        android:fontWeight="700" />
+</font-family>

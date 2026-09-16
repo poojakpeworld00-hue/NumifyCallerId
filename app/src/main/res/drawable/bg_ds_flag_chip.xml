@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The 40dp disc a language row's flag sits on.
+
+     One neutral fill for every row, not a tint per language. Eleven differently
+     coloured discs made the list read as eleven unrelated badges and fought the
+     flags themselves, which already carry the only colour the row needs. The
+     hairline is what a flat fill cannot do on its own: Japan is a red dot on
+     white, and France and Russia are half white, so without an edge they dissolve
+     into the card behind them. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/ds_flag_chip" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/ds_flag_chip_ring" />
+</shape>

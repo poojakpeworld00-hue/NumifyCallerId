@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:fontFamily="@font/mulish_medium"
+                android:fontFamily="@font/mulish_semibold"
                 android:text="@string/no_reminders_found"
                 android:textColor="@color/text_secondary"
                 android:textSize="@dimen/_12ssp" />
@@ -50,7 +50,7 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="center|right"
             android:background="@drawable/bg_btn"
-            android:fontFamily="@font/mulish_medium"
+            android:fontFamily="@font/mulish_semibold"
             android:gravity="center|right"
             android:padding="@dimen/_13sdp"
             android:text="@string/add_reminder"

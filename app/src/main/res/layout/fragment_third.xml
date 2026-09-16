@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/mulish_medium"
+                    android:fontFamily="@font/mulish_semibold"
                     android:text="@string/message"
                     android:textColor="@color/on_surface"
                     android:textSize="@dimen/_12ssp" />
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/mulish_medium"
+                    android:fontFamily="@font/mulish_semibold"
                     android:text="@string/feature_send_email"
                     android:textColor="@color/on_surface"
                     android:textSize="@dimen/_12ssp" />
@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/mulish_medium"
+                    android:fontFamily="@font/mulish_semibold"
                     android:text="@string/feature_calendar"
                     android:textColor="@color/on_surface"
                     android:textSize="@dimen/_12ssp" />
@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/mulish_medium"
+                    android:fontFamily="@font/mulish_semibold"
                     android:text="@string/feature_web"
                     android:textColor="@color/on_surface"
                     android:textSize="@dimen/_12ssp" />
@@ -169,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/mulish_medium"
+                    android:fontFamily="@font/mulish_semibold"
                     android:text="@string/feature_edit_contact"
                     android:textColor="@color/on_surface"
                     android:textSize="@dimen/_12ssp" />

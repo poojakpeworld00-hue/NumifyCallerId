@@ -1,9 +1,10 @@
 package com.contacts.callerid.number.lookup.feature.language
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.contacts.callerid.number.lookup.R
@@ -74,10 +75,9 @@ class LanguageAdapter(
         with(holder.binding) {
             val ctx = root.context
 
-            // Country flag on the language's own colour.
-            textChip.text = item.flag
-            textChip.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(ctx, item.chipColor))
+            // Country flag on the shared neutral disc. The tint that used to be
+            // applied here is gone: see @drawable/bg_ds_flag_chip.
+            bindFlag(textChip, item)
 
             textNative.text = item.nativeName
             textName.text =
@@ -109,6 +109,32 @@ class LanguageAdapter(
         }
     }
 
+    /**
+     * Draws the language's flag on the chip, or its two-letter code when this
+     * device cannot draw the flag.
+     *
+     * An emoji flag is a pair of regional-indicator letters, and whether they
+     * fuse into a flag is entirely up to the system font. Most OEMs ship them;
+     * a Chinese ROM and a few stripped-down builds do not, and there the row
+     * would show two boxed letters or plain tofu — eleven broken chips on the
+     * first screen a user ever sees. [Paint.hasGlyph] asks the font that is
+     * actually about to draw, so the fallback is decided per device rather than
+     * guessed from the manufacturer.
+     *
+     * The size is set here rather than in the layout because the two cases want
+     * different ones: an emoji has to be big to read inside the 44dp disc, two
+     * capital letters do not.
+     */
+    private fun bindFlag(chip: TextView, item: LanguageOption) {
+        val flag = item.flag
+        val canDrawFlag = chip.paint.hasGlyph(flag)
+        chip.text = if (canDrawFlag) flag else item.code
+        chip.setTextSize(
+            TypedValue.COMPLEX_UNIT_DIP,
+            if (canDrawFlag) FLAG_TEXT_DP else CODE_TEXT_DP,
+        )
+    }
+
     override fun onViewRecycled(holder: VH) {
         super.onViewRecycled(holder)
         // A recycled row must not carry a half-played entrance into its next use.
@@ -116,4 +142,17 @@ class LanguageAdapter(
     }
 
     override fun getItemCount(): Int = items.size
+
+    private companion object {
+        /**
+         * Emoji flag size. An emoji flag draws roughly 1.8x this wide — far wider
+         * than a normal glyph — so 20dp fills the 44dp disc and still leaves the
+         * hoist and fly ends inside the ring. Raising it spills the flag over the
+         * edge; the disc in item_language.xml has to grow with it.
+         */
+        const val FLAG_TEXT_DP = 20f
+
+        /** Two-letter fallback — letters fill their box, so they need far less. */
+        const val CODE_TEXT_DP = 15f
+    }
 }

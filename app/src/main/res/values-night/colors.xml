@@ -129,6 +129,8 @@
     <color name="ds_rule">#262C3A</color>
     <color name="ds_divider">#222834</color>
     <color name="ds_check_idle">#3A4256</color>
+    <color name="ds_flag_chip">#222836</color>
+    <color name="ds_flag_chip_ring">#333B4D</color>
     <color name="ds_card_shadow">#66000000</color>
     <!-- A tinted glow reads as haze on a dark page; the lift comes from a plain
          black shadow instead. -->

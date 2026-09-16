@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Language row (design: Numify Language Screen).
 
-     A 40dp round chip carrying the country flag leads the row, then the endonym
+     A 44dp round chip carrying the country flag leads the row, then the endonym
      over the English name, with the checkbox trailing. The design draws a
-     two-letter code on that chip; the flag is shown instead, on the same chip, at
-     the same size and colour.
+     two-letter code on that chip; the flag is shown instead, and the code is kept
+     only as the fallback for a device that cannot draw one.
+
+     Both text sizes are 10% under the design's, on request: this screen carries
+     eleven rows and wants to show as many as it can without scrolling, and the
+     app-wide text scale (Typography.scaled) already lifts everything by 8%.
 
      includeFontPadding is off on both lines: the design's row is 16 + 40 + 16, and
      the font's own leading would otherwise add ~9dp of air the mockup does not have.
@@ -23,22 +27,34 @@
     android:focusable="true"
     android:padding="16dp">
 
-    <!-- The country flag, on the design's 40dp chip. The disc is tinted per
-         language from LanguageAdapter, so one drawable serves all eleven rows.
+    <!-- The country flag, on a 44dp neutral disc.
 
-         The emoji is sized well below the chip rather than filling it: an emoji
-         flag is wider than it is tall, so scaling it to cover a 40dp circle would
-         crop the hoist and fly ends off every flag. The tinted disc behind it also
-         gives the near-white flags — Japan above all — an edge to sit against on a
-         white card. -->
+         One disc for all eleven rows (see @drawable/bg_ds_flag_chip) — the flag is
+         the row's only colour. 44dp rather than the design's 40dp because the flag
+         itself grew: an emoji flag draws about 1.8x its nominal text size wide, so
+         a badge large enough to read needs a disc that can still contain it. At
+         40dp the hoist and fly ends hung outside the ring.
+
+         The size here is only what the tools preview uses — LanguageAdapter sets
+         the real one per row, since the two-letter fallback wants a different size
+         from the flag. Keep it in step with LanguageAdapter.FLAG_TEXT_DP.
+
+         `dp`, not `sp`: this is a picture, and the app-wide text scale
+         (Typography.scaled) must not grow it past the fixed disc. The two text
+         lines beside it are sp and do scale.
+
+         LanguageAdapter substitutes the two-letter code when the device font has
+         no glyph for the flag, so the chip is never an empty circle or tofu. -->
     <TextView
         android:id="@+id/textChip"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/bg_ds_avatar_chip"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/bg_ds_flag_chip"
+        android:fontFamily="@font/mulish_bold"
         android:gravity="center"
         android:includeFontPadding="false"
-        android:textSize="19dp"
+        android:textColor="@color/ds_ink"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -55,7 +71,7 @@
         android:includeFontPadding="false"
         android:maxLines="1"
         android:textColor="@color/ds_ink"
-        android:textSize="17sp"
+        android:textSize="15.5sp"
         app:layout_constraintBottom_toTopOf="@id/textName"
         app:layout_constraintEnd_toStartOf="@id/checkBox"
         app:layout_constraintStart_toEndOf="@id/textChip"
@@ -74,7 +90,7 @@
         android:includeFontPadding="false"
         android:maxLines="1"
         android:textColor="@color/ds_ink_muted"
-        android:textSize="13sp"
+        android:textSize="11.5sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/checkBox"
         app:layout_constraintStart_toEndOf="@id/textChip"

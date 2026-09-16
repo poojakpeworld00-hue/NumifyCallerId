@@ -4,9 +4,13 @@
         <!-- App-wide body face: Mulish, the handoff's body font, as a weight family
              so textStyle="bold" resolves to real Mulish Bold rather than a
              synthesised one. Display text sets Space Grotesk explicitly where the
-             design calls for it. -->
-        <item name="android:fontFamily">@font/mulish</item>
-        <item name="fontFamily">@font/mulish</item>
+             design calls for it.
+
+             @font/mulish_ui, not @font/mulish: the UI ramp maps the default weight
+             to Mulish Medium so unstyled text is not the thin Regular. See that
+             file for why, and for why bold is left where it is. -->
+        <item name="android:fontFamily">@font/mulish_ui</item>
+        <item name="fontFamily">@font/mulish_ui</item>
 
         <item name="colorPrimary">@color/primary</item>
         <!-- Paired with colorPrimary. Without it Material3 falls back to its own

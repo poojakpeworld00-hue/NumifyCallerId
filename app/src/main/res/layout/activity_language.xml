@@ -55,7 +55,7 @@
             android:text="@string/language_title"
             tools:text="Language: English"
             android:textColor="@color/ds_ink"
-            android:textSize="26sp"
+            android:textSize="23.5sp"
             app:layout_constraintEnd_toStartOf="@id/buttonContinue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -95,7 +95,7 @@
             android:paddingVertical="10dp"
             android:text="@string/language_continue"
             android:textColor="@color/ds_on_accent"
-            android:textSize="14sp"
+            android:textSize="12.5sp"
             app:drawableTint="@color/ds_on_accent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -155,7 +155,7 @@
                         android:text="@string/language_suggested"
                         android:textAllCaps="true"
                         android:textColor="@color/ds_ink_muted"
-                        android:textSize="11.5sp" />
+                        android:textSize="10.5sp" />
 
                     <!-- Rule runs from the label to the edge, so the eye is carried
                          across the group it labels rather than stopping at the text. -->
@@ -200,7 +200,7 @@
                         android:text="@string/language_all"
                         android:textAllCaps="true"
                         android:textColor="@color/ds_ink_muted"
-                        android:textSize="11.5sp" />
+                        android:textSize="10.5sp" />
 
                     <View
                         android:layout_width="0dp"

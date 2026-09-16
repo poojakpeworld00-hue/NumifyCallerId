@@ -209,6 +209,11 @@
     <color name="ds_ink_strong">#3A4050</color>          <!-- body text inside a nested sheet -->
     <color name="ds_divider">#F0F2F7</color>           <!-- row divider inside a card -->
     <color name="ds_check_idle">#D6DAE5</color>        <!-- unchecked box border -->
+    <!-- Language flag chip. One neutral disc for all eleven rows: the flag is the
+         only colour in the row, and the hairline stops a near-white flag (Japan,
+         and the white halves of France and Russia) from bleeding into the card. -->
+    <color name="ds_flag_chip">#EEF1F7</color>
+    <color name="ds_flag_chip_ring">#DFE4EE</color>
     <color name="ds_card_shadow">#0F141E3C</color>     <!-- 0 6px 20px rgba(20,30,60,0.06) -->
     <color name="ds_accent_shadow">#590548FF</color>   <!-- 0 8px 18px rgba(46,95,232,0.35) -->
 

@@ -1,6 +1,7 @@
 package com.contacts.callerid.number.lookup.foundation
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
@@ -34,6 +35,7 @@ import com.contacts.callerid.number.lookup.monetize.delivery.fullpage.ExitInters
 import com.contacts.callerid.number.lookup.monetize.delivery.fullpage.TransitionInterstitialAd
 import com.contacts.callerid.number.lookup.repository.SettingsRepository
 import com.contacts.callerid.number.lookup.common.PreferenceStore
+import com.contacts.callerid.number.lookup.common.Typography
 import com.contacts.callerid.number.lookup.common.followAdContainer
 import com.contacts.callerid.number.lookup.common.PreferenceStore.THEME_DARK
 import com.contacts.callerid.number.lookup.common.PreferenceStore.THEME_LIGHT
@@ -65,6 +67,24 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
     /** Layout resource that is wrapped in a `<layout>` tag for DataBinding. */
     @get:LayoutRes
     protected abstract val layoutId: Int
+
+    /**
+     * Applies the app-wide text scale ([Typography.scaled]) before anything in
+     * this Activity resolves a dimension.
+     *
+     * Here rather than in `onCreate` because the theme, the window decor and
+     * every inflated layout read their sizes from the base context, and by the
+     * time `onCreate` runs the first of those has already happened.
+     *
+     * The four screens that draw over other apps — the incoming-call card, the
+     * lock-screen alert, the overlay tutorial and the reply picker — extend
+     * AppCompatActivity directly and so are deliberately left out: they are
+     * fixed-size surfaces sitting on someone else's UI, where growing the type
+     * has nowhere to go.
+     */
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(Typography.scaled(newBase))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         applyLocale()
