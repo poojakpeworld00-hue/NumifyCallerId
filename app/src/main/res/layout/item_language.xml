@@ -6,9 +6,12 @@
      two-letter code on that chip; the flag is shown instead, and the code is kept
      only as the fallback for a device that cannot draw one.
 
-     Both text sizes are 10% under the design's, on request: this screen carries
-     eleven rows and wants to show as many as it can without scrolling, and the
-     app-wide text scale (Typography.scaled) already lifts everything by 8%.
+     Both text sizes are ~20% under the design's, in two 10% steps on request:
+     this screen carries eleven rows and wants to show as many as it can without
+     scrolling, and the app-wide text scale (Typography.scaled) already lifts
+     everything by 8%. The flag chip is deliberately not part of that — it is a
+     picture on a fixed disc, and shrinking it with the text would leave a large
+     ring around a small flag.
 
      includeFontPadding is off on both lines: the design's row is 16 + 40 + 16, and
      the font's own leading would otherwise add ~9dp of air the mockup does not have.
@@ -71,7 +74,7 @@
         android:includeFontPadding="false"
         android:maxLines="1"
         android:textColor="@color/ds_ink"
-        android:textSize="15.5sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/textName"
         app:layout_constraintEnd_toStartOf="@id/checkBox"
         app:layout_constraintStart_toEndOf="@id/textChip"
@@ -90,7 +93,7 @@
         android:includeFontPadding="false"
         android:maxLines="1"
         android:textColor="@color/ds_ink_muted"
-        android:textSize="11.5sp"
+        android:textSize="10.5sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/checkBox"
         app:layout_constraintStart_toEndOf="@id/textChip"
