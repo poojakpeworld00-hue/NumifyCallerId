@@ -39,7 +39,7 @@ Play treats that as impersonation and it is a common cause of takedowns.
 ```
 See who is calling, block spam, look up numbers and keep contacts in order.
 ```
-74 characters. This is the line users actually read in search results, so it is
+75 characters. This is the line users actually read in search results, so it is
 written as a sentence rather than a keyword list — but it still carries
 `calling`, `block spam`, `look up numbers` and `contacts`.
 
@@ -67,8 +67,7 @@ CALLER ID THAT WORKS WHILE THE PHONE RINGS
 • A caller ID card appears over the incoming call with the name and region we
   have on file for that number
 • Unknown numbers are looked up as the call comes in, not after you have missed it
-• A summary after the call, so you can see who it was without digging through the
-  call log
+• A summary after each call, so you can see who it was at a glance
 
 ━━━━━━━━━━━━━━━━━━━━━━
 SPAM AND FRAUD BLOCKING
@@ -81,8 +80,7 @@ SPAM AND FRAUD BLOCKING
 ━━━━━━━━━━━━━━━━━━━━━━
 NUMBER LOOKUP
 ━━━━━━━━━━━━━━━━━━━━━━
-• Search any phone number and see the name, region and carrier details available
-  for it
+• Search any phone number and see the name, region and carrier details we have
 • Check a missed call before you decide whether to ring back
 • Works for numbers that are not in your contacts
 
@@ -92,7 +90,7 @@ A DIALER BUILT FOR ONE HAND
 • Type a number and get the actions you actually want — add to contacts, send a
   message, look it up, open WhatsApp or ask AI about it
 • Recent calls grouped by day, filtered by all, incoming, outgoing or missed
-• Call details with every interaction you have had with that number
+• Call details for every interaction with that number
 
 ━━━━━━━━━━━━━━━━━━━━━━
 CONTACTS, TIDIED UP
@@ -122,7 +120,6 @@ MADE TO LIVE ON YOUR PHONE
 • Light, dark and system themes
 • Available in English, Hindi, Spanish, French, Portuguese, Thai, Chinese,
   Japanese, Russian, Vietnamese and Turkish
-• Designed for one-handed use, with everything important inside thumb reach
 
 ━━━━━━━━━━━━━━━━━━━━━━
 CONTACTS PREMIUM
@@ -132,8 +129,8 @@ Optional, and the free app stays fully usable without it.
 • Unlimited number lookups — no daily cap
 • Unlimited Ask AI questions
 • No limit on how many numbers you block
-Premium is offered as a subscription or a one-time purchase. Subscriptions renew
-until cancelled and can be cancelled any time in Google Play.
+Premium is a subscription or a one-time purchase. Subscriptions renew until
+cancelled, and can be cancelled any time in Google Play.
 
 ━━━━━━━━━━━━━━━━━━━━━━
 WHY THE APP ASKS FOR PERMISSIONS
@@ -145,8 +142,8 @@ WHY THE APP ASKS FOR PERMISSIONS
   not record calls
 • Notifications — for caller alerts when the screen is locked
 
-Each permission is asked for when the feature that needs it is first used, and the
-rest of the app keeps working if you decline.
+Each permission is asked for when its feature is first used, and the rest of the
+app keeps working if you decline.
 
 ━━━━━━━━━━━━━━━━━━━━━━
 YOUR DATA
@@ -156,12 +153,13 @@ information, so not every number can be identified. You can request deletion of 
 data this app holds about you at any time from Settings → Data Deletion. Full
 details are in our Privacy Policy, linked on this page.
 
-Questions or a number identified incorrectly? Contact us from the Play listing and
-we will put it right.
+Spotted a number identified incorrectly? Contact us from this listing and we will
+put it right.
 ```
 
-Roughly 3,650 characters — comfortably inside the 4,000 limit with room for a
-localised line or a promo.
+3958 characters exactly, against the 4,000 limit — measured, not
+estimated. Re-measure if you edit it; the first draft of this file overran by 118
+characters and the estimate in it was wrong by 470.
 
 ---
 
