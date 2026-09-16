@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Contacts Premium — built from the handoff's "Numify Premium.dc.html".
+    Contacts Premium, built from the handoff's "Numify Premium.dc.html".
 
     Every dimension, colour, radius and weight below is transcribed from that
     file. The design canvas is 412x892 (see the x-import hint-size), so its CSS
     px map 1:1 onto dp and are used as written.
 
     Structure, top to bottom, exactly as the design orders it:
-      close + Restore  ->  hero  ->  "What you unlock" + benefits card
-      ->  "Choose your plan" + plan rows  ->  fine print   [scrolling]
+      close + Restore  ->  "Free vs Premium" hero  ->  comparison table
+      ->  plan rows  ->  fine print                        [scrolling]
       CTA + legal links                                    [pinned footer]
 
-    The four a1..a4 entrance groups carry ids so PremiumActivity can stagger
-    them 0/90/180/270ms; the design does it with CSS animation-delay on those
-    class names.
+    The entrance groups carry ids so PremiumActivity can stagger them; the
+    design does it with CSS animation-delay on .a1 / .a2 / .a3 / .a1b, and with
+    per-word delays inside the hero title.
 
-    Benefit rows and plan rows are inflated at runtime, not laid out statically:
-    the design generates benefits from a list, and the plans carry live prices
+    Table rows and plan rows are inflated at runtime, not laid out statically:
+    the design generates the rows from a list, and the plans carry live prices
     from Play. Everything else is declarative.
+
+    ONE SUBSTITUTION. The design sets four labels in Mulish 800 - Restore, the
+    three column heads, and BEST VALUE in the plan row. This project ships
+    Mulish 400/500/600/700 and no ExtraBold, so those four carry
+    textStyle="bold" on top of @font/mulish_bold: the platform then synthesises
+    the extra weight over the real Bold, which lands close to 800 at these
+    sizes. Drop the textStyle the day a mulish_extrabold.ttf is added.
+    Everything else in the design is 600 or 700 and maps to a real file.
 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -56,10 +64,10 @@
 
                 <!-- ===== a1 · close + Restore ===== -->
                 <LinearLayout
-                    android:id="@+id/groupA1Header"
+                    android:id="@+id/groupHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="20dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -84,6 +92,7 @@
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
                         android:fontFamily="@font/mulish_bold"
+                        android:textStyle="bold"
                         android:gravity="center_vertical"
                         android:minHeight="36dp"
                         android:paddingHorizontal="6dp"
@@ -92,137 +101,174 @@
                         android:textSize="12.5sp" />
                 </LinearLayout>
 
-                <!-- ===== a1 · hero ===== -->
-                <FrameLayout
-                    android:id="@+id/groupA1Hero"
+                <!-- ===== hero =====
+                     The card itself has no entrance in the design — only its
+                     contents do, word by word. -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_premium_hero"
-                    android:clipToOutline="true"
-                    android:elevation="10dp"
+                    android:elevation="9dp"
+                    android:orientation="vertical"
                     android:outlineAmbientShadowColor="@color/premium_hero_shadow"
-                    android:outlineSpotShadowColor="@color/premium_hero_shadow">
+                    android:outlineSpotShadowColor="@color/premium_hero_shadow"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="16dp">
 
-                    <!-- The travelling highlight: 40% of the card's width, swept
-                         from -120% to 240% — see PremiumActivity.startHeroSweep.
-                         First child, so it sits behind the content as the design
-                         layers it. -->
-                    <View
-                        android:id="@+id/heroSweep"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/bg_premium_sweep" />
+                    <!-- "✦ Free vs Premium ♛" — one row, five pieces, each with
+                         its own delay and its own entrance. baseline alignment
+                         rather than centre so the two icons sit on the type
+                         rather than floating in the line box. -->
+                    <LinearLayout
+                        android:id="@+id/groupHeroTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
+                        <ImageView
+                            android:id="@+id/iconHeroSpark"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_premium_spark_duo" />
+
+                        <TextView
+                            android:id="@+id/textHeroFree"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="9dp"
+                            android:fontFamily="@font/space_grotesk_bold"
+                            android:includeFontPadding="false"
+                            android:text="@string/premium_hero_free"
+                            android:textColor="@color/premium_hero_title"
+                            android:textSize="26sp" />
+
+                        <TextView
+                            android:id="@+id/textHeroVs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="9dp"
+                            android:fontFamily="@font/mulish_semibold"
+                            android:includeFontPadding="false"
+                            android:text="@string/premium_hero_vs"
+                            android:textColor="@color/premium_hero_vs"
+                            android:textSize="16sp" />
+
+                        <com.contacts.callerid.number.lookup.feature.premium.ShineTextView
+                            android:id="@+id/textHeroPremium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="9dp"
+                            android:fontFamily="@font/space_grotesk_bold"
+                            android:includeFontPadding="false"
+                            android:text="@string/premium_hero_premium"
+                            android:textSize="26sp" />
+
+                        <ImageView
+                            android:id="@+id/iconHeroCrown"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginStart="9dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_premium_crown"
+                            app:tint="@color/premium_badge" />
+                    </LinearLayout>
+
+                    <!-- a1b -->
+                    <TextView
+                        android:id="@+id/textHeroSub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:fontFamily="@font/mulish_semibold"
+                        android:text="@string/premium_hero_sub"
+                        android:textColor="@color/premium_hero_sub"
+                        android:textSize="13.5sp" />
+                </LinearLayout>
+
+                <!-- ===== a2 · comparison table ===== -->
+                <LinearLayout
+                    android:id="@+id/cardCompare"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_premium_card"
+                    android:clipToOutline="true"
+                    android:elevation="5dp"
+                    android:orientation="vertical"
+                    android:outlineAmbientShadowColor="@color/premium_card_shadow"
+                    android:outlineSpotShadowColor="@color/premium_card_shadow">
+
+                    <!-- The head strip runs to the card's edges; the card's own
+                         outline clipping rounds its top corners, so it needs no
+                         shape of its own. -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@color/premium_table_header_bg"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:padding="18dp">
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="11dp">
 
-                        <FrameLayout
-                            android:id="@+id/heroCrown"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:background="@drawable/bg_premium_crown"
-                            android:elevation="6dp"
-                            android:outlineAmbientShadowColor="@color/premium_crown_shadow"
-                            android:outlineSpotShadowColor="@color/premium_crown_shadow">
-
-                            <ImageView
-                                android:layout_width="22dp"
-                                android:layout_height="22dp"
-                                android:layout_gravity="center"
-                                android:contentDescription="@null"
-                                android:src="@drawable/ic_premium_crown" />
-                        </FrameLayout>
-
-                        <LinearLayout
+                        <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="14dp"
                             android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:fontFamily="@font/mulish_bold"
+                            android:includeFontPadding="false"
+                            android:letterSpacing="0.076"
+                            android:textStyle="bold"
+                            android:text="@string/premium_col_feature"
+                            android:textAllCaps="true"
+                            android:textColor="@color/premium_ink_muted"
+                            android:textSize="10.5sp" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/space_grotesk_bold"
-                                android:lineSpacingMultiplier="1.2"
-                                android:text="@string/premium_title"
-                                android:textColor="@color/white"
-                                android:textSize="22sp" />
+                        <TextView
+                            android:layout_width="64dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mulish_bold"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:letterSpacing="0.076"
+                            android:textStyle="bold"
+                            android:text="@string/premium_col_free"
+                            android:textAllCaps="true"
+                            android:textColor="@color/premium_table_free"
+                            android:textSize="10.5sp" />
 
-                            <!-- Trial badge. wrap_content on purpose: the design
-                                 uses inline-flex, so the pill hugs its text
-                                 rather than spanning the card. -->
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:background="@drawable/bg_premium_trial_pill"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:paddingHorizontal="10dp"
-                                android:paddingVertical="4dp">
-
-                                <ImageView
-                                    android:layout_width="11dp"
-                                    android:layout_height="11dp"
-                                    android:contentDescription="@null"
-                                    android:src="@drawable/ic_premium_shield" />
-
-                                <TextView
-                                    android:id="@+id/textTrialBadge"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
-                                    android:fontFamily="@font/mulish_bold"
-                                    android:includeFontPadding="false"
-                                    android:text="@string/premium_trial_badge"
-                                    android:textColor="@color/premium_trial_text"
-                                    android:textSize="11sp" />
-                            </LinearLayout>
-                        </LinearLayout>
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mulish_bold"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:letterSpacing="0.076"
+                            android:textStyle="bold"
+                            android:text="@string/premium_col_premium"
+                            android:textAllCaps="true"
+                            android:textColor="@color/premium_accent"
+                            android:textSize="10.5sp" />
                     </LinearLayout>
-                </FrameLayout>
 
-                <!-- ===== a2 · "What you unlock" ===== -->
-                <include
-                    android:id="@+id/groupA2Header"
-                    layout="@layout/item_premium_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="22dp"
-                    android:layout_marginBottom="12dp" />
+                    <!-- Rows land here. -->
+                    <LinearLayout
+                        android:id="@+id/listCompare"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/listBenefits"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_premium_card"
-                    android:clipToOutline="true"
-                    android:elevation="4dp"
-                    android:orientation="vertical"
-                    android:outlineAmbientShadowColor="@color/premium_card_shadow"
-                    android:outlineSpotShadowColor="@color/premium_card_shadow" />
-
-                <!-- ===== a3 · "Choose your plan" ===== -->
-                <include
-                    android:id="@+id/groupA3Header"
-                    layout="@layout/item_premium_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="22dp"
-                    android:layout_marginBottom="12dp" />
-
-                <!-- Plan rows land here. The BEST VALUE badge overhangs the row's
-                     top edge by 10dp, so this container must not clip its
-                     children and needs that 10dp back as padding. -->
+                <!-- ===== a3 · plans =====
+                     The BEST VALUE badge overhangs the row's top edge by 10dp,
+                     so this container must not clip its children and needs that
+                     10dp back as padding. -->
                 <LinearLayout
                     android:id="@+id/listPlans"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:clipChildren="false"
                     android:clipToPadding="false"
                     android:orientation="vertical"
@@ -240,9 +286,9 @@
                     android:textSize="11sp"
                     tools:text="Loading plans…" />
 
-                <!-- ===== a4 · fine print ===== -->
+                <!-- ===== a3 · fine print ===== -->
                 <TextView
-                    android:id="@+id/groupA4Terms"
+                    android:id="@+id/textFinePrint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -250,7 +296,7 @@
                     android:fontFamily="@font/mulish_semibold"
                     android:gravity="center"
                     android:lineSpacingMultiplier="1.6"
-                    android:text="@string/premium_fine_print"
+                    android:text="@string/premium_fine_print_plain"
                     android:textColor="@color/premium_price_muted"
                     android:textSize="11sp" />
             </LinearLayout>

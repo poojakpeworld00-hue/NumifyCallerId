@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- The comparison table card. Radius 20 per the revision, and the head strip
+     inside it has no shape of its own - the card clips to this outline, which
+     is what rounds the strip top corners. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
     <solid android:color="@color/premium_card" />
-    <corners android:radius="18dp" />
+    <corners android:radius="20dp" />
 </shape>

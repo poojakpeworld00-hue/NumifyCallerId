@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- popIn: cubic-bezier(.3,1.5,.5,1). The 1.5 is deliberate and is what makes
+     the spark and the crown overshoot past full size before settling - a
+     control point outside 0..1 is legal on the Y axis, which is the only way to
+     express an overshoot as a bezier. -->
+<pathInterpolator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:controlX1="0.3"
+    android:controlY1="1.5"
+    android:controlX2="0.5"
+    android:controlY2="1" />

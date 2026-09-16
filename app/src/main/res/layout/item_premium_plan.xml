@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    One plan row, transcribed from the design:
+    One plan, as the revision draws it:
 
         display:flex; align-items:center; gap:13px; border-radius:18px;
         border:2px solid; padding:15px 16px;
+        radio 21px | title flex:1 | price
+
+    One line only - the revision dropped the subtitle and the "/month" suffix
+    the earlier one carried, and the fine print under the list states the
+    billing terms instead.
 
     Selection drives isActivated on the row and on the radio, which swaps both
     backgrounds (bg_premium_plan / bg_premium_radio). The chosen row also takes
-    the design's box-shadow 0 10px 24px rgba(46,95,232,.16) — PremiumActivity
+    the design box-shadow 0 10px 24px rgba(46,95,232,.16) - PremiumActivity
     raises its elevation, because a shadow that is always on would show under
     the unselected row too.
 
-    Press scales to 0.98 over 140ms: the design's `.plan:active` rule, written
-    as a StateListAnimator.
+    The press scale is this app, not the design: the handoff markup is static,
+    and a row you can tap has to say so. It is the same 140ms .98 the previous
+    revision specified.
 
-    The outer FrameLayout exists only for the BEST VALUE badge. The design hangs
-    it 10px above the row (`top:-10px; right:14px`), and a child of the row
-    itself would be clipped by the row's own rounded background.
-
-    The badge carries more elevation than the selected row ever does, or the
-    row's 10dp shadow lift reorders the two and eats the badge's lower half.
-    `outlineProvider="none"` keeps that elevation from drawing a shadow the
-    design does not have.
+    The outer FrameLayout exists only for the BEST VALUE badge, which the design
+    hangs 10px above the row (top:-10px; right:14px); a child of the row would
+    be clipped by the rounded background. Its elevation clears the selected
+    row - at 10dp the row would otherwise draw over the badge - and
+    outlineProvider none keeps that elevation from casting a shadow the design
+    does not have.
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -47,8 +51,8 @@
 
         <FrameLayout
             android:id="@+id/radioPlan"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
             android:background="@drawable/bg_premium_radio">
 
             <ImageView
@@ -62,67 +66,29 @@
                 tools:visibility="visible" />
         </FrameLayout>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textPlanTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="13dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:ellipsize="end"
+            android:fontFamily="@font/mulish_bold"
+            android:maxLines="1"
+            android:textColor="@color/premium_ink"
+            android:textSize="15sp"
+            tools:text="Lifetime" />
 
-            <TextView
-                android:id="@+id/textPlanTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="@font/mulish_bold"
-                android:maxLines="1"
-                android:textColor="@color/premium_ink"
-                android:textSize="15sp"
-                tools:text="Lifetime" />
-
-            <TextView
-                android:id="@+id/textPlanSub"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/mulish_semibold"
-                android:maxLines="1"
-                android:textColor="@color/premium_ink_muted"
-                android:textSize="11.5sp"
-                tools:text="One payment, yours forever" />
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/textPlanPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="13dp"
-            android:gravity="end"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textPlanPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:fontFamily="@font/space_grotesk_bold"
-                android:includeFontPadding="false"
-                android:textColor="@color/premium_ink"
-                android:textSize="18sp"
-                tools:text="4,999" />
-
-            <TextView
-                android:id="@+id/textPlanPeriod"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="2dp"
-                android:fontFamily="@font/mulish_bold"
-                android:includeFontPadding="false"
-                android:textColor="@color/premium_price_muted"
-                android:textSize="10.5sp"
-                tools:text="one time" />
-        </LinearLayout>
+            android:fontFamily="@font/space_grotesk_bold"
+            android:includeFontPadding="false"
+            android:textColor="@color/premium_ink"
+            android:textSize="18sp"
+            tools:text="4,999" />
     </LinearLayout>
 
     <TextView
@@ -134,10 +100,11 @@
         android:layout_marginEnd="14dp"
         android:background="@drawable/bg_premium_badge"
         android:elevation="12dp"
-        android:outlineProvider="none"
         android:fontFamily="@font/mulish_bold"
         android:includeFontPadding="false"
         android:letterSpacing="0.063"
+        android:textStyle="bold"
+        android:outlineProvider="none"
         android:paddingHorizontal="10dp"
         android:paddingVertical="3dp"
         android:text="@string/premium_best_value"

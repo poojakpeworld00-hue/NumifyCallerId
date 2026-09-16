@@ -6,22 +6,17 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.Interpolator
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -60,19 +55,34 @@ import kotlinx.coroutines.launch
  *
  * ## The animations
  *
- * Five, all transcribed from the design's stylesheet rather than invented:
+ * The handoff gives the hero five separate entrances rather than one, and the
+ * page three more. All of them are transcribed, not approximated:
  *
- *  - `.a1`…`.a4` `fadeUp`  → [playEntrance], 420ms with a 0/90/180/270ms stagger
- *  - `crownFloat`          → [startCrownFloat], 3.4s, 5dp of rise
- *  - `heroSweep`           → [startHeroSweep], 3.2s, -120% to 240%
- *  - `ctaGlow`             → [startCtaGlow], a 2.4s shadow pulse
- *  - `.plan:active`        → `@animator/premium_plan_press`, in the row layout
+ * | design                       | here                                        |
+ * |------------------------------|---------------------------------------------|
+ * | `.a1` `fadeUp` 0ms           | header, hero title row                      |
+ * | `.a2` `fadeUp` 100ms         | comparison table                            |
+ * | `.a3` `fadeUp` 200ms         | plans, fine print                           |
+ * | `.a1b` `fadeUp` 380ms 450ms  | hero subtitle                               |
+ * | `.ttl-1` `slideFromLeft` 60  | "Free"                                      |
+ * | `.ttl-2` `slideFromLeft` 150 | "vs"                                        |
+ * | `.ttl-3` `slideFromRight` 240| "Premium"                                   |
+ * | `.crown-pop` `popIn` 380ms   | the crown                                   |
+ * | `.spark-spin` `popIn` 0ms    | the spark, then `sparkPulse` forever        |
+ * | `shine` 4.5s linear 0.9s     | [ShineTextView], which owns it              |
+ * | `ctaGlow` 2.4s               | [startCtaGlow]                              |
  *
- * Every one of them animates only `alpha`, `translation*` or `elevation` —
- * properties the framework can hand to the render thread without a relayout — so
- * the three looping ones cost nothing per frame and hold 60fps while the page
- * scrolls. They start in [onStart] and are cancelled in [onStop]; an infinite
- * animator left running behind a backgrounded screen is a real battery cost.
+ * Two of those pile onto the same element on purpose: the spark and the crown
+ * both carry a `.ttl-*` class *and* a `.crown-pop`/`.spark-spin` one, and CSS
+ * resolves the conflict by source order — the later rule wins and the slide
+ * never runs on them. That is why they pop rather than slide here.
+ *
+ * Every animation moves only `alpha`, `translation*`, `scale*`, `rotation` or
+ * `elevation` — properties the framework hands to the render thread without a
+ * relayout — so the two looping ones cost nothing per frame and the page holds
+ * 60fps while it scrolls. They start in [onStart] and are cancelled in [onStop];
+ * an infinite animator left running behind a backgrounded screen is a real
+ * battery cost.
  */
 class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
 
@@ -82,7 +92,7 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
      * Off, uniquely in this app.
      *
      * Every size on this screen is transcribed from the handoff, and the app-wide
-     * +8% ([Typography]) pushes the 14sp benefit titles and the 22sp hero into
+     * +8% ([Typography]) pushes the 26sp hero title and the 14sp table rows into
      * the space the design leaves around them — the rows stop reading as the
      * design's. The user's own system font size still applies.
      */
@@ -93,7 +103,7 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
     /** The plan the user has selected; null until Play returns something. */
     private var selected: PremiumOffer? = null
 
-    /** The three looping animations, held so [onStop] can stop them. */
+    /** The looping animations, held so [onStop] can stop them. */
     private val loops = mutableListOf<ValueAnimator>()
 
     private var entranceHasPlayed = false
@@ -108,11 +118,7 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
             insets
         }
 
-        binding.groupA2Header.textSectionLabel.setText(R.string.premium_section_benefits)
-        binding.groupA3Header.textSectionLabel.setText(R.string.premium_section_plans)
-        binding.groupA4Terms.setText(R.string.premium_fine_print_plain)
-
-        bindBenefits()
+        bindCompareTable()
 
         binding.buttonClose.setOnClickListener { finish() }
 
@@ -160,117 +166,131 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
         }
     }
 
-    // ── Entrance: the design's .a1 … .a4 ─────────────────────────────────────
+    // ── Entrance ─────────────────────────────────────────────────────────────
 
     /**
-     * The entrance groups, in the order the design assigns their classes.
+     * One entry per animated piece: the view, how it enters, and when.
      *
-     * `a1` covers two siblings (the header row and the hero) because the design
-     * puts the class on both, with the same 0ms delay.
+     * Read straight off the design's class list. The hero card is absent on
+     * purpose — it has no class, so it is simply there from the first frame
+     * while its contents arrive one at a time.
      */
-    private fun entranceGroups(): List<Pair<View, Long>> = listOf(
-        binding.groupA1Header to 0L,
-        binding.groupA1Hero to 0L,
-        binding.groupA2Header.root to 90L,
-        binding.listBenefits to 90L,
-        binding.groupA3Header.root to 180L,
-        binding.listPlans to 180L,
-        binding.textPlansStatus to 180L,
-        binding.groupA4Terms to 270L,
+    private fun entrancePieces(): List<Entrance> = listOf(
+        Entrance(binding.groupHeader, Move.UP, 420L, 0L),
+        Entrance(binding.groupHeroTitle, Move.UP, 420L, 0L),
+        Entrance(binding.iconHeroSpark, Move.POP, 500L, 0L),
+        Entrance(binding.textHeroFree, Move.LEFT, 500L, 60L),
+        Entrance(binding.textHeroVs, Move.LEFT, 500L, 150L),
+        Entrance(binding.textHeroPremium, Move.RIGHT, 550L, 240L),
+        Entrance(binding.iconHeroCrown, Move.POP, 500L, 380L),
+        Entrance(binding.textHeroSub, Move.UP, 450L, 380L),
+        Entrance(binding.cardCompare, Move.UP, 420L, 100L),
+        Entrance(binding.listPlans, Move.UP, 420L, 200L),
+        Entrance(binding.textPlansStatus, Move.UP, 420L, 200L),
+        Entrance(binding.textFinePrint, Move.UP, 420L, 200L),
     )
 
     /**
-     * Puts the entrance groups into their pre-animation state before the first
+     * Puts every animated piece into its pre-animation state before the first
      * frame is drawn.
      *
-     * This is the design's `animation-fill-mode: backwards`. Without it the
-     * groups paint once at their final position and then jump back to the start,
+     * This is the design's `animation-fill-mode: backwards`. Without it each
+     * piece paints once at its final position and then jumps back to the start,
      * which reads as a flicker rather than an entrance.
      */
     private fun prepareEntrance() {
-        val offset = dp(ENTRANCE_OFFSET_DP)
-        entranceGroups().forEach { (view, _) ->
-            view.alpha = 0.001f
-            view.translationY = offset
+        entrancePieces().forEach { piece ->
+            piece.view.alpha = HIDDEN_ALPHA
+            when (piece.move) {
+                Move.UP -> piece.view.translationY = dp(FADE_UP_DP)
+                Move.LEFT -> piece.view.translationX = dp(-SLIDE_LEFT_DP)
+                Move.RIGHT -> piece.view.translationX = dp(SLIDE_RIGHT_DP)
+                Move.POP -> {
+                    piece.view.scaleX = POP_SCALE_FROM
+                    piece.view.scaleY = POP_SCALE_FROM
+                    piece.view.rotation = POP_ROTATION_FROM
+                }
+            }
         }
     }
 
-    /** `fadeUp 0.42s cubic-bezier(.2,.7,.2,1)`, staggered 0/90/180/270ms. */
     private fun playEntrance() {
         if (entranceHasPlayed) return
         entranceHasPlayed = true
 
-        val curve = interpolator(R.interpolator.premium_fade_up)
-        entranceGroups().forEach { (view, delay) ->
+        entrancePieces().forEach { piece ->
+            val view = piece.view
+            val animators = mutableListOf(
+                ObjectAnimator.ofFloat(view, View.ALPHA, HIDDEN_ALPHA, 1f)
+            )
+            when (piece.move) {
+                Move.UP -> animators +=
+                    ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, dp(FADE_UP_DP), 0f)
+
+                Move.LEFT -> animators +=
+                    ObjectAnimator.ofFloat(view, View.TRANSLATION_X, dp(-SLIDE_LEFT_DP), 0f)
+
+                Move.RIGHT -> animators +=
+                    ObjectAnimator.ofFloat(view, View.TRANSLATION_X, dp(SLIDE_RIGHT_DP), 0f)
+
+                Move.POP -> {
+                    animators += ObjectAnimator.ofFloat(view, View.SCALE_X, POP_SCALE_FROM, 1f)
+                    animators += ObjectAnimator.ofFloat(view, View.SCALE_Y, POP_SCALE_FROM, 1f)
+                    animators += ObjectAnimator.ofFloat(view, View.ROTATION, POP_ROTATION_FROM, 0f)
+                }
+            }
             AnimatorSet().apply {
-                playTogether(
-                    ObjectAnimator.ofFloat(view, View.ALPHA, 0.001f, 1f),
-                    ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, dp(ENTRANCE_OFFSET_DP), 0f),
-                )
-                duration = ENTRANCE_DURATION_MS
-                startDelay = delay
-                interpolator = curve
+                playTogether(animators.toList())
+                duration = piece.durationMs
+                startDelay = piece.delayMs
+                interpolator = piece.move.curve()
                 start()
             }
         }
+        startSparkPulse()
     }
 
-    // ── The three loops ──────────────────────────────────────────────────────
+    /** How one piece arrives, and on which of the design's four curves. */
+    private enum class Move { UP, LEFT, RIGHT, POP }
+
+    private fun Move.curve(): Interpolator = when (this) {
+        Move.UP -> interpolator(R.interpolator.premium_fade_up)
+        Move.LEFT, Move.RIGHT -> interpolator(R.interpolator.premium_slide)
+        Move.POP -> interpolator(R.interpolator.premium_pop)
+    }
+
+    private data class Entrance(
+        val view: View,
+        val move: Move,
+        val durationMs: Long,
+        val delayMs: Long,
+    )
+
+    // ── The loops ────────────────────────────────────────────────────────────
 
     /**
-     * `crownFloat`: `0%,100% { translateY(0) } 50% { translateY(-5px) }` over
-     * 3.4s, `ease-in-out`, forever.
+     * `sparkPulse`: `0%,100% { scale(1) rotate(0) } 50% { scale(1.14) rotate(10deg) }`
+     * over 2.6s, `ease-in-out`, starting once `popIn` has finished.
      *
-     * Half the cycle on `REVERSE` rather than a three-keyframe animator, because
-     * CSS applies the timing function between each *pair* of keyframes — easing
+     * Half the cycle on `REVERSE` rather than a three-keyframe animator: CSS
+     * applies the timing function between each *pair* of keyframes, so easing
      * each half separately is what the design actually does.
      */
-    private fun startCrownFloat() {
-        loops += ObjectAnimator.ofFloat(
-            binding.heroCrown, View.TRANSLATION_Y, 0f, -dp(CROWN_RISE_DP)
-        ).apply {
-            duration = CROWN_CYCLE_MS / 2
-            repeatCount = ValueAnimator.INFINITE
-            repeatMode = ValueAnimator.REVERSE
-            interpolator = interpolator(R.interpolator.premium_ease_in_out)
-            start()
-        }
-    }
-
-    /**
-     * `heroSweep`: a band 40% of the hero's width travelling `translateX(-120%)`
-     * → `translateX(240%)` over 3.2s, `ease-in-out`, restarting.
-     *
-     * Those percentages are of the band's own width — that is how CSS reads a
-     * percentage translate — so they are multiplied by the band below, not by
-     * the card.
-     *
-     * Sized on layout because 40% of the hero is not known until the hero has
-     * been measured, and it has to be re-derived after a rotation.
-     */
-    private fun startHeroSweep() {
-        val hero = binding.groupA1Hero
-        val sweep = binding.heroSweep
-        hero.doOnLayout {
-            val band = (hero.width * HERO_SWEEP_WIDTH_FRACTION).toInt()
-            if (band <= 0) return@doOnLayout
-
-            if (sweep.layoutParams.width != band) {
-                sweep.layoutParams = sweep.layoutParams.apply { width = band }
-            }
-            sweep.post {
-                loops += ObjectAnimator.ofFloat(
-                    sweep,
-                    View.TRANSLATION_X,
-                    band * HERO_SWEEP_FROM,
-                    band * HERO_SWEEP_TO,
-                ).apply {
-                    duration = HERO_SWEEP_CYCLE_MS
-                    repeatCount = ValueAnimator.INFINITE
-                    repeatMode = ValueAnimator.RESTART
-                    interpolator = interpolator(R.interpolator.premium_ease_in_out)
-                    start()
-                }
+    private fun startSparkPulse() {
+        val spark = binding.iconHeroSpark
+        val curve = interpolator(R.interpolator.premium_ease_in_out)
+        listOf(
+            ObjectAnimator.ofFloat(spark, View.SCALE_X, 1f, SPARK_PULSE_SCALE),
+            ObjectAnimator.ofFloat(spark, View.SCALE_Y, 1f, SPARK_PULSE_SCALE),
+            ObjectAnimator.ofFloat(spark, View.ROTATION, 0f, SPARK_PULSE_ROTATION),
+        ).forEach { animator ->
+            loops += animator.apply {
+                duration = SPARK_PULSE_CYCLE_MS / 2
+                startDelay = SPARK_PULSE_DELAY_MS
+                repeatCount = ValueAnimator.INFINITE
+                repeatMode = ValueAnimator.REVERSE
+                interpolator = curve
+                start()
             }
         }
     }
@@ -311,75 +331,44 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
         }
     }
 
-    // ── Benefits ─────────────────────────────────────────────────────────────
+    // ── The comparison table ─────────────────────────────────────────────────
 
     /**
-     * One row per benefit, in the design's order.
+     * One row per capability, in the design's order: what it is, what the free
+     * tier gives you, and a tick for Premium.
      *
-     * Each glyph carries its own stroke colour (the vectors reference their own
-     * `premium_benefit_*_fg`), so only the tile behind them is tinted here.
+     * Static rather than driven by the real limits, because it is the offer, not
+     * a status readout — the "5 / day" a free user sees here is the same cap the
+     * lookup screen enforces, and stating it is the whole point of the table.
      */
-    private fun bindBenefits() {
-        val benefits = listOf(
-            Benefit(
-                R.string.premium_benefit_ads_title,
-                R.string.premium_benefit_ads_sub,
-                R.drawable.ic_premium_benefit_ads,
-                R.color.premium_benefit_ads_bg,
-            ),
-            Benefit(
-                R.string.premium_benefit_lookup_title,
-                R.string.premium_benefit_lookup_sub,
-                R.drawable.ic_premium_benefit_lookup,
-                R.color.premium_benefit_lookup_bg,
-            ),
-            Benefit(
-                R.string.premium_benefit_ai_title,
-                R.string.premium_benefit_ai_sub,
-                R.drawable.ic_premium_benefit_ai,
-                R.color.premium_benefit_ai_bg,
-            ),
-            Benefit(
-                R.string.premium_benefit_block_title,
-                R.string.premium_benefit_block_sub,
-                R.drawable.ic_premium_benefit_block,
-                R.color.premium_benefit_block_bg,
-            ),
+    private fun bindCompareTable() {
+        val rows = listOf(
+            CompareRow(R.string.premium_row_ads, R.string.premium_row_ads_sub, R.string.premium_row_ads_free),
+            CompareRow(R.string.premium_row_lookup, R.string.premium_row_lookup_sub, R.string.premium_row_lookup_free),
+            CompareRow(R.string.premium_row_ai, R.string.premium_row_ai_sub, R.string.premium_row_ai_free),
+            CompareRow(R.string.premium_row_block, R.string.premium_row_block_sub, R.string.premium_row_block_free),
         )
 
-        binding.listBenefits.removeAllViews()
-        benefits.forEachIndexed { index, benefit ->
+        binding.listCompare.removeAllViews()
+        rows.forEachIndexed { index, item ->
             val row = layoutInflater.inflate(
-                R.layout.item_premium_benefit, binding.listBenefits, false
+                R.layout.item_premium_compare, binding.listCompare, false
             )
-            row.findViewById<TextView>(R.id.textBenefitTitle).setText(benefit.title)
-            row.findViewById<TextView>(R.id.textBenefitSub).setText(benefit.subtitle)
-            row.findViewById<ImageView>(R.id.iconBenefit).setImageResource(benefit.icon)
-
-            // A tinted copy, not the shared drawable: tinting that in place would
-            // repaint every row the same colour.
-            row.findViewById<View>(R.id.tileBenefit).background = tintedTile(benefit.tint)
+            row.findViewById<TextView>(R.id.textRowTitle).setText(item.title)
+            row.findViewById<TextView>(R.id.textRowSub).setText(item.subtitle)
+            row.findViewById<TextView>(R.id.textRowFree).setText(item.free)
 
             // The design hides the last hairline with the card's overflow:hidden.
-            row.findViewById<View>(R.id.benefitDivider).isVisible = index < benefits.lastIndex
+            row.findViewById<View>(R.id.rowDivider).isVisible = index < rows.lastIndex
 
-            binding.listBenefits.addView(row)
+            binding.listCompare.addView(row)
         }
     }
 
-    private fun tintedTile(@ColorRes tint: Int): Drawable? {
-        val shape = ResourcesCompat.getDrawable(resources, R.drawable.bg_premium_tile, theme)
-            ?: return null
-        val copy = DrawableCompat.wrap(shape.mutate())
-        DrawableCompat.setTint(copy, color(tint))
-        return copy
-    }
-
-    private data class Benefit(
+    private data class CompareRow(
         @StringRes val title: Int,
         @StringRes val subtitle: Int,
-        @DrawableRes val icon: Int,
-        @ColorRes val tint: Int,
+        @StringRes val free: Int,
     )
 
     // ── Plans ────────────────────────────────────────────────────────────────
@@ -402,7 +391,7 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
                 else R.string.premium_loading
             )
             setCtaEnabled(false)
-            binding.groupA4Terms.setText(R.string.premium_fine_print_plain)
+            binding.textFinePrint.setText(R.string.premium_fine_print_plain)
             selected = null
             return
         }
@@ -415,9 +404,7 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
         list.forEach { offer ->
             val row = layoutInflater.inflate(R.layout.item_premium_plan, binding.listPlans, false)
             row.findViewById<TextView>(R.id.textPlanTitle).text = planTitle(offer)
-            row.findViewById<TextView>(R.id.textPlanSub).text = planSubtitle(offer)
             row.findViewById<TextView>(R.id.textPlanPrice).text = offer.price
-            row.findViewById<TextView>(R.id.textPlanPeriod).text = planPeriod(offer)
             row.findViewById<View>(R.id.badgeBestValue).isVisible = offer.isLifetime
 
             val tap = row.findViewById<View>(R.id.rowPlan)
@@ -471,17 +458,10 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
             row.findViewById<View>(R.id.radioPlan).isActivated = isSelected
             row.findViewById<View>(R.id.iconPlanCheck).isVisible = isSelected
 
-            row.findViewById<TextView>(R.id.textPlanSub).setTextColor(
-                color(if (isSelected) R.color.premium_sub_selected else R.color.premium_ink_muted)
-            )
+            // Only the price changes colour with selection; the design leaves the
+            // plan name at full ink in both rows.
             row.findViewById<TextView>(R.id.textPlanPrice).setTextColor(
                 color(if (isSelected) R.color.premium_accent else R.color.premium_ink)
-            )
-            row.findViewById<TextView>(R.id.textPlanPeriod).setTextColor(
-                color(
-                    if (isSelected) R.color.premium_price_selected_sub
-                    else R.color.premium_price_muted
-                )
             )
             if (isSelected && offer != null) applyFinePrint(offer)
         }
@@ -495,10 +475,9 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
      */
     private fun applyFinePrint(offer: PremiumOffer) {
         if (offer.isLifetime) {
-            binding.groupA4Terms.setText(R.string.premium_fine_print_plain)
+            binding.textFinePrint.setText(R.string.premium_fine_print_plain)
         } else {
-            binding.groupA4Terms.text =
-                getString(R.string.premium_fine_print, offer.price + planPeriod(offer))
+            binding.textFinePrint.text = getString(R.string.premium_fine_print, offer.price)
         }
     }
 
@@ -516,23 +495,6 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
         offer.billingPeriod == "P1M" -> getString(R.string.premium_plan_monthly)
         offer.billingPeriod == "P1Y" -> getString(R.string.premium_plan_yearly)
         else -> offer.title
-    }
-
-    private fun planSubtitle(offer: PremiumOffer): String = when {
-        offer.isLifetime -> getString(R.string.premium_plan_lifetime_sub)
-        offer.billingPeriod == "P1W" -> getString(R.string.premium_plan_weekly_sub)
-        offer.billingPeriod == "P1M" -> getString(R.string.premium_plan_monthly_sub)
-        offer.billingPeriod == "P1Y" -> getString(R.string.premium_plan_yearly_sub)
-        else -> getString(R.string.premium_plan_generic_sub)
-    }
-
-    /** The small grey suffix under the price: `/month`, `one time`, and so on. */
-    private fun planPeriod(offer: PremiumOffer): String = when {
-        offer.isLifetime -> getString(R.string.premium_period_lifetime)
-        offer.billingPeriod == "P1W" -> getString(R.string.premium_period_week)
-        offer.billingPeriod == "P1M" -> getString(R.string.premium_period_month)
-        offer.billingPeriod == "P1Y" -> getString(R.string.premium_period_year)
-        else -> ""
     }
 
     // ── Plumbing ─────────────────────────────────────────────────────────────
@@ -559,19 +521,27 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
         super.onStart()
         // Started here rather than in initView: onStart also runs when the screen
         // comes back from Play's sheet, which is where the loops were stopped.
-        startCrownFloat()
-        startHeroSweep()
         startCtaGlow()
+        binding.textHeroPremium.start()
         binding.premiumRoot.doOnLayout { playEntrance() }
+        // The entrance runs once; on a later onStart the spark still needs its
+        // loop back, since onStop cancelled it.
+        if (entranceHasPlayed && loops.none { it.target === binding.iconHeroSpark }) {
+            startSparkPulse()
+        }
     }
 
     override fun onStop() {
         super.onStop()
         loops.forEach { it.cancel() }
         loops.clear()
-        // The sweep is mid-travel when cancelled; without this it stays parked
-        // wherever it stopped until the next start moves it.
-        binding.heroSweep.translationX = binding.heroSweep.width * HERO_SWEEP_FROM
+        binding.textHeroPremium.stop()
+        // Cancelling mid-pulse leaves the spark wherever it stopped.
+        binding.iconHeroSpark.apply {
+            scaleX = 1f
+            scaleY = 1f
+            rotation = 0f
+        }
     }
 
     override fun onResume() {
@@ -581,19 +551,26 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
         billing.refreshPurchases()
     }
 
+    /** `target` is only set on ObjectAnimator; a plain ValueAnimator has none. */
+    private val ValueAnimator.target: Any?
+        get() = (this as? ObjectAnimator)?.target
+
     companion object {
-        private const val ENTRANCE_DURATION_MS = 420L
-        private const val ENTRANCE_OFFSET_DP = 12f
+        /** The design's `opacity: 0.001`, not 0 — it keeps the layer warm. */
+        private const val HIDDEN_ALPHA = 0.001f
 
-        private const val CROWN_CYCLE_MS = 3400L
-        private const val CROWN_RISE_DP = 5f
+        private const val FADE_UP_DP = 12f
+        private const val SLIDE_LEFT_DP = 14f
+        private const val SLIDE_RIGHT_DP = 16f
+        private const val POP_SCALE_FROM = 0.5f
+        private const val POP_ROTATION_FROM = -18f
 
-        private const val HERO_SWEEP_CYCLE_MS = 3200L
-        private const val HERO_SWEEP_WIDTH_FRACTION = 0.40f
-        private const val HERO_SWEEP_FROM = -1.20f
-        private const val HERO_SWEEP_TO = 2.40f
+        private const val SPARK_PULSE_CYCLE_MS = 2_600L
+        private const val SPARK_PULSE_DELAY_MS = 500L
+        private const val SPARK_PULSE_SCALE = 1.14f
+        private const val SPARK_PULSE_ROTATION = 10f
 
-        private const val CTA_GLOW_CYCLE_MS = 2400L
+        private const val CTA_GLOW_CYCLE_MS = 2_400L
         private const val CTA_ELEVATION_LOW_DP = 12f
         private const val CTA_ELEVATION_HIGH_DP = 16f
 

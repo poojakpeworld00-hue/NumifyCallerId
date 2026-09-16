@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The hero's two-tone spark: a large four-point star in #6E97FF with a small
+     one in #A98BFF at its lower right. Both paths verbatim from the design. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="22dp"
+    android:height="22dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <path
+        android:pathData="M12 2l1.8 5.4L19 9.2l-5.2 1.8L12 16.4l-1.8-5.4L5 9.2l5.2-1.8L12 2z"
+        android:fillColor="@color/premium_shine_blue" />
+
+    <path
+        android:pathData="M18.5 15l.8 2.3 2.3.8-2.3.8-.8 2.3-.8-2.3-2.3-.8 2.3-.8.8-2.3z"
+        android:fillColor="@color/premium_shine_violet" />
+</vector>

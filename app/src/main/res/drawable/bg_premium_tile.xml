@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 30dp benefit tile. One shape for all four rows, tinted per benefit from
-     PremiumActivity — the design varies only the fill. -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <solid android:color="@color/premium_card" />
-    <corners android:radius="10dp" />
-</shape>

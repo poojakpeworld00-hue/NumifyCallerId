@@ -969,35 +969,38 @@
     <string name="premium_manage">Manage subscription</string>
     <string name="premium_manage_unavailable">Google Play isn\'t available on this device</string>
     <string name="premium_plan_weekly">Weekly</string>
-    <string name="premium_plan_weekly_sub">Billed every week</string>
     <string name="premium_plan_monthly">1 month</string>
-    <string name="premium_plan_monthly_sub">Billed monthly, cancel anytime</string>
     <string name="premium_plan_yearly">Yearly</string>
-    <string name="premium_plan_yearly_sub">Billed every 12 months</string>
     <string name="premium_plan_lifetime">Lifetime</string>
-    <string name="premium_plan_lifetime_sub">One payment, yours forever</string>
-    <string name="premium_plan_generic_sub">Recurring subscription</string>
     <!-- Premium screen copy, from the "Numify Premium" design handoff. -->
+    <!-- Free vs Premium hero. -->
+    <string name="premium_hero_free">Free</string>
+    <string name="premium_hero_vs">vs</string>
+    <string name="premium_hero_premium">Premium</string>
+    <string name="premium_hero_sub">3 days free, then pick a plan.</string>
+    <!-- Comparison table: column heads, then one row per capability with what
+         the free tier gives you. The Premium column is a tick on every row. -->
+    <string name="premium_col_feature">Feature</string>
+    <string name="premium_col_free">Free</string>
+    <string name="premium_col_premium">Premium</string>
+    <string name="premium_row_ads">No ads</string>
+    <string name="premium_row_ads_sub">Banners and interstitials</string>
+    <string name="premium_row_ads_free">Shown</string>
+    <string name="premium_row_lookup">Number lookup</string>
+    <string name="premium_row_lookup_sub">Daily search cap</string>
+    <string name="premium_row_lookup_free">5 / day</string>
+    <string name="premium_row_ai">Ask AI</string>
+    <string name="premium_row_ai_sub">AI verdicts on calls</string>
+    <string name="premium_row_ai_free">Ad only</string>
+    <string name="premium_row_block">Block numbers</string>
+    <string name="premium_row_block_sub">Blocklist size</string>
+    <string name="premium_row_block_free">Limited</string>
     <string name="premium_trial_badge">3 day free trial</string>
-    <string name="premium_section_benefits">What you unlock</string>
-    <string name="premium_section_plans">Choose your plan</string>
     <string name="premium_best_value">BEST VALUE</string>
     <string name="premium_terms_link">Terms of service</string>
     <string name="premium_privacy_link">Privacy policy</string>
-    <string name="premium_fine_print">Free for 3 days, then %1$s unless cancelled.\nManage or cancel in Google Play at any time.</string>
-    <string name="premium_fine_print_plain">Free for 3 days, then billed unless cancelled.\nManage or cancel in Google Play at any time.</string>
-    <string name="premium_benefit_ads_title">Ads free</string>
-    <string name="premium_benefit_ads_sub">No banners or interstitials</string>
-    <string name="premium_benefit_lookup_title">Unlimited number lookup</string>
-    <string name="premium_benefit_lookup_sub">No daily search cap</string>
-    <string name="premium_benefit_ai_title">Ask AI</string>
-    <string name="premium_benefit_ai_sub">AI verdicts on every call</string>
-    <string name="premium_benefit_block_title">Block unlimited</string>
-    <string name="premium_benefit_block_sub">No limit on blocked numbers</string>
-    <string name="premium_period_week">/week</string>
-    <string name="premium_period_month">/month</string>
-    <string name="premium_period_year">/year</string>
-    <string name="premium_period_lifetime">one time</string>
+    <string name="premium_fine_print">Free for 3 days, then %1$s unless cancelled.</string>
+    <string name="premium_fine_print_plain">Free for 3 days, then billed unless cancelled.</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">Remove ads and all limits</string>
 </resources>

@@ -326,15 +326,15 @@
     <color name="premium_hero_chevron">#8C99A8C4</color>
     <color name="premium_cta_glow_low">#572E5FE8</color>
     <color name="premium_cta_glow">#8C2E5FE8</color>
+    <!-- Free vs Premium hero: the two title halves and the shine gradient. -->
+    <color name="premium_hero_title">#B8FFFFFF</color>
+    <color name="premium_hero_vs">#94FFFFFF</color>
+    <color name="premium_hero_sub">#B8FFFFFF</color>
+    <color name="premium_shine_blue">#6E97FF</color>
+    <color name="premium_shine_violet">#A98BFF</color>
+    <!-- Comparison table. -->
+    <color name="premium_table_header_bg">#F0F2F7</color>
+    <color name="premium_table_free">#6E7689</color>
     <color name="premium_check_circle">#E3F5EC</color>
     <color name="premium_check_tick">#1E9E5A</color>
-    <!-- Benefit tiles, in the order renderVals() lists them. -->
-    <color name="premium_benefit_ads_bg">#FDE2E2</color>
-    <color name="premium_benefit_ads_fg">#E5484D</color>
-    <color name="premium_benefit_lookup_bg">#EAF0FE</color>
-    <color name="premium_benefit_lookup_fg">#2E5FE8</color>
-    <color name="premium_benefit_ai_bg">#FEF3E1</color>
-    <color name="premium_benefit_ai_fg">#F2A93B</color>
-    <color name="premium_benefit_block_bg">#EDE9FB</color>
-    <color name="premium_benefit_block_fg">#7A5AF0</color>
 </resources>

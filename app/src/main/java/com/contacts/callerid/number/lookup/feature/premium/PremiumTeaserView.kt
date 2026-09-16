@@ -16,14 +16,17 @@ import com.contacts.callerid.number.lookup.R
 /**
  * The Premium offer as it appears on Settings.
  *
- * It is the paywall's hero compressed to the height of a settings row — the same
- * gradient, the same gold crown, the same travelling highlight, the same trial
- * pill — so that tapping it opens something the user already recognises instead
- * of a screen that looks unrelated to the row that led there. Every drawable it
- * uses belongs to the paywall already; nothing here is a second style to keep in
- * sync.
+ * A settings row built out of the paywall's own vocabulary — its gradient, its
+ * gold crown, its green trial pill — so that tapping it opens something the user
+ * already recognises rather than a screen unrelated to the row that led there.
+ * Every drawable it uses belongs to the paywall already; nothing here is a
+ * second style to keep in sync.
  *
- * Two of the paywall's loops run here, at the same speeds:
+ * It is not a copy of the paywall hero, which the latest handoff revision
+ * rebuilt as a "Free vs Premium" title. The two still share their palette, and
+ * restyling this to follow is a small change if the mismatch ever shows.
+ *
+ * Two loops run here, both lifted from the earlier hero:
  *
  *  - `crownFloat` — 3.4s, 5dp of rise, eased per half-cycle
  *  - `heroSweep`  — a band 40% of the card, -120% to 240% over 3.2s

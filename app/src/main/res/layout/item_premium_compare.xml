@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    One row of the Free vs Premium table, transcribed from the design:
+
+        padding:13px 16px; border-bottom:1px solid #F0F2F7;
+        feature flex:1 | free column 64px centred | premium column 62px centred
+
+    The two column widths are fixed on purpose - they line the values up under
+    the FREE and PREMIUM heads, which a weight would not do once the feature
+    names differ in length.
+
+    The hairline is a real child so PremiumActivity can drop it on the last row;
+    the design hides it with the card overflow:hidden, which a LinearLayout has
+    no equivalent of.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="13dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textRowTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/mulish_bold"
+                android:maxLines="1"
+                android:textColor="@color/premium_ink"
+                android:textSize="14sp"
+                tools:text="Number lookup" />
+
+            <TextView
+                android:id="@+id/textRowSub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/mulish_semibold"
+                android:maxLines="1"
+                android:textColor="@color/premium_table_free"
+                android:textSize="11sp"
+                tools:text="Daily search cap" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textRowFree"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mulish_semibold"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/premium_table_free"
+            android:textSize="12sp"
+            tools:text="5 / day" />
+
+        <FrameLayout
+            android:layout_width="62dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/premium_col_premium"
+                android:src="@drawable/ic_premium_compare_tick" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/rowDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/premium_divider" />
+</LinearLayout>

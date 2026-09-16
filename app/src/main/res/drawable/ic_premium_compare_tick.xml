@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The Premium column's tick: an #EAF0FE disc with a #2E5FE8 check at stroke
+     width 2.4, drawn as one 18px svg in the design.
+
+     Arc flags are written out in full ("0 1 0 0 20", not "100 20") - Android
+     PathParser rejects the packed form, and only at runtime. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="18dp"
+    android:height="18dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <path
+        android:pathData="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0 -20z"
+        android:fillColor="@color/premium_accent_wash" />
+
+    <path
+        android:pathData="M8 12.5l2.6 2.6L16 9.5"
+        android:strokeColor="@color/premium_accent"
+        android:strokeWidth="2.4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>
