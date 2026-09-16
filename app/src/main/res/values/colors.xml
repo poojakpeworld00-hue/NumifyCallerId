@@ -297,14 +297,10 @@
     <color name="premium_close_icon">#3A4050</color>
     <color name="premium_hero_start">#2A2154</color>
     <color name="premium_hero_end">#12172B</color>
-    <color name="premium_hero_sweep">#1AFFFFFF</color>
     <color name="premium_crown_start">#F2A93B</color>
     <color name="premium_crown_end">#D98315</color>
     <color name="premium_crown_shadow">#66D98315</color>
     <color name="premium_hero_shadow">#4D141432</color>
-    <color name="premium_trial_bg">#2E1E9E5A</color>
-    <color name="premium_trial_border">#661E9E5A</color>
-    <color name="premium_trial_text">#2ECC71</color>
     <color name="premium_accent">#2E5FE8</color>
     <color name="premium_accent_wash">#EAF0FE</color>
     <color name="premium_ink">#12172B</color>
@@ -322,8 +318,6 @@
     <color name="premium_cta_start">#3466F0</color>
     <color name="premium_cta_end">#1F3FAE</color>
     <!-- ctaGlow breathes between rgba(46,95,232,.34) and rgba(46,95,232,.55). -->
-    <!-- The chevron and any light secondary text on the dark hero. -->
-    <color name="premium_hero_chevron">#8C99A8C4</color>
     <color name="premium_cta_glow_low">#572E5FE8</color>
     <color name="premium_cta_glow">#8C2E5FE8</color>
     <!-- Free vs Premium hero: the two title halves and the shine gradient. -->

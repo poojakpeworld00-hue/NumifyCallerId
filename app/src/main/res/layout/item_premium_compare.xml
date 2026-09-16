@@ -41,7 +41,7 @@
                 android:fontFamily="@font/mulish_bold"
                 android:maxLines="1"
                 android:textColor="@color/premium_ink"
-                android:textSize="14sp"
+                android:textSize="@dimen/_12sdp"
                 tools:text="Number lookup" />
 
             <TextView

@@ -10,29 +10,29 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.doOnLayout
 import com.contacts.callerid.number.lookup.R
 
 /**
  * The Premium offer as it appears on Settings.
  *
- * A settings row built out of the paywall's own vocabulary — its gradient, its
- * gold crown, its green trial pill — so that tapping it opens something the user
- * already recognises rather than a screen unrelated to the row that led there.
- * Every drawable it uses belongs to the paywall already; nothing here is a
- * second style to keep in sync.
+ * It is the paywall's hero, not a version of it: the same gradient card, the
+ * same "Free vs Premium" line with its two-tone spark and gold crown, the same
+ * subtitle, at the design's own sizes. Tapping a row should open something the
+ * user already recognises, and the surest way to get that is for the two to be
+ * the same object rather than two takes on one idea.
  *
- * It is not a copy of the paywall hero, which the latest handoff revision
- * rebuilt as a "Free vs Premium" title. The two still share their palette, and
- * restyling this to follow is a small change if the mismatch ever shows.
+ * Both of the hero's living animations run here, at the same speeds:
  *
- * Two loops run here, both lifted from the earlier hero:
+ *  - `shine`      — [ShineTextView] owns it: a 260%-wide gradient sliding
+ *                   across the word "Premium" over 4.5s, linear, forever
+ *  - `sparkPulse` — scale 1.14 and rotate 10 degrees over 2.6s, eased per half
+ *                   cycle the way CSS eases between keyframes
  *
- *  - `crownFloat` — 3.4s, 5dp of rise, eased per half-cycle
- *  - `heroSweep`  — a band 40% of the card, -120% to 240% over 3.2s
- *
- * The CTA's glow is deliberately left out: on a page of settings rows, a third
- * moving thing stops reading as emphasis and starts reading as noise.
+ * The hero's *entrance* — the word-by-word stagger, `popIn`, `slideFromLeft`,
+ * `slideFromRight` — is deliberately left on the paywall. That is a landing
+ * animation for a screen you arrive at; on Settings it would mean one row
+ * assembling itself over the first half second while every other row is already
+ * there, which reads as the page being slow rather than as polish.
  *
  * ## Why this is a view and not layout in the Settings file
  *
@@ -48,18 +48,16 @@ class PremiumTeaserView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private val crown: View
-    private val sweep: View
+    private val spark: View
+    private val premium: ShineTextView
     private val loops = mutableListOf<ValueAnimator>()
 
     init {
         inflate(context, R.layout.view_premium_teaser, this)
-        crown = findViewById(R.id.teaserCrown)
-        sweep = findViewById(R.id.teaserSweep)
+        spark = findViewById(R.id.teaserSpark)
+        premium = findViewById(R.id.teaserPremium)
 
         background = ContextCompat.getDrawable(context, R.drawable.bg_premium_hero)
-        // The sweep runs to the card's edges and has to stop at the rounded
-        // corner rather than square it off.
         clipToOutline = true
 
         elevation = dp(ELEVATION_DP)
@@ -91,58 +89,35 @@ class PremiumTeaserView @JvmOverloads constructor(
 
     private fun startLoops() {
         if (loops.isNotEmpty() || visibility != VISIBLE) return
-        startCrownFloat()
-        startSweep()
+
+        // ShineTextView starts itself on attach, but not after a stop that came
+        // from the card being hidden rather than detached.
+        premium.start()
+
+        val curve = AnimationUtils.loadInterpolator(context, R.interpolator.premium_ease_in_out)
+        listOf(
+            ObjectAnimator.ofFloat(spark, View.SCALE_X, 1f, SPARK_PULSE_SCALE),
+            ObjectAnimator.ofFloat(spark, View.SCALE_Y, 1f, SPARK_PULSE_SCALE),
+            ObjectAnimator.ofFloat(spark, View.ROTATION, 0f, SPARK_PULSE_ROTATION),
+        ).forEach { animator ->
+            loops += animator.apply {
+                duration = SPARK_PULSE_CYCLE_MS / 2
+                repeatCount = ValueAnimator.INFINITE
+                repeatMode = ValueAnimator.REVERSE
+                interpolator = curve
+                start()
+            }
+        }
     }
 
     private fun stopLoops() {
         loops.forEach { it.cancel() }
         loops.clear()
-        crown.translationY = 0f
-        sweep.translationX = sweep.width * SWEEP_FROM
-    }
-
-    /** `crownFloat`: half the cycle on REVERSE, so each half eases as CSS does. */
-    private fun startCrownFloat() {
-        loops += ObjectAnimator.ofFloat(crown, View.TRANSLATION_Y, 0f, -dp(CROWN_RISE_DP)).apply {
-            duration = CROWN_CYCLE_MS / 2
-            repeatCount = ValueAnimator.INFINITE
-            repeatMode = ValueAnimator.REVERSE
-            interpolator = AnimationUtils.loadInterpolator(context, R.interpolator.premium_ease_in_out)
-            start()
-        }
-    }
-
-    /**
-     * `heroSweep`. The band is 40% of the card and travels -120% to 240% of *its
-     * own* width, which is how CSS reads a percentage translate.
-     *
-     * Sized on layout because 40% of the card is not known until the card is
-     * measured, and the settings page is a scroll view whose width the card only
-     * learns at the end of the first pass.
-     */
-    private fun startSweep() {
-        doOnLayout {
-            val band = (width * SWEEP_WIDTH_FRACTION).toInt()
-            if (band <= 0) return@doOnLayout
-
-            if (sweep.layoutParams.width != band) {
-                sweep.layoutParams = sweep.layoutParams.apply { this.width = band }
-            }
-            sweep.post {
-                if (!isAttachedToWindow || visibility != VISIBLE) return@post
-                loops += ObjectAnimator.ofFloat(
-                    sweep, View.TRANSLATION_X, band * SWEEP_FROM, band * SWEEP_TO
-                ).apply {
-                    duration = SWEEP_CYCLE_MS
-                    repeatCount = ValueAnimator.INFINITE
-                    repeatMode = ValueAnimator.RESTART
-                    interpolator =
-                        AnimationUtils.loadInterpolator(context, R.interpolator.premium_ease_in_out)
-                    start()
-                }
-            }
-        }
+        premium.stop()
+        // Cancelling mid-pulse leaves the spark wherever it stopped.
+        spark.scaleX = 1f
+        spark.scaleY = 1f
+        spark.rotation = 0f
     }
 
     private fun dp(value: Float): Float = TypedValue.applyDimension(
@@ -150,14 +125,10 @@ class PremiumTeaserView @JvmOverloads constructor(
     )
 
     private companion object {
-        const val ELEVATION_DP = 8f
+        const val ELEVATION_DP = 9f
 
-        const val CROWN_CYCLE_MS = 3_400L
-        const val CROWN_RISE_DP = 5f
-
-        const val SWEEP_CYCLE_MS = 3_200L
-        const val SWEEP_WIDTH_FRACTION = 0.40f
-        const val SWEEP_FROM = -1.20f
-        const val SWEEP_TO = 2.40f
+        const val SPARK_PULSE_CYCLE_MS = 2_600L
+        const val SPARK_PULSE_SCALE = 1.14f
+        const val SPARK_PULSE_ROTATION = 10f
     }
 }

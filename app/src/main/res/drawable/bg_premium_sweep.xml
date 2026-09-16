@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- The hero's moving highlight: transparent -> 10% white -> transparent, left
-     to right. CSS 90deg is exactly Android 0. -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <gradient android:angle="0" android:startColor="#00FFFFFF" android:centerColor="@color/premium_hero_sweep" android:endColor="#00FFFFFF" android:type="linear" />
-</shape>
