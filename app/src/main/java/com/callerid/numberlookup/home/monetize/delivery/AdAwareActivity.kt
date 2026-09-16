@@ -316,13 +316,18 @@ open class AdAwareActivity : AppCompatActivity() {
                 // coroutine here, so this suspends rather than blocking the main thread.
                 // The result is persisted so every other reader of OnMaketing (FSI /
                 // intro / permission audience split) sees the same value.
-                val isMarketingOn = suspendCancellableCoroutine { continuation ->
+                val attributed = suspendCancellableCoroutine { continuation ->
                     LightHouse.resolveAttribution { attribution ->
                         if (continuation.isActive) {
                             continuation.resume(attribution == Attribution.PAID)
                         }
                     }
                 }
+                // `force_audience` in Remote Config wins, so the paid blocks can be
+                // exercised on a build that has no install referrer to be attributed
+                // from — a sideloaded or internally distributed release. Blank in
+                // Remote Config (the default) leaves the real verdict alone.
+                val isMarketingOn = adsPreference.forcedAudience() ?: attributed
                 adsPreference.putBoolean("OnMaketing", isMarketingOn)
 
                 // Top-level audience split only: OnMaketing is now final (referrer

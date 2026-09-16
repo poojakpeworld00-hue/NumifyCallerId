@@ -45,6 +45,15 @@ object RemoteConfigSync {
      */
     fun apply(context: Context) {
         val remoteConfig = runCatching { FirebaseRemoteConfig.getInstance() }.getOrNull() ?: return
+        // Audience override, read before the blob because it decides which half
+        // of a split blob gets ingested below.
+        runCatching {
+            AdPreferenceStore.getInstance(context).putString(
+                AdPreferenceStore.KEY_FORCE_AUDIENCE,
+                remoteConfig.getString(AdPreferenceStore.KEY_FORCE_AUDIENCE),
+            )
+        }
+
         val blobKey = if (BuildConfig.DEBUG) "DEBUG_GET_DATA_LIST" else "GET_DATA_LIST"
         val raw = runCatching { remoteConfig.getString(blobKey) }.getOrDefault("")
 
