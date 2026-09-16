@@ -188,78 +188,132 @@
                         android:layout_height="1dp"
                         android:layout_marginHorizontal="16dp"
                         android:background="@color/ds_divider" />
+                    <!--
+                        The five actions as a 2 / 2 / 1 grid, each cell an icon
+                        beside its label.
 
+                        Stacked full-width they cost ~240dp of a 250dp band and
+                        had to be trimmed twice to fit. Two to a row halves the
+                        rows without shrinking anything: the same five actions in
+                        three rows instead of five, at a readable 12.5sp, because
+                        this screen has width to spend and no height at all.
+
+                        Rows are fixed rather than reflowed, so the pairs stay
+                        paired. DialerFragment hides a row whose cells have both
+                        gone — WhatsApp with no WhatsApp installed, Ask AI with
+                        the assistant switched off — otherwise an empty row would
+                        hold open space for nothing.
+                    -->
                     <LinearLayout
-                        android:id="@+id/rowAddContact"
-                        style="@style/DialerAction">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="4dp">
 
-                        <ImageView
-                            style="@style/DialerActionIcon"
-                            android:contentDescription="@null"
-                            android:src="@drawable/ic_person_add" />
+                        <LinearLayout
+                            android:id="@+id/gridRowOne"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:baselineAligned="false"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            style="@style/DialerActionLabel"
-                            android:text="@string/add_to_contacts" />
-                    </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/rowAddContact"
+                                style="@style/DialerGridAction">
 
-                    <LinearLayout
-                        android:id="@+id/rowDialMessage"
-                        style="@style/DialerAction">
+                                <ImageView
+                                    style="@style/DialerGridIcon"
+                                    android:contentDescription="@null"
+                                    android:src="@drawable/ic_person_add" />
 
-                        <ImageView
-                            style="@style/DialerActionIcon"
-                            android:contentDescription="@null"
-                            android:src="@drawable/ic_ds_message" />
+                                <TextView
+                                    style="@style/DialerGridLabel"
+                                    android:text="@string/dialer_grid_add" />
+                            </LinearLayout>
 
-                        <TextView
-                            style="@style/DialerActionLabel"
-                            android:text="@string/dialer_send_message" />
-                    </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/rowDialMessage"
+                                style="@style/DialerGridAction">
 
-                    <LinearLayout
-                        android:id="@+id/rowDialLookup"
-                        style="@style/DialerAction">
+                                <ImageView
+                                    style="@style/DialerGridIcon"
+                                    android:contentDescription="@null"
+                                    android:src="@drawable/ic_ds_message" />
 
-                        <ImageView
-                            style="@style/DialerActionIcon"
-                            android:contentDescription="@null"
-                            android:src="@drawable/ic_ds_nav_lookup" />
+                                <TextView
+                                    style="@style/DialerGridLabel"
+                                    android:text="@string/dialer_grid_message" />
+                            </LinearLayout>
+                        </LinearLayout>
 
-                        <TextView
-                            style="@style/DialerActionLabel"
-                            android:text="@string/dialer_lookup_number" />
-                    </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/gridRowTwo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:baselineAligned="false"
+                            android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:id="@+id/rowDialWhatsApp"
-                        style="@style/DialerAction">
+                            <LinearLayout
+                                android:id="@+id/rowDialLookup"
+                                style="@style/DialerGridAction">
 
-                        <ImageView
-                            style="@style/DialerActionIcon"
-                            android:contentDescription="@null"
-                            android:src="@drawable/ic_whatsapp" />
+                                <ImageView
+                                    style="@style/DialerGridIcon"
+                                    android:contentDescription="@null"
+                                    android:src="@drawable/ic_ds_nav_lookup" />
 
-                        <TextView
-                            style="@style/DialerActionLabel"
-                            android:text="@string/dialer_send_whatsapp" />
-                    </LinearLayout>
+                                <TextView
+                                    style="@style/DialerGridLabel"
+                                    android:text="@string/dialer_grid_lookup" />
+                            </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/rowDialAskAi"
-                        style="@style/DialerAction">
+                            <LinearLayout
+                                android:id="@+id/rowDialWhatsApp"
+                                style="@style/DialerGridAction">
 
-                        <ImageView
-                            style="@style/DialerActionIcon"
-                            android:contentDescription="@null"
-                            android:src="@drawable/ic_ai_sparkle" />
+                                <ImageView
+                                    style="@style/DialerGridIcon"
+                                    android:contentDescription="@null"
+                                    android:src="@drawable/ic_whatsapp" />
 
-                        <TextView
-                            style="@style/DialerActionLabel"
-                            android:text="@string/ai_ask_button" />
+                                <TextView
+                                    style="@style/DialerGridLabel"
+                                    android:text="@string/dialer_grid_whatsapp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/gridRowThree"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:baselineAligned="false"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:id="@+id/rowDialAskAi"
+                                style="@style/DialerGridAction">
+
+                                <ImageView
+                                    style="@style/DialerGridIcon"
+                                    android:contentDescription="@null"
+                                    android:src="@drawable/ic_ai_sparkle" />
+
+                                <TextView
+                                    style="@style/DialerGridLabel"
+                                    android:text="@string/dialer_grid_ai" />
+                            </LinearLayout>
+
+                            <!-- The odd one out keeps its half of the row rather
+                                 than stretching across it, so the left column
+                                 stays a column all the way down. -->
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-
                 <!-- Section label — shown while matches exist -->
                 <TextView
                     android:id="@+id/textMatchesLabel"

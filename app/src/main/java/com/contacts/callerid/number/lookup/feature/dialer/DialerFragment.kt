@@ -285,6 +285,16 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         binding.rowDialWhatsApp.isVisible = dialable && whatsAppPackage() != null
         binding.rowDialAskAi.isVisible = dialable &&
             AiFeatureConfig.isEnabled(ctx) && SettingsRepository(ctx).aiHomeButtonEnabled
+
+        // The grid's rows are fixed pairs, so a row whose cells have both gone
+        // would otherwise hold open 52dp of nothing — which is exactly what
+        // happens on a phone with no WhatsApp and the assistant switched off.
+        binding.gridRowOne.isVisible =
+            binding.rowAddContact.isVisible || binding.rowDialMessage.isVisible
+        binding.gridRowTwo.isVisible =
+            binding.rowDialLookup.isVisible || binding.rowDialWhatsApp.isVisible
+        binding.gridRowThree.isVisible = binding.rowDialAskAi.isVisible
+
         binding.columnDialActions.isVisible = unknown
     }
 

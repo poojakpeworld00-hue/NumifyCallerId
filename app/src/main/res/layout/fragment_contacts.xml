@@ -76,6 +76,11 @@
                 rows that all read "poojachaudhari28…". The halves that tell them
                 apart are the start and the domain.
             -->
+            <!-- includeFontPadding off, or the label and the icon beside it do not
+                 share a centre line: the font's ascent/descent padding inflates
+                 the text's box by a few dp, and center_vertical then centres that
+                 inflated box rather than the glyphs inside it. The icon ends up
+                 sitting high against text that looks low. -->
             <TextView
                 android:id="@+id/textAccountName"
                 android:layout_width="wrap_content"
@@ -85,6 +90,7 @@
                 android:drawablePadding="6dp"
                 android:ellipsize="middle"
                 android:fontFamily="@font/mulish_bold"
+                android:includeFontPadding="false"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:text="@string/contacts_account_all"

@@ -63,45 +63,54 @@
         <item name="android:textSize">9sp</item>
     </style>
 
-    <!-- One row in the dialer's "what to do with this number" card: a glyph at
-         the accent, the action's name beside it, the whole row tappable. Every
-         stock dialer draws these the same way, and copying that is the point —
-         it is the one list in the app people arrive already knowing. -->
-    <!-- A row in the dialer's unknown-number card.
+    <!-- One cell in the dialer's "what to do with this number" grid: a tinted
+         disc over a short label, five of them across one row.
 
-         44dp, not the 52dp a standalone list row gets. Five of these plus a
-         header share the band above the keypad sheet, and the sheet is the fixed
-         one: 8dp a row is 40dp back, which was the difference between the last
-         action being visible and being sliced in half by the sheet's edge.
-         44dp is the touch-target floor exactly — do not go below it. -->
-    <style name="DialerAction">
-        <item name="android:layout_width">match_parent</item>
+         These were full-width rows until the fifth action arrived. Five rows plus
+         a header is ~290dp, and the band above the keypad sheet is 250dp — the
+         list had to be trimmed twice and still only just fitted. Side by side the
+         same five actions cost about 80dp, because a row of icons spends the
+         screen's width, which this screen has, instead of its height, which it
+         has almost none of.
+
+         Equal weight, so hiding WhatsApp or Ask AI simply widens what is left
+         rather than leaving a hole. -->
+    <style name="DialerGridAction">
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">44dp</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">52dp</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:paddingHorizontal">10dp</item>
     </style>
 
-    <style name="DialerActionIcon">
-        <item name="android:layout_width">20dp</item>
-        <item name="android:layout_height">20dp</item>
-        <item name="android:layout_marginEnd">16dp</item>
+    <style name="DialerGridIcon">
+        <item name="android:layout_width">34dp</item>
+        <item name="android:layout_height">34dp</item>
+        <item name="android:background">@drawable/bg_ds_call_disc</item>
+        <item name="android:padding">9dp</item>
         <item name="android:tint">@color/ds_accent</item>
     </style>
 
-    <style name="DialerActionLabel">
+    <!-- Weighted and ellipsized. Half a card is about 150dp, and the disc plus
+         padding takes 64 of it, so a label has ~86dp — enough for "Send message"
+         at this size, but a longer translation has to truncate rather than wrap
+         and make one cell taller than the one beside it. -->
+    <style name="DialerGridLabel">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:fontFamily">@font/mulish_semibold</item>
-        <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/mulish_semibold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">1</item>
         <item name="android:textColor">@color/ds_ink</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12.5sp</item>
     </style>
 
     <!-- Call Details action (circle icon + label). The 48dp floor is the touch

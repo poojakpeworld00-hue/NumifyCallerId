@@ -316,6 +316,13 @@
          number's destination, not just the app: the card is a list of things to
          do with one number, so "WhatsApp" alone reads as a place to go rather
          than an action to take. -->
+    <!-- Grid labels: one word where the row labels were a phrase. Each cell is
+         about 64dp wide, which "WhatsApp" fills almost exactly. -->
+    <string name="dialer_grid_add">Add contact</string>
+    <string name="dialer_grid_message">Send message</string>
+    <string name="dialer_grid_lookup">Lookup</string>
+    <string name="dialer_grid_whatsapp">WhatsApp</string>
+    <string name="dialer_grid_ai">Ask AI</string>
     <string name="dialer_number_not_saved">Not in your contacts</string>
     <string name="dialer_send_message">Send message</string>
     <string name="dialer_lookup_number">Look up this number</string>
