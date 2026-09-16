@@ -20,8 +20,7 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.contacts.callerid.number.lookup.entity.CallerFacts
 import com.contacts.callerid.number.lookup.repository.assistant.CallerRisk
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import com.contacts.callerid.number.lookup.feature.widgets.CallActionHandler
 
@@ -278,41 +277,31 @@ object CallerLabel {
      * was thrown away: the card settled on "Unknown" for a number the app could
      * name perfectly well a moment later.
      *
-     * So the deadline is now on the *shimmer*, not on the lookup. The card stops
-     * spinning after [SHIMMER_MS] and reads "Unknown", which is honest about what
-     * is known right then, and the request carries on. A later answer still lands
-     * on the card, because a name that arrives at four seconds is still useful for
-     * the twenty-odd seconds a phone goes on ringing.
+     * **The card has exactly two states: looking up, and answered.** There is no
+     * third state in between, and the first attempt at this fix added one — the
+     * shimmer stopped at 2.5s and the card printed "Unknown" while the request
+     * was still in flight, so a name arriving a second later visibly overwrote
+     * it. "Unknown" is not a progress indicator; it is a claim, and a claim the
+     * app is about to contradict should not be made. The shimmer says "still
+     * looking", which is both true and not contradicted by anything that follows.
      *
-     * [card] is fetched again at each step rather than captured: the window is
-     * torn down when the call ends, and a lookup that outlives it must find null
-     * and stop rather than write into a detached view.
+     * So the loading state lasts exactly as long as the lookup does, bounded by
+     * [LOOKUP_TIMEOUT_MS]. When it does resolve to nothing, "Unknown" is final —
+     * the lookup is over, so nothing is left to overwrite it.
+     *
+     * [card] is fetched rather than captured: the window is torn down when the
+     * call ends, and a lookup that outlives it must find null and stop rather
+     * than write into a detached view.
      */
     suspend fun fillNetworkName(
         context: Context,
         number: String,
         info: Info,
         card: () -> View?,
-    ) = coroutineScope {
-        if (info.known) return@coroutineScope
-
-        val pending = async(Dispatchers.IO) { lookupNetworkFacts(context, number) }
-
-        // The common case: the answer beats the shimmer and the card never shows
-        // "Unknown" at all.
-        val quick = withTimeoutOrNull(SHIMMER_MS) { pending.await() }
-        if (quick != null) {
-            card()?.let { applyNetworkFacts(context, it, info, quick) }
-            return@coroutineScope
-        }
-
-        // Slow answer: settle the card so it is readable, then keep waiting.
-        // Passing null here only clears the loading state — applyNetworkFacts
-        // treats it as "leave what is on screen", so this cannot erase anything.
-        card()?.let { applyNetworkFacts(context, it, info, null) }
-
-        val late = pending.await() ?: return@coroutineScope
-        card()?.let { applyNetworkFacts(context, it, info, late) }
+    ) {
+        if (info.known) return
+        val facts = withContext(Dispatchers.IO) { lookupNetworkFacts(context, number) }
+        card()?.let { applyNetworkFacts(context, it, info, facts) }
     }
 
     /**
@@ -454,15 +443,18 @@ object CallerLabel {
             R.color.danger_soft, R.drawable.ic_info)
 
     /** Short enough that the name lands while the phone is still ringing. */
-    /** How long the card may shimmer before it settles on "Unknown" and waits. */
-    private const val SHIMMER_MS = 2_500L
-
     /**
-     * Backstop on the lookup itself. Generous on purpose: OkHttp already applies
-     * its own 10s read timeout, and a ring lasts around thirty seconds, so the
-     * only thing a tighter value buys is the bug this replaced.
+     * How long the lookup may run — and therefore how long the card may shimmer,
+     * since the two are now the same thing.
+     *
+     * 8s covers the measured worst case with room to spare: TCP connect is
+     * 611-813ms from the device, TLS roughly double that, and the request itself
+     * a few hundred ms more. It is also far short of the twenty-odd seconds a
+     * phone rings, so the card always settles while the user is still looking at
+     * it. Tighter and a real answer gets discarded (the original bug); looser and
+     * a dead network shimmers for longer than anyone will wait.
      */
-    private const val LOOKUP_TIMEOUT_MS = 15_000L
+    private const val LOOKUP_TIMEOUT_MS = 8_000L
 
     /** Last 9 digits — tolerant comparison that ignores country code / formatting. */
     private fun digitsTail(number: String): String =
