@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The inside of PremiumTeaserView — the paywall's own hero, compressed to the
+    height of a settings row so the entry point and the screen it opens read as
+    one thing. Every piece here is a resource the paywall already uses: the
+    gradient, the sweep band, the gold crown tile and the trial pill.
+
+    <merge> because the parent is the FrameLayout that owns the background and
+    the two animations; a second wrapper would only add a layer to draw.
+-->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="@drawable/bg_premium_hero"
+    tools:parentTag="android.widget.FrameLayout">
+
+    <!-- The travelling highlight. First child, so it sits behind the content
+         exactly as the paywall layers it; sized on layout from the card's own
+         width — see PremiumTeaserView.startSweep. -->
+    <View
+        android:id="@+id/teaserSweep"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_premium_sweep" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="14dp">
+
+        <FrameLayout
+            android:id="@+id/teaserCrown"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:background="@drawable/bg_premium_crown"
+            android:elevation="6dp"
+            android:outlineAmbientShadowColor="@color/premium_crown_shadow"
+            android:outlineSpotShadowColor="@color/premium_crown_shadow">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_premium_crown" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/mulish_bold"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="@string/settings_premium"
+                android:textColor="@color/white"
+                android:textSize="14.5sp" />
+
+            <!-- wrap_content on purpose: the pill hugs its text rather than
+                 spanning the card, as the paywall's inline-flex one does. -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_premium_trial_pill"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_premium_shield" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/mulish_bold"
+                    android:includeFontPadding="false"
+                    android:text="@string/premium_trial_badge"
+                    android:textColor="@color/premium_trial_text"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_ds_chevron_right"
+            android:tint="@color/premium_hero_chevron" />
+    </LinearLayout>
+</merge>

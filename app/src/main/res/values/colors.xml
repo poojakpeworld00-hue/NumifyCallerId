@@ -322,6 +322,8 @@
     <color name="premium_cta_start">#3466F0</color>
     <color name="premium_cta_end">#1F3FAE</color>
     <!-- ctaGlow breathes between rgba(46,95,232,.34) and rgba(46,95,232,.55). -->
+    <!-- The chevron and any light secondary text on the dark hero. -->
+    <color name="premium_hero_chevron">#8C99A8C4</color>
     <color name="premium_cta_glow_low">#572E5FE8</color>
     <color name="premium_cta_glow">#8C2E5FE8</color>
     <color name="premium_check_circle">#E3F5EC</color>
