@@ -1000,6 +1000,15 @@
     <string name="premium_privacy_link">Privacy policy</string>
     <string name="premium_fine_print">Free for 3 days, then %1$s unless cancelled.</string>
     <string name="premium_fine_print_plain">Free for 3 days, then billed unless cancelled.</string>
+    <!-- Data deletion. These are fallbacks: the live wording comes from the
+         data_deletion object in Remote Config (see DataDeletionConfig), and it
+         is what a store review reads. -->
+    <string name="data_deletion">Data Deletion</string>
+    <string name="data_deletion_dialog_title">Delete your data?</string>
+    <string name="data_deletion_dialog_body">This removes the data this app has stored about you. The contacts and call history on your phone are not affected. This cannot be undone.</string>
+    <string name="data_deletion_confirm">Delete</string>
+    <string name="data_deletion_cancel">Cancel</string>
+    <string name="data_deletion_done">Deletion request sent</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">Remove ads and all limits</string>
 </resources>

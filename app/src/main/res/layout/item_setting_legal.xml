@@ -38,6 +38,7 @@
         <ImageView
             android:layout_width="@dimen/_15sdp"
             android:layout_height="@dimen/_15sdp"
+            android:id="@+id/imageTrailing"
             android:src="@drawable/ic_open_in_new"
             app:tint="@color/on_surface_variant"
             tools:ignore="ContentDescription" />

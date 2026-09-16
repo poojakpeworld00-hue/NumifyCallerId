@@ -353,6 +353,16 @@
                         layout="@layout/item_setting_legal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
+                    <View style="@style/SettingsRowDivider" />
+
+                    <!-- Data deletion. Sits with Privacy and Terms because it is
+                         the same kind of obligation, and last in the group
+                         because it is the destructive one. -->
+                    <include
+                        android:id="@+id/columnDataDeletion"
+                        layout="@layout/item_setting_legal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <TextView

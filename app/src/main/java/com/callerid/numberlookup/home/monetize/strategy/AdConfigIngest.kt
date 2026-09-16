@@ -75,6 +75,10 @@ object AdConfigIngest {
                 // the Onboarding Dynamic Flow (replaces intro_display + permission_engine),
                 // and the lookup API endpoints (see EndpointConfig).
                 "screen", "exit", "ScreenAds", "api_config", "rate_us",
+                // Wording of the data-deletion dialog (see DataDeletionConfig).
+                // Published rather than compiled because it is the copy a store
+                // review reads, and it has to change without a release.
+                "data_deletion",
                 // Base URL of the AI proxy. Blank keeps the assistant on-device.
                 "ai_assistant_endpoint"
             ).forEach { key -> if (root.has(key)) putString(key, root.optString(key, "")) }

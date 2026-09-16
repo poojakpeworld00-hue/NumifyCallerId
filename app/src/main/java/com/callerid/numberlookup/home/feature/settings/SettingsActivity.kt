@@ -14,6 +14,10 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import com.callerid.numberlookup.home.repository.DataDeletionConfig
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -152,6 +156,14 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
         binding.columnTerms.textTitle.setText(R.string.settings_terms)
         binding.columnTerms.root.setOnClickListener { openTermLink() }
 
+        binding.columnDataDeletion.imageIcon.setImageResource(R.drawable.option_trash_can)
+        chipIcon(binding.columnDataDeletion.imageIcon, R.drawable.bg_cid_chip_clay, R.color.danger)
+        binding.columnDataDeletion.textTitle.setText(R.string.data_deletion)
+        // This row opens a dialog, not a web page, so it must not wear the
+        // external-link glyph the other two legal rows use.
+        binding.columnDataDeletion.imageTrailing.setImageResource(R.drawable.ic_ds_chevron_right)
+        binding.columnDataDeletion.root.setOnClickListener { showDataDeletionDialog() }
+
         binding.textVersion.text =
             getString(R.string.settings_version_fmt, getString(R.string.home_brand), BuildConfig.VERSION_NAME)
 
@@ -207,6 +219,36 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
      * which is none, so the padding has to be put back afterwards. Without that
      * the glyph fills the entire chip and reads as a solid coloured square.
      */
+    /**
+     * The data-deletion confirmation.
+     *
+     * Every line of it - title, body, both buttons and the toast - comes from
+     * [DataDeletionConfig], which reads Remote Config and falls back to the
+     * string resources. That is deliberate: this is the wording a store review
+     * reads, and it has to be changeable without shipping a release.
+     *
+     * The confirm button is the destructive one, so it is the one that gets the
+     * danger colour; Android puts it on the right by convention and Cancel is
+     * what a mis-tap lands on.
+     */
+    private fun showDataDeletionDialog() {
+        val dialog = MaterialAlertDialogBuilder(this)
+            .setTitle(DataDeletionConfig.title(this))
+            .setMessage(DataDeletionConfig.message(this))
+            .setNegativeButton(DataDeletionConfig.cancel(this)) { d, _ -> d.dismiss() }
+            .setPositiveButton(DataDeletionConfig.confirm(this)) { d, _ ->
+                d.dismiss()
+                Toast.makeText(this, DataDeletionConfig.toast(this), Toast.LENGTH_LONG).show()
+            }
+            .create()
+
+        dialog.setOnShowListener {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                .setTextColor(ContextCompat.getColor(this, R.color.danger))
+        }
+        dialog.show()
+    }
+
     private fun chipIcon(view: ImageView, @DrawableRes chip: Int, @ColorRes tint: Int) {
         val pad = view.paddingLeft.takeIf { it > 0 }
             ?: (8f * resources.displayMetrics.density).toInt()
