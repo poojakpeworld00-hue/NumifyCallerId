@@ -30,6 +30,21 @@ data class ContactRecord(
      * number and the thing the row dials.
      */
     val email: String? = null,
+    /**
+     * The account this contact is stored under — a Google address, "SIM", the
+     * device itself — or null when the provider reports none (a local-only
+     * contact). Drives the "All contacts" account filter in the header.
+     */
+    val accountName: String? = null,
+)
+
+/**
+ * One row in the account picker: a store of contacts and how many of them it
+ * holds. [name] is null for the "All contacts" entry, which is the whole pool.
+ */
+data class ContactAccount(
+    val name: String?,
+    val count: Int,
 )
 
 /** Demo data used until real CallLog / Contacts providers are wired in. */

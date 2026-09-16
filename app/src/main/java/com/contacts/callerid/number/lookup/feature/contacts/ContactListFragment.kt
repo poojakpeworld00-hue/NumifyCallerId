@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.viewModels
@@ -82,6 +83,7 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
             startActivity(ContactSearchActivity.newIntent(requireContext()))
         }
         binding.buttonContactsAdd.setOnClickListener { openAddContact() }
+        binding.buttonAccountPicker.setOnClickListener { openAccountPicker() }
 
         binding.listFavorites.adapter = favoritesAdapter
         binding.favSection.setOnClickListener { toggleFavorites() }
@@ -121,6 +123,16 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
             favoritesAdapter.submit(favorites)
             showFavoritesStrip()
         }
+        // The chip names whichever store the list is showing, so the header
+        // answers "why am I seeing these?" without opening anything.
+        viewModel.account.observe(viewLifecycleOwner) { name ->
+            binding.textAccountName.text = name ?: getString(R.string.contacts_account_all)
+        }
+        // A phone with a single account has nothing to choose between — the
+        // caret would be inviting a tap that does nothing.
+        viewModel.accounts.observe(viewLifecycleOwner) { list ->
+            binding.iconAccountChevron.isVisible = list.size >= 3
+        }
         viewModel.filter.observe(viewLifecycleOwner) { active ->
             showFavoritesStrip()
             highlightTab(binding.tabAll, active == ContactFilter.ALL)
@@ -148,6 +160,22 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
             binding.alphaIndex.visibility = if (hasData) View.VISIBLE else View.GONE
             binding.textEmpty.visibility =
                 if (!hasData && hasContactsPermission()) View.VISIBLE else View.GONE
+        }
+    }
+
+    /**
+     * Opens the account picker, unless there is nothing to pick between.
+     *
+     * A phone with one account has one entry plus "All contacts", which are the
+     * same list under two names — a sheet offering that choice wastes a tap to
+     * tell the user nothing. The chip stays visible either way so the header
+     * does not reflow, it simply does not open.
+     */
+    private fun openAccountPicker() {
+        val accounts = viewModel.accounts.value.orEmpty()
+        if (accounts.size < 3) return
+        ContactAccountSheet.show(this, accounts, viewModel.account.value) { picked ->
+            viewModel.applyAccount(picked)
         }
     }
 

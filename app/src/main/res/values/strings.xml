@@ -567,6 +567,11 @@
     <string name="contacts_search_clear">Clear search</string>
     <string name="contacts_search_voice">Voice search</string>
     <string name="contacts_search_no_voice">Voice search isn\'t available on this device</string>
+    <!-- Account picker in the Contacts header. "Source" labels where a store
+         came from without repeating the address above it. -->
+    <string name="contacts_account_all">All contacts</string>
+    <string name="contacts_account_all_sub">Every account on this phone</string>
+    <string name="contacts_account_source">Contacts</string>
     <string name="contacts_favorites_toggle">Show or hide favorites</string>
     <string name="contacts_tab_all">All</string>
     <string name="contacts_tab_favorites">Favorites</string>

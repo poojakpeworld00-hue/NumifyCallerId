@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.os.LocaleListCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -94,6 +96,7 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
 
         recordEvent("screen_${this::class.java.simpleName.lowercase(Locale.ROOT)}")
         binding.lifecycleOwner = this
+        applyImmersiveNavigation()
         applySystemBarIcons()
 
         // Keep native-ad colors in sync with the active light/dark mode.
@@ -112,6 +115,54 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
         // Auto on-load bottom banner for any screen whose layout includes
         // @layout/include_bottom_banner (no-op otherwise).
         showBottomBanner()
+    }
+
+    /**
+     * Hides the system navigation bar, leaving the status bar alone.
+     *
+     * `WindowInsetsControllerCompat`, not the `SYSTEM_UI_FLAG_*` constants: those
+     * have been deprecated since API 30 and were the only reason the old
+     * behaviour needed a per-version branch. The compat controller does the right
+     * thing from API 21 up through 36 with one call.
+     *
+     * **BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE is the half that matters.** Without
+     * it the bar is hidden and the first swipe from the bottom edge brings it
+     * back permanently, so "immersive" lasts exactly one gesture. With it, the
+     * swipe reveals a translucent bar that retreats on its own — the user can
+     * always reach Back and Home, they just are not paying for them the rest of
+     * the time.
+     *
+     * Only `navigationBars()`. The status bar carries the clock, the signal and
+     * the battery, every screen already pads its header down past it, and hiding
+     * it would be a different request.
+     *
+     * Paired with `setDecorFitsSystemWindows(false)` so the content occupies the
+     * space the bar gave up. Every screen here already lays out edge-to-edge and
+     * pads itself from the insets it is handed; with the bar gone the bottom
+     * inset simply reports 0 and those paddings collapse on their own.
+     */
+    private fun applyImmersiveNavigation() {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        val controller = WindowCompat.getInsetsController(window, window.decorView)
+        // Set before hiding: the behaviour governs how the hidden bar comes back,
+        // and a hide() issued under the default behaviour is the sticky one.
+        controller.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        controller.hide(WindowInsetsCompat.Type.navigationBars())
+    }
+
+    /**
+     * Re-hides the bar after anything that takes the window's focus away.
+     *
+     * A permission dialog, the IME, the notification shade, an interstitial, a
+     * trip to system Settings — each of them restores the navigation bar on the
+     * way out, and without this the app comes back with the bar up and stays
+     * that way. Only on regaining focus: re-asserting it while focus is
+     * elsewhere fights whatever has it.
+     */
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) applyImmersiveNavigation()
     }
 
     /**

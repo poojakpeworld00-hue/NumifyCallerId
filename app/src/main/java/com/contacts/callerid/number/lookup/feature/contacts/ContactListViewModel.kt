@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.contacts.callerid.number.lookup.repository.ContactAccount
 import com.contacts.callerid.number.lookup.repository.ContactRecord
 import com.contacts.callerid.number.lookup.repository.ContactRepository
 import kotlinx.coroutines.Dispatchers
@@ -30,12 +31,47 @@ class ContactListViewModel(app: Application) : AndroidViewModel(app) {
     private val _favorites = MutableLiveData<List<ContactRecord>>(emptyList())
     val favorites: LiveData<List<ContactRecord>> = _favorites
 
+    /**
+     * The stores the address book is spread across, "All contacts" first, each
+     * with the number of contacts it holds. Derived from the loaded pool rather
+     * than queried separately, so a count can never promise more rows than
+     * selecting it produces.
+     */
+    private val _accounts = MutableLiveData<List<ContactAccount>>(emptyList())
+    val accounts: LiveData<List<ContactAccount>> = _accounts
+
+    /** The selected account, or null for all of them. */
+    private val _account = MutableLiveData<String?>(null)
+    val account: LiveData<String?> = _account
+
     fun load() {
         viewModelScope.launch {
             allContacts = withContext(Dispatchers.IO) { repository.getContacts() }
             _favorites.value = allContacts.filter { it.starred }
+            _accounts.value = buildAccounts()
             rebuild()
         }
+    }
+
+    /**
+     * Accounts in descending size. A phone typically has one account holding
+     * nearly everything and a tail of near-empty ones (a SIM, a stale sign-in),
+     * and the picker is a list someone scans for their own address — the big one
+     * should not be third.
+     */
+    private fun buildAccounts(): List<ContactAccount> {
+        val byAccount = allContacts
+            .groupingBy { it.accountName ?: UNKNOWN_ACCOUNT }
+            .eachCount()
+            .map { (name, count) -> ContactAccount(name, count) }
+            .sortedByDescending { it.count }
+        return listOf(ContactAccount(null, allContacts.size)) + byAccount
+    }
+
+    fun applyAccount(name: String?) {
+        if (_account.value == name) return
+        _account.value = name
+        rebuild()
     }
 
     fun applyQuery(text: String) {
@@ -57,11 +93,18 @@ class ContactListViewModel(app: Application) : AndroidViewModel(app) {
 
         // Both passes preserve the incoming name order, so alpha grouping and
         // fast-scroll stay valid downstream.
+        val selected = _account.value
         val visible = allContacts
+            .filter { selected == null || (it.accountName ?: UNKNOWN_ACCOUNT) == selected }
             .filter { tab.accepts(it) }
             .filter { it.matches(needle) }
 
         _rows.value = withInitialHeaders(visible)
+    }
+
+    private companion object {
+        /** Label for contacts the provider reports no account for (device-local). */
+        const val UNKNOWN_ACCOUNT = "Device"
     }
 
     private fun ContactFilter.accepts(contact: ContactRecord): Boolean = when (this) {

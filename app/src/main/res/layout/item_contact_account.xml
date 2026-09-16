@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One account in the picker: glyph, name over its source, count, tick.
+
+     The count is muted and the tick is the accent, because the count is
+     information and the tick is state — only one row carries it, and it has to
+     be findable at a glance in a list of near-identical addresses. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:minHeight="56dp"
+    android:orientation="horizontal"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="8dp">
+
+    <ImageView
+        android:id="@+id/imageAccountIcon"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_ds_person"
+        app:tint="@color/ds_ink_muted" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textAccountTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="middle"
+            android:fontFamily="@font/mulish_bold"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/ds_ink"
+            android:textSize="14sp"
+            tools:text="name@gmail.com" />
+
+        <TextView
+            android:id="@+id/textAccountSub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/mulish_semibold"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/ds_ink_muted"
+            android:textSize="11.5sp"
+            tools:text="Contacts" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textAccountCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:fontFamily="@font/mulish_semibold"
+        android:textColor="@color/ds_ink_muted"
+        android:textSize="13sp"
+        tools:text="595" />
+
+    <ImageView
+        android:id="@+id/iconAccountTick"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="14dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_check"
+        android:visibility="invisible"
+        app:tint="@color/ds_accent"
+        tools:visibility="visible" />
+</LinearLayout>

@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.contacts.callerid.number.lookup.R
 
 object InterstitialAdCache {
@@ -48,14 +51,22 @@ object InterstitialAdCache {
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                 )
 
-                // Immersive sticky — hide status bar + nav bar
-                window?.decorView?.systemUiVisibility =
-                    (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            or View.SYSTEM_UI_FLAG_FULLSCREEN
-                            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+                // Immersive — hide status bar + nav bar for the loader's life.
+                //
+                // Through WindowInsetsControllerCompat rather than the
+                // SYSTEM_UI_FLAG_* constants this used to set: those are
+                // deprecated from API 30, and they were also the last thing in
+                // the app still fighting BaseActivity's own controller, which
+                // hides the navigation bar for every screen. Two mechanisms
+                // aiming at the same bars is how a bar comes back and stays back.
+                window?.let { w ->
+                    WindowCompat.setDecorFitsSystemWindows(w, false)
+                    WindowCompat.getInsetsController(w, w.decorView).apply {
+                        systemBarsBehavior =
+                            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                        hide(WindowInsetsCompat.Type.systemBars())
+                    }
+                }
 
                 show()
 

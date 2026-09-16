@@ -17,10 +17,58 @@
         android:paddingTop="18dp"
         android:paddingBottom="14dp">
 
-        <!-- No heading and no count: the nav chip already names the tab, and the
-             count moved down to head the directory it counts (see
-             textContactsCount below the favourites rail). What is left up here is
-             the two actions, which is all a toolbar owes this page. -->
+        <!-- The account the list is showing, and the control for changing it.
+             No page heading: this says something the nav chip does not, which is
+             what earns the space a title was wasting. Tapping it opens
+             ContactAccountSheet. -->
+        <!-- wrap_content, and no weight: the chip is a pill around its own label,
+             so it has to be exactly as wide as "All contacts" or the address it
+             is showing. Stretched across the row the caret drifts into the middle
+             of the header and stops reading as part of the word it opens. The
+             spacer after it is what holds the two buttons out at the end. -->
+        <LinearLayout
+            android:id="@+id/buttonAccountPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ds_header_chip"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:maxWidth="220dp"
+            android:minHeight="40dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="14dp">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_group"
+                app:tint="@color/ds_ink" />
+
+            <TextView
+                android:id="@+id/textAccountName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/mulish_bold"
+                android:maxLines="1"
+                android:text="@string/contacts_account_all"
+                android:textColor="@color/ds_ink"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/iconAccountChevron"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="6dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_ds_chevron_down"
+                app:tint="@color/ds_ink_muted" />
+        </LinearLayout>
+
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"

@@ -5,12 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.AssetManager
 import android.content.res.Configuration
-import android.graphics.Color
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.WindowInsetsController
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.contacts.callerid.number.lookup.monetize.strategy.AdPreferenceStore
@@ -24,43 +21,13 @@ fun isNightMode(context: Context): Boolean {
     return mode == Configuration.UI_MODE_NIGHT_YES
 }
 
-fun Activity.setTransparentStatusBarWhiteText() {
-
-    // Make status bar transparent
-    window.statusBarColor = Color.TRANSPARENT
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        val controller = window.insetsController
-        controller?.setSystemBarsAppearance(
-            0, // ❌ remove LIGHT_STATUS_BARS
-            WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-        )
-    } else {
-        @Suppress("DEPRECATION")
-        window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        // ⚠️ DO NOT add LIGHT_STATUS_BAR → keeps icons WHITE
-    }
-}
-
-fun Activity.setTransparentStatusBarDarkText() {
-
-    window.statusBarColor = Color.TRANSPARENT
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        window.insetsController?.setSystemBarsAppearance(
-            WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-            WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-        )
-    } else {
-        @Suppress("DEPRECATION")
-        window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-    }
-
-}
+/*
+ * setTransparentStatusBarWhiteText / setTransparentStatusBarDarkText lived here
+ * and were the app's last use of the deprecated SYSTEM_UI_FLAG_* constants.
+ * Nothing called either of them. System-bar appearance is BaseActivity's job now
+ * (applySystemBarIcons, applyImmersiveNavigation), through
+ * WindowInsetsControllerCompat.
+ */
 
 fun Fragment.getStatusBarHeight(): Int {
     return requireActivity().getStatusBarHeight()

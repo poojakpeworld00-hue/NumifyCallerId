@@ -154,9 +154,49 @@ class ContactRepository(private val context: Context) {
         return out
     }
 
+    /**
+     * The account each contact is stored under, by contact id.
+     *
+     * Accounts live on RawContacts, not on Contacts: a contact is the merge of
+     * one or more raw contacts, each belonging to a store. Bulk-queried and
+     * joined below for the same reason as the emails — one round trip, not one
+     * per row.
+     *
+     * First raw contact wins. A contact merged across two Google accounts
+     * genuinely belongs to both, and the system Contacts app counts it under
+     * each; picking one keeps a contact in exactly one bucket, so the counts the
+     * picker shows are the counts the filtered list actually produces. Matching
+     * the list you get is worth more here than matching Google's arithmetic.
+     */
+    private fun accountByContactId(): Map<Long, String> {
+        val out = HashMap<Long, String>()
+        runCatching {
+            context.contentResolver.query(
+                ContactsContract.RawContacts.CONTENT_URI,
+                arrayOf(
+                    ContactsContract.RawContacts.CONTACT_ID,
+                    ContactsContract.RawContacts.ACCOUNT_NAME,
+                ),
+                null,
+                null,
+                null
+            )?.use { cursor ->
+                val idIdx = cursor.getColumnIndex(ContactsContract.RawContacts.CONTACT_ID)
+                val accountIdx = cursor.getColumnIndex(ContactsContract.RawContacts.ACCOUNT_NAME)
+                if (idIdx < 0 || accountIdx < 0) return@use
+                while (cursor.moveToNext()) {
+                    val account = cursor.getString(accountIdx)?.trim().orEmpty()
+                    if (account.isNotEmpty()) out.putIfAbsent(cursor.getLong(idIdx), account)
+                }
+            }
+        }
+        return out
+    }
+
     fun getContacts(): List<ContactRecord> {
         val groupContactIds = queryGroupContactIds()
         val emails = emailByContactId()
+        val accounts = accountByContactId()
 
         // Keyed by display name to collapse multiple numbers of the same contact.
         val byName = LinkedHashMap<String, ContactRecord>()
@@ -197,6 +237,7 @@ class ContactRepository(private val context: Context) {
                     lastContacted = if (lastIdx >= 0) cursor.getLong(lastIdx) else 0L,
                     inGroup = groupContactIds.contains(contactId),
                     email = emails[contactId],
+                    accountName = accounts[contactId],
                 )
             }
         }

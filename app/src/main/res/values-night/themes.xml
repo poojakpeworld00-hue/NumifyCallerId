@@ -21,7 +21,13 @@
 
         <item name="android:windowBackground">@color/background</item>
         <item name="android:statusBarColor">@color/background</item>
-        <item name="android:navigationBarColor">@color/background</item>
+        <!-- Transparent, because the bar is hidden (BaseActivity.applyImmersiveNavigation)
+             and only ever returns as a transient overlay on a swipe. A solid
+             colour would paint a band over the content underneath it for the
+             seconds it is up. enforceNavigationBarContrast turns off the scrim
+             the platform would otherwise add behind a transparent bar on API 29+. -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:enforceNavigationBarContrast" tools:targetApi="q">false</item>
         <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
     </style>
