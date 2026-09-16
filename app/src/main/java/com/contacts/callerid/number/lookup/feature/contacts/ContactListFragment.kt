@@ -129,9 +129,14 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
             binding.textAccountName.text = name ?: getString(R.string.contacts_account_all)
         }
         // A phone with a single account has nothing to choose between — the
-        // caret would be inviting a tap that does nothing.
+        // caret would be inviting a tap that does nothing. It is the label's
+        // drawableEnd, so dropping it is a null in that slot rather than a
+        // sibling view going GONE.
         viewModel.accounts.observe(viewLifecycleOwner) { list ->
-            binding.iconAccountChevron.isVisible = list.size >= 3
+            val caret = if (list.size >= 3) R.drawable.ic_ds_chevron_down else 0
+            TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                binding.textAccountName, 0, 0, caret, 0
+            )
         }
         viewModel.filter.observe(viewLifecycleOwner) { active ->
             showFavoritesStrip()

@@ -21,23 +21,34 @@
              No page heading: this says something the nav chip does not, which is
              what earns the space a title was wasting. Tapping it opens
              ContactAccountSheet. -->
-        <!-- wrap_content, and no weight: the chip is a pill around its own label,
-             so it has to be exactly as wide as "All contacts" or the address it
-             is showing. Stretched across the row the caret drifts into the middle
-             of the header and stops reading as part of the word it opens. The
-             spacer after it is what holds the two buttons out at the end. -->
+        <!--
+            Takes the space the two buttons leave, rather than asking for its own.
+
+            As `wrap_content` it demanded whatever its label needed, and a full
+            email address needed more than was left: 40dp of header padding plus a
+            223dp chip plus 98dp of buttons is 361dp on a 360dp screen, so
+            LinearLayout satisfied the chip and clipped the last child — the add
+            button lost its right edge. Sized from the remainder it cannot
+            overflow, on any screen, whatever an account is called.
+
+            No pill behind it, which is also what makes the stretch invisible: the
+            content stays packed to the left, so the caret sits against the word
+            it opens exactly as it did, and the empty space to its right is just
+            header. The reference draws it the same way — a row of text and a
+            caret, not a filled chip.
+        -->
         <LinearLayout
             android:id="@+id/buttonAccountPicker"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_ds_header_chip"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?attr/selectableItemBackground"
             android:gravity="center_vertical"
             android:minHeight="40dp"
             android:orientation="horizontal"
-            android:paddingHorizontal="14dp">
+            android:paddingEnd="8dp">
 
             <ImageView
                 android:layout_width="18dp"
@@ -46,45 +57,41 @@
                 android:src="@drawable/ic_group"
                 app:tint="@color/ds_ink" />
 
-            <!-- maxWidth belongs here, on the TextView, and not on the chip
-                 around it: a LinearLayout does not honour maxWidth when it is
-                 measuring itself to wrap its children, so the chip grew to
-                 whatever a full email address needed and shoved the add button
-                 off the right edge of the screen. Capping the label caps the
-                 chip, because the chip is only as wide as what it holds.
+            <!--
+                The caret is this label's drawableEnd, not a sibling view.
 
-                 Ellipsized in the middle rather than at the end: every account
-                 here is an address, and truncating at the end leaves a column of
-                 rows that all read "poojachaudhari28…". The halves that tell
-                 them apart are the start and the domain. -->
+                As a sibling it could only sit right after a short name by being
+                given no weight — and then a long name, taking all the row, would
+                squeeze it out of the chip entirely. As a compound drawable it is
+                part of the text's own layout: it follows the last glyph when the
+                name is short and stays attached to the ellipsis when it is long,
+                and it cannot be pushed anywhere, because it moves with the text
+                rather than beside it.
+
+                wrap_content inside a fixed-width chip, so the label is measured
+                AT_MOST the room available and ellipsizes itself at the limit.
+
+                Ellipsized in the middle rather than at the end: every account
+                here is an address, and truncating at the end leaves a column of
+                rows that all read "poojachaudhari28…". The halves that tell them
+                apart are the start and the domain.
+            -->
             <TextView
                 android:id="@+id/textAccountName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:drawableEnd="@drawable/ic_ds_chevron_down"
+                android:drawablePadding="6dp"
                 android:ellipsize="middle"
                 android:fontFamily="@font/mulish_bold"
                 android:maxLines="1"
-                android:maxWidth="150dp"
                 android:singleLine="true"
                 android:text="@string/contacts_account_all"
                 android:textColor="@color/ds_ink"
-                android:textSize="13sp" />
-
-            <ImageView
-                android:id="@+id/iconAccountChevron"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="6dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_ds_chevron_down"
-                app:tint="@color/ds_ink_muted" />
+                android:textSize="13sp"
+                app:drawableTint="@color/ds_ink_muted" />
         </LinearLayout>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
 
         <!-- Search is a destination, not a field on this page: tapping it opens
              ContactSearchActivity, which owns the keyboard, the voice button and
