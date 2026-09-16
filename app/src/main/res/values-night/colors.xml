@@ -170,4 +170,29 @@
     <color name="ds_nav_chip_idle">#1E2430</color>
     <color name="ds_nav_idle">#7B8398</color>
     <color name="ds_nav_chip_active">#1B2340</color>
+<!-- Contacts Premium.
+         Only the light-surface tokens flip. The hero is a dark card in both
+         themes and its gradient, the gold crown, the brand blue, the CTA and
+         the shine are brand colours that belong to the design rather than to a
+         theme, so they stay as values/colors.xml defines them. -->
+    <color name="premium_page">#0B0E14</color>
+    <color name="premium_card">#141824</color>
+    <color name="premium_card_shadow">#59000000</color>
+    <color name="premium_ink">#F2F4FA</color>
+    <color name="premium_ink_muted">#8A93A8</color>
+    <color name="premium_rule">#2A3145</color>
+    <color name="premium_divider">#232A3B</color>
+    <color name="premium_table_header_bg">#1C2231</color>
+    <color name="premium_table_free">#8A93A8</color>
+    <color name="premium_price_muted">#7B8398</color>
+    <color name="premium_radio_idle">#5D6579</color>
+    <!-- The chosen plan wash and the Premium column tick both read as a pale
+         blue on white; on dark they need a deep one or they glare. -->
+    <color name="premium_accent_wash">#26325C</color>
+    <color name="premium_tick_fg">#8CA0EB</color>
+    <color name="premium_page_fade">#000B0E14</color>
+    <!-- The close button is a light chip on a light page; on dark it becomes a
+         raised surface with a light glyph. -->
+    <color name="premium_close_bg">#1C2231</color>
+    <color name="premium_close_icon">#C9CFDD</color>
 </resources>

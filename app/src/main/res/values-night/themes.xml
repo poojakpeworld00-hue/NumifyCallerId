@@ -3,8 +3,8 @@
     <style name="Base.Theme.CallerIDPhoneLookup" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- App-wide body face — the same UI weight ramp as the light theme, so
              dark mode does not quietly fall back to thin Mulish Regular. -->
-        <item name="android:fontFamily">@font/mulish_ui</item>
-        <item name="fontFamily">@font/mulish_ui</item>
+<!--        <item name="android:fontFamily">@font/mulish_ui</item>-->
+<!--        <item name="fontFamily">@font/mulish_ui</item>-->
 
         <item name="colorPrimary">@color/primary</item>
         <!-- Paired with colorPrimary. Without it Material3 falls back to its own

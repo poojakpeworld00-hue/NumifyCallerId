@@ -98,7 +98,7 @@
                         android:paddingHorizontal="6dp"
                         android:text="@string/premium_restore"
                         android:textColor="@color/premium_ink_muted"
-                        android:textSize="12.5sp" />
+                        android:textSize="@dimen/_10ssp" />
                 </LinearLayout>
 
                 <!-- ===== hero =====
@@ -142,7 +142,7 @@
                             android:includeFontPadding="false"
                             android:text="@string/premium_hero_free"
                             android:textColor="@color/premium_hero_title"
-                            android:textSize="26sp" />
+                            android:textSize="@dimen/_20sdp" />
 
                         <TextView
                             android:id="@+id/textHeroVs"
@@ -163,7 +163,7 @@
                             android:fontFamily="@font/space_grotesk_bold"
                             android:includeFontPadding="false"
                             android:text="@string/premium_hero_premium"
-                            android:textSize="26sp" />
+                            android:textSize="@dimen/_20sdp" />
 
                         <ImageView
                             android:id="@+id/iconHeroCrown"
@@ -184,7 +184,7 @@
                         android:fontFamily="@font/mulish_semibold"
                         android:text="@string/premium_hero_sub"
                         android:textColor="@color/premium_hero_sub"
-                        android:textSize="13.5sp" />
+                        android:textSize="@dimen/_11ssp" />
                 </LinearLayout>
 
                 <!-- ===== a2 · comparison table ===== -->
@@ -223,10 +223,10 @@
                             android:text="@string/premium_col_feature"
                             android:textAllCaps="true"
                             android:textColor="@color/premium_ink_muted"
-                            android:textSize="10.5sp" />
+                            android:textSize="@dimen/_9ssp" />
 
                         <TextView
-                            android:layout_width="64dp"
+                            android:layout_width="@dimen/_64sdp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/mulish_bold"
                             android:gravity="center"
@@ -236,10 +236,10 @@
                             android:text="@string/premium_col_free"
                             android:textAllCaps="true"
                             android:textColor="@color/premium_table_free"
-                            android:textSize="10.5sp" />
+                            android:textSize="@dimen/_9ssp" />
 
                         <TextView
-                            android:layout_width="62dp"
+                            android:layout_width="@dimen/_62sdp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/mulish_bold"
                             android:gravity="center"
@@ -249,7 +249,7 @@
                             android:text="@string/premium_col_premium"
                             android:textAllCaps="true"
                             android:textColor="@color/premium_accent"
-                            android:textSize="10.5sp" />
+                            android:textSize="@dimen/_9ssp" />
                     </LinearLayout>
 
                     <!-- Rows land here. -->
@@ -283,7 +283,7 @@
                     android:gravity="center"
                     android:lineSpacingMultiplier="1.6"
                     android:textColor="@color/premium_price_muted"
-                    android:textSize="11sp"
+                    android:textSize="@dimen/_10ssp"
                     tools:text="Loading plans…" />
 
                 <!-- ===== a3 · fine print ===== -->
@@ -298,7 +298,7 @@
                     android:lineSpacingMultiplier="1.6"
                     android:text="@string/premium_fine_print_plain"
                     android:textColor="@color/premium_price_muted"
-                    android:textSize="11sp" />
+                    android:textSize="@dimen/_10ssp" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
@@ -344,7 +344,7 @@
                     android:includeFontPadding="false"
                     android:text="@string/premium_cta"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/_14ssp" />
             </LinearLayout>
 
             <LinearLayout
@@ -364,7 +364,7 @@
                     android:paddingVertical="6dp"
                     android:text="@string/premium_terms_link"
                     android:textColor="@color/premium_ink_muted"
-                    android:textSize="11.5sp" />
+                    android:textSize="@dimen/_10ssp" />
 
                 <View
                     android:layout_width="1dp"
@@ -382,7 +382,7 @@
                     android:paddingVertical="6dp"
                     android:text="@string/premium_privacy_link"
                     android:textColor="@color/premium_ink_muted"
-                    android:textSize="11.5sp" />
+                    android:textSize="@dimen/_10ssp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -423,7 +423,7 @@
                 android:gravity="center"
                 android:text="@string/premium_owned_title"
                 android:textColor="@color/premium_ink"
-                android:textSize="19sp" />
+                android:textSize="@dimen/_19ssp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -434,7 +434,7 @@
                 android:lineSpacingMultiplier="1.35"
                 android:text="@string/premium_owned_sub"
                 android:textColor="@color/premium_ink_muted"
-                android:textSize="13sp" />
+                android:textSize="@dimen/_13ssp" />
 
             <TextView
                 android:id="@+id/buttonManage"
@@ -448,7 +448,7 @@
                 android:paddingHorizontal="16dp"
                 android:text="@string/premium_manage"
                 android:textColor="@color/premium_accent"
-                android:textSize="12.5sp" />
+                android:textSize="@dimen/_12ssp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

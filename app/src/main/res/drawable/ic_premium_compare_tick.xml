@@ -16,7 +16,7 @@
 
     <path
         android:pathData="M8 12.5l2.6 2.6L16 9.5"
-        android:strokeColor="@color/premium_accent"
+        android:strokeColor="@color/premium_tick_fg"
         android:strokeWidth="2.4"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />

@@ -9,8 +9,8 @@
              @font/mulish_ui, not @font/mulish: the UI ramp maps the default weight
              to Mulish Medium so unstyled text is not the thin Regular. See that
              file for why, and for why bold is left where it is. -->
-        <item name="android:fontFamily">@font/mulish_ui</item>
-        <item name="fontFamily">@font/mulish_ui</item>
+<!--        <item name="android:fontFamily">@font/mulish_ui</item>-->
+<!--        <item name="fontFamily">@font/mulish_ui</item>-->
 
         <item name="colorPrimary">@color/primary</item>
         <!-- Paired with colorPrimary. Without it Material3 falls back to its own

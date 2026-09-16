@@ -41,7 +41,7 @@
                 android:fontFamily="@font/mulish_bold"
                 android:maxLines="1"
                 android:textColor="@color/premium_ink"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_14ssp"
                 tools:text="Number lookup" />
 
             <TextView
@@ -53,23 +53,23 @@
                 android:fontFamily="@font/mulish_semibold"
                 android:maxLines="1"
                 android:textColor="@color/premium_table_free"
-                android:textSize="11sp"
+                android:textSize="@dimen/_11ssp"
                 tools:text="Daily search cap" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/textRowFree"
-            android:layout_width="64dp"
+            android:layout_width="@dimen/_64sdp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mulish_semibold"
             android:gravity="center"
             android:maxLines="1"
             android:textColor="@color/premium_table_free"
-            android:textSize="12sp"
+            android:textSize="@dimen/_12ssp"
             tools:text="5 / day" />
 
         <FrameLayout
-            android:layout_width="62dp"
+            android:layout_width="@dimen/_62sdp"
             android:layout_height="wrap_content">
 
             <ImageView

@@ -87,6 +87,6 @@
             android:fontFamily="@font/mulish_semibold"
             android:text="@string/premium_hero_sub"
             android:textColor="@color/premium_hero_sub"
-            android:textSize="13.5sp" />
+            android:textSize="@dimen/_13ssp" />
     </LinearLayout>
 </merge>

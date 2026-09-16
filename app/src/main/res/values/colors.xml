@@ -293,6 +293,14 @@
          quietly substituting one for the other is how a 'pixel-perfect' screen
          stops matching its design. -->
     <color name="premium_page">#F6F8FC</color>
+    <!-- The footer fade starts at the page colour with zero alpha. It needs its
+         own token: Android interpolates RGB across a gradient, so a transparent
+         WHITE stop over a dark page puts a pale haze through the middle of the
+         fade even though the stop itself is invisible. -->
+    <color name="premium_page_fade">#00F6F8FC</color>
+    <!-- The Premium column tick, which sits on premium_accent_wash. Brand blue
+         on the pale wash in light; on the deep wash it has to lift. -->
+    <color name="premium_tick_fg">#2E5FE8</color>
     <color name="premium_close_bg">#EEF1F7</color>
     <color name="premium_close_icon">#3A4050</color>
     <color name="premium_hero_start">#2A2154</color>
@@ -311,8 +319,6 @@
     <color name="premium_card_shadow">#0F141E3C</color>
     <color name="premium_radio_idle">#D6DAE5</color>
     <color name="premium_price_muted">#AAB0C0</color>
-    <color name="premium_sub_selected">#4A6BC4</color>
-    <color name="premium_price_selected_sub">#8FA6DF</color>
     <color name="premium_badge">#F2A93B</color>
     <color name="premium_plan_shadow">#292E5FE8</color>
     <color name="premium_cta_start">#3466F0</color>
@@ -329,6 +335,4 @@
     <!-- Comparison table. -->
     <color name="premium_table_header_bg">#F0F2F7</color>
     <color name="premium_table_free">#6E7689</color>
-    <color name="premium_check_circle">#E3F5EC</color>
-    <color name="premium_check_tick">#1E9E5A</color>
 </resources>
