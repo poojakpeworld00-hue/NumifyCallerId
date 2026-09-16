@@ -51,6 +51,7 @@
             android:paddingEnd="8dp">
 
             <ImageView
+                android:id="@+id/iconAccountGroup"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:contentDescription="@null"
@@ -76,11 +77,21 @@
                 rows that all read "poojachaudhari28…". The halves that tell them
                 apart are the start and the domain.
             -->
-            <!-- includeFontPadding off, or the label and the icon beside it do not
-                 share a centre line: the font's ascent/descent padding inflates
-                 the text's box by a few dp, and center_vertical then centres that
-                 inflated box rather than the glyphs inside it. The icon ends up
-                 sitting high against text that looks low. -->
+            <!--
+                gravity="center_vertical" is what actually aligns this row, and
+                it is not optional.
+
+                The caret is a 24dp drawable on a 13sp label, so it makes this
+                view 24dp tall — taller than its own text. TextView's default
+                vertical gravity is TOP, so the text was drawn at the top of that
+                box while the caret inside it and the group icon beside it both
+                centred, leaving the words sitting about 5dp high against both.
+                Measured: the row, the icon and this view all share centre y=228;
+                only the glyphs inside this view were off.
+
+                includeFontPadding stays off for the same family of reasons — it
+                pads the box with ascent/descent the glyphs do not use.
+            -->
             <TextView
                 android:id="@+id/textAccountName"
                 android:layout_width="wrap_content"
@@ -90,6 +101,7 @@
                 android:drawablePadding="6dp"
                 android:ellipsize="middle"
                 android:fontFamily="@font/mulish_bold"
+                android:gravity="center_vertical"
                 android:includeFontPadding="false"
                 android:maxLines="1"
                 android:singleLine="true"
