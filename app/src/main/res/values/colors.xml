@@ -286,4 +286,53 @@
     <color name="ds_lang_ru">#64748B</color>
     <color name="ds_lang_vi">#22C55E</color>
     <color name="ds_lang_tr">#38BDF8</color>
+
+    <!-- Contacts Premium (activity_premium). Values transcribed verbatim from the
+         handoff's 'Numify Premium.dc.html'. They are NOT aliases of the ds_ set:
+         the design's accent is #2E5FE8 where the app's brand is #0548FF, and
+         quietly substituting one for the other is how a 'pixel-perfect' screen
+         stops matching its design. -->
+    <color name="premium_page">#F6F8FC</color>
+    <color name="premium_close_bg">#EEF1F7</color>
+    <color name="premium_close_icon">#3A4050</color>
+    <color name="premium_hero_start">#2A2154</color>
+    <color name="premium_hero_end">#12172B</color>
+    <color name="premium_hero_sweep">#1AFFFFFF</color>
+    <color name="premium_crown_start">#F2A93B</color>
+    <color name="premium_crown_end">#D98315</color>
+    <color name="premium_crown_shadow">#66D98315</color>
+    <color name="premium_hero_shadow">#4D141432</color>
+    <color name="premium_trial_bg">#2E1E9E5A</color>
+    <color name="premium_trial_border">#661E9E5A</color>
+    <color name="premium_trial_text">#2ECC71</color>
+    <color name="premium_accent">#2E5FE8</color>
+    <color name="premium_accent_wash">#EAF0FE</color>
+    <color name="premium_ink">#12172B</color>
+    <color name="premium_ink_muted">#8A91A6</color>
+    <color name="premium_rule">#E1E5EE</color>
+    <color name="premium_divider">#F0F2F7</color>
+    <color name="premium_card">#FFFFFF</color>
+    <color name="premium_card_shadow">#0F141E3C</color>
+    <color name="premium_radio_idle">#D6DAE5</color>
+    <color name="premium_price_muted">#AAB0C0</color>
+    <color name="premium_sub_selected">#4A6BC4</color>
+    <color name="premium_price_selected_sub">#8FA6DF</color>
+    <color name="premium_badge">#F2A93B</color>
+    <color name="premium_plan_shadow">#292E5FE8</color>
+    <color name="premium_cta_start">#3466F0</color>
+    <color name="premium_cta_end">#1F3FAE</color>
+    <!-- ctaGlow breathes between rgba(46,95,232,.34) and rgba(46,95,232,.55). -->
+    <color name="premium_cta_glow_low">#572E5FE8</color>
+    <color name="premium_cta_glow">#8C2E5FE8</color>
+    <color name="premium_check_circle">#E3F5EC</color>
+    <color name="premium_check_tick">#1E9E5A</color>
+    <!-- Benefit tiles, in the order renderVals() lists them. -->
+    <color name="premium_benefit_ads_bg">#FDE2E2</color>
+    <color name="premium_benefit_ads_fg">#E5484D</color>
+    <color name="premium_benefit_lookup_bg">#EAF0FE</color>
+    <color name="premium_benefit_lookup_fg">#2E5FE8</color>
+    <color name="premium_benefit_ai_bg">#FEF3E1</color>
+    <color name="premium_benefit_ai_fg">#F2A93B</color>
+    <color name="premium_benefit_block_bg">#EDE9FB</color>
+    <color name="premium_benefit_block_fg">#7A5AF0</color>
 </resources>

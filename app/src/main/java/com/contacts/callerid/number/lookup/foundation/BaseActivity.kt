@@ -83,10 +83,23 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
      * AppCompatActivity directly and so are deliberately left out: they are
      * fixed-size surfaces sitting on someone else's UI, where growing the type
      * has nowhere to go.
+     *
+     * A screen built to a pixel-exact design handoff can opt out through
+     * [appliesAppTextScale]; the user's own system font size still applies to it.
      */
     override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(Typography.scaled(newBase))
+        super.attachBaseContext(if (appliesAppTextScale) Typography.scaled(newBase) else newBase)
     }
+
+    /**
+     * Whether this screen takes the app-wide text enlargement.
+     *
+     * True everywhere except screens transcribed dimension-for-dimension from a
+     * design, where growing the type by 8% is the one change that stops it
+     * matching. Overriding this does not ignore the user's accessibility font
+     * size — it only drops this app's own multiplier on top of it.
+     */
+    protected open val appliesAppTextScale: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         applyLocale()

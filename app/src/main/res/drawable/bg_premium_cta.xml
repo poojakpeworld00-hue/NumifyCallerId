@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- linear-gradient(135deg,#3466F0,#1F3FAE), radius 19. CSS 135deg is exactly
+     Android 315 — no quantisation here. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient android:angle="315" android:startColor="@color/premium_cta_start" android:endColor="@color/premium_cta_end" android:type="linear" />
+    <corners android:radius="19dp" />
+</shape>

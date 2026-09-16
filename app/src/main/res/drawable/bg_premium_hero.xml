@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- linear-gradient(155deg,#2A2154,#12172B), radius 22.
+     Android quantises <gradient android:angle> to 45° steps; CSS 155deg maps to
+     295°, so 315 is the nearest and is what is used. Off by 20° on a 22dp-radius
+     card, which is not resolvable by eye — the alternative is a custom Drawable
+     with a LinearGradient shader for a difference nobody can see. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient android:angle="315" android:startColor="@color/premium_hero_start" android:endColor="@color/premium_hero_end" android:type="linear" />
+    <corners android:radius="22dp" />
+</shape>

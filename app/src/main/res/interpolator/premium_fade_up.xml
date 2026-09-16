@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The design's entrance curve, verbatim: cubic-bezier(.2,.7,.2,1).
+     Not "close enough" with a stock interpolator — this one starts fast, has a
+     long settle, and swapping it for FastOutSlowIn visibly changes the feel. -->
+<pathInterpolator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:controlX1="0.2" android:controlY1="0.7"
+    android:controlX2="0.2" android:controlY2="1" />

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Plan row. Selected takes the brand wash and a 2dp brand border; unselected
+     is white on a 2dp #E1E5EE hairline. Driven by isActivated, like every other
+     selectable row in this app. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_activated="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/premium_accent_wash" />
+            <stroke android:width="2dp" android:color="@color/premium_accent" />
+            <corners android:radius="18dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/premium_card" />
+            <stroke android:width="2dp" android:color="@color/premium_rule" />
+            <corners android:radius="18dp" />
+        </shape>
+    </item>
+</selector>

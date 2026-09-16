@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CSS `ease-in-out` is cubic-bezier(0.42, 0, 0.58, 1). Spelled out rather than
+     approximated with AccelerateDecelerateInterpolator (a cosine curve), because
+     the crown float and the hero sweep both run forever and the difference is
+     visible over a 3.4s cycle. -->
+<pathInterpolator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:controlX1="0.42"
+    android:controlY1="0"
+    android:controlX2="0.58"
+    android:controlY2="1" />

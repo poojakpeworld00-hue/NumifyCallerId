@@ -1,72 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- One purchasable plan. Selected state is driven by isActivated, the same way
-     every other selectable row in this app works (see item_language.xml). -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<!--
+    One plan row, transcribed from the design:
+
+        display:flex; align-items:center; gap:13px; border-radius:18px;
+        border:2px solid; padding:15px 16px;
+
+    Selection drives isActivated on the row and on the radio, which swaps both
+    backgrounds (bg_premium_plan / bg_premium_radio). The chosen row also takes
+    the design's box-shadow 0 10px 24px rgba(46,95,232,.16) — PremiumActivity
+    raises its elevation, because a shadow that is always on would show under
+    the unselected row too.
+
+    Press scales to 0.98 over 140ms: the design's `.plan:active` rule, written
+    as a StateListAnimator.
+
+    The outer FrameLayout exists only for the BEST VALUE badge. The design hangs
+    it 10px above the row (`top:-10px; right:14px`), and a child of the row
+    itself would be clipped by the row's own rounded background.
+
+    The badge carries more elevation than the selected row ever does, or the
+    row's 10dp shadow lift reorders the two and eats the badge's lower half.
+    `outlineProvider="none"` keeps that elevation from drawing a shadow the
+    design does not have.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rowPlan"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:background="@drawable/bg_ds_plan_row"
-    android:clickable="true"
-    android:focusable="true"
-    android:gravity="center_vertical"
-    android:minHeight="64dp"
-    android:orientation="horizontal"
-    android:paddingHorizontal="16dp"
-    android:paddingVertical="12dp">
-
-    <ImageView
-        android:id="@+id/iconPlanTick"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        android:background="@drawable/bg_ds_checkbox"
-        android:contentDescription="@null"
-        android:padding="4dp"
-        android:src="@drawable/ic_check"
-        app:tint="@color/selector_ds_check" />
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:id="@+id/rowPlan"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:background="@drawable/bg_premium_plan"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:outlineAmbientShadowColor="@color/premium_plan_shadow"
+        android:outlineSpotShadowColor="@color/premium_plan_shadow"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="15dp"
+        android:stateListAnimator="@animator/premium_plan_press">
 
-        <TextView
-            android:id="@+id/textPlanTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:fontFamily="@font/mulish_bold"
-            android:includeFontPadding="false"
-            android:maxLines="1"
-            android:textColor="@color/ds_ink"
-            android:textSize="14.5sp"
-            tools:text="Yearly" />
+        <FrameLayout
+            android:id="@+id/radioPlan"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="@drawable/bg_premium_radio">
 
-        <TextView
-            android:id="@+id/textPlanSub"
-            android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/iconPlanCheck"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_premium_radio_check"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:ellipsize="end"
-            android:fontFamily="@font/mulish_semibold"
-            android:includeFontPadding="false"
-            android:maxLines="1"
-            android:textColor="@color/ds_ink_muted"
-            android:textSize="11.5sp"
-            tools:text="Billed every 12 months" />
+            android:layout_marginStart="13dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textPlanTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/mulish_bold"
+                android:maxLines="1"
+                android:textColor="@color/premium_ink"
+                android:textSize="15sp"
+                tools:text="Lifetime" />
+
+            <TextView
+                android:id="@+id/textPlanSub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/mulish_semibold"
+                android:maxLines="1"
+                android:textColor="@color/premium_ink_muted"
+                android:textSize="11.5sp"
+                tools:text="One payment, yours forever" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textPlanPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:fontFamily="@font/space_grotesk_bold"
+                android:includeFontPadding="false"
+                android:textColor="@color/premium_ink"
+                android:textSize="18sp"
+                tools:text="4,999" />
+
+            <TextView
+                android:id="@+id/textPlanPeriod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/mulish_bold"
+                android:includeFontPadding="false"
+                android:textColor="@color/premium_price_muted"
+                android:textSize="10.5sp"
+                tools:text="one time" />
+        </LinearLayout>
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textPlanPrice"
+        android:id="@+id/badgeBestValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_gravity="end|top"
+        android:layout_marginTop="-10dp"
+        android:layout_marginEnd="14dp"
+        android:background="@drawable/bg_premium_badge"
+        android:elevation="12dp"
+        android:outlineProvider="none"
         android:fontFamily="@font/mulish_bold"
-        android:textColor="@color/ds_ink"
-        android:textSize="15sp"
-        tools:text="₹1,499" />
-</LinearLayout>
+        android:includeFontPadding="false"
+        android:letterSpacing="0.063"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="3dp"
+        android:text="@string/premium_best_value"
+        android:textColor="@color/white"
+        android:textSize="9.5sp"
+        android:visibility="gone"
+        tools:visibility="visible" />
+</FrameLayout>

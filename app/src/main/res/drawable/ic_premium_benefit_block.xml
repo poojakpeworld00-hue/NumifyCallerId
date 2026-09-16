@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Design benefit 4 "Block unlimited": shield + tick, stroke #7A5AF0. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="15dp" android:height="15dp" android:viewportWidth="24" android:viewportHeight="24">
+    <path android:pathData="M12 3l7 3v6c0 5-3.1 8-7 9-3.9-1-7-4-7-9V6l7-3zM9 12l2 2 4-4"
+        android:strokeColor="@color/premium_benefit_block_fg" android:strokeWidth="1.9"
+        android:strokeLineCap="round" android:strokeLineJoin="round" />
+</vector>

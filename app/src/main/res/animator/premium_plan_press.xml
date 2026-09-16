@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Design: .plan { transition: transform .14s ease } .plan:active { scale(.98) }
+     A StateListAnimator rather than a touch listener, so the press tracks the
+     real pressed state — including a press that slides off the row, which a
+     down/up listener gets wrong. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <set>
+            <objectAnimator android:propertyName="scaleX" android:valueTo="0.98"
+                android:duration="140" android:interpolator="@interpolator/premium_ease" />
+            <objectAnimator android:propertyName="scaleY" android:valueTo="0.98"
+                android:duration="140" android:interpolator="@interpolator/premium_ease" />
+        </set>
+    </item>
+    <item>
+        <set>
+            <objectAnimator android:propertyName="scaleX" android:valueTo="1"
+                android:duration="140" android:interpolator="@interpolator/premium_ease" />
+            <objectAnimator android:propertyName="scaleY" android:valueTo="1"
+                android:duration="140" android:interpolator="@interpolator/premium_ease" />
+        </set>
+    </item>
+</selector>

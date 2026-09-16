@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Contacts Premium.
+<!--
+    Contacts Premium — built from the handoff's "Numify Premium.dc.html".
 
-     Built against the app's own design system so it ships working and on-brand.
-     The Claude Design source ("Contacts Premium.dc.html") could not be read — the
-     design MCP is not authorised in this session — so the *visual* treatment here
-     is provisional and expected to be replaced once it can be. Nothing below the
-     surface depends on it: ids, plan rows and states are what PremiumActivity
-     drives, so a re-skin is a layout change and nothing more.
+    Every dimension, colour, radius and weight below is transcribed from that
+    file. The design canvas is 412x892 (see the x-import hint-size), so its CSS
+    px map 1:1 onto dp and are used as written.
 
-     Plan rows are inflated at runtime from whatever Play returns (see
-     item_premium_plan.xml). They are not laid out statically here because the
-     number of plans is a Play Console decision, not a layout one. -->
+    Structure, top to bottom, exactly as the design orders it:
+      close + Restore  ->  hero  ->  "What you unlock" + benefits card
+      ->  "Choose your plan" + plan rows  ->  fine print   [scrolling]
+      CTA + legal links                                    [pinned footer]
+
+    The four a1..a4 entrance groups carry ids so PremiumActivity can stagger
+    them 0/90/180/270ms; the design does it with CSS animation-delay on those
+    class names.
+
+    Benefit rows and plan rows are inflated at runtime, not laid out statically:
+    the design generates benefits from a list, and the plans carry live prices
+    from Play. Everything else is declarative.
+-->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -21,172 +29,345 @@
         android:id="@+id/premiumRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/ds_page">
-
-        <ImageView
-            android:id="@+id/buttonClose"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="12dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/action_back"
-            android:padding="10dp"
-            android:src="@drawable/ic_close"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/ds_ink_muted" />
+        android:background="@color/premium_page">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/premiumScroll"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"
             android:overScrollMode="never"
-            android:paddingBottom="16dp"
             android:scrollbars="none"
-            app:layout_constraintBottom_toTopOf="@id/buttonSubscribe"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/buttonClose">
+            app:layout_constraintTop_toTopOf="parent">
 
+            <!-- 18px top, 20px sides — the design's `padding:18px 20px 0`. The
+                 bottom padding clears the pinned footer so the last row can
+                 scroll out from under it. -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingHorizontal="24dp">
+                android:paddingHorizontal="20dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="150dp">
 
-                <TextView
+                <!-- ===== a1 · close + Restore ===== -->
+                <LinearLayout
+                    android:id="@+id/groupA1Header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/space_grotesk_bold"
-                    android:text="@string/premium_title"
-                    android:textColor="@color/ds_ink"
-                    android:textSize="26sp" />
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                <TextView
+                    <ImageView
+                        android:id="@+id/buttonClose"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_premium_close"
+                        android:contentDescription="@string/action_back"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_premium_close" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/buttonRestore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:fontFamily="@font/mulish_bold"
+                        android:gravity="center_vertical"
+                        android:minHeight="36dp"
+                        android:paddingHorizontal="6dp"
+                        android:text="@string/premium_restore"
+                        android:textColor="@color/premium_ink_muted"
+                        android:textSize="12.5sp" />
+                </LinearLayout>
+
+                <!-- ===== a1 · hero ===== -->
+                <FrameLayout
+                    android:id="@+id/groupA1Hero"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:fontFamily="@font/mulish_semibold"
-                    android:lineSpacingMultiplier="1.3"
-                    android:text="@string/premium_subtitle"
-                    android:textColor="@color/ds_ink_muted"
-                    android:textSize="13.5sp" />
+                    android:background="@drawable/bg_premium_hero"
+                    android:clipToOutline="true"
+                    android:elevation="10dp"
+                    android:outlineAmbientShadowColor="@color/premium_hero_shadow"
+                    android:outlineSpotShadowColor="@color/premium_hero_shadow">
 
-                <!-- The four things Premium actually changes, in the order they
-                     matter. Each line names a limit the user has already met. -->
+                    <!-- The travelling highlight: 40% of the card's width, swept
+                         from -120% to 240% — see PremiumActivity.startHeroSweep.
+                         First child, so it sits behind the content as the design
+                         layers it. -->
+                    <View
+                        android:id="@+id/heroSweep"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_premium_sweep" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="18dp">
+
+                        <FrameLayout
+                            android:id="@+id/heroCrown"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/bg_premium_crown"
+                            android:elevation="6dp"
+                            android:outlineAmbientShadowColor="@color/premium_crown_shadow"
+                            android:outlineSpotShadowColor="@color/premium_crown_shadow">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@null"
+                                android:src="@drawable/ic_premium_crown" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/space_grotesk_bold"
+                                android:lineSpacingMultiplier="1.2"
+                                android:text="@string/premium_title"
+                                android:textColor="@color/white"
+                                android:textSize="22sp" />
+
+                            <!-- Trial badge. wrap_content on purpose: the design
+                                 uses inline-flex, so the pill hugs its text
+                                 rather than spanning the card. -->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:background="@drawable/bg_premium_trial_pill"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="4dp">
+
+                                <ImageView
+                                    android:layout_width="11dp"
+                                    android:layout_height="11dp"
+                                    android:contentDescription="@null"
+                                    android:src="@drawable/ic_premium_shield" />
+
+                                <TextView
+                                    android:id="@+id/textTrialBadge"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:fontFamily="@font/mulish_bold"
+                                    android:includeFontPadding="false"
+                                    android:text="@string/premium_trial_badge"
+                                    android:textColor="@color/premium_trial_text"
+                                    android:textSize="11sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </FrameLayout>
+
+                <!-- ===== a2 · "What you unlock" ===== -->
+                <include
+                    android:id="@+id/groupA2Header"
+                    layout="@layout/item_premium_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="12dp" />
+
                 <LinearLayout
                     android:id="@+id/listBenefits"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="22dp"
-                    android:orientation="vertical" />
+                    android:background="@drawable/bg_premium_card"
+                    android:clipToOutline="true"
+                    android:elevation="4dp"
+                    android:orientation="vertical"
+                    android:outlineAmbientShadowColor="@color/premium_card_shadow"
+                    android:outlineSpotShadowColor="@color/premium_card_shadow" />
 
-                <!-- Filled by PremiumActivity from Play's response. -->
+                <!-- ===== a3 · "Choose your plan" ===== -->
+                <include
+                    android:id="@+id/groupA3Header"
+                    layout="@layout/item_premium_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Plan rows land here. The BEST VALUE badge overhangs the row's
+                     top edge by 10dp, so this container must not clip its
+                     children and needs that 10dp back as padding. -->
                 <LinearLayout
                     android:id="@+id/listPlans"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:orientation="vertical" />
-
-                <!-- Shown while Play is still answering, and replaced by
-                     textPlansError if it answers with nothing. -->
-                <TextView
-                    android:id="@+id/textPlansLoading"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/mulish_semibold"
-                    android:gravity="center"
-                    android:text="@string/premium_loading"
-                    android:textColor="@color/ds_ink_muted"
-                    android:textSize="13sp" />
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:paddingTop="10dp" />
 
                 <TextView
-                    android:id="@+id/textPlansError"
+                    android:id="@+id/textPlansStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/mulish_semibold"
                     android:gravity="center"
-                    android:lineSpacingMultiplier="1.3"
-                    android:text="@string/premium_unavailable"
-                    android:textColor="@color/ds_ink_muted"
-                    android:textSize="13sp"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
+                    android:lineSpacingMultiplier="1.6"
+                    android:textColor="@color/premium_price_muted"
+                    android:textSize="11sp"
+                    tools:text="Loading plans…" />
 
-                <!-- Play requires that a subscription's terms are visible before
-                     purchase, and that restoring is reachable without paying. -->
+                <!-- ===== a4 · fine print ===== -->
                 <TextView
-                    android:id="@+id/textTerms"
+                    android:id="@+id/groupA4Terms"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="14dp"
                     android:fontFamily="@font/mulish_semibold"
                     android:gravity="center"
-                    android:lineSpacingMultiplier="1.35"
-                    android:text="@string/premium_terms"
-                    android:textColor="@color/ds_ink_muted"
+                    android:lineSpacingMultiplier="1.6"
+                    android:text="@string/premium_fine_print"
+                    android:textColor="@color/premium_price_muted"
                     android:textSize="11sp" />
-
-                <TextView
-                    android:id="@+id/buttonRestore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:fontFamily="@font/mulish_bold"
-                    android:minHeight="44dp"
-                    android:gravity="center"
-                    android:paddingHorizontal="16dp"
-                    android:text="@string/premium_restore"
-                    android:textColor="@color/ds_accent"
-                    android:textSize="12.5sp" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonSubscribe"
-            style="@style/Widget.Material3.Button"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginBottom="18dp"
-            android:enabled="false"
-            android:fontFamily="@font/mulish_bold"
-            android:text="@string/premium_cta"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            app:backgroundTint="@color/selector_premium_cta"
-            app:cornerRadius="26dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+        <!-- ===== Pinned footer ===== -->
+        <LinearLayout
+            android:id="@+id/premiumFooter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_premium_footer_scrim"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-        <!-- Everything above is replaced by this once the user owns Premium, so
-             the screen is also the place that confirms they do. -->
+            <LinearLayout
+                android:id="@+id/buttonSubscribe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_premium_cta"
+                android:clickable="true"
+                android:elevation="12dp"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:outlineAmbientShadowColor="@color/premium_cta_glow"
+                android:outlineSpotShadowColor="@color/premium_cta_glow"
+                android:padding="17dp">
+
+                <ImageView
+                    android:id="@+id/iconCta"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_premium_sparkle" />
+
+                <TextView
+                    android:id="@+id/textCta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:fontFamily="@font/mulish_bold"
+                    android:includeFontPadding="false"
+                    android:text="@string/premium_cta"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/buttonTerms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="@font/mulish_bold"
+                    android:paddingHorizontal="4dp"
+                    android:paddingVertical="6dp"
+                    android:text="@string/premium_terms_link"
+                    android:textColor="@color/premium_ink_muted"
+                    android:textSize="11.5sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="12dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@color/premium_radio_idle" />
+
+                <TextView
+                    android:id="@+id/buttonPrivacy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="@font/mulish_bold"
+                    android:paddingHorizontal="4dp"
+                    android:paddingVertical="6dp"
+                    android:text="@string/premium_privacy_link"
+                    android:textColor="@color/premium_ink_muted"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Replaces the offer once Premium is held. The design has no owned
+             state, so this one is the app's own and is deliberately plain. -->
         <LinearLayout
             android:id="@+id/stateOwned"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/ds_page"
+            android:background="@color/premium_page"
             android:gravity="center"
             android:orientation="vertical"
             android:paddingHorizontal="40dp"
             android:visibility="gone"
             tools:visibility="gone">
 
-            <ImageView
+            <FrameLayout
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:background="@drawable/bg_circle_surface"
-                android:contentDescription="@null"
-                android:padding="20dp"
-                android:src="@drawable/ic_check"
-                app:tint="@color/ds_success" />
+                android:background="@drawable/bg_premium_crown"
+                android:elevation="6dp"
+                android:outlineAmbientShadowColor="@color/premium_crown_shadow"
+                android:outlineSpotShadowColor="@color/premium_crown_shadow">
+
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_premium_crown" />
+            </FrameLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -195,7 +376,7 @@
                 android:fontFamily="@font/space_grotesk_bold"
                 android:gravity="center"
                 android:text="@string/premium_owned_title"
-                android:textColor="@color/ds_ink"
+                android:textColor="@color/premium_ink"
                 android:textSize="19sp" />
 
             <TextView
@@ -206,7 +387,7 @@
                 android:gravity="center"
                 android:lineSpacingMultiplier="1.35"
                 android:text="@string/premium_owned_sub"
-                android:textColor="@color/ds_ink_muted"
+                android:textColor="@color/premium_ink_muted"
                 android:textSize="13sp" />
 
             <TextView
@@ -220,7 +401,7 @@
                 android:minHeight="44dp"
                 android:paddingHorizontal="16dp"
                 android:text="@string/premium_manage"
-                android:textColor="@color/ds_accent"
+                android:textColor="@color/premium_accent"
                 android:textSize="12.5sp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
