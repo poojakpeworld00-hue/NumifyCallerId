@@ -42,6 +42,7 @@ import com.contacts.callerid.number.lookup.BuildConfig
 import com.contacts.callerid.number.lookup.R
 import com.contacts.callerid.number.lookup.foundation.BaseActivity
 import com.contacts.callerid.number.lookup.repository.SettingsRepository
+import com.contacts.callerid.number.lookup.permission.PermissionCoordinator
 import com.contacts.callerid.number.lookup.permission.PermissionSheetDialog
 import com.contacts.callerid.number.lookup.permission.lockscreen.LockScreenConfig
 import com.contacts.callerid.number.lookup.permission.lockscreen.LockScreenPermission
@@ -431,7 +432,29 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     /** Auto-opens the permission sheet when perms are pending and the RC gate agrees. */
     private fun maybeAutoShowPermissionSheet() {
         if (PermissionSheetDialog.shouldAutoShow(this)) showPermissionSheet()
-        else maybeShowRateUs()
+        else runHomePermissionReattempt()
+    }
+
+    /**
+     * Home's second chance at the splash permissions, for configs that run
+     * without the bottom sheet.
+     *
+     * The sheet was the only thing on Home that ever started the permission
+     * engine, so `screen.permission_sheet.isEnable = false` quietly took the
+     * reattempt away with it: whatever the user declined on the splash was never
+     * asked for again, and the audience configs that ask for notifications (and,
+     * on the paid side, phone state) a second time on Home had nothing to fire
+     * them. The engine's `permission_engine` rules already say which permissions
+     * Home may raise and in what order - this only gives them a trigger.
+     *
+     * Deliberately on the no-sheet path only. With the sheet on it owns the
+     * flow, and a second queue running behind it would race its prompts.
+     * [PermissionCoordinator.check] completes immediately when no rule targets
+     * this screen, so the rate-us handoff is unchanged for a config that
+     * configures nothing here.
+     */
+    private fun runHomePermissionReattempt() {
+        PermissionCoordinator.check(this) { maybeShowRateUs() }
     }
 
     /**
