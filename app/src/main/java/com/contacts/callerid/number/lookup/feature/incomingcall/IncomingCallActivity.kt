@@ -74,13 +74,10 @@ class IncomingCallActivity : AppCompatActivity() {
 
             // Same two-step as the floating overlay: the card shows immediately
             // from local data, and the caller-ID API fills in the name, carrier
-            // and spam verdict if it answers in time. A saved contact keeps the
-            // user's own name.
-            if (!info.known) {
-                val facts = withContext(Dispatchers.IO) {
-                    CallerLabel.lookupNetworkFacts(this@IncomingCallActivity, number)
-                }
-                CallerLabel.applyNetworkFacts(this@IncomingCallActivity, card, info, facts)
+            // and spam verdict whenever it answers — not only if it beats a
+            // deadline. A saved contact keeps the user's own name.
+            CallerLabel.fillNetworkName(this@IncomingCallActivity, number, info) {
+                if (isFinishing || isDestroyed) null else card
             }
         }
 

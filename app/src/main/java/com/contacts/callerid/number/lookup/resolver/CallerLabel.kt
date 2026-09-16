@@ -19,6 +19,9 @@ import com.contacts.callerid.number.lookup.repository.assistant.CallerInsight
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.contacts.callerid.number.lookup.entity.CallerFacts
 import com.contacts.callerid.number.lookup.repository.assistant.CallerRisk
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withTimeoutOrNull
 import com.contacts.callerid.number.lookup.feature.widgets.CallActionHandler
 
@@ -244,7 +247,7 @@ object CallerLabel {
             return null
         }
         return runCatching {
-            withTimeoutOrNull(TIMEOUT_MS) {
+            withTimeoutOrNull(LOOKUP_TIMEOUT_MS) {
                 val response = NetworkClientFactory.api.checkPhoneNumber(
                     url = EndpointConfig.similarPhonePath(context),
                     phone = number
@@ -258,6 +261,58 @@ object CallerLabel {
                 rows.firstOrNull { !it.name.isNullOrBlank() } ?: rows.firstOrNull()
             }
         }.getOrNull()
+    }
+
+    /**
+     * Looks the number up on the network and puts the answer on the card
+     * whenever it arrives — which is not the same as "if it arrives quickly".
+     *
+     * **This is why the overlay used to disagree with the Lookup screen.** Both
+     * ask the same endpoint the same question about the same number, but the
+     * overlay wrapped its call in a 2.5-second `withTimeoutOrNull` and the Lookup
+     * screen has no deadline at all. On a ringing phone the overlay's request is
+     * typically the process's *first* to that host, so it pays DNS, a TCP
+     * handshake and a TLS handshake before the server is even asked — measured at
+     * ~1.0s from a desktop on wifi, 0.78s of it TLS, and a mobile radio busy with
+     * an incoming call is slower than that. Past 2.5s the answer was not late, it
+     * was thrown away: the card settled on "Unknown" for a number the app could
+     * name perfectly well a moment later.
+     *
+     * So the deadline is now on the *shimmer*, not on the lookup. The card stops
+     * spinning after [SHIMMER_MS] and reads "Unknown", which is honest about what
+     * is known right then, and the request carries on. A later answer still lands
+     * on the card, because a name that arrives at four seconds is still useful for
+     * the twenty-odd seconds a phone goes on ringing.
+     *
+     * [card] is fetched again at each step rather than captured: the window is
+     * torn down when the call ends, and a lookup that outlives it must find null
+     * and stop rather than write into a detached view.
+     */
+    suspend fun fillNetworkName(
+        context: Context,
+        number: String,
+        info: Info,
+        card: () -> View?,
+    ) = coroutineScope {
+        if (info.known) return@coroutineScope
+
+        val pending = async(Dispatchers.IO) { lookupNetworkFacts(context, number) }
+
+        // The common case: the answer beats the shimmer and the card never shows
+        // "Unknown" at all.
+        val quick = withTimeoutOrNull(SHIMMER_MS) { pending.await() }
+        if (quick != null) {
+            card()?.let { applyNetworkFacts(context, it, info, quick) }
+            return@coroutineScope
+        }
+
+        // Slow answer: settle the card so it is readable, then keep waiting.
+        // Passing null here only clears the loading state — applyNetworkFacts
+        // treats it as "leave what is on screen", so this cannot erase anything.
+        card()?.let { applyNetworkFacts(context, it, info, null) }
+
+        val late = pending.await() ?: return@coroutineScope
+        card()?.let { applyNetworkFacts(context, it, info, late) }
     }
 
     /**
@@ -399,7 +454,15 @@ object CallerLabel {
             R.color.danger_soft, R.drawable.ic_info)
 
     /** Short enough that the name lands while the phone is still ringing. */
-    private const val TIMEOUT_MS = 2_500L
+    /** How long the card may shimmer before it settles on "Unknown" and waits. */
+    private const val SHIMMER_MS = 2_500L
+
+    /**
+     * Backstop on the lookup itself. Generous on purpose: OkHttp already applies
+     * its own 10s read timeout, and a ring lasts around thirty seconds, so the
+     * only thing a tighter value buys is the bug this replaced.
+     */
+    private const val LOOKUP_TIMEOUT_MS = 15_000L
 
     /** Last 9 digits — tolerant comparison that ignores country code / formatting. */
     private fun digitsTail(number: String): String =

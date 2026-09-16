@@ -117,17 +117,15 @@ class CallerOverlayService : Service() {
             val info = withContext(Dispatchers.IO) { CallerLabel.resolve(this@CallerOverlayService, number) }
             overlayView?.let { CallerLabel.bind(this@CallerOverlayService, it, number, info) }
 
-            // The card is already up; the caller-ID API's answer lands on it when
-            // (and only if) it arrives in time. Skipped for a saved contact,
-            // whose own name should never be replaced.
-            if (!info.known) {
-                val facts = withContext(Dispatchers.IO) {
-                    CallerLabel.lookupNetworkFacts(this@CallerOverlayService, number)
-                }
-                overlayView?.let {
-                    CallerLabel.applyNetworkFacts(this@CallerOverlayService, it, info, facts)
-                }
-            }
+            // The card is already up; the caller-ID API's answer lands on it
+            // whenever it arrives, not only if it beats a deadline — see
+            // CallerLabel.fillNetworkName for why that distinction was the bug.
+            // Skipped for a saved contact, whose own name should never be
+            // replaced. `overlayView` is passed as a lambda so a lookup that
+            // outlives the window finds null instead of a detached view.
+            CallerLabel.fillNetworkName(
+                this@CallerOverlayService, number, info
+            ) { overlayView }
         }
     }
 
