@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The row's call disc, drawn at 36dp inside a 48dp view.
+
+     The disc used to BE the view, which made the touch target 36dp — under
+     Android's 48dp minimum, on the one control in a contact row that places a
+     call. Growing the view to 48dp would have grown the disc with it and made
+     the button shout; insetting the shape by 6dp a side keeps the disc exactly
+     where it was and gives the finger the other 12dp. -->
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/bg_ds_call_disc"
+    android:inset="6dp" />

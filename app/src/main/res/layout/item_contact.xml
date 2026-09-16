@@ -7,6 +7,11 @@
      contact without a picture still gets a solid, per-contact colour rather than a
      grey placeholder, which is what the design draws.
 
+     Row height is unchanged at 70dp: the call button grew from 36dp to 48dp to
+     meet the touch minimum, so the vertical padding came down 13dp -> 11dp to
+     pay for it. A taller row would have cost the list two contacts a screen for
+     a change nobody can see.
+
      dp/sp throughout, not sdp/ssp; see item_language.xml for why. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,7 +22,7 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingHorizontal="16dp"
-    android:paddingVertical="13dp">
+    android:paddingVertical="11dp">
 
     <FrameLayout
         android:layout_width="44dp"
@@ -45,10 +50,15 @@
             android:visibility="gone" />
     </FrameLayout>
 
+    <!-- marginEnd is not decoration: with weight 1 and nothing after it, this
+         column measured right up to the call disc, so a name long enough to
+         ellipsize put its "…" flush against the circle and the two read as one
+         collided object. The gap is what separates the label from the control. -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -64,25 +74,41 @@
             android:textSize="14.5sp"
             tools:text="Aisha Lawson" />
 
+        <!-- Bounded like the name above it. A number is normally short, but this
+             line also carries whatever a contact was saved with — an extension,
+             a note, a second number run together — and an unbounded line would
+             wrap and change the row's height rather than ellipsize. -->
         <TextView
             android:id="@+id/textNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
+            android:ellipsize="end"
             android:fontFamily="@font/mulish_semibold"
             android:includeFontPadding="false"
+            android:maxLines="1"
             android:textColor="@color/ds_ink_muted"
             android:textSize="12sp"
             tools:text="+1 (415) 555-0178" />
     </LinearLayout>
 
+    <!-- 48dp of view around a 36dp disc — see @drawable/bg_ds_call_disc_touch.
+         The glyph stays 16dp (48 − 2×16), exactly what 36 − 2×10 gave before, so
+         nothing about the row looks different; only the part you can hit changed.
+
+         The ripple is the foreground because the disc owns the background, and a
+         ripple put there would simply replace it — the same rule the dial keys
+         follow. -->
     <ImageView
         android:id="@+id/buttonCall"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:background="@drawable/bg_ds_call_disc"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_ds_call_disc_touch"
+        android:clickable="true"
         android:contentDescription="@string/action_call"
-        android:padding="10dp"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:padding="16dp"
         android:src="@drawable/ic_ds_phone"
         app:tint="@color/ds_accent" />
 </LinearLayout>
