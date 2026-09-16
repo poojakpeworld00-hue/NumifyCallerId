@@ -16,15 +16,6 @@ class AdPreferenceStore constructor(context: Context) {
 
         /** The one key Premium overrides — see [getBoolean]. */
         private const val KEY_ADS_ON = "IsAdsON"
-
-        /** Audience, as LightHouse attribution resolved it. */
-        private const val KEY_ON_MARKETING = "OnMaketing"
-
-        /**
-         * Remote Config override for [KEY_ON_MARKETING]. Cached here by
-         * [RemoteConfigSync] from the top-level `force_audience` parameter.
-         */
-        const val KEY_FORCE_AUDIENCE = "force_audience"
         private const val KEY_PERMISSION_DENY_COUNT = "permission_deny_count"
         const val LANGUAGE_ONETIME = "IsLanguageOnTime"
         const val IS_SPLASH = "IsSplash"
@@ -164,39 +155,14 @@ class AdPreferenceStore constructor(context: Context) {
      * one. Threading a premium check through sixteen call sites could, and the
      * one it missed would be an ad shown to someone who paid not to see ads.
      *
-     * `OnMaketing` is intercepted too, and for a different reason: attribution
-     * is decided by the install referrer, which a sideloaded or internally
-     * distributed build simply does not have. There is no way to exercise the
-     * paid audience on a release APK without one, so `force_audience` in Remote
-     * Config can pin it. See [forcedAudience].
-     *
-     * Deliberately narrow: only those two keys. Every other key still reports
-     * exactly what Remote Config said, so this cannot quietly change ad ids,
-     * counters or feature flags.
+     * Deliberately narrow: only `IsAdsON` is intercepted. Every other key still
+     * reports exactly what Remote Config said, so this cannot quietly change ad
+     * ids, counters or feature flags.
      */
     fun getBoolean(key: String?, defaultValue: Boolean): Boolean {
         if (key == KEY_ADS_ON && PremiumStore.isPremium(appContext)) return false
-        if (key == KEY_ON_MARKETING) forcedAudience()?.let { return it }
         return preferences.getBoolean(key, defaultValue)
     }
-
-    /**
-     * The pinned audience, or null to use what attribution actually said.
-     *
-     * Publish the top-level Remote Config parameter `force_audience` as
-     * `marketing` (or `paid`) to pin every install to the paid blocks, or
-     * `organic` to pin them to the organic ones. Anything else — including the
-     * empty default — leaves the real verdict alone.
-     *
-     * **It applies to every install that fetches it**, not just yours. It is a
-     * testing switch, not a targeting one; leave it blank in production.
-     */
-    fun forcedAudience(): Boolean? =
-        when (preferences.getString(KEY_FORCE_AUDIENCE, "").orEmpty().trim().lowercase()) {
-            "marketing", "paid" -> true
-            "organic", "free" -> false
-            else -> null
-        }
 
     fun getBoolean(key: String?): Boolean {
         return getBoolean(key, false)
