@@ -60,7 +60,6 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
             v.setPadding(bars.left, bars.top, bars.right, 0)
             insets
         }
-        binding.buttonBack.visibility = View.GONE
 
         binding.listFrequent.layoutManager = LinearLayoutManager(requireContext())
         binding.listFrequent.adapter = adapter

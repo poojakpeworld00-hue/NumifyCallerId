@@ -12,42 +12,25 @@
         android:background="@color/ds_page"
         tools:context=".screen.keypad.DialerActivity">
 
-        <!-- Top bar -->
-        <LinearLayout
-            android:id="@+id/topBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="18dp"
-            android:paddingBottom="14dp"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/buttonBack"
-                style="@style/ToolHeaderBack"
-                android:contentDescription="@string/action_back"
-                android:src="@drawable/ic_arrow_back"
-                app:tint="@color/ds_ink" />
-
-            <TextView
-                style="@style/ToolHeaderTitle"
-                android:text="@string/dialer_title" />
-        </LinearLayout>
+        <!-- No title bar, as on Tools and Contacts: the bottom nav chip already
+             says which tab this is, and on the one screen where vertical room is
+             scarcest — a keypad sheet leaves barely 250dp above it — a heading
+             that repeats the chip is the first thing that should go. The back
+             button went with it; this is a tab, and the shell owns the back
+             stack, so it was already hidden from code. -->
 
         <!--
-            Matches and the number actions share the band between the title and
-            the keypad, and both start at the top of it.
+            Matches and the number actions share the band above the keypad, and
+            both start at the top of it.
 
             They were bottom-aligned, hugging the keypad, on the reasoning that a
-            single match should not be stranded up by the title. What that
-            actually produced was the opposite complaint: a short card pushed to
-            the bottom leaves a hand's width of empty page directly under
-            "Dialer", which reads as a missing element rather than as breathing
-            room. Top-aligned, the band fills from the title downwards and the
-            slack collects above the keypad, where it looks like the gap it is —
-            which is also how the handoff's reference dialer draws it.
+            single match should not be stranded at the top of the screen. What
+            that actually produced was the opposite complaint: a short card pushed
+            to the bottom leaves a hand's width of empty page above it, which
+            reads as a missing element rather than as breathing room.
+            Top-aligned, the band fills downwards and the slack collects above
+            the keypad, where it looks like the gap it is — which is also how the
+            handoff's reference dialer draws it.
 
             It scrolls because the two together can outgrow the band — the
             action card plus a few matches is taller than what is left over a
@@ -65,6 +48,7 @@
             android:id="@+id/matchesScroll"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="14dp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:clipToPadding="false"
             android:paddingBottom="8dp"
@@ -74,7 +58,7 @@
             app:layout_constraintBottom_toTopOf="@id/dialpadPanel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topBar">
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:id="@+id/matchesContainer"
@@ -138,7 +122,7 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingHorizontal="16dp"
-                        android:paddingVertical="10dp">
+                        android:paddingVertical="8dp">
 
                         <!-- The same avatar every list in the app draws: a disc
                              tinted from AvatarPalette with the initials over it,
@@ -326,7 +310,7 @@
             app:layout_constraintBottom_toTopOf="@id/dialpadPanel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topBar">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:layout_width="@dimen/_64sdp"

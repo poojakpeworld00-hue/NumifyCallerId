@@ -69,15 +69,15 @@
          it is the one list in the app people arrive already knowing. -->
     <!-- A row in the dialer's unknown-number card.
 
-         46dp, not the 52dp a standalone list row gets. Five of these plus a
-         header have to share the band between the title and the keypad sheet,
-         and the sheet is the fixed one — 6dp a row is 30dp back, which is the
-         difference between the last action being reachable and being sliced in
-         half by the sheet's edge. Still over the 44dp touch-target floor. -->
+         44dp, not the 52dp a standalone list row gets. Five of these plus a
+         header share the band above the keypad sheet, and the sheet is the fixed
+         one: 8dp a row is 40dp back, which was the difference between the last
+         action being visible and being sliced in half by the sheet's edge.
+         44dp is the touch-target floor exactly — do not go below it. -->
     <style name="DialerAction">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">46dp</item>
+        <item name="android:minHeight">44dp</item>
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
