@@ -20,7 +20,16 @@ data class ContactRecord(
     val photoUri: String? = null,
     val starred: Boolean = false,
     val lastContacted: Long = 0L,
-    val inGroup: Boolean = false
+    val inGroup: Boolean = false,
+    /**
+     * The contact's first email address, or null when they have none.
+     *
+     * Carried so search can match on it: people look each other up by address as
+     * readily as by name, and a contact saved from a mail app may have nothing
+     * else worth typing. It is not part of [detail] — that is the row's phone
+     * number and the thing the row dials.
+     */
+    val email: String? = null,
 )
 
 /** Demo data used until real CallLog / Contacts providers are wired in. */

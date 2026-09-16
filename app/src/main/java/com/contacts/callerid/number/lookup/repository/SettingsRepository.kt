@@ -152,6 +152,14 @@ class SettingsRepository(context: Context) {
         get() = prefs.getInt(KEY_AI_QUERY_COUNT, 0)
         set(value) = prefs.edit().putInt(KEY_AI_QUERY_COUNT, value).apply()
 
+    /**
+     * Whether the Contacts tab's favourites rail is unfolded. Defaults to on, so
+     * the section behaves as it always has until someone chooses to fold it.
+     */
+    var favoritesExpanded: Boolean
+        get() = prefs.getBoolean(KEY_FAVORITES_EXPANDED, true)
+        set(value) = prefs.edit().putBoolean(KEY_FAVORITES_EXPANDED, value).apply()
+
     // --- Ask AI surfaces -----------------------------------------------------
     // Each is a user override on top of the Remote Config gate: a surface shows
     // only when the feature is enabled remotely AND the user has not turned it
@@ -203,6 +211,7 @@ class SettingsRepository(context: Context) {
         private const val KEY_RATE_US_ARMED_VERSION = "rate_us_armed_version"
         private const val KEY_AI_TOOLTIP_SHOWN = "ai_tooltip_shown"
         private const val KEY_AI_QUERY_COUNT = "ai_query_count"
+        private const val KEY_FAVORITES_EXPANDED = "contacts_favorites_expanded"
         private const val KEY_AI_HOME_BUTTON = "ai_home_button_enabled"
         private const val KEY_AI_CALLER_VERDICT = "ai_caller_verdict_enabled"
         private const val KEY_AI_CALL_SUMMARY = "ai_call_summary_enabled"

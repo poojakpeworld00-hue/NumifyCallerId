@@ -17,32 +17,34 @@
         android:paddingTop="18dp"
         android:paddingBottom="14dp">
 
-        <LinearLayout
+        <!-- No "Contacts" heading: the bottom nav chip already names the tab, and
+             the count is the only part that was telling the user something they
+             could not see, so it stays — as the whole of the left-hand side. -->
+        <TextView
+            android:id="@+id/textContactsCount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:fontFamily="@font/mulish_bold"
+            android:includeFontPadding="false"
+            android:textColor="@color/ds_ink_muted"
+            android:textSize="13sp"
+            tools:text="3 contacts" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/space_grotesk_bold"
-                android:includeFontPadding="false"
-                android:text="@string/nav_contacts"
-                android:textColor="@color/ds_ink"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/textContactsCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:fontFamily="@font/mulish_semibold"
-                android:includeFontPadding="false"
-                android:textColor="@color/ds_ink_muted"
-                android:textSize="13sp"
-                tools:text="3 contacts" />
-        </LinearLayout>
+        <!-- Search is a destination, not a field on this page: tapping it opens
+             ContactSearchActivity, which owns the keyboard, the voice button and
+             the results. The same move Google Contacts and Samsung Contacts make,
+             and the reason the in-page search field is gone. -->
+        <ImageView
+            android:id="@+id/buttonContactsSearch"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/bg_ds_search_square"
+            android:contentDescription="@string/contacts_search_hint"
+            android:padding="12dp"
+            android:src="@drawable/ic_ds_search"
+            app:tint="@color/ds_ink" />
 
         <ImageView
             android:id="@+id/buttonContactsAdd"
@@ -92,55 +94,11 @@
             android:outlineSpotShadowColor="@color/ds_card_shadow"
             android:padding="12dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_ds_inner_search"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingHorizontal="14dp"
-            android:paddingVertical="10dp">
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:contentDescription="@string/contacts_search_hint"
-                android:src="@drawable/ic_ds_search"
-                app:tint="@color/ds_ink_muted" />
-
-            <EditText
-                android:id="@+id/inputSearch"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:fontFamily="@font/mulish_semibold"
-                android:hint="@string/contacts_search_hint"
-                android:importantForAutofill="no"
-                android:inputType="textPersonName"
-                android:maxLines="1"
-                android:textColor="@color/ds_ink"
-                android:textColorHint="@color/ds_placeholder"
-                android:textSize="13.5sp" />
-
-            <ImageView
-                android:id="@+id/buttonClearSearch"
-                android:layout_width="@dimen/_24sdp"
-                android:layout_height="@dimen/_24sdp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/call_decline"
-                android:padding="@dimen/_5sdp"
-                android:src="@drawable/ic_close"
-                android:visibility="gone"
-                app:tint="@color/ds_ink_muted" />
-        </LinearLayout>
-
-        <!-- Filter chips -->
+        <!-- Filter chips. The search field that used to sit above them is gone —
+             it is ContactSearchActivity now, reached from the header. -->
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:overScrollMode="never"
             android:scrollbars="none">
 
@@ -178,27 +136,52 @@
         </HorizontalScrollView>
         </LinearLayout>
 
-        <!-- Favourites. Hidden by ContactListFragment when nobody is starred, so the
-             section header never sits over an empty rail. -->
+        <!--
+            Favourites, as a section the user can collapse — the disclosure Google
+            Contacts puts on the same group.
+
+            The rail is a shortcut, and a shortcut nobody uses is just a band of
+            screen taken from the directory underneath it. Tapping the header
+            folds it away and the choice is remembered, so someone who does not
+            use favourites stops paying for them on every launch.
+
+            The whole header is the control, not the caret alone: a 12dp chevron
+            is a poor target, and the row is already the width of the screen.
+            ContactListFragment still hides the section outright when nobody is
+            starred, so the header never sits over an empty rail.
+        -->
         <LinearLayout
             android:id="@+id/favSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center_vertical"
+            android:minHeight="36dp"
             android:orientation="horizontal"
             android:paddingHorizontal="20dp"
             android:visibility="gone">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:fontFamily="@font/mulish_bold"
                 android:letterSpacing="0.0909"
                 android:text="@string/contacts_tab_favorites"
                 android:textAllCaps="true"
                 android:textColor="@color/ds_ink_muted"
                 android:textSize="11sp" />
+
+            <ImageView
+                android:id="@+id/iconFavExpand"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:contentDescription="@string/contacts_favorites_toggle"
+                android:src="@drawable/ic_ds_chevron_down"
+                app:tint="@color/ds_ink_muted" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

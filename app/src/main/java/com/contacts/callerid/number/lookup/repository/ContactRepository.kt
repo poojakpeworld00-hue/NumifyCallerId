@@ -117,8 +117,46 @@ class ContactRepository(private val context: Context) {
         return out
     }
 
+    /**
+     * First email address per contact id.
+     *
+     * One query for the whole address book, joined by id below, rather than a
+     * per-contact lookup inside the cursor loop — the same bulk shape
+     * [photoUriByNumber] uses, and for the same reason: a query per row turns a
+     * 2,000-contact load into 2,000 content-provider round trips.
+     *
+     * First one wins. A contact with a work and a personal address gets one of
+     * them in search; matching every address would mean a second collection and
+     * a list-valued field for a case the row has no room to show anyway.
+     */
+    private fun emailByContactId(): Map<Long, String> {
+        val out = HashMap<Long, String>()
+        runCatching {
+            context.contentResolver.query(
+                ContactsContract.CommonDataKinds.Email.CONTENT_URI,
+                arrayOf(
+                    ContactsContract.CommonDataKinds.Email.CONTACT_ID,
+                    ContactsContract.CommonDataKinds.Email.ADDRESS,
+                ),
+                null,
+                null,
+                null
+            )?.use { cursor ->
+                val idIdx = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.CONTACT_ID)
+                val addressIdx = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)
+                if (idIdx < 0 || addressIdx < 0) return@use
+                while (cursor.moveToNext()) {
+                    val address = cursor.getString(addressIdx)?.trim().orEmpty()
+                    if (address.isNotEmpty()) out.putIfAbsent(cursor.getLong(idIdx), address)
+                }
+            }
+        }
+        return out
+    }
+
     fun getContacts(): List<ContactRecord> {
         val groupContactIds = queryGroupContactIds()
+        val emails = emailByContactId()
 
         // Keyed by display name to collapse multiple numbers of the same contact.
         val byName = LinkedHashMap<String, ContactRecord>()
@@ -157,7 +195,8 @@ class ContactRepository(private val context: Context) {
                     photoUri = if (photoIdx >= 0) cursor.getString(photoIdx) else null,
                     starred = starredIdx >= 0 && cursor.getInt(starredIdx) == 1,
                     lastContacted = if (lastIdx >= 0) cursor.getLong(lastIdx) else 0L,
-                    inGroup = groupContactIds.contains(contactId)
+                    inGroup = groupContactIds.contains(contactId),
+                    email = emails[contactId],
                 )
             }
         }

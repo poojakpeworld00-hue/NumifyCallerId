@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Contact search.
+
+     Its own screen rather than a field on the Contacts tab, which is how Google
+     Contacts and Samsung Contacts both do it. A search field living in a page
+     header has to share that page with a filter rail, a favourites strip, an ad
+     and the directory itself; here the results own the screen and the keyboard
+     comes up on arrival without pushing anything else around. -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:id="@+id/searchRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/ds_page"
+        android:orientation="vertical">
+
+        <!-- Back, field, voice — one bar, in the order the eye reads them. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:id="@+id/buttonBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/action_back"
+                android:padding="8dp"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/ds_ink" />
+
+            <EditText
+                android:id="@+id/inputSearch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:fontFamily="@font/mulish_semibold"
+                android:hint="@string/contacts_search_hint"
+                android:imeOptions="actionSearch"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/ds_ink"
+                android:textColorHint="@color/ds_placeholder"
+                android:textCursorDrawable="@null"
+                android:textSize="16sp" />
+
+            <!-- Clear and voice swap places in the same slot: with something
+                 typed the useful action is to clear it, with nothing typed it is
+                 to dictate. Two buttons side by side would leave one of them
+                 inert whatever the state. -->
+            <ImageView
+                android:id="@+id/buttonClearSearch"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/contacts_search_clear"
+                android:padding="10dp"
+                android:src="@drawable/ic_close"
+                android:visibility="gone"
+                app:tint="@color/ds_ink_muted" />
+
+            <ImageView
+                android:id="@+id/buttonVoiceSearch"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/contacts_search_voice"
+                android:padding="9dp"
+                android:src="@drawable/ic_ds_mic"
+                app:tint="@color/ds_accent" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/ds_rule" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listResults"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_ds_card"
+                android:clipToOutline="true"
+                android:clipToPadding="false"
+                android:elevation="6dp"
+                android:overScrollMode="never"
+                android:paddingBottom="12dp"
+                android:visibility="gone"
+                tools:listitem="@layout/item_contact"
+                tools:visibility="visible" />
+
+            <!-- One block for both empty states. Which one it is comes from the
+                 text, set in code: "type to search" and "nothing matched" are
+                 the same shape and only differ in what they say. -->
+            <LinearLayout
+                android:id="@+id/emptyState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingHorizontal="40dp">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/bg_circle_surface"
+                    android:contentDescription="@null"
+                    android:padding="18dp"
+                    android:src="@drawable/ic_ds_search"
+                    app:tint="@color/ds_ink_muted" />
+
+                <TextView
+                    android:id="@+id/textEmptyTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/space_grotesk_bold"
+                    android:gravity="center"
+                    android:textColor="@color/ds_ink"
+                    android:textSize="17sp"
+                    tools:text="Search your contacts" />
+
+                <TextView
+                    android:id="@+id/textEmptySub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:fontFamily="@font/mulish_semibold"
+                    android:gravity="center"
+                    android:lineSpacingMultiplier="1.35"
+                    android:textColor="@color/ds_ink_muted"
+                    android:textSize="13sp"
+                    tools:text="By name, number or email address." />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</layout>

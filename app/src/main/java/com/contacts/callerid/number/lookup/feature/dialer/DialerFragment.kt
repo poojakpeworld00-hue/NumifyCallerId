@@ -70,15 +70,20 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         binding.buttonBackspace.setOnLongClickListener { setDial(""); true }
         binding.buttonDialCall.setOnClickListener { placeCall(dialedNumber()) }
 
+        // The head row is the number itself; its one button is the one action
+        // that should not sit below four others.
+        binding.buttonDialHeadCall.setOnClickListener { placeCall(dialedNumber()) }
+
         // What to do with the number, beyond calling it.
         binding.rowAddContact.setOnClickListener { addToContacts(dialedNumber()) }
+        binding.rowDialMessage.setOnClickListener { sendMessage(dialedNumber()) }
         binding.rowDialLookup.setOnClickListener {
             requireActivity().openActivity(LookupActivity.newIntent(requireContext(), dialedNumber()))
         }
+        binding.rowDialWhatsApp.setOnClickListener { openWhatsApp(dialedNumber()) }
         binding.rowDialAskAi.setOnClickListener {
             requireActivity().openActivity(AiHubActivity.newIntent(requireContext()))
         }
-        binding.rowDialWhatsApp.setOnClickListener { openWhatsApp(dialedNumber()) }
 
         // Show a blinking cursor in the number field but keep our on-screen keypad
         // as the only input: suppress the soft keyboard, then focus it.
@@ -236,16 +241,25 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         viewModel.filter(number)
     }
 
-    /** Re-checks whether the exact dialed number is a saved contact, then updates the pill. */
     /**
-     * The action card exists only once digits have been typed — there is nothing
-     * to do with an empty number — and each row then decides for itself:
+     * The action card is what the screen shows about an **unknown** number: it
+     * appears once digits are typed and only while those digits belong to nobody
+     * in the address book. A number that is already saved has a match row in the
+     * list below with the contact's name on it, and offering "Add to contacts"
+     * next to it would be nonsense — this is the same split every stock dialer
+     * makes, and why the card leads the band rather than trailing it.
      *
-     * - **Add to contacts** is for an unknown number only: not already saved, and
-     *   matching no named contact in the list below.
-     * - **Ask AI** follows the assistant's Remote Config switch and the user's own
-     *   preference, the same pair that gates its tile in Tools.
-     * - **WhatsApp** appears only if WhatsApp is installed. A row that can only
+     * Within the card each row still decides for itself:
+     *
+     * - **Add to contacts** takes anything typed. Short codes and internal
+     *   extensions are not valid phone numbers and are exactly the kind of thing
+     *   people save, so it is deliberately not held to the check below.
+     * - **Message**, **Lookup** and **WhatsApp** wait for a number that parses.
+     *   Half a number has nothing to look up and no WhatsApp account behind it;
+     *   offering them anyway only teaches people the features do not work.
+     * - **Ask AI** follows the assistant's Remote Config switch and the user's
+     *   own preference, the same pair that gates its tile in Tools.
+     * - **WhatsApp** additionally needs WhatsApp installed. A row that can only
      *   ever raise "WhatsApp isn't installed" is worse than no row.
      *
      * If that leaves nothing, the card goes too rather than sitting there empty.
@@ -255,25 +269,18 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         val hasNumber = number.isNotEmpty()
         val ctx = context ?: return
 
-        // Everything that needs a real number waits for one. Half a number has
-        // nothing to look up, nothing to ask about and no WhatsApp account
-        // behind it — offering any of the three anyway only teaches people the
-        // features do not work. Parsed once and shared: this runs on every
-        // keystroke.
+        // Parsed once and shared: this runs on every keystroke.
         val dialable = hasNumber && DialedNumberCheck.isLookupable(ctx, number)
+        val unknown = hasNumber && !savedExact && !hasNamedMatch
 
-        // "Add to contacts" is the exception, and deliberately so: short codes
-        // and internal extensions are not valid numbers and are exactly the kind
-        // of thing people save.
-        binding.rowAddContact.isVisible = hasNumber && !savedExact && !hasNamedMatch
+        binding.textDialActionsNumber.text = number
+        binding.rowAddContact.isVisible = true
+        binding.rowDialMessage.isVisible = dialable
         binding.rowDialLookup.isVisible = dialable
+        binding.rowDialWhatsApp.isVisible = dialable && whatsAppPackage() != null
         binding.rowDialAskAi.isVisible = dialable &&
             AiFeatureConfig.isEnabled(ctx) && SettingsRepository(ctx).aiHomeButtonEnabled
-        binding.rowDialWhatsApp.isVisible = dialable && whatsAppPackage() != null
-        binding.columnDialActions.isVisible = hasNumber && listOf(
-            binding.rowAddContact, binding.rowDialLookup,
-            binding.rowDialAskAi, binding.rowDialWhatsApp,
-        ).any { it.isVisible }
+        binding.columnDialActions.isVisible = unknown
     }
 
     /**
@@ -330,6 +337,22 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         val intent = Intent(Intent.ACTION_VIEW, "https://wa.me/$digits".toUri()).setPackage(pkg)
         runCatching { startActivity(intent) }.onFailure {
             Toast.makeText(requireContext(), R.string.toast_no_whatsapp, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    /**
+     * Opens the user's SMS app on the dialled number.
+     *
+     * `smsto:` rather than `sms:`, and ACTION_SENDTO rather than ACTION_VIEW, so
+     * the chooser offers messaging apps only — the same pair Call Details and the
+     * assistant's reply action use. No body is attached: the point of the row is
+     * the recipient, and the user writes the message themselves.
+     */
+    private fun sendMessage(number: String) {
+        if (number.isBlank()) return
+        val intent = Intent(Intent.ACTION_SENDTO, "smsto:$number".toUri())
+        runCatching { startActivity(intent) }.onFailure {
+            Toast.makeText(requireContext(), R.string.toast_no_sms_app, Toast.LENGTH_SHORT).show()
         }
     }
 

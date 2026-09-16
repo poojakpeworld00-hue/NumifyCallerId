@@ -161,7 +161,6 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
             v.setPadding(bars.left, bars.top, bars.right, 0)
             insets
         }
-        binding.buttonBack.visibility = View.GONE
 
         // Vertical list of categories; each row draws its own horizontal rail.
         binding.listTools.layoutManager = LinearLayoutManager(requireContext())

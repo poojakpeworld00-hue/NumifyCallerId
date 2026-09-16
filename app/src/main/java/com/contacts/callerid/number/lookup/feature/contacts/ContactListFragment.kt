@@ -5,8 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.provider.ContactsContract
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -31,6 +29,7 @@ import com.contacts.callerid.number.lookup.common.ListDividerDecoration
 import com.contacts.callerid.number.lookup.databinding.FragmentContactsBinding
 import com.contacts.callerid.number.lookup.feature.MainShellActivity
 import com.contacts.callerid.number.lookup.feature.calldetails.CallDetailsActivity
+import com.contacts.callerid.number.lookup.repository.SettingsRepository
 import com.contacts.callerid.number.lookup.common.followAdContainer
 
 class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
@@ -70,19 +69,15 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
         // Ad slot + dividers are handled by BaseFragment.showScreenAd() — see
         // CallLogFragment for why this no longer calls NativeBannerPresenter directly.
 
-        binding.inputSearch.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
-            override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                val text = s?.toString().orEmpty()
-                viewModel.applyQuery(text)
-                binding.buttonClearSearch.visibility = if (text.isEmpty()) View.GONE else View.VISIBLE
-            }
-        })
-        binding.buttonClearSearch.setOnClickListener { binding.inputSearch.setText("") }
+        // Search is a screen now, not a field on this page.
+        binding.buttonContactsSearch.setOnClickListener {
+            requireActivity().openActivity(ContactSearchActivity.newIntent(requireContext()))
+        }
         binding.buttonContactsAdd.setOnClickListener { openAddContact() }
 
         binding.listFavorites.adapter = favoritesAdapter
+        binding.favSection.setOnClickListener { toggleFavorites() }
+        applyFavoritesExpansion()
 
         binding.tabAll.setOnClickListener { viewModel.applyFilter(ContactFilter.ALL) }
         binding.tabFavorites.setOnClickListener { viewModel.applyFilter(ContactFilter.FAVORITES) }
@@ -226,13 +221,37 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
      * The strip only earns its space on the unfiltered list. On the Favorites tab
      * it would simply repeat the list beneath it, and on Recents or Groups it
      * would show people who are not in that list at all.
+     *
+     * The header and the rail are separate decisions: the header is shown
+     * whenever there is anything starred to head, and the rail additionally
+     * depends on whether the user has this section folded up.
      */
     private fun showFavoritesStrip() {
         val onAll = viewModel.filter.value == ContactFilter.ALL
-        val visible = onAll && favoritesAdapter.itemCount > 0
-        val state = if (visible) View.VISIBLE else View.GONE
-        binding.favSection.visibility = state
-        binding.listFavorites.visibility = state
+        val hasFavorites = onAll && favoritesAdapter.itemCount > 0
+        binding.favSection.visibility = if (hasFavorites) View.VISIBLE else View.GONE
+        applyFavoritesExpansion()
+    }
+
+    /**
+     * Folds the favourites rail away, remembering the choice.
+     *
+     * Persisted rather than held in the fragment: a preference that resets every
+     * time the tab is rebuilt is not a preference, and this section costs a band
+     * of screen on every launch for someone who does not use it.
+     */
+    private fun toggleFavorites() {
+        val prefs = SettingsRepository(requireContext())
+        prefs.favoritesExpanded = !prefs.favoritesExpanded
+        applyFavoritesExpansion()
+    }
+
+    private fun applyFavoritesExpansion() {
+        if (view == null) return
+        val expanded = SettingsRepository(requireContext()).favoritesExpanded
+        val headerShown = binding.favSection.visibility == View.VISIBLE
+        binding.listFavorites.visibility = if (headerShown && expanded) View.VISIBLE else View.GONE
+        binding.iconFavExpand.rotation = if (expanded) 0f else -90f
     }
 
     private fun highlightTab(tab: TextView, active: Boolean) {

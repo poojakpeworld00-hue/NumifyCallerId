@@ -312,6 +312,14 @@
     <string name="dialer_empty_sub">Frequently called numbers will appear here for one-tap calling.</string>
     <string name="dialer_backspace">Delete</string>
     <string name="add_to_contacts">Add to contacts</string>
+    <!-- The unknown-number action card above the keypad. Each label names the
+         number's destination, not just the app: the card is a list of things to
+         do with one number, so "WhatsApp" alone reads as a place to go rather
+         than an action to take. -->
+    <string name="dialer_number_not_saved">Not in your contacts</string>
+    <string name="dialer_send_message">Send message</string>
+    <string name="dialer_lookup_number">Look up this number</string>
+    <string name="dialer_send_whatsapp">Message on WhatsApp</string>
 
     <!-- Blocklist -->
     <string name="blocklist_title">Blocklist</string>
@@ -550,6 +558,16 @@
 
     <!-- Contacts -->
     <string name="contacts_search_hint">Search contacts</string>
+    <!-- Contact search screen. The prompt names all three fields it matches,
+         because email is the one nobody expects a phone app to search. -->
+    <string name="contacts_search_prompt_title">Search your contacts</string>
+    <string name="contacts_search_prompt_sub">By name, phone number or email address.</string>
+    <string name="contacts_search_none_title">No results for \"%1$s\"</string>
+    <string name="contacts_search_none_sub">Check the spelling, or try part of a number or email address.</string>
+    <string name="contacts_search_clear">Clear search</string>
+    <string name="contacts_search_voice">Voice search</string>
+    <string name="contacts_search_no_voice">Voice search isn\'t available on this device</string>
+    <string name="contacts_favorites_toggle">Show or hide favorites</string>
     <string name="contacts_tab_all">All</string>
     <string name="contacts_tab_favorites">Favorites</string>
     <string name="contacts_tab_recents">Recents</string>

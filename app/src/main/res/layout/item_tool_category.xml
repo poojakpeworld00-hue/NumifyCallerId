@@ -31,7 +31,7 @@
             android:letterSpacing="0.0909"
             android:textAllCaps="true"
             android:textColor="@color/ds_ink_muted"
-            android:textSize="11sp"
+            android:textSize="12sp"
             tools:text="Measure" />
 
         <View

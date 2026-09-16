@@ -49,8 +49,8 @@
             slack collects above the keypad, where it looks like the gap it is —
             which is also how the handoff's reference dialer draws it.
 
-            It scrolls because the two together can outgrow the band — four
-            action rows plus a few matches is taller than what is left over a
+            It scrolls because the two together can outgrow the band — the
+            action card plus a few matches is taller than what is left over a
             keypad sheet on a short screen, and before this they simply had
             nowhere to go.
 
@@ -66,6 +66,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/_10sdp"
+            android:clipToPadding="false"
+            android:paddingBottom="8dp"
             android:fillViewport="true"
             android:overScrollMode="never"
             android:scrollbars="none"
@@ -80,6 +82,190 @@
                 android:layout_height="wrap_content"
                 android:gravity="top"
                 android:orientation="vertical">
+
+                <!--
+                    What you can do with the number you have typed, as a list of
+                    rows — the shape every stock dialer uses.
+
+                    First in the band, above the matches, which is where Google's
+                    dialer puts it and is the right order for what this block
+                    means: it appears only for a number that is *not* in your
+                    contacts, so it is the answer to "this number is unknown —
+                    here is what you can do with it". Below the matches it read
+                    as a footnote to a list it has nothing to do with.
+
+                    This replaces a single "Add to contacts" pill that sat inside
+                    the keypad sheet. One action had room there; five do not, and
+                    a row of chips would have had to abbreviate every label.
+
+                    GONE, not INVISIBLE: the block only exists once digits are
+                    typed, and reserving five rows' worth of empty space above an
+                    untouched keypad would leave the screen looking broken. The
+                    pill needed INVISIBLE because it sat between the number and
+                    the keys, where a reflow made the number appear to blink;
+                    nothing below this moves when it appears.
+                -->
+                <LinearLayout
+                    android:id="@+id/columnDialActions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/bg_ds_card"
+                    android:clipToOutline="true"
+                    android:elevation="6dp"
+                    android:orientation="vertical"
+                    android:outlineAmbientShadowColor="@color/ds_card_shadow"
+                    android:outlineSpotShadowColor="@color/ds_card_shadow"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <!--
+                        The typed number as a row, not a caption: avatar, number
+                        over its status, and a call button on the end — the same
+                        three-part shape a contact row has, which is how the
+                        reference dialer heads this block.
+
+                        It is the object the five verbs below act on. As a plain
+                        line of text it read as a label on the card; as a row it
+                        reads as "this number", and it can carry the one action
+                        that should not need scrolling past four others to reach.
+                    -->
+                    <LinearLayout
+                        android:id="@+id/rowDialNumberHead"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="10dp">
+
+                        <ImageView
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:background="@drawable/bg_ds_flag_chip"
+                            android:contentDescription="@null"
+                            android:padding="9dp"
+                            android:src="@drawable/ic_ds_person"
+                            app:tint="@color/ds_accent" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textDialActionsNumber"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/mulish_bold"
+                                android:includeFontPadding="false"
+                                android:maxLines="1"
+                                android:textColor="@color/ds_ink"
+                                android:textSize="15sp"
+                                tools:text="+1 234 567" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:fontFamily="@font/mulish_semibold"
+                                android:includeFontPadding="false"
+                                android:text="@string/dialer_number_not_saved"
+                                android:textColor="@color/ds_ink_muted"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/buttonDialHeadCall"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:background="@drawable/bg_circle_surface"
+                            android:contentDescription="@string/action_call"
+                            android:padding="9dp"
+                            android:src="@drawable/ic_call"
+                            app:tint="@color/ds_accent" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:background="@color/ds_divider" />
+
+                    <LinearLayout
+                        android:id="@+id/rowAddContact"
+                        style="@style/DialerAction">
+
+                        <ImageView
+                            style="@style/DialerActionIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_person_add" />
+
+                        <TextView
+                            style="@style/DialerActionLabel"
+                            android:text="@string/add_to_contacts" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/rowDialMessage"
+                        style="@style/DialerAction">
+
+                        <ImageView
+                            style="@style/DialerActionIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_ds_message" />
+
+                        <TextView
+                            style="@style/DialerActionLabel"
+                            android:text="@string/dialer_send_message" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/rowDialLookup"
+                        style="@style/DialerAction">
+
+                        <ImageView
+                            style="@style/DialerActionIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_ds_nav_lookup" />
+
+                        <TextView
+                            style="@style/DialerActionLabel"
+                            android:text="@string/dialer_lookup_number" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/rowDialWhatsApp"
+                        style="@style/DialerAction">
+
+                        <ImageView
+                            style="@style/DialerActionIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_whatsapp" />
+
+                        <TextView
+                            style="@style/DialerActionLabel"
+                            android:text="@string/dialer_send_whatsapp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/rowDialAskAi"
+                        style="@style/DialerAction">
+
+                        <ImageView
+                            style="@style/DialerActionIcon"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_ai_sparkle" />
+
+                        <TextView
+                            style="@style/DialerActionLabel"
+                            android:text="@string/ai_ask_button" />
+                    </LinearLayout>
+                </LinearLayout>
 
                 <!-- Section label — shown while matches exist -->
                 <TextView
@@ -116,93 +302,6 @@
                     android:outlineSpotShadowColor="@color/ds_card_shadow"
                     android:overScrollMode="never"
                     tools:listitem="@layout/item_frequent" />
-
-                <!--
-                    What you can do with the number you have typed, as a list of
-                    rows above the keypad — the shape every stock dialer uses.
-
-                    This replaces a single "Add to contacts" pill that sat inside
-                    the keypad sheet. One action had room there; four do not, and
-                    a row of chips would have had to abbreviate every label.
-
-                    GONE, not INVISIBLE: the block only exists once digits are
-                    typed, and reserving four rows' worth of empty space above an
-                    untouched keypad would leave the screen looking broken. The
-                    pill needed INVISIBLE because it sat between the number and
-                    the keys, where a reflow made the number appear to blink;
-                    nothing below this moves when it appears.
-                -->
-                <LinearLayout
-                    android:id="@+id/columnDialActions"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/bg_ds_card"
-                    android:clipToOutline="true"
-                    android:elevation="6dp"
-                    android:orientation="vertical"
-                    android:outlineAmbientShadowColor="@color/ds_card_shadow"
-                    android:outlineSpotShadowColor="@color/ds_card_shadow"
-                    android:visibility="gone"
-                    tools:visibility="visible">
-
-                    <LinearLayout
-                        android:id="@+id/rowAddContact"
-                        style="@style/DialerAction">
-
-                        <ImageView
-                            style="@style/DialerActionIcon"
-                            android:contentDescription="@null"
-                            android:src="@drawable/ic_person_add" />
-
-                        <TextView
-                            style="@style/DialerActionLabel"
-                            android:text="@string/add_to_contacts" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/rowDialLookup"
-                        style="@style/DialerAction">
-
-                        <ImageView
-                            style="@style/DialerActionIcon"
-                            android:contentDescription="@null"
-                            android:src="@drawable/ic_ds_nav_lookup" />
-
-                        <TextView
-                            style="@style/DialerActionLabel"
-                            android:text="@string/nav_lookup" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/rowDialAskAi"
-                        style="@style/DialerAction">
-
-                        <ImageView
-                            style="@style/DialerActionIcon"
-                            android:contentDescription="@null"
-                            android:src="@drawable/ic_ai_sparkle" />
-
-                        <TextView
-                            style="@style/DialerActionLabel"
-                            android:text="@string/ai_ask_button" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/rowDialWhatsApp"
-                        style="@style/DialerAction">
-
-                        <ImageView
-                            style="@style/DialerActionIcon"
-                            android:contentDescription="@null"
-                            android:src="@drawable/ic_whatsapp" />
-
-                        <TextView
-                            style="@style/DialerActionLabel"
-                            android:text="@string/action_whatsapp" />
-                    </LinearLayout>
-                </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

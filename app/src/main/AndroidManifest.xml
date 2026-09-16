@@ -33,6 +33,12 @@
             <action android:name="android.intent.action.SENDTO" />
             <data android:scheme="smsto" />
         </intent>
+        <!-- Speech recogniser, for contact voice search. Without this the
+             recogniser is invisible to us on Android 11+ and the voice button
+             would fail with no way to tell why. -->
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
         <intent>
             <action android:name="android.intent.action.SEND" />
             <data android:mimeType="text/plain" />
@@ -101,6 +107,16 @@
             android:name=".feature.finder.LookupActivity"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
+
+        <!-- Contact search. adjustResize so the results list shortens for the
+             keyboard instead of scrolling underneath it, and stateVisible because
+             the screen exists to be typed into — arriving with the keyboard down
+             would cost a tap for nothing. -->
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".feature.contacts.ContactSearchActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"
             android:exported="false" />
 
         <!-- Blocked numbers. adjustResize for the same reason: the add form sits

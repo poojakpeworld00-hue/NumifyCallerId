@@ -12,34 +12,11 @@
         android:background="@color/ds_page"
         android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/topBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="20dp"
-                    android:paddingTop="18dp"
-                    android:paddingBottom="14dp">
-
-                    <ImageView
-                        android:id="@+id/buttonBack"
-                        android:layout_width="@dimen/_34sdp"
-                        android:layout_height="@dimen/_34sdp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="@string/onboarding_skip"
-                        android:padding="@dimen/_5sdp"
-                        android:src="@drawable/ic_arrow_back"
-                        app:tint="@color/ds_ink" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/space_grotesk_bold"
-                        android:text="@string/tools_title"
-                        android:textColor="@color/ds_ink"
-                        android:textSize="24sp" />
-                </LinearLayout>
+        <!-- No title bar: the bottom nav chip already says which tab this is, and
+             a "Tools" heading over it only repeats that while costing the search
+             field and the first rail their place on screen. The back button that
+             used to sit here went with it — this is a tab, and the shell owns
+             the back stack. -->
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -65,6 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="14dp"
                     android:background="@drawable/bg_ds_outlined_field"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -85,7 +63,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:fontFamily="@font/mulish_semibold"
+                        android:fontFamily="@font/mulish_bold"
                         android:hint="@string/tools_search_hint"
                         android:imeOptions="actionSearch"
                         android:includeFontPadding="false"
@@ -95,7 +73,7 @@
                         android:textColor="@color/ds_ink"
                         android:textColorHint="@color/ds_placeholder"
                         android:textCursorDrawable="@null"
-                        android:textSize="13.5sp" />
+                        android:textSize="15sp" />
 
                     <ImageView
                         android:id="@+id/buttonClearSearch"
@@ -168,7 +146,7 @@
                     android:layout_marginTop="@dimen/_14sdp"
                     android:gravity="center"
                     android:textColor="@color/on_surface"
-                    android:textSize="@dimen/_14ssp"
+                    android:textSize="@dimen/_15ssp"
                     android:textStyle="bold"
                     tools:text="No tools match &quot;ruler&quot;" />
 
@@ -179,7 +157,7 @@
                     android:gravity="center"
                     android:text="@string/tools_empty_sub"
                     android:textColor="@color/on_surface_variant"
-                    android:textSize="@dimen/_11ssp" />
+                    android:textSize="@dimen/_12ssp" />
 
                 <LinearLayout
                     android:id="@+id/buttonResetSearch"
@@ -206,7 +184,7 @@
                         android:layout_marginStart="@dimen/_8sdp"
                         android:text="@string/tools_reset_search"
                         android:textColor="@color/on_primary_container"
-                        android:textSize="@dimen/_12ssp"
+                        android:textSize="@dimen/_13ssp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>

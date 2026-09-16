@@ -67,10 +67,17 @@
          the accent, the action's name beside it, the whole row tappable. Every
          stock dialer draws these the same way, and copying that is the point —
          it is the one list in the app people arrive already knowing. -->
+    <!-- A row in the dialer's unknown-number card.
+
+         46dp, not the 52dp a standalone list row gets. Five of these plus a
+         header have to share the band between the title and the keypad sheet,
+         and the sheet is the fixed one — 6dp a row is 30dp back, which is the
+         difference between the last action being reachable and being sliced in
+         half by the sheet's edge. Still over the 44dp touch-target floor. -->
     <style name="DialerAction">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">52dp</item>
+        <item name="android:minHeight">46dp</item>
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
@@ -80,8 +87,8 @@
     </style>
 
     <style name="DialerActionIcon">
-        <item name="android:layout_width">22dp</item>
-        <item name="android:layout_height">22dp</item>
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
         <item name="android:layout_marginEnd">16dp</item>
         <item name="android:tint">@color/ds_accent</item>
     </style>
