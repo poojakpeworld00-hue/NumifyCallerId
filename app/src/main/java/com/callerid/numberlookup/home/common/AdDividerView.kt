@@ -41,9 +41,18 @@ fun View.followAdContainer(container: ViewGroup) {
                         ?.removeOnGlobalLayoutListener(this)
                     return
                 }
-                isVisible = container.isVisible &&
+                val filled = container.isVisible &&
                         container.childCount > 0 &&
                         container.height > 0
+                isVisible = filled
+
+                // The slot reserves the banner height up front so nothing shifts
+                // while the ad loads. If it ends up with nothing in it - the ad
+                // failed, and so did the native fallback - that reservation would
+                // sit there as an empty gap, so it is handed back here.
+                if (container.childCount == 0 && container.minimumHeight != 0) {
+                    container.minimumHeight = 0
+                }
             }
         }
     )

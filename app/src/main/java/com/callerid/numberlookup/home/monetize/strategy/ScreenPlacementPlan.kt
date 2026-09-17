@@ -1,5 +1,7 @@
 package com.callerid.numberlookup.home.monetize.strategy
 
+import com.google.android.gms.ads.AdSize
+import android.util.DisplayMetrics
 import android.app.Activity
 import android.content.Context
 import android.util.Log
@@ -165,6 +167,7 @@ object ScreenPlacementPlan {
         val adsOn = pref.getBoolean("IsAdsON")
 
         if (!adsOn || !resolved.show) {
+            container.minimumHeight = 0
             container.removeAllViews()
             container.visibility = View.GONE
             shimmer?.stopShimmer()
@@ -174,6 +177,20 @@ object ScreenPlacementPlan {
             }
             return
         }
+
+        // The slot is held open at the height the banner will take, before the load
+        // starts.
+        //
+        // Without it the bottom of the screen moves twice: the slot collapses while
+        // the request is in flight and springs back when it fills. On the shell that
+        // drags the nav bar - and everything above it - up by the height of an ad,
+        // a second or so after the screen looks settled and ready to touch. The
+        // dialer is the worst of them: its Call button lands where the nav bar was
+        // sitting when the finger started moving.
+        //
+        // Anchored adaptive banners have one height for a given width, and it is
+        // known before the ad is, so there is nothing to guess at.
+        container.minimumHeight = anchoredBannerHeightPx(activity, container)
 
         // bannerType → BannerDimension + collapsible flag.
         val (size, collapsible) = when (resolved.bannerType.lowercase()) {
@@ -211,5 +228,27 @@ object ScreenPlacementPlan {
                 }
             }
         )
+    }
+
+    /**
+     * The height an anchored adaptive banner will take at this container's width.
+     *
+     * Measured the same way [BannerAdPresenter] measures it when it asks for the
+     * ad, off the container if it has been laid out and the display if it has not,
+     * so the space reserved is the space the banner then occupies.
+     */
+    private fun anchoredBannerHeightPx(activity: Activity, container: FrameLayout): Int {
+        val metrics = DisplayMetrics()
+        @Suppress("DEPRECATION")
+        activity.windowManager.defaultDisplay.getMetrics(metrics)
+
+        val widthPx =
+            if (container.width == 0) metrics.widthPixels.toFloat()
+            else container.width.toFloat()
+        val widthDp = (widthPx / metrics.density).toInt()
+
+        return AdSize
+            .getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, widthDp)
+            .getHeightInPixels(activity)
     }
 }

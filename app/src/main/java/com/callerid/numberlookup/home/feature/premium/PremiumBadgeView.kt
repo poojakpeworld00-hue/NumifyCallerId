@@ -1,5 +1,7 @@
 package com.callerid.numberlookup.home.feature.premium
 
+import com.airbnb.lottie.LottieDrawable
+import com.airbnb.lottie.LottieAnimationView
 import android.animation.AnimatorInflater
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
@@ -38,6 +40,25 @@ class PremiumBadgeView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
+    /**
+     * Which artwork the chip wears.
+     *
+     * Two Lottie pieces are on trial against the drawn crown. They are pills, not
+     * squares, so picking one also changes the chip's proportions - which is why
+     * this is one constant and not three copies of the header.
+     */
+    enum class Art { CROWN_GLYPH, LOTTIE_GO_PRO, LOTTIE_CROWN }
+
+    private val lottie: LottieAnimationView? =
+        if (ART == Art.CROWN_GLYPH) null else LottieAnimationView(context).apply {
+            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+            setAnimation(
+                if (ART == Art.LOTTIE_GO_PRO) R.raw.premium_go_pro else R.raw.premium_crown
+            )
+            repeatCount = LottieDrawable.INFINITE
+            scaleType = ImageView.ScaleType.FIT_CENTER
+        }
+
     private val crown = ImageView(context).apply {
         layoutParams = LayoutParams(dpInt(CROWN_DP), dpInt(CROWN_DP), Gravity.CENTER)
         setImageResource(R.drawable.ic_premium_crown)
@@ -47,8 +68,13 @@ class PremiumBadgeView @JvmOverloads constructor(
     private val loops = mutableListOf<ValueAnimator>()
 
     init {
-        addView(crown)
-        background = ContextCompat.getDrawable(context, R.drawable.bg_premium_chip)
+        // The Lottie pieces draw their own pill and their own motion, so they get
+        // neither the chip background nor the crown behind them - both would show
+        // through at the corners and read as two badges stacked.
+        if (lottie != null) addView(lottie) else addView(crown)
+        if (lottie == null) {
+            background = ContextCompat.getDrawable(context, R.drawable.bg_premium_chip)
+        }
         isClickable = true
         isFocusable = true
         foreground = obtainSelectableItemBackground()
@@ -63,6 +89,22 @@ class PremiumBadgeView @JvmOverloads constructor(
 
     private inline fun <T> android.content.res.TypedArray.use(block: (android.content.res.TypedArray) -> T): T =
         try { block(this) } finally { recycle() }
+
+    /**
+     * The pills are 50x27 in their own artboard, so the chip takes those
+     * proportions rather than the 40dp square the glyph sits in. Stated here so
+     * that switching art does not mean editing the three headers that host it.
+     */
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        if (lottie == null) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+            return
+        }
+        super.onMeasure(
+            MeasureSpec.makeMeasureSpec(dpInt(LOTTIE_W_DP), MeasureSpec.EXACTLY),
+            MeasureSpec.makeMeasureSpec(dpInt(LOTTIE_H_DP), MeasureSpec.EXACTLY),
+        )
+    }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
@@ -80,6 +122,7 @@ class PremiumBadgeView @JvmOverloads constructor(
     }
 
     private fun startPulse() {
+        lottie?.let { it.playAnimation(); return }
         if (loops.isNotEmpty() || visibility != VISIBLE) return
         val curve = AnimationUtils.loadInterpolator(context, R.interpolator.premium_ease_in_out)
         listOf(
@@ -98,6 +141,7 @@ class PremiumBadgeView @JvmOverloads constructor(
     }
 
     private fun stopPulse() {
+        lottie?.let { it.pauseAnimation(); return }
         loops.forEach { it.cancel() }
         loops.clear()
         // Cancelling mid-pulse leaves the crown wherever it stopped.
@@ -111,6 +155,10 @@ class PremiumBadgeView @JvmOverloads constructor(
     ).toInt()
 
     private companion object {
+        /** Flip this to compare the three. */
+        val ART = Art.LOTTIE_GO_PRO
+        const val LOTTIE_W_DP = 62f
+        const val LOTTIE_H_DP = 34f
         const val CROWN_DP = 18f
 
         const val PULSE_CYCLE_MS = 2_600L
