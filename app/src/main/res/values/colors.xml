@@ -318,6 +318,14 @@
     <color name="premium_hero_end">#12172B</color>
     <color name="premium_crown_start">#F2A93B</color>
     <color name="premium_crown_end">#D98315</color>
+    <!-- Premium status card. Both strokes of the term ring are white because
+         the ring sits on gold: the track is the part already spent, the arc
+         what is left. A third hue on a two-hue card is one too many. -->
+    <color name="premium_ring_track">#47FFFFFF</color>
+    <!-- The sweep band: clear at its edges, and never fully opaque at its
+         peak - light on a surface, not a white stripe crossing it. -->
+    <color name="premium_sweep_edge">#00FFFFFF</color>
+    <color name="premium_sweep_peak">#52FFFFFF</color>
     <color name="premium_crown_shadow">#66D98315</color>
     <color name="premium_hero_shadow">#4D141432</color>
     <color name="premium_accent">#2E5FE8</color>

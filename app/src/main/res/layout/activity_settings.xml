@@ -85,58 +85,72 @@
                 <!-- The other side of the same slot: the offer above is for people
                      who have not bought, this is for people who have. One of the
                      two is always hidden - see SettingsActivity.bindPremium. -->
-                <LinearLayout
+                <FrameLayout
                     android:id="@+id/cardPremiumStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_ds_card"
-                    android:baselineAligned="false"
-                    android:elevation="4dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:outlineAmbientShadowColor="@color/ds_card_shadow"
-                    android:outlineSpotShadowColor="@color/ds_card_shadow"
-                    android:padding="@dimen/_14sdp"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:layout_width="@dimen/_40sdp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:background="@drawable/bg_premium_chip"
-                        android:contentDescription="@null"
-                        android:padding="@dimen/_9sdp"
-                        android:src="@drawable/ic_premium_crown"
-                        app:tint="@color/white" />
+                    android:background="@drawable/bg_premium_status_card"
+                    android:clipToOutline="true"
+                    android:elevation="6dp"
+                    android:outlineAmbientShadowColor="@color/premium_crown_end"
+                    android:outlineSpotShadowColor="@color/premium_crown_end"
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_12sdp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_15sdp">
 
-                        <TextView
-                            android:id="@+id/textProTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/mulish_bold"
-                            android:includeFontPadding="false"
-                            android:text="@string/settings_pro_title"
-                            android:textColor="@color/ds_ink"
-                            android:textSize="@dimen/_13ssp" />
+                        <!-- The ring is the term: track for what is spent, arc for
+                             what is left, crown in the middle. Filled from
+                             SettingsActivity.bindPremium. -->
+                        <com.callerid.numberlookup.home.feature.premium.PremiumTermRingView
+                            android:id="@+id/proRing"
+                            android:layout_width="@dimen/_42sdp"
+                            android:layout_height="@dimen/_42sdp" />
 
-                        <TextView
-                            android:id="@+id/textProDetail"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_3sdp"
-                            android:fontFamily="@font/mulish_semibold"
-                            android:includeFontPadding="false"
-                            android:textColor="@color/ds_ink_muted"
-                            android:textSize="@dimen/_11ssp"
-                            tools:text="Day 12 of 30 · 18 days left" />
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textProTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/mulish_bold"
+                                android:includeFontPadding="false"
+                                android:text="@string/settings_pro_title"
+                                android:textColor="@color/ds_on_accent"
+                                android:textSize="@dimen/_13ssp" />
+
+                            <TextView
+                                android:id="@+id/textProDetail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:alpha="0.88"
+                                android:fontFamily="@font/mulish_semibold"
+                                android:includeFontPadding="false"
+                                android:textColor="@color/ds_on_accent"
+                                android:textSize="@dimen/_11ssp"
+                                tools:text="Day 12 of 30 · 18 days left" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
+
+                    <!-- Light over the card, drawn last so it passes across both the
+                         ring and the text. A sibling rather than the background, so
+                         the gold stays the gold and this only adds to it. -->
+                    <com.callerid.numberlookup.home.feature.premium.ShineSweepView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </FrameLayout>
 
                 <LinearLayout style="@style/SettingsSectionRow">
 

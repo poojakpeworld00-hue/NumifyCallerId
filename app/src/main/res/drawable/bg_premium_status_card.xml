@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    The Premium status card.
+
+    The same gold the crown chip and the paywall pill carry, at a card's radius.
+    It is the one gold surface in Settings, which is the point: everything else
+    on that page is something you can change, and this is the one thing you own.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:endColor="@color/premium_crown_end"
+        android:startColor="@color/premium_crown_start"
+        android:type="linear" />
+    <corners android:radius="16dp" />
+</shape>

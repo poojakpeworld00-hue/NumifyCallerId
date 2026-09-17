@@ -405,22 +405,32 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
         if (!premium) return
 
         val standing = PremiumStore.standing(this)
+        val left = standing.daysLeft
+
         binding.textProDetail.text = when {
             standing.plan == PremiumStore.Plan.LIFETIME ->
                 getString(R.string.settings_pro_lifetime)
 
             // A subscription we know the dates for: how far in, how far to go.
-            standing.daysUsed != null && standing.daysLeft != null -> getString(
+            standing.daysUsed != null && left != null -> getString(
                 R.string.settings_pro_days_fmt,
-                standing.daysUsed!! + 1,
+                standing.daysUsed + 1,
                 standing.termDays,
-                standing.daysLeft!!,
+                left,
             )
 
             // Entitled, but nothing local says since when - a restore on a new
             // phone, most often. Saying it is on is true; inventing a date is not.
             else -> getString(R.string.settings_pro_active)
         }
+
+        // The ring shows what is left of the term. A lifetime unlock and an
+        // entitlement with no date behind it both close it: neither has a
+        // remaining fraction, and an arc stopped part-way would claim one.
+        binding.proRing.setRemaining(
+            if (left != null && standing.termDays > 0) left.toFloat() / standing.termDays
+            else 1f
+        )
     }
 
     private fun setupThemeToggle() {
