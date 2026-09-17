@@ -885,4 +885,6 @@
     <string name="empty_groups_title">Chưa có nhóm nào</string>
     <string name="empty_groups_sub">Các nhóm từ tài khoản danh bạ của bạn sẽ hiện ở đây.</string>
     <string name="recents_empty_sub">Cuộc gọi bạn thực hiện và nhận sẽ hiện ở đây.</string>
+    <string name="history_locked_title">Xem toàn bộ lịch sử cuộc gọi</string>
+    <string name="history_locked_sub">Premium mở khóa mọi cuộc gọi với số này và gỡ quảng cáo.</string>
 </resources>

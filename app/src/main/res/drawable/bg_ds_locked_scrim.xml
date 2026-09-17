@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Veil over the locked half of the call history.
+
+    It starts nearly clear at the top so the first locked row still shows through
+    as a row, and thickens downward until the card fades into the page - the list
+    ends rather than stopping mid-row. The blur underneath does the hiding; this
+    only keeps the offer legible over it.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="270"
+        android:centerColor="@color/ds_locked_scrim_mid"
+        android:endColor="@color/ds_locked_scrim_end"
+        android:startColor="@color/ds_locked_scrim_start"
+        android:type="linear" />
+</shape>

@@ -932,4 +932,6 @@
     <string name="empty_groups_title">Ainda não há grupos</string>
     <string name="empty_groups_sub">Os grupos da sua conta de contatos aparecerão aqui.</string>
     <string name="recents_empty_sub">As chamadas que você fizer e receber aparecerão aqui.</string>
+    <string name="history_locked_title">Veja seu histórico de chamadas completo</string>
+    <string name="history_locked_sub">O Premium libera todas as chamadas com este número e remove os anúncios.</string>
 </resources>

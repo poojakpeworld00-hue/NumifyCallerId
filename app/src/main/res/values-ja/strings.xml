@@ -885,4 +885,6 @@
     <string name="empty_groups_title">グループはまだありません</string>
     <string name="empty_groups_sub">連絡先アカウントのグループがここに表示されます。</string>
     <string name="recents_empty_sub">発信および着信した通話がここに表示されます。</string>
+    <string name="history_locked_title">通話履歴をすべて見る</string>
+    <string name="history_locked_sub">Premium にすると、この番号との通話がすべて見られ、広告もなくなります。</string>
 </resources>

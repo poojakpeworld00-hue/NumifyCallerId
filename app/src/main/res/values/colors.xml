@@ -189,6 +189,11 @@
          mode would give a screen white cards on a dark page. -->
     <color name="ds_page">#F6F8FC</color>              <!-- screen background -->
     <color name="ds_surface">#FFFFFF</color>           <!-- grouped card -->
+    <!-- Veil over the locked half of the call history: clear at the top so the
+         first withheld row still reads as a row, opaque page colour by the end. -->
+    <color name="ds_locked_scrim_start">#14FFFFFF</color>
+    <color name="ds_locked_scrim_mid">#C4FFFFFF</color>
+    <color name="ds_locked_scrim_end">#FFFFFFFF</color>
     <color name="ds_on_accent">#FFFFFF</color>         <!-- text/glyphs ON a brand fill -->
     <color name="ds_ink">#12172B</color>               <!-- primary text -->
     <color name="ds_ink_muted">#8A91A6</color>         <!-- secondary text / section labels -->

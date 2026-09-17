@@ -1,5 +1,12 @@
 package com.callerid.numberlookup.home.monetize.delivery.engagement.sections
 
+import android.graphics.RenderEffect
+import android.graphics.Shader
+import android.os.Build
+import android.widget.FrameLayout
+import androidx.core.view.isVisible
+import com.callerid.numberlookup.home.feature.premium.PremiumActivity
+import com.callerid.numberlookup.home.monetize.billing.PremiumStore
 import com.callerid.numberlookup.home.repository.CallRecord
 import com.callerid.numberlookup.home.feature.calldetails.CallDetailsActivity
 import com.callerid.numberlookup.home.feature.widgets.EmptyStateView
@@ -30,6 +37,9 @@ class CallTimelineFragment : Fragment() {
 
     private val adapter = CallTimelineAdapter(onCall = ::callNumber, onOpen = ::openDetails)
 
+    /** The locked rows are shown, not used: nothing on them responds. */
+    private val lockedAdapter = CallTimelineAdapter(onCall = {}, onOpen = {})
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -46,7 +56,7 @@ class CallTimelineFragment : Fragment() {
         recycler.adapter = adapter
 
         val calls = loadRecentCalls()
-        adapter.submit(calls)
+        bindHistory(view, recycler, calls)
 
         val isEmpty = calls.isEmpty()
         if (isEmpty) {
@@ -58,6 +68,62 @@ class CallTimelineFragment : Fragment() {
         empty.visibility = if (isEmpty) View.VISIBLE else View.GONE
 
         return view
+    }
+
+    /**
+     * Splits the history into what is free and what is being held back.
+     *
+     * Two calls are free. The rest are still drawn - real rows, blurred, with the
+     * offer over them - because a teaser has to show that there is something
+     * behind it. An empty panel with a Buy button says nothing about what is
+     * being bought.
+     *
+     * Only a few locked rows are submitted. They are decoration behind a blur, so
+     * inflating the whole tail of the history to smear it would be work nobody
+     * ever sees.
+     */
+    private fun bindHistory(root: View, free: RecyclerView, calls: List<CallRecord>) {
+        val locked = root.findViewById<FrameLayout>(R.id.lockedArea)
+        val lockedList = root.findViewById<RecyclerView>(R.id.listLocked)
+
+        val premium = PremiumStore.isPremium(requireContext())
+        val withheld = !premium && calls.size > FREE_ROWS
+
+        if (!withheld) {
+            adapter.submit(calls)
+            locked.isVisible = false
+            return
+        }
+
+        adapter.submit(calls.take(FREE_ROWS))
+
+        lockedList.layoutManager = LinearLayoutManager(requireContext())
+        lockedList.itemAnimator = null
+        lockedList.adapter = lockedAdapter
+        lockedAdapter.submit(calls.drop(FREE_ROWS).take(TEASED_ROWS))
+        blur(lockedList)
+
+        locked.isVisible = true
+        // The offer covers the whole locked area and is what takes the touch, so
+        // the rows behind it cannot be tapped; the layout hides them from screen
+        // readers to match.
+        root.findViewById<View>(R.id.premiumLock).setOnClickListener {
+            if (isAdded) startActivity(PremiumActivity.newIntent(requireContext()))
+        }
+    }
+
+    /**
+     * Blurs the withheld rows where the platform can, and leans on the veil
+     * where it cannot.
+     *
+     * RenderEffect arrived in API 31. Below that the gradient above these rows is
+     * what hides them, which is why it is heavy enough to do the job on its own.
+     */
+    private fun blur(view: View) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return
+        view.setRenderEffect(
+            RenderEffect.createBlurEffect(BLUR_RADIUS, BLUR_RADIUS, Shader.TileMode.CLAMP)
+        )
     }
 
     /** Reads recent calls (de-duped by number) when call-log access is granted. */
@@ -122,5 +188,15 @@ class CallTimelineFragment : Fragment() {
 
     private fun openDialer(number: String) {
         runCatching { startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:$number"))) }
+    }
+
+    private companion object {
+        /** Calls shown in full before the offer starts. */
+        const val FREE_ROWS = 2
+
+        /** How many withheld rows are drawn behind the blur. */
+        const val TEASED_ROWS = 3
+
+        const val BLUR_RADIUS = 18f
     }
 }

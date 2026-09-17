@@ -118,6 +118,9 @@
          that is meant to look identical whatever the theme is. -->
     <color name="ds_page">#0E1117</color>
     <color name="ds_surface">#171B24</color>
+    <color name="ds_locked_scrim_start">#14171B24</color>
+    <color name="ds_locked_scrim_mid">#C4171B24</color>
+    <color name="ds_locked_scrim_end">#FF171B24</color>
     <color name="ds_ink">#F2F4FA</color>
     <color name="ds_ink_muted">#8A93A8</color>
     <color name="ds_ink_subtle">#98A0B4</color>

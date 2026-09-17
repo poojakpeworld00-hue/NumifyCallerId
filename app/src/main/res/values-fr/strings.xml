@@ -890,4 +890,6 @@
     <string name="empty_groups_title">Aucun groupe pour l\'instant</string>
     <string name="empty_groups_sub">Les groupes de votre compte de contacts apparaîtront ici.</string>
     <string name="recents_empty_sub">Les appels que vous passez et recevez apparaîtront ici.</string>
+    <string name="history_locked_title">Voir tout votre historique d\'appels</string>
+    <string name="history_locked_sub">Premium débloque chaque appel avec ce numéro et supprime les publicités.</string>
 </resources>

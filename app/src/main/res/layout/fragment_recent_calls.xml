@@ -4,8 +4,13 @@
     Framed like the call history on the call detail screen - dot, label, rule,
     then one grouped card - so the two screens read as the same screen about the
     same number rather than two different takes on a list of calls.
+
+    Two calls are free. The rest of the card is still drawn, blurred, with the
+    offer over it: the point of a teaser is that you can see there is something
+    behind it, which an empty space or a bare button would not say.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -43,19 +48,94 @@
             android:background="@color/ds_rule" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listRecents"
+    <!-- One card holding both halves, so the blurred rows continue the list
+         instead of sitting in a second box beneath it. -->
+    <LinearLayout
+        android:id="@+id/historyCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:nestedScrollingEnabled="false"
         android:background="@drawable/bg_ds_card"
         android:clipToOutline="true"
-        android:clipToPadding="false"
         android:elevation="4dp"
+        android:orientation="vertical"
         android:outlineAmbientShadowColor="@color/ds_card_shadow"
         android:outlineSpotShadowColor="@color/ds_card_shadow"
-        android:overScrollMode="never"
-        android:paddingVertical="@dimen/_4sdp" />
+        android:paddingVertical="@dimen/_4sdp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listRecents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never" />
+
+        <!-- The locked half: real rows, blurred, with the offer centred on them.
+             GONE for anyone holding Premium, and for a history short enough that
+             nothing is being withheld. -->
+        <FrameLayout
+            android:id="@+id/lockedArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listLocked"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAccessibility="noHideDescendants"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never" />
+
+            <!-- Fades the blurred rows out downward, so the card ends rather than
+                 stopping mid-row. -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_ds_locked_scrim" />
+
+            <LinearLayout
+                android:id="@+id/premiumLock"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="24dp">
+
+                <com.callerid.numberlookup.home.feature.premium.PremiumBadgeView
+                    android:id="@+id/lockBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/lockTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/mulish_bold"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="@string/history_locked_title"
+                    android:textColor="@color/ds_ink"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/mulish_semibold"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:lineSpacingMultiplier="1.3"
+                    android:text="@string/history_locked_sub"
+                    android:textColor="@color/ds_ink_muted"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
 
     <!--
         The whole page scrolls now, so nothing here claims leftover height - the

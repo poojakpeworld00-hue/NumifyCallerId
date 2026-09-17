@@ -934,4 +934,6 @@
     <string name="empty_groups_title">Aún no hay grupos</string>
     <string name="empty_groups_sub">Los grupos de tu cuenta de contactos aparecerán aquí.</string>
     <string name="recents_empty_sub">Las llamadas que hagas y recibas aparecerán aquí.</string>
+    <string name="history_locked_title">Consulta tu historial completo</string>
+    <string name="history_locked_sub">Premium desbloquea todas las llamadas con este número y quita los anuncios.</string>
 </resources>
