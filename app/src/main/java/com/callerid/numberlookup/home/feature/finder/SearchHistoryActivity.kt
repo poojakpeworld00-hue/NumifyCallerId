@@ -23,6 +23,9 @@ import com.callerid.numberlookup.home.databinding.ActivityLookupHistoryBinding
  */
 class SearchHistoryActivity : BaseActivity<ActivityLookupHistoryBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "SearchHistoryActivity"
+
     override val layoutId: Int = R.layout.activity_lookup_history
 
     private val viewModel: SearchHistoryViewModel by viewModels()

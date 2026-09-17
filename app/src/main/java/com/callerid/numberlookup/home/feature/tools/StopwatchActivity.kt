@@ -20,6 +20,9 @@ import java.util.Locale
 /** Stopwatch with lap recording. */
 class StopwatchActivity : BaseActivity<ActivityStopwatchBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "StopwatchActivity"
+
     override val layoutId: Int = R.layout.activity_stopwatch
 
     private val handler = Handler(Looper.getMainLooper())

@@ -25,6 +25,9 @@ import com.callerid.numberlookup.home.monetize.strategy.recordPermissionOutcome
 /** Approximate sound-level meter using [MediaRecorder.getMaxAmplitude]. */
 class NoiseMeterActivity : BaseActivity<ActivitySoundMeterBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "NoiseMeterActivity"
+
     override val layoutId: Int = R.layout.activity_sound_meter
 
     private var recorder: MediaRecorder? = null

@@ -44,6 +44,9 @@ import java.util.Locale
 
 class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
 
+    /** @see BaseFragment.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "NumberFinderFragment"
+
     /** Lookup: native banner pinned under the flag/paste row. */
     override val screenAdFormat = ScreenAdFormat.NATIVE_BANNER
 

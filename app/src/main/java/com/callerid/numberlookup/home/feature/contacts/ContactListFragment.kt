@@ -37,6 +37,9 @@ import com.callerid.numberlookup.home.common.followAdContainer
 
 class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
 
+    /** @see BaseFragment.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "ContactListFragment"
+
     /** Contacts: native banner in the existing in-list slot. */
     override val screenAdFormat = ScreenAdFormat.NATIVE_BANNER
 

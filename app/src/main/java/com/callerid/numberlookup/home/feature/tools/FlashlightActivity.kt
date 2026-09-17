@@ -25,6 +25,9 @@ import kotlin.math.roundToInt
 /** Torch with Steady / Strobe / SOS modes and (where supported) brightness control. */
 class FlashlightActivity : BaseActivity<ActivityFlashlightBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "FlashlightActivity"
+
     override val layoutId: Int = R.layout.activity_flashlight
 
     private enum class Mode { STEADY, STROBE, SOS }

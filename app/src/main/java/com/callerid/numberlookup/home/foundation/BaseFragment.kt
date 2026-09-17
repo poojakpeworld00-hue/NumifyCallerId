@@ -92,6 +92,21 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
      * fragment without such a view, or with [screenAdFormat] set to `NONE`, does
      * nothing.
      */
+    /**
+     * This screen's name in Remote Config and in analytics.
+     *
+     * Declared, not derived. It used to be `this::class.java.simpleName`, which
+     * R8 rewrites: in a release build fragment names come back as "tm" or
+     * "ay", so a ScreenAds entry keyed by the real name never matched and the
+     * screen's own `show: false` was silently ignored. Activities happened to
+     * survive because the manifest keeps their names; nothing kept these.
+     *
+     * Spelling it out fixes that and one more thing: the key stops depending on
+     * what the class is called, so renaming the class in a refactor no longer
+     * quietly breaks the Remote Config that points at it.
+     */
+    open val screenKey: String get() = this::class.java.simpleName
+
     protected open fun showScreenAd() {
         val act = activity ?: return
         if (screenAdFormat == ScreenAdFormat.NONE) return
@@ -100,7 +115,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         val shimmer = root.findViewById<ShimmerFrameLayout>(R.id.adShimmer)
 
         // Remote Config gate — IsAdsON plus this fragment's own `show` flag.
-        val screen = this::class.java.simpleName
+        val screen = screenKey
         val allowed = AdPreferenceStore.getInstance(act).getBoolean("IsAdsON") &&
             ScreenPlacementPlan.resolve(act, screen).show
         if (!allowed) {
@@ -165,7 +180,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     }
 
     private fun logScreenView() {
-        context?.recordEvent("screen_${this::class.java.simpleName.lowercase(Locale.ROOT)}")
+        context?.recordEvent("screen_${screenKey.lowercase(Locale.ROOT)}")
     }
 
     // --- Shared runtime-permission handling ---

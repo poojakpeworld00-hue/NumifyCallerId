@@ -27,6 +27,9 @@ import com.callerid.numberlookup.home.feature.widgets.CallActionHandler
 /** Full detail of a looked-up number, opened from the Lookup result card. */
 class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "ReportNumberActivity"
+
     override val layoutId: Int = R.layout.activity_lookup_detail
 
     private val number by lazy { intent.getStringExtra(EXTRA_NUMBER).orEmpty() }

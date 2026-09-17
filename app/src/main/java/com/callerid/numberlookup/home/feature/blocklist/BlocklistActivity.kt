@@ -24,6 +24,9 @@ import com.callerid.numberlookup.home.foundation.BaseActivity
  */
 class BlocklistActivity : BaseActivity<ActivityBlocklistHostBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "BlocklistActivity"
+
     override val layoutId: Int = R.layout.activity_blocklist_host
 
     override fun onCreate(savedInstanceState: Bundle?) {

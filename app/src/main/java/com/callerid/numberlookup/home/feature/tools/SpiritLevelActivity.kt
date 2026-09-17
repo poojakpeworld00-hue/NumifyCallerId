@@ -22,6 +22,9 @@ import kotlin.math.sqrt
 /** A bubble (spirit) level driven by the accelerometer. */
 class SpiritLevelActivity : BaseActivity<ActivityLevelBinding>(), SensorEventListener {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "SpiritLevelActivity"
+
     override val layoutId: Int = R.layout.activity_level
 
     private lateinit var sensorManager: SensorManager

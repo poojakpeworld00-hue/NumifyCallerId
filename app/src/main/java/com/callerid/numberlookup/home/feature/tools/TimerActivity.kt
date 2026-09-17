@@ -30,6 +30,9 @@ import java.util.Locale
  */
 class TimerActivity : BaseActivity<ActivityTimerBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "TimerActivity"
+
     override val layoutId: Int = R.layout.activity_timer
 
     private val handler = Handler(Looper.getMainLooper())

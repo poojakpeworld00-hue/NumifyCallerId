@@ -19,6 +19,9 @@ import kotlin.math.roundToInt
 /** A magnetic compass driven by the device's rotation-vector sensor. */
 class CompassActivity : BaseActivity<ActivityCompassBinding>(), SensorEventListener {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "CompassActivity"
+
     override val layoutId: Int = R.layout.activity_compass
 
     private lateinit var sensorManager: SensorManager

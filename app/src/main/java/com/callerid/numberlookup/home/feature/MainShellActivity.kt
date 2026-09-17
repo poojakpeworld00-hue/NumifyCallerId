@@ -71,6 +71,9 @@ import com.callerid.numberlookup.home.feature.overlay.ToolOverlayGate
  */
 class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "MainShellActivity"
+
     override val layoutId: Int = R.layout.activity_main_shell
 
     /**

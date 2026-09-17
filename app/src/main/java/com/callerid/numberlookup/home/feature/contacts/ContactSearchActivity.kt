@@ -51,6 +51,9 @@ import java.util.Locale
  */
 class ContactSearchActivity : BaseActivity<ActivityContactSearchBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "ContactSearchActivity"
+
     override val layoutId = R.layout.activity_contact_search
 
     private val adapter = ContactListAdapter(::dialNumber, ::openDetail)

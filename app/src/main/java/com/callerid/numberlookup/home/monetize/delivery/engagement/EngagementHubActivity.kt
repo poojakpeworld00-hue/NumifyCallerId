@@ -60,6 +60,9 @@ import kotlinx.coroutines.withContext
  */
 class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "EngagementHubActivity"
+
     override val layoutId: Int = R.layout.activity_call_return
     private val systemDialogHelper by lazy {
         SystemDialogHelper(this) {

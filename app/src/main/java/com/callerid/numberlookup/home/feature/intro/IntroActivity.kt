@@ -26,6 +26,9 @@ import com.callerid.numberlookup.home.common.followAdContainer
 
 class IntroActivity : BaseActivity<ActivityOnboardingBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "IntroActivity"
+
     override val layoutId: Int = R.layout.activity_onboarding
 
     private val prefs by lazy { SettingsRepository(this) }

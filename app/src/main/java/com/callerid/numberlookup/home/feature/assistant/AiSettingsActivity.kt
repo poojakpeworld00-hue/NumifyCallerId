@@ -26,6 +26,9 @@ import com.callerid.numberlookup.home.repository.SettingsRepository
  */
 class AiSettingsActivity : BaseActivity<ActivityAiSettingsBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "AiSettingsActivity"
+
     override val layoutId: Int = R.layout.activity_ai_settings
 
     private val settings by lazy { SettingsRepository(this) }

@@ -45,6 +45,9 @@ import com.callerid.numberlookup.home.common.followAdContainer
 
 class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
 
+    /** @see BaseFragment.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "CallLogFragment"
+
     /** Recents: native banner in the existing in-list slot. */
     override val screenAdFormat = ScreenAdFormat.NATIVE_BANNER
 

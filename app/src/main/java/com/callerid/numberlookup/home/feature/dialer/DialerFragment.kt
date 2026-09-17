@@ -46,6 +46,9 @@ import kotlinx.coroutines.launch
  */
 class DialerFragment : BaseFragment<ActivityDialerBinding>() {
 
+    /** @see BaseFragment.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "DialerFragment"
+
     private val viewModel: DialerViewModel by viewModels()
     private val adapter = SpeedDialAdapter(onClick = ::setDial, onCall = ::fillAndDial)
 

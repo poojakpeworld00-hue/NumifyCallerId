@@ -22,6 +22,9 @@ import kotlin.math.roundToInt
 /** Live battery stats, read from sticky ACTION_BATTERY_CHANGED broadcasts. */
 class BatteryInfoActivity : BaseActivity<ActivityBatteryBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "BatteryInfoActivity"
+
     override val layoutId: Int = R.layout.activity_battery
 
     private val receiver = object : BroadcastReceiver() {

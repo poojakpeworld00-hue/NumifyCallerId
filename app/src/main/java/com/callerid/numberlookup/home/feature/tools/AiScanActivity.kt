@@ -37,6 +37,9 @@ import kotlinx.coroutines.withContext
  */
 class AiScanActivity : BaseActivity<ActivityAiScanBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "AiScanActivity"
+
     override val layoutId: Int = R.layout.activity_ai_scan
 
     private val mode by lazy { intent.getStringExtra(EXTRA_MODE) ?: MODE_SPAM }

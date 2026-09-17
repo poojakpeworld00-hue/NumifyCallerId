@@ -19,6 +19,9 @@ import kotlin.math.roundToInt
 /** Ambient light meter (lux) using the device light sensor. */
 class LightMeterActivity : BaseActivity<ActivityLightMeterBinding>(), SensorEventListener {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "LightMeterActivity"
+
     override val layoutId: Int = R.layout.activity_light_meter
 
     private lateinit var sensorManager: SensorManager

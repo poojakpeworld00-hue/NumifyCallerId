@@ -35,6 +35,9 @@ import com.callerid.numberlookup.home.common.followAdContainer
 
 class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "LanguagePickerActivity"
+
     override val layoutId: Int = R.layout.activity_language
 
     private val viewModel: LanguagePickerViewModel by viewModels()

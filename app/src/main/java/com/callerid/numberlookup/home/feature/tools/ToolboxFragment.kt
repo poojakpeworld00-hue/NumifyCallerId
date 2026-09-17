@@ -43,6 +43,9 @@ import java.util.Locale
  */
 class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
 
+    /** @see BaseFragment.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "ToolboxFragment"
+
     /** Tools: mid native above the tools grid. */
     override val screenAdFormat = ScreenAdFormat.MID_NATIVE
 

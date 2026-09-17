@@ -43,6 +43,9 @@ import java.util.Locale
 /** Per-number call detail screen opened from a recents row. */
 class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "CallDetailsActivity"
+
     override val layoutId: Int = R.layout.activity_call_detail
 
     private val viewModel: CallDetailsViewModel by viewModels()

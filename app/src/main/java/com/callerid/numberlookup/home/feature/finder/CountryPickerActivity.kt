@@ -14,6 +14,9 @@ import com.callerid.numberlookup.home.databinding.ActivityCountryPickerBinding
 /** Searchable country list. Returns the chosen country's ISO/dial/name. */
 class CountryPickerActivity : BaseActivity<ActivityCountryPickerBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "CountryPickerActivity"
+
     override val layoutId: Int = R.layout.activity_country_picker
 
     private lateinit var adapter: CountryAdapter

@@ -87,6 +87,9 @@ import kotlinx.coroutines.launch
  */
 class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "PremiumActivity"
+
     override val layoutId = R.layout.activity_premium
 
     /**

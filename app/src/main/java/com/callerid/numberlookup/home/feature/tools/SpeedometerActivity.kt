@@ -26,6 +26,9 @@ import kotlin.math.roundToInt
 /** Internet speed test: download / upload throughput, latency and jitter over HTTP. */
 class SpeedometerActivity : BaseActivity<ActivitySpeedometerBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "SpeedometerActivity"
+
     override val layoutId: Int = R.layout.activity_speedometer
 
     private var job: Job? = null

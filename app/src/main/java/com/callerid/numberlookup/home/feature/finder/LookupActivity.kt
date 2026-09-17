@@ -25,6 +25,9 @@ import com.callerid.numberlookup.home.foundation.BaseActivity
  */
 class LookupActivity : BaseActivity<ActivityLookupBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "LookupActivity"
+
     override val layoutId: Int = R.layout.activity_lookup
 
     override fun onCreate(savedInstanceState: Bundle?) {

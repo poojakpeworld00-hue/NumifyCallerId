@@ -125,7 +125,7 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutId)
 
-        recordEvent("screen_${this::class.java.simpleName.lowercase(Locale.ROOT)}")
+        recordEvent("screen_${screenKey.lowercase(Locale.ROOT)}")
         binding.lifecycleOwner = this
         applyImmersiveNavigation()
         applySystemBarIcons()
@@ -259,10 +259,25 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
      * Adding a banner to any screen is therefore just a matter of adding the
      * include to its layout; no Kotlin change is needed. Override to customise.
      */
+    /**
+     * This screen's name in Remote Config and in analytics.
+     *
+     * Declared, not derived. It used to be `this::class.java.simpleName`, which
+     * R8 rewrites: in a release build fragment names come back as "tm" or
+     * "ay", so a ScreenAds entry keyed by the real name never matched and the
+     * screen's own `show: false` was silently ignored. Activities happened to
+     * survive because the manifest keeps their names; nothing kept these.
+     *
+     * Spelling it out fixes that and one more thing: the key stops depending on
+     * what the class is called, so renaming the class in a refactor no longer
+     * quietly breaks the Remote Config that points at it.
+     */
+    open val screenKey: String get() = this::class.java.simpleName
+
     protected open fun showBottomBanner() {
         val container = binding.root.findViewById<FrameLayout>(R.id.bannerAdFrame) ?: return
         val shimmer = binding.root.findViewById<ShimmerFrameLayout>(R.id.bannerShimmer)
-        ScreenPlacementPlan.showAd(this::class.java.simpleName, this, container, shimmer)
+        ScreenPlacementPlan.showAd(screenKey, this, container, shimmer)
         // The hairline above the slot only exists to fence off an advert — drop it
         // whenever the slot ends up empty (ads off, show:false, load failure).
         binding.root.findViewById<View>(R.id.adBannerDivider)?.followAdContainer(container)

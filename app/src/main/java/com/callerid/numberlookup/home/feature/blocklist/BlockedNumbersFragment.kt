@@ -56,6 +56,9 @@ import com.callerid.numberlookup.home.monetize.strategy.recordPermissionOutcome
 
 class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
 
+    /** @see BaseFragment.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "BlockedNumbersFragment"
+
     /** Blocklist: mid native at the top, under the summary strip. */
     override val screenAdFormat = ScreenAdFormat.MID_NATIVE
 

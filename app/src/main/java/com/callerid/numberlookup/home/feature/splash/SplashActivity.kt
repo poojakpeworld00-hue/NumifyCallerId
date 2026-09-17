@@ -45,6 +45,9 @@ import java.security.MessageDigest
  */
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "SplashActivity"
+
     override val layoutId: Int = R.layout.activity_splash
 
     // The splash sits on ds_page like every other screen now, so its system-bar

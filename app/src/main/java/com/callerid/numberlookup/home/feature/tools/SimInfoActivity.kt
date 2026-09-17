@@ -24,6 +24,9 @@ import com.callerid.numberlookup.home.monetize.strategy.recordPermissionOutcome
 /** Carrier / SIM / network details from [TelephonyManager]. */
 class SimInfoActivity : BaseActivity<ActivitySimInfoBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "SimInfoActivity"
+
     override val layoutId: Int = R.layout.activity_sim_info
 
     private val tm by lazy { getSystemService(TELEPHONY_SERVICE) as TelephonyManager }

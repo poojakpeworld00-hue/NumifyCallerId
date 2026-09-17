@@ -38,6 +38,9 @@ import kotlinx.coroutines.launch
  */
 class AiHubActivity : BaseActivity<ActivityAiHubBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "AiHubActivity"
+
     override val layoutId: Int = R.layout.activity_ai_hub
 
     private val repository by lazy { AiAssistantRepository(this) }
