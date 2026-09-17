@@ -70,7 +70,7 @@ class SearchHistoryAdapter(
             binding.imageHistReveal.setOnClickListener {
                 val p = bindingAdapterPosition
                 if (p == RecyclerView.NO_POSITION) return@setOnClickListener
-                if (NameRevealPolicy.isRevealable(itemView.context, p)) onRevealName(items[p])
+                if (NameRevealPolicy.canReveal(itemView.context)) onRevealName(items[p])
                 else onUpgrade()
             }
         }
@@ -91,11 +91,11 @@ class SearchHistoryAdapter(
             // Locked: blur the name and surface the eye button to unlock it.
             textHistName.text = if (locked) blurName(item.name!!) else (item.name ?: item.number)
             imageHistReveal.visibility = if (locked) View.VISIBLE else View.GONE
-            // Same rule as the names on the detail screen: the first few rows
-            // offer the eye, the rest wear a lock and lead to Premium. Which one
-            // this row shows is the only difference between them.
+            // Same rule as the names on the detail screen: while there is an
+            // allowance left the rows offer the eye, and once it is spent they
+            // all wear a lock and lead to Premium.
             imageHistReveal.setImageResource(
-                if (NameRevealPolicy.isRevealable(root.context, position)) R.drawable.ic_ds_eye
+                if (NameRevealPolicy.canReveal(root.context)) R.drawable.ic_ds_eye
                 else R.drawable.ic_lock
             )
             textHistSub.text = item.subtitle ?: item.number

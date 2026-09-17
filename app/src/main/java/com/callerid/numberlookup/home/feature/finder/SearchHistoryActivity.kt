@@ -79,7 +79,10 @@ class SearchHistoryActivity : BaseActivity<ActivityLookupHistoryBinding>() {
     /** Gate the name reveal behind a rewarded ad, then un-mask that row. */
     private fun revealName(entry: SearchHistoryEntry) {
         val name = entry.name ?: return
-        NameRevealReward.reveal(this, name, entry.number) { adapter.revealName(entry.rawNumber) }
+        NameRevealReward.reveal(this, name, entry.number) {
+            NameRevealPolicy.consume(this)
+            adapter.revealName(entry.rawNumber)
+        }
     }
 
     companion object {

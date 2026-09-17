@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.feature.widgets
 
+import androidx.recyclerview.widget.RecyclerView
 import android.app.Activity
 import android.content.Context
 import android.graphics.Canvas
@@ -38,6 +39,9 @@ class CoachMarkOverlay private constructor(context: Context) : FrameLayout(conte
     private var target: View? = null
     private var bubble: View? = null
     private var layoutWatcher: ViewTreeObserver.OnGlobalLayoutListener? = null
+
+    /** Held still while this is up, and released when it comes down. */
+    private var frozen: RecyclerView? = null
 
     init {
         setWillNotDraw(false)
@@ -119,10 +123,20 @@ class CoachMarkOverlay private constructor(context: Context) : FrameLayout(conte
     override fun onDetachedFromWindow() {
         layoutWatcher?.let { viewTreeObserver.removeOnGlobalLayoutListener(it) }
         layoutWatcher = null
+        // dismiss() has usually released this already and it is idempotent. The
+        // case this covers is the overlay going away without it - a destroyed
+        // Activity, a torn-down window - which would otherwise leave a list that
+        // can never scroll again.
+        frozen?.suppressLayout(false)
+        frozen = null
         super.onDetachedFromWindow()
     }
 
     fun dismiss() {
+        // Released before anything else: a list left suppressed is a page that
+        // never scrolls again.
+        frozen?.suppressLayout(false)
+        frozen = null
         (parent as? ViewGroup)?.removeView(this)
         onDismiss?.invoke()
         onDismiss = null
@@ -139,17 +153,32 @@ class CoachMarkOverlay private constructor(context: Context) : FrameLayout(conte
          * Shows the coach-mark for [target]. Safe to call as soon as the target
          * exists — the overlay tracks it from there.
          */
+        /**
+         * @param freeze a list to hold still for as long as the mark is up.
+         *
+         * The scrim already swallows touches, so this is not about the user
+         * scrolling past the thing being pointed at - it is about the page
+         * moving on its own. These marks go up on a first visit, while the
+         * native ad above the rails is still settling, and when it lands the
+         * content below it shifts. The spotlight follows its target, so the
+         * hole stays right, but the whole page sliding under a bubble that is
+         * explaining it is not something to follow gracefully - better that it
+         * does not happen. Suppressing layout stops the scroll and the reflow
+         * together.
+         */
         fun show(
             activity: Activity,
             target: View,
             bubbleRes: Int,
             bind: ((View) -> Unit)? = null,
-            onDismiss: (() -> Unit)? = null
+            onDismiss: (() -> Unit)? = null,
+            freeze: RecyclerView? = null,
         ): CoachMarkOverlay {
             val root = activity.window.decorView as ViewGroup
             val overlay = CoachMarkOverlay(activity).apply {
                 this.onDismiss = onDismiss
                 this.target = target
+                this.frozen = freeze?.also { it.suppressLayout(true) }
             }
 
             val bubble = LayoutInflater.from(activity).inflate(bubbleRes, overlay, false)

@@ -336,6 +336,7 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
         val act = activity ?: return
         val name = entry.name ?: return
         NameRevealReward.reveal(act, name, entry.number) {
+            NameRevealPolicy.consume(act)
             if (view != null) historyAdapter.revealName(entry.rawNumber)
         }
     }

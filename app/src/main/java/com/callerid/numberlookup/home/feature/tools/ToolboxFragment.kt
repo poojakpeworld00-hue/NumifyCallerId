@@ -234,6 +234,7 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
                         .setText(if (last) R.string.got_it else R.string.onboarding_next)
                 },
                 onDismiss = { if (!last) runTourStep(index + 1) },
+                freeze = binding.listTools,
             )
         }
     }
@@ -266,16 +267,37 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
         root.post(poll)
     }
 
-    /** The tour, as a list of (how to find the target, what to say about it). */
+    /**
+     * The tour, as a list of (how to find the target, what to say about it).
+     *
+     * Each step names the tool it is about and the rail is searched for it.
+     * The steps used to name a column instead, and adding Block in second place
+     * silently pointed the Ask AI bubble at it - the spotlight moved, the words
+     * did not. Anything that reorders the rail now moves the spotlight with it.
+     */
     private val tourSteps: List<Pair<() -> View?, Int>> by lazy {
         listOf(
-            { tileAt(row = 0, column = 0) } to R.string.tools_tour_lookup,
-            { tileAt(row = 0, column = 1) } to R.string.tools_tour_ask_ai,
+            { tileFor(LookupActivity::class.java) } to R.string.tools_tour_lookup,
+            { tileFor(AiHubActivity::class.java) } to R.string.tools_tour_ask_ai,
             // The whole second category block — the point is how much else there
             // is, so the spotlight is the row, not one card in it.
             { binding.listTools.findViewHolderForAdapterPosition(1)?.itemView } to
                 R.string.tools_tour_more,
         )
+    }
+
+    /**
+     * The laid-out card for the tool that opens [target], wherever it currently
+     * sits, or null if it is not on screen - which a step treats as a skip, the
+     * way it already does for an Ask AI switched off in Remote Config.
+     */
+    private fun tileFor(target: Class<*>): View? {
+        val categories = buildCategories(tools())
+        categories.forEachIndexed { row, category ->
+            val column = category.tools.indexOfFirst { it.target == target }
+            if (column >= 0) return tileAt(row, column)
+        }
+        return null
     }
 
     /** The [column]-th card of the [row]-th category rail, if it is laid out. */

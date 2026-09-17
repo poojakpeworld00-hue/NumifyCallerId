@@ -217,7 +217,7 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
         binding.columnNicknames.removeAllViews()
         for ((index, nick) in nicknameList.withIndex()) {
             val row = ItemNicknameBinding.inflate(layoutInflater, binding.columnNicknames, false)
-            val revealable = NameRevealPolicy.isRevealable(this, index)
+            val revealable = NameRevealPolicy.canReveal(this)
             if (revealed.contains(nick)) {
                 row.imageNickIcon.setImageResource(R.drawable.ic_verified)
                 row.imageNickIcon.imageTintList = ColorStateList.valueOf(color(R.color.success))
@@ -272,7 +272,15 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
      * same [RewardPrompt] dialog as the rest, with the name masked.
      */
     private fun revealOne(nick: String) {
-        val doReveal = { if (!isFinishing) { markRevealed(nick); renderNicknames() } }
+        val doReveal = {
+            if (!isFinishing) {
+                // Spent here rather than on the tap: an ad the user backs out
+                // of has cost them nothing and should take nothing.
+                NameRevealPolicy.consume(this)
+                markRevealed(nick)
+                renderNicknames()
+            }
+        }
         RewardPrompt.show(this, RewardPrompt.nameReveal(nick, number)) { doReveal() }
     }
 
