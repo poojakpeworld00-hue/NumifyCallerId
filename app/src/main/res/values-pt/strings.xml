@@ -918,4 +918,18 @@
     <string name="data_deletion_done">Pedido de eliminação enviado</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">Remova anúncios e todos os limites</string>
+    <string name="contact_detail_title">Detalhes</string>
+    <string name="action_favourite">Adicionar aos favoritos</string>
+    <string name="action_unfavourite">Remover dos favoritos</string>
+    <string name="favourite_needs_contact">Salve este número como contato primeiro</string>
+    <string name="favourite_added">Adicionado aos favoritos</string>
+    <string name="favourite_removed">Removido dos favoritos</string>
+    <string name="contacts_empty_sub">Os contatos que você adicionar neste telefone aparecerão aqui.</string>
+    <string name="empty_favorites_title">Ainda não há favoritos</string>
+    <string name="empty_favorites_sub">Marque um contato com estrela e ele ficará aqui.</string>
+    <string name="empty_contact_recents_title">Nenhuma chamada com esses contatos</string>
+    <string name="empty_contact_recents_sub">Os contatos para quem você ligou recentemente aparecem aqui.</string>
+    <string name="empty_groups_title">Ainda não há grupos</string>
+    <string name="empty_groups_sub">Os grupos da sua conta de contatos aparecerão aqui.</string>
+    <string name="recents_empty_sub">As chamadas que você fizer e receber aparecerão aqui.</string>
 </resources>

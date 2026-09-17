@@ -928,4 +928,18 @@
     <string name="data_deletion_done">Запрос на удаление отправлен</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">Убрать рекламу и все ограничения</string>
+    <string name="contact_detail_title">Сведения</string>
+    <string name="action_favourite">Добавить в избранное</string>
+    <string name="action_unfavourite">Убрать из избранного</string>
+    <string name="favourite_needs_contact">Сначала сохраните этот номер в контактах</string>
+    <string name="favourite_added">Добавлено в избранное</string>
+    <string name="favourite_removed">Убрано из избранного</string>
+    <string name="contacts_empty_sub">Контакты, добавленные на этом телефоне, появятся здесь.</string>
+    <string name="empty_favorites_title">Избранного пока нет</string>
+    <string name="empty_favorites_sub">Отметьте контакт звёздочкой, и он останется здесь.</string>
+    <string name="empty_contact_recents_title">Звонков с этими контактами нет</string>
+    <string name="empty_contact_recents_sub">Здесь появятся контакты, которым вы недавно звонили.</string>
+    <string name="empty_groups_title">Групп пока нет</string>
+    <string name="empty_groups_sub">Здесь появятся группы из вашего аккаунта контактов.</string>
+    <string name="recents_empty_sub">Здесь появятся ваши исходящие и входящие звонки.</string>
 </resources>

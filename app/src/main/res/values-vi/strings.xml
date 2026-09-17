@@ -871,4 +871,18 @@
     <string name="data_deletion_done">Đã gửi yêu cầu xoá</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">Bỏ quảng cáo và mọi giới hạn</string>
+    <string name="contact_detail_title">Chi tiết</string>
+    <string name="action_favourite">Thêm vào yêu thích</string>
+    <string name="action_unfavourite">Xóa khỏi yêu thích</string>
+    <string name="favourite_needs_contact">Hãy lưu số này vào danh bạ trước</string>
+    <string name="favourite_added">Đã thêm vào yêu thích</string>
+    <string name="favourite_removed">Đã xóa khỏi yêu thích</string>
+    <string name="contacts_empty_sub">Liên hệ bạn thêm trên máy này sẽ hiện ở đây.</string>
+    <string name="empty_favorites_title">Chưa có mục yêu thích</string>
+    <string name="empty_favorites_sub">Gắn sao một liên hệ và nó sẽ nằm ở đây.</string>
+    <string name="empty_contact_recents_title">Không có cuộc gọi với các liên hệ này</string>
+    <string name="empty_contact_recents_sub">Liên hệ bạn vừa gọi gần đây sẽ hiện ở đây.</string>
+    <string name="empty_groups_title">Chưa có nhóm nào</string>
+    <string name="empty_groups_sub">Các nhóm từ tài khoản danh bạ của bạn sẽ hiện ở đây.</string>
+    <string name="recents_empty_sub">Cuộc gọi bạn thực hiện và nhận sẽ hiện ở đây.</string>
 </resources>

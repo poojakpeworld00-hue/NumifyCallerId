@@ -871,4 +871,18 @@
     <string name="data_deletion_done">ส่งคำขอลบข้อมูลแล้ว</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">ปิดโฆษณาและปลดทุกข้อจำกัด</string>
+    <string name="contact_detail_title">รายละเอียด</string>
+    <string name="action_favourite">เพิ่มในรายการโปรด</string>
+    <string name="action_unfavourite">นำออกจากรายการโปรด</string>
+    <string name="favourite_needs_contact">บันทึกหมายเลขนี้เป็นรายชื่อก่อน</string>
+    <string name="favourite_added">เพิ่มในรายการโปรดแล้ว</string>
+    <string name="favourite_removed">นำออกจากรายการโปรดแล้ว</string>
+    <string name="contacts_empty_sub">รายชื่อที่คุณเพิ่มในเครื่องนี้จะแสดงที่นี่</string>
+    <string name="empty_favorites_title">ยังไม่มีรายการโปรด</string>
+    <string name="empty_favorites_sub">ติดดาวรายชื่อไว้ แล้วจะพบได้ที่นี่</string>
+    <string name="empty_contact_recents_title">ไม่มีสายกับรายชื่อเหล่านี้</string>
+    <string name="empty_contact_recents_sub">รายชื่อที่คุณโทรหาเมื่อเร็ว ๆ นี้จะแสดงที่นี่</string>
+    <string name="empty_groups_title">ยังไม่มีกลุ่ม</string>
+    <string name="empty_groups_sub">กลุ่มจากบัญชีรายชื่อของคุณจะแสดงที่นี่</string>
+    <string name="recents_empty_sub">สายที่คุณโทรออกและรับสายจะแสดงที่นี่</string>
 </resources>

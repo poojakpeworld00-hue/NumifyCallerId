@@ -922,4 +922,18 @@
     <string name="data_deletion_done">تم إرسال طلب الحذف</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">أزل الإعلانات وكل القيود</string>
+    <string name="contact_detail_title">التفاصيل</string>
+    <string name="action_favourite">إضافة إلى المفضلة</string>
+    <string name="action_unfavourite">إزالة من المفضلة</string>
+    <string name="favourite_needs_contact">احفظ هذا الرقم في جهات الاتصال أولاً</string>
+    <string name="favourite_added">تمت الإضافة إلى المفضلة</string>
+    <string name="favourite_removed">تمت الإزالة من المفضلة</string>
+    <string name="contacts_empty_sub">ستظهر هنا جهات الاتصال التي تضيفها على هذا الهاتف.</string>
+    <string name="empty_favorites_title">لا توجد مفضلات بعد</string>
+    <string name="empty_favorites_sub">ضع نجمة على جهة اتصال وستجدها هنا.</string>
+    <string name="empty_contact_recents_title">لا توجد مكالمات مع جهات الاتصال هذه</string>
+    <string name="empty_contact_recents_sub">ستظهر هنا جهات الاتصال التي اتصلت بها مؤخرًا.</string>
+    <string name="empty_groups_title">لا توجد مجموعات بعد</string>
+    <string name="empty_groups_sub">ستظهر هنا المجموعات من حساب جهات الاتصال.</string>
+    <string name="recents_empty_sub">ستظهر هنا المكالمات التي تجريها وتتلقاها.</string>
 </resources>

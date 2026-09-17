@@ -916,4 +916,18 @@
     <string name="data_deletion_done">हटाने का अनुरोध भेज दिया गया</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">विज्ञापन और सभी सीमाएँ हटाएँ</string>
+    <string name="contact_detail_title">विवरण</string>
+    <string name="action_favourite">पसंदीदा में जोड़ें</string>
+    <string name="action_unfavourite">पसंदीदा से हटाएँ</string>
+    <string name="favourite_needs_contact">पहले इस नंबर को संपर्क के रूप में सहेजें</string>
+    <string name="favourite_added">पसंदीदा में जोड़ा गया</string>
+    <string name="favourite_removed">पसंदीदा से हटाया गया</string>
+    <string name="contacts_empty_sub">इस फ़ोन में जोड़े गए संपर्क यहाँ दिखेंगे।</string>
+    <string name="empty_favorites_title">अभी कोई पसंदीदा नहीं</string>
+    <string name="empty_favorites_sub">किसी संपर्क को स्टार करें, वह यहाँ दिखेगा।</string>
+    <string name="empty_contact_recents_title">इन संपर्कों के साथ कोई कॉल नहीं</string>
+    <string name="empty_contact_recents_sub">हाल ही में जिन्हें आपने कॉल किया, वे यहाँ दिखेंगे।</string>
+    <string name="empty_groups_title">अभी कोई समूह नहीं</string>
+    <string name="empty_groups_sub">आपके संपर्क खाते के समूह यहाँ दिखेंगे।</string>
+    <string name="recents_empty_sub">आपकी की गई और आई हुई कॉल यहाँ दिखेंगी।</string>
 </resources>

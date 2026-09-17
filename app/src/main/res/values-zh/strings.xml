@@ -871,4 +871,18 @@
     <string name="data_deletion_done">删除请求已发送</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">去除广告和所有限制</string>
+    <string name="contact_detail_title">详情</string>
+    <string name="action_favourite">添加到收藏</string>
+    <string name="action_unfavourite">从收藏中移除</string>
+    <string name="favourite_needs_contact">请先将此号码保存为联系人</string>
+    <string name="favourite_added">已添加到收藏</string>
+    <string name="favourite_removed">已从收藏中移除</string>
+    <string name="contacts_empty_sub">你在此手机上添加的联系人会显示在这里。</string>
+    <string name="empty_favorites_title">还没有收藏</string>
+    <string name="empty_favorites_sub">给联系人加星标，它就会留在这里。</string>
+    <string name="empty_contact_recents_title">与这些联系人没有通话</string>
+    <string name="empty_contact_recents_sub">你最近拨打过的联系人会显示在这里。</string>
+    <string name="empty_groups_title">还没有群组</string>
+    <string name="empty_groups_sub">你联系人账号中的群组会显示在这里。</string>
+    <string name="recents_empty_sub">你拨出和接到的通话会显示在这里。</string>
 </resources>

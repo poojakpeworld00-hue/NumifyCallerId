@@ -876,4 +876,18 @@
     <string name="data_deletion_done">Silme talebi gönderildi</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">Reklamları ve tüm sınırları kaldırın</string>
+    <string name="contact_detail_title">Ayrıntılar</string>
+    <string name="action_favourite">Favorilere ekle</string>
+    <string name="action_unfavourite">Favorilerden çıkar</string>
+    <string name="favourite_needs_contact">Önce bu numarayı kişi olarak kaydedin</string>
+    <string name="favourite_added">Favorilere eklendi</string>
+    <string name="favourite_removed">Favorilerden çıkarıldı</string>
+    <string name="contacts_empty_sub">Bu telefona eklediğiniz kişiler burada görünür.</string>
+    <string name="empty_favorites_title">Henüz favori yok</string>
+    <string name="empty_favorites_sub">Bir kişiyi yıldızlayın, burada sizi bekler.</string>
+    <string name="empty_contact_recents_title">Bu kişilerle arama yok</string>
+    <string name="empty_contact_recents_sub">Son zamanlarda aradığınız kişiler burada görünür.</string>
+    <string name="empty_groups_title">Henüz grup yok</string>
+    <string name="empty_groups_sub">Kişi hesabınızdaki gruplar burada görünür.</string>
+    <string name="recents_empty_sub">Yaptığınız ve aldığınız aramalar burada görünür.</string>
 </resources>

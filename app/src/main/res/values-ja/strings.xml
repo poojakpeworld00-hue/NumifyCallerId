@@ -871,4 +871,18 @@
     <string name="data_deletion_done">削除リクエストを送信しました</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">広告とすべての制限をなくす</string>
+    <string name="contact_detail_title">詳細</string>
+    <string name="action_favourite">お気に入りに追加</string>
+    <string name="action_unfavourite">お気に入りから削除</string>
+    <string name="favourite_needs_contact">先にこの番号を連絡先に保存してください</string>
+    <string name="favourite_added">お気に入りに追加しました</string>
+    <string name="favourite_removed">お気に入りから削除しました</string>
+    <string name="contacts_empty_sub">この端末に追加した連絡先がここに表示されます。</string>
+    <string name="empty_favorites_title">お気に入りはまだありません</string>
+    <string name="empty_favorites_sub">連絡先にスターを付けると、ここに表示されます。</string>
+    <string name="empty_contact_recents_title">これらの連絡先との通話はありません</string>
+    <string name="empty_contact_recents_sub">最近発信した連絡先がここに表示されます。</string>
+    <string name="empty_groups_title">グループはまだありません</string>
+    <string name="empty_groups_sub">連絡先アカウントのグループがここに表示されます。</string>
+    <string name="recents_empty_sub">発信および着信した通話がここに表示されます。</string>
 </resources>

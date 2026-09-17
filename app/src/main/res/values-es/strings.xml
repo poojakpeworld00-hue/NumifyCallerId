@@ -920,4 +920,18 @@
     <string name="data_deletion_done">Solicitud de eliminación enviada</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">Quita los anuncios y todos los límites</string>
+    <string name="contact_detail_title">Detalles</string>
+    <string name="action_favourite">Añadir a favoritos</string>
+    <string name="action_unfavourite">Quitar de favoritos</string>
+    <string name="favourite_needs_contact">Guarda este número como contacto primero</string>
+    <string name="favourite_added">Añadido a favoritos</string>
+    <string name="favourite_removed">Quitado de favoritos</string>
+    <string name="contacts_empty_sub">Los contactos que añadas en este teléfono aparecerán aquí.</string>
+    <string name="empty_favorites_title">Aún no hay favoritos</string>
+    <string name="empty_favorites_sub">Marca un contacto con una estrella y lo encontrarás aquí.</string>
+    <string name="empty_contact_recents_title">No hay llamadas con estos contactos</string>
+    <string name="empty_contact_recents_sub">Los contactos a los que has llamado hace poco aparecen aquí.</string>
+    <string name="empty_groups_title">Aún no hay grupos</string>
+    <string name="empty_groups_sub">Los grupos de tu cuenta de contactos aparecerán aquí.</string>
+    <string name="recents_empty_sub">Las llamadas que hagas y recibas aparecerán aquí.</string>
 </resources>

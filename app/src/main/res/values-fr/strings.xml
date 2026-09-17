@@ -876,4 +876,18 @@
     <string name="data_deletion_done">Demande de suppression envoyée</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">Supprimez les publicités et toutes les limites</string>
+    <string name="contact_detail_title">Détails</string>
+    <string name="action_favourite">Ajouter aux favoris</string>
+    <string name="action_unfavourite">Retirer des favoris</string>
+    <string name="favourite_needs_contact">Enregistrez d\'abord ce numéro comme contact</string>
+    <string name="favourite_added">Ajouté aux favoris</string>
+    <string name="favourite_removed">Retiré des favoris</string>
+    <string name="contacts_empty_sub">Les contacts que vous ajoutez sur ce téléphone apparaîtront ici.</string>
+    <string name="empty_favorites_title">Aucun favori pour l\'instant</string>
+    <string name="empty_favorites_sub">Ajoutez une étoile à un contact et vous le retrouverez ici.</string>
+    <string name="empty_contact_recents_title">Aucun appel avec ces contacts</string>
+    <string name="empty_contact_recents_sub">Les contacts que vous avez appelés récemment apparaissent ici.</string>
+    <string name="empty_groups_title">Aucun groupe pour l\'instant</string>
+    <string name="empty_groups_sub">Les groupes de votre compte de contacts apparaîtront ici.</string>
+    <string name="recents_empty_sub">Les appels que vous passez et recevez apparaîtront ici.</string>
 </resources>
