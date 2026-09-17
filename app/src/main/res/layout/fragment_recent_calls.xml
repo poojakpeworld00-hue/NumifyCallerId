@@ -133,6 +133,26 @@
                     android:text="@string/history_locked_sub"
                     android:textColor="@color/ds_ink_muted"
                     android:textSize="12sp" />
+
+                <!-- The whole panel is tappable, but a panel does not look like it
+                     is: the button is what says the offer can be acted on. It takes
+                     the gold from the badge above it and the paywall it opens. -->
+                <TextView
+                    android:id="@+id/buttonUnlock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/bg_premium_pill"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/mulish_bold"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:includeFontPadding="false"
+                    android:paddingHorizontal="26dp"
+                    android:paddingVertical="11dp"
+                    android:text="@string/history_locked_cta"
+                    android:textColor="@color/ds_on_accent"
+                    android:textSize="13.5sp" />
             </LinearLayout>
         </FrameLayout>
     </LinearLayout>

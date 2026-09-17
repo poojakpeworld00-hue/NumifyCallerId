@@ -892,4 +892,5 @@
     <string name="recents_empty_sub">Les appels que vous passez et recevez apparaîtront ici.</string>
     <string name="history_locked_title">Voir tout votre historique d\'appels</string>
     <string name="history_locked_sub">Premium débloque chaque appel avec ce numéro et supprime les publicités.</string>
+    <string name="history_locked_cta">Activer Premium</string>
 </resources>

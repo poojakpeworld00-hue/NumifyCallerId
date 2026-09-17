@@ -1032,4 +1032,5 @@
     <string name="data_deletion_done">Deletion request sent</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">Remove ads and all limits</string>
+    <string name="history_locked_cta">Unlock Premium</string>
 </resources>

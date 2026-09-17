@@ -107,9 +107,14 @@ class CallTimelineFragment : Fragment() {
         // The offer covers the whole locked area and is what takes the touch, so
         // the rows behind it cannot be tapped; the layout hides them from screen
         // readers to match.
-        root.findViewById<View>(R.id.premiumLock).setOnClickListener {
+        val openPaywall = View.OnClickListener {
             if (isAdded) startActivity(PremiumActivity.newIntent(requireContext()))
         }
+        root.findViewById<View>(R.id.premiumLock).setOnClickListener(openPaywall)
+        // The button sits on top of the panel, so it has to carry the click too -
+        // a control that looks pressable and does nothing when pressed is worse
+        // than no control.
+        root.findViewById<View>(R.id.buttonUnlock).setOnClickListener(openPaywall)
     }
 
     /**

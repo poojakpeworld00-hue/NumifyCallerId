@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    The Premium call-to-action as a pill: the same gold gradient the crown chip
+    and the hero tile carry, at a button's radius. Sharing the gradient is what
+    ties the offer on the call history to the badge that opens the paywall and
+    to the paywall itself.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:endColor="@color/premium_crown_end"
+        android:startColor="@color/premium_crown_start"
+        android:type="linear" />
+    <corners android:radius="22dp" />
+</shape>

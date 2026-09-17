@@ -932,4 +932,5 @@
     <string name="recents_empty_sub">आपकी की गई और आई हुई कॉल यहाँ दिखेंगी।</string>
     <string name="history_locked_title">अपना पूरा कॉल इतिहास देखें</string>
     <string name="history_locked_sub">Premium इस नंबर की हर कॉल दिखाता है और विज्ञापन हटाता है।</string>
+    <string name="history_locked_cta">Premium अनलॉक करें</string>
 </resources>
