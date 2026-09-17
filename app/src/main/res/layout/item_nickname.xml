@@ -61,6 +61,7 @@
         android:paddingHorizontal="@dimen/_12sdp">
 
         <ImageView
+            android:id="@+id/imageNickRevealIcon"
             android:layout_width="@dimen/_11sdp"
             android:layout_height="@dimen/_11sdp"
             android:contentDescription="@string/lookup_reveal"
@@ -68,6 +69,7 @@
             app:tint="@color/white" />
 
         <TextView
+            android:id="@+id/textNickRevealLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_5sdp"

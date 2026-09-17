@@ -890,4 +890,5 @@
     <string name="history_locked_cta">解锁 Premium</string>
     <string name="tools_block">拦截</string>
     <string name="tools_block_sub">阻止某个号码来电</string>
+    <string name="lookup_reveal_premium">Premium</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.feature.finder
 
+import com.callerid.numberlookup.home.R
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,10 @@ class SearchHistoryAdapter(
     private val onCall: (SearchHistoryEntry) -> Unit,
     // Tapping a still-locked name asks the host to gate the reveal behind a
     // rewarded ad; the host calls [revealName] once the reward is earned.
-    private val onRevealName: (SearchHistoryEntry) -> Unit = {}
+    private val onRevealName: (SearchHistoryEntry) -> Unit = {},
+    // Past the free line the eye becomes a lock, and the host is asked for the
+    // paywall instead of an ad.
+    private val onUpgrade: () -> Unit = {},
 ) : RecyclerView.Adapter<SearchHistoryAdapter.VH>() {
 
     private val items = mutableListOf<SearchHistoryEntry>()
@@ -65,7 +69,9 @@ class SearchHistoryAdapter(
             // never by tapping the row/name directly.
             binding.imageHistReveal.setOnClickListener {
                 val p = bindingAdapterPosition
-                if (p != RecyclerView.NO_POSITION) onRevealName(items[p])
+                if (p == RecyclerView.NO_POSITION) return@setOnClickListener
+                if (NameRevealPolicy.isRevealable(itemView.context, p)) onRevealName(items[p])
+                else onUpgrade()
             }
         }
     }
@@ -85,6 +91,13 @@ class SearchHistoryAdapter(
             // Locked: blur the name and surface the eye button to unlock it.
             textHistName.text = if (locked) blurName(item.name!!) else (item.name ?: item.number)
             imageHistReveal.visibility = if (locked) View.VISIBLE else View.GONE
+            // Same rule as the names on the detail screen: the first few rows
+            // offer the eye, the rest wear a lock and lead to Premium. Which one
+            // this row shows is the only difference between them.
+            imageHistReveal.setImageResource(
+                if (NameRevealPolicy.isRevealable(root.context, position)) R.drawable.ic_ds_eye
+                else R.drawable.ic_lock
+            )
             textHistSub.text = item.subtitle ?: item.number
         }
     }

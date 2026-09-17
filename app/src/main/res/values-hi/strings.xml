@@ -935,4 +935,5 @@
     <string name="history_locked_cta">Premium अनलॉक करें</string>
     <string name="tools_block">ब्लॉक</string>
     <string name="tools_block_sub">किसी नंबर की कॉल रोकें</string>
+    <string name="lookup_reveal_premium">Premium</string>
 </resources>

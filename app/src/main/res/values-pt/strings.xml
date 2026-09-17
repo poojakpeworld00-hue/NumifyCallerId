@@ -937,4 +937,5 @@
     <string name="history_locked_cta">Ativar o Premium</string>
     <string name="tools_block">Bloquear</string>
     <string name="tools_block_sub">Corte as chamadas de um número</string>
+    <string name="lookup_reveal_premium">Premium</string>
 </resources>

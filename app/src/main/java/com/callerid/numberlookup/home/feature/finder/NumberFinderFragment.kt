@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.feature.finder
 
+import com.callerid.numberlookup.home.feature.premium.PremiumActivity
 import android.app.Activity
 import android.app.Dialog
 import android.content.ClipboardManager
@@ -116,7 +117,8 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
         historyAdapter = SearchHistoryAdapter(
             onClick = { entry -> binding.inputNumberInput.setText(entry.rawNumber); binding.inputNumberInput.setSelection(entry.rawNumber.length) },
             onCall = { entry -> dial(entry.rawNumber) },
-            onRevealName = { entry -> revealHistoryName(entry) }
+            onRevealName = { entry -> revealHistoryName(entry) },
+            onUpgrade = { startActivity(PremiumActivity.newIntent(requireContext())) },
         )
         binding.listHistory.layoutManager = LinearLayoutManager(requireContext())
         binding.listHistory.adapter = historyAdapter

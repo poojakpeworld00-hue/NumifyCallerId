@@ -890,4 +890,5 @@
     <string name="history_locked_cta">Mở khóa Premium</string>
     <string name="tools_block">Chặn</string>
     <string name="tools_block_sub">Ngăn cuộc gọi từ một số</string>
+    <string name="lookup_reveal_premium">Premium</string>
 </resources>

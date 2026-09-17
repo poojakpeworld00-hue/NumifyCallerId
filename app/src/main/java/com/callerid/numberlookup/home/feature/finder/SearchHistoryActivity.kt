@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.feature.finder
 
+import com.callerid.numberlookup.home.feature.premium.PremiumActivity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -28,7 +29,8 @@ class SearchHistoryActivity : BaseActivity<ActivityLookupHistoryBinding>() {
     private val adapter = SearchHistoryAdapter(
         onClick = ::returnNumber,
         onCall = { entry -> placeCall(entry.rawNumber) },
-        onRevealName = ::revealName
+        onRevealName = ::revealName,
+        onUpgrade = { startActivity(PremiumActivity.newIntent(this)) },
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

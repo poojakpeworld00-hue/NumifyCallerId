@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.feature.finder
 
+import com.callerid.numberlookup.home.feature.premium.PremiumActivity
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -189,10 +190,17 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
     }
 
     /**
-     * "Also known as": every name is a locked row carrying its own Reveal pill.
-     * One rewarded ad reveals one name, revealed names are cached and marked with
-     * a green check, and names revealed on an earlier visit come back already
-     * unlocked.
+     * "Also known as".
+     *
+     * The first few names are the ones a free user may open: eye, rewarded ad,
+     * name, and the reveal is remembered so a name opened last visit comes back
+     * already open. How many is [NameRevealPolicy.revealableLimit], which Remote
+     * Config sets.
+     *
+     * Past that the rows wear a lock and lead to the paywall instead of an ad.
+     * Every one of these names used to be reachable for the price of watching
+     * something, which is Premium's whole offer on this screen handed out one ad
+     * at a time.
      */
     private fun showNicknames(nicknames: List<String>?) {
         nicknameList = nicknames.orEmpty()
@@ -204,8 +212,9 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
     private fun renderNicknames() {
         val revealed = revealedSet()
         binding.columnNicknames.removeAllViews()
-        for (nick in nicknameList) {
+        for ((index, nick) in nicknameList.withIndex()) {
             val row = ItemNicknameBinding.inflate(layoutInflater, binding.columnNicknames, false)
+            val revealable = NameRevealPolicy.isRevealable(this, index)
             if (revealed.contains(nick)) {
                 row.imageNickIcon.setImageResource(R.drawable.ic_verified)
                 row.imageNickIcon.imageTintList = ColorStateList.valueOf(color(R.color.success))
@@ -220,7 +229,22 @@ class ReportNumberActivity : BaseActivity<ActivityLookupDetailBinding>() {
                 row.textNickName.setTextColor(color(R.color.on_surface_variant))
                 row.textNickRevealed.visibility = View.GONE
                 row.buttonNickReveal.visibility = View.VISIBLE
-                row.buttonNickReveal.setOnClickListener { revealOne(nick) }
+
+                if (revealable) {
+                    row.imageNickRevealIcon.setImageResource(R.drawable.ic_play)
+                    row.textNickRevealLabel.setText(R.string.lookup_reveal)
+                    row.buttonNickReveal.setBackgroundResource(R.drawable.bg_reveal_pill)
+                    row.buttonNickReveal.setOnClickListener { revealOne(nick) }
+                } else {
+                    // Past the free line: the pill stops offering an ad and starts
+                    // offering the thing that removes the line.
+                    row.imageNickRevealIcon.setImageResource(R.drawable.ic_lock)
+                    row.textNickRevealLabel.setText(R.string.lookup_reveal_premium)
+                    row.buttonNickReveal.setBackgroundResource(R.drawable.bg_premium_pill)
+                    row.buttonNickReveal.setOnClickListener {
+                        startActivity(PremiumActivity.newIntent(this))
+                    }
+                }
             }
             binding.columnNicknames.addView(row.root)
         }
