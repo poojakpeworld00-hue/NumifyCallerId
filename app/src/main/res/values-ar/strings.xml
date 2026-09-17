@@ -947,4 +947,20 @@
     <string name="settings_pro_days_fmt">اليوم %1$d من %2$d · بقي %3$d يوم</string>
     <string name="settings_pro_active">Premium مفعّل</string>
     <string name="premium_go_to_app">انتقل إلى التطبيق</string>
+    <plurals name="blocklist_calls">
+        <item quantity="zero">لا مكالمات</item>
+        <item quantity="one">مكالمة واحدة</item>
+        <item quantity="two">مكالمتان</item>
+        <item quantity="few">%1$d مكالمات</item>
+        <item quantity="many">%1$d مكالمة</item>
+        <item quantity="other">%1$d مكالمة</item>
+    </plurals>
+    <plurals name="blocklist_attempts">
+        <item quantity="zero">لا محاولات</item>
+        <item quantity="one">محاولة واحدة</item>
+        <item quantity="two">محاولتان</item>
+        <item quantity="few">%1$d محاولات</item>
+        <item quantity="many">%1$d محاولة</item>
+        <item quantity="other">%1$d محاولة</item>
+    </plurals>
 </resources>

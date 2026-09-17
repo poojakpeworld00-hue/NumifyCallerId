@@ -941,4 +941,12 @@
     <string name="settings_pro_days_fmt">%2$d में से %1$d दिन · %3$d दिन बाकी</string>
     <string name="settings_pro_active">Premium चालू है</string>
     <string name="premium_go_to_app">ऐप पर जाएँ</string>
+    <plurals name="blocklist_calls">
+        <item quantity="one">%1$d कॉल</item>
+        <item quantity="other">%1$d कॉल</item>
+    </plurals>
+    <plurals name="blocklist_attempts">
+        <item quantity="one">%1$d कोशिश</item>
+        <item quantity="other">%1$d कोशिशें</item>
+    </plurals>
 </resources>

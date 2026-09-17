@@ -953,4 +953,16 @@
     <string name="settings_pro_days_fmt">День %1$d из %2$d · осталось %3$d дн.</string>
     <string name="settings_pro_active">Premium активен</string>
     <string name="premium_go_to_app">Перейти в приложение</string>
+    <plurals name="blocklist_calls">
+        <item quantity="one">%1$d звонок</item>
+        <item quantity="few">%1$d звонка</item>
+        <item quantity="many">%1$d звонков</item>
+        <item quantity="other">%1$d звонка</item>
+    </plurals>
+    <plurals name="blocklist_attempts">
+        <item quantity="one">%1$d попытка</item>
+        <item quantity="few">%1$d попытки</item>
+        <item quantity="many">%1$d попыток</item>
+        <item quantity="other">%1$d попытки</item>
+    </plurals>
 </resources>

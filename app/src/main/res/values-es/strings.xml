@@ -945,4 +945,12 @@
     <string name="settings_pro_days_fmt">Día %1$d de %2$d · quedan %3$d días</string>
     <string name="settings_pro_active">Premium está activo</string>
     <string name="premium_go_to_app">Ir a la app</string>
+    <plurals name="blocklist_calls">
+        <item quantity="one">%1$d llamada</item>
+        <item quantity="other">%1$d llamadas</item>
+    </plurals>
+    <plurals name="blocklist_attempts">
+        <item quantity="one">%1$d intento</item>
+        <item quantity="other">%1$d intentos</item>
+    </plurals>
 </resources>

@@ -896,4 +896,10 @@
     <string name="settings_pro_days_fmt">第 %1$d 天 / 共 %2$d 天 · 还剩 %3$d 天</string>
     <string name="settings_pro_active">Premium 已启用</string>
     <string name="premium_go_to_app">进入应用</string>
+    <plurals name="blocklist_calls">
+        <item quantity="other">%1$d 次通话</item>
+    </plurals>
+    <plurals name="blocklist_attempts">
+        <item quantity="other">%1$d 次尝试</item>
+    </plurals>
 </resources>

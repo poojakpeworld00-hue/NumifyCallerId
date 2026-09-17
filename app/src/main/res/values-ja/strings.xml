@@ -896,4 +896,10 @@
     <string name="settings_pro_days_fmt">%2$d 日中 %1$d 日目 · 残り %3$d 日</string>
     <string name="settings_pro_active">Premium は有効です</string>
     <string name="premium_go_to_app">アプリに戻る</string>
+    <plurals name="blocklist_calls">
+        <item quantity="other">%1$d 件の通話</item>
+    </plurals>
+    <plurals name="blocklist_attempts">
+        <item quantity="other">%1$d 回の試行</item>
+    </plurals>
 </resources>

@@ -896,4 +896,10 @@
     <string name="settings_pro_days_fmt">วันที่ %1$d จาก %2$d · เหลือ %3$d วัน</string>
     <string name="settings_pro_active">Premium เปิดใช้งานอยู่</string>
     <string name="premium_go_to_app">ไปที่แอป</string>
+    <plurals name="blocklist_calls">
+        <item quantity="other">%1$d สาย</item>
+    </plurals>
+    <plurals name="blocklist_attempts">
+        <item quantity="other">%1$d ครั้ง</item>
+    </plurals>
 </resources>

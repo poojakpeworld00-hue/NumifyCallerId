@@ -901,4 +901,12 @@
     <string name="settings_pro_days_fmt">%2$d günün %1$d. günü · %3$d gün kaldı</string>
     <string name="settings_pro_active">Premium etkin</string>
     <string name="premium_go_to_app">Uygulamaya git</string>
+    <plurals name="blocklist_calls">
+        <item quantity="one">%1$d arama</item>
+        <item quantity="other">%1$d arama</item>
+    </plurals>
+    <plurals name="blocklist_attempts">
+        <item quantity="one">%1$d deneme</item>
+        <item quantity="other">%1$d deneme</item>
+    </plurals>
 </resources>

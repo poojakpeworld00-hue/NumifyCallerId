@@ -896,4 +896,10 @@
     <string name="settings_pro_days_fmt">Ngày %1$d trên %2$d · còn %3$d ngày</string>
     <string name="settings_pro_active">Premium đang hoạt động</string>
     <string name="premium_go_to_app">Vào ứng dụng</string>
+    <plurals name="blocklist_calls">
+        <item quantity="other">%1$d cuộc gọi</item>
+    </plurals>
+    <plurals name="blocklist_attempts">
+        <item quantity="other">%1$d lần thử</item>
+    </plurals>
 </resources>
