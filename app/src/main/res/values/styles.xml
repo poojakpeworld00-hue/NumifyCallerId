@@ -435,9 +435,27 @@
     <!-- The tool handoffs' header, shared by all ten tool screens: a 36dp back
          chip, a Space Grotesk title, and an optional 36dp accent chip for the
          screen's one action. -->
+    <!--
+        Back, at one size everywhere.
+
+        It was between 30dp and 40dp across the app with 0 to 10dp of padding,
+        so the arrow itself ranged from 16dp to 30dp - and the smallest of them
+        were the ones on the screens people leave most. 44dp with a 24dp glyph,
+        which is the arrow at the size the rest of the system draws icons.
+
+        Backgrounds stay with the layouts: some back buttons sit in a chip and
+        some sit bare on the page, and that is a decision per screen.
+    -->
+    <style name="NavBack">
+        <item name="android:layout_width">44dp</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
     <style name="ToolHeaderBack">
-        <item name="android:layout_width">36dp</item>
-        <item name="android:layout_height">36dp</item>
+        <item name="android:layout_width">44dp</item>
+        <item name="android:layout_height">44dp</item>
         <item name="android:background">@drawable/bg_ds_header_chip</item>
         <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
         <item name="android:padding">10dp</item>
@@ -454,8 +472,8 @@
     </style>
 
     <style name="ToolHeaderAction">
-        <item name="android:layout_width">36dp</item>
-        <item name="android:layout_height">36dp</item>
+        <item name="android:layout_width">44dp</item>
+        <item name="android:layout_height">44dp</item>
         <item name="android:background">@drawable/bg_ds_header_chip_accent</item>
         <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
         <item name="android:padding">10dp</item>

@@ -33,12 +33,10 @@
                  glyph, which is also how the home header carries its two actions. -->
             <ImageView
                 android:id="@+id/buttonBack"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                style="@style/NavBack"
                 android:background="@drawable/bg_ds_header_chip"
-                android:contentDescription="@string/onboarding_skip"
+                android:contentDescription="@string/action_back"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
-                android:padding="10dp"
                 android:src="@drawable/ic_arrow_back"
                 app:tint="@color/ds_ink" />
 

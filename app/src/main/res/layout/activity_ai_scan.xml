@@ -26,11 +26,9 @@
 
             <ImageView
                 android:id="@+id/buttonScanBack"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
+                style="@style/NavBack"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/action_back"
-                android:padding="@dimen/_7sdp"
                 android:src="@drawable/ic_arrow_back"
                 app:tint="@color/on_surface" />
 

@@ -39,11 +39,10 @@
         <!-- ===== Header ===== -->
         <ImageView
             android:id="@+id/buttonBack"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            style="@style/NavBack"
             android:layout_marginStart="20dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/onboarding_skip"
+            android:contentDescription="@string/action_back"
             android:src="@drawable/ic_arrow_back"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/textTitle"

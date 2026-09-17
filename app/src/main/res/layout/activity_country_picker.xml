@@ -14,12 +14,10 @@
 
         <ImageView
             android:id="@+id/buttonBack"
-            android:layout_width="@dimen/_38sdp"
-            android:layout_height="@dimen/_38sdp"
+            style="@style/NavBack"
             android:layout_marginStart="@dimen/_8sdp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/onboarding_skip"
-            android:padding="@dimen/_8sdp"
+            android:contentDescription="@string/action_back"
             android:src="@drawable/ic_arrow_back"
             app:layout_constraintBottom_toBottomOf="@id/textTitle"
             app:layout_constraintStart_toStartOf="parent"

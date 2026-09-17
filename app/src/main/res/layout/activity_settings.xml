@@ -27,7 +27,7 @@
             <ImageView
                 android:id="@+id/buttonBack"
                 style="@style/ToolHeaderBack"
-                android:contentDescription="@string/onboarding_skip"
+                android:contentDescription="@string/action_back"
                 android:src="@drawable/ic_arrow_back"
                 app:tint="@color/ds_ink" />
 

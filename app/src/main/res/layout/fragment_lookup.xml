@@ -22,13 +22,11 @@
              out that isn't the system gesture. -->
         <ImageView
             android:id="@+id/buttonLookupBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            style="@style/NavBack"
             android:layout_marginEnd="@dimen/_8sdp"
             android:background="@drawable/bg_ds_inner_search"
             android:contentDescription="@string/action_back"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:padding="@dimen/_9sdp"
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/ds_ink" />
 
