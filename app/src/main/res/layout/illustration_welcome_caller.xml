@@ -41,7 +41,6 @@
         android:layout_marginStart="14dp"
         android:fontFamily="@font/mulish_bold"
         android:letterSpacing="0.0952"
-        android:textAllCaps="true"
         android:text="@string/onboarding_hero_incoming"
         android:textColor="@color/ds_accent"
         android:textSize="10.5sp"

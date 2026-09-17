@@ -184,9 +184,9 @@
     <string name="blocklist_reported">Denunciado. Obrigado pelo feedback.</string>
     <string name="blocklist_details_title">Número bloqueado</string>
     <string name="blocklist_details_added">Bloqueado em %1$s</string>
-    <string name="blocklist_section_latest">RECENTE</string>
-    <string name="blocklist_section_yesterday">ONTEM</string>
-    <string name="blocklist_section_earlier">ANTES</string>
+    <string name="blocklist_section_latest">Recente</string>
+    <string name="blocklist_section_yesterday">Ontem</string>
+    <string name="blocklist_section_earlier">Antes</string>
     <string name="tools_title">Ferramentas</string>
     <string name="tools_compass">Bússola</string>
     <string name="tools_compass_sub">Encontre o norte magnético</string>
@@ -475,7 +475,7 @@
     <!-- Settings -->
     <string name="call_screening">Sobreposição do identificador</string>
     <string name="call_screening_desc">Mostrar informações do chamador durante as chamadas</string>
-    <string name="settings_section_call">PROTEÇÃO DO CHAMADOR</string>
+    <string name="settings_section_call">Proteção do chamador</string>
 
     <!-- Call states -->
     <string name="please_wait">Aguarde...</string>
@@ -905,7 +905,7 @@
     <string name="premium_row_block">Bloquear números</string>
     <string name="premium_row_block_sub">Tamanho da lista de bloqueio</string>
     <string name="premium_row_block_free">Limitado</string>
-    <string name="premium_best_value">MELHOR VALOR</string>
+    <string name="premium_best_value">Melhor valor</string>
     <string name="premium_terms_link">Termos do serviço</string>
     <string name="premium_privacy_link">Política de privacidade</string>
     <string name="premium_fine_print">Grátis 3 dias e depois %1$s salvo cancelamento.</string>

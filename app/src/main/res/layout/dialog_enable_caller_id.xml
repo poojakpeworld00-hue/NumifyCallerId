@@ -83,7 +83,6 @@
             android:layout_marginHorizontal="@dimen/_14sdp"
             android:letterSpacing="0.095"
             android:text="@string/blocklist_enable_cid_hint_label"
-            android:textAllCaps="true"
             android:textColor="@color/ds_hero_label"
             android:textSize="10.5sp"
             android:textStyle="bold" />

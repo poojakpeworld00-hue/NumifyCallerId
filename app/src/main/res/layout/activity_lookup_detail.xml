@@ -315,9 +315,8 @@
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/mulish_bold"
                         android:includeFontPadding="false"
-                        android:letterSpacing="0.11"
+                        android:letterSpacing="0.01"
                         android:text="@string/lookup_section_about"
-                        android:textAllCaps="true"
                         android:textColor="@color/ds_ink_muted"
                         android:textSize="11sp" />
 

@@ -184,9 +184,9 @@
     <string name="blocklist_reported">Reportado. Gracias por tu opinión.</string>
     <string name="blocklist_details_title">Número bloqueado</string>
     <string name="blocklist_details_added">Bloqueado el %1$s</string>
-    <string name="blocklist_section_latest">RECIENTE</string>
-    <string name="blocklist_section_yesterday">AYER</string>
-    <string name="blocklist_section_earlier">ANTES</string>
+    <string name="blocklist_section_latest">Reciente</string>
+    <string name="blocklist_section_yesterday">Ayer</string>
+    <string name="blocklist_section_earlier">Antes</string>
     <string name="tools_title">Herramientas</string>
     <string name="tools_compass">Brújula</string>
     <string name="tools_compass_sub">Encuentra el norte magnético</string>
@@ -459,7 +459,7 @@
     <!-- Settings -->
     <string name="call_screening">Superposición de identificador</string>
     <string name="call_screening_desc">Mostrar la información del llamante durante las llamadas</string>
-    <string name="settings_section_call">PROTECCIÓN DE LLAMADAS</string>
+    <string name="settings_section_call">Protección de llamadas</string>
 
     <!-- Blocklist -->
     <string name="blocklist_empty_subtitle">Rechaza llamadas de números o patrones específicos</string>
@@ -907,7 +907,7 @@
     <string name="premium_row_block">Bloquear números</string>
     <string name="premium_row_block_sub">Tamaño de la lista de bloqueo</string>
     <string name="premium_row_block_free">Limitado</string>
-    <string name="premium_best_value">MEJOR OPCIÓN</string>
+    <string name="premium_best_value">Mejor opción</string>
     <string name="premium_terms_link">Términos del servicio</string>
     <string name="premium_privacy_link">Política de privacidad</string>
     <string name="premium_fine_print">Gratis 3 días y después %1$s si no cancelas.</string>

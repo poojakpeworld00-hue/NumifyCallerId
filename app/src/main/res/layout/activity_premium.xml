@@ -221,7 +221,6 @@
                             android:letterSpacing="0.076"
                             android:textStyle="bold"
                             android:text="@string/premium_col_feature"
-                            android:textAllCaps="true"
                             android:textColor="@color/premium_ink_muted"
                             android:textSize="@dimen/_9ssp" />
 
@@ -234,7 +233,6 @@
                             android:letterSpacing="0.076"
                             android:textStyle="bold"
                             android:text="@string/premium_col_free"
-                            android:textAllCaps="true"
                             android:textColor="@color/premium_table_free"
                             android:textSize="@dimen/_9ssp" />
 
@@ -247,7 +245,6 @@
                             android:letterSpacing="0.076"
                             android:textStyle="bold"
                             android:text="@string/premium_col_premium"
-                            android:textAllCaps="true"
                             android:textColor="@color/premium_accent"
                             android:textSize="@dimen/_9ssp" />
                     </LinearLayout>

@@ -185,9 +185,9 @@
     <string name="blocklist_reported">Жалоба отправлена. Спасибо за отзыв.</string>
     <string name="blocklist_details_title">Заблокированный номер</string>
     <string name="blocklist_details_added">Заблокирован %1$s</string>
-    <string name="blocklist_section_latest">НЕДАВНО</string>
-    <string name="blocklist_section_yesterday">ВЧЕРА</string>
-    <string name="blocklist_section_earlier">РАНЕЕ</string>
+    <string name="blocklist_section_latest">Недавно</string>
+    <string name="blocklist_section_yesterday">Вчера</string>
+    <string name="blocklist_section_earlier">Ранее</string>
     <string name="tools_title">Инструменты</string>
     <string name="tools_compass">Компас</string>
     <string name="tools_compass_sub">Найдите магнитный север</string>
@@ -485,7 +485,7 @@
     <!-- Settings -->
     <string name="call_screening">Наложение определителя номера</string>
     <string name="call_screening_desc">Показывать информацию о звонящем во время вызовов</string>
-    <string name="settings_section_call">ЗАЩИТА ОТ ЗВОНКОВ</string>
+    <string name="settings_section_call">Защита от звонков</string>
 
     <!-- Call states -->
     <string name="please_wait">Подождите...</string>
@@ -915,7 +915,7 @@
     <string name="premium_row_block">Блокировка номеров</string>
     <string name="premium_row_block_sub">Размер чёрного списка</string>
     <string name="premium_row_block_free">Ограничен</string>
-    <string name="premium_best_value">ВЫГОДНЕЕ ВСЕГО</string>
+    <string name="premium_best_value">Выгоднее всего</string>
     <string name="premium_terms_link">Условия использования</string>
     <string name="premium_privacy_link">Политика конфиденциальности</string>
     <string name="premium_fine_print">3 дня бесплатно, затем %1$s, если не отменить.</string>

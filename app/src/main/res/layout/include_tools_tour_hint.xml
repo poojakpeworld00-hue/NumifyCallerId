@@ -40,8 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mulish_bold"
-            android:letterSpacing="0.09"
-            android:textAllCaps="true"
+            android:letterSpacing="0.01"
             android:textColor="@color/primary"
             android:textSize="@dimen/_9ssp"
             tools:text="Step 1 of 3" />

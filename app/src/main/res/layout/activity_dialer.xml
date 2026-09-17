@@ -322,9 +322,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/mulish_bold"
-                    android:letterSpacing="0.118"
+                    android:letterSpacing="0.01"
                     android:text="@string/dialer_matches"
-                    android:textAllCaps="true"
                     android:textColor="@color/ds_ink_muted"
                     android:textSize="11sp"
                     android:visibility="gone" />

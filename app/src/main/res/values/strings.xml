@@ -356,9 +356,9 @@
     <string name="blocklist_reported">Reported. Thanks for the feedback.</string>
     <string name="blocklist_details_title">Blocked number</string>
     <string name="blocklist_details_added">Blocked on %1$s</string>
-    <string name="blocklist_section_latest">LATEST</string>
-    <string name="blocklist_section_yesterday">YESTERDAY</string>
-    <string name="blocklist_section_earlier">EARLIER</string>
+    <string name="blocklist_section_latest">Latest</string>
+    <string name="blocklist_section_yesterday">Yesterday</string>
+    <string name="blocklist_section_earlier">Earlier</string>
 
     <!-- Tools -->
     <string name="tools_title">Tools</string>
@@ -708,7 +708,7 @@
     <!-- App-redirect dialog -->
     <string name="app_unavailable">App Not Available</string>
     <string name="app_redirect_desc">This app isn\'t installed on your device. Would you like to open it in the Play Store?</string>
-    <string name="settings_section_call">CALLER PROTECTION</string>
+    <string name="settings_section_call">Caller Protection</string>
 
     <!-- ===== Blocklist redesign (2026) ===== -->
     <string name="blocklist_section_blocked">Blocked numbers</string>
@@ -995,7 +995,7 @@
     <string name="premium_row_block">Block numbers</string>
     <string name="premium_row_block_sub">Blocklist size</string>
     <string name="premium_row_block_free">Limited</string>
-    <string name="premium_best_value">BEST VALUE</string>
+    <string name="premium_best_value">Best Value</string>
     <string name="premium_terms_link">Terms of service</string>
     <string name="premium_privacy_link">Privacy policy</string>
     <string name="premium_fine_print">Free for 3 days, then %1$s unless cancelled.</string>

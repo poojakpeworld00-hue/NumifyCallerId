@@ -185,9 +185,9 @@
     <string name="blocklist_reported">Đã báo cáo. Cảm ơn phản hồi của bạn.</string>
     <string name="blocklist_details_title">Số đã chặn</string>
     <string name="blocklist_details_added">Đã chặn vào %1$s</string>
-    <string name="blocklist_section_latest">MỚI NHẤT</string>
-    <string name="blocklist_section_yesterday">HÔM QUA</string>
-    <string name="blocklist_section_earlier">TRƯỚC ĐÓ</string>
+    <string name="blocklist_section_latest">Mới nhất</string>
+    <string name="blocklist_section_yesterday">Hôm qua</string>
+    <string name="blocklist_section_earlier">Trước đó</string>
     <string name="tools_title">Công cụ</string>
     <string name="tools_compass">La bàn</string>
     <string name="tools_compass_sub">Tìm hướng bắc từ</string>
@@ -389,7 +389,7 @@
     <string name="got_it">Đã hiểu</string>
     <string name="app_unavailable">Ứng dụng không khả dụng</string>
     <string name="app_redirect_desc">Ứng dụng này chưa được cài trên thiết bị của bạn. Bạn có muốn mở ứng dụng trong Play Store không?</string>
-    <string name="settings_section_call">BẢO VỆ NGƯỜI GỌI</string>
+    <string name="settings_section_call">Bảo vệ người gọi</string>
     <string name="signal_strong">Mạnh</string>
     <string name="signal_medium">Trung bình</string>
     <string name="signal_weak">Yếu</string>
@@ -858,7 +858,7 @@
     <string name="premium_row_block">Chặn số</string>
     <string name="premium_row_block_sub">Kích thước danh sách chặn</string>
     <string name="premium_row_block_free">Có giới hạn</string>
-    <string name="premium_best_value">ĐÁNG GIÁ NHẤT</string>
+    <string name="premium_best_value">Đáng giá nhất</string>
     <string name="premium_terms_link">Điều khoản dịch vụ</string>
     <string name="premium_privacy_link">Chính sách quyền riêng tư</string>
     <string name="premium_fine_print">Miễn phí 3 ngày, sau đó %1$s nếu không huỷ.</string>

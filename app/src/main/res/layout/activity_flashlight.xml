@@ -124,7 +124,6 @@
                     android:fontFamily="@font/mulish_bold"
                     android:letterSpacing="0.067"
                     android:text="@string/flashlight_state_off"
-                    android:textAllCaps="true"
                     android:textColor="@color/ds_ink_muted"
                     android:textSize="15sp" />
 
@@ -156,9 +155,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:letterSpacing="0.08"
+                            android:letterSpacing="0.01"
                             android:text="@string/flashlight_brightness_short"
-                            android:textAllCaps="true"
                             android:textColor="@color/on_surface_variant"
                             android:textSize="@dimen/_9ssp"
                             android:textStyle="bold" />
@@ -167,7 +165,7 @@
                             android:id="@+id/textBrightnessPct"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:letterSpacing="0.08"
+                            android:letterSpacing="0.01"
                             android:textColor="@color/on_surface"
                             android:textSize="@dimen/_9ssp"
                             android:textStyle="bold"

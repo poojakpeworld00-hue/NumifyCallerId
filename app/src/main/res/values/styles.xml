@@ -58,7 +58,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/mulish_bold</item>
-        <item name="android:letterSpacing">0.1</item>
+        <item name="android:letterSpacing">0.01</item>
         <item name="android:textColor">@color/ds_ink_muted</item>
         <item name="android:textSize">9sp</item>
     </style>
@@ -168,8 +168,7 @@
         <item name="android:layout_marginTop">3dp</item>
         <item name="android:fontFamily">@font/mulish_bold</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:letterSpacing">0.07</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.01</item>
         <item name="android:textColor">@color/ds_on_hero_faint</item>
         <item name="android:textSize">9.5sp</item>
     </style>
@@ -247,7 +246,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/_2sdp</item>
         <item name="android:letterSpacing">0.04</item>
-        <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/on_surface_variant</item>
         <item name="android:textSize">@dimen/_8ssp</item>
         <item name="android:textStyle">bold</item>
@@ -295,7 +293,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/mulish_bold</item>
         <item name="android:letterSpacing">0.057</item>
-        <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/ds_ink_muted</item>
         <item name="android:textSize">10.5sp</item>
     </style>
@@ -358,8 +355,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/_12sdp</item>
         <item name="android:layout_marginBottom">@dimen/_2sdp</item>
-        <item name="android:letterSpacing">0.08</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.01</item>
         <item name="android:textColor">@color/on_surface_variant</item>
         <item name="android:textSize">@dimen/_9ssp</item>
         <item name="android:textStyle">bold</item>
@@ -371,8 +367,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/_10sdp</item>
         <item name="android:layout_marginBottom">@dimen/_8sdp</item>
-        <item name="android:letterSpacing">0.08</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.01</item>
         <item name="android:textColor">@color/on_surface_variant</item>
         <item name="android:textSize">@dimen/_9ssp</item>
         <item name="android:textStyle">bold</item>
@@ -483,7 +478,6 @@
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:fontFamily">@font/mulish_bold</item>
         <item name="android:letterSpacing">0.118</item>
-        <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/ds_ink_muted</item>
         <item name="android:textSize">11sp</item>
     </style>
@@ -518,7 +512,6 @@
         <item name="android:layout_marginStart">6dp</item>
         <item name="android:fontFamily">@font/mulish_bold</item>
         <item name="android:letterSpacing">0.057</item>
-        <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/ds_ink_muted</item>
         <item name="android:textSize">10.5sp</item>
     </style>
@@ -697,8 +690,7 @@
     <style name="SettingsSectionLabel">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:letterSpacing">0.1</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.01</item>
         <item name="android:textColor">@color/on_surface</item>
         <item name="android:textSize">@dimen/_9ssp</item>
         <item name="android:textStyle">bold</item>

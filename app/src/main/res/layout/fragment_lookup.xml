@@ -365,7 +365,6 @@
                                 android:includeFontPadding="false"
                                 android:letterSpacing="0.057"
                                 android:text="@string/number_lookup"
-                                android:textAllCaps="true"
                                 android:textColor="@color/ds_ink_muted"
                                 android:textSize="11sp" />
 
@@ -686,9 +685,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_6sdp"
                         android:layout_weight="1"
-                        android:letterSpacing="0.1"
+                        android:letterSpacing="0.01"
                         android:text="@string/recent_lookups"
-                        android:textAllCaps="true"
                         android:textColor="@color/ds_ink"
                         android:textSize="@dimen/_9ssp"
                         android:textStyle="bold" />

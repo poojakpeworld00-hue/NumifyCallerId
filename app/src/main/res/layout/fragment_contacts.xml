@@ -257,7 +257,6 @@
                 android:fontFamily="@font/mulish_bold"
                 android:letterSpacing="0.0909"
                 android:text="@string/contacts_tab_favorites"
-                android:textAllCaps="true"
                 android:textColor="@color/ds_ink_muted"
                 android:textSize="11sp" />
 
@@ -334,7 +333,6 @@
             android:fontFamily="@font/mulish_bold"
             android:letterSpacing="0.0909"
             android:paddingHorizontal="20dp"
-            android:textAllCaps="true"
             android:textColor="@color/ds_ink_muted"
             android:textSize="11sp"
             tools:text="Contacts : 586" />

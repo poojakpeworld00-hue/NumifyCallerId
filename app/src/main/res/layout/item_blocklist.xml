@@ -198,7 +198,6 @@
                 android:includeFontPadding="false"
                 android:letterSpacing="0.076"
                 android:text="@string/blocklist_call_attempts"
-                android:textAllCaps="true"
                 android:textColor="@color/ds_band_label"
                 android:textSize="10.5sp" />
 

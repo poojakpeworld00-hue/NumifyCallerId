@@ -24,7 +24,6 @@
         android:layout_marginStart="8dp"
         android:fontFamily="@font/mulish_bold"
         android:letterSpacing="0.0909"
-        android:textAllCaps="true"
         android:textColor="@color/ds_ink_muted"
         android:textSize="11sp"
         tools:text="Today" />

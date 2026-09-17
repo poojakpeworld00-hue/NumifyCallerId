@@ -185,9 +185,9 @@
     <string name="blocklist_reported">Bildirildi. Geri bildiriminiz için teşekkürler.</string>
     <string name="blocklist_details_title">Engellenen numara</string>
     <string name="blocklist_details_added">%1$s tarihinde engellendi</string>
-    <string name="blocklist_section_latest">EN SON</string>
-    <string name="blocklist_section_yesterday">DÜN</string>
-    <string name="blocklist_section_earlier">DAHA ÖNCE</string>
+    <string name="blocklist_section_latest">En son</string>
+    <string name="blocklist_section_yesterday">Dün</string>
+    <string name="blocklist_section_earlier">Daha önce</string>
     <string name="tools_title">Araçlar</string>
     <string name="tools_compass">Pusula</string>
     <string name="tools_compass_sub">Manyetik kuzeyi bul</string>
@@ -467,7 +467,7 @@
     <string name="got_it">Anladım</string>
     <string name="app_unavailable">Uygulama Mevcut Değil</string>
     <string name="app_redirect_desc">Bu uygulama cihazınızda yüklü değil. Play Store\'da açmak ister misiniz?</string>
-    <string name="settings_section_call">ARAYAN KORUMASI</string>
+    <string name="settings_section_call">Arayan koruması</string>
     <string name="call_screening_hint_tip">Arayanı görmek ve spam aramaları engellemek için bunu açın</string>
     <!-- FSI intro Activity/Dialog + Home permission hint -->
     <string name="home_perm_hint">Bazı izinler hâlâ kapalı. Tam arayan kimliği için açın.</string>
@@ -863,7 +863,7 @@
     <string name="premium_row_block">Numara engelleme</string>
     <string name="premium_row_block_sub">Engel listesi boyutu</string>
     <string name="premium_row_block_free">Sınırlı</string>
-    <string name="premium_best_value">EN AVANTAJLI</string>
+    <string name="premium_best_value">En avantajlı</string>
     <string name="premium_terms_link">Hizmet şartları</string>
     <string name="premium_privacy_link">Gizlilik politikası</string>
     <string name="premium_fine_print">3 gün ücretsiz, iptal etmezseniz sonra %1$s.</string>

@@ -158,9 +158,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/mulish_bold"
-                        android:letterSpacing="0.1217"
+                        android:letterSpacing="0.01"
                         android:text="@string/language_suggested"
-                        android:textAllCaps="true"
                         android:textColor="@color/ds_ink_muted"
                         android:textSize="11.5sp" />
 
@@ -203,9 +202,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/mulish_bold"
-                        android:letterSpacing="0.1217"
+                        android:letterSpacing="0.01"
                         android:text="@string/language_all"
-                        android:textAllCaps="true"
                         android:textColor="@color/ds_ink_muted"
                         android:textSize="11.5sp" />
 
