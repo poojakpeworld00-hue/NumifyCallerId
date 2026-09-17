@@ -1,0 +1,282 @@
+==============================================================================
+PRIVACY POLICY - Contacts: Caller ID & Block
+==============================================================================
+
+BEFORE YOU PUBLISH THIS, replace every [BRACKETED] value below. Play requires a
+publicly reachable URL, not a file: host this page yourself and paste that URL
+into Play Console -> Store listing -> Privacy Policy, and into the Data safety
+form. Everything else has been written against what the app actually does - the
+permissions in its manifest and the two network calls it makes.
+
+  [COMPANY]         legal or trading name of the publisher
+  [SUPPORT_EMAIL]   an address you monitor
+  [WEBSITE]         where this policy will live
+  [EFFECTIVE_DATE]  the date you publish it
+  [COUNTRY]         country whose law governs, and where you are established
+
+==============================================================================
+
+
+PRIVACY POLICY
+
+Last updated: [EFFECTIVE_DATE]
+
+This policy explains what the Contacts: Caller ID & Block app ("the app",
+package com.callerid.numberlookup.home) collects, why, who it is shared with,
+and how to have it deleted. The app is published by [COMPANY] ("we", "us").
+
+If you do not agree with this policy, please do not use the app.
+
+
+------------------------------------------------------------------------------
+1. THE SHORT VERSION
+------------------------------------------------------------------------------
+
+- The app needs your contacts and call log to name the people who call you.
+- Your contacts are uploaded to our server once, so that callers can be
+  identified. This is described in full in section 3.
+- The app does not record phone calls. It cannot: Android has not permitted
+  third-party call recording since Android 10.
+- You can ask us to delete your data at any time, from inside the app, at
+  Settings -> Data Deletion.
+
+
+------------------------------------------------------------------------------
+2. INFORMATION HELD ONLY ON YOUR DEVICE
+------------------------------------------------------------------------------
+
+The following is read on your phone, used there, and not sent to us:
+
+CALL LOG (READ_CALL_LOG)
+  Numbers, dates, durations and call types from your phone's call log. Used to
+  build the Recents list, the call details screen, the post-call screen, and the
+  Ask AI answers about your own calling patterns. Ask AI works out its answers on
+  your device from this data.
+
+PHONE STATE (READ_PHONE_STATE)
+  Tells the app when a call starts and ends, so the caller ID card can be shown
+  while the phone rings and taken away when it stops.
+
+BLOCK LIST
+  The numbers you choose to block, stored on your device.
+
+YOUR SETTINGS
+  Theme, language, and which features you have turned on.
+
+
+------------------------------------------------------------------------------
+3. INFORMATION SENT TO OUR SERVERS
+------------------------------------------------------------------------------
+
+There are exactly two things the app sends to us. Both go to
+contact-saver.dailymorningupdate.com over HTTPS.
+
+3.1 YOUR CONTACTS - UPLOADED ONCE
+
+  What:   The name and phone number of each contact stored on your phone.
+  When:   Once per installation, the first time you grant contacts permission.
+          It is not repeated, and it does not run in test builds of the app.
+  Why:    Caller identification works by matching an unknown number against
+          number-and-name pairs contributed by the people who use the app. Your
+          contacts contribute to that, and it is what allows the app to name a
+          caller who is not in your own phone book.
+  Format: A CSV file containing those two fields, and nothing else. No email
+          addresses, photographs, notes, groups, or account information are
+          included.
+
+  If you are not comfortable with this, do not grant the contacts permission.
+  The app will still show your call log, block numbers and run its tools; it
+  will not be able to name people from your phone book.
+
+  You can have this removed. See section 8.
+
+3.2 NUMBER LOOKUPS
+
+  What:   A single phone number, sent when the app needs to identify it.
+  When:   When an unknown number calls you, when a call from an unknown number
+          ends, and when you search a number on the Lookup screen.
+  Why:    To return the name, region, carrier and spam status held for that
+          number.
+  Note:   Numbers already saved in your phone book are named from your phone and
+          are not sent for lookup.
+
+
+------------------------------------------------------------------------------
+4. INFORMATION COLLECTED BY THIRD PARTIES
+------------------------------------------------------------------------------
+
+The app includes software from the companies below. They collect data under
+their own privacy policies, not ours.
+
+  Google AdMob          Advertising. May use your advertising ID, approximate
+                        location derived from IP, and app interactions to select
+                        and measure ads.
+                        policies.google.com/technologies/ads
+
+  Meta Audience Network Advertising, on the same basis, where AdMob mediates to
+  and Meta SDK          it. facebook.com/about/privacy
+
+  Google Firebase       Analytics (how the app is used, in aggregate),
+                        Crashlytics (crash reports, including device model and
+                        Android version), and Remote Config (settings we send to
+                        the app). firebase.google.com/support/privacy
+
+  Google Play Billing   Processes Premium purchases. We never see or handle your
+                        card details. policies.google.com/privacy
+
+  Google Play Install   Tells us which campaign an install came from.
+  Referrer
+
+  LightHouse /          Push notifications. Receives a device push token and
+  FalconPush            basic device information (model, language, time zone,
+                        country, network operator) so notifications can be sent
+                        and targeted.
+
+Premium removes advertising. It does not remove analytics or crash reporting.
+
+
+------------------------------------------------------------------------------
+5. PERMISSIONS, AND WHY EACH IS ASKED FOR
+------------------------------------------------------------------------------
+
+Each is requested when the feature that needs it is first used, and the rest of
+the app keeps working if you decline.
+
+  Contacts (READ_CONTACTS)       Name the people already in your phone book, and
+                                 the one-time upload described in section 3.1.
+  Call log (READ_CALL_LOG)       Build Recents, call details and the post-call
+                                 screen.
+  Phone (READ_PHONE_STATE)       Detect when a call starts and ends.
+  Make calls (CALL_PHONE)        Place a call when you tap a call button.
+  Display over other apps        Show the caller ID card while a call is
+  (SYSTEM_ALERT_WINDOW)          ringing, over whatever else is on screen.
+  Notifications                  Caller alerts, including on the lock screen.
+  (POST_NOTIFICATIONS,
+   USE_FULL_SCREEN_INTENT)
+  Microphone (RECORD_AUDIO)      Voice search in Contacts, and the sound-level
+                                 meter in Tools. THE APP DOES NOT RECORD CALLS
+                                 AND CANNOT DO SO.
+  Internet, network state        Number lookups, ads, configuration.
+  Foreground service             Keep the caller ID card on screen for the
+                                 duration of a call.
+  Vibrate                        Haptic feedback.
+
+
+------------------------------------------------------------------------------
+6. WHAT WE DO NOT DO
+------------------------------------------------------------------------------
+
+- We do not record, listen to, or transcribe your calls.
+- We do not read your SMS messages. The app does not request SMS permissions.
+- We do not collect your precise location. The app does not request location
+  permissions. Advertising partners may infer approximate location from your IP
+  address.
+- We do not sell your personal information.
+- The app is not directed at children under 13, and we do not knowingly collect
+  information from them.
+
+
+------------------------------------------------------------------------------
+7. HOW LONG WE KEEP IT
+------------------------------------------------------------------------------
+
+Uploaded contact records are kept while they remain useful for caller
+identification, or until you ask us to delete them. Lookup requests are retained
+only as long as needed to operate and protect the service. Data held by the
+third parties in section 4 is kept under their own retention policies.
+
+
+------------------------------------------------------------------------------
+8. YOUR CHOICES AND YOUR RIGHTS
+------------------------------------------------------------------------------
+
+DELETE YOUR DATA
+  In the app: Settings -> Data Deletion. This submits a request to remove the
+  data we hold about you. The contacts and call history stored on your phone
+  itself are not affected.
+  By email: write to [SUPPORT_EMAIL] from the address you wish to identify, or
+  tell us the phone number concerned.
+
+WITHDRAW PERMISSIONS
+  Android Settings -> Apps -> Contacts: Caller ID & Block -> Permissions. You can
+  revoke any permission at any time.
+
+ADVERTISING
+  Android Settings -> Privacy -> Ads lets you reset or delete your advertising
+  ID. Buying Premium removes advertising from the app.
+
+CORRECT A WRONG NAME
+  If a number is identified incorrectly, write to [SUPPORT_EMAIL] and we will
+  correct it.
+
+Depending on where you live you may also have the right to access, correct,
+export or restrict the processing of your personal data, and to complain to your
+data protection authority. Write to [SUPPORT_EMAIL] to exercise any of these.
+
+
+------------------------------------------------------------------------------
+9. SECURITY AND TRANSFERS
+------------------------------------------------------------------------------
+
+Traffic between the app and our servers uses HTTPS. No method of transmission or
+storage is completely secure, and we cannot guarantee absolute security.
+
+Our service providers, including those in section 4, may process data in
+countries other than yours, including the United States.
+
+
+------------------------------------------------------------------------------
+10. CHANGES
+------------------------------------------------------------------------------
+
+We may update this policy. The date at the top will change, and material changes
+will be announced in the app or on the store listing. Continuing to use the app
+after a change means you accept the updated policy.
+
+
+------------------------------------------------------------------------------
+11. CONTACT
+------------------------------------------------------------------------------
+
+[COMPANY]
+[SUPPORT_EMAIL]
+[WEBSITE]
+
+Governing law: [COUNTRY]
+
+
+==============================================================================
+NOTES FOR THE DATA SAFETY FORM  (not part of the published policy)
+==============================================================================
+
+Declare these as COLLECTED and SHARED/TRANSFERRED off the device:
+
+  Contacts        - name and phone number, uploaded once (section 3.1).
+                    Purpose: app functionality. NOT optional if the user grants
+                    contacts permission, so declare it as required for the
+                    feature rather than optional.
+  Phone number    - each number looked up (section 3.2). Purpose: app
+                    functionality.
+  Device or other Advertising ID - AdMob and Meta Audience Network.
+                    Purpose: advertising.
+  App activity / diagnostics - Firebase Analytics and Crashlytics.
+
+Declare as COLLECTED but NOT shared:
+
+  Call log        - read on device for Recents, details and Ask AI. It is not
+                    transmitted. Play still requires it to be declared.
+
+Do NOT declare:
+
+  Audio / call recordings - the app does not record anything. RECORD_AUDIO is
+                    used by voice search and the sound-level meter only.
+  Precise location - not requested.
+  SMS - not requested.
+
+Also required for this app:
+
+  - A Permissions Declaration for READ_CALL_LOG. Caller ID is an approved use,
+    but it must be declared or the release is blocked.
+  - The contacts upload in section 3.1 is the single most scrutinised thing in
+    this listing. It is disclosed here in full and in plain words on purpose:
+    an undisclosed contact upload is a removal, not a warning.
