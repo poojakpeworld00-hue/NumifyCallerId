@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Call back (post-call), restyled to match Call Details.
+
+     UI only. Every id, every string and every piece of information the screen
+     showed before is still here and still says the same thing — the identity,
+     the duration, the time, the call type, the call-back button, the Ask AI
+     summary, the four tabs, the fragment host and the ad slot. What changed is
+     how they are grouped and painted.
+
+     The screen was a flat header row on the plain background, with the name,
+     duration, time and type stacked as four small lines of equal weight beside a
+     circular avatar. Call Details had already solved the same problem: one dark
+     hero holding the identity, the facts folded into it, and the action sitting
+     inside the thing it acts on. Reusing that here means the two screens about
+     the same call no longer look like they came from different apps.
+
+     Dark mode comes free: every colour below is a ds_ token with a values-night
+     counterpart, where the old layout used @color/bg and @color/on_surface. -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -7,352 +24,409 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg">
+        android:background="@color/ds_page">
 
-    <LinearLayout
-        android:id="@+id/column_1"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_70sdp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <FrameLayout
-            android:id="@+id/sectionUser"
-            android:layout_width="@dimen/_56sdp"
-            android:layout_height="@dimen/_56sdp"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/_12sdp"
-            android:background="@drawable/ic_profile">
-
-            <ImageView
-                android:id="@+id/imageUser"
-                android:layout_width="@dimen/_28sdp"
-                android:layout_height="@dimen/_28sdp"
-                android:layout_gravity="center"
-                android:contentDescription="@null"
-               />
-        </FrameLayout>
-
-
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/headerLayout"
+        <!-- ===== Identity hero ===== -->
+        <LinearLayout
+            android:id="@+id/column_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_ds_detail_hero"
+            android:clipToOutline="true"
+            android:elevation="10dp"
             android:orientation="vertical"
+            android:outlineAmbientShadowColor="@color/ds_hero_shadow"
+            android:outlineSpotShadowColor="@color/ds_hero_shadow"
+            android:padding="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/column_1">
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:id="@+id/sectionUser"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_ds_hero_avatar">
+
+                    <ImageView
+                        android:id="@+id/imageUser"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_profile"
+                        app:tint="@color/ds_on_hero_muted" />
+                </FrameLayout>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/headerLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/labelCallerName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/space_grotesk_bold"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="0.02"
+                        android:maxLines="1"
+                        android:textColor="@color/ds_on_hero"
+                        android:textSize="26sp"
+                        tools:text="98745 63210" />
+
+                    <!-- Held in place of the name while the number is looked up, for
+                         the same reason the incoming-call card does it: printing the
+                         raw number and then swapping in a name a second later reads
+                         as the app correcting itself. Same 100x13 bar as
+                         overlay_caller_id, so the two screens shimmer identically. -->
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmerCallerName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <View
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_13sdp"
+                            android:alpha="0.18"
+                            android:background="@drawable/bg_shimmer_placeholder" />
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <!-- Time and call type on one muted line, where Call Details
+                         puts "+91 70164 14568 · Mobile". -->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/labelTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mulish_semibold"
+                            android:includeFontPadding="false"
+                            android:singleLine="true"
+                            android:text="12:03"
+                            android:textColor="@color/ds_on_hero_muted"
+                            android:textSize="12.5sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="6dp"
+                            android:fontFamily="@font/mulish_semibold"
+                            android:includeFontPadding="false"
+                            android:text="@string/dash"
+                            android:textColor="@color/ds_on_hero_muted"
+                            android:textSize="12.5sp" />
+
+                        <TextView
+                            android:id="@+id/labelCallType"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/mulish_semibold"
+                            android:includeFontPadding="false"
+                            android:singleLine="true"
+                            android:text="@string/call_type_outgoing"
+                            android:textColor="@color/ds_on_hero_muted"
+                            android:textSize="12.5sp" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <!-- Duration as a hero pill, where Call Details puts its
+                         "Not identified" pill. -->
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:background="@drawable/bg_ds_hero_pill"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mulish_bold"
+                            android:includeFontPadding="false"
+                            android:singleLine="true"
+                            android:text="@string/call_duration_label"
+                            android:textColor="@color/ds_on_hero_muted"
+                            android:textSize="11.5sp" />
+
+                        <TextView
+                            android:id="@+id/labelDuration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/mulish_bold"
+                            android:includeFontPadding="false"
+                            android:singleLine="true"
+                            android:text="00:00"
+                            android:textColor="@color/ds_on_hero"
+                            android:textSize="11.5sp" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <!-- Call back. A filled accent circle rather than a bare tinted
+                     glyph: it is the one action on the hero, and it now has a
+                     48dp-class hit area instead of a 20dp one. -->
+                <ImageView
+                    android:id="@+id/call_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="12dp"
+                    android:background="@drawable/bg_ds_hero_avatar"
+                    android:backgroundTint="@color/ds_accent"
+                    android:contentDescription="@string/action_call"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:padding="13dp"
+                    android:src="@drawable/ic_call"
+                    app:tint="@color/ds_on_accent" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Ask AI post-call summary. Built from call-log metadata only: how often,
+             how long, how many went unanswered. There is no transcript, because
+             Android has not let a third-party app capture call audio since API 29.
+             Collapses when there is nothing worth saying. -->
+        <LinearLayout
+            android:id="@+id/cardCallSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/bg_ds_card"
+            android:baselineAligned="false"
+            android:elevation="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:outlineAmbientShadowColor="@color/ds_card_shadow"
+            android:outlineSpotShadowColor="@color/ds_card_shadow"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="12dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/column_1"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_ai_sparkle"
+                app:tint="@color/ds_accent" />
+
+            <TextView
+                android:id="@+id/textCallSummary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/mulish_semibold"
+                android:includeFontPadding="false"
+                android:lineSpacingMultiplier="1.35"
+                android:textColor="@color/ds_ink"
+                android:textSize="12.5sp"
+                tools:text="You have spoken to Rahul 6 times this month. This was your longest call yet." />
+        </LinearLayout>
+
+        <!-- ===== Tabs: one grouped strip, not four floating buttons ===== -->
+        <LinearLayout
+            android:id="@+id/main_butttion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/bg_ds_card"
+            android:baselineAligned="false"
+            android:elevation="4dp"
+            android:orientation="horizontal"
+            android:outlineAmbientShadowColor="@color/ds_card_shadow"
+            android:outlineSpotShadowColor="@color/ds_card_shadow"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardCallSummary">
+
+            <LinearLayout
+                android:id="@+id/image_recent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="4dp">
+
+                <ImageView
+                    android:id="@+id/imageTabRecent"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/callback_recent_unselected" />
 
                 <TextView
-                    android:id="@+id/labelCallerName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/mulish_semibold"
-                    android:textColor="@color/on_surface"
-                    android:textSize="@dimen/_12sdp"
-                    android:textStyle="bold"
-                    tools:text="98745 63210" />
-
-                <!-- Held in place of the name while the number is looked up, for
-                     the same reason the incoming-call card does it: printing the
-                     raw number and then swapping in a name a second later reads
-                     as the app correcting itself. Same 100x13 bar as
-                     overlay_caller_id, so the two screens shimmer identically. -->
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/shimmerCallerName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:visibility="gone"
-                    tools:visibility="visible">
-
-                    <View
-                        android:layout_width="@dimen/_100sdp"
-                        android:layout_height="@dimen/_13sdp"
-                        android:alpha="0.18"
-                        android:background="@drawable/bg_shimmer_placeholder" />
-                </com.facebook.shimmer.ShimmerFrameLayout>
+                    android:layout_marginTop="7dp"
+                    android:fontFamily="@font/mulish_bold"
+                    android:includeFontPadding="false"
+                    android:text="@string/recent"
+                    android:textColor="@color/ds_ink_muted"
+                    android:textSize="11.5sp" />
             </LinearLayout>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <LinearLayout
+                android:id="@+id/image_mes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="4dp">
+
+                <ImageView
+                    android:id="@+id/imageTabMessage"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/callback_message_unselected" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:fontFamily="@font/mulish_bold"
+                    android:includeFontPadding="false"
+                    android:text="@string/message"
+                    android:textColor="@color/ds_ink_muted"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/image_reminder"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="4dp">
+
+                <ImageView
+                    android:id="@+id/imageTabReminder"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/callback_reminder_unselected" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:fontFamily="@font/mulish_bold"
+                    android:includeFontPadding="false"
+                    android:text="@string/reminder"
+                    android:textColor="@color/ds_ink_muted"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+
+            <!--
+                Third tab — generic WhatsApp launcher. Opens the WhatsApp main
+                screen via packageManager.getLaunchIntentForPackage instead of
+                sending the user to a specific phone/contact (the previous
+                wa.me/<digits> deep link). Falls back gracefully when neither
+                WhatsApp nor WhatsApp Business is installed.
+            -->
+            <LinearLayout
+                android:id="@+id/image_whatsapp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="4dp">
+
+                <ImageView
+                    android:id="@+id/imageTabWhatsapp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/callback_wa_unselected" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:fontFamily="@font/mulish_bold"
+                    android:includeFontPadding="false"
+                    android:text="@string/whatsapp"
+                    android:textColor="@color/ds_ink_muted"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="14dp"
+            app:layout_constraintBottom_toTopOf="@+id/adContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_butttion" />
+
+        <FrameLayout
+            android:id="@+id/adContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/mulish_semibold"
-                    android:singleLine="true"
-                    android:text="@string/call_duration_label"
-                    android:textColor="@color/on_surface"
-                    android:textSize="@dimen/_10sdp" />
-
-                <TextView
-                    android:id="@+id/labelDuration"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_2sdp"
-                    android:fontFamily="@font/mulish_semibold"
-                    android:singleLine="true"
-                    android:text="00:00"
-                    android:textColor="@color/on_surface"
-                    android:textSize="@dimen/_10sdp" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/labelTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/mulish_semibold"
-                    android:singleLine="true"
-                    android:text="12:03"
-                    android:textColor="@color/primary"
-                    android:textSize="@dimen/_10sdp" />
-
-                <TextView
-                    android:id="@+id/labelCallType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:fontFamily="@font/mulish_semibold"
-                    android:singleLine="true"
-                    android:text="@string/call_type_outgoing"
-                    android:textColor="@color/primary"
-                    android:textSize="@dimen/_10sdp" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <ImageView
-            android:id="@+id/call_icon"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:padding="@dimen/_2sdp"
-            android:tint="@color/primary"
-            android:src="@drawable/ic_call" />
-    </LinearLayout>
-
-    <!-- Ask AI post-call summary. Built from call-log metadata only: how often,
-         how long, how many went unanswered. There is no transcript, because
-         Android has not let a third-party app capture call audio since API 29.
-         Collapses when there is nothing worth saying. -->
-    <LinearLayout
-        android:id="@+id/cardCallSummary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_5sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:background="@drawable/bg_cta_pill"
-        android:baselineAligned="false"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/_12sdp"
-        android:paddingVertical="@dimen/_10sdp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/column_1"
-        tools:visibility="visible">
-
-        <ImageView
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_ai_sparkle"
-            app:tint="@color/on_primary_container" />
-
-        <TextView
-            android:id="@+id/textCallSummary"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_weight="1"
-            android:includeFontPadding="false"
-            android:lineSpacingExtra="@dimen/_2sdp"
-            android:textColor="@color/on_primary_container"
-            android:textSize="@dimen/_9ssp"
-            tools:text="You have spoken to Rahul 6 times this month. This was your longest call yet." />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/main_butttion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_5sdp"
-        android:background="@drawable/bg_btn"
-        android:orientation="horizontal"
-        android:paddingVertical="@dimen/_10sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardCallSummary">
-
-        <LinearLayout
-            android:id="@+id/image_recent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/_12sdp"
-            android:paddingEnd="@dimen/_12sdp">
-
-            <ImageView
-                android:id="@+id/imageTabRecent"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_gravity="center"
-                android:src="@drawable/callback_recent_unselected" />
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/mulish_semibold"
-                android:text="@string/recent"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_8sdp" />
-        </LinearLayout>
+                android:background="@color/ds_surface">
 
-        <LinearLayout
-            android:id="@+id/image_mes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/_12sdp"
-            android:paddingEnd="@dimen/_12sdp">
+                <include layout="@layout/admob_big_native" />
 
-            <ImageView
-                android:id="@+id/imageTabMessage"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_gravity="center"
-                android:src="@drawable/callback_message_unselected" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/mulish_semibold"
-                android:text="@string/message"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_8sdp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/image_reminder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/_12sdp"
-            android:paddingEnd="@dimen/_12sdp">
-
-            <ImageView
-                android:id="@+id/imageTabReminder"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_gravity="center"
-                android:src="@drawable/callback_reminder_unselected" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/mulish_semibold"
-                android:text="@string/reminder"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_8sdp" />
-        </LinearLayout>
-
-        <!--
-            Third tab — generic WhatsApp launcher. Opens the WhatsApp main
-            screen via packageManager.getLaunchIntentForPackage instead of
-            sending the user to a specific phone/contact (the previous
-            wa.me/<digits> deep link). Falls back gracefully when neither
-            WhatsApp nor WhatsApp Business is installed.
-        -->
-        <LinearLayout
-            android:id="@+id/image_whatsapp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/_12sdp"
-            android:paddingEnd="@dimen/_12sdp">
-
-            <ImageView
-                android:id="@+id/imageTabWhatsapp"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_gravity="center"
-                android:src="@drawable/callback_wa_unselected" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/mulish_semibold"
-                android:text="@string/whatsapp"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/_8sdp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/_5sdp"
-        app:layout_constraintBottom_toTopOf="@+id/adContainer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_butttion" />
-
-    <FrameLayout
-        android:id="@+id/adContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#ccc">
-
-            <include layout="@layout/admob_big_native" />
-
-        </com.facebook.shimmer.ShimmerFrameLayout>
-
-    </FrameLayout>
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
