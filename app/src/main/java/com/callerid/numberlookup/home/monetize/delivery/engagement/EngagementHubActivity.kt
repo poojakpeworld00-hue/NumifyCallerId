@@ -25,6 +25,8 @@ import com.callerid.numberlookup.home.monetize.delivery.engagement.sections.Anno
 import com.callerid.numberlookup.home.monetize.delivery.engagement.sections.CallTimelineFragment
 import com.callerid.numberlookup.home.monetize.delivery.engagement.sections.AlertFeedFragment
 import com.callerid.numberlookup.home.foundation.BaseActivity
+import androidx.core.view.isVisible
+import com.callerid.numberlookup.home.resolver.CallerLabel
 import com.callerid.numberlookup.home.repository.ContactRepository
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -90,15 +92,7 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
         val endTimeMillis = intent.getLongExtra("end_time", 0L)
         val callType = intent.getStringExtra("call_type") ?: "UNKNOWN"
 
-        // Resolve the contact name for this number; fall back to the raw number.
-        val withheld = phone.equals(CallStateReceiver.PRIVATE_NUMBER, ignoreCase = true)
-        val callerName = if (phone.isNotBlank() && !withheld)
-            ContactRepository(this).lookupNameByNumber(phone)?.takeIf { it.isNotBlank() }
-        else null
-        // PRIVATE_NUMBER is an internal token, so it is swapped for localized copy
-        // rather than printed — otherwise every locale sees English here.
-        binding.labelCallerName.text = callerName
-            ?: if (withheld) getString(R.string.caller_private_number) else phone
+        bindCallerName(phone)
         binding.labelCallType.text = getCallTypeText(callType)
 
         // Duration — format as MM:SS
@@ -157,6 +151,74 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
     private fun getAllTabs() = listOf(
         binding.imageRecent, binding.imageMes, binding.imageReminder, binding.imageWhatsapp
     )
+
+    /**
+     * Names the caller: the address book first, the caller-ID network second.
+     *
+     * The address book wins outright. Replacing "Mum" with whatever the network
+     * calls that number would be a downgrade however authoritative it is, which
+     * is the same rule [CallerLabel.applyNetworkFacts] follows on the incoming
+     * card — both screens are about the same number and must not disagree.
+     *
+     * The contact read moved off the main thread on the way past. It is a
+     * ContentResolver query against the whole address book and it was running
+     * inline in onCreate, on a screen that appears the instant a call ends.
+     *
+     * While the network is being asked the name shimmers rather than showing the
+     * raw number. Printing the number and then replacing it with a name reads as
+     * the app correcting a mistake; the shimmer says "still looking", which is
+     * true and is not contradicted by whatever arrives. If nothing arrives the
+     * number is what settles there, and by then it is final.
+     */
+    private fun bindCallerName(phone: String) {
+        // PRIVATE_NUMBER is an internal token, so it is swapped for localized copy
+        // rather than printed — otherwise every locale sees English here. A
+        // withheld number is also nothing to look up, so it settles immediately.
+        val withheld = phone.equals(CallStateReceiver.PRIVATE_NUMBER, ignoreCase = true)
+        if (withheld || phone.isBlank()) {
+            binding.labelCallerName.text = getString(R.string.caller_private_number)
+            return
+        }
+
+        // The number is the value that settles here if neither lookup names the
+        // caller, so it is written now — but the label stays behind the shimmer
+        // until something is decided, so it is never actually read and then
+        // replaced. Shimmer starts synchronously, before the first frame.
+        binding.labelCallerName.text = phone
+        showNameShimmer(true)
+
+        lifecycleScope.launch {
+            val contactName = withContext(Dispatchers.IO) {
+                runCatching {
+                    ContactRepository(this@EngagementHubActivity).lookupNameByNumber(phone)
+                }.getOrNull()?.takeIf { it.isNotBlank() }
+            }
+            if (contactName != null) {
+                binding.labelCallerName.text = contactName
+                showNameShimmer(false)
+                return@launch
+            }
+
+            // Not in the address book. Ask the caller-ID network, and keep
+            // shimmering for exactly as long as that takes — CallerLabel bounds
+            // it at 8s, so this cannot hang on a dead connection.
+            val facts = CallerLabel.lookupNetworkFacts(this@EngagementHubActivity, phone)
+            facts?.name?.trim()?.takeIf { it.isNotBlank() }?.let {
+                binding.labelCallerName.text = it
+            }
+            // Last, and on every outcome including failure: a shimmer left
+            // running is a worse screen than the number it was hiding.
+            showNameShimmer(false)
+        }
+    }
+
+    /** Swaps the name line for the shimmer bar, and back again. */
+    private fun showNameShimmer(loading: Boolean) {
+        binding.labelCallerName.isVisible = !loading
+        binding.shimmerCallerName.isVisible = loading
+        if (loading) binding.shimmerCallerName.startShimmer()
+        else binding.shimmerCallerName.stopShimmer()
+    }
 
     /** The caller's number from the launching intent, or null for private/unknown. */
     private val callerNumber: String? by lazy {

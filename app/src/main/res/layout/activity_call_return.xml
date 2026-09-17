@@ -58,10 +58,30 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/mulish_semibold"
-                    android:text="98745 63210"
                     android:textColor="@color/on_surface"
                     android:textSize="@dimen/_12sdp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="98745 63210" />
+
+                <!-- Held in place of the name while the number is looked up, for
+                     the same reason the incoming-call card does it: printing the
+                     raw number and then swapping in a name a second later reads
+                     as the app correcting itself. Same 100x13 bar as
+                     overlay_caller_id, so the two screens shimmer identically. -->
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerCallerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <View
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_13sdp"
+                        android:alpha="0.18"
+                        android:background="@drawable/bg_shimmer_placeholder" />
+                </com.facebook.shimmer.ShimmerFrameLayout>
             </LinearLayout>
 
             <androidx.appcompat.widget.LinearLayoutCompat
