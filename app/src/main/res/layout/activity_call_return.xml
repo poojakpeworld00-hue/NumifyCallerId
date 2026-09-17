@@ -57,6 +57,9 @@
                     android:layout_height="56dp"
                     android:background="@drawable/bg_ds_hero_avatar">
 
+                    <!-- Three layers, same as a contacts row: the glyph for a
+                         caller with no name at all, initials once there is one,
+                         and the contact picture over both when they have one. -->
                     <ImageView
                         android:id="@+id/imageUser"
                         android:layout_width="28dp"
@@ -65,6 +68,25 @@
                         android:contentDescription="@null"
                         android:src="@drawable/ic_profile"
                         app:tint="@color/ds_on_hero_muted" />
+
+                    <TextView
+                        android:id="@+id/textUserInitials"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/space_grotesk_bold"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/ds_on_hero_muted"
+                        android:textSize="22sp"
+                        android:visibility="gone"
+                        tools:text="JD" />
+
+                    <ImageView
+                        android:id="@+id/imageUserPhoto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@null"
+                        android:visibility="gone" />
                 </FrameLayout>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -251,7 +273,7 @@
                 tools:text="You have spoken to Rahul 6 times this month. This was your longest call yet." />
         </LinearLayout>
 
-        <!-- ===== Tabs: one grouped strip, not four floating buttons ===== -->
+        <!-- ===== Actions: the same four the call detail screen offers ===== -->
         <LinearLayout
             android:id="@+id/main_butttion"
             android:layout_width="match_parent"
@@ -271,146 +293,69 @@
             app:layout_constraintTop_toBottomOf="@+id/cardCallSummary">
 
             <LinearLayout
-                android:id="@+id/image_recent"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingVertical="4dp">
+                android:id="@+id/buttonCall"
+                style="@style/DetailAction">
 
                 <ImageView
-                    android:id="@+id/imageTabRecent"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/bg_ds_action_tile"
-                    android:backgroundTint="@color/tab_tile_recent"
-                    android:contentDescription="@null"
-                    android:padding="12dp"
-                    android:src="@drawable/callback_recent_unselected"
-                    app:tint="@color/tab_glyph_recent" />
+                    style="@style/DetailActionIcon"
+                    android:backgroundTint="@color/ds_accent"
+                    android:contentDescription="@string/action_call"
+                    android:src="@drawable/ic_ds_phone"
+                    app:tint="@color/ds_on_accent" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:fontFamily="@font/mulish_bold"
-                    android:includeFontPadding="false"
-                    android:text="@string/recent"
-                    android:textColor="@color/ds_ink_muted"
-                    android:textSize="11.5sp" />
+                    style="@style/DetailActionLabel"
+                    android:text="@string/action_call" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/image_mes"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingVertical="4dp">
+                android:id="@+id/buttonMessage"
+                style="@style/DetailAction">
 
                 <ImageView
-                    android:id="@+id/imageTabMessage"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/bg_ds_action_tile"
-                    android:backgroundTint="@color/tab_tile_message"
-                    android:contentDescription="@null"
-                    android:padding="12dp"
-                    android:src="@drawable/callback_message_unselected"
-                    app:tint="@color/tab_glyph_message" />
+                    style="@style/DetailActionIcon"
+                    android:backgroundTint="@color/ds_hero_blue_wash"
+                    android:contentDescription="@string/action_message"
+                    android:src="@drawable/ic_message_square_alt"
+                    app:tint="@color/ds_accent" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:fontFamily="@font/mulish_bold"
-                    android:includeFontPadding="false"
-                    android:text="@string/message"
-                    android:textColor="@color/ds_ink_muted"
-                    android:textSize="11.5sp" />
+                    style="@style/DetailActionLabel"
+                    android:text="@string/action_message" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/image_reminder"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingVertical="4dp">
+                android:id="@+id/buttonWhatsapp"
+                style="@style/DetailAction">
 
                 <ImageView
-                    android:id="@+id/imageTabReminder"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/bg_ds_action_tile"
-                    android:backgroundTint="@color/tab_tile_reminder"
-                    android:contentDescription="@null"
-                    android:padding="12dp"
-                    android:src="@drawable/callback_reminder_unselected"
-                    app:tint="@color/tab_glyph_reminder" />
+                    style="@style/DetailActionIcon"
+                    android:backgroundTint="@color/ds_success_wash"
+                    android:contentDescription="@string/action_whatsapp"
+                    android:src="@drawable/ic_whatsapp"
+                    app:tint="@color/ds_success" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:fontFamily="@font/mulish_bold"
-                    android:includeFontPadding="false"
-                    android:text="@string/reminder"
-                    android:textColor="@color/ds_ink_muted"
-                    android:textSize="11.5sp" />
+                    style="@style/DetailActionLabel"
+                    android:text="@string/action_whatsapp" />
             </LinearLayout>
 
-            <!--
-                Third tab — generic WhatsApp launcher. Opens the WhatsApp main
-                screen via packageManager.getLaunchIntentForPackage instead of
-                sending the user to a specific phone/contact (the previous
-                wa.me/<digits> deep link). Falls back gracefully when neither
-                WhatsApp nor WhatsApp Business is installed.
-            -->
             <LinearLayout
-                android:id="@+id/image_whatsapp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingVertical="4dp">
+                android:id="@+id/buttonBlock"
+                style="@style/DetailAction">
 
                 <ImageView
-                    android:id="@+id/imageTabWhatsapp"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/bg_ds_action_tile"
-                    android:backgroundTint="@color/tab_tile_whatsapp"
-                    android:contentDescription="@null"
-                    android:padding="12dp"
-                    android:src="@drawable/callback_wa_unselected"
-                    app:tint="@color/tab_glyph_whatsapp" />
+                    android:id="@+id/imageBlockIcon"
+                    style="@style/DetailActionIcon"
+                    android:backgroundTint="@color/ds_danger_tint"
+                    android:contentDescription="@string/action_block"
+                    android:src="@drawable/ic_ds_block_slash"
+                    app:tint="@color/ds_danger" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:fontFamily="@font/mulish_bold"
-                    android:includeFontPadding="false"
-                    android:text="@string/whatsapp"
-                    android:textColor="@color/ds_ink_muted"
-                    android:textSize="11.5sp" />
+                    android:id="@+id/textBlockLabel"
+                    style="@style/DetailActionLabel"
+                    android:text="@string/action_block" />
             </LinearLayout>
         </LinearLayout>
 

@@ -33,6 +33,38 @@ class ContactRepository(private val context: Context) {
         }.getOrNull()
     }
 
+    /** A saved contact's display name and picture, as one lookup returns them. */
+    data class SavedCaller(val name: String?, val photoUri: String?)
+
+    /**
+     * The saved contact behind [number] - name and photo together.
+     *
+     * Callers that want both used to run [lookupNameByNumber] and then go back
+     * for the picture, which is two content-provider round trips for one row of
+     * the same table. PhoneLookup hands over both columns at once.
+     */
+    fun savedCallerByNumber(number: String): SavedCaller? {
+        if (number.isBlank()) return null
+        return runCatching {
+            val uri = Uri.withAppendedPath(
+                ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
+                Uri.encode(number)
+            )
+            context.contentResolver.query(
+                uri,
+                arrayOf(
+                    ContactsContract.PhoneLookup.DISPLAY_NAME,
+                    ContactsContract.PhoneLookup.PHOTO_URI,
+                ),
+                null, null, null
+            )?.use { cursor ->
+                if (cursor.moveToFirst()) {
+                    SavedCaller(cursor.getString(0), cursor.getString(1))
+                } else null
+            }
+        }.getOrNull()
+    }
+
     /**
      * The contact id behind [number], or null when the number is not saved.
      *

@@ -1,5 +1,11 @@
 package com.callerid.numberlookup.home.monetize.delivery.engagement
 
+import com.bumptech.glide.Glide
+import com.callerid.numberlookup.home.common.AvatarPalette
+import com.callerid.numberlookup.home.feature.widgets.CallActionHandler
+import androidx.core.net.toUri
+import com.callerid.numberlookup.home.feature.blocklist.BlockReward
+import com.callerid.numberlookup.home.repository.BlocklistRepository
 import com.callerid.numberlookup.home.common.TimeFormats
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -20,9 +26,7 @@ import com.callerid.numberlookup.home.monetize.delivery.AppOpenAdManager
 import com.callerid.numberlookup.home.monetize.delivery.BottomSheetNativeAds
 import com.callerid.numberlookup.home.monetize.delivery.SystemDialogHelper
 import com.callerid.numberlookup.home.monetize.delivery.getHD_VBC_Type
-import com.callerid.numberlookup.home.monetize.delivery.engagement.sections.AnnouncementFragment
 import com.callerid.numberlookup.home.monetize.delivery.engagement.sections.CallTimelineFragment
-import com.callerid.numberlookup.home.monetize.delivery.engagement.sections.AlertFeedFragment
 import com.callerid.numberlookup.home.foundation.BaseActivity
 import androidx.core.view.isVisible
 import com.callerid.numberlookup.home.resolver.CallerLabel
@@ -110,11 +114,11 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
             if (endTimeMillis > 0) endTimeMillis else System.currentTimeMillis(),
         )
 
-        // Recent-call list is the default ("first") tab of the post-call screen.
+        // The call list is what this screen shows below the actions - it is the
+        // content, not one tab of four, so it is put up once and stays.
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, CallTimelineFragment())
             .commit()
-        selectTab(binding.imageRecent, getAllTabs())
 
         binding.callIcon.triggerClick {
             val number = callerNumber
@@ -124,21 +128,8 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
 
         setupClickListeners()
 
-        onBackPressedDispatcher.addCallback(this) {
-            val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-            when (currentFragment) {
-                // The recents list is "home" — back from it closes the screen.
-                is CallTimelineFragment -> finish()
-                else -> {
-                    if (!isFinishing && !isDestroyed) {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_container, CallTimelineFragment())
-                            .commitAllowingStateLoss()
-                    }
-                    selectTab(binding.imageRecent, getAllTabs())
-                }
-            }
-        }
+        // One pane, so back has nowhere to retreat to and closes the screen.
+        onBackPressedDispatcher.addCallback(this) { finish() }
     }
 
     private fun getCallTypeText(type: String): String = when (type.uppercase()) {
@@ -148,9 +139,6 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
         else -> type
     }
 
-    private fun getAllTabs() = listOf(
-        binding.imageRecent, binding.imageMes, binding.imageReminder, binding.imageWhatsapp
-    )
 
     /**
      * Names the caller: the address book first, the caller-ID network second.
@@ -188,13 +176,15 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
         showNameShimmer(true)
 
         lifecycleScope.launch {
-            val contactName = withContext(Dispatchers.IO) {
+            val saved = withContext(Dispatchers.IO) {
                 runCatching {
-                    ContactRepository(this@EngagementHubActivity).lookupNameByNumber(phone)
-                }.getOrNull()?.takeIf { it.isNotBlank() }
+                    ContactRepository(this@EngagementHubActivity).savedCallerByNumber(phone)
+                }.getOrNull()
             }
+            val contactName = saved?.name?.takeIf { it.isNotBlank() }
             if (contactName != null) {
                 binding.labelCallerName.text = contactName
+                paintAvatar(contactName, saved.photoUri, phone)
                 showNameShimmer(false)
                 return@launch
             }
@@ -205,11 +195,42 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
             val facts = CallerLabel.lookupNetworkFacts(this@EngagementHubActivity, phone)
             facts?.name?.trim()?.takeIf { it.isNotBlank() }?.let {
                 binding.labelCallerName.text = it
+                paintAvatar(it, photoUri = null, number = phone)
             }
             // Last, and on every outcome including failure: a shimmer left
             // running is a worse screen than the number it was hiding.
             showNameShimmer(false)
         }
+    }
+
+    /**
+     * The caller's avatar, built the way a contacts row builds one: the saved
+     * picture when there is one, their coloured initials when there is not, and
+     * the plain glyph when the caller has no name at all.
+     *
+     * The colour is keyed off the name so the same person keeps the same swatch
+     * here as in the lists.
+     */
+    private fun paintAvatar(name: String?, photoUri: String?, number: String) {
+        val initials = CallActionHandler.initials(name, number)
+        val hasInitials = !name.isNullOrBlank() && initials.isNotBlank()
+
+        binding.textUserInitials.text = initials
+        binding.textUserInitials.isVisible = hasInitials
+        binding.imageUser.isVisible = !hasInitials
+        binding.sectionUser.backgroundTintList =
+            if (hasInitials) AvatarPalette.tintFor(this, name.orEmpty().ifEmpty { number })
+            else null
+
+        val photo = binding.imageUserPhoto
+        if (photoUri.isNullOrBlank()) {
+            Glide.with(photo).clear(photo)
+            photo.setImageDrawable(null)
+            photo.isVisible = false
+            return
+        }
+        photo.isVisible = true
+        Glide.with(photo).load(photoUri.toUri()).circleCrop().into(photo)
     }
 
     /** Swaps the name line for the shimmer bar, and back again. */
@@ -235,32 +256,80 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
      */
     private fun callNumber(number: String) = placeCall(number)
 
+    /**
+     * The four actions on this number, the same set and the same order the call
+     * detail screen offers.
+     *
+     * They used to be tabs that swapped the pane below - recents, announcements,
+     * alerts - with WhatsApp as the odd one out that left the app. Four controls
+     * that look identical should not be three navigations and one action; now
+     * every one of them acts on the number and the pane below stays the call list.
+     */
     private fun setupClickListeners() {
-        val allTabs = getAllTabs()
+        binding.buttonCall.triggerClick { withNumber { callNumber(it) } }
+        binding.buttonMessage.triggerClick { withNumber { sendMessage(it) } }
+        binding.buttonWhatsapp.triggerClick { openWhatsApp(callerNumber) }
+        binding.buttonBlock.triggerClick { toggleBlock() }
+        updateBlockState()
+    }
 
-        val fragmentTabs = listOf(
-            binding.imageRecent to { CallTimelineFragment() as Fragment },
-            binding.imageMes to { AnnouncementFragment.newInstance(callerNumber) as Fragment },
-            binding.imageReminder to { AlertFeedFragment() as Fragment }
-        )
+    /** Runs [action] on the caller's number, or says there isn't one. */
+    private inline fun withNumber(action: (String) -> Unit) {
+        val number = callerNumber
+        if (number.isNullOrBlank()) {
+            Toast.makeText(this, R.string.toast_no_number, Toast.LENGTH_SHORT).show()
+            return
+        }
+        action(number)
+    }
 
-        fragmentTabs.forEach { (tab, fragmentFactory) ->
-            tab.triggerClick {
-                if (isFinishing || isDestroyed) return@triggerClick
-                selectTab(tab, allTabs)
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, fragmentFactory())
-                    .addToBackStack(null)
-                    .commitAllowingStateLoss()
-            }
+    /** Opens the SMS composer on this number. */
+    private fun sendMessage(number: String) {
+        val intent = Intent(Intent.ACTION_SENDTO, "smsto:$number".toUri())
+        runCatching { startActivity(intent) }.onFailure {
+            Toast.makeText(this, R.string.toast_no_sms_app, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    /**
+     * Blocks or unblocks the number, then repaints the action.
+     *
+     * Same rule as the call detail screen: only blocking goes through the reward
+     * gate, because unblocking hands a slot back and must never cost an ad.
+     */
+    private fun toggleBlock() {
+        val number = callerNumber
+        if (number.isNullOrBlank()) return
+        val blocklist = BlocklistRepository(this)
+
+        if (blocklist.isNumberBlocked(number)) {
+            blocklist.remove(number)
+            updateBlockState()
+            Toast.makeText(this, R.string.blocklist_removed, Toast.LENGTH_SHORT).show()
+            return
         }
 
-        // WhatsApp tab — opens a chat directly with the caller's number.
-        binding.imageWhatsapp.triggerClick {
-            if (isFinishing || isDestroyed) return@triggerClick
-            selectTab(binding.imageWhatsapp, allTabs)
-            openWhatsApp(callerNumber)
+        BlockReward.allow(this, number) {
+            blocklist.add(number)
+            updateBlockState()
+            Toast.makeText(this, R.string.blocklist_added, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    /** Red slash for "Block", green for "Unblock" - as on the call detail screen. */
+    private fun updateBlockState() {
+        val number = callerNumber
+        val blocked = !number.isNullOrBlank() && BlocklistRepository(this).isNumberBlocked(number)
+        val labelRes = if (blocked) R.string.action_unblock else R.string.action_block
+        val fg = if (blocked) R.color.ds_success else R.color.ds_danger
+        val soft = if (blocked) R.color.ds_success_wash else R.color.ds_danger_tint
+
+        binding.textBlockLabel.setText(labelRes)
+        binding.imageBlockIcon.contentDescription = getString(labelRes)
+        binding.imageBlockIcon.imageTintList =
+            ColorStateList.valueOf(ContextCompat.getColor(this, fg))
+        binding.imageBlockIcon.backgroundTintList =
+            ColorStateList.valueOf(ContextCompat.getColor(this, soft))
     }
 
     /**
@@ -308,68 +377,8 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
         Toast.makeText(this, R.string.toast_no_whatsapp, Toast.LENGTH_SHORT).show()
     }
 
-    private val tabIcons by lazy {
-        mapOf(
-            binding.imageRecent to Pair(
-                R.drawable.callback_recent_selected,
-                R.drawable.callback_recent_unselected
-            ),
-            binding.imageMes to Pair(
-                R.drawable.callback_message_selected,
-                R.drawable.callback_message_unselected
-            ),
-            binding.imageReminder to Pair(
-                R.drawable.callback_reminder_selected,
-                R.drawable.callback_reminder_unselected
-            ),
-            binding.imageWhatsapp to Pair(
-                R.drawable.callback_wa_selected,
-                R.drawable.callback_wa_unselected
-            )
-        )
-    }
 
-    private val tabImageViews by lazy {
-        mapOf(
-            binding.imageRecent to binding.imageTabRecent,
-            binding.imageMes to binding.imageTabMessage,
-            binding.imageReminder to binding.imageTabReminder,
-            binding.imageWhatsapp to binding.imageTabWhatsapp
-        )
-    }
 
-    /**
-     * Marks the selected tab.
-     *
-     * Each tab keeps its own hue, the way the Call Details action strip gives
-     * every action one: soft wash with a coloured glyph when idle, the full hue
-     * with a white glyph when selected. Both live in colour state lists
-     * (res/color/tab_tile_*, tab_glyph_*), so this only has to say which tab is
-     * selected - see the note in those files for why the colours are not
-     * resolved here.
-     *
-     * The selection used to live on neither the tile nor the glyph: the old code
-     * tinted the tab row's background, and the tab row has no background drawable
-     * to tint, so that line did nothing at all. What was visible was the
-     * selected/unselected icon swap, and those two drawables differ only in
-     * fillColor - which stops being legible the moment the glyph sits on a
-     * coloured chip. The swap is kept as the shape source of truth; the state
-     * list decides the colour.
-     */
-    private fun selectTab(selected: android.view.View, allTabs: List<android.view.View>) {
-        allTabs.forEach { tab ->
-            val isSelected = tab == selected
-            tab.alpha = 1.0f
-
-            val icons = tabIcons[tab]
-            tabImageViews[tab]?.let { iv ->
-                if (icons != null) {
-                    iv.setImageResource(if (isSelected) icons.first else icons.second)
-                }
-                iv.isSelected = isSelected
-            }
-        }
-    }
 
     override fun onResume() {
         super.onResume()

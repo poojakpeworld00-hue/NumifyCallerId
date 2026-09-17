@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.monetize.delivery.engagement.sections
 
+import com.callerid.numberlookup.home.feature.widgets.EmptyStateView
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -8,7 +9,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -34,15 +34,24 @@ class CallTimelineFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_recent_calls, container, false)
 
         val recycler = view.findViewById<RecyclerView>(R.id.listRecents)
-        val empty = view.findViewById<TextView>(R.id.textEmpty)
+        val empty = view.findViewById<EmptyStateView>(R.id.textEmpty)
 
         recycler.layoutManager = LinearLayoutManager(requireContext())
+        // No animator: the list is read once and submitted once, so the only thing
+        // the default one contributed was a fade that a screenshot could catch
+        // half-finished - rows whose names looked washed out or missing.
+        recycler.itemAnimator = null
         recycler.adapter = adapter
 
         val calls = loadRecentCalls()
         adapter.submit(calls)
 
         val isEmpty = calls.isEmpty()
+        if (isEmpty) {
+            empty.show(
+                R.drawable.ic_history, R.string.recents_empty, R.string.recents_empty_sub
+            )
+        }
         recycler.visibility = if (isEmpty) View.GONE else View.VISIBLE
         empty.visibility = if (isEmpty) View.VISIBLE else View.GONE
 
