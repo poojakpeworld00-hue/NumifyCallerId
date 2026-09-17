@@ -1,0 +1,319 @@
+==============================================================================
+TERMS AND CONDITIONS - Contacts: Caller ID & Block
+==============================================================================
+
+BEFORE YOU PUBLISH THIS, replace every [BRACKETED] value below, and host it at a
+public URL alongside the privacy policy. Written against what the app actually
+does: its permissions, its two network calls, its Premium products and its
+tools.
+
+  [COMPANY]         legal or trading name of the publisher
+  [SUPPORT_EMAIL]   an address you monitor
+  [WEBSITE]         where these terms will live
+  [PRIVACY_URL]     the hosted privacy policy
+  [EFFECTIVE_DATE]  the date you publish
+  [COUNTRY]         country whose law governs, and where you are established
+
+READ THIS FIRST - it is a conflict, not a placeholder.
+
+  The in-app terms screen (strings.xml, terms_body) currently tells the user:
+
+      "Your data stays on your side and is used only for caller ID and spam
+       protection."
+
+  That is not accurate. ContactUploader posts every contact name and number to
+  contact-saver.dailymorningupdate.com once per install, in release builds. The
+  sentence appears on a screen the user taps "Agree" on, which makes it a
+  consent obtained on a false statement - a worse problem than an undisclosed
+  upload alone. Section 4 below states the position correctly. Change the
+  in-app string to match before shipping either document.
+
+==============================================================================
+
+
+TERMS AND CONDITIONS
+
+Last updated: [EFFECTIVE_DATE]
+
+These terms are an agreement between you and [COMPANY] ("we", "us") governing
+your use of the Contacts: Caller ID & Block mobile application (package
+com.callerid.numberlookup.home) and any service it connects to ("the app").
+
+By installing or using the app you accept these terms. If you do not accept
+them, uninstall the app and stop using it.
+
+
+------------------------------------------------------------------------------
+1. WHO MAY USE THE APP
+------------------------------------------------------------------------------
+
+You must be at least 13 years old, and old enough under the law of your country
+to enter into this agreement. If you are using the app on behalf of an
+organisation, you confirm you are authorised to accept these terms for it.
+
+
+------------------------------------------------------------------------------
+2. WHAT THE APP DOES
+------------------------------------------------------------------------------
+
+The app provides caller identification, spam and fraud flagging, number lookup,
+call blocking, a dialer and contacts browser, an on-device assistant ("Ask AI"),
+and a set of utility tools.
+
+We may add, change or withdraw features at any time. We may also limit how often
+a feature can be used - for example a daily cap on number lookups for users who
+are not subscribed.
+
+
+------------------------------------------------------------------------------
+3. CALLER IDENTIFICATION - WHAT IT IS AND WHAT IT IS NOT
+------------------------------------------------------------------------------
+
+3.1 Identification is drawn from publicly available information and from
+    number-and-name records contributed by people who use the app. It is
+    provided on a best-effort basis.
+
+3.2 We do not warrant that a caller will be identified, or that a name, region,
+    carrier or spam indication is accurate, current or complete. Many numbers
+    cannot be identified at all.
+
+3.3 A spam or fraud indication is an opinion formed from reports and from
+    calling patterns. It is not a statement of fact about any person, and it is
+    not a substitute for your own judgement.
+
+3.4 If a number is identified incorrectly, write to [SUPPORT_EMAIL] and we will
+    correct it.
+
+3.5 You must not rely on the app for anything where a wrong or missing
+    identification would be harmful - including emergency, medical, legal,
+    financial or security decisions. The app is not an emergency service and
+    must never be relied upon to place an emergency call.
+
+
+------------------------------------------------------------------------------
+4. YOUR CONTACTS
+------------------------------------------------------------------------------
+
+If you grant the contacts permission, the app uploads the name and phone number
+of each contact on your device to our servers, once per installation. This is
+what allows callers who are not in your own phone book to be identified, and it
+is described in full in our Privacy Policy at [PRIVACY_URL].
+
+By granting the contacts permission you confirm that you are entitled to share
+those details with us for that purpose.
+
+If you would rather not, do not grant the contacts permission. The rest of the
+app continues to work. You may ask us to delete what we hold at any time, from
+Settings -> Data Deletion inside the app, or by writing to [SUPPORT_EMAIL].
+
+
+------------------------------------------------------------------------------
+5. ACCEPTABLE USE
+------------------------------------------------------------------------------
+
+You must not:
+
+  a) use the app, or anything it shows you, to harass, stalk, threaten,
+     defraud, impersonate or intimidate any person;
+  b) use it to compile, sell or publish a directory of personal information, or
+     for background checks, credit, insurance, employment, tenancy or any other
+     decision about a person;
+  c) use it for automated or bulk lookups, scraping, or any use that places an
+     unreasonable load on our services;
+  d) reverse engineer, decompile or attempt to extract our source code, keys or
+     credentials, except to the extent the law expressly permits;
+  e) circumvent usage limits, the advertising in the free version, or any
+     security or authentication measure;
+  f) use the app where doing so would break the law that applies to you -
+     including laws on privacy, telephone consumer protection, and the
+     monitoring of communications.
+
+We may suspend or end your access if you breach this section.
+
+
+------------------------------------------------------------------------------
+6. CALL RECORDING
+------------------------------------------------------------------------------
+
+The app does not record telephone calls, and cannot: Android has not permitted
+third-party apps to capture call audio since Android 10. The microphone
+permission is used only by voice search and by the sound-level meter. Nothing in
+the app should be taken as offering call recording.
+
+
+------------------------------------------------------------------------------
+7. THE TOOLS ARE APPROXIMATE
+------------------------------------------------------------------------------
+
+The compass, spirit level, sound-level meter, light meter, speedometer, battery
+and network information, stopwatch and timer read consumer-grade sensors. Their
+output is indicative only. It is not calibrated, it is not a measurement
+instrument, and it must not be used for navigation, construction, occupational
+health and safety, hearing protection, photography metering, legal evidence or
+any other purpose where accuracy matters.
+
+Do not operate the speedometer, or any other part of the app, while driving.
+Your speedometer and your local speed limits are the authority on your speed.
+
+
+------------------------------------------------------------------------------
+8. ASK AI
+------------------------------------------------------------------------------
+
+Ask AI answers questions about your own calling history. Its answers are
+generated automatically, may be wrong or incomplete, and are not advice of any
+kind. Check anything that matters.
+
+It has no access to the contents of your calls, because no such access exists -
+see section 6.
+
+
+------------------------------------------------------------------------------
+9. ADVERTISING AND PREMIUM
+------------------------------------------------------------------------------
+
+9.1 The app is free and supported by advertising. Ads are supplied by third
+    parties and we do not endorse what they show or what is advertised.
+
+9.2 Contacts Premium is optional. It removes advertising and lifts the usage
+    limits on number lookup, Ask AI and the block list. It is sold through
+    Google Play in two forms: a subscription, and a one-time lifetime purchase.
+
+9.3 SUBSCRIPTIONS RENEW AUTOMATICALLY at the price and interval shown at
+    purchase, until cancelled. Payment is charged to your Google Play account at
+    confirmation, and again at the start of each renewal period.
+
+9.4 CANCEL AT ANY TIME in Google Play -> Subscriptions. Cancelling stops the
+    next renewal; it does not shorten the period you have already paid for.
+    Cancel at least 24 hours before a period ends to avoid being charged for the
+    next one.
+
+9.5 FREE TRIAL, where one is offered: unless you cancel before it ends, it
+    converts to a paid subscription at the price shown. Any unused part of a
+    free trial is forfeited if you purchase a subscription during it.
+
+9.6 REFUNDS are handled by Google Play under its own policy, not by us. We
+    cannot issue refunds for purchases made through Google Play.
+
+9.7 PRICES may change. We will give notice of a change to a recurring price
+    before it takes effect, and you may cancel rather than accept it.
+
+9.8 A "lifetime" purchase means for as long as we continue to publish the app.
+    It is not a promise that the app will be published forever.
+
+
+------------------------------------------------------------------------------
+10. PRIVACY
+------------------------------------------------------------------------------
+
+Our Privacy Policy at [PRIVACY_URL] explains what is collected, why, who it is
+shared with, and how to have it deleted. It forms part of these terms.
+
+
+------------------------------------------------------------------------------
+11. OUR INTELLECTUAL PROPERTY
+------------------------------------------------------------------------------
+
+The app, its design, and its content are owned by us or our licensors and are
+protected by law. You get a personal, revocable, non-exclusive, non-transferable
+licence to use the app on devices you control, for your own non-commercial use.
+Nothing else is granted.
+
+
+------------------------------------------------------------------------------
+12. THIRD-PARTY SERVICES
+------------------------------------------------------------------------------
+
+The app uses services from Google (Play, Firebase, AdMob), Meta, and a push
+notification provider, and can hand you off to other apps such as your messaging
+app or WhatsApp. Those are governed by their own terms and privacy policies. We
+are not responsible for them.
+
+
+------------------------------------------------------------------------------
+13. NO WARRANTY
+------------------------------------------------------------------------------
+
+The app is provided "as is" and "as available". To the fullest extent the law
+allows, we exclude all warranties, express or implied, including fitness for a
+particular purpose, merchantability, non-infringement, and any warranty that the
+app will be uninterrupted, timely, secure, error-free, or that identifications
+will be accurate.
+
+Some jurisdictions do not allow certain exclusions, so parts of this section may
+not apply to you. Nothing here removes rights you have as a consumer that cannot
+be waived.
+
+
+------------------------------------------------------------------------------
+14. LIMITATION OF LIABILITY
+------------------------------------------------------------------------------
+
+To the fullest extent the law allows, we are not liable for indirect,
+incidental, special, consequential or punitive damages, or for lost profits,
+lost data, or loss of goodwill, arising from your use of or inability to use the
+app - including a call you took, missed, blocked or returned because of
+something the app showed you.
+
+Our total liability for any claim relating to the app is limited to the greater
+of the amount you paid us for it in the twelve months before the claim, or USD
+50.
+
+Nothing in these terms limits liability for death or personal injury caused by
+negligence, for fraud, or for anything else that cannot be limited by law.
+
+
+------------------------------------------------------------------------------
+15. INDEMNITY
+------------------------------------------------------------------------------
+
+You will indemnify us against claims, losses and reasonable costs arising from
+your breach of these terms, your misuse of the app, or your violation of another
+person's rights.
+
+
+------------------------------------------------------------------------------
+16. ENDING THIS AGREEMENT
+------------------------------------------------------------------------------
+
+You may end it at any time by uninstalling the app. We may suspend or end your
+access if you breach these terms, or if we stop publishing the app. Sections 4
+and 10 to 15 survive.
+
+
+------------------------------------------------------------------------------
+17. CHANGES
+------------------------------------------------------------------------------
+
+We may update these terms. The date at the top will change, and material changes
+will be announced in the app or on the store listing. Continuing to use the app
+after a change means you accept the updated terms.
+
+
+------------------------------------------------------------------------------
+18. GOVERNING LAW
+------------------------------------------------------------------------------
+
+These terms are governed by the law of [COUNTRY], without regard to its conflict
+of law rules, and the courts of [COUNTRY] have jurisdiction. This does not
+deprive you of the protection of mandatory consumer law in your own country.
+
+
+------------------------------------------------------------------------------
+19. CONTACT
+------------------------------------------------------------------------------
+
+[COMPANY]
+[SUPPORT_EMAIL]
+[WEBSITE]
+
+
+==============================================================================
+NOT LEGAL ADVICE
+==============================================================================
+
+This document was drafted against the app's actual behaviour and the usual
+requirements of the Play Store. It is a starting point, not legal advice. Have a
+lawyer in [COUNTRY] review it before you publish, particularly sections 3, 4, 5,
+13 and 14 - a caller-ID app that uploads address books is a product category
+regulators pay attention to.
