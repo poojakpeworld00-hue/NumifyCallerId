@@ -937,4 +937,6 @@
     <string name="history_locked_title">Consulta tu historial completo</string>
     <string name="history_locked_sub">Premium desbloquea todas las llamadas con este número y quita los anuncios.</string>
     <string name="history_locked_cta">Activar Premium</string>
+    <string name="tools_block">Bloquear</string>
+    <string name="tools_block_sub">Corta las llamadas de un número</string>
 </resources>

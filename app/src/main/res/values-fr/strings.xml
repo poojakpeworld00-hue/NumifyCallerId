@@ -893,4 +893,6 @@
     <string name="history_locked_title">Voir tout votre historique d\'appels</string>
     <string name="history_locked_sub">Premium débloque chaque appel avec ce numéro et supprime les publicités.</string>
     <string name="history_locked_cta">Activer Premium</string>
+    <string name="tools_block">Bloquer</string>
+    <string name="tools_block_sub">Coupez les appels d\'un numéro</string>
 </resources>

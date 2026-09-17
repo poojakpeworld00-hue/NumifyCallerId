@@ -888,4 +888,6 @@
     <string name="history_locked_title">通話履歴をすべて見る</string>
     <string name="history_locked_sub">Premium にすると、この番号との通話がすべて見られ、広告もなくなります。</string>
     <string name="history_locked_cta">Premium を開く</string>
+    <string name="tools_block">ブロック</string>
+    <string name="tools_block_sub">番号からの着信を止める</string>
 </resources>

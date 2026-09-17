@@ -888,4 +888,6 @@
     <string name="history_locked_title">ดูประวัติการโทรทั้งหมดของคุณ</string>
     <string name="history_locked_sub">Premium ปลดล็อกทุกสายกับหมายเลขนี้ และนำโฆษณาออก</string>
     <string name="history_locked_cta">ปลดล็อก Premium</string>
+    <string name="tools_block">บล็อก</string>
+    <string name="tools_block_sub">หยุดสายจากหมายเลขหนึ่ง</string>
 </resources>

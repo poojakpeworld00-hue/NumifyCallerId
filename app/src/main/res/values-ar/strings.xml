@@ -939,4 +939,6 @@
     <string name="history_locked_title">اطّلع على سجل مكالماتك كاملاً</string>
     <string name="history_locked_sub">يفتح Premium كل مكالمة مع هذا الرقم، ويزيل الإعلانات.</string>
     <string name="history_locked_cta">فعّل Premium</string>
+    <string name="tools_block">حظر</string>
+    <string name="tools_block_sub">أوقف المكالمات من رقم</string>
 </resources>

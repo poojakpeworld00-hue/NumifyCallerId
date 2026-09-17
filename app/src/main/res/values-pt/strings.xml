@@ -935,4 +935,6 @@
     <string name="history_locked_title">Veja seu histórico de chamadas completo</string>
     <string name="history_locked_sub">O Premium libera todas as chamadas com este número e remove os anúncios.</string>
     <string name="history_locked_cta">Ativar o Premium</string>
+    <string name="tools_block">Bloquear</string>
+    <string name="tools_block_sub">Corte as chamadas de um número</string>
 </resources>

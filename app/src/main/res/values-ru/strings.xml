@@ -945,4 +945,6 @@
     <string name="history_locked_title">Смотрите всю историю звонков</string>
     <string name="history_locked_sub">Premium открывает все звонки с этим номером и убирает рекламу.</string>
     <string name="history_locked_cta">Открыть Premium</string>
+    <string name="tools_block">Блокировка</string>
+    <string name="tools_block_sub">Прекратите звонки с номера</string>
 </resources>

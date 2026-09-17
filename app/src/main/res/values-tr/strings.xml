@@ -893,4 +893,6 @@
     <string name="history_locked_title">Tüm arama geçmişinizi görün</string>
     <string name="history_locked_sub">Premium, bu numarayla yaptığınız her aramayı açar ve reklamları kaldırır.</string>
     <string name="history_locked_cta">Premium\'i aç</string>
+    <string name="tools_block">Engelle</string>
+    <string name="tools_block_sub">Bir numaradan gelen aramaları kesin</string>
 </resources>

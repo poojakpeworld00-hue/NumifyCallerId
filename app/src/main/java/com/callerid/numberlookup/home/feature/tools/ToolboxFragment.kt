@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.feature.tools
 
+import com.callerid.numberlookup.home.feature.blocklist.BlocklistActivity
 import androidx.core.view.isVisible
 import com.callerid.numberlookup.home.feature.premium.PremiumActivity
 import com.callerid.numberlookup.home.monetize.billing.PremiumStore
@@ -92,6 +93,12 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
             UtilityUi(getString(R.string.tools_unsaved), getString(R.string.tools_unsaved_sub),
                 R.drawable.ic_ai_sparkle, R.drawable.bg_tool_chip_teal, R.color.tool_teal,
                 assistant, AiScanActivity::class.java, AiScanActivity.MODE_UNSAVED),
+            // Blocking closes the loop the other three open: they tell you who is
+            // calling, this is what you do about it. It opens the blocklist rather
+            // than a scan, so it carries its own glyph instead of the AI sparkle.
+            UtilityUi(getString(R.string.tools_block), getString(R.string.tools_block_sub),
+                R.drawable.ic_ds_block_slash, R.drawable.bg_tool_chip_amber, R.color.tool_amber,
+                assistant, BlocklistActivity::class.java),
             UtilityUi(getString(R.string.tools_compass), getString(R.string.tools_compass_sub),
                 R.drawable.ic_tool_compass, R.drawable.bg_tool_chip_green, R.color.tool_green,
                 measure, CompassActivity::class.java),

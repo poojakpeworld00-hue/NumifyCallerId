@@ -888,4 +888,6 @@
     <string name="history_locked_title">Xem toàn bộ lịch sử cuộc gọi</string>
     <string name="history_locked_sub">Premium mở khóa mọi cuộc gọi với số này và gỡ quảng cáo.</string>
     <string name="history_locked_cta">Mở khóa Premium</string>
+    <string name="tools_block">Chặn</string>
+    <string name="tools_block_sub">Ngăn cuộc gọi từ một số</string>
 </resources>
