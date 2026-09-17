@@ -157,16 +157,23 @@
                      that is chosen in place rather than navigated to.
 
                      The row names the current choice, the segmented control under it
-                     changes it. -->
+                     changes it.
+
+                     Carried its own raised treatment - a bespoke hero background,
+                     6dp, 18dp of padding, the old on_surface inks - while the four
+                     tiles under it had moved to the card system. One card in a
+                     column of cards should not be the one that looks different. -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_ds_appearance_hero"
-                    android:elevation="6dp"
+                    android:background="@drawable/bg_ds_stat_card"
+                    android:baselineAligned="false"
+                    android:elevation="4dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:outlineAmbientShadowColor="@color/ds_fab_shadow"
-                    android:outlineSpotShadowColor="@color/ds_fab_shadow"
-                    android:padding="18dp">
+                    android:outlineAmbientShadowColor="@color/ds_card_shadow"
+                    android:outlineSpotShadowColor="@color/ds_card_shadow"
+                    android:padding="14dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -176,38 +183,39 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="@dimen/_34sdp"
-                            android:layout_height="@dimen/_34sdp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:background="@drawable/bg_cid_chip_brand"
                             android:contentDescription="@null"
-                            android:padding="@dimen/_8sdp"
+                            android:padding="10dp"
                             android:src="@drawable/ic_theme_system"
                             app:tint="@color/primary" />
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginStart="10dp"
                             android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/mulish_bold"
                                 android:includeFontPadding="false"
                                 android:text="@string/settings_theme"
-                                android:textColor="@color/on_surface"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="bold" />
+                                android:textColor="@color/ds_ink"
+                                android:textSize="14sp" />
 
                             <TextView
                                 android:id="@+id/textThemeValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_1sdp"
+                                android:layout_marginTop="2dp"
+                                android:fontFamily="@font/mulish_semibold"
                                 android:includeFontPadding="false"
-                                android:textColor="@color/on_surface_variant"
-                                android:textSize="@dimen/_10ssp"
+                                android:textColor="@color/ds_ink_muted"
+                                android:textSize="11.5sp"
                                 tools:text="Light" />
                         </LinearLayout>
                     </LinearLayout>
@@ -315,7 +323,7 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginStart="10dp"
                             android:layout_weight="1"
                             android:orientation="vertical">
 

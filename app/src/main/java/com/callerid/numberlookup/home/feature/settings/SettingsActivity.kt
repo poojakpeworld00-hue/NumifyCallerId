@@ -51,6 +51,9 @@ import com.callerid.numberlookup.home.feature.assistant.AiSettingsActivity
 
 class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
 
+    /** @see BaseActivity.screenKey - the name Remote Config and analytics use. */
+    override val screenKey: String get() = "SettingsActivity"
+
     override val layoutId: Int = R.layout.activity_settings
 
     /** Theme segment order — must match cardTheme's segLight / segDark / segSystem. */
@@ -468,7 +471,7 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
             val active = i == selected
             cell.setBackgroundResource(if (active) R.drawable.bg_theme_selected else 0)
             val color = ContextCompat.getColor(
-                this, if (active) R.color.white else R.color.on_surface_variant
+                this, if (active) R.color.ds_on_accent else R.color.ds_ink_muted
             )
             cell.imageTintList = ColorStateList.valueOf(color)
         }
