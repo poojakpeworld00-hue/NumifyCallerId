@@ -82,6 +82,62 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
+                <!-- The other side of the same slot: the offer above is for people
+                     who have not bought, this is for people who have. One of the
+                     two is always hidden - see SettingsActivity.bindPremium. -->
+                <LinearLayout
+                    android:id="@+id/cardPremiumStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_ds_card"
+                    android:baselineAligned="false"
+                    android:elevation="4dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:outlineAmbientShadowColor="@color/ds_card_shadow"
+                    android:outlineSpotShadowColor="@color/ds_card_shadow"
+                    android:padding="@dimen/_14sdp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:background="@drawable/bg_premium_chip"
+                        android:contentDescription="@null"
+                        android:padding="@dimen/_9sdp"
+                        android:src="@drawable/ic_premium_crown"
+                        app:tint="@color/white" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textProTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mulish_bold"
+                            android:includeFontPadding="false"
+                            android:text="@string/settings_pro_title"
+                            android:textColor="@color/ds_ink"
+                            android:textSize="@dimen/_13ssp" />
+
+                        <TextView
+                            android:id="@+id/textProDetail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_3sdp"
+                            android:fontFamily="@font/mulish_semibold"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/ds_ink_muted"
+                            android:textSize="@dimen/_11ssp"
+                            tools:text="Day 12 of 30 · 18 days left" />
+                    </LinearLayout>
+                </LinearLayout>
+
                 <LinearLayout style="@style/SettingsSectionRow">
 
                     <TextView

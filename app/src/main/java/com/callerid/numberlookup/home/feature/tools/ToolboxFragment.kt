@@ -83,6 +83,12 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
             UtilityUi(getString(R.string.nav_lookup), getString(R.string.tools_lookup_sub),
                 R.drawable.ic_ds_nav_lookup, R.drawable.bg_tool_chip_sky, R.color.tool_sky,
                 assistant, LookupActivity::class.java),
+            // Second, behind Lookup: those two are what a number actually needs -
+            // who is this, and make them stop. The scans are for going through a
+            // list afterwards, which is a different visit to this screen.
+            UtilityUi(getString(R.string.tools_block), getString(R.string.tools_block_sub),
+                R.drawable.ic_ds_block_slash, R.drawable.bg_tool_chip_amber, R.color.tool_amber,
+                assistant, BlocklistActivity::class.java),
             // Ask AI moved here off the Recents filter row, where it cost the
             // filters a third of their width. It belongs with the other two
             // assistant entries anyway.
@@ -93,12 +99,6 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
             UtilityUi(getString(R.string.tools_unsaved), getString(R.string.tools_unsaved_sub),
                 R.drawable.ic_ai_sparkle, R.drawable.bg_tool_chip_teal, R.color.tool_teal,
                 assistant, AiScanActivity::class.java, AiScanActivity.MODE_UNSAVED),
-            // Blocking closes the loop the other three open: they tell you who is
-            // calling, this is what you do about it. It opens the blocklist rather
-            // than a scan, so it carries its own glyph instead of the AI sparkle.
-            UtilityUi(getString(R.string.tools_block), getString(R.string.tools_block_sub),
-                R.drawable.ic_ds_block_slash, R.drawable.bg_tool_chip_amber, R.color.tool_amber,
-                assistant, BlocklistActivity::class.java),
             UtilityUi(getString(R.string.tools_compass), getString(R.string.tools_compass_sub),
                 R.drawable.ic_tool_compass, R.drawable.bg_tool_chip_green, R.color.tool_green,
                 measure, CompassActivity::class.java),

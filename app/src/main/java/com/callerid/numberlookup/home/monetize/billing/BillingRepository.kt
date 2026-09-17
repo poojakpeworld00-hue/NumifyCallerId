@@ -157,6 +157,20 @@ class BillingRepository private constructor(context: Context) : PurchasesUpdated
             Log.d(TAG, "restore: ${owned.size} entitling purchase(s)")
 
             PremiumStore.setPremium(appContext, owned.isNotEmpty())
+            // What is behind the entitlement, so Settings can say something more
+            // useful than yes. Lifetime wins where both are held: it is the one
+            // that cannot run out.
+            val lifetime = owned.any { LIFETIME_ID in it.products }
+            val newest = owned.maxOfOrNull { it.purchaseTime } ?: 0L
+            PremiumStore.setPlan(
+                appContext,
+                when {
+                    lifetime -> PremiumStore.Plan.LIFETIME
+                    owned.isNotEmpty() -> PremiumStore.Plan.SUBSCRIPTION
+                    else -> PremiumStore.Plan.NONE
+                },
+                since = newest,
+            )
             // Anything owned but never acknowledged would be auto-refunded in
             // three days, so this catches a purchase that completed while the
             // app was killed.

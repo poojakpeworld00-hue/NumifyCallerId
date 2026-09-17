@@ -891,4 +891,9 @@
     <string name="tools_block">บล็อก</string>
     <string name="tools_block_sub">หยุดสายจากหมายเลขหนึ่ง</string>
     <string name="lookup_reveal_premium">Premium</string>
+    <string name="settings_pro_title">คุณเป็นผู้ใช้ Pro</string>
+    <string name="settings_pro_lifetime">ตลอดชีพ · Premium ไม่มีวันหมดอายุ</string>
+    <string name="settings_pro_days_fmt">วันที่ %1$d จาก %2$d · เหลือ %3$d วัน</string>
+    <string name="settings_pro_active">Premium เปิดใช้งานอยู่</string>
+    <string name="premium_go_to_app">ไปที่แอป</string>
 </resources>

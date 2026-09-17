@@ -433,6 +433,26 @@
                 android:textColor="@color/premium_ink_muted"
                 android:textSize="@dimen/_13ssp" />
 
+            <!-- The way out. Without it this screen is a dead end: the purchase
+                 is done, the crown is drawn, and the only controls are Manage and
+                 the close cross in the corner. -->
+            <TextView
+                android:id="@+id/buttonGoToApp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:background="@drawable/bg_premium_pill"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/mulish_bold"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minHeight="52dp"
+                android:text="@string/premium_go_to_app"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14ssp" />
+
             <TextView
                 android:id="@+id/buttonManage"
                 android:layout_width="wrap_content"

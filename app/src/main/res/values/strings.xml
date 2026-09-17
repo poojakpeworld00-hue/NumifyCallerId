@@ -1036,4 +1036,9 @@
     <string name="tools_block">Block</string>
     <string name="tools_block_sub">Stop calls from a number</string>
     <string name="lookup_reveal_premium">Premium</string>
+    <string name="settings_pro_title">You are a Pro user</string>
+    <string name="settings_pro_lifetime">Lifetime · Premium never expires</string>
+    <string name="settings_pro_days_fmt">Day %1$d of %2$d · %3$d days left</string>
+    <string name="settings_pro_active">Premium is active</string>
+    <string name="premium_go_to_app">Go to app</string>
 </resources>

@@ -891,4 +891,9 @@
     <string name="tools_block">ブロック</string>
     <string name="tools_block_sub">番号からの着信を止める</string>
     <string name="lookup_reveal_premium">Premium</string>
+    <string name="settings_pro_title">あなたは Pro ユーザーです</string>
+    <string name="settings_pro_lifetime">買い切り · Premium は期限なし</string>
+    <string name="settings_pro_days_fmt">%2$d 日中 %1$d 日目 · 残り %3$d 日</string>
+    <string name="settings_pro_active">Premium は有効です</string>
+    <string name="premium_go_to_app">アプリに戻る</string>
 </resources>

@@ -891,4 +891,9 @@
     <string name="tools_block">拦截</string>
     <string name="tools_block_sub">阻止某个号码来电</string>
     <string name="lookup_reveal_premium">Premium</string>
+    <string name="settings_pro_title">你是 Pro 用户</string>
+    <string name="settings_pro_lifetime">永久 · Premium 不会到期</string>
+    <string name="settings_pro_days_fmt">第 %1$d 天 / 共 %2$d 天 · 还剩 %3$d 天</string>
+    <string name="settings_pro_active">Premium 已启用</string>
+    <string name="premium_go_to_app">进入应用</string>
 </resources>

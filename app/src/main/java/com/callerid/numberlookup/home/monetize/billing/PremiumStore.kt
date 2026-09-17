@@ -28,6 +28,30 @@ object PremiumStore {
 
     private const val PREFS = "premium_store"
     private const val KEY_PREMIUM = "is_premium"
+    private const val KEY_PLAN = "plan"
+    private const val KEY_SINCE = "purchased_at"
+    private const val KEY_TERM_DAYS = "term_days"
+
+    /** What was bought. Settings says different things about each. */
+    enum class Plan { NONE, SUBSCRIPTION, LIFETIME }
+
+    /**
+     * What Premium a holder has, and how far through it they are.
+     *
+     * [daysUsed] and [daysLeft] are worked out from the last purchase or
+     * renewal Play reported, plus the length of the term. They are an estimate,
+     * and deliberately not presented as anything more: the real expiry lives on
+     * Play's servers, and a grace period, a pause or an upgrade all move it
+     * without the app hearing about it. Null for a lifetime unlock, which has no
+     * end to count towards.
+     */
+    data class Standing(
+        val plan: Plan,
+        val since: Long,
+        val termDays: Int,
+        val daysUsed: Int?,
+        val daysLeft: Int?,
+    )
 
     private val _isPremium = MutableStateFlow(false)
 
@@ -46,6 +70,49 @@ object PremiumStore {
         return prefs(context).getBoolean(KEY_PREMIUM, false).also { stored ->
             if (stored) _isPremium.value = true
         }
+    }
+
+    /**
+     * What the holder bought, when, and how far through the term they are.
+     *
+     * A subscription whose term has run past its end reports zero left rather
+     * than a negative: Play has not told us it lapsed, and until it does the
+     * entitlement stands - an app that starts counting backwards is telling the
+     * user something it does not actually know.
+     */
+    fun standing(context: Context): Standing {
+        val p = prefs(context)
+        val plan = runCatching { Plan.valueOf(p.getString(KEY_PLAN, null) ?: "") }
+            .getOrDefault(if (isPremium(context)) Plan.SUBSCRIPTION else Plan.NONE)
+        val since = p.getLong(KEY_SINCE, 0L)
+        val termDays = p.getInt(KEY_TERM_DAYS, DEFAULT_TERM_DAYS)
+
+        if (plan != Plan.SUBSCRIPTION || since <= 0L) {
+            return Standing(plan, since, termDays, daysUsed = null, daysLeft = null)
+        }
+
+        val elapsed = ((System.currentTimeMillis() - since) / DAY_MS).toInt().coerceAtLeast(0)
+        return Standing(
+            plan = plan,
+            since = since,
+            termDays = termDays,
+            daysUsed = elapsed,
+            daysLeft = (termDays - elapsed).coerceAtLeast(0),
+        )
+    }
+
+    /**
+     * Records which plan is behind the entitlement.
+     *
+     * Kept apart from [setPremium] because the two answer different questions
+     * and arrive at different times: whether Premium is on, and what bought it.
+     */
+    fun setPlan(context: Context, plan: Plan, since: Long, termDays: Int = DEFAULT_TERM_DAYS) {
+        prefs(context).edit()
+            .putString(KEY_PLAN, plan.name)
+            .putLong(KEY_SINCE, since)
+            .putInt(KEY_TERM_DAYS, termDays)
+            .apply()
     }
 
     /** Loads the cached entitlement into memory. Call once from the Application. */
@@ -68,4 +135,9 @@ object PremiumStore {
 
     private fun prefs(context: Context) =
         context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+
+    /** A month, for a subscription whose base plan we never saw. */
+    private const val DEFAULT_TERM_DAYS = 30
+
+    private const val DAY_MS = 24L * 60 * 60 * 1000
 }

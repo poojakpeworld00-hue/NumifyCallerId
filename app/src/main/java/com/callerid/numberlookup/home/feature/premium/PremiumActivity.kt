@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.feature.premium
 
+import com.callerid.numberlookup.home.feature.MainShellActivity
 import android.animation.AnimatorSet
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
@@ -121,6 +122,22 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
         bindCompareTable()
 
         binding.buttonClose.setOnClickListener { finish() }
+
+        // Back to a rebuilt app rather than to whatever was underneath.
+        //
+        // Ad gates read the entitlement, so every screen built from here on is
+        // ad-free - but screens already sitting on the stack were built while it
+        // was still false and are holding ad views they have no reason to drop.
+        // Clearing the task is the difference between being told the ads are gone
+        // and finding they are.
+        binding.buttonGoToApp.setOnClickListener {
+            startActivity(
+                Intent(this, MainShellActivity::class.java).addFlags(
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                )
+            )
+            finish()
+        }
 
         binding.buttonSubscribe.setOnClickListener {
             selected?.let { offer -> billing.launchPurchase(this, offer) }

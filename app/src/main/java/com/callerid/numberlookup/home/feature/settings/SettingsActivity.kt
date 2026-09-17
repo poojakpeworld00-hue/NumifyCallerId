@@ -390,9 +390,33 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
      * paywall and coming back does not leave the offer sitting there.
      */
     private fun bindPremium() {
-        binding.cardPremium.isVisible = !PremiumStore.isPremium(this)
+        val premium = PremiumStore.isPremium(this)
+        binding.cardPremium.isVisible = !premium
         binding.cardPremium.setOnClickListener {
             openActivity(PremiumActivity.newIntent(this))
+        }
+
+        // Someone who has paid should be told what they have, not shown the
+        // offer again with the price crossed out.
+        binding.cardPremiumStatus.isVisible = premium
+        if (!premium) return
+
+        val standing = PremiumStore.standing(this)
+        binding.textProDetail.text = when {
+            standing.plan == PremiumStore.Plan.LIFETIME ->
+                getString(R.string.settings_pro_lifetime)
+
+            // A subscription we know the dates for: how far in, how far to go.
+            standing.daysUsed != null && standing.daysLeft != null -> getString(
+                R.string.settings_pro_days_fmt,
+                standing.daysUsed!! + 1,
+                standing.termDays,
+                standing.daysLeft!!,
+            )
+
+            // Entitled, but nothing local says since when - a restore on a new
+            // phone, most often. Saying it is on is true; inventing a date is not.
+            else -> getString(R.string.settings_pro_active)
         }
     }
 

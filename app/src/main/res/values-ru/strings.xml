@@ -948,4 +948,9 @@
     <string name="tools_block">Блокировка</string>
     <string name="tools_block_sub">Прекратите звонки с номера</string>
     <string name="lookup_reveal_premium">Premium</string>
+    <string name="settings_pro_title">Вы пользователь Pro</string>
+    <string name="settings_pro_lifetime">Навсегда · Premium не истекает</string>
+    <string name="settings_pro_days_fmt">День %1$d из %2$d · осталось %3$d дн.</string>
+    <string name="settings_pro_active">Premium активен</string>
+    <string name="premium_go_to_app">Перейти в приложение</string>
 </resources>

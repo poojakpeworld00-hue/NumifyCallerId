@@ -940,4 +940,9 @@
     <string name="tools_block">Bloquear</string>
     <string name="tools_block_sub">Corta las llamadas de un número</string>
     <string name="lookup_reveal_premium">Premium</string>
+    <string name="settings_pro_title">Eres usuario Pro</string>
+    <string name="settings_pro_lifetime">De por vida · Premium no caduca</string>
+    <string name="settings_pro_days_fmt">Día %1$d de %2$d · quedan %3$d días</string>
+    <string name="settings_pro_active">Premium está activo</string>
+    <string name="premium_go_to_app">Ir a la app</string>
 </resources>

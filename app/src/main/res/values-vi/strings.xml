@@ -891,4 +891,9 @@
     <string name="tools_block">Chặn</string>
     <string name="tools_block_sub">Ngăn cuộc gọi từ một số</string>
     <string name="lookup_reveal_premium">Premium</string>
+    <string name="settings_pro_title">Bạn là người dùng Pro</string>
+    <string name="settings_pro_lifetime">Trọn đời · Premium không hết hạn</string>
+    <string name="settings_pro_days_fmt">Ngày %1$d trên %2$d · còn %3$d ngày</string>
+    <string name="settings_pro_active">Premium đang hoạt động</string>
+    <string name="premium_go_to_app">Vào ứng dụng</string>
 </resources>

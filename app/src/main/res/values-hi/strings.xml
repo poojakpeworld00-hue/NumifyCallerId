@@ -936,4 +936,9 @@
     <string name="tools_block">ब्लॉक</string>
     <string name="tools_block_sub">किसी नंबर की कॉल रोकें</string>
     <string name="lookup_reveal_premium">Premium</string>
+    <string name="settings_pro_title">आप Pro उपयोगकर्ता हैं</string>
+    <string name="settings_pro_lifetime">लाइफ़टाइम · Premium कभी समाप्त नहीं होता</string>
+    <string name="settings_pro_days_fmt">%2$d में से %1$d दिन · %3$d दिन बाकी</string>
+    <string name="settings_pro_active">Premium चालू है</string>
+    <string name="premium_go_to_app">ऐप पर जाएँ</string>
 </resources>

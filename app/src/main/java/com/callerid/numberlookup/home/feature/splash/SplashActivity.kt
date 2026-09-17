@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.feature.splash
 
+import com.callerid.numberlookup.home.monetize.billing.PremiumStore
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -163,7 +164,24 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         // on: the animation-min gate below (animMinElapsed) holds navigation until
         // the intro has played, and getData() supplies the second gate.
         setupSplashAnimation()
-        val animMin = if (animationsDisabled()) ANIM_MIN_REDUCED_MS else ANIM_MIN_MS
+
+        // Premium does not wait through the intro.
+        //
+        // The dwell exists to cover the work behind it - consent, SDK init, ad
+        // preloads - and to give the brand a moment. A paying user has no ads
+        // being preloaded, so most of that work is not happening, and holding
+        // them on a logo for it is charging them time they have already paid to
+        // stop being charged.
+        //
+        // Only the dwell is skipped. The data gate still has to be met, and the
+        // disclosure in launchNext is still asked - it returns immediately once
+        // it has been acknowledged, and if it has not, then this is a first run
+        // and it is not ours to skip.
+        val animMin = when {
+            PremiumStore.isPremium(this) -> 0L
+            animationsDisabled() -> ANIM_MIN_REDUCED_MS
+            else -> ANIM_MIN_MS
+        }
         handler.postDelayed({
             Log.d(SPLASH_FLOW_TAG, "animation min elapsed (${animMin}ms) → maybeProceed")
             animMinElapsed.set(true)
@@ -235,6 +253,10 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
             // After the redirect popup is dismissed, fade out and launch the next
             // screen. The fade waits for the popup rather than running under it.
             showAppRedirectPopup { playExitTransition { launchNext() } }
+        } else if (PremiumStore.isPremium(this)) {
+            // Nothing to transition out of - the intro never ran.
+            Log.d(SPLASH_FLOW_TAG, "proceedNow → launchNext (premium, no exit)")
+            launchNext()
         } else {
             Log.d(SPLASH_FLOW_TAG, "proceedNow → launchNext")
             playExitTransition { launchNext() }

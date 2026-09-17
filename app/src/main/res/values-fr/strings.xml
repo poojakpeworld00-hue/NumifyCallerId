@@ -896,4 +896,9 @@
     <string name="tools_block">Bloquer</string>
     <string name="tools_block_sub">Coupez les appels d\'un numéro</string>
     <string name="lookup_reveal_premium">Premium</string>
+    <string name="settings_pro_title">Vous êtes un utilisateur Pro</string>
+    <string name="settings_pro_lifetime">À vie · Premium n\'expire jamais</string>
+    <string name="settings_pro_days_fmt">Jour %1$d sur %2$d · %3$d jours restants</string>
+    <string name="settings_pro_active">Premium est actif</string>
+    <string name="premium_go_to_app">Aller à l\'application</string>
 </resources>

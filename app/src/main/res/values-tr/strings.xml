@@ -896,4 +896,9 @@
     <string name="tools_block">Engelle</string>
     <string name="tools_block_sub">Bir numaradan gelen aramaları kesin</string>
     <string name="lookup_reveal_premium">Premium</string>
+    <string name="settings_pro_title">Pro kullanıcısısınız</string>
+    <string name="settings_pro_lifetime">Ömür boyu · Premium sona ermez</string>
+    <string name="settings_pro_days_fmt">%2$d günün %1$d. günü · %3$d gün kaldı</string>
+    <string name="settings_pro_active">Premium etkin</string>
+    <string name="premium_go_to_app">Uygulamaya git</string>
 </resources>

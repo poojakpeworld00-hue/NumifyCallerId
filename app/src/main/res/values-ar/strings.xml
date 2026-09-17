@@ -942,4 +942,9 @@
     <string name="tools_block">حظر</string>
     <string name="tools_block_sub">أوقف المكالمات من رقم</string>
     <string name="lookup_reveal_premium">Premium</string>
+    <string name="settings_pro_title">أنت مستخدم Pro</string>
+    <string name="settings_pro_lifetime">مدى الحياة · Premium لا ينتهي</string>
+    <string name="settings_pro_days_fmt">اليوم %1$d من %2$d · بقي %3$d يوم</string>
+    <string name="settings_pro_active">Premium مفعّل</string>
+    <string name="premium_go_to_app">انتقل إلى التطبيق</string>
 </resources>
