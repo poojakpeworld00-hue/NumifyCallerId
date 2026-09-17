@@ -149,6 +149,9 @@
     <color name="ds_track_idle">#3A4256</color>
     <color name="ds_rail">#222834</color>
     <color name="ds_chip_ink">#C3C9D6</color>
+    <color name="ds_violet">#A899FF</color>
+    <color name="ds_violet_wash">#221C3A</color>
+    <color name="ds_warning_wash">#33260F</color>
     <color name="ds_success_wash">#14291F</color>
 
     <!-- Call / lookup detail hero.

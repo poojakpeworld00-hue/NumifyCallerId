@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Call-back tab tile, filled with its hue when selected, its wash when not.
+
+     A state list rather than two colours set from Kotlin. The Activity wraps
+     its base context in attachBaseContext (Typography) and AppCompat applies
+     the night mode afterwards, so ContextCompat.getColor(activity, ...) can
+     resolve a different variant than the one the layout inflated with - on a
+     phone whose system is dark while the app is set to light, the idle tiles
+     came back in their night colours the moment a tab was tapped. Resolving
+     through the resource pipeline the layout already uses cannot drift. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/ds_success" android:state_selected="true" />
+    <item android:color="@color/ds_success_wash" />
+</selector>

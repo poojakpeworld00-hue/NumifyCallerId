@@ -256,6 +256,12 @@
     <color name="ds_back_chip">#EEF1F7</color>            <!-- 36dp rounded-square back tile -->
     <color name="ds_timeline_rail">#E1E5EE</color>        <!-- 2dp vertical rail behind the dots -->
     <color name="ds_chip_ink">#3A4050</color>            <!-- unselected filter-chip label -->
+    <!-- Action-tile washes. The blue, green and red ones already existed for
+         the Call Details action strip; the call-back tabs need four distinct
+         hues, so violet and amber join them. -->
+    <color name="ds_violet">#7A5AF0</color>
+    <color name="ds_violet_wash">#EDE9FB</color>
+    <color name="ds_warning_wash">#FEF3E1</color>
     <color name="ds_success_wash">#EAF6EF</color>        <!-- protection-active strip -->
 
     <!-- Ask AI tile: the four stops its gradient travels through. -->

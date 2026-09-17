@@ -284,10 +284,14 @@
 
                 <ImageView
                     android:id="@+id/imageTabRecent"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/bg_ds_action_tile"
+                    android:backgroundTint="@color/tab_tile_recent"
                     android:contentDescription="@null"
-                    android:src="@drawable/callback_recent_unselected" />
+                    android:padding="12dp"
+                    android:src="@drawable/callback_recent_unselected"
+                    app:tint="@color/tab_glyph_recent" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -314,10 +318,14 @@
 
                 <ImageView
                     android:id="@+id/imageTabMessage"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/bg_ds_action_tile"
+                    android:backgroundTint="@color/tab_tile_message"
                     android:contentDescription="@null"
-                    android:src="@drawable/callback_message_unselected" />
+                    android:padding="12dp"
+                    android:src="@drawable/callback_message_unselected"
+                    app:tint="@color/tab_glyph_message" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -344,10 +352,14 @@
 
                 <ImageView
                     android:id="@+id/imageTabReminder"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/bg_ds_action_tile"
+                    android:backgroundTint="@color/tab_tile_reminder"
                     android:contentDescription="@null"
-                    android:src="@drawable/callback_reminder_unselected" />
+                    android:padding="12dp"
+                    android:src="@drawable/callback_reminder_unselected"
+                    app:tint="@color/tab_glyph_reminder" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -381,10 +393,14 @@
 
                 <ImageView
                     android:id="@+id/imageTabWhatsapp"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/bg_ds_action_tile"
+                    android:backgroundTint="@color/tab_tile_whatsapp"
                     android:contentDescription="@null"
-                    android:src="@drawable/callback_wa_unselected" />
+                    android:padding="12dp"
+                    android:src="@drawable/callback_wa_unselected"
+                    app:tint="@color/tab_glyph_whatsapp" />
 
                 <TextView
                     android:layout_width="wrap_content"

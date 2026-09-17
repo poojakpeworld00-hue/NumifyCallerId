@@ -3,7 +3,6 @@ package com.callerid.numberlookup.home.monetize.delivery.engagement
 import com.callerid.numberlookup.home.common.TimeFormats
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
@@ -27,6 +26,7 @@ import com.callerid.numberlookup.home.monetize.delivery.engagement.sections.Aler
 import com.callerid.numberlookup.home.foundation.BaseActivity
 import androidx.core.view.isVisible
 import com.callerid.numberlookup.home.resolver.CallerLabel
+import androidx.core.content.ContextCompat
 import com.callerid.numberlookup.home.repository.ContactRepository
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -338,18 +338,35 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
         )
     }
 
+    /**
+     * Marks the selected tab.
+     *
+     * Each tab keeps its own hue, the way the Call Details action strip gives
+     * every action one: soft wash with a coloured glyph when idle, the full hue
+     * with a white glyph when selected. Both live in colour state lists
+     * (res/color/tab_tile_*, tab_glyph_*), so this only has to say which tab is
+     * selected - see the note in those files for why the colours are not
+     * resolved here.
+     *
+     * The selection used to live on neither the tile nor the glyph: the old code
+     * tinted the tab row's background, and the tab row has no background drawable
+     * to tint, so that line did nothing at all. What was visible was the
+     * selected/unselected icon swap, and those two drawables differ only in
+     * fillColor - which stops being legible the moment the glyph sits on a
+     * coloured chip. The swap is kept as the shape source of truth; the state
+     * list decides the colour.
+     */
     private fun selectTab(selected: android.view.View, allTabs: List<android.view.View>) {
-        val selectedBg = ColorStateList.valueOf(Color.parseColor("#FFE7DF"))
-
         allTabs.forEach { tab ->
             val isSelected = tab == selected
-            tab.backgroundTintList = if (isSelected) selectedBg else null
             tab.alpha = 1.0f
 
             val icons = tabIcons[tab]
-            val iv = tabImageViews[tab]
-            if (icons != null && iv != null) {
-                iv.setImageResource(if (isSelected) icons.first else icons.second)
+            tabImageViews[tab]?.let { iv ->
+                if (icons != null) {
+                    iv.setImageResource(if (isSelected) icons.first else icons.second)
+                }
+                iv.isSelected = isSelected
             }
         }
     }
