@@ -52,15 +52,35 @@ object Typography {
      * Returns [base] itself when there is nothing to change, so a device already
      * above the cap pays nothing and keeps its own configuration object.
      */
-    fun scaled(base: Context): Context {
+    fun scaled(base: Context, nightMode: Int? = null): Context {
         val current = base.resources.configuration.fontScale
         val target = (current * TEXT_SCALE)
             .coerceAtMost(MAX_EFFECTIVE_SCALE)
             .coerceAtLeast(current)
         if (target == current) return base
 
-        val config = Configuration(base.resources.configuration)
+        // An empty Configuration, not a copy of the current one: createConfigurationContext
+        // applies only the fields that are set, so this overrides the font scale and leaves
+        // the rest alone.
+        //
+        // Copying pinned every other field too, including uiMode. attachBaseContext runs
+        // before AppCompat applies the app's theme, so on a phone in dark mode with the app
+        // set to light the copy froze uiMode at night: anything inflated through this
+        // context resolved values-night while the rest of the screen resolved light, and
+        // ds_ink came back near-white on a white card.
+        val config = Configuration()
         config.fontScale = target
+
+        // [nightMode] is the app's own choice, and stating it here is what keeps this
+        // context and the screen around it in agreement. Leaving it unset instead lets
+        // the two disagree again the moment the system and the app differ: the wrapper
+        // inherits the system's night bit, while AppCompat goes on to apply the app's.
+        // Null means the app follows the system, so there is nothing to state.
+        if (nightMode != null) {
+            val kind = base.resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK.inv()
+            config.uiMode = kind or nightMode
+        }
         return base.createConfigurationContext(config)
     }
 }

@@ -88,8 +88,26 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
      * [appliesAppTextScale]; the user's own system font size still applies to it.
      */
     override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(if (appliesAppTextScale) Typography.scaled(newBase) else newBase)
+        super.attachBaseContext(
+            if (appliesAppTextScale) Typography.scaled(newBase, savedNightMode(newBase))
+            else newBase
+        )
     }
+
+    /**
+     * The night bit the saved theme asks for, or null when it follows the system.
+     *
+     * Read here rather than taken from AppCompat because AppCompat has not applied
+     * anything yet - [applyTheme] runs in onCreate, and this runs before it. The
+     * preference is the same one it will read, so the context this builds and the
+     * theme that lands afterwards agree.
+     */
+    private fun savedNightMode(base: Context): Int? =
+        when (PreferenceStore.selectedTheme(base).ifEmpty { THEME_LIGHT }) {
+            THEME_LIGHT -> Configuration.UI_MODE_NIGHT_NO
+            THEME_DARK -> Configuration.UI_MODE_NIGHT_YES
+            else -> null
+        }
 
     /**
      * Whether this screen takes the app-wide text enlargement.

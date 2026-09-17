@@ -1,5 +1,7 @@
 package com.callerid.numberlookup.home
 
+import com.callerid.numberlookup.home.common.PreferenceStore
+import androidx.appcompat.app.AppCompatDelegate
 import android.app.Activity
 import android.app.Application
 import android.content.Context
@@ -75,6 +77,23 @@ class ContactsApplication : Application() , Application.ActivityLifecycleCallbac
     override fun onCreate() {
         super.onCreate()
         appContext = applicationContext
+
+        // Night mode before any Activity exists.
+        //
+        // Each screen used to set it from its own onCreate, which is a race with
+        // its own inflation: whichever views were built before AppCompat applied
+        // the mode resolved the phone system configuration instead of the app one.
+        // On a phone in dark mode with the app set to light that meant ds_ink came
+        // back near-white for some rows and not others - names that were there but
+        // could not be read, differing run to run. Set here, it is already true by
+        // the time anything is inflated.
+        AppCompatDelegate.setDefaultNightMode(
+            when (PreferenceStore.selectedTheme(this).ifEmpty { PreferenceStore.THEME_LIGHT }) {
+                PreferenceStore.THEME_DARK -> AppCompatDelegate.MODE_NIGHT_YES
+                PreferenceStore.THEME_SYSTEM -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                else -> AppCompatDelegate.MODE_NIGHT_NO
+            }
+        )
 
         MultiDex.install(this)
 

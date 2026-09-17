@@ -209,21 +209,10 @@
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <!-- Call back. A filled accent circle rather than a bare tinted
-                     glyph: it is the one action on the hero, and it now has a
-                     48dp-class hit area instead of a 20dp one. -->
-                <ImageView
-                    android:id="@+id/call_icon"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="12dp"
-                    android:background="@drawable/bg_ds_hero_avatar"
-                    android:backgroundTint="@color/ds_accent"
-                    android:contentDescription="@string/action_call"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:padding="13dp"
-                    android:src="@drawable/ic_call"
-                    app:tint="@color/ds_on_accent" />
+                <!-- The hero carried a call button of its own until the strip below
+                     grew a Call action. Two buttons that place the same call, one
+                     above the other, is one button too many - and the hero's was the
+                     one with no label on it. -->
             </LinearLayout>
         </LinearLayout>
 

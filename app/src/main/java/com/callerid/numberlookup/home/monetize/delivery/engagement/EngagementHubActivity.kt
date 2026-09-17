@@ -120,12 +120,6 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
             .replace(R.id.fragment_container, CallTimelineFragment())
             .commit()
 
-        binding.callIcon.triggerClick {
-            val number = callerNumber
-            if (!number.isNullOrBlank()) callNumber(number)
-            else Toast.makeText(this, R.string.toast_no_number, Toast.LENGTH_SHORT).show()
-        }
-
         setupClickListeners()
 
         // One pane, so back has nowhere to retreat to and closes the screen.
