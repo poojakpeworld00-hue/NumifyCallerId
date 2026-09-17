@@ -21,7 +21,7 @@ import com.callerid.numberlookup.home.monetize.strategy.AdPreferenceStore
 object NameRevealPolicy {
 
     /** Remote Config key, carried in the same blob as the ad settings. */
-    private const val RC_KEY = "FreeNameReveals"
+    private const val RC_KEY = "name_reveal_free_quota"
 
     /** Used when Remote Config has not said otherwise. */
     const val DEFAULT_LIMIT = 5

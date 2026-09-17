@@ -96,7 +96,11 @@ object AdConfigIngest {
                 "ai_assistant_free_queries",
                 // How many numbers may be blocked before the rewarded-ad gate
                 // starts (BlockReward). Negative switches the gate off.
-                "blocklist_free_quota"
+                "blocklist_free_quota",
+                // How many hidden caller names may be opened with a rewarded ad
+                // before the rest become Premium-only (NameRevealPolicy). Zero
+                // locks them all to Premium.
+                "name_reveal_free_quota"
             ).forEach { key -> if (root.has(key)) putInt(key, root.optInt(key, 0)) }
 
             applyNativeTheme(context, root) // DEFAULT theme
