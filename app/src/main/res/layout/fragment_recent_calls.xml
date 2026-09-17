@@ -7,7 +7,7 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
@@ -46,8 +46,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listRecents"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false"
         android:background="@drawable/bg_ds_card"
         android:clipToOutline="true"
         android:clipToPadding="false"
@@ -58,15 +58,15 @@
         android:paddingVertical="@dimen/_4sdp" />
 
     <!--
-        The empty state takes the whole remaining height rather than sharing it
-        with the list: both used to carry weight 1, so an empty list still held
-        half the space and the message sat in the lower half of a gap.
+        The whole page scrolls now, so nothing here claims leftover height - the
+        list is as tall as its rows and this is as tall as its message. The
+        minimum stops an empty list from collapsing to a line of text.
     -->
     <com.callerid.numberlookup.home.feature.widgets.EmptyStateView
         android:id="@+id/textEmpty"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:minHeight="200dp"
         android:visibility="gone" />
 
 </LinearLayout>
