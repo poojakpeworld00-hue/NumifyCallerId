@@ -120,6 +120,15 @@
              neither wins; adding a contact is the one thing on this page worth
              that weight, and a dark glyph on brand blue was barely legible
              anyway. -->
+        <!-- Premium leads the action cluster here for the same reason it does
+             on Recents: it is the offer, and search and add are the tools.
+             Hidden once the entitlement is held. -->
+        <com.callerid.numberlookup.home.feature.premium.PremiumBadgeView
+            android:id="@+id/buttonContactsPremium"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp" />
+
         <ImageView
             android:id="@+id/buttonContactsSearch"
             android:layout_width="44dp"
@@ -389,14 +398,13 @@
             tools:text="A"
             tools:visibility="visible" />
 
-        <TextView
+        <!-- Icon, what is missing, how it fills. Which of the four it shows
+             depends on the tab - see ContactListFragment.showEmptyFor. -->
+        <com.callerid.numberlookup.home.feature.widgets.EmptyStateView
             android:id="@+id/textEmpty"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/contacts_empty"
-            android:textColor="@color/on_surface_variant"
-            android:textSize="@dimen/_12ssp"
             android:visibility="gone" />
 
         <!--

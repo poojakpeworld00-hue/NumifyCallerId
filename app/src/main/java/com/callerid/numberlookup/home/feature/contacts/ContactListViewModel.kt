@@ -47,7 +47,7 @@ class ContactListViewModel(app: Application) : AndroidViewModel(app) {
     fun load() {
         viewModelScope.launch {
             allContacts = withContext(Dispatchers.IO) { repository.getContacts() }
-            _favorites.value = allContacts.filter { it.starred }
+            refreshFavorites()
             _accounts.value = buildAccounts()
             rebuild()
         }
@@ -72,6 +72,11 @@ class ContactListViewModel(app: Application) : AndroidViewModel(app) {
         if (_account.value == name) return
         _account.value = name
         rebuild()
+        // The strip is scoped to the account too. It used to be built once in
+        // load() and never again, so switching account rebuilt the list
+        // underneath a row of favourites belonging to the account you had just
+        // switched away from.
+        refreshFavorites()
     }
 
     fun applyQuery(text: String) {
@@ -87,15 +92,30 @@ class ContactListViewModel(app: Application) : AndroidViewModel(app) {
         rebuild()
     }
 
+    /**
+     * Whether [contact] belongs to the account now selected in the header.
+     *
+     * One definition, used by both the list and the favourites strip. Having it
+     * written out twice is what let the two disagree.
+     */
+    private fun inSelectedAccount(contact: ContactRecord): Boolean {
+        val selected = _account.value ?: return true
+        return (contact.accountName ?: UNKNOWN_ACCOUNT) == selected
+    }
+
+    /** Starred contacts within the selected account, in load order. */
+    private fun refreshFavorites() {
+        _favorites.value = allContacts.filter { it.starred && inSelectedAccount(it) }
+    }
+
     private fun rebuild() {
         val tab = _filter.value ?: ContactFilter.ALL
         val needle = query.lowercase(Locale.getDefault())
 
         // Both passes preserve the incoming name order, so alpha grouping and
         // fast-scroll stay valid downstream.
-        val selected = _account.value
         val visible = allContacts
-            .filter { selected == null || (it.accountName ?: UNKNOWN_ACCOUNT) == selected }
+            .filter { inSelectedAccount(it) }
             .filter { tab.accepts(it) }
             .filter { it.matches(needle) }
 

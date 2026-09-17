@@ -37,12 +37,22 @@
                 android:orientation="vertical"
                 app:layout_scrollFlags="scroll">
 
+                <!-- Tools has no header action cluster to join, so the badge
+                     shares the search row and the field takes what is left. -->
                 <LinearLayout
-                    android:id="@+id/searchBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="14dp"
+                    android:baselineAligned="false"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/searchBar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/bg_ds_outlined_field"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -85,6 +95,13 @@
                         android:src="@drawable/ic_close"
                         android:visibility="gone"
                         app:tint="@color/ds_ink_muted" />
+                </LinearLayout>
+
+                    <com.callerid.numberlookup.home.feature.premium.PremiumBadgeView
+                        android:id="@+id/buttonToolsPremium"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="10dp" />
                 </LinearLayout>
 
                 <FrameLayout

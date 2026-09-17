@@ -593,6 +593,16 @@
     <string name="contacts_tab_recents">Recents</string>
     <string name="contacts_tab_groups">Groups</string>
     <string name="contacts_empty">No contacts found</string>
+    <!-- Empty states. Each pairs what is missing with how it stops being
+         missing, because a lone "No favourites" leaves the user nowhere. -->
+    <string name="contacts_empty_sub">Contacts you add on this phone will appear here.</string>
+    <string name="empty_favorites_title">No favourites yet</string>
+    <string name="empty_favorites_sub">Star a contact and it will wait for you here.</string>
+    <string name="empty_contact_recents_title">No calls with these contacts</string>
+    <string name="empty_contact_recents_sub">Contacts you have called recently show up here.</string>
+    <string name="empty_groups_title">No groups yet</string>
+    <string name="empty_groups_sub">Groups from your contacts account will show up here.</string>
+    <string name="recents_empty_sub">Calls you make and receive will appear here.</string>
     <string name="perm_contacts_title">Match names to numbers</string>
     <string name="perm_contacts_message">Contacts reads your contacts so saved people show up by name instead of a number.</string>
 

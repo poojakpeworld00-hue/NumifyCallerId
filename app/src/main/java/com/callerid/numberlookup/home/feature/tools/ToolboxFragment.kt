@@ -1,5 +1,8 @@
 package com.callerid.numberlookup.home.feature.tools
 
+import androidx.core.view.isVisible
+import com.callerid.numberlookup.home.feature.premium.PremiumActivity
+import com.callerid.numberlookup.home.monetize.billing.PremiumStore
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -155,6 +158,7 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
         ActivityToolsBinding.inflate(inflater, container, false)
 
     override fun initView() {
+        bindPremiumBadge()
         // Hosted as a tab: the shell owns the bottom nav, so only the top inset applies.
         ViewCompat.setOnApplyWindowInsetsListener(binding.toolsRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -305,6 +309,7 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
 
     override fun onResume() {
         super.onResume()
+        if (view != null) bindPremiumBadge()
         refreshTools()
     }
 
@@ -344,5 +349,20 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
 
         /** ~2s of frames. Long enough for a cold start, short enough to give up. */
         const val TOUR_TARGET_FRAMES = 120
+    }
+
+    /**
+     * The Premium chip in this header.
+     *
+     * Hidden outright once the entitlement is held: a paying user has nothing
+     * to buy, and a permanent upgrade badge is what makes people feel they paid
+     * for nothing. Re-evaluated in onResume too, so buying from the paywall and
+     * coming back does not leave the offer sitting there.
+     */
+    private fun bindPremiumBadge() {
+        binding.buttonToolsPremium.isVisible = !PremiumStore.isPremium(requireContext())
+        binding.buttonToolsPremium.setOnClickListener {
+            startActivity(PremiumActivity.newIntent(requireContext()))
+        }
     }
 }

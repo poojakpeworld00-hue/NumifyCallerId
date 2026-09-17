@@ -239,8 +239,13 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
     override fun initObservers() {
         viewModel.rows.observe(viewLifecycleOwner) { rows ->
             adapter.submit(rows)
-            binding.textEmpty.visibility =
-                if (rows.isEmpty() && hasCallLogPermission()) View.VISIBLE else View.GONE
+            val showEmpty = rows.isEmpty() && hasCallLogPermission()
+            if (showEmpty) {
+                binding.textEmpty.show(
+                    R.drawable.ic_history, R.string.recents_empty, R.string.recents_empty_sub
+                )
+            }
+            binding.textEmpty.visibility = if (showEmpty) View.VISIBLE else View.GONE
             showCounts(rows)
         }
         // Saved callers show their contact picture over the coloured initials,

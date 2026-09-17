@@ -1,5 +1,7 @@
 package com.callerid.numberlookup.home.feature.contacts
 
+import com.callerid.numberlookup.home.feature.premium.PremiumActivity
+import com.callerid.numberlookup.home.monetize.billing.PremiumStore
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -90,6 +92,7 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
         applyFavoritesExpansion()
 
         binding.tabAll.setOnClickListener { viewModel.applyFilter(ContactFilter.ALL) }
+        bindPremiumBadge()
         binding.tabFavorites.setOnClickListener { viewModel.applyFilter(ContactFilter.FAVORITES) }
         binding.tabRecents.setOnClickListener { viewModel.applyFilter(ContactFilter.RECENTS) }
         binding.tabGroups.setOnClickListener { viewModel.applyFilter(ContactFilter.GROUPS) }
@@ -111,6 +114,7 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
 
     override fun onResume() {
         super.onResume()
+        if (view != null) bindPremiumBadge()
         // Re-evaluate after returning from Settings so a freshly granted permission
         // loads the contact list without needing to leave the screen.
         if (view != null) {
@@ -163,11 +167,35 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
 
             val hasData = rows.isNotEmpty()
             binding.alphaIndex.visibility = if (hasData) View.VISIBLE else View.GONE
-            binding.textEmpty.visibility =
-                if (!hasData && hasContactsPermission()) View.VISIBLE else View.GONE
+            val showEmpty = !hasData && hasContactsPermission()
+            if (showEmpty) showEmptyFor(viewModel.filter.value ?: ContactFilter.ALL)
+            binding.textEmpty.visibility = if (showEmpty) View.VISIBLE else View.GONE
         }
     }
 
+    /**
+     * Fills the empty state for the tab that is showing.
+     *
+     * Four tabs share one list, so one message cannot serve them: "No contacts
+     * found" is wrong on the Favourites tab of a phone with six hundred
+     * contacts and none starred.
+     */
+    private fun showEmptyFor(tab: ContactFilter) = when (tab) {
+        ContactFilter.FAVORITES -> binding.textEmpty.show(
+            R.drawable.ic_star, R.string.empty_favorites_title, R.string.empty_favorites_sub
+        )
+        ContactFilter.RECENTS -> binding.textEmpty.show(
+            R.drawable.ic_history,
+            R.string.empty_contact_recents_title,
+            R.string.empty_contact_recents_sub,
+        )
+        ContactFilter.GROUPS -> binding.textEmpty.show(
+            R.drawable.ic_group, R.string.empty_groups_title, R.string.empty_groups_sub
+        )
+        ContactFilter.ALL -> binding.textEmpty.show(
+            R.drawable.ic_ds_person, R.string.contacts_empty, R.string.contacts_empty_sub
+        )
+    }
     /**
      * Opens the account picker, unless there is nothing to pick between.
      *
@@ -351,5 +379,20 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
 
     private fun openDetail(contact: com.callerid.numberlookup.home.repository.ContactRecord) {
         requireActivity().openActivity(CallDetailsActivity.newIntent(requireContext(), contact.detail, contact.name, R.string.contact_detail_title))
+    }
+
+    /**
+     * The Premium chip in this header.
+     *
+     * Hidden outright once the entitlement is held: a paying user has nothing
+     * to buy, and a permanent upgrade badge is what makes people feel they paid
+     * for nothing. Re-evaluated in onResume too, so buying from the paywall and
+     * coming back does not leave the offer sitting there.
+     */
+    private fun bindPremiumBadge() {
+        binding.buttonContactsPremium.isVisible = !PremiumStore.isPremium(requireContext())
+        binding.buttonContactsPremium.setOnClickListener {
+            startActivity(PremiumActivity.newIntent(requireContext()))
+        }
     }
 }

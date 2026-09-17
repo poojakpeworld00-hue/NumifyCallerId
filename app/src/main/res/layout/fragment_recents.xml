@@ -256,14 +256,11 @@
             android:paddingBottom="@dimen/_76sdp"
             tools:listitem="@layout/item_call" />
 
-        <TextView
+        <com.callerid.numberlookup.home.feature.widgets.EmptyStateView
             android:id="@+id/textEmpty"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/recents_empty"
-            android:textColor="@color/ds_ink_muted"
-            android:textSize="@dimen/_12ssp"
             android:visibility="gone" />
 
         <!--
