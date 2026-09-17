@@ -246,6 +246,12 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
                 )
             }
             binding.textEmpty.visibility = if (showEmpty) View.VISIBLE else View.GONE
+            // An empty card is just a white rectangle; the empty state replaces
+            // it rather than floating over it. Left alone without permission,
+            // where the permission prompt owns this space.
+            if (hasCallLogPermission()) {
+                binding.listRecents.visibility = if (showEmpty) View.GONE else View.VISIBLE
+            }
             showCounts(rows)
         }
         // Saved callers show their contact picture over the coloured initials,

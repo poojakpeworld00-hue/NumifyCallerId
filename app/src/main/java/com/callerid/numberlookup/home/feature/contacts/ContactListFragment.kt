@@ -170,6 +170,12 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
             val showEmpty = !hasData && hasContactsPermission()
             if (showEmpty) showEmptyFor(viewModel.filter.value ?: ContactFilter.ALL)
             binding.textEmpty.visibility = if (showEmpty) View.VISIBLE else View.GONE
+            // An empty card is just a white rectangle; the empty state replaces
+            // it rather than floating over it. Left alone without permission,
+            // where the permission prompt owns this space.
+            if (hasContactsPermission()) {
+                binding.listContacts.visibility = if (showEmpty) View.GONE else View.VISIBLE
+            }
         }
     }
 

@@ -403,6 +403,7 @@
         <com.callerid.numberlookup.home.feature.widgets.EmptyStateView
             android:id="@+id/textEmpty"
             android:layout_width="match_parent"
+            android:elevation="8dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="gone" />
