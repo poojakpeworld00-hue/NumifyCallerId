@@ -1,5 +1,7 @@
 package com.callerid.numberlookup.home.monetize.delivery.engagement.sections
 
+import com.callerid.numberlookup.home.repository.CallRecord
+import com.callerid.numberlookup.home.feature.calldetails.CallDetailsActivity
 import com.callerid.numberlookup.home.feature.widgets.EmptyStateView
 import android.Manifest
 import android.content.Intent
@@ -26,7 +28,7 @@ import com.callerid.numberlookup.home.monetize.strategy.recordPermissionOutcome
  */
 class CallTimelineFragment : Fragment() {
 
-    private val adapter = CallTimelineAdapter(::callNumber)
+    private val adapter = CallTimelineAdapter(onCall = ::callNumber, onOpen = ::openDetails)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -74,6 +76,14 @@ class CallTimelineFragment : Fragment() {
     }
 
     private var pendingCallNumber: String? = null
+
+    /** Opens the call details for a row, which is what tapping one should do. */
+    private fun openDetails(entry: CallRecord) {
+        if (!isAdded) return
+        startActivity(
+            CallDetailsActivity.newIntent(requireContext(), entry.number, entry.name)
+        )
+    }
 
     /** Re-attempts the call (direct or dialer) once the CALL_PHONE prompt returns. */
     private val callPermissionLauncher = registerForActivityResult(

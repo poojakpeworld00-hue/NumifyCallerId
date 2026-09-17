@@ -14,13 +14,18 @@ import com.callerid.numberlookup.home.repository.CallRecord
 import com.callerid.numberlookup.home.repository.CallType
 
 /**
- * Recent-call list for the post-call screen. Each row shows the caller and a call
- * button, and tapping either the button or the row reports the number back
- * through [onCall], ignoring blank ones, which the host then places as a direct
- * call.
+ * Recent-call list for the post-call screen.
+ *
+ * The row opens the number through [onOpen]; only the call button dials it
+ * through [onCall]. The whole row used to dial, and dialing here is immediate -
+ * ACTION_CALL, no confirmation - on a screen that puts itself in front the
+ * moment a call ends, over whatever the user was doing. One stray touch was a
+ * real call to a real person. Every other list in the app already splits it this
+ * way: the row opens, the button calls.
  */
 class CallTimelineAdapter(
-    private val onCall: (String) -> Unit
+    private val onCall: (String) -> Unit,
+    private val onOpen: (CallRecord) -> Unit,
 ) : RecyclerView.Adapter<CallTimelineAdapter.VH>() {
 
     private var items: List<CallRecord> = emptyList()
@@ -56,9 +61,8 @@ class CallTimelineAdapter(
             ivType.setImageResource(iconFor(entry.type))
             ivType.setColorFilter(colorFor(entry.type), PorterDuff.Mode.SRC_IN)
 
-            val dial = { if (entry.number.isNotBlank()) onCall(entry.number) }
-            btnCall.setOnClickListener { dial() }
-            itemView.setOnClickListener { dial() }
+            btnCall.setOnClickListener { if (entry.number.isNotBlank()) onCall(entry.number) }
+            itemView.setOnClickListener { if (entry.number.isNotBlank()) onOpen(entry) }
         }
 
         private fun iconFor(type: CallType): Int = when (type) {
