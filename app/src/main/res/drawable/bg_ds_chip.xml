@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Filter chip. Selected fills with the brand; the rest sit on the page colour,
-     which inside a white card reads as a soft recess rather than another surface. -->
+<!-- Filter chip. Selected fills with the brand. Idle takes the card surface
+     and a hairline: it used to take ds_page, which is the colour of the page
+     the chips sit on, so an unselected chip had no shape at all and only its
+     label was visible. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_activated="true">
         <shape android:shape="rectangle">
@@ -16,7 +18,8 @@
     </item>
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/ds_page" />
+            <solid android:color="@color/ds_surface" />
+            <stroke android:width="1dp" android:color="@color/ds_rule" />
             <corners android:radius="11dp" />
         </shape>
     </item>

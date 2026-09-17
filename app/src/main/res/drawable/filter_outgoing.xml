@@ -13,13 +13,14 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
+<!-- Outgoing: arrow up-right, the mirror of filter_incoming. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="18dp"
     android:height="18dp"
     android:viewportWidth="30"
     android:viewportHeight="30">
   <path
-      android:pathData="M21.692,12.876L15.192,6.654L8.692,12.876M15.192,6.654V22.654"
+      android:pathData="M9.5,20.5L21.5,8.5M14.3,8.5H21.5V15.7"
       android:strokeLineJoin="round"
       android:strokeWidth="2.46154"
       android:fillColor="#00000000"

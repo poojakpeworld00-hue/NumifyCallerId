@@ -286,19 +286,18 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
     }
 
     private fun highlightTab(tab: TextView, active: Boolean) {
+        // The label colour comes from selector_ds_chip_text, which the chip style
+        // already points textColor at, so this only has to set the state. Setting
+        // it here as well meant two sources of truth for one colour, and they had
+        // drifted: the selector says ds_on_accent / ds_chip_ink, the code said
+        // white / on_surface_variant.
         tab.isActivated = active
-        tab.setTextColor(
-            ContextCompat.getColor(
-                requireContext(),
-                if (active) R.color.white else R.color.on_surface_variant
-            )
-        )
         // Selected: tint the leading icon white. Unselected: clear the tint so the
-        // icon keeps its own colour.
+        // icon keeps its own colour - green in, blue out, red missed.
         TextViewCompat.setCompoundDrawableTintList(
             tab,
             if (active) {
-                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white))
+                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.ds_on_accent))
             } else {
                 null
             }

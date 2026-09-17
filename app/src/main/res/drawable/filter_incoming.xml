@@ -13,13 +13,14 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
+<!-- Incoming: arrow down-left, on the same diagonal the call rows use. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="18dp"
     android:height="18dp"
     android:viewportWidth="30"
     android:viewportHeight="30">
   <path
-      android:pathData="M8.308,16.432L14.808,22.654L21.308,16.432M14.808,22.654V6.654"
+      android:pathData="M21.5,8.5L9.5,20.5M9.5,13.3V20.5H16.7"
       android:strokeLineJoin="round"
       android:strokeWidth="2.46154"
       android:fillColor="#00000000"
