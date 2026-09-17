@@ -126,9 +126,9 @@ class CallStateReceiver : BroadcastReceiver() {
                 // so it gets its own dismissible notification with a drafted
                 // reply — independent of the callback screen, which only appears
                 // while the device is locked.
-                if (callType == "MISSED" && lastNumber != null) {
-                    MissedCallNotifier.show(context, phoneNumber)
-                }
+//                if (callType == "MISSED" && lastNumber != null) {
+//                    MissedCallNotifier.show(context, phoneNumber)
+//                }
 
                 handlePostCall(context, phoneNumber, startTime, endTime, callType)
                 resetState()
