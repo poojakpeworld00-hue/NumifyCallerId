@@ -880,6 +880,14 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         supportFragmentManager.beginTransaction().apply {
             // Cross-fade the outgoing and incoming panes, skipped on the very first
             // selection so the app never fades in over an empty container at launch.
+            //
+            // For the length of that fade both panes are attached and visible, and
+            // the outgoing one still takes touches. A tap that the incoming pane
+            // does not handle used to fall through to it: tapping the dialer where
+            // the number sits would reach the Recents row underneath and open call
+            // details, or land on that row's call button and dial. Every tab root
+            // is clickable so it swallows its own strays - the incoming pane is
+            // added last and so is on top for the whole fade.
             if (animate) setCustomAnimations(R.anim.anim_tab_enter, R.anim.anim_tab_exit)
             setReorderingAllowed(true)
             if (!tab.fragment.isAdded) add(R.id.fragmentContainer, tab.fragment)
