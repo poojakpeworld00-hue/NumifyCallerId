@@ -1,5 +1,15 @@
 package com.callerid.numberlookup.home.feature.calldetails
 
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.StringRes
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import com.callerid.numberlookup.home.repository.ContactRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -41,6 +51,16 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
     private val fallbackName by lazy { intent.getStringExtra(EXTRA_NAME) }
 
     private var history: List<CallRecord> = emptyList()
+
+    /** Whether the contact behind [number] is starred. Null number = never. */
+    private var favourite = false
+
+    private val writeContactsPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            // Granting is the answer to a tap the user already made, so carry it
+            // out rather than making them tap the star a second time.
+            if (granted) toggleFavourite() else toast(R.string.perm_blocked_title)
+        }
     private var expanded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +75,14 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
             insets
         }
         binding.buttonBack.setOnClickListener { goBack() }
+
+        // Recents opens this as the detail of a call; Contacts opens it as the
+        // detail of a person. The launcher says which, so the screen does not
+        // have to infer it.
+        binding.textScreenTitle.setText(
+            intent.getIntExtra(EXTRA_TITLE_RES, R.string.call_detail_title)
+        )
+        binding.buttonFavourite.setOnClickListener { toggleFavourite() }
 
         binding.buttonCall.setOnClickListener { placeCall(number) }
         binding.buttonMessage.setOnClickListener { message() }
@@ -77,6 +105,10 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
     override fun onResume() {
         super.onResume()
         updateBlockState()
+        // Same reasoning as the block state: the contact can be starred or
+        // unstarred in the system Contacts app while this screen waits in the
+        // back stack.
+        updateFavouriteState()
     }
 
     override fun initObservers() {
@@ -287,15 +319,99 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
             ColorStateList.valueOf(ContextCompat.getColor(this, soft))
     }
 
+    /**
+     * Shows the star, and what state it is in.
+     *
+     * Hidden outright when the number is not a saved contact: a favourite is a
+     * property of a contact, and there is nothing to attach one to. Offering a
+     * star that silently does nothing would be worse than not offering it.
+     */
+    private fun updateFavouriteState() {
+        lifecycleScope.launch {
+            val repo = ContactRepository(this@CallDetailsActivity)
+            val state = withContext(Dispatchers.IO) {
+                val id = runCatching { repo.contactIdForNumber(number) }.getOrNull()
+                id to (id != null && runCatching { repo.isStarred(number) }.getOrDefault(false))
+            }
+            val (contactId, starred) = state
+            binding.buttonFavourite.isVisible = contactId != null
+            paintFavourite(starred)
+        }
+    }
+
+    /** Filled and brand-coloured when starred, outline and muted when not. */
+    private fun paintFavourite(starred: Boolean) {
+        favourite = starred
+        binding.buttonFavourite.imageTintList = ColorStateList.valueOf(
+            ContextCompat.getColor(
+                this,
+                if (starred) R.color.ds_warning else R.color.ds_ink_muted
+            )
+        )
+        binding.buttonFavourite.contentDescription = getString(
+            if (starred) R.string.action_unfavourite else R.string.action_favourite
+        )
+    }
+
+    /**
+     * Stars or unstars the contact.
+     *
+     * Writes ContactsContract STARRED, which is the flag the system Contacts app
+     * and this app's own Favourites section both read, so the change shows up
+     * everywhere rather than only here. That needs WRITE_CONTACTS, which is
+     * asked for on the first tap rather than at launch.
+     *
+     * The icon is painted from what the write returned, not from what was
+     * intended - a refused write leaves the star where it was instead of
+     * showing a favourite that does not exist.
+     */
+    private fun toggleFavourite() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CONTACTS)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            writeContactsPermission.launch(Manifest.permission.WRITE_CONTACTS)
+            return
+        }
+        val wanted = !favourite
+        lifecycleScope.launch {
+            val ok = withContext(Dispatchers.IO) {
+                ContactRepository(this@CallDetailsActivity).setStarred(number, wanted)
+            }
+            if (!ok) {
+                toast(R.string.favourite_needs_contact)
+                return@launch
+            }
+            paintFavourite(wanted)
+            toast(if (wanted) R.string.favourite_added else R.string.favourite_removed)
+        }
+    }
+
+    private fun toast(res: Int) =
+        Toast.makeText(this, res, Toast.LENGTH_SHORT).show()
+
     companion object {
         private const val EXTRA_NUMBER = "extra_number"
         private const val EXTRA_NAME = "extra_name"
+        private const val EXTRA_TITLE_RES = "title_res"
         private const val COLLAPSED_COUNT = 4
         private val WHATSAPP_PACKAGES = listOf("com.whatsapp", "com.whatsapp.w4b")
 
-        fun newIntent(context: Context, number: String, name: String?): Intent =
+        /**
+         * @param titleRes what to head the screen with. Recents opens it as the
+         *   detail of a call, so it reads "Call Details"; Contacts opens it as
+         *   the detail of a person, where the call history is one section of
+         *   several and "Call Details" would be describing the wrong thing.
+         */
+        @JvmStatic
+        fun newIntent(
+            context: Context,
+            number: String,
+            name: String?,
+            @StringRes titleRes: Int = R.string.call_detail_title,
+        ): Intent =
             Intent(context, CallDetailsActivity::class.java)
                 .putExtra(EXTRA_NUMBER, number)
                 .putExtra(EXTRA_NAME, name)
+                .putExtra(EXTRA_TITLE_RES, titleRes)
     }
 }

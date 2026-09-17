@@ -144,6 +144,8 @@ the app keeps working if you decline.
 
   Contacts (READ_CONTACTS)       Name the people already in your phone book, and
                                  the one-time upload described in section 3.1.
+  Edit contacts                  Star and unstar a contact when you tap the
+  (WRITE_CONTACTS)               favourite button. It writes only that flag.
   Call log (READ_CALL_LOG)       Build Recents, call details and the post-call
                                  screen.
   Phone (READ_PHONE_STATE)       Detect when a call starts and ends.
@@ -275,6 +277,9 @@ Do NOT declare:
 
 Also required for this app:
 
+  - WRITE_CONTACTS is held only to set the starred flag on a contact you
+    choose. It writes no other field and adds no new collection, so it changes
+    nothing in the Data safety form - but it does appear on the store listing.
   - A Permissions Declaration for READ_CALL_LOG. Caller ID is an approved use,
     but it must be declared or the release is blocked.
   - The contacts upload in section 3.1 is the single most scrutinised thing in

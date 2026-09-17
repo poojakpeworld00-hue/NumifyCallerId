@@ -57,14 +57,34 @@
                 app:tint="@color/ds_ink_strong" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/textScreenTitle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
                 android:fontFamily="@font/space_grotesk_bold"
                 android:includeFontPadding="false"
+                android:maxLines="1"
                 android:text="@string/call_detail_title"
                 android:textColor="@color/ds_ink"
                 android:textSize="22sp" />
+
+            <!-- Favourite. Same 36dp chip as the back button so the bar has a
+                 target at each end. Hidden when the number is not a saved
+                 contact, because there is nothing to star. -->
+            <ImageView
+                android:id="@+id/buttonFavourite"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_ds_back_chip"
+                android:contentDescription="@string/action_favourite"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                android:src="@drawable/ic_star"
+                android:visibility="gone"
+                app:tint="@color/ds_ink_muted"
+                tools:visibility="visible" />
         </LinearLayout>
 
         <androidx.core.widget.NestedScrollView

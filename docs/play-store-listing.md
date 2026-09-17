@@ -136,7 +136,8 @@ cancelled, and can be cancelled any time in Google Play.
 WHY THE APP ASKS FOR PERMISSIONS
 ━━━━━━━━━━━━━━━━━━━━━━
 • Phone and call log — to show who is calling and to build your recent calls list
-• Contacts — to name the people already in your phone book
+• Contacts — to name the people already in your phone book, and to star one
+  when you tap the favourite button
 • Display over other apps — to show the caller ID card while a call is ringing
 • Microphone — used only by voice search and the sound-level meter. This app does
   not record calls

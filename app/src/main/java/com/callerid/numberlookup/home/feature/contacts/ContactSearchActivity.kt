@@ -238,7 +238,7 @@ class ContactSearchActivity : BaseActivity<ActivityContactSearchBinding>() {
     private fun dialNumber(number: String) = placeCall(number)
 
     private fun openDetail(contact: ContactRecord) {
-        openActivity(CallDetailsActivity.newIntent(this, contact.detail, contact.name))
+        openActivity(CallDetailsActivity.newIntent(this, contact.detail, contact.name, R.string.contact_detail_title))
     }
 
     companion object {

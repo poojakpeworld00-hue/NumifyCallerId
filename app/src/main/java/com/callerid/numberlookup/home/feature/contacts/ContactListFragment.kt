@@ -350,6 +350,6 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
     private fun dialNumber(number: String) = placeCall(number)
 
     private fun openDetail(contact: com.callerid.numberlookup.home.repository.ContactRecord) {
-        requireActivity().openActivity(CallDetailsActivity.newIntent(requireContext(), contact.detail, contact.name))
+        requireActivity().openActivity(CallDetailsActivity.newIntent(requireContext(), contact.detail, contact.name, R.string.contact_detail_title))
     }
 }

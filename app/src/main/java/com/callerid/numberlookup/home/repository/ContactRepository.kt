@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.repository
 
+import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
 import android.provider.ContactsContract
@@ -30,6 +31,68 @@ class ContactRepository(private val context: Context) {
                 if (cursor.moveToFirst()) cursor.getString(0) else null
             }
         }.getOrNull()
+    }
+
+    /**
+     * The contact id behind [number], or null when the number is not saved.
+     *
+     * PhoneLookup is the only index that matches a number the way the dialer
+     * does - country code, spacing and punctuation all ignored - so it is what
+     * decides whether a number has a contact to star at all.
+     */
+    fun contactIdForNumber(number: String): Long? {
+        if (number.isBlank()) return null
+        return runCatching {
+            val uri = Uri.withAppendedPath(
+                ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
+                Uri.encode(number)
+            )
+            context.contentResolver.query(
+                uri,
+                arrayOf(ContactsContract.PhoneLookup._ID),
+                null, null, null
+            )?.use { cursor ->
+                if (cursor.moveToFirst()) cursor.getLong(0) else null
+            }
+        }.getOrNull()
+    }
+
+    /** Whether [number] belongs to a contact the user has starred. */
+    fun isStarred(number: String): Boolean {
+        val id = contactIdForNumber(number) ?: return false
+        return runCatching {
+            context.contentResolver.query(
+                ContactsContract.Contacts.CONTENT_URI,
+                arrayOf(ContactsContract.Contacts.STARRED),
+                ContactsContract.Contacts._ID + " = ?",
+                arrayOf(id.toString()),
+                null
+            )?.use { c -> c.moveToFirst() && c.getInt(0) == 1 }
+        }.getOrNull() ?: false
+    }
+
+    /**
+     * Stars or unstars the contact behind [number]. Returns false when there is
+     * no contact, or when the write is refused - the caller shows the reason
+     * rather than flipping an icon that did not take.
+     *
+     * Writes ContactsContract.Contacts.STARRED, the same flag the system
+     * Contacts app sets, so a favourite made here shows up everywhere the
+     * user expects it to. Needs WRITE_CONTACTS.
+     */
+    fun setStarred(number: String, starred: Boolean): Boolean {
+        val id = contactIdForNumber(number) ?: return false
+        return runCatching {
+            val values = ContentValues().apply {
+                put(ContactsContract.Contacts.STARRED, if (starred) 1 else 0)
+            }
+            context.contentResolver.update(
+                ContactsContract.Contacts.CONTENT_URI,
+                values,
+                ContactsContract.Contacts._ID + " = ?",
+                arrayOf(id.toString())
+            ) > 0
+        }.getOrDefault(false)
     }
 
     /**

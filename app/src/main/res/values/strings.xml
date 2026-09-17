@@ -244,6 +244,14 @@
 
     <!-- Call details -->
     <string name="call_detail_title">Call Details</string>
+    <!-- Same screen, opened from Contacts rather than from Recents: there the
+         call history is one part of what is shown, not the subject. -->
+    <string name="contact_detail_title">Details</string>
+    <string name="action_favourite">Add to favourites</string>
+    <string name="action_unfavourite">Remove from favourites</string>
+    <string name="favourite_needs_contact">Save this number as a contact first</string>
+    <string name="favourite_added">Added to favourites</string>
+    <string name="favourite_removed">Removed from favourites</string>
     <string name="action_message">Message</string>
     <string name="action_block">Block</string>
     <string name="action_unblock">Unblock</string>
