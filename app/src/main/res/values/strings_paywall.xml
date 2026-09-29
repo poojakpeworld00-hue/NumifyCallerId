@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Paywall (PremiumActivity redesign, design 1a). Every price is filled in from
+     Google Play at runtime: %1$s is always a localised amount, never a literal. -->
+<resources>
+    <!-- "Contacts Premium" is the product name and is not translated; the second
+         word is premium_hero_premium, drawn in the gradient. -->
+    <string name="paywall_brand" translatable="false">Contacts</string>
+    <string name="paywall_tagline">Every limit lifted. No ads, anywhere.</string>
+
+    <string name="paywall_perk_lookups">Unlimited lookups</string>
+    <string name="paywall_perk_block">Block any number</string>
+    <string name="paywall_perk_ai">Unlimited Ask AI</string>
+    <string name="paywall_perk_ads">Zero ads</string>
+
+    <string name="paywall_choose_plan">Choose your plan</string>
+    <string name="paywall_prices_per_week">Prices per week</string>
+
+    <!-- After a per-week price: "$2.88/wk". -->
+    <string name="paywall_per_week_suffix">/wk</string>
+    <string name="paywall_billed_weekly">Billed weekly</string>
+    <string name="paywall_billed_monthly">%1$s billed monthly</string>
+    <string name="paywall_billed_yearly">%1$s billed yearly</string>
+    <string name="paywall_save">Save %1$d%%</string>
+    <string name="paywall_badge_best_value">Best value · save %1$d%%</string>
+    <string name="paywall_badge_best_value_plain">Best value</string>
+    <string name="paywall_badge_popular">Most popular</string>
+    <plurals name="paywall_trial_free">
+        <item quantity="one">%d day free</item>
+        <item quantity="other">%d days free</item>
+    </plurals>
+
+    <!-- A full price with its period: "$149.99/year". -->
+    <string name="paywall_price_per_year">%1$s/year</string>
+    <string name="paywall_price_per_month">%1$s/month</string>
+    <string name="paywall_price_per_week">%1$s/week</string>
+
+    <!-- The line over the button. Google Play requires the full billed amount near
+         the purchase button, ahead of any breakdown, so it always leads. -->
+    <string name="paywall_above_trial">%1$s, then %2$s (%3$s/week). Cancel anytime.</string>
+    <string name="paywall_above_trial_weekly">%1$s, then %2$s. Cancel anytime.</string>
+    <string name="paywall_above_plain">Billed %1$s (%2$s/week). Cancel anytime.</string>
+    <string name="paywall_above_plain_weekly">Billed %1$s. Cancel anytime.</string>
+
+    <plurals name="paywall_cta_trial">
+        <item quantity="one">Start %d-day free trial</item>
+        <item quantity="other">Start %d-day free trial</item>
+    </plurals>
+    <string name="paywall_cta_continue">Continue · %1$s</string>
+    <string name="paywall_continue_free">Continue without Premium</string>
+
+    <plurals name="paywall_close_in">
+        <item quantity="one">You can close this in %d second</item>
+        <item quantity="other">You can close this in %d seconds</item>
+    </plurals>
+</resources>

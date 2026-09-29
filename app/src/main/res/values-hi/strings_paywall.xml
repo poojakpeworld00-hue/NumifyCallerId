@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="paywall_tagline">हर सीमा हटी। कहीं भी कोई विज्ञापन नहीं।</string>
+    <string name="paywall_perk_lookups">असीमित खोज</string>
+    <string name="paywall_perk_block">कोई भी नंबर ब्लॉक करें</string>
+    <string name="paywall_perk_ai">असीमित Ask AI</string>
+    <string name="paywall_perk_ads">शून्य विज्ञापन</string>
+    <string name="paywall_choose_plan">अपना प्लान चुनें</string>
+    <string name="paywall_prices_per_week">प्रति सप्ताह कीमत</string>
+    <string name="paywall_per_week_suffix">/सप्ताह</string>
+    <string name="paywall_billed_weekly">हर सप्ताह बिल</string>
+    <string name="paywall_billed_monthly">हर महीने %1$s का बिल</string>
+    <string name="paywall_billed_yearly">हर साल %1$s का बिल</string>
+    <string name="paywall_save">%1$d%% बचाएँ</string>
+    <string name="paywall_badge_best_value">सबसे किफ़ायती · %1$d%% बचाएँ</string>
+    <string name="paywall_badge_best_value_plain">सबसे किफ़ायती</string>
+    <string name="paywall_badge_popular">सबसे लोकप्रिय</string>
+    <plurals name="paywall_trial_free">
+        <item quantity="one">%d दिन मुफ़्त</item>
+        <item quantity="other">%d दिन मुफ़्त</item>
+    </plurals>
+    <string name="paywall_price_per_year">%1$s/साल</string>
+    <string name="paywall_price_per_month">%1$s/महीना</string>
+    <string name="paywall_price_per_week">%1$s/सप्ताह</string>
+    <string name="paywall_above_trial">%1$s, फिर %2$s (%3$s/सप्ताह)। कभी भी रद्द करें।</string>
+    <string name="paywall_above_trial_weekly">%1$s, फिर %2$s। कभी भी रद्द करें।</string>
+    <string name="paywall_above_plain">%1$s का बिल (%2$s/सप्ताह)। कभी भी रद्द करें।</string>
+    <string name="paywall_above_plain_weekly">%1$s का बिल। कभी भी रद्द करें।</string>
+    <plurals name="paywall_cta_trial">
+        <item quantity="one">%d दिन का मुफ़्त ट्रायल शुरू करें</item>
+        <item quantity="other">%d दिन का मुफ़्त ट्रायल शुरू करें</item>
+    </plurals>
+    <string name="paywall_cta_continue">जारी रखें · %1$s</string>
+    <string name="paywall_continue_free">Premium के बिना जारी रखें</string>
+    <plurals name="paywall_close_in">
+        <item quantity="one">%d सेकंड में बंद कर सकते हैं</item>
+        <item quantity="other">%d सेकंड में बंद कर सकते हैं</item>
+    </plurals>
+</resources>

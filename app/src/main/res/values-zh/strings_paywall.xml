@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="paywall_tagline">解除所有限制，全程无广告。</string>
+    <string name="paywall_perk_lookups">无限次查询</string>
+    <string name="paywall_perk_block">拦截任意号码</string>
+    <string name="paywall_perk_ai">无限次 Ask AI</string>
+    <string name="paywall_perk_ads">零广告</string>
+    <string name="paywall_choose_plan">选择方案</string>
+    <string name="paywall_prices_per_week">每周价格</string>
+    <string name="paywall_per_week_suffix">/周</string>
+    <string name="paywall_billed_weekly">按周付费</string>
+    <string name="paywall_billed_monthly">每月付费 %1$s</string>
+    <string name="paywall_billed_yearly">每年付费 %1$s</string>
+    <string name="paywall_save">省 %1$d%%</string>
+    <string name="paywall_badge_best_value">最划算 · 省 %1$d%%</string>
+    <string name="paywall_badge_best_value_plain">最划算</string>
+    <string name="paywall_badge_popular">最受欢迎</string>
+    <plurals name="paywall_trial_free">
+        <item quantity="other">免费 %d 天</item>
+    </plurals>
+    <string name="paywall_price_per_year">%1$s/年</string>
+    <string name="paywall_price_per_month">%1$s/月</string>
+    <string name="paywall_price_per_week">%1$s/周</string>
+    <string name="paywall_above_trial">%1$s，之后 %2$s（%3$s/周）。可随时取消。</string>
+    <string name="paywall_above_trial_weekly">%1$s，之后 %2$s。可随时取消。</string>
+    <string name="paywall_above_plain">付费 %1$s（%2$s/周）。可随时取消。</string>
+    <string name="paywall_above_plain_weekly">付费 %1$s。可随时取消。</string>
+    <plurals name="paywall_cta_trial">
+        <item quantity="other">开始 %d 天免费试用</item>
+    </plurals>
+    <string name="paywall_cta_continue">继续 · %1$s</string>
+    <string name="paywall_continue_free">不开通 Premium，继续使用</string>
+    <plurals name="paywall_close_in">
+        <item quantity="other">%d 秒后可关闭</item>
+    </plurals>
+</resources>

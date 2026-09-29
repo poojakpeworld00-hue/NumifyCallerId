@@ -956,7 +956,6 @@
     <string name="premium_benefit_reveal">Reveal any caller name instantly</string>
     <string name="premium_benefit_block">Block as many numbers as you like</string>
     <string name="premium_benefit_ai">Unlimited Ask AI questions</string>
-    <string name="premium_cta">Start 3 day free trial</string>
     <string name="premium_loading">Loading plans…</string>
     <string name="premium_unavailable">Plans aren\'t available right now. Check your connection and try again.</string>
     <string name="premium_restore">Restore</string>
@@ -969,7 +968,6 @@
     <string name="premium_plan_weekly">Weekly</string>
     <string name="premium_plan_monthly">1 month</string>
     <string name="premium_plan_yearly">Yearly</string>
-    <string name="premium_plan_lifetime">Lifetime</string>
     <!-- Premium screen copy, from the "Numify Premium" design handoff. -->
     <!-- Free vs Premium hero. -->
     <string name="premium_hero_free">Free</string>
@@ -978,26 +976,9 @@
     <string name="premium_hero_sub">3 days free, then pick a plan.</string>
     <!-- Comparison table: column heads, then one row per capability with what
          the free tier gives you. The Premium column is a tick on every row. -->
-    <string name="premium_col_feature">Feature</string>
-    <string name="premium_col_free">Free</string>
     <string name="premium_col_premium">Premium</string>
-    <string name="premium_row_ads">No ads</string>
-    <string name="premium_row_ads_sub">Banners and interstitials</string>
-    <string name="premium_row_ads_free">Shown</string>
-    <string name="premium_row_lookup">Number lookup</string>
-    <string name="premium_row_lookup_sub">Daily search cap</string>
-    <string name="premium_row_lookup_free">5 / day</string>
-    <string name="premium_row_ai">Ask AI</string>
-    <string name="premium_row_ai_sub">AI verdicts on calls</string>
-    <string name="premium_row_ai_free">Ad only</string>
-    <string name="premium_row_block">Block numbers</string>
-    <string name="premium_row_block_sub">Blocklist size</string>
-    <string name="premium_row_block_free">Limited</string>
-    <string name="premium_best_value">Best Value</string>
     <string name="premium_terms_link">Terms of service</string>
     <string name="premium_privacy_link">Privacy policy</string>
-    <string name="premium_fine_print">Free for 3 days, then %1$s unless cancelled.</string>
-    <string name="premium_fine_print_plain">Free for 3 days, then billed unless cancelled.</string>
     <!-- Data deletion. These are fallbacks: the live wording comes from the
          data_deletion object in Remote Config (see DataDeletionConfig), and it
          is what a store review reads. -->

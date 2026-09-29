@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="paywall_tagline">Никаких ограничений. Никакой рекламы.</string>
+    <string name="paywall_perk_lookups">Безлимитный поиск</string>
+    <string name="paywall_perk_block">Блокировка любых номеров</string>
+    <string name="paywall_perk_ai">Безлимитный Ask AI</string>
+    <string name="paywall_perk_ads">Ноль рекламы</string>
+    <string name="paywall_choose_plan">Выберите тариф</string>
+    <string name="paywall_prices_per_week">Цены за неделю</string>
+    <string name="paywall_per_week_suffix">/нед.</string>
+    <string name="paywall_billed_weekly">Оплата еженедельно</string>
+    <string name="paywall_billed_monthly">%1$s в месяц</string>
+    <string name="paywall_billed_yearly">%1$s в год</string>
+    <string name="paywall_save">Скидка %1$d%%</string>
+    <string name="paywall_badge_best_value">Выгоднее всего · −%1$d%%</string>
+    <string name="paywall_badge_best_value_plain">Выгоднее всего</string>
+    <string name="paywall_badge_popular">Популярный</string>
+    <plurals name="paywall_trial_free">
+        <item quantity="one">%d день бесплатно</item>
+        <item quantity="few">%d дня бесплатно</item>
+        <item quantity="many">%d дней бесплатно</item>
+        <item quantity="other">%d дня бесплатно</item>
+    </plurals>
+    <string name="paywall_price_per_year">%1$s/год</string>
+    <string name="paywall_price_per_month">%1$s/мес.</string>
+    <string name="paywall_price_per_week">%1$s/нед.</string>
+    <string name="paywall_above_trial">%1$s, затем %2$s (%3$s/нед.). Отмена в любое время.</string>
+    <string name="paywall_above_trial_weekly">%1$s, затем %2$s. Отмена в любое время.</string>
+    <string name="paywall_above_plain">Оплата %1$s (%2$s/нед.). Отмена в любое время.</string>
+    <string name="paywall_above_plain_weekly">Оплата %1$s. Отмена в любое время.</string>
+    <plurals name="paywall_cta_trial">
+        <item quantity="one">Начать пробный период: %d день</item>
+        <item quantity="few">Начать пробный период: %d дня</item>
+        <item quantity="many">Начать пробный период: %d дней</item>
+        <item quantity="other">Начать пробный период: %d дня</item>
+    </plurals>
+    <string name="paywall_cta_continue">Продолжить · %1$s</string>
+    <string name="paywall_continue_free">Продолжить без Premium</string>
+    <plurals name="paywall_close_in">
+        <item quantity="one">Можно закрыть через %d секунду</item>
+        <item quantity="few">Можно закрыть через %d секунды</item>
+        <item quantity="many">Можно закрыть через %d секунд</item>
+        <item quantity="other">Можно закрыть через %d секунды</item>
+    </plurals>
+</resources>

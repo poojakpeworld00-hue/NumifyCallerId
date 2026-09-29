@@ -224,19 +224,36 @@ class BillingRepository private constructor(context: Context) : PurchasesUpdated
         // yearly, …), each with its own offer token. The token is what the
         // purchase flow actually needs — a subscription cannot be bought by
         // product id alone.
-        return details.subscriptionOfferDetails?.map { offer ->
-            val phase = offer.pricingPhases.pricingPhaseList.last()
-            PremiumOffer(
-                productId = details.productId,
-                offerToken = offer.offerToken,
-                title = offer.basePlanId,
-                price = phase.formattedPrice,
-                billingPeriod = phase.billingPeriod,
-                isLifetime = false,
-                details = details,
-            )
-        }
+        //
+        // Play lists a base plan once on its own and again under every offer
+        // attached to it (a free trial is an offer), so the list is grouped by
+        // base plan: one row per plan, carrying the trial offer where this user
+        // is eligible for one. Play only returns offers the account qualifies
+        // for, so a trial that shows here is a trial the user will get.
+        return details.subscriptionOfferDetails
+            ?.groupBy { it.basePlanId }
+            ?.map { (basePlanId, offers) ->
+                val offer = offers.firstOrNull { it.freeTrialPeriod() != null } ?: offers.first()
+                // The recurring phase is the last one; a trial or intro price comes first.
+                val phase = offer.pricingPhases.pricingPhaseList.last()
+                PremiumOffer(
+                    productId = details.productId,
+                    offerToken = offer.offerToken,
+                    title = basePlanId,
+                    price = phase.formattedPrice,
+                    billingPeriod = phase.billingPeriod,
+                    isLifetime = false,
+                    details = details,
+                    priceMicros = phase.priceAmountMicros,
+                    currencyCode = phase.priceCurrencyCode,
+                    freeTrialPeriod = offer.freeTrialPeriod(),
+                )
+            }
     }
+
+    /** The ISO-8601 length of the offer's free phase ("P3D"), or null if it has none. */
+    private fun ProductDetails.SubscriptionOfferDetails.freeTrialPeriod(): String? =
+        pricingPhases.pricingPhaseList.firstOrNull { it.priceAmountMicros == 0L }?.billingPeriod
 
     private suspend fun queryLifetime(): PremiumOffer? {
         val result = client.queryProductDetails(
@@ -259,6 +276,8 @@ class BillingRepository private constructor(context: Context) : PurchasesUpdated
             billingPeriod = null,
             isLifetime = true,
             details = details,
+            priceMicros = price.priceAmountMicros,
+            currencyCode = price.priceCurrencyCode,
         )
     }
 
@@ -270,12 +289,13 @@ class BillingRepository private constructor(context: Context) : PurchasesUpdated
      * purchase after the app was backgrounded.
      */
     fun launchPurchase(activity: Activity, offer: PremiumOffer) {
+        val details = offer.details ?: return
         if (!client.isReady) {
             start()
             return
         }
         val params = BillingFlowParams.ProductDetailsParams.newBuilder()
-            .setProductDetails(offer.details)
+            .setProductDetails(details)
             .apply { offer.offerToken?.let { setOfferToken(it) } }
             .build()
 
@@ -376,5 +396,12 @@ data class PremiumOffer(
     /** ISO-8601 period such as `P1M` / `P1Y`; null for lifetime. */
     val billingPeriod: String?,
     val isLifetime: Boolean,
-    val details: ProductDetails,
+    /** Play's product; null only for a debug-build paywall preview, which cannot buy. */
+    val details: ProductDetails?,
+    /** The same price as a number, for the paywall's per-week arithmetic. */
+    val priceMicros: Long,
+    /** ISO 4217 code of [priceMicros]'s currency. */
+    val currencyCode: String,
+    /** ISO-8601 length of a free trial this user is eligible for ("P3D"), or null. */
+    val freeTrialPeriod: String? = null,
 )

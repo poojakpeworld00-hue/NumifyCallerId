@@ -1,31 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    One plan, as the revision draws it:
+    One plan row, design 1a:
 
-        display:flex; align-items:center; gap:13px; border-radius:18px;
-        border:2px solid; padding:15px 16px;
-        radio 21px | title flex:1 | price
+        radio 22 · name + chip / billed total · struck weekly price / per-week price
 
-    One line only - the revision dropped the subtitle and the "/month" suffix
-    the earlier one carried, and the fine print under the list states the
-    billing terms instead.
+    padding 12x14 inside a 2dp border, r18, 12dp gaps. The chosen row is the brand
+    gradient with white type; the others are white with a hairline. PremiumActivity
+    builds the row's background as two layers and crossfades them over the
+    design's 180ms, and sets every colour on the row the same way, so selection
+    is one animation rather than a swap.
 
-    Selection drives isActivated on the row and on the radio, which swaps both
-    backgrounds (bg_premium_plan / bg_premium_radio). The chosen row also takes
-    the design box-shadow 0 10px 24px rgba(46,95,232,.16) - PremiumActivity
-    raises its elevation, because a shadow that is always on would show under
-    the unselected row too.
-
-    The press scale is this app, not the design: the handoff markup is static,
-    and a row you can tap has to say so. It is the same 140ms .98 the previous
-    revision specified.
-
-    The outer FrameLayout exists only for the BEST VALUE badge, which the design
-    hangs 10px above the row (top:-10px; right:14px); a child of the row would
-    be clipped by the rounded background. Its elevation clears the selected
-    row - at 10dp the row would otherwise draw over the badge - and
-    outlineProvider none keeps that elevation from casting a shadow the design
-    does not have.
+    The badge hangs 10dp above the row (top:-10px; right:14px), which is why the
+    row is wrapped: a child of the rounded row would be clipped by it. Its
+    elevation keeps it over a selected row's shadow.
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -38,22 +25,21 @@
         android:id="@+id/rowPlan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_premium_plan"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:outlineAmbientShadowColor="@color/premium_plan_shadow"
-        android:outlineSpotShadowColor="@color/premium_plan_shadow"
+        android:outlineAmbientShadowColor="@color/paywall_row_shadow"
+        android:outlineSpotShadowColor="@color/paywall_row_shadow"
         android:paddingHorizontal="16dp"
-        android:paddingVertical="15dp"
-        android:stateListAnimator="@animator/premium_plan_press">
+        android:paddingVertical="14dp"
+        android:stateListAnimator="@animator/premium_plan_press"
+        tools:targetApi="31">
 
         <FrameLayout
             android:id="@+id/radioPlan"
-            android:layout_width="21dp"
-            android:layout_height="21dp"
-            android:background="@drawable/bg_premium_radio">
+            android:layout_width="22dp"
+            android:layout_height="22dp">
 
             <ImageView
                 android:id="@+id/iconPlanCheck"
@@ -61,34 +47,109 @@
                 android:layout_height="11dp"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
-                android:src="@drawable/ic_premium_radio_check"
-                android:visibility="gone"
-                tools:visibility="visible" />
+                android:src="@drawable/ic_premium_radio_check" />
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/textPlanTitle"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
+            android:layout_marginStart="12dp"
             android:layout_weight="1"
-            android:ellipsize="end"
-            android:fontFamily="@font/mulish_bold"
-            android:maxLines="1"
-            android:textColor="@color/premium_ink"
-            android:textSize="@dimen/_15ssp"
-            tools:text="Lifetime" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textPlanPrice"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textPlanTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/mulish_bold"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:textSize="15sp"
+                    tools:text="1 month" />
+
+                <TextView
+                    android:id="@+id/textPlanSave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_paywall_r6"
+                    android:fontFamily="@font/mulish_bold"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp"
+                    android:textSize="9.5sp"
+                    android:visibility="gone"
+                    tools:text="Save 53%"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textPlanTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/mulish_semibold"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textSize="11.5sp"
+                tools:text="$19.99 billed monthly" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:fontFamily="@font/space_grotesk_bold"
-            android:includeFontPadding="false"
-            android:textColor="@color/premium_ink"
-            android:textSize="@dimen/_18ssp"
-            tools:text="4,999" />
+            android:layout_marginStart="12dp"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textPlanWas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mulish_bold"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textSize="10.5sp"
+                android:visibility="gone"
+                tools:text="$9.99"
+                tools:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:baselineAligned="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textPlanPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/space_grotesk_bold"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:textSize="20sp"
+                    tools:text="$4.61" />
+
+                <TextView
+                    android:id="@+id/textPlanPerWeek"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/mulish_bold"
+                    android:includeFontPadding="false"
+                    android:text="@string/paywall_per_week_suffix"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <TextView
@@ -98,18 +159,20 @@
         android:layout_gravity="end|top"
         android:layout_marginTop="-10dp"
         android:layout_marginEnd="14dp"
-        android:background="@drawable/bg_premium_badge"
-        android:elevation="12dp"
+        android:elevation="16dp"
         android:fontFamily="@font/mulish_bold"
         android:includeFontPadding="false"
-        android:letterSpacing="0.063"
-        android:textStyle="bold"
-        android:outlineProvider="none"
-        android:paddingHorizontal="10dp"
+        android:letterSpacing="0.06"
+        android:maxLines="1"
+        android:outlineAmbientShadowColor="@color/paywall_badge_shadow"
+        android:outlineSpotShadowColor="@color/paywall_badge_shadow"
+        android:paddingHorizontal="9dp"
         android:paddingVertical="3dp"
-        android:text="@string/premium_best_value"
+        android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="@dimen/_9ssp"
+        android:textSize="9.5sp"
         android:visibility="gone"
+        tools:targetApi="31"
+        tools:text="Best value · save 71%"
         tools:visibility="visible" />
 </FrameLayout>

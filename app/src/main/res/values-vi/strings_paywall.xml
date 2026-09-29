@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="paywall_tagline">Không giới hạn. Không quảng cáo ở bất cứ đâu.</string>
+    <string name="paywall_perk_lookups">Tra cứu không giới hạn</string>
+    <string name="paywall_perk_block">Chặn mọi số</string>
+    <string name="paywall_perk_ai">Ask AI không giới hạn</string>
+    <string name="paywall_perk_ads">Không quảng cáo</string>
+    <string name="paywall_choose_plan">Chọn gói của bạn</string>
+    <string name="paywall_prices_per_week">Giá mỗi tuần</string>
+    <string name="paywall_per_week_suffix">/tuần</string>
+    <string name="paywall_billed_weekly">Thanh toán hằng tuần</string>
+    <string name="paywall_billed_monthly">%1$s thanh toán hằng tháng</string>
+    <string name="paywall_billed_yearly">%1$s thanh toán hằng năm</string>
+    <string name="paywall_save">Tiết kiệm %1$d%%</string>
+    <string name="paywall_badge_best_value">Giá tốt nhất · tiết kiệm %1$d%%</string>
+    <string name="paywall_badge_best_value_plain">Giá tốt nhất</string>
+    <string name="paywall_badge_popular">Phổ biến nhất</string>
+    <plurals name="paywall_trial_free">
+        <item quantity="other">Miễn phí %d ngày</item>
+    </plurals>
+    <string name="paywall_price_per_year">%1$s/năm</string>
+    <string name="paywall_price_per_month">%1$s/tháng</string>
+    <string name="paywall_price_per_week">%1$s/tuần</string>
+    <string name="paywall_above_trial">%1$s, sau đó %2$s (%3$s/tuần). Hủy bất cứ lúc nào.</string>
+    <string name="paywall_above_trial_weekly">%1$s, sau đó %2$s. Hủy bất cứ lúc nào.</string>
+    <string name="paywall_above_plain">Thanh toán %1$s (%2$s/tuần). Hủy bất cứ lúc nào.</string>
+    <string name="paywall_above_plain_weekly">Thanh toán %1$s. Hủy bất cứ lúc nào.</string>
+    <plurals name="paywall_cta_trial">
+        <item quantity="other">Dùng thử miễn phí %d ngày</item>
+    </plurals>
+    <string name="paywall_cta_continue">Tiếp tục · %1$s</string>
+    <string name="paywall_continue_free">Tiếp tục không dùng Premium</string>
+    <plurals name="paywall_close_in">
+        <item quantity="other">Có thể đóng sau %d giây</item>
+    </plurals>
+</resources>

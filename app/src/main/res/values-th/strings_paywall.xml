@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="paywall_tagline">ปลดล็อกทุกข้อจำกัด ไม่มีโฆษณาเลย</string>
+    <string name="paywall_perk_lookups">ค้นหาไม่จำกัด</string>
+    <string name="paywall_perk_block">บล็อกได้ทุกหมายเลข</string>
+    <string name="paywall_perk_ai">Ask AI ไม่จำกัด</string>
+    <string name="paywall_perk_ads">ไม่มีโฆษณา</string>
+    <string name="paywall_choose_plan">เลือกแพ็กเกจ</string>
+    <string name="paywall_prices_per_week">ราคาต่อสัปดาห์</string>
+    <string name="paywall_per_week_suffix">/สัปดาห์</string>
+    <string name="paywall_billed_weekly">เรียกเก็บรายสัปดาห์</string>
+    <string name="paywall_billed_monthly">เรียกเก็บ %1$s ต่อเดือน</string>
+    <string name="paywall_billed_yearly">เรียกเก็บ %1$s ต่อปี</string>
+    <string name="paywall_save">ประหยัด %1$d%%</string>
+    <string name="paywall_badge_best_value">คุ้มที่สุด · ประหยัด %1$d%%</string>
+    <string name="paywall_badge_best_value_plain">คุ้มที่สุด</string>
+    <string name="paywall_badge_popular">ยอดนิยม</string>
+    <plurals name="paywall_trial_free">
+        <item quantity="other">ฟรี %d วัน</item>
+    </plurals>
+    <string name="paywall_price_per_year">%1$s/ปี</string>
+    <string name="paywall_price_per_month">%1$s/เดือน</string>
+    <string name="paywall_price_per_week">%1$s/สัปดาห์</string>
+    <string name="paywall_above_trial">%1$s จากนั้น %2$s (%3$s/สัปดาห์) ยกเลิกได้ทุกเมื่อ</string>
+    <string name="paywall_above_trial_weekly">%1$s จากนั้น %2$s ยกเลิกได้ทุกเมื่อ</string>
+    <string name="paywall_above_plain">เรียกเก็บ %1$s (%2$s/สัปดาห์) ยกเลิกได้ทุกเมื่อ</string>
+    <string name="paywall_above_plain_weekly">เรียกเก็บ %1$s ยกเลิกได้ทุกเมื่อ</string>
+    <plurals name="paywall_cta_trial">
+        <item quantity="other">เริ่มทดลองใช้ฟรี %d วัน</item>
+    </plurals>
+    <string name="paywall_cta_continue">ดำเนินการต่อ · %1$s</string>
+    <string name="paywall_continue_free">ใช้ต่อโดยไม่มี Premium</string>
+    <plurals name="paywall_close_in">
+        <item quantity="other">ปิดได้ในอีก %d วินาที</item>
+    </plurals>
+</resources>

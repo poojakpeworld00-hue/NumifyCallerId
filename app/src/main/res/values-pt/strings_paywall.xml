@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="paywall_tagline">Sem limites. Sem anúncios, em lugar nenhum.</string>
+    <string name="paywall_perk_lookups">Pesquisas ilimitadas</string>
+    <string name="paywall_perk_block">Bloqueie qualquer número</string>
+    <string name="paywall_perk_ai">Ask AI ilimitado</string>
+    <string name="paywall_perk_ads">Zero anúncios</string>
+    <string name="paywall_choose_plan">Escolha seu plano</string>
+    <string name="paywall_prices_per_week">Preços por semana</string>
+    <string name="paywall_per_week_suffix">/sem</string>
+    <string name="paywall_billed_weekly">Cobrado semanalmente</string>
+    <string name="paywall_billed_monthly">%1$s cobrado por mês</string>
+    <string name="paywall_billed_yearly">%1$s cobrado por ano</string>
+    <string name="paywall_save">Economize %1$d%%</string>
+    <string name="paywall_badge_best_value">Melhor oferta · economize %1$d%%</string>
+    <string name="paywall_badge_best_value_plain">Melhor oferta</string>
+    <string name="paywall_badge_popular">Mais popular</string>
+    <plurals name="paywall_trial_free">
+        <item quantity="one">%d dia grátis</item>
+        <item quantity="other">%d dias grátis</item>
+    </plurals>
+    <string name="paywall_price_per_year">%1$s/ano</string>
+    <string name="paywall_price_per_month">%1$s/mês</string>
+    <string name="paywall_price_per_week">%1$s/semana</string>
+    <string name="paywall_above_trial">%1$s, depois %2$s (%3$s/semana). Cancele quando quiser.</string>
+    <string name="paywall_above_trial_weekly">%1$s, depois %2$s. Cancele quando quiser.</string>
+    <string name="paywall_above_plain">Cobrado %1$s (%2$s/semana). Cancele quando quiser.</string>
+    <string name="paywall_above_plain_weekly">Cobrado %1$s. Cancele quando quiser.</string>
+    <plurals name="paywall_cta_trial">
+        <item quantity="one">Iniciar teste grátis de %d dia</item>
+        <item quantity="other">Iniciar teste grátis de %d dias</item>
+    </plurals>
+    <string name="paywall_cta_continue">Continuar · %1$s</string>
+    <string name="paywall_continue_free">Continuar sem o Premium</string>
+    <plurals name="paywall_close_in">
+        <item quantity="one">Você pode fechar em %d segundo</item>
+        <item quantity="other">Você pode fechar em %d segundos</item>
+    </plurals>
+</resources>

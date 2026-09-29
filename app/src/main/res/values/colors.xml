@@ -374,4 +374,33 @@
     <color name="intro_shadow_blue">#29141E3C</color>
     <color name="intro_shadow_red">#293C141E</color>
     <color name="intro_shadow_violet">#2928145A</color>
+
+    <!-- Paywall (PremiumActivity redesign, 1a). -->
+    <color name="paywall_glow_blue">#596E97FF</color>          <!-- rgba(110,151,255,.35) -->
+    <color name="paywall_glow_violet">#40A98BFF</color>        <!-- rgba(169,139,255,.25) -->
+    <color name="paywall_on_hero_72">#B8FFFFFF</color>
+    <color name="paywall_on_hero_75">#BFFFFFFF</color>
+    <color name="paywall_glass">#1AFFFFFF</color>              <!-- white 10% -->
+    <color name="paywall_glass_line">#29FFFFFF</color>         <!-- white 16% -->
+    <color name="paywall_perk_fill">#14FFFFFF</color>          <!-- white 8% -->
+    <color name="paywall_perk_line">#1AFFFFFF</color>
+    <color name="paywall_perk_lookup_bg">#386E97FF</color>
+    <color name="paywall_perk_lookup">#9DB8FF</color>
+    <color name="paywall_perk_block_bg">#33FF8A85</color>
+    <color name="paywall_perk_block">#FF8A85</color>
+    <color name="paywall_perk_ai_bg">#38A98BFF</color>
+    <color name="paywall_perk_ai">#C3B2FF</color>
+    <color name="paywall_perk_ads_bg">#335BD79A</color>
+    <color name="paywall_perk_ads">#5BD79A</color>
+    <color name="paywall_row_rule">#E1E5EE</color>
+    <color name="paywall_row_on_sub">#C7FFFFFF</color>         <!-- white 78% -->
+    <color name="paywall_row_on_was">#99FFFFFF</color>         <!-- white 60% -->
+    <color name="paywall_row_on_chip">#33FFFFFF</color>        <!-- white 20% -->
+    <color name="paywall_chip_save_bg">#EAF6EF</color>
+    <color name="paywall_chip_save_ink">#177A45</color>
+    <color name="paywall_chip_trial_bg">#EAEEFE</color>
+    <color name="paywall_row_shadow">#612E5FE8</color>         <!-- rgba(46,95,232,.38) -->
+    <color name="paywall_badge_shadow">#402E5FE8</color>
+    <color name="paywall_crown_shadow">#66D98315</color>
+    <color name="paywall_continue">#5B6378</color>
 </resources>

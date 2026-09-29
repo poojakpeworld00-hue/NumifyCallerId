@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="paywall_tagline">بلا حدود. بلا إعلانات في أي مكان.</string>
+    <string name="paywall_perk_lookups">بحث غير محدود</string>
+    <string name="paywall_perk_block">احظر أي رقم</string>
+    <string name="paywall_perk_ai">Ask AI غير محدود</string>
+    <string name="paywall_perk_ads">بلا إعلانات</string>
+    <string name="paywall_choose_plan">اختر خطتك</string>
+    <string name="paywall_prices_per_week">الأسعار لكل أسبوع</string>
+    <string name="paywall_per_week_suffix">/أسبوع</string>
+    <string name="paywall_billed_weekly">يُدفع أسبوعيًا</string>
+    <string name="paywall_billed_monthly">%1$s يُدفع شهريًا</string>
+    <string name="paywall_billed_yearly">%1$s يُدفع سنويًا</string>
+    <string name="paywall_save">وفّر %1$d%%</string>
+    <string name="paywall_badge_best_value">أفضل قيمة · وفّر %1$d%%</string>
+    <string name="paywall_badge_best_value_plain">أفضل قيمة</string>
+    <string name="paywall_badge_popular">الأكثر شيوعًا</string>
+    <plurals name="paywall_trial_free">
+        <item quantity="one">يوم %d مجانًا</item>
+        <item quantity="other">%d أيام مجانًا</item>
+    </plurals>
+    <string name="paywall_price_per_year">%1$s/سنة</string>
+    <string name="paywall_price_per_month">%1$s/شهر</string>
+    <string name="paywall_price_per_week">%1$s/أسبوع</string>
+    <string name="paywall_above_trial">%1$s، ثم %2$s (%3$s/أسبوع). يمكنك الإلغاء في أي وقت.</string>
+    <string name="paywall_above_trial_weekly">%1$s، ثم %2$s. يمكنك الإلغاء في أي وقت.</string>
+    <string name="paywall_above_plain">يُدفع %1$s (%2$s/أسبوع). يمكنك الإلغاء في أي وقت.</string>
+    <string name="paywall_above_plain_weekly">يُدفع %1$s. يمكنك الإلغاء في أي وقت.</string>
+    <plurals name="paywall_cta_trial">
+        <item quantity="one">ابدأ تجربة مجانية ليوم %d</item>
+        <item quantity="other">ابدأ تجربة مجانية لمدة %d أيام</item>
+    </plurals>
+    <string name="paywall_cta_continue">متابعة · %1$s</string>
+    <string name="paywall_continue_free">المتابعة بدون Premium</string>
+    <plurals name="paywall_close_in">
+        <item quantity="one">يمكنك الإغلاق بعد ثانية %d</item>
+        <item quantity="other">يمكنك الإغلاق بعد %d ثوانٍ</item>
+    </plurals>
+</resources>

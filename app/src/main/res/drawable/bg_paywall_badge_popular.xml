@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MOST POPULAR badge: linear-gradient(135deg, #3466F0, #7A5AF0). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient android:angle="315" android:startColor="@color/premium_cta_start" android:endColor="@color/ds_violet" android:type="linear" />
+    <corners android:radius="8dp" />
+</shape>

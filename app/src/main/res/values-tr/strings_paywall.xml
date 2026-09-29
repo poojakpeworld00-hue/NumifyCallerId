@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="paywall_tagline">Tüm sınırlar kalktı. Hiçbir yerde reklam yok.</string>
+    <string name="paywall_perk_lookups">Sınırsız sorgulama</string>
+    <string name="paywall_perk_block">Her numarayı engelle</string>
+    <string name="paywall_perk_ai">Sınırsız Ask AI</string>
+    <string name="paywall_perk_ads">Sıfır reklam</string>
+    <string name="paywall_choose_plan">Planını seç</string>
+    <string name="paywall_prices_per_week">Haftalık fiyatlar</string>
+    <string name="paywall_per_week_suffix">/hf</string>
+    <string name="paywall_billed_weekly">Haftalık faturalandırılır</string>
+    <string name="paywall_billed_monthly">Aylık %1$s faturalandırılır</string>
+    <string name="paywall_billed_yearly">Yıllık %1$s faturalandırılır</string>
+    <string name="paywall_save">%%%1$d tasarruf</string>
+    <string name="paywall_badge_best_value">En iyi fiyat · %%%1$d tasarruf</string>
+    <string name="paywall_badge_best_value_plain">En iyi fiyat</string>
+    <string name="paywall_badge_popular">En popüler</string>
+    <plurals name="paywall_trial_free">
+        <item quantity="one">%d gün ücretsiz</item>
+        <item quantity="other">%d gün ücretsiz</item>
+    </plurals>
+    <string name="paywall_price_per_year">%1$s/yıl</string>
+    <string name="paywall_price_per_month">%1$s/ay</string>
+    <string name="paywall_price_per_week">%1$s/hafta</string>
+    <string name="paywall_above_trial">%1$s, ardından %2$s (%3$s/hafta). İstediğin zaman iptal et.</string>
+    <string name="paywall_above_trial_weekly">%1$s, ardından %2$s. İstediğin zaman iptal et.</string>
+    <string name="paywall_above_plain">%1$s faturalandırılır (%2$s/hafta). İstediğin zaman iptal et.</string>
+    <string name="paywall_above_plain_weekly">%1$s faturalandırılır. İstediğin zaman iptal et.</string>
+    <plurals name="paywall_cta_trial">
+        <item quantity="one">%d günlük ücretsiz denemeyi başlat</item>
+        <item quantity="other">%d günlük ücretsiz denemeyi başlat</item>
+    </plurals>
+    <string name="paywall_cta_continue">Devam · %1$s</string>
+    <string name="paywall_continue_free">Premium olmadan devam et</string>
+    <plurals name="paywall_close_in">
+        <item quantity="one">%d saniye sonra kapatabilirsin</item>
+        <item quantity="other">%d saniye sonra kapatabilirsin</item>
+    </plurals>
+</resources>

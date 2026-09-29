@@ -33,4 +33,13 @@
         </attr>
     </declare-styleable>
 
+
+    <!-- A band of light crossing its parent (the paywall's pwShine). -->
+    <declare-styleable name="ShineBandView">
+        <attr name="shineWidth" format="dimension" />
+        <attr name="shinePeak" format="float" />
+        <attr name="shineDuration" format="integer" />
+        <attr name="shineDelay" format="integer" />
+    </declare-styleable>
+
 </resources>

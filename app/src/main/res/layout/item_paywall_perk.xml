@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One benefit tile on the paywall hero: a tinted 26dp icon well and a bold label,
+     on white 8% inside a white 10% hairline, r14, 10dp padding. The icon, its well
+     colour and the label are set by PremiumActivity. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_paywall_perk"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <FrameLayout
+        android:id="@+id/perkIconWell"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:background="@drawable/bg_paywall_r8">
+
+        <ImageView
+            android:id="@+id/perkIcon"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_gravity="center"
+            android:importantForAccessibility="no" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/perkLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/mulish_bold"
+        android:includeFontPadding="false"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="@color/white"
+        android:textSize="11.5sp"
+        tools:text="Unlimited lookups" />
+</LinearLayout>
