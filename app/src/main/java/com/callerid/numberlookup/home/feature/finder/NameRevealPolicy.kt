@@ -1,6 +1,7 @@
 package com.callerid.numberlookup.home.feature.finder
 
 import android.content.Context
+import com.callerid.numberlookup.home.feature.premium.PaywallConfig
 import com.callerid.numberlookup.home.monetize.billing.PremiumStore
 import com.callerid.numberlookup.home.monetize.strategy.AdPreferenceStore
 
@@ -64,14 +65,15 @@ object NameRevealPolicy {
         (revealableLimit(context) - spent(context)).coerceAtLeast(0)
 
     /**
-     * Whether there is still an allowance to spend.
+     * Whether there is still an allowance to spend. With selling switched off
+     * (PaywallConfig) there is no line at all: every name is an ad away.
      *
      * A name already open does not ask this - it is open, and re-locking it
      * because the allowance ran out afterwards would take back something the
      * user already paid an ad for.
      */
     fun canReveal(context: Context): Boolean =
-        unlocksEverything(context) || remaining(context) > 0
+        unlocksEverything(context) || !PaywallConfig.isEnabled() || remaining(context) > 0
 
     /**
      * Records one name opened.

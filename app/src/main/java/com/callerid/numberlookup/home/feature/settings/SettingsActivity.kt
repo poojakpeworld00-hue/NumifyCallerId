@@ -16,6 +16,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.callerid.numberlookup.home.feature.premium.PaywallConfig
 import com.callerid.numberlookup.home.repository.DataDeletionConfig
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import androidx.core.content.ContextCompat
@@ -394,7 +395,9 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
      */
     private fun bindPremium() {
         val premium = PremiumStore.isPremium(this)
-        binding.cardPremium.isVisible = !premium
+        // The offer only while selling is on (PaywallConfig); the status card
+        // below is for owners and never depends on it.
+        binding.cardPremium.isVisible = !premium && PaywallConfig.isEnabled()
         binding.cardPremium.setOnClickListener {
             openActivity(PremiumActivity.newIntent(this))
         }

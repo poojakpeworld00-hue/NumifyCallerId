@@ -3,7 +3,7 @@ package com.callerid.numberlookup.home.feature.tools
 import com.callerid.numberlookup.home.feature.blocklist.BlocklistActivity
 import androidx.core.view.isVisible
 import com.callerid.numberlookup.home.feature.premium.PremiumActivity
-import com.callerid.numberlookup.home.monetize.billing.PremiumStore
+import com.callerid.numberlookup.home.feature.premium.PaywallConfig
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -392,7 +392,7 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
      * coming back does not leave the offer sitting there.
      */
     private fun bindPremiumBadge() {
-        binding.buttonToolsPremium.isVisible = !PremiumStore.isPremium(requireContext())
+        binding.buttonToolsPremium.isVisible = PaywallConfig.isOffered(requireContext())
         binding.buttonToolsPremium.setOnClickListener {
             startActivity(PremiumActivity.newIntent(requireContext()))
         }

@@ -1,7 +1,7 @@
 package com.callerid.numberlookup.home.feature.contacts
 
 import com.callerid.numberlookup.home.feature.premium.PremiumActivity
-import com.callerid.numberlookup.home.monetize.billing.PremiumStore
+import com.callerid.numberlookup.home.feature.premium.PaywallConfig
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -425,7 +425,7 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
      * coming back does not leave the offer sitting there.
      */
     private fun bindPremiumBadge() {
-        binding.buttonContactsPremium.isVisible = !PremiumStore.isPremium(requireContext())
+        binding.buttonContactsPremium.isVisible = PaywallConfig.isOffered(requireContext())
         binding.buttonContactsPremium.setOnClickListener {
             startActivity(PremiumActivity.newIntent(requireContext()))
         }

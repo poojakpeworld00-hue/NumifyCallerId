@@ -12,14 +12,11 @@ import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.callerid.numberlookup.home.BuildConfig
 import com.callerid.numberlookup.home.R
 import com.callerid.numberlookup.home.feature.MainShellActivity
 import com.callerid.numberlookup.home.feature.splash.SplashActivity
 import com.callerid.numberlookup.home.monetize.delivery.AppOpenAdManager
-import com.callerid.numberlookup.home.monetize.strategy.AdConfigIngest
-import com.callerid.numberlookup.home.monetize.strategy.AdPreferenceStore
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.callerid.numberlookup.home.monetize.strategy.AudienceConfig
 import org.json.JSONObject
 
 /**
@@ -68,34 +65,8 @@ object UninstallFlow {
 
     // ── Config ──────────────────────────────────────────────────────────────
 
-    /**
-     * This user's `uninstall_flow` block.
-     *
-     * The config is already split by audience at its top level, so the block is
-     * flat and sits inside each segment, beside `screen` and the rest:
-     * `GET_DATA_LIST.organic.uninstall_flow` and `GET_DATA_LIST.marketing.uninstall_flow`.
-     * The segment is chosen by [AdConfigIngest.audienceRoot] - the same resolver
-     * the ad config uses, including its fallback to the other audience and then
-     * to a legacy flat blob - so the two can never disagree about who the user is.
-     *
-     * A dedicated `uninstall_flow` parameter, if one is ever added, wins, and is
-     * resolved the same way.
-     */
-    private fun config(): JSONObject? = try {
-        val marketing = AdPreferenceStore.getOrNull()?.getBoolean("OnMaketing") ?: false
-        val rc = FirebaseRemoteConfig.getInstance()
-        val dedicated = rc.getString(RC_KEY).takeIf { it.isNotBlank() }
-        if (dedicated != null) {
-            AdConfigIngest.audienceRoot(JSONObject(dedicated), marketing)
-        } else {
-            val blob = rc.getString(if (BuildConfig.DEBUG) "DEBUG_GET_DATA_LIST" else "GET_DATA_LIST")
-            if (blob.isBlank()) null
-            else AdConfigIngest.audienceRoot(JSONObject(blob), marketing).optJSONObject(RC_KEY)
-        }
-    } catch (e: Exception) {
-        Log.e(TAG, "Bad $RC_KEY config", e)
-        null
-    }
+    /** This user's `uninstall_flow` block, from their audience segment. */
+    private fun config(): JSONObject? = AudienceConfig.block(RC_KEY)
 
     /** Publish the shortcut at all. On by default, so it works before the first fetch. */
     fun isEnabled(): Boolean = config()?.optBoolean("enabled", true) ?: true

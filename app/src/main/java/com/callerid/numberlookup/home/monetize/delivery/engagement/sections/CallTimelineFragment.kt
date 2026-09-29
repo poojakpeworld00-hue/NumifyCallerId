@@ -5,6 +5,7 @@ import android.graphics.Shader
 import android.os.Build
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
+import com.callerid.numberlookup.home.feature.premium.PaywallConfig
 import com.callerid.numberlookup.home.feature.premium.PremiumActivity
 import com.callerid.numberlookup.home.monetize.billing.PremiumStore
 import com.callerid.numberlookup.home.repository.CallRecord
@@ -87,7 +88,9 @@ class CallTimelineFragment : Fragment() {
         val lockedList = root.findViewById<RecyclerView>(R.id.listLocked)
 
         val premium = PremiumStore.isPremium(requireContext())
-        val withheld = !premium && calls.size > FREE_ROWS
+        // Nothing is held back while selling is off (PaywallConfig): a lock with
+        // no paywall behind it would just hide the user's own calls.
+        val withheld = !premium && PaywallConfig.isEnabled() && calls.size > FREE_ROWS
 
         if (!withheld) {
             adapter.submit(calls)

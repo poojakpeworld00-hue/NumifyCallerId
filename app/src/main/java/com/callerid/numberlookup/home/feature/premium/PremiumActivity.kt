@@ -120,6 +120,15 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
     }
 
     override fun initView() {
+        // Selling switched off for this audience (PaywallConfig): nothing should
+        // link here, but an old intent or a stale screen might. A non-owner has
+        // nothing to see; an owner still gets the "You're Premium" page.
+        val preview = BuildConfig.DEBUG && intent.getBooleanExtra(EXTRA_PREVIEW, false)
+        if (!preview && !PaywallConfig.isEnabled() && !PremiumStore.isPremium(this)) {
+            finish()
+            return
+        }
+
         // The hero runs under the status bar, so only the sides and the bottom
         // are inset here; the hero takes the top as padding of its own.
         val heroPadTop = binding.paywallHero.paddingTop
@@ -138,11 +147,16 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
         // The close cross waits out a short countdown, drawn where it will appear.
         // "Continue without Premium" is there from the start, so the countdown
         // never holds anyone on the page.
+        // Its length is Remote Config's `paywall.close_delay` (PaywallConfig);
+        // 0 shows the cross at once.
+        val closeDelay = PaywallConfig.closeDelaySeconds()
         binding.closeCountdown.onFinished = { showClose() }
-        binding.closeCountdown.contentDescription = resources.getQuantityString(
-            R.plurals.paywall_close_in, CLOSE_DELAY_SECONDS, CLOSE_DELAY_SECONDS
-        )
-        binding.closeCountdown.start(CLOSE_DELAY_SECONDS * 1000L)
+        if (closeDelay > 0) {
+            binding.closeCountdown.contentDescription = resources.getQuantityString(
+                R.plurals.paywall_close_in, closeDelay, closeDelay
+            )
+        }
+        binding.closeCountdown.start(closeDelay * 1000L)
         binding.buttonClose.setOnClickListener { finish() }
         binding.buttonContinueFree.paintFlags =
             binding.buttonContinueFree.paintFlags or Paint.UNDERLINE_TEXT_FLAG
@@ -634,8 +648,6 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
         private const val PERIOD_MONTH = "P1M"
         private const val PERIOD_YEAR = "P1Y"
 
-        /** The design's `closeDelay`, 5s by default. */
-        private const val CLOSE_DELAY_SECONDS = 5
         private const val CLOSE_POP_MS = 280L
         private const val CLOSE_POP_FROM = 0.6f
 

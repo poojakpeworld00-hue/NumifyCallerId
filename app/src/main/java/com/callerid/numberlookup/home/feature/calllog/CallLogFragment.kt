@@ -38,7 +38,7 @@ import com.callerid.numberlookup.home.feature.premium.PremiumActivity
 import com.callerid.numberlookup.home.feature.settings.SettingsActivity
 import com.callerid.numberlookup.home.repository.CallType
 import com.callerid.numberlookup.home.repository.CallLogTotals
-import com.callerid.numberlookup.home.monetize.billing.PremiumStore
+import com.callerid.numberlookup.home.feature.premium.PaywallConfig
 import com.callerid.numberlookup.home.repository.SettingsRepository
 import com.callerid.numberlookup.home.monetize.strategy.recordPermissionOutcome
 import com.callerid.numberlookup.home.common.followAdContainer
@@ -154,7 +154,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
      * and coming back does not leave the offer sitting there.
      */
     private fun bindPremiumBadge() {
-        binding.buttonRecentsPremium.isVisible = !PremiumStore.isPremium(requireContext())
+        binding.buttonRecentsPremium.isVisible = PaywallConfig.isOffered(requireContext())
         binding.buttonRecentsPremium.setOnClickListener {
             startActivity(PremiumActivity.newIntent(requireContext()))
         }

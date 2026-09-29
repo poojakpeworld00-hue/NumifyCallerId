@@ -23,7 +23,7 @@ import com.callerid.numberlookup.home.feature.overlay.OverlayAskPolicy
 import com.callerid.numberlookup.home.feature.overlay.OverlayPermissionUtils
 import com.callerid.numberlookup.home.feature.premium.PremiumActivity
 import com.callerid.numberlookup.home.foundation.BaseActivity
-import com.callerid.numberlookup.home.monetize.billing.PremiumStore
+import com.callerid.numberlookup.home.feature.premium.PaywallConfig
 import com.callerid.numberlookup.home.monetize.delivery.AppOpenAdManager
 import com.callerid.numberlookup.home.monetize.strategy.ScreenPlacementPlan
 import com.callerid.numberlookup.home.monetize.strategy.recordEvent
@@ -85,7 +85,7 @@ class UninstallReasonActivity : BaseActivity<ActivityUninstallReasonBinding>() {
             R.string.un_reason_4, R.drawable.ic_un_g_block, R.color.un_tile_purple_bg, R.color.un_tile_purple_fg,
             Tip(
                 R.string.un_tip_premium_title, R.string.un_tip_premium_text, R.string.un_tip_premium_btn, "premium",
-                applies = { !PremiumStore.isPremium(it) },
+                applies = { PaywallConfig.isOffered(it) },
                 action = { it.startActivity(PremiumActivity.newIntent(it)) },
             ),
         ),
