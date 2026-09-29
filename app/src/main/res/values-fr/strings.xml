@@ -878,6 +878,8 @@
     <string name="settings_premium_sub">Supprimez les publicités et toutes les limites</string>
     <string name="contact_detail_title">Détails</string>
     <string name="action_favourite">Ajouter aux favoris</string>
+    <string name="action_edit_contact">Modifier le contact</string>
+    <string name="edit_contact_unavailable">Aucune application de contacts pour modifier ce contact</string>
     <string name="action_unfavourite">Retirer des favoris</string>
     <string name="favourite_needs_contact">Enregistrez d\'abord ce numéro comme contact</string>
     <string name="favourite_added">Ajouté aux favoris</string>

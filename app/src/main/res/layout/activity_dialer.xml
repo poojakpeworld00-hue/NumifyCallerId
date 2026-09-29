@@ -162,12 +162,18 @@
                                 android:textSize="15sp"
                                 tools:text="+1 234 567" />
 
+                            <!-- "Not in your contacts" for an unknown number; the
+                                 number itself when the head row carries a saved
+                                 contact's name. -->
                             <TextView
+                                android:id="@+id/textDialActionsStatus"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
+                                android:ellipsize="end"
                                 android:fontFamily="@font/mulish_semibold"
                                 android:includeFontPadding="false"
+                                android:maxLines="1"
                                 android:text="@string/dialer_number_not_saved"
                                 android:textColor="@color/ds_ink_muted"
                                 android:textSize="11sp" />

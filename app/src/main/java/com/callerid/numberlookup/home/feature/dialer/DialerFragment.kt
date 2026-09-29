@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.provider.ContactsContract
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,9 @@ import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.children
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -84,7 +87,11 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         binding.rowDialLookup.setOnClickListener {
             requireActivity().openActivity(LookupActivity.newIntent(requireContext(), dialedNumber()))
         }
-        binding.rowDialWhatsApp.setOnClickListener { openWhatsApp(dialedNumber()) }
+        // A saved contact's own number carries the country code WhatsApp needs;
+        // the typed digits often do not.
+        binding.rowDialWhatsApp.setOnClickListener {
+            openWhatsApp(viewModel.savedContact(dialedNumber())?.number ?: dialedNumber())
+        }
         binding.rowDialAskAi.setOnClickListener {
             requireActivity().openActivity(AiHubActivity.newIntent(requireContext()))
         }
@@ -94,6 +101,16 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         binding.textDialNumber.showSoftInputOnFocus = false
         binding.textDialNumber.requestFocus()
         hideSystemKeyboard()
+        // Every edit goes through here - keypad, backspace, and a paste from the
+        // field's own long-press menu, which never passes the keypad and used to
+        // leave the backspace hidden over a pasted number.
+        binding.textDialNumber.doAfterTextChanged { updateDialState() }
+        // inputType="phone" only limits what a keyboard can type; a paste goes
+        // straight in, letters and all. Keep what a dialer can dial.
+        binding.textDialNumber.filters = arrayOf(InputFilter { source, start, end, _, _, _ ->
+            val kept = source.subSequence(start, end).filter { it in DIALABLE }
+            if (kept.length == end - start) null else kept
+        })
 
         setupKeypad()
         updateDialState()
@@ -106,7 +123,6 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
             val hasMatches = list.isNotEmpty()
             hasFrequent = hasMatches
             applyZeroState()
-            binding.textMatchesLabel.visibility = if (hasMatches) View.VISIBLE else View.GONE
             // Label reads "Matches" while dialing, "Frequently called" at rest.
             binding.textMatchesLabel.setText(
                 if (dialedNumber().isEmpty()) R.string.dialer_frequent else R.string.dialer_matches
@@ -192,25 +208,45 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
 
     private fun dialedNumber(): String = binding.textDialNumber.text?.toString().orEmpty()
 
+    /**
+     * Types [text] at the cursor, replacing any selection.
+     *
+     * The field shows a cursor the user can move, so a key goes where the cursor
+     * is - appending at the end regardless put a correction made mid-number on
+     * the wrong digit. The editable moves the cursor past what was inserted.
+     */
     private fun appendDial(text: String) {
-        binding.textDialNumber.append(text)
-        updateDialState()
+        val field = binding.textDialNumber
+        val editable = field.text ?: return
+        val (from, to) = selectionRange(field)
+        editable.replace(from, to, text)
     }
 
+    /** Deletes the selection, or else the one character before the cursor. */
     private fun backspaceDial() {
-        val text = binding.textDialNumber.text
-        if (text.isNotEmpty()) binding.textDialNumber.setText(text.subSequence(0, text.length - 1))
-        updateDialState()
+        val field = binding.textDialNumber
+        val editable = field.text ?: return
+        val (from, to) = selectionRange(field)
+        when {
+            from != to -> editable.delete(from, to)
+            from > 0 -> editable.delete(from - 1, from)
+        }
+    }
+
+    /** Selection as an ordered pair; a field that never had focus counts as "at the end". */
+    private fun selectionRange(field: android.widget.EditText): Pair<Int, Int> {
+        val length = field.length()
+        val start = field.selectionStart.takeIf { it >= 0 } ?: length
+        val end = field.selectionEnd.takeIf { it >= 0 } ?: length
+        return minOf(start, end) to maxOf(start, end)
     }
 
     private fun setDial(number: String) {
         binding.textDialNumber.setText(number)
-        updateDialState()
+        // setText drops the cursor at 0; a whole new number is read from its end.
+        binding.textDialNumber.setSelection(binding.textDialNumber.length())
     }
 
-
-    /** The exact dialed number is a saved contact. */
-    private var savedExact = false
 
     /** The dialed digits match a saved (named) contact in the recents/matches list. */
     private var hasNamedMatch = false
@@ -231,27 +267,26 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
      */
     private fun updateDialState() {
         val number = dialedNumber()
-        // Keep the cursor at the end after every keypad edit (setText resets it).
-        binding.textDialNumber.setSelection(number.length)
         val hasNumber = number.isNotEmpty()
         binding.buttonBackspace.visibility = if (hasNumber) View.VISIBLE else View.INVISIBLE
         // Straight off the pool the view model already holds. This used to fire a
         // PhoneLookup on a background thread for every keypress — a
         // content-provider round trip per digit, on the one screen whose whole job
         // is to keep up with digits.
-        savedExact = hasNumber && viewModel.isSavedContact(number)
         applyAddContactVisibility()
         applyZeroState()
         viewModel.filter(number)
     }
 
     /**
-     * The action card is what the screen shows about an **unknown** number: it
-     * appears once digits are typed and only while those digits belong to nobody
-     * in the address book. A number that is already saved has a match row in the
-     * list below with the contact's name on it, and offering "Add to contacts"
-     * next to it would be nonsense — this is the same split every stock dialer
-     * makes, and why the card leads the band rather than trailing it.
+     * The action card is what the screen shows about the typed number. For an
+     * **unknown** number it heads with the digits and "Not in your contacts" and
+     * offers "Add to contacts". Once the whole number is a saved contact's it
+     * heads with that contact's name over its number instead, keeps only
+     * Message and WhatsApp, and
+     * replaces the match list - which would only have been that same contact as
+     * a single row. While the digits are still partial and only some matches are
+     * named, the card stays away and the list does the talking.
      *
      * Within the card each row still decides for itself:
      *
@@ -275,31 +310,82 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
 
         // Parsed once and shared: this runs on every keystroke.
         val dialable = hasNumber && DialedNumberCheck.isLookupable(ctx, number)
-        val unknown = hasNumber && !savedExact && !hasNamedMatch
+        // The whole number belongs to a saved contact: the card heads with that
+        // contact instead of the digits, and takes the place of the one-row
+        // match list that would otherwise repeat it underneath.
+        val saved = if (hasNumber) viewModel.savedContact(number) else null
+        val savedName = saved?.name?.takeIf { it.isNotBlank() }
+        val unknown = hasNumber && saved == null && !hasNamedMatch
 
-        binding.textDialActionsNumber.text = number
+        binding.textDialActionsNumber.text = savedName ?: number
+        if (saved != null) {
+            binding.textDialActionsStatus.text = saved.number
+        } else {
+            binding.textDialActionsStatus.setText(R.string.dialer_number_not_saved)
+        }
         // Same avatar rule as the Contacts and Recents rows, so one number does
         // not get three different treatments across three tabs.
-        binding.textDialHeadAvatar.text = CallActionHandler.initials("", number)
-        binding.textDialHeadAvatar.backgroundTintList = AvatarPalette.tintFor(ctx, number)
-        binding.rowAddContact.isVisible = true
+        binding.textDialHeadAvatar.text = CallActionHandler.initials(savedName.orEmpty(), number)
+        binding.textDialHeadAvatar.backgroundTintList =
+            AvatarPalette.tintFor(ctx, savedName ?: number)
+        binding.rowAddContact.isVisible = saved == null
         binding.rowDialMessage.isVisible = dialable
-        binding.rowDialLookup.isVisible = dialable
+        // A saved contact is someone the user already knows: the card offers only
+        // the two ways to reach them, not identifying them or asking about them.
+        binding.rowDialLookup.isVisible = dialable && saved == null
         binding.rowDialWhatsApp.isVisible = dialable && whatsAppPackage() != null
-        binding.rowDialAskAi.isVisible = dialable &&
+        binding.rowDialAskAi.isVisible = dialable && saved == null &&
             AiFeatureConfig.isEnabled(ctx) && SettingsRepository(ctx).aiHomeButtonEnabled
+
+        arrangeGrid(savedContact = saved != null)
 
         // The grid's rows are fixed pairs, so a row whose cells have both gone
         // would otherwise hold open 52dp of nothing — which is exactly what
         // happens on a phone with no WhatsApp and the assistant switched off.
-        binding.gridRowOne.isVisible =
-            binding.rowAddContact.isVisible || binding.rowDialMessage.isVisible
-        binding.gridRowTwo.isVisible =
-            binding.rowDialLookup.isVisible || binding.rowDialWhatsApp.isVisible
-        binding.gridRowThree.isVisible = binding.rowDialAskAi.isVisible
+        binding.gridRowOne.isVisible = hasVisibleCell(binding.gridRowOne)
+        binding.gridRowTwo.isVisible = hasVisibleCell(binding.gridRowTwo)
+        binding.gridRowThree.isVisible = hasVisibleCell(binding.gridRowThree)
 
-        binding.columnDialActions.isVisible = unknown
+        binding.columnDialActions.isVisible = unknown || saved != null
+        val showMatches = hasFrequent && saved == null
+        binding.textMatchesLabel.isVisible = showMatches
+        binding.listFrequent.isVisible = showMatches
     }
+
+    /**
+     * Lays the action cells out for the card's two headings.
+     *
+     * A saved contact has no "Add", and leaving its slot empty put "Send
+     * message" alone on the first row with a hole beside it. So for a contact
+     * WhatsApp moves up beside Message - the only two actions a contact gets -
+     * and for an unknown number the cells go back to the original order.
+     * Every cell shares one style, so moving one between rows keeps its size.
+     * Only moves a cell that is out of place, since this runs on every keystroke.
+     */
+    private fun arrangeGrid(savedContact: Boolean) {
+        val one = binding.gridRowOne
+        val two = binding.gridRowTwo
+        if (savedContact) {
+            place(binding.rowDialMessage, one, 0)
+            place(binding.rowDialWhatsApp, one, 1)
+        } else {
+            place(binding.rowAddContact, one, 0)
+            place(binding.rowDialMessage, one, 1)
+            place(binding.rowDialLookup, two, 0)
+            place(binding.rowDialWhatsApp, two, 1)
+            place(binding.rowDialAskAi, binding.gridRowThree, 0)
+        }
+    }
+
+    private fun place(cell: View, row: ViewGroup, index: Int) {
+        if (cell.parent === row && row.indexOfChild(cell) == index) return
+        (cell.parent as? ViewGroup)?.removeView(cell)
+        row.addView(cell, index)
+    }
+
+    /** A grid row with a visible action in it. Its spacer has no id and never counts. */
+    private fun hasVisibleCell(row: ViewGroup): Boolean =
+        row.children.any { it.id != View.NO_ID && it.isVisible }
 
     /**
      * "Dial a number to get started" belongs to the untouched screen only.
@@ -405,5 +491,10 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         val canRead = listOf(Manifest.permission.READ_CALL_LOG, Manifest.permission.READ_CONTACTS)
             .any { ContextCompat.checkSelfPermission(ctx, it) == PackageManager.PERMISSION_GRANTED }
         if (canRead) viewModel.load() else applyZeroState()
+    }
+
+    private companion object {
+        /** Digits, the "+" of a country code, and the pause/wait/service keys. */
+        const val DIALABLE = "0123456789+*#,;"
     }
 }

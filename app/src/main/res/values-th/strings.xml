@@ -873,6 +873,8 @@
     <string name="settings_premium_sub">ปิดโฆษณาและปลดทุกข้อจำกัด</string>
     <string name="contact_detail_title">รายละเอียด</string>
     <string name="action_favourite">เพิ่มในรายการโปรด</string>
+    <string name="action_edit_contact">แก้ไขรายชื่อติดต่อ</string>
+    <string name="edit_contact_unavailable">ไม่พบแอปรายชื่อติดต่อสำหรับแก้ไขรายชื่อนี้</string>
     <string name="action_unfavourite">นำออกจากรายการโปรด</string>
     <string name="favourite_needs_contact">บันทึกหมายเลขนี้เป็นรายชื่อก่อน</string>
     <string name="favourite_added">เพิ่มในรายการโปรดแล้ว</string>

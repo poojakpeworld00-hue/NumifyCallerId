@@ -920,6 +920,8 @@
     <string name="settings_premium_sub">Remova anúncios e todos os limites</string>
     <string name="contact_detail_title">Detalhes</string>
     <string name="action_favourite">Adicionar aos favoritos</string>
+    <string name="action_edit_contact">Editar contato</string>
+    <string name="edit_contact_unavailable">Nenhum app de contatos encontrado para editar este contato</string>
     <string name="action_unfavourite">Remover dos favoritos</string>
     <string name="favourite_needs_contact">Salve este número como contato primeiro</string>
     <string name="favourite_added">Adicionado aos favoritos</string>

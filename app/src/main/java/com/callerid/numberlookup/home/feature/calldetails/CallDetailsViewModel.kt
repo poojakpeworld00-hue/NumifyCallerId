@@ -9,6 +9,7 @@ import com.callerid.numberlookup.home.R
 import com.callerid.numberlookup.home.repository.CallRecord
 import com.callerid.numberlookup.home.repository.CallLogRepository
 import com.callerid.numberlookup.home.repository.CallType
+import com.callerid.numberlookup.home.repository.ContactRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -27,6 +28,7 @@ data class CallInsightUi(
 class CallDetailsViewModel(app: Application) : AndroidViewModel(app) {
 
     private val repository = CallLogRepository(app)
+    private val contacts = ContactRepository(app)
 
     private val _ui = MutableLiveData<CallInsightUi>()
     val ui: LiveData<CallInsightUi> = _ui
@@ -34,15 +36,22 @@ class CallDetailsViewModel(app: Application) : AndroidViewModel(app) {
     fun load(number: String, fallbackName: String?) {
         viewModelScope.launch {
             val calls = withContext(Dispatchers.IO) { repository.getCalls(limit = 1000) }
+            // The address book first: the call log keeps the name a contact had
+            // at call time, so after an edit in the Contacts app it would put the
+            // old name back on screen.
+            val saved = withContext(Dispatchers.IO) { contacts.lookupNameByNumber(number) }
+                ?.takeIf { it.isNotBlank() }
             val target = normalize(number)
             val mine = calls
                 .filter { normalize(it.number) == target }
                 .sortedByDescending { it.date }
 
-            val name = mine.firstOrNull { !it.name.isNullOrBlank() }?.name
+            val name = saved
+                ?: mine.firstOrNull { !it.name.isNullOrBlank() }?.name
                 ?: fallbackName?.takeIf { it.isNotBlank() }
                 ?: number
-            val verified = mine.any { !it.name.isNullOrBlank() } || !fallbackName.isNullOrBlank()
+            val verified = saved != null ||
+                mine.any { !it.name.isNullOrBlank() } || !fallbackName.isNullOrBlank()
 
             // Both stat cards are scoped to the last 30 days (matches the subtitle).
             val recent = lastThirtyDays(mine)

@@ -10,8 +10,10 @@ import com.callerid.numberlookup.home.repository.ContactRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
+import android.provider.ContactsContract
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
@@ -86,6 +88,7 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
             intent.getIntExtra(EXTRA_TITLE_RES, R.string.call_detail_title)
         )
         binding.buttonFavourite.setOnClickListener { toggleFavourite() }
+        binding.buttonEditContact.setOnClickListener { editContact() }
 
         binding.buttonCall.setOnClickListener { placeCall(number) }
         binding.buttonMessage.setOnClickListener { message() }
@@ -112,6 +115,9 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
         // unstarred in the system Contacts app while this screen waits in the
         // back stack.
         updateFavouriteState()
+        // And the name: coming back from the Contacts editor with the old one
+        // still on screen reads as if the edit did not save.
+        viewModel.load(number, fallbackName)
     }
 
     override fun initObservers() {
@@ -122,7 +128,6 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
             history = ui.history
             renderHistory()
         }
-        viewModel.load(number, fallbackName)
     }
 
     /**
@@ -337,8 +342,32 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
                 id to (id != null && runCatching { repo.isStarred(number) }.getOrDefault(false))
             }
             val (contactId, starred) = state
+            this@CallDetailsActivity.contactId = contactId
             binding.buttonFavourite.isVisible = contactId != null
+            binding.buttonEditContact.isVisible = contactId != null
             paintFavourite(starred)
+        }
+    }
+
+    /** The saved contact behind [number], if any. Refreshed on every resume. */
+    private var contactId: Long? = null
+
+    /**
+     * Opens the contact in the system Contacts editor.
+     *
+     * Editing is the Contacts app's job - it owns the raw contacts, the accounts
+     * they sync to and the merge rules - so the screen hands the contact over
+     * rather than growing an editor of its own. Name changes come back through
+     * onResume. Falls back to the contact's view page on the few OEM apps that
+     * do not export ACTION_EDIT.
+     */
+    private fun editContact() {
+        val id = contactId ?: return
+        val uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, id)
+        val edit = Intent(Intent.ACTION_EDIT, uri)
+            .putExtra("finishActivityOnSaveCompleted", true)
+        if (!launch(edit) && !launch(Intent(Intent.ACTION_VIEW, uri))) {
+            toast(R.string.edit_contact_unavailable)
         }
     }
 

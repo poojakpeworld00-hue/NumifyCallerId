@@ -930,6 +930,8 @@
     <string name="settings_premium_sub">Убрать рекламу и все ограничения</string>
     <string name="contact_detail_title">Сведения</string>
     <string name="action_favourite">Добавить в избранное</string>
+    <string name="action_edit_contact">Изменить контакт</string>
+    <string name="edit_contact_unavailable">Не найдено приложение контактов для изменения этого контакта</string>
     <string name="action_unfavourite">Убрать из избранного</string>
     <string name="favourite_needs_contact">Сначала сохраните этот номер в контактах</string>
     <string name="favourite_added">Добавлено в избранное</string>

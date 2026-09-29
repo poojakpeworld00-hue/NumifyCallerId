@@ -47,21 +47,21 @@ class DialerViewModel(app: Application) : AndroidViewModel(app) {
     val frequent: LiveData<List<FavoriteNumber>> = _frequent
 
     /** Digits of every saved contact, so asking whether a number is saved costs no query. */
-    private var savedDigits: Set<String> = emptySet()
+    private var savedDigits: Map<String, com.callerid.numberlookup.home.repository.ContactPhone> = emptyMap()
 
     private var loadJob: Job? = null
 
     /**
-     * Whether [number] belongs to a saved contact.
+     * The saved contact [number] belongs to, or null.
      *
-     * Answered from the pool rather than a PhoneLookup. The dialer asked this on
-     * every keystroke to decide whether to offer "Add to contacts", and a
+     * Answered from the pool rather than a PhoneLookup. The dialer asks this on
+     * every keystroke to decide how to head its action card, and a
      * content-provider round trip per keypress is not something to do on a screen
      * whose whole job is to respond to keypresses.
      */
-    fun isSavedContact(number: String): Boolean {
+    fun savedContact(number: String): com.callerid.numberlookup.home.repository.ContactPhone? {
         val key = number.digitsKey()
-        return key.isNotEmpty() && key in savedDigits
+        return if (key.isEmpty()) null else savedDigits[key]
     }
 
     /**
@@ -109,7 +109,7 @@ class DialerViewModel(app: Application) : AndroidViewModel(app) {
                     // count = 0: never called, so it sorts below everything in
                     // the call log and carries no false "frequently used" weight.
                     .map { FavoriteNumber(name = it.name, number = it.number, count = 0) }
-                Loaded((called + fromContacts).map { it.toEntry() }, byKey.keys.toSet())
+                Loaded((called + fromContacts).map { it.toEntry() }, byKey)
             }
             all = loaded.entries
             savedDigits = loaded.savedDigits
@@ -117,7 +117,10 @@ class DialerViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    private class Loaded(val entries: List<Entry>, val savedDigits: Set<String>)
+    private class Loaded(
+        val entries: List<Entry>,
+        val savedDigits: Map<String, com.callerid.numberlookup.home.repository.ContactPhone>,
+    )
 
     fun filter(text: String) {
         val trimmed = text.trim()

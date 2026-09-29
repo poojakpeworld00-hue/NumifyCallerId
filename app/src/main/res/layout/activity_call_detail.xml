@@ -68,6 +68,22 @@
                 android:textColor="@color/ds_ink"
                 android:textSize="22sp" />
 
+            <!-- Edit. Hands the contact to the system Contacts editor. Hidden
+                 with the star, for the same reason: no contact, nothing to edit. -->
+            <ImageView
+                android:id="@+id/buttonEditContact"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_ds_back_chip"
+                android:contentDescription="@string/action_edit_contact"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:padding="9dp"
+                android:src="@drawable/ic_edit_contact"
+                android:visibility="gone"
+                app:tint="@color/ds_ink_muted"
+                tools:visibility="visible" />
+
             <!-- Favourite. Same 36dp chip as the back button so the bar has a
                  target at each end. Hidden when the number is not a saved
                  contact, because there is nothing to star. -->

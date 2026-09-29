@@ -873,6 +873,8 @@
     <string name="settings_premium_sub">Bỏ quảng cáo và mọi giới hạn</string>
     <string name="contact_detail_title">Chi tiết</string>
     <string name="action_favourite">Thêm vào yêu thích</string>
+    <string name="action_edit_contact">Chỉnh sửa liên hệ</string>
+    <string name="edit_contact_unavailable">Không tìm thấy ứng dụng danh bạ để chỉnh sửa liên hệ này</string>
     <string name="action_unfavourite">Xóa khỏi yêu thích</string>
     <string name="favourite_needs_contact">Hãy lưu số này vào danh bạ trước</string>
     <string name="favourite_added">Đã thêm vào yêu thích</string>

@@ -922,6 +922,8 @@
     <string name="settings_premium_sub">Quita los anuncios y todos los límites</string>
     <string name="contact_detail_title">Detalles</string>
     <string name="action_favourite">Añadir a favoritos</string>
+    <string name="action_edit_contact">Editar contacto</string>
+    <string name="edit_contact_unavailable">No se encontró una app de contactos para editar este contacto</string>
     <string name="action_unfavourite">Quitar de favoritos</string>
     <string name="favourite_needs_contact">Guarda este número como contacto primero</string>
     <string name="favourite_added">Añadido a favoritos</string>

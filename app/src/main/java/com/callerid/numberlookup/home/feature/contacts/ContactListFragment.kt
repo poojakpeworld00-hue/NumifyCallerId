@@ -151,6 +151,14 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
             highlightTab(binding.tabFavorites, active == ContactFilter.FAVORITES)
             highlightTab(binding.tabRecents, active == ContactFilter.RECENTS)
             highlightTab(binding.tabGroups, active == ContactFilter.GROUPS)
+            revealTab(
+                when (active) {
+                    ContactFilter.FAVORITES -> binding.tabFavorites
+                    ContactFilter.RECENTS -> binding.tabRecents
+                    ContactFilter.GROUPS -> binding.tabGroups
+                    else -> binding.tabAll
+                }
+            )
         }
         viewModel.rows.observe(viewLifecycleOwner) { rows ->
             adapter.submit(rows)
@@ -236,6 +244,24 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
                 )
             }
             binding.alphaIndex.addView(tv)
+        }
+    }
+
+    /**
+     * Scrolls the chip row so the active chip is fully on screen, not cut at the
+     * edge - on a narrow phone "Groups" sat half off the right side, and tapping
+     * it left it there.
+     */
+    private fun revealTab(tab: View) {
+        val scroll = binding.tabScroll
+        scroll.post {
+            // Chip bounds are relative to the row, which sits inside the padding.
+            val left = tab.left
+            val right = tab.right + scroll.paddingLeft + scroll.paddingRight - scroll.width
+            when {
+                left < scroll.scrollX -> scroll.smoothScrollTo(left, 0)
+                right > scroll.scrollX -> scroll.smoothScrollTo(right, 0)
+            }
         }
     }
 

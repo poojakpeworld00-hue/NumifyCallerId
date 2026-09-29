@@ -918,6 +918,8 @@
     <string name="settings_premium_sub">विज्ञापन और सभी सीमाएँ हटाएँ</string>
     <string name="contact_detail_title">विवरण</string>
     <string name="action_favourite">पसंदीदा में जोड़ें</string>
+    <string name="action_edit_contact">संपर्क संपादित करें</string>
+    <string name="edit_contact_unavailable">इस संपर्क को संपादित करने के लिए कोई संपर्क ऐप नहीं मिला</string>
     <string name="action_unfavourite">पसंदीदा से हटाएँ</string>
     <string name="favourite_needs_contact">पहले इस नंबर को संपर्क के रूप में सहेजें</string>
     <string name="favourite_added">पसंदीदा में जोड़ा गया</string>

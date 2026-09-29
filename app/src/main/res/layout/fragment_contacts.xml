@@ -188,6 +188,7 @@
              Every attribute below is copied from fragment_recents: same margin,
              same fading edge, same horizontal padding. -->
         <HorizontalScrollView
+            android:id="@+id/tabScroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"

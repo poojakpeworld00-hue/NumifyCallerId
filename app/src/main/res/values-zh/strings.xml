@@ -873,6 +873,8 @@
     <string name="settings_premium_sub">去除广告和所有限制</string>
     <string name="contact_detail_title">详情</string>
     <string name="action_favourite">添加到收藏</string>
+    <string name="action_edit_contact">编辑联系人</string>
+    <string name="edit_contact_unavailable">未找到可编辑此联系人的通讯录应用</string>
     <string name="action_unfavourite">从收藏中移除</string>
     <string name="favourite_needs_contact">请先将此号码保存为联系人</string>
     <string name="favourite_added">已添加到收藏</string>

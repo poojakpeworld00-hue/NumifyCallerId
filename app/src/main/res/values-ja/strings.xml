@@ -873,6 +873,8 @@
     <string name="settings_premium_sub">広告とすべての制限をなくす</string>
     <string name="contact_detail_title">詳細</string>
     <string name="action_favourite">お気に入りに追加</string>
+    <string name="action_edit_contact">連絡先を編集</string>
+    <string name="edit_contact_unavailable">この連絡先を編集できる連絡先アプリが見つかりません</string>
     <string name="action_unfavourite">お気に入りから削除</string>
     <string name="favourite_needs_contact">先にこの番号を連絡先に保存してください</string>
     <string name="favourite_added">お気に入りに追加しました</string>
