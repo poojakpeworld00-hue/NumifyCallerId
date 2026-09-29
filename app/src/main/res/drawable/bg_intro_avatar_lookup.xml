@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Result card avatar: the brand gradient (150deg in the design; GradientDrawable steps in 45s). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient android:angle="315" android:startColor="@color/ds_accent" android:endColor="@color/ds_accent_deep" android:type="linear" />
+    <corners android:radius="10dp" />
+</shape>

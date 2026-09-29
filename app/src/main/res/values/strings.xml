@@ -52,12 +52,6 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">Skip</string>
     <string name="onboarding_next">Next</string>
-    <string name="onboarding_title">Know who\'s calling</string>
-    <string name="onboarding_desc">See the name, company and region behind an unknown number before you pick up.</string>
-    <string name="onboarding_title_2">Stop scam calls cold</string>
-    <string name="onboarding_desc_2">Robocalls, fraud attempts and telemarketers are caught and blocked automatically.</string>
-    <string name="onboarding_title_3">Search any number</string>
-    <string name="onboarding_desc_3">Enter any digits and get back the owner, network region and business in seconds.</string>
     <string name="onboarding_get_started">Get started</string>
 
     <!-- Home's protection strip is one line in the redesign rather than a title over
@@ -76,26 +70,9 @@
          They are stored split rather than as one string with markup so translators
          get two short, self-contained phrases and the line break stays where the
          design puts it. -->
-    <string name="onboarding_title_lead">Know who\'s</string>
-    <string name="onboarding_title_accent">calling</string>
-    <string name="onboarding_title_2_lead">Stop scam calls</string>
-    <string name="onboarding_title_2_accent">cold</string>
-    <string name="onboarding_title_3_lead">Search any</string>
-    <string name="onboarding_title_3_accent">number</string>
 
     <!-- Sample content inside the onboarding illustrations. The labels translate;
          the specimen names, initials and number do not — they are artwork. -->
-    <string name="onboarding_hero_incoming">Incoming call</string>
-    <string name="onboarding_hero_verified">Business · Verified</string>
-    <string name="onboarding_hero_blocked">Blocked call</string>
-    <string name="onboarding_hero_spam_tag">Spam · Robocall</string>
-    <string name="onboarding_hero_unknown">Unknown Number</string>
-    <string name="onboarding_hero_caller_initials" translatable="false">JA</string>
-    <string name="onboarding_hero_caller_name" translatable="false">John Anderson</string>
-    <string name="onboarding_hero_query" translatable="false">+1 415 555…</string>
-    <string name="onboarding_hero_lookup_initials" translatable="false">MJ</string>
-    <string name="onboarding_hero_lookup_name" translatable="false">Michael Johnson</string>
-    <string name="onboarding_hero_lookup_region" translatable="false">San Francisco, CA</string>
 
     <!-- Onboarding illustrations. These label a picture of the product, so the
          status labels translate; the sample caller, city and number are stand-in
@@ -113,8 +90,6 @@
     <string name="onb_match_initials" translatable="false">MJ</string>
     <string name="onb_match_name" translatable="false">Michael Johnson</string>
     <string name="onb_match_location" translatable="false">San Francisco, CA</string>
-    <string name="onboarding_spam_id">Spam ID</string>
-    <string name="onboarding_caller_id">Caller ID</string>
 
     <!-- Home -->
     <string name="home_title">You\'re covered</string>

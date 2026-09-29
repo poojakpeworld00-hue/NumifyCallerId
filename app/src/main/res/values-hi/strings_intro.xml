@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_find_it_in">कहाँ मिलेगा</string>
+    <string name="intro_lookup_lead">कोई भी नंबर</string>
+    <string name="intro_lookup_accent">खोजें</string>
+    <string name="intro_lookup_desc">डायलर में नंबर टाइप करें और उसका देश, कैरियर और लाइन का प्रकार देखने के लिए खोजें पर टैप करें।</string>
+    <string name="intro_lookup_note">या हाल ही के › पहचानें</string>
+    <string name="intro_block_lead">कॉल करने वालों को</string>
+    <string name="intro_block_accent">एक टैप में ब्लॉक करें</string>
+    <string name="intro_block_desc">कोई भी कॉल या खोजा गया नंबर खोलें और ब्लॉक करें पर टैप करें। उससे आने वाली कॉल अपने आप अस्वीकार हो जाएँगी।</string>
+    <string name="intro_block_path_any">कोई भी कॉल</string>
+    <string name="intro_block_note">सेटिंग्स में प्रबंधित करें</string>
+    <string name="intro_contacts_lead">हर संपर्क,</string>
+    <string name="intro_contacts_accent">व्यवस्थित</string>
+    <string name="intro_contacts_desc">संपर्क टैब से लोगों को खोजें, जोड़ें और पसंदीदा बनाएँ। खाते बदलें और समूह या A–Z के अनुसार देखें।</string>
+    <string name="intro_contacts_path">संपर्क टैब</string>
+    <string name="intro_contacts_note">खोजें · जोड़ें · पसंदीदा · समूह</string>
+    <string name="intro_hero_lookup_cd">नंबर टाइप किया हुआ डायलर और हाइलाइट किया गया खोजें बटन, उस नंबर के विवरण के साथ</string>
+    <string name="intro_hero_block_cd">स्पैम नंबर की कॉल का विवरण और हाइलाइट किया गया ब्लॉक बटन, ब्लॉकलिस्ट के साथ</string>
+    <string name="intro_hero_contacts_cd">हाइलाइट किए गए जोड़ें बटन वाला संपर्क टैब, आपके संपर्क समूहों के साथ</string>
+    <string name="intro_art_number_details">नंबर का विवरण</string>
+    <string name="intro_art_united_states">अमेरिका</string>
+    <string name="intro_art_mobile">मोबाइल</string>
+    <string name="intro_art_spam_robocall">स्पैम · रोबोकॉल</string>
+    <string name="intro_art_missed">मिस्ड · 0:00</string>
+    <string name="intro_art_mon">सोम</string>
+    <string name="intro_art_auto_rejected">कॉल अपने आप अस्वीकार</string>
+    <string name="intro_art_blocked">ब्लॉक है</string>
+    <string name="intro_art_number_blocked">नंबर ब्लॉक किया गया</string>
+    <string name="intro_art_family">परिवार</string>
+    <string name="intro_art_work">काम</string>
+    <string name="intro_art_friends">दोस्त</string>
+    <string name="intro_art_favorites_pinned">4 पसंदीदा पिन किए</string>
+</resources>

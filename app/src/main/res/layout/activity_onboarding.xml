@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Onboarding (design: Numify Onboarding — Know Caller / Stop Scam / Search Number).
+    Intro (design: IntroActivity redesign - Lookup / Block / Contacts).
 
-    A three-segment progress bar and Skip sit across the top; the pager carries the
-    hero and headline; the native ad and a trailing "Next" pill close the page.
+    Top: a 40dp row holding the progress track and Skip. The track is one segment
+    per page; the reached ones are blue and the current one is twice as wide
+    (IntroActivity animates the weights).
 
-    The step indicator replaces the previous dot row. It reuses the same `dots`
-    container id and is still built and driven from IntroActivity, so the pager
-    wiring is unchanged — only the shape of what it builds is different.
+    Middle: the pager. Bottom: the native ad, then the footer - "01 / 03" and a Next
+    pill that widens into a full-width "Get started" on the last page.
 
-    Sizes are the design's px carried over as dp rather than sdp; see the note in
-    item_language.xml for why that distinction matters here.
+    Ids kept from the previous screen (dots, buttonSkip, viewPager, adNativeDivider,
+    adNativeFrame, adShimmer, buttonNext) so IntroActivity and OnboardingFooterAd
+    keep working unchanged.
 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -25,33 +26,41 @@
         android:background="@color/ds_page"
         tools:context=".feature.intro.IntroActivity">
 
-        <!-- Step segments. They share a row with Skip and stretch to fill it, so
-             the bar reads as a track the pages advance along. -->
-        <LinearLayout
-            android:id="@+id/dots"
+        <!-- The design's top row: 14dp of padding above a 26dp band. -->
+        <Space
+            android:id="@+id/topRow"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="18dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@id/buttonSkip"
-            app:layout_constraintEnd_toStartOf="@id/buttonSkip"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <LinearLayout
+            android:id="@+id/dots"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="18dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/topRow"
+            app:layout_constraintEnd_toStartOf="@id/buttonSkip"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/topRow" />
+
+        <!-- 40dp tall for the touch target, centred on the same line as the track. -->
         <TextView
             android:id="@+id/buttonSkip"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="22dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="20dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:fontFamily="@font/mulish_bold"
-            android:gravity="center"
+            android:gravity="end|center_vertical"
+            android:includeFontPadding="false"
             android:minWidth="44dp"
-            android:minHeight="40dp"
             android:text="@string/onboarding_skip"
             android:textColor="@color/ds_ink_muted"
             android:textSize="14sp"
@@ -62,11 +71,10 @@
             android:id="@+id/viewPager"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="22dp"
             app:layout_constraintBottom_toTopOf="@id/adNativeDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/buttonSkip" />
+            app:layout_constraintTop_toBottomOf="@id/topRow" />
 
         <!-- Full-bleed hairline separating the pager content from the ad below -->
         <View
@@ -77,15 +85,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Native ad, above the CTA. That is the design's stacking order, and it
-             is the reverse of the previous layout — worth knowing if the ad's
-             proximity to the CTA ever needs revisiting: swapping them back is a
-             matter of exchanging these two views' vertical constraints. -->
         <FrameLayout
             android:id="@+id/adNativeFrame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/buttonNext"
+            app:layout_constraintBottom_toTopOf="@id/footerRow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -99,33 +103,114 @@
             </com.facebook.shimmer.ShimmerFrameLayout>
         </FrameLayout>
 
-        <!-- CTA: a compact gradient pill on the trailing edge, not a full-width
-             bar. It reads "Next" through the deck and morphs to "Get started" on
-             the final page (IntroActivity). -->
-        <TextView
-            android:id="@+id/buttonNext"
-            android:layout_width="wrap_content"
+        <!-- Footer: counter + CTA. On the last page the counter goes and the CTA
+             takes the row (IntroActivity, inside a ChangeBounds transition). -->
+        <LinearLayout
+            android:id="@+id/footerRow"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="22dp"
-            android:background="@drawable/bg_ds_next_pill"
-            android:drawableEnd="@drawable/ic_ds_chevron_right"
-            android:drawablePadding="8dp"
-            android:elevation="12dp"
-            android:fontFamily="@font/mulish_bold"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:outlineAmbientShadowColor="@color/ds_accent_shadow"
-            android:outlineSpotShadowColor="@color/ds_accent_shadow"
-            android:paddingHorizontal="26dp"
-            android:paddingVertical="14dp"
-            android:text="@string/onboarding_next"
-            android:textColor="@color/ds_on_accent"
-            android:textSize="15.5sp"
-            app:drawableTint="@color/ds_on_accent"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <!-- "01 / 03": the current page in ink, the rest in ds_nav_idle. -->
+            <TextView
+                android:id="@+id/textPageCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/space_grotesk_bold"
+                android:includeFontPadding="false"
+                android:textColor="@color/ds_nav_idle"
+                android:textSize="13sp"
+                tools:text="01 / 03" />
+
+            <!-- The pill. Two labels crossfade inside it; the "Get started" one is
+                 GONE until the last page so it never widens the compact pill. -->
+            <FrameLayout
+                android:id="@+id/buttonNext"
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:background="@drawable/bg_intro_cta"
+                android:clickable="true"
+                android:clipToOutline="true"
+                android:contentDescription="@string/onboarding_next"
+                android:elevation="12dp"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:outlineAmbientShadowColor="@color/ds_accent_shadow"
+                android:outlineSpotShadowColor="@color/ds_accent_shadow"
+                android:stateListAnimator="@animator/intro_cta_press"
+                tools:targetApi="31">
+
+                <LinearLayout
+                    android:id="@+id/labelNext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:importantForAccessibility="noHideDescendants"
+                    android:orientation="horizontal"
+                    android:paddingStart="28dp"
+                    android:paddingEnd="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/mulish_bold"
+                        android:includeFontPadding="false"
+                        android:maxLines="1"
+                        android:text="@string/onboarding_next"
+                        android:textColor="@color/ds_on_accent"
+                        android:textSize="15.5sp" />
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="8dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_ds_chevron_right"
+                        app:tint="@color/ds_on_accent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/labelDone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0"
+                    android:gravity="center"
+                    android:importantForAccessibility="noHideDescendants"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="24dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/mulish_bold"
+                        android:includeFontPadding="false"
+                        android:maxLines="1"
+                        android:text="@string/onboarding_get_started"
+                        android:textColor="@color/ds_on_accent"
+                        android:textSize="15.5sp" />
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="8dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_ds_chevron_right"
+                        app:tint="@color/ds_on_accent" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

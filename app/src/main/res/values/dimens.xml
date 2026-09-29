@@ -21,4 +21,23 @@
     <dimen name="splash_loader_radius">3dp</dimen>
     <dimen name="splash_footer_gap">14dp</dimen>
 
+
+    <!-- Intro pages. The defaults here are the SHORT phone (<640dp tall) step from
+         the design's size table; values-h640dp restores the full composition,
+         values-w400dp widens the hero's two cards, values-sw600dp caps the column. -->
+    <item name="intro_hero_percent" format="float" type="dimen">0.30</item>
+    <dimen name="intro_hero_min">200dp</dimen>
+    <dimen name="intro_hero_max">300dp</dimen>
+    <dimen name="intro_title_text">24sp</dimen>
+    <!-- lineHeight 1.12 of the title size. -->
+    <dimen name="intro_title_line">26.88sp</dimen>
+    <integer name="intro_body_max_lines">3</integer>
+    <!-- Result card rows past the second are dropped on a short screen. -->
+    <bool name="intro_result_full">false</bool>
+    <dimen name="intro_screen_w">178dp</dimen>
+    <dimen name="intro_result_w">156dp</dimen>
+    <dimen name="intro_result_w_narrow">150dp</dimen>
+    <!-- Page column cap; effectively none below sw600dp. -->
+    <dimen name="intro_content_max">10000dp</dimen>
+
 </resources>

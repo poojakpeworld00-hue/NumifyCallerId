@@ -31,12 +31,6 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">跳过</string>
     <string name="onboarding_next">下一步</string>
-    <string name="onboarding_title">来电是谁，一看便知</string>
-    <string name="onboarding_desc">接听前就能看到陌生号码的姓名、公司和归属地。</string>
-    <string name="onboarding_title_2">拦截诈骗来电</string>
-    <string name="onboarding_desc_2">机器人来电、诈骗和推销会被自动识别并拦截。</string>
-    <string name="onboarding_title_3">查询任意号码</string>
-    <string name="onboarding_desc_3">输入数字，几秒内获得机主、网络归属地和商家信息。</string>
     <string name="onboarding_get_started">开始使用</string>
 
     <!-- Home -->
@@ -152,8 +146,6 @@
     <string name="overlay_guide_desc">在下方列表中找到 Contacts 并打开开关。</string>
     <string name="overlay_guide_row_hint">点按开启</string>
     <string name="overlay_guide_dismiss">点按任意处关闭</string>
-    <string name="onboarding_spam_id">垃圾信息识别</string>
-    <string name="onboarding_caller_id">来电显示</string>
     <string name="number_lookup">号码查询</string>
     <string name="enter_a_number">输入电话号码</string>
     <string name="search_global_caller_db">搜索全球来电数据库</string>
@@ -742,17 +734,6 @@
 
     <!-- Onboarding headlines. Each slide is one sentence split across two lines,
          the second coloured, so lead + accent must read as a phrase when stacked. -->
-    <string name="onboarding_title_lead">来电是谁</string>
-    <string name="onboarding_title_accent">一看就知道</string>
-    <string name="onboarding_title_2_lead">拦截诈骗来电</string>
-    <string name="onboarding_title_2_accent">干干净净</string>
-    <string name="onboarding_title_3_lead">任意号码</string>
-    <string name="onboarding_title_3_accent">都能查</string>
-    <string name="onboarding_hero_incoming">来电</string>
-    <string name="onboarding_hero_blocked">已拦截的来电</string>
-    <string name="onboarding_hero_unknown">未知号码</string>
-    <string name="onboarding_hero_spam_tag">骚扰 · 机器人来电</string>
-    <string name="onboarding_hero_verified">商家 · 已验证</string>
     <string name="splash_card_verified">已验证</string>
     <string name="home_protection_on_line">保护已开启 — 骚扰来电会被拦截</string>
     <string name="home_protection_off_line">保护已关闭 — 骚扰来电仍会响铃</string>

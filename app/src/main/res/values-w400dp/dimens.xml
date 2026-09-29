@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Intro: wider phones (Pixel 8 Pro, S24+) get proportionally wider hero cards. -->
+    <dimen name="intro_screen_w">196dp</dimen>
+    <dimen name="intro_result_w">170dp</dimen>
+    <dimen name="intro_result_w_narrow">164dp</dimen>
+</resources>

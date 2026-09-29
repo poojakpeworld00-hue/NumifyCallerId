@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_find_it_in">Où le trouver</string>
+    <string name="intro_lookup_lead">Recherchez</string>
+    <string name="intro_lookup_accent">n\'importe quel numéro</string>
+    <string name="intro_lookup_desc">Saisissez un numéro dans le Clavier et touchez Rechercher pour voir son pays, son opérateur et son type de ligne.</string>
+    <string name="intro_lookup_note">ou Récents › Identifier</string>
+    <string name="intro_block_lead">Bloquez les appels</string>
+    <string name="intro_block_accent">en un geste</string>
+    <string name="intro_block_desc">Ouvrez un appel ou un numéro recherché et touchez Bloquer. Ses prochains appels seront rejetés automatiquement.</string>
+    <string name="intro_block_path_any">Tout appel</string>
+    <string name="intro_block_note">à gérer dans Paramètres</string>
+    <string name="intro_contacts_lead">Tous vos contacts,</string>
+    <string name="intro_contacts_accent">bien rangés</string>
+    <string name="intro_contacts_desc">Recherchez, ajoutez et mettez en favori depuis l\'onglet Contacts. Changez de compte et parcourez par groupe ou de A à Z.</string>
+    <string name="intro_contacts_path">Onglet Contacts</string>
+    <string name="intro_contacts_note">Rechercher · Ajouter · Favoris · Groupes</string>
+    <string name="intro_hero_lookup_cd">Le Clavier avec un numéro saisi et le bouton Rechercher en évidence, à côté des détails de ce numéro</string>
+    <string name="intro_hero_block_cd">Détails d\'un appel indésirable avec le bouton Bloquer en évidence, à côté de la liste de blocage</string>
+    <string name="intro_hero_contacts_cd">L\'onglet Contacts avec le bouton Ajouter en évidence, à côté de vos groupes de contacts</string>
+    <string name="intro_art_number_details">Détails du numéro</string>
+    <string name="intro_art_united_states">États-Unis</string>
+    <string name="intro_art_mobile">Mobile</string>
+    <string name="intro_art_spam_robocall">Spam · Appel robot</string>
+    <string name="intro_art_missed">Manqué · 0:00</string>
+    <string name="intro_art_mon">lun.</string>
+    <string name="intro_art_auto_rejected">Appels rejetés</string>
+    <string name="intro_art_blocked">Bloqué</string>
+    <string name="intro_art_number_blocked">Numéro bloqué</string>
+    <string name="intro_art_family">Famille</string>
+    <string name="intro_art_work">Travail</string>
+    <string name="intro_art_friends">Amis</string>
+    <string name="intro_art_favorites_pinned">4 favoris épinglés</string>
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_find_it_in">Nerede bulunur</string>
+    <string name="intro_lookup_lead">Her numarayı</string>
+    <string name="intro_lookup_accent">sorgulayın</string>
+    <string name="intro_lookup_desc">Tuş takımına bir numara yazın ve ülkesini, operatörünü ve hat türünü görmek için Ara\'ya dokunun.</string>
+    <string name="intro_lookup_note">veya Son aramalar › Tanımla</string>
+    <string name="intro_block_lead">Arayanları</string>
+    <string name="intro_block_accent">tek dokunuşla engelleyin</string>
+    <string name="intro_block_desc">Herhangi bir aramayı veya sorgulanan numarayı açıp Engelle\'ye dokunun. Bu numaradan gelen aramalar otomatik reddedilir.</string>
+    <string name="intro_block_path_any">Herhangi bir arama</string>
+    <string name="intro_block_note">Ayarlar\'dan yönetin</string>
+    <string name="intro_contacts_lead">Tüm kişileriniz,</string>
+    <string name="intro_contacts_accent">düzenli</string>
+    <string name="intro_contacts_desc">Kişiler sekmesinden arayın, ekleyin ve favorilere alın. Hesap değiştirin, gruba veya A–Z sırasına göre göz atın.</string>
+    <string name="intro_contacts_path">Kişiler sekmesi</string>
+    <string name="intro_contacts_note">Ara · Ekle · Favoriler · Gruplar</string>
+    <string name="intro_hero_lookup_cd">Numara yazılmış tuş takımı ve vurgulanan Ara düğmesi, yanında numaranın bilgileri</string>
+    <string name="intro_hero_block_cd">Engelle düğmesi vurgulanmış bir spam aramasının ayrıntıları, yanında engel listesi</string>
+    <string name="intro_hero_contacts_cd">Ekle düğmesi vurgulanmış Kişiler sekmesi, yanında kişi gruplarınız</string>
+    <string name="intro_art_number_details">Numara bilgileri</string>
+    <string name="intro_art_united_states">ABD</string>
+    <string name="intro_art_mobile">Mobil</string>
+    <string name="intro_art_spam_robocall">Spam · Robot arama</string>
+    <string name="intro_art_missed">Cevapsız · 0:00</string>
+    <string name="intro_art_mon">Pzt</string>
+    <string name="intro_art_auto_rejected">Aramalar reddedilir</string>
+    <string name="intro_art_blocked">Engellendi</string>
+    <string name="intro_art_number_blocked">Numara engellendi</string>
+    <string name="intro_art_family">Aile</string>
+    <string name="intro_art_work">İş</string>
+    <string name="intro_art_friends">Arkadaşlar</string>
+    <string name="intro_art_favorites_pinned">4 favori sabitlendi</string>
+</resources>

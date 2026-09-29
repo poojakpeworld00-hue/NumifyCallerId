@@ -354,4 +354,24 @@
     <!-- Comparison table. -->
     <color name="premium_table_header_bg">#F0F2F7</color>
     <color name="premium_table_free">#6E7689</color>
+
+    <!-- Intro (IntroActivity redesign). Each hero is a radial wash that runs from
+         its accent tint through a paler mid stop at 55% out to ds_page, the
+         design's radial-gradient(120% 90% at 30% 20%, wash, mid 55%, page). -->
+    <color name="intro_wash_lookup">#E3EBFE</color>
+    <color name="intro_wash_lookup_mid">#F1F4FD</color>
+    <color name="intro_wash_block">#FCE4E4</color>
+    <color name="intro_wash_block_mid">#FBF1F2</color>
+    <color name="intro_wash_contacts">#E6E0FB</color>
+    <color name="intro_wash_contacts_mid">#F1EFFC</color>
+    <color name="intro_border_contacts">#E4DEFA</color>
+    <!-- Path-chip label ink on a tinted chip, darkened from the accent for 4.5:1. -->
+    <color name="intro_chip_ink_block">#C8363B</color>
+    <color name="intro_chip_ink_contacts">#5B3FD6</color>
+    <!-- rgba(255,255,255,.85): the tap marker's fill. -->
+    <color name="intro_tap_fill">#D9FFFFFF</color>
+    <!-- The floating cards' shadows, tinted per page as the design tints them. -->
+    <color name="intro_shadow_blue">#29141E3C</color>
+    <color name="intro_shadow_red">#293C141E</color>
+    <color name="intro_shadow_violet">#2928145A</color>
 </resources>

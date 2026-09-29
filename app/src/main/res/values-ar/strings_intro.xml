@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_find_it_in">مكانها</string>
+    <string name="intro_lookup_lead">ابحث عن</string>
+    <string name="intro_lookup_accent">أي رقم</string>
+    <string name="intro_lookup_desc">اكتب رقمًا في لوحة الاتصال واضغط بحث لمعرفة بلده ومشغّله ونوع الخط.</string>
+    <string name="intro_lookup_note">أو الأخيرة ‹ تعرّف</string>
+    <string name="intro_block_lead">احظر المتصلين</string>
+    <string name="intro_block_accent">بلمسة واحدة</string>
+    <string name="intro_block_desc">افتح أي مكالمة أو رقم بحثت عنه واضغط حظر. سيتم رفض مكالماته القادمة تلقائيًا.</string>
+    <string name="intro_block_path_any">أي مكالمة</string>
+    <string name="intro_block_note">إدارتها من الإعدادات</string>
+    <string name="intro_contacts_lead">كل جهات اتصالك،</string>
+    <string name="intro_contacts_accent">منظّمة</string>
+    <string name="intro_contacts_desc">ابحث وأضف وميّز جهات الاتصال المفضّلة من تبويب جهات الاتصال. بدّل الحسابات وتصفّح حسب المجموعة أو أبجديًا.</string>
+    <string name="intro_contacts_path">تبويب جهات الاتصال</string>
+    <string name="intro_contacts_note">بحث · إضافة · المفضّلة · المجموعات</string>
+    <string name="intro_hero_lookup_cd">لوحة الاتصال برقم مكتوب وزر البحث مميّز، بجانب تفاصيل ذلك الرقم</string>
+    <string name="intro_hero_block_cd">تفاصيل مكالمة مزعجة مع تمييز زر الحظر، بجانب قائمة الحظر</string>
+    <string name="intro_hero_contacts_cd">تبويب جهات الاتصال مع تمييز زر الإضافة، بجانب مجموعات جهات اتصالك</string>
+    <string name="intro_art_number_details">تفاصيل الرقم</string>
+    <string name="intro_art_united_states">الولايات المتحدة</string>
+    <string name="intro_art_mobile">جوال</string>
+    <string name="intro_art_spam_robocall">مزعج · مكالمة آلية</string>
+    <string name="intro_art_missed">فائتة · 0:00</string>
+    <string name="intro_art_mon">الإثنين</string>
+    <string name="intro_art_auto_rejected">رفض المكالمات تلقائيًا</string>
+    <string name="intro_art_blocked">محظور</string>
+    <string name="intro_art_number_blocked">تم حظر الرقم</string>
+    <string name="intro_art_family">العائلة</string>
+    <string name="intro_art_work">العمل</string>
+    <string name="intro_art_friends">الأصدقاء</string>
+    <string name="intro_art_favorites_pinned">4 مفضّلة مثبّتة</string>
+</resources>

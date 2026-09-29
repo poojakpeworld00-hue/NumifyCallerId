@@ -11,4 +11,26 @@
         <attr name="ripple_ring" format="reference" />
     </declare-styleable>
 
+    <!-- The intro page's hero panel: an elliptical radial wash in the page's tint,
+         a hairline border, and two decorative rings in the accent. -->
+    <declare-styleable name="IntroHeroLayout">
+        <attr name="introWash" format="color" />
+        <attr name="introWashMid" format="color" />
+        <attr name="introBorder" format="color" />
+        <attr name="introAccent" format="color" />
+        <!-- Alpha of the solid outer ring and the dashed inner ring (0..1). -->
+        <attr name="introRingAlpha" format="float" />
+        <attr name="introDashAlpha" format="float" />
+    </declare-styleable>
+
+    <!-- The bottom bar at miniature scale, inside an intro hero. -->
+    <declare-styleable name="IntroMiniNavView">
+        <attr name="introNavActive" format="enum">
+            <enum name="dialer" value="0" />
+            <enum name="recents" value="1" />
+            <enum name="contacts" value="2" />
+            <enum name="tools" value="3" />
+        </attr>
+    </declare-styleable>
+
 </resources>

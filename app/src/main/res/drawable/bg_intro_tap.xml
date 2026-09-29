@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The tap marker: rgba(255,255,255,.85) inside a 2dp ink ring. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <solid android:color="@color/intro_tap_fill" />
+    <stroke android:width="2dp" android:color="@color/ds_ink" />
+</shape>

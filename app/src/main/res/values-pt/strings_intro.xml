@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_find_it_in">Onde encontrar</string>
+    <string name="intro_lookup_lead">Pesquise</string>
+    <string name="intro_lookup_accent">qualquer número</string>
+    <string name="intro_lookup_desc">Digite um número no Teclado e toque em Pesquisar para ver o país, a operadora e o tipo de linha.</string>
+    <string name="intro_lookup_note">ou Recentes › Identificar</string>
+    <string name="intro_block_lead">Bloqueie chamadas</string>
+    <string name="intro_block_accent">com um toque</string>
+    <string name="intro_block_desc">Abra qualquer chamada ou número pesquisado e toque em Bloquear. As próximas chamadas dele serão rejeitadas automaticamente.</string>
+    <string name="intro_block_path_any">Qualquer chamada</string>
+    <string name="intro_block_note">gerencie em Configurações</string>
+    <string name="intro_contacts_lead">Todos os contatos,</string>
+    <string name="intro_contacts_accent">em ordem</string>
+    <string name="intro_contacts_desc">Pesquise, adicione e favorite pessoas na aba Contatos. Troque de conta e navegue por grupo ou de A a Z.</string>
+    <string name="intro_contacts_path">Aba Contatos</string>
+    <string name="intro_contacts_note">Pesquisar · Adicionar · Favoritos · Grupos</string>
+    <string name="intro_hero_lookup_cd">O Teclado com um número digitado e o botão Pesquisar em destaque, ao lado dos detalhes desse número</string>
+    <string name="intro_hero_block_cd">Detalhes de uma chamada de spam com o botão Bloquear em destaque, ao lado da lista de bloqueio</string>
+    <string name="intro_hero_contacts_cd">A aba Contatos com o botão Adicionar em destaque, ao lado dos seus grupos de contatos</string>
+    <string name="intro_art_number_details">Detalhes do número</string>
+    <string name="intro_art_united_states">Estados Unidos</string>
+    <string name="intro_art_mobile">Celular</string>
+    <string name="intro_art_spam_robocall">Spam · Robochamada</string>
+    <string name="intro_art_missed">Perdida · 0:00</string>
+    <string name="intro_art_mon">seg</string>
+    <string name="intro_art_auto_rejected">Chamadas rejeitadas</string>
+    <string name="intro_art_blocked">Bloqueado</string>
+    <string name="intro_art_number_blocked">Número bloqueado</string>
+    <string name="intro_art_family">Família</string>
+    <string name="intro_art_work">Trabalho</string>
+    <string name="intro_art_friends">Amigos</string>
+    <string name="intro_art_favorites_pinned">4 favoritos fixados</string>
+</resources>

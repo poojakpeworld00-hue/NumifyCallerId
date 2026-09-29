@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_find_it_in">Tìm ở đâu</string>
+    <string name="intro_lookup_lead">Tra cứu</string>
+    <string name="intro_lookup_accent">mọi số điện thoại</string>
+    <string name="intro_lookup_desc">Nhập số trong Bàn phím rồi chạm Tra cứu để xem quốc gia, nhà mạng và loại đường dây.</string>
+    <string name="intro_lookup_note">hoặc Gần đây › Nhận diện</string>
+    <string name="intro_block_lead">Chặn cuộc gọi</string>
+    <string name="intro_block_accent">chỉ một chạm</string>
+    <string name="intro_block_desc">Mở cuộc gọi hoặc số đã tra cứu rồi chạm Chặn. Các cuộc gọi sau từ số đó sẽ tự động bị từ chối.</string>
+    <string name="intro_block_path_any">Mọi cuộc gọi</string>
+    <string name="intro_block_note">quản lý trong Cài đặt</string>
+    <string name="intro_contacts_lead">Mọi liên hệ,</string>
+    <string name="intro_contacts_accent">gọn gàng</string>
+    <string name="intro_contacts_desc">Tìm, thêm và đánh dấu yêu thích trong thẻ Danh bạ. Đổi tài khoản và duyệt theo nhóm hoặc A–Z.</string>
+    <string name="intro_contacts_path">Thẻ Danh bạ</string>
+    <string name="intro_contacts_note">Tìm · Thêm · Yêu thích · Nhóm</string>
+    <string name="intro_hero_lookup_cd">Bàn phím với một số đã nhập và nút Tra cứu được làm nổi bật, cạnh thông tin của số đó</string>
+    <string name="intro_hero_block_cd">Chi tiết cuộc gọi rác với nút Chặn được làm nổi bật, cạnh danh sách chặn</string>
+    <string name="intro_hero_contacts_cd">Thẻ Danh bạ với nút Thêm được làm nổi bật, cạnh các nhóm liên hệ của bạn</string>
+    <string name="intro_art_number_details">Thông tin số</string>
+    <string name="intro_art_united_states">Hoa Kỳ</string>
+    <string name="intro_art_mobile">Di động</string>
+    <string name="intro_art_spam_robocall">Rác · Cuộc gọi tự động</string>
+    <string name="intro_art_missed">Nhỡ · 0:00</string>
+    <string name="intro_art_mon">T2</string>
+    <string name="intro_art_auto_rejected">Tự động từ chối</string>
+    <string name="intro_art_blocked">Đã chặn</string>
+    <string name="intro_art_number_blocked">Đã chặn số</string>
+    <string name="intro_art_family">Gia đình</string>
+    <string name="intro_art_work">Công việc</string>
+    <string name="intro_art_friends">Bạn bè</string>
+    <string name="intro_art_favorites_pinned">Đã ghim 4 yêu thích</string>
+</resources>

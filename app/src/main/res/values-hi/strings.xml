@@ -30,12 +30,6 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">छोड़ें</string>
     <string name="onboarding_next">आगे</string>
-    <string name="onboarding_title">जानें कौन कॉल कर रहा है</string>
-    <string name="onboarding_desc">कॉल उठाने से पहले अनजान नंबर का नाम, कंपनी और क्षेत्र देखें।</string>
-    <string name="onboarding_title_2">ठगी वाली कॉल रोकें</string>
-    <string name="onboarding_desc_2">रोबोकॉल, धोखाधड़ी और टेलीमार्केटिंग अपने आप पकड़ी और ब्लॉक की जाती हैं।</string>
-    <string name="onboarding_title_3">कोई भी नंबर खोजें</string>
-    <string name="onboarding_desc_3">अंक डालें और सेकंडों में मालिक, नेटवर्क क्षेत्र और कारोबार जानें।</string>
     <string name="onboarding_get_started">शुरू करें</string>
 
     <!-- Home -->
@@ -151,8 +145,6 @@
     <string name="overlay_guide_desc">नीचे दी गई सूची में Contacts ढूँढें और उसका स्विच चालू करें।</string>
     <string name="overlay_guide_row_hint">चालू करने के लिए टैप करें</string>
     <string name="overlay_guide_dismiss">बंद करने के लिए कहीं भी टैप करें</string>
-    <string name="onboarding_spam_id">स्पैम पहचान</string>
-    <string name="onboarding_caller_id">कॉलर पहचान</string>
     <string name="number_lookup">नंबर लुकअप</string>
     <string name="enter_a_number">फ़ोन नंबर डालें</string>
     <string name="search_global_caller_db">वैश्विक कॉलर डेटाबेस खोजें</string>
@@ -787,17 +779,6 @@
 
     <!-- Onboarding headlines. Each slide is one sentence split across two lines,
          the second coloured, so lead + accent must read as a phrase when stacked. -->
-    <string name="onboarding_title_lead">जानें कौन</string>
-    <string name="onboarding_title_accent">कॉल कर रहा है</string>
-    <string name="onboarding_title_2_lead">स्कैम कॉल रोकें</string>
-    <string name="onboarding_title_2_accent">पूरी तरह</string>
-    <string name="onboarding_title_3_lead">कोई भी नंबर</string>
-    <string name="onboarding_title_3_accent">खोजें</string>
-    <string name="onboarding_hero_incoming">इनकमिंग कॉल</string>
-    <string name="onboarding_hero_blocked">ब्लॉक की गई कॉल</string>
-    <string name="onboarding_hero_unknown">अज्ञात नंबर</string>
-    <string name="onboarding_hero_spam_tag">स्पैम · रोबोकॉल</string>
-    <string name="onboarding_hero_verified">व्यवसाय · सत्यापित</string>
     <string name="splash_card_verified">सत्यापित</string>
     <string name="home_protection_on_line">सुरक्षा चालू है — स्पैम कॉल ब्लॉक हैं</string>
     <string name="home_protection_off_line">सुरक्षा बंद है — स्पैम कॉल आएंगी</string>

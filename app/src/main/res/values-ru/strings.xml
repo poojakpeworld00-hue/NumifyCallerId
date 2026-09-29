@@ -31,12 +31,6 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">Пропустить</string>
     <string name="onboarding_next">Далее</string>
-    <string name="onboarding_title">Знайте, кто звонит</string>
-    <string name="onboarding_desc">Узнайте имя, компанию и регион неизвестного номера ещё до ответа.</string>
-    <string name="onboarding_title_2">Остановите мошенников</string>
-    <string name="onboarding_desc_2">Робозвонки, мошенничество и телемаркетинг распознаются и блокируются автоматически.</string>
-    <string name="onboarding_title_3">Поиск любого номера</string>
-    <string name="onboarding_desc_3">Введите цифры и получите владельца, регион сети и компанию за секунды.</string>
     <string name="onboarding_get_started">Начать</string>
 
     <!-- Home -->
@@ -152,8 +146,6 @@
     <string name="overlay_guide_desc">Найдите Contacts в списке ниже и включите переключатель.</string>
     <string name="overlay_guide_row_hint">Нажмите, чтобы включить</string>
     <string name="overlay_guide_dismiss">Нажмите в любом месте, чтобы закрыть</string>
-    <string name="onboarding_spam_id">Определение спама</string>
-    <string name="onboarding_caller_id">Определитель номера</string>
     <string name="number_lookup">Поиск номера</string>
     <string name="enter_a_number">Введите номер</string>
     <string name="search_global_caller_db">Поиск в глобальной базе</string>
@@ -799,17 +791,6 @@
 
     <!-- Onboarding headlines. Each slide is one sentence split across two lines,
          the second coloured, so lead + accent must read as a phrase when stacked. -->
-    <string name="onboarding_title_lead">Узнайте, кто</string>
-    <string name="onboarding_title_accent">вам звонит</string>
-    <string name="onboarding_title_2_lead">Остановите мошенников</string>
-    <string name="onboarding_title_2_accent">разом</string>
-    <string name="onboarding_title_3_lead">Найдите любой</string>
-    <string name="onboarding_title_3_accent">номер</string>
-    <string name="onboarding_hero_incoming">Входящий вызов</string>
-    <string name="onboarding_hero_blocked">Заблокированный вызов</string>
-    <string name="onboarding_hero_unknown">Неизвестный номер</string>
-    <string name="onboarding_hero_spam_tag">Спам · Робозвонок</string>
-    <string name="onboarding_hero_verified">Компания · Проверено</string>
     <string name="splash_card_verified">Проверено</string>
     <string name="home_protection_on_line">Защита включена — спам-звонки блокируются</string>
     <string name="home_protection_off_line">Защита выключена — спам-звонки будут звонить</string>

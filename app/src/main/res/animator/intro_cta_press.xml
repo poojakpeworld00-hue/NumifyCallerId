@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Intro CTA press: scale 0.97 over 90ms, and back. A StateListAnimator, so it
+     tracks the real pressed state, including a press that slides off the pill. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <set>
+            <objectAnimator android:propertyName="scaleX" android:valueTo="0.97"
+                android:duration="90" android:interpolator="@interpolator/premium_ease" />
+            <objectAnimator android:propertyName="scaleY" android:valueTo="0.97"
+                android:duration="90" android:interpolator="@interpolator/premium_ease" />
+        </set>
+    </item>
+    <item>
+        <set>
+            <objectAnimator android:propertyName="scaleX" android:valueTo="1"
+                android:duration="90" android:interpolator="@interpolator/premium_ease" />
+            <objectAnimator android:propertyName="scaleY" android:valueTo="1"
+                android:duration="90" android:interpolator="@interpolator/premium_ease" />
+        </set>
+    </item>
+</selector>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_find_it_in">Где найти</string>
+    <string name="intro_lookup_lead">Узнайте</string>
+    <string name="intro_lookup_accent">любой номер</string>
+    <string name="intro_lookup_desc">Введите номер в Наборе и нажмите Поиск, чтобы узнать страну, оператора и тип линии.</string>
+    <string name="intro_lookup_note">или Недавние › Определить</string>
+    <string name="intro_block_lead">Блокируйте звонки</string>
+    <string name="intro_block_accent">одним касанием</string>
+    <string name="intro_block_desc">Откройте любой звонок или найденный номер и нажмите «Заблокировать». Следующие звонки с него будут отклоняться автоматически.</string>
+    <string name="intro_block_path_any">Любой звонок</string>
+    <string name="intro_block_note">управление в Настройках</string>
+    <string name="intro_contacts_lead">Все контакты</string>
+    <string name="intro_contacts_accent">по порядку</string>
+    <string name="intro_contacts_desc">Ищите, добавляйте и отмечайте избранных во вкладке Контакты. Переключайте аккаунты и просматривайте по группам или от А до Я.</string>
+    <string name="intro_contacts_path">Вкладка Контакты</string>
+    <string name="intro_contacts_note">Поиск · Добавить · Избранное · Группы</string>
+    <string name="intro_hero_lookup_cd">Набор с введённым номером и выделенной кнопкой Поиск, рядом сведения об этом номере</string>
+    <string name="intro_hero_block_cd">Сведения о спам-звонке с выделенной кнопкой «Заблокировать», рядом чёрный список</string>
+    <string name="intro_hero_contacts_cd">Вкладка Контакты с выделенной кнопкой «Добавить», рядом ваши группы контактов</string>
+    <string name="intro_art_number_details">Сведения о номере</string>
+    <string name="intro_art_united_states">США</string>
+    <string name="intro_art_mobile">Мобильный</string>
+    <string name="intro_art_spam_robocall">Спам · Робозвонок</string>
+    <string name="intro_art_missed">Пропущен · 0:00</string>
+    <string name="intro_art_mon">пн</string>
+    <string name="intro_art_auto_rejected">Звонки отклоняются</string>
+    <string name="intro_art_blocked">Заблокирован</string>
+    <string name="intro_art_number_blocked">Номер заблокирован</string>
+    <string name="intro_art_family">Семья</string>
+    <string name="intro_art_work">Работа</string>
+    <string name="intro_art_friends">Друзья</string>
+    <string name="intro_art_favorites_pinned">4 в избранном</string>
+</resources>

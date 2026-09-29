@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_find_it_in">Dónde está</string>
+    <string name="intro_lookup_lead">Busca</string>
+    <string name="intro_lookup_accent">cualquier número</string>
+    <string name="intro_lookup_desc">Escribe un número en el Teclado y toca Buscar para ver su país, operador y tipo de línea.</string>
+    <string name="intro_lookup_note">o Recientes › Identificar</string>
+    <string name="intro_block_lead">Bloquea llamadas</string>
+    <string name="intro_block_accent">con un toque</string>
+    <string name="intro_block_desc">Abre cualquier llamada o número buscado y toca Bloquear. Sus próximas llamadas se rechazarán automáticamente.</string>
+    <string name="intro_block_path_any">Cualquier llamada</string>
+    <string name="intro_block_note">gestiónalo en Ajustes</string>
+    <string name="intro_contacts_lead">Todos tus contactos,</string>
+    <string name="intro_contacts_accent">en orden</string>
+    <string name="intro_contacts_desc">Busca, añade y marca favoritos desde la pestaña Contactos. Cambia de cuenta y navega por grupo o de la A a la Z.</string>
+    <string name="intro_contacts_path">Pestaña Contactos</string>
+    <string name="intro_contacts_note">Buscar · Añadir · Favoritos · Grupos</string>
+    <string name="intro_hero_lookup_cd">El Teclado con un número escrito y el botón Buscar resaltado, junto a los detalles de ese número</string>
+    <string name="intro_hero_block_cd">Detalles de una llamada de spam con el botón Bloquear resaltado, junto a la lista de bloqueados</string>
+    <string name="intro_hero_contacts_cd">La pestaña Contactos con el botón Añadir resaltado, junto a tus grupos de contactos</string>
+    <string name="intro_art_number_details">Detalles del número</string>
+    <string name="intro_art_united_states">Estados Unidos</string>
+    <string name="intro_art_mobile">Móvil</string>
+    <string name="intro_art_spam_robocall">Spam · Llamada automática</string>
+    <string name="intro_art_missed">Perdida · 0:00</string>
+    <string name="intro_art_mon">lun</string>
+    <string name="intro_art_auto_rejected">Llamadas rechazadas</string>
+    <string name="intro_art_blocked">Bloqueado</string>
+    <string name="intro_art_number_blocked">Número bloqueado</string>
+    <string name="intro_art_family">Familia</string>
+    <string name="intro_art_work">Trabajo</string>
+    <string name="intro_art_friends">Amigos</string>
+    <string name="intro_art_favorites_pinned">4 favoritos fijados</string>
+</resources>

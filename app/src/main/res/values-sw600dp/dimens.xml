@@ -14,4 +14,17 @@
     <dimen name="splash_loader_radius">4dp</dimen>
     <dimen name="splash_footer_gap">19dp</dimen>
 
+
+    <!-- Intro on foldables and tablets: the page column is capped at 420dp and
+         centred, and the hero may grow to 340dp. smallestWidth outranks the h640dp
+         step, so the full composition is restated here rather than inherited. -->
+    <item name="intro_hero_percent" format="float" type="dimen">0.34</item>
+    <dimen name="intro_hero_min">220dp</dimen>
+    <dimen name="intro_hero_max">340dp</dimen>
+    <dimen name="intro_title_text">28sp</dimen>
+    <dimen name="intro_title_line">31.36sp</dimen>
+    <integer name="intro_body_max_lines">6</integer>
+    <bool name="intro_result_full">true</bool>
+    <dimen name="intro_content_max">420dp</dimen>
+
 </resources>

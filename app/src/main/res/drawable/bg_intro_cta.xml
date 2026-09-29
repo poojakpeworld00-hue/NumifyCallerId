@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Intro CTA: linear-gradient(135deg, #0548FF, #0230B8) on the 26dp radius of a 52dp pill. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient android:angle="315" android:startColor="@color/ds_accent_bright" android:endColor="@color/ds_accent_deep" android:type="linear" />
+    <corners android:radius="26dp" />
+</shape>

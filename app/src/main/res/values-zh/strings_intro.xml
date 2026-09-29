@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_find_it_in">位置</string>
+    <string name="intro_lookup_lead">查询</string>
+    <string name="intro_lookup_accent">任意号码</string>
+    <string name="intro_lookup_desc">在拨号盘输入号码，点按「查询」即可查看国家/地区、运营商和线路类型。</string>
+    <string name="intro_lookup_note">或 最近 › 识别</string>
+    <string name="intro_block_lead">一键</string>
+    <string name="intro_block_accent">拦截来电</string>
+    <string name="intro_block_desc">打开任意通话或查询过的号码，点按「拦截」。之后该号码的来电将被自动拒接。</string>
+    <string name="intro_block_path_any">任意通话</string>
+    <string name="intro_block_note">在设置中管理</string>
+    <string name="intro_contacts_lead">所有联系人，</string>
+    <string name="intro_contacts_accent">井井有条</string>
+    <string name="intro_contacts_desc">在联系人标签页中搜索、添加和收藏联系人。切换账户，按群组或字母顺序浏览。</string>
+    <string name="intro_contacts_path">联系人标签页</string>
+    <string name="intro_contacts_note">搜索 · 添加 · 收藏 · 群组</string>
+    <string name="intro_hero_lookup_cd">输入了号码的拨号盘，查询按钮已突出显示，旁边是该号码的详细信息</string>
+    <string name="intro_hero_block_cd">骚扰电话的通话详情，拦截按钮已突出显示，旁边是拦截名单</string>
+    <string name="intro_hero_contacts_cd">联系人标签页，添加按钮已突出显示，旁边是你的联系人群组</string>
+    <string name="intro_art_number_details">号码详情</string>
+    <string name="intro_art_united_states">美国</string>
+    <string name="intro_art_mobile">手机</string>
+    <string name="intro_art_spam_robocall">骚扰 · 自动呼叫</string>
+    <string name="intro_art_missed">未接 · 0:00</string>
+    <string name="intro_art_mon">周一</string>
+    <string name="intro_art_auto_rejected">来电自动拒接</string>
+    <string name="intro_art_blocked">已拦截</string>
+    <string name="intro_art_number_blocked">号码已拦截</string>
+    <string name="intro_art_family">家人</string>
+    <string name="intro_art_work">工作</string>
+    <string name="intro_art_friends">朋友</string>
+    <string name="intro_art_favorites_pinned">已置顶 4 位收藏</string>
+</resources>

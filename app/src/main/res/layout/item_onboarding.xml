@@ -1,67 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- One onboarding page: the hero card, then a left-aligned two-line headline and
-     its supporting copy.
+<!--
+    One intro page: the hero, a "Find it in" path, then a left-aligned two-line
+    headline and its body copy.
 
-     The design breaks from the app's previous centred layout deliberately — the
-     copy is ragged-right against the left margin, and the headline's second line
-     carries the page's accent colour (blue, or red on the scam page). The colour
-     split is applied as a span from IntroPagerAdapter rather than being two
-     TextViews, so the two lines share one text block and wrap together.
+    The hero is 34% of the page (30% on short screens), held between 220 and
+    300dp; IntroPagerAdapter sizes artContainer from the pager's height, since a
+    constraint percentage would be a percentage of this scroll content rather than
+    of the page. The page scrolls only when it has to - landscape, or a large font
+    scale - and otherwise sits still.
 
-     The art layout is inflated into artContainer. -->
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    Everything hangs off pageColumn, which is the full width on a phone and a
+    centred 420dp column on sw600dp (dimen/intro_content_max).
+
+    The headline's second line carries the page accent as a span, set by the
+    adapter, so the two lines stay one text block.
+-->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:scrollbars="none">
 
-    <FrameLayout
-        android:id="@+id/artContainer"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:paddingBottom="16dp">
 
-    <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="34dp"
-        android:fontFamily="@font/space_grotesk_bold"
-        android:lineSpacingMultiplier="1.15"
-        android:textColor="@color/ds_ink"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/artContainer"
-        tools:text="Know who's\ncalling" />
+        <Space
+            android:id="@+id/pageColumn"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="@dimen/intro_content_max" />
 
-    <!-- Capped short of the full width: the design keeps this column narrow so the
-         rag stays close to the headline above it rather than running the page.
+        <FrameLayout
+            android:id="@+id/artContainer"
+            android:layout_width="0dp"
+            android:layout_height="268dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="14dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:layout_constraintEnd_toEndOf="@id/pageColumn"
+            app:layout_constraintStart_toStartOf="@id/pageColumn"
+            app:layout_constraintTop_toTopOf="parent" />
 
-         The cap is layout_constraintWidth_max, not android:maxWidth — on a 0dp
-         (MATCH_CONSTRAINT) child the solver decides the width and TextView's own
-         maxWidth is never consulted. -->
-    <TextView
-        android:id="@+id/textDesc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="14dp"
-        android:fontFamily="@font/mulish_semibold"
-        android:lineSpacingMultiplier="1.55"
-        android:textColor="@color/ds_ink_subtle"
-        android:textSize="14.5sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_max="260dp"
-        app:layout_constraintTop_toBottomOf="@id/textTitle"
-        tools:text="See the name, company and region behind an unknown number before you pick up." />
+        <!-- "FIND IT IN" over the path chips -->
+        <LinearLayout
+            android:id="@+id/pathBlock"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="16dp"
+            app:layout_constraintEnd_toEndOf="@id/pageColumn"
+            app:layout_constraintStart_toStartOf="@id/pageColumn"
+            app:layout_constraintTop_toBottomOf="@id/artContainer">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textPathLabel"
+                style="@style/IntroEyebrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/intro_find_it_in" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/pathRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                app:chipSpacingHorizontal="6dp"
+                app:chipSpacingVertical="6dp"
+                app:singleLine="false" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/space_grotesk_bold"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.01"
+            android:textColor="@color/ds_ink"
+            android:textSize="@dimen/intro_title_text"
+            app:layout_constraintEnd_toEndOf="@id/pageColumn"
+            app:layout_constraintStart_toStartOf="@id/pageColumn"
+            app:layout_constraintTop_toBottomOf="@id/pathBlock"
+            app:lineHeight="@dimen/intro_title_line"
+            tools:text="Look up\nany number" />
+
+        <!-- Capped at 290dp so the rag stays near the headline. The cap is
+             layout_constraintWidth_max, not android:maxWidth: on a 0dp child the
+             solver decides the width and TextView's own maxWidth is never read. -->
+        <TextView
+            android:id="@+id/textDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/mulish_semibold"
+            android:includeFontPadding="false"
+            android:maxLines="@integer/intro_body_max_lines"
+            android:textColor="@color/ds_ink_subtle"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/pageColumn"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/pageColumn"
+            app:layout_constraintTop_toBottomOf="@id/textTitle"
+            app:layout_constraintWidth_max="290dp"
+            app:lineHeight="21sp"
+            tools:text="Type a number in the Dialer and tap Lookup to see its country, carrier and line type." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

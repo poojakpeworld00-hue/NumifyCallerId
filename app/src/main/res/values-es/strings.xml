@@ -30,12 +30,6 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">Omitir</string>
     <string name="onboarding_next">Siguiente</string>
-    <string name="onboarding_title">Sabe quién llama</string>
-    <string name="onboarding_desc">Consulta el nombre, la empresa y la región de un número desconocido antes de contestar.</string>
-    <string name="onboarding_title_2">Frena las llamadas fraudulentas</string>
-    <string name="onboarding_desc_2">Las llamadas automáticas, los fraudes y el telemarketing se detectan y bloquean solos.</string>
-    <string name="onboarding_title_3">Busca cualquier número</string>
-    <string name="onboarding_desc_3">Escribe unos dígitos y recibe el titular, la región de red y la empresa en segundos.</string>
     <string name="onboarding_get_started">Empezar</string>
 
     <!-- Home -->
@@ -151,8 +145,6 @@
     <string name="overlay_guide_desc">Busca Contacts en la lista y activa su interruptor.</string>
     <string name="overlay_guide_row_hint">Toca para activar</string>
     <string name="overlay_guide_dismiss">Toca en cualquier lugar para cerrar</string>
-    <string name="onboarding_spam_id">ID de spam</string>
-    <string name="onboarding_caller_id">ID de llamada</string>
     <string name="number_lookup">Búsqueda de número</string>
     <string name="enter_a_number">Ingresa un número</string>
     <string name="search_global_caller_db">Buscar en la base global de llamantes</string>
@@ -791,17 +783,6 @@
 
     <!-- Onboarding headlines. Each slide is one sentence split across two lines,
          the second coloured, so lead + accent must read as a phrase when stacked. -->
-    <string name="onboarding_title_lead">Sabe quién</string>
-    <string name="onboarding_title_accent">te llama</string>
-    <string name="onboarding_title_2_lead">Corta las estafas</string>
-    <string name="onboarding_title_2_accent">de raíz</string>
-    <string name="onboarding_title_3_lead">Busca cualquier</string>
-    <string name="onboarding_title_3_accent">número</string>
-    <string name="onboarding_hero_incoming">Llamada entrante</string>
-    <string name="onboarding_hero_blocked">Llamada bloqueada</string>
-    <string name="onboarding_hero_unknown">Número desconocido</string>
-    <string name="onboarding_hero_spam_tag">Spam · Robollamada</string>
-    <string name="onboarding_hero_verified">Empresa · Verificada</string>
     <string name="splash_card_verified">Verificado</string>
     <string name="home_protection_on_line">Protección activada: las llamadas spam se bloquean</string>
     <string name="home_protection_off_line">Protección desactivada: las llamadas spam sonarán</string>

@@ -31,12 +31,6 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">Atla</string>
     <string name="onboarding_next">İleri</string>
-    <string name="onboarding_title">Kimin aradığını bilin</string>
-    <string name="onboarding_desc">Bilinmeyen bir numaranın adını, şirketini ve bölgesini açmadan önce görün.</string>
-    <string name="onboarding_title_2">Dolandırıcı aramaları durdurun</string>
-    <string name="onboarding_desc_2">Robot aramalar, dolandırıcılık ve telepazarlama otomatik olarak yakalanır ve engellenir.</string>
-    <string name="onboarding_title_3">Herhangi bir numarayı arayın</string>
-    <string name="onboarding_desc_3">Rakamları girin; sahibini, şebeke bölgesini ve işletmeyi saniyeler içinde alın.</string>
     <string name="onboarding_get_started">Başla</string>
 
     <!-- Home -->
@@ -152,8 +146,6 @@
     <string name="overlay_guide_desc">Aşağıdaki listede Contacts’yı bulun ve anahtarını açın.</string>
     <string name="overlay_guide_row_hint">Açmak için dokunun</string>
     <string name="overlay_guide_dismiss">Kapatmak için herhangi bir yere dokunun</string>
-    <string name="onboarding_spam_id">Spam Kimliği</string>
-    <string name="onboarding_caller_id">Arayan Kimliği</string>
     <string name="number_lookup">Numara Sorgulama</string>
     <string name="enter_a_number">Telefon numarası girin</string>
     <string name="search_global_caller_db">Küresel arayan veritabanında ara</string>
@@ -747,17 +739,6 @@
 
     <!-- Onboarding headlines. Each slide is one sentence split across two lines,
          the second coloured, so lead + accent must read as a phrase when stacked. -->
-    <string name="onboarding_title_lead">Kimin aradığını</string>
-    <string name="onboarding_title_accent">hemen görün</string>
-    <string name="onboarding_title_2_lead">Dolandırıcı aramaları</string>
-    <string name="onboarding_title_2_accent">kökten durdurun</string>
-    <string name="onboarding_title_3_lead">Her numarayı</string>
-    <string name="onboarding_title_3_accent">sorgulayın</string>
-    <string name="onboarding_hero_incoming">Gelen arama</string>
-    <string name="onboarding_hero_blocked">Engellenen arama</string>
-    <string name="onboarding_hero_unknown">Bilinmeyen numara</string>
-    <string name="onboarding_hero_spam_tag">Spam · Robot arama</string>
-    <string name="onboarding_hero_verified">İşletme · Doğrulanmış</string>
     <string name="splash_card_verified">Doğrulanmış</string>
     <string name="home_protection_on_line">Koruma açık — spam aramalar engelleniyor</string>
     <string name="home_protection_off_line">Koruma kapalı — spam aramalar çalacak</string>

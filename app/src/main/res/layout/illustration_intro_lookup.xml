@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Intro 01 · Number Lookup. A cropped slice of the Dialer with a number typed and
+    the Lookup tile spotlighted, and the Number Details card sliding out beside it.
+
+    Coordinates are the design's, in dp: the mini screen sits 18/20 in from the
+    hero's top-left and bleeds 14dp off its bottom (178 x 262 in a 268dp hero); the
+    card is pinned 14dp from the right edge, 62dp down. The hero clips both, which
+    is the design's overflow:hidden.
+
+    IntroAnimations drives: heroCard (popIn), heroResult (slide), heroResultCard
+    (float), heroPulse (ring), heroTap (tap marker).
+-->
+<com.callerid.numberlookup.home.feature.intro.IntroHeroLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/heroCard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:contentDescription="@string/intro_hero_lookup_cd"
+    android:importantForAccessibility="yes"
+    app:introAccent="@color/ds_accent"
+    app:introBorder="@color/ds_hero_blue_border"
+    app:introDashAlpha="0.18"
+    app:introRingAlpha="0.10"
+    app:introWash="@color/intro_wash_lookup"
+    app:introWashMid="@color/intro_wash_lookup_mid"
+    tools:layout_height="268dp">
+
+    <!-- Mini dialer -->
+    <FrameLayout
+        android:id="@+id/heroScreen"
+        android:layout_width="@dimen/intro_screen_w"
+        android:layout_height="match_parent"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="-14dp"
+        android:background="@drawable/bg_intro_mini_surface"
+        android:clipToOutline="true"
+        android:elevation="10dp"
+        android:importantForAccessibility="noHideDescendants"
+        android:outlineAmbientShadowColor="@color/intro_shadow_blue"
+        android:outlineSpotShadowColor="@color/intro_shadow_blue"
+        tools:targetApi="31">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/IntroArtText.Display"
+                android:layout_width="match_parent"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal"
+                android:letterSpacing="0.01"
+                android:paddingHorizontal="12dp"
+                android:text="@string/intro_art_lookup_number"
+                android:textSize="15dp"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                style="@style/IntroArtText"
+                android:layout_width="match_parent"
+                android:layout_marginTop="3dp"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="12dp"
+                android:text="@string/dialer_number_not_saved"
+                android:textColor="@color/ds_ink_muted"
+                android:textSize="8.5dp"
+                tools:ignore="SpUsage" />
+
+            <!-- Add contact · Message · Lookup, spread edge to edge -->
+            <LinearLayout
+                android:clipChildren="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp"
+                android:paddingTop="12dp">
+
+                <LinearLayout
+                    android:layout_width="44dp"
+                    android:clipChildren="false"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bg_intro_r10"
+                        android:backgroundTint="@color/ds_back_chip">
+
+                        <ImageView
+                            style="@style/IntroArtIcon"
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_person_add"
+                            app:tint="@color/ds_ink_strong"
+                            tools:ignore="ContentDescription" />
+                    </FrameLayout>
+
+                    <TextView
+                        style="@style/IntroArtText"
+                        android:layout_width="64dp"
+                        android:layout_marginHorizontal="-10dp"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/dialer_grid_add"
+                        android:textColor="@color/ds_ink_muted"
+                        android:textSize="7.5dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="44dp"
+                    android:clipChildren="false"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bg_intro_r10"
+                        android:backgroundTint="@color/ds_back_chip">
+
+                        <ImageView
+                            style="@style/IntroArtIcon"
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_ds_message"
+                            app:tint="@color/ds_ink_strong"
+                            tools:ignore="ContentDescription" />
+                    </FrameLayout>
+
+                    <TextView
+                        style="@style/IntroArtText"
+                        android:layout_width="64dp"
+                        android:layout_marginHorizontal="-10dp"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/action_message"
+                        android:textColor="@color/ds_ink_muted"
+                        android:textSize="7.5dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!-- The target: ring under the tile, tap marker over it. -->
+                <FrameLayout
+                    android:layout_width="44dp"
+                    android:layout_height="wrap_content"
+                    android:clipChildren="false">
+
+                    <View
+                        android:id="@+id/heroPulse"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="7dp"
+                        android:background="@drawable/bg_intro_ring_lookup" />
+
+                    <LinearLayout
+                        android:layout_width="44dp"
+                    android:clipChildren="false"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/bg_intro_tile_lookup"
+                            android:elevation="6dp"
+                            android:outlineAmbientShadowColor="@color/ds_accent_shadow"
+                            android:outlineSpotShadowColor="@color/ds_accent_shadow"
+                            tools:targetApi="31">
+
+                            <ImageView
+                                style="@style/IntroArtIcon"
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_ds_nav_lookup"
+                                app:tint="@color/ds_on_accent"
+                                tools:ignore="ContentDescription" />
+                        </FrameLayout>
+
+                        <TextView
+                            style="@style/IntroArtText"
+                        android:layout_width="64dp"
+                        android:layout_marginHorizontal="-10dp"
+                        android:gravity="center_horizontal"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/dialer_grid_lookup"
+                            android:textColor="@color/ds_accent"
+                            android:textSize="7.5dp"
+                            tools:ignore="SpUsage" />
+                    </LinearLayout>
+
+                    <!-- Above the elevated tile, so it needs a z of its own; no
+                         outline, so that z casts no shadow. -->
+                    <View
+                        android:id="@+id/heroTap"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="14dp"
+                        android:background="@drawable/bg_intro_tap"
+                        android:elevation="7dp"
+                        android:outlineProvider="none" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- Keypad, faded: two rows of three -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="18dp"
+                android:paddingTop="14dp">
+
+                <TextView style="@style/IntroArtText.Display" android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="1" android:textColor="@color/ds_chevron" android:textSize="14dp" tools:ignore="HardcodedText,SpUsage" />
+                <TextView style="@style/IntroArtText.Display" android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="2" android:textColor="@color/ds_chevron" android:textSize="14dp" tools:ignore="HardcodedText,SpUsage" />
+                <TextView style="@style/IntroArtText.Display" android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="3" android:textColor="@color/ds_chevron" android:textSize="14dp" tools:ignore="HardcodedText,SpUsage" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="18dp">
+
+                <TextView style="@style/IntroArtText.Display" android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="4" android:textColor="@color/ds_chevron" android:textSize="14dp" tools:ignore="HardcodedText,SpUsage" />
+                <TextView style="@style/IntroArtText.Display" android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="5" android:textColor="@color/ds_chevron" android:textSize="14dp" tools:ignore="HardcodedText,SpUsage" />
+                <TextView style="@style/IntroArtText.Display" android:layout_width="0dp" android:layout_weight="1" android:gravity="center" android:text="6" android:textColor="@color/ds_chevron" android:textSize="14dp" tools:ignore="HardcodedText,SpUsage" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.callerid.numberlookup.home.feature.intro.IntroMiniNavView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom"
+            app:introNavActive="dialer" />
+    </FrameLayout>
+
+    <!-- Number Details. The outer frame slides in; the card inside it floats, so
+         the two motions never fight over one view's translation. -->
+    <FrameLayout
+        android:id="@+id/heroResult"
+        android:layout_width="@dimen/intro_result_w"
+        android:elevation="14dp"
+        android:outlineProvider="none"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|top"
+        android:layout_marginTop="62dp"
+        android:layout_marginEnd="14dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:importantForAccessibility="noHideDescendants">
+
+        <LinearLayout
+            android:id="@+id/heroResultCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_intro_card_lookup"
+            android:elevation="14dp"
+            android:orientation="vertical"
+            android:outlineAmbientShadowColor="@color/intro_shadow_blue"
+            android:outlineSpotShadowColor="@color/intro_shadow_blue"
+            android:padding="12dp"
+            tools:targetApi="31">
+
+            <TextView
+                style="@style/IntroArtText.Eyebrow"
+                android:text="@string/intro_art_number_details"
+                android:textColor="@color/ds_accent"
+                tools:ignore="SpUsage" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/IntroArtText.Display"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/bg_intro_avatar_lookup"
+                    android:gravity="center"
+                    android:text="@string/intro_art_lookup_initials"
+                    android:textColor="@color/ds_on_accent"
+                    android:textSize="11dp"
+                    tools:ignore="SpUsage" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/IntroArtText.Display"
+                        android:text="@string/intro_art_lookup_name"
+                        android:textSize="11.5dp"
+                        tools:ignore="SpUsage" />
+
+                    <TextView
+                        style="@style/IntroArtText"
+                        android:layout_marginTop="1dp"
+                        android:text="@string/intro_art_lookup_city"
+                        android:textColor="@color/ds_ink_muted"
+                        android:textSize="8.5dp"
+                        tools:ignore="SpUsage" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="9dp"
+                android:background="@color/ds_divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:orientation="horizontal">
+
+                <TextView style="@style/IntroArtText" android:layout_width="0dp" android:layout_weight="1" android:text="@string/lookup_country" android:textColor="@color/ds_ink_muted" android:textSize="8.5dp" tools:ignore="SpUsage" />
+                <TextView style="@style/IntroArtText" android:text="@string/intro_art_united_states" android:textSize="8.5dp" tools:ignore="SpUsage" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:orientation="horizontal">
+
+                <TextView style="@style/IntroArtText" android:layout_width="0dp" android:layout_weight="1" android:text="@string/lookup_carrier" android:textColor="@color/ds_ink_muted" android:textSize="8.5dp" tools:ignore="SpUsage" />
+                <TextView style="@style/IntroArtText" android:text="@string/intro_art_lookup_carrier" android:textSize="8.5dp" tools:ignore="SpUsage" />
+            </LinearLayout>
+
+            <!-- Dropped on short screens (bool/intro_result_full). -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:orientation="horizontal"
+                android:tag="intro_extra">
+
+                <TextView style="@style/IntroArtText" android:layout_width="0dp" android:layout_weight="1" android:text="@string/lookup_line_type" android:textColor="@color/ds_ink_muted" android:textSize="8.5dp" tools:ignore="SpUsage" />
+                <TextView style="@style/IntroArtText" android:text="@string/intro_art_mobile" android:textSize="8.5dp" tools:ignore="SpUsage" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</com.callerid.numberlookup.home.feature.intro.IntroHeroLayout>

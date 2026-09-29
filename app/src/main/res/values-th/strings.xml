@@ -31,12 +31,6 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">ข้าม</string>
     <string name="onboarding_next">ถัดไป</string>
-    <string name="onboarding_title">รู้ว่าใครโทรมา</string>
-    <string name="onboarding_desc">ดูชื่อ บริษัท และภูมิภาคของเบอร์ที่ไม่รู้จักก่อนรับสาย</string>
-    <string name="onboarding_title_2">หยุดสายหลอกลวง</string>
-    <string name="onboarding_desc_2">สายอัตโนมัติ มิจฉาชีพ และการขายตรงถูกตรวจจับและบล็อกโดยอัตโนมัติ</string>
-    <string name="onboarding_title_3">ค้นหาเบอร์ใดก็ได้</string>
-    <string name="onboarding_desc_3">พิมพ์ตัวเลขแล้วรับชื่อเจ้าของ ภูมิภาคเครือข่าย และธุรกิจภายในไม่กี่วินาที</string>
     <string name="onboarding_get_started">เริ่มเลย</string>
 
     <!-- Home -->
@@ -152,8 +146,6 @@
     <string name="overlay_guide_desc">ค้นหา Contacts ในรายการด้านล่างแล้วเปิดสวิตช์</string>
     <string name="overlay_guide_row_hint">แตะเพื่อเปิด</string>
     <string name="overlay_guide_dismiss">แตะที่ใดก็ได้เพื่อปิด</string>
-    <string name="onboarding_spam_id">ระบุสแปม</string>
-    <string name="onboarding_caller_id">ระบุผู้โทร</string>
     <string name="number_lookup">ค้นหาหมายเลข</string>
     <string name="enter_a_number">ใส่หมายเลขโทรศัพท์</string>
     <string name="search_global_caller_db">ค้นหาฐานข้อมูลผู้โทรทั่วโลก</string>
@@ -742,17 +734,6 @@
 
     <!-- Onboarding headlines. Each slide is one sentence split across two lines,
          the second coloured, so lead + accent must read as a phrase when stacked. -->
-    <string name="onboarding_title_lead">รู้ว่าใคร</string>
-    <string name="onboarding_title_accent">กำลังโทรมา</string>
-    <string name="onboarding_title_2_lead">หยุดสายหลอกลวง</string>
-    <string name="onboarding_title_2_accent">ให้สิ้นซาก</string>
-    <string name="onboarding_title_3_lead">ค้นหาเบอร์</string>
-    <string name="onboarding_title_3_accent">ไหนก็ได้</string>
-    <string name="onboarding_hero_incoming">สายเรียกเข้า</string>
-    <string name="onboarding_hero_blocked">สายที่ถูกบล็อก</string>
-    <string name="onboarding_hero_unknown">เบอร์ไม่รู้จัก</string>
-    <string name="onboarding_hero_spam_tag">สแปม · สายอัตโนมัติ</string>
-    <string name="onboarding_hero_verified">ธุรกิจ · ยืนยันแล้ว</string>
     <string name="splash_card_verified">ยืนยันแล้ว</string>
     <string name="home_protection_on_line">เปิดการป้องกันแล้ว — สายสแปมถูกบล็อก</string>
     <string name="home_protection_off_line">ปิดการป้องกันอยู่ — สายสแปมจะดังตามปกติ</string>

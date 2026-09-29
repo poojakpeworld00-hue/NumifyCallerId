@@ -31,12 +31,6 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">スキップ</string>
     <string name="onboarding_next">次へ</string>
-    <string name="onboarding_title">誰からの着信かわかる</string>
-    <string name="onboarding_desc">出る前に、不明な番号の名前・会社・地域を確認できます。</string>
-    <string name="onboarding_title_2">詐欺電話を遮断</string>
-    <string name="onboarding_desc_2">自動音声、詐欺、営業電話を自動で検出してブロックします。</string>
-    <string name="onboarding_title_3">どんな番号も検索</string>
-    <string name="onboarding_desc_3">数字を入力すれば、契約者・回線地域・事業者が数秒でわかります。</string>
     <string name="onboarding_get_started">はじめる</string>
 
     <!-- Home -->
@@ -152,8 +146,6 @@
     <string name="overlay_guide_desc">下のリストから Contacts を見つけて、スイッチをオンにしてください。</string>
     <string name="overlay_guide_row_hint">タップしてオン</string>
     <string name="overlay_guide_dismiss">どこでもタップして閉じる</string>
-    <string name="onboarding_spam_id">迷惑電話の識別</string>
-    <string name="onboarding_caller_id">発信者番号</string>
     <string name="number_lookup">番号検索</string>
     <string name="enter_a_number">電話番号を入力</string>
     <string name="search_global_caller_db">グローバル発信者DBを検索</string>
@@ -742,17 +734,6 @@
 
     <!-- Onboarding headlines. Each slide is one sentence split across two lines,
          the second coloured, so lead + accent must read as a phrase when stacked. -->
-    <string name="onboarding_title_lead">誰からの</string>
-    <string name="onboarding_title_accent">着信かわかる</string>
-    <string name="onboarding_title_2_lead">詐欺電話を</string>
-    <string name="onboarding_title_2_accent">シャットアウト</string>
-    <string name="onboarding_title_3_lead">どんな番号も</string>
-    <string name="onboarding_title_3_accent">検索</string>
-    <string name="onboarding_hero_incoming">着信</string>
-    <string name="onboarding_hero_blocked">ブロックした着信</string>
-    <string name="onboarding_hero_unknown">不明な番号</string>
-    <string name="onboarding_hero_spam_tag">迷惑 · 自動音声</string>
-    <string name="onboarding_hero_verified">企業 · 確認済み</string>
     <string name="splash_card_verified">確認済み</string>
     <string name="home_protection_on_line">保護は有効 — 迷惑電話はブロックされます</string>
     <string name="home_protection_off_line">保護は無効 — 迷惑電話も着信します</string>

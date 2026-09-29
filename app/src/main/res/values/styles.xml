@@ -794,4 +794,49 @@
         <item name="android:textColor">@color/ds_ink_strong</item>
         <item name="android:textSize">11sp</item>
     </style>
+
+    <!-- ── Intro pages ─────────────────────────────────────────────────────── -->
+
+    <!-- Text inside an intro hero's miniature screen. Sized in dp at each use, not
+         sp: the miniature is a picture of a screen, and a user font scale applied
+         to 7dp labels would break the picture without making anything readable.
+         includeFontPadding is off to match CSS's `line-height: normal`. -->
+    <style name="IntroArtText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/ds_ink</item>
+        <item name="android:importantForAccessibility">no</item>
+    </style>
+
+    <!-- Space Grotesk variant: numbers, names and headings inside the miniature. -->
+    <style name="IntroArtText.Display">
+        <item name="android:fontFamily">@font/space_grotesk_bold</item>
+    </style>
+
+    <!-- The small caps labels over a card ("NUMBER DETAILS", "GROUPS"). -->
+    <style name="IntroArtText.Eyebrow">
+        <item name="android:textSize">7.5dp</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- Glyph inside the miniature. -->
+    <style name="IntroArtIcon">
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <!-- "FIND IT IN" — mulish_bold 10sp, letterSpacing 0.12, caps. -->
+    <style name="IntroEyebrow">
+        <item name="android:fontFamily">@font/mulish_bold</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:letterSpacing">0.12</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/ds_ink_muted</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
 </resources>

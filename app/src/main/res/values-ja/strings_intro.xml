@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_find_it_in">場所</string>
+    <string name="intro_lookup_lead">どんな番号も</string>
+    <string name="intro_lookup_accent">すぐ検索</string>
+    <string name="intro_lookup_desc">キーパッドで番号を入力して「検索」をタップすると、国・通信事業者・回線の種類がわかります。</string>
+    <string name="intro_lookup_note">または 履歴 › 特定</string>
+    <string name="intro_block_lead">着信を</string>
+    <string name="intro_block_accent">ワンタップでブロック</string>
+    <string name="intro_block_desc">通話や検索した番号を開いて「ブロック」をタップ。以降の着信は自動で拒否されます。</string>
+    <string name="intro_block_path_any">任意の通話</string>
+    <string name="intro_block_note">設定で管理</string>
+    <string name="intro_contacts_lead">すべての連絡先を</string>
+    <string name="intro_contacts_accent">すっきり整理</string>
+    <string name="intro_contacts_desc">連絡先タブで検索・追加・お気に入り登録。アカウントを切り替えて、グループや五十音順で探せます。</string>
+    <string name="intro_contacts_path">連絡先タブ</string>
+    <string name="intro_contacts_note">検索 · 追加 · お気に入り · グループ</string>
+    <string name="intro_hero_lookup_cd">番号を入力したキーパッドと強調された検索ボタン、その番号の詳細</string>
+    <string name="intro_hero_block_cd">ブロックボタンが強調された迷惑電話の通話詳細と、ブロックリスト</string>
+    <string name="intro_hero_contacts_cd">追加ボタンが強調された連絡先タブと、連絡先グループ</string>
+    <string name="intro_art_number_details">番号の詳細</string>
+    <string name="intro_art_united_states">アメリカ</string>
+    <string name="intro_art_mobile">携帯</string>
+    <string name="intro_art_spam_robocall">迷惑 · 自動音声</string>
+    <string name="intro_art_missed">不在着信 · 0:00</string>
+    <string name="intro_art_mon">月</string>
+    <string name="intro_art_auto_rejected">着信を自動拒否</string>
+    <string name="intro_art_blocked">ブロック中</string>
+    <string name="intro_art_number_blocked">番号をブロックしました</string>
+    <string name="intro_art_family">家族</string>
+    <string name="intro_art_work">仕事</string>
+    <string name="intro_art_friends">友だち</string>
+    <string name="intro_art_favorites_pinned">お気に入り 4 件</string>
+</resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Intro pages (IntroActivity redesign): Number Lookup, Block Numbers, Contacts.
+     Path-chip labels reuse nav_dialer, dialer_grid_lookup, action_block and
+     nav_contacts; the heroes' miniature screens reuse the real screens' strings
+     wherever the words match, and only add what they do not. -->
+<resources>
+    <string name="intro_find_it_in">Find it in</string>
+
+    <string name="intro_lookup_lead">Look up</string>
+    <string name="intro_lookup_accent">any number</string>
+    <string name="intro_lookup_desc">Type a number in the Dialer and tap Lookup to see its country, carrier and line type.</string>
+    <string name="intro_lookup_note">or Recents › Identify</string>
+
+    <string name="intro_block_lead">Block callers</string>
+    <string name="intro_block_accent">in one tap</string>
+    <string name="intro_block_desc">Open any call or looked-up number and tap Block. Future calls from it are rejected automatically.</string>
+    <string name="intro_block_path_any">Any call</string>
+    <string name="intro_block_note">manage in Settings</string>
+
+    <string name="intro_contacts_lead">Every contact,</string>
+    <string name="intro_contacts_accent">in order</string>
+    <string name="intro_contacts_desc">Search, add and favorite people from the Contacts tab. Switch accounts and browse by group or A–Z.</string>
+    <string name="intro_contacts_path">Contacts tab</string>
+    <string name="intro_contacts_note">Search · Add · Favorites · Groups</string>
+
+    <!-- Read out for the hero, whose drawn contents are hidden from TalkBack. -->
+    <string name="intro_hero_lookup_cd">The Dialer with a number typed and the Lookup button highlighted, next to that number\'s details</string>
+    <string name="intro_hero_block_cd">Call details for a spam number with the Block button highlighted, next to the blocklist</string>
+    <string name="intro_hero_contacts_cd">The Contacts tab with the Add button highlighted, next to your contact groups</string>
+
+    <!-- Words drawn inside the heroes' miniature screens. -->
+    <string name="intro_art_number_details">Number details</string>
+    <string name="intro_art_united_states">United States</string>
+    <string name="intro_art_mobile">Mobile</string>
+    <string name="intro_art_spam_robocall">Spam · Robocall</string>
+    <string name="intro_art_missed">Missed · 0:00</string>
+    <string name="intro_art_mon">Mon</string>
+    <string name="intro_art_auto_rejected">Calls auto-rejected</string>
+    <string name="intro_art_blocked">Blocked</string>
+    <string name="intro_art_number_blocked">Number blocked</string>
+    <string name="intro_art_family">Family</string>
+    <string name="intro_art_work">Work</string>
+    <string name="intro_art_friends">Friends</string>
+    <string name="intro_art_favorites_pinned">4 favorites pinned</string>
+
+    <!-- Sample people and numbers: the same in every language. -->
+    <string name="intro_art_lookup_number" translatable="false">+1 415 555 0132</string>
+    <string name="intro_art_lookup_initials" translatable="false">MJ</string>
+    <string name="intro_art_lookup_name" translatable="false">Michael Johnson</string>
+    <string name="intro_art_lookup_city" translatable="false">San Francisco, CA</string>
+    <string name="intro_art_lookup_carrier" translatable="false">Verizon</string>
+    <string name="intro_art_block_number" translatable="false">+1 202 555 0148</string>
+    <string name="intro_art_block_number_2" translatable="false">+1 888 555 0199</string>
+    <string name="intro_art_block_number_3" translatable="false">+44 20 7946 0321</string>
+    <string name="intro_art_fav_1_initials" translatable="false">SM</string>
+    <string name="intro_art_fav_1_name" translatable="false">Sara</string>
+    <string name="intro_art_fav_2_initials" translatable="false">DK</string>
+    <string name="intro_art_fav_2_name" translatable="false">Dev</string>
+    <string name="intro_art_fav_3_initials" translatable="false">LP</string>
+    <string name="intro_art_fav_3_name" translatable="false">Lena</string>
+    <string name="intro_art_fav_4_initials" translatable="false">RO</string>
+    <string name="intro_art_fav_4_name" translatable="false">Ravi</string>
+    <string name="intro_art_row_1_initials" translatable="false">AM</string>
+    <string name="intro_art_row_1_name" translatable="false">Aarav Mehta</string>
+    <string name="intro_art_row_2_initials" translatable="false">AB</string>
+    <string name="intro_art_row_2_name" translatable="false">Alice Brown</string>
+    <string name="intro_art_row_3_initials" translatable="false">BC</string>
+    <string name="intro_art_row_3_name" translatable="false">Ben Carter</string>
+</resources>

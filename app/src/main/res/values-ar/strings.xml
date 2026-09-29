@@ -30,12 +30,6 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">تخطٍّ</string>
     <string name="onboarding_next">التالي</string>
-    <string name="onboarding_title">اعرف من يتصل</string>
-    <string name="onboarding_desc">شاهد الاسم والشركة والمنطقة خلف أي رقم مجهول قبل أن ترد.</string>
-    <string name="onboarding_title_2">أوقف مكالمات الاحتيال</string>
-    <string name="onboarding_desc_2">المكالمات الآلية ومحاولات الاحتيال والتسويق الهاتفي تُكتشف وتُحظر تلقائيًا.</string>
-    <string name="onboarding_title_3">ابحث عن أي رقم</string>
-    <string name="onboarding_desc_3">أدخل الأرقام لتحصل على المالك ومنطقة الشبكة والنشاط التجاري خلال ثوانٍ.</string>
     <string name="onboarding_get_started">ابدأ الآن</string>
 
     <!-- Home -->
@@ -151,8 +145,6 @@
     <string name="overlay_guide_desc">ابحث عن Contacts في القائمة أدناه وفعّل مفتاحه.</string>
     <string name="overlay_guide_row_hint">اضغط للتفعيل</string>
     <string name="overlay_guide_dismiss">اضغط في أي مكان للإغلاق</string>
-    <string name="onboarding_spam_id">معرّف الرسائل المزعجة</string>
-    <string name="onboarding_caller_id">معرّف المتصل</string>
     <string name="number_lookup">بحث عن رقم</string>
     <string name="enter_a_number">أدخل رقم الهاتف</string>
     <string name="search_global_caller_db">ابحث في قاعدة بيانات المتصلين العالمية</string>
@@ -793,17 +785,6 @@
 
     <!-- Onboarding headlines. Each slide is one sentence split across two lines,
          the second coloured, so lead + accent must read as a phrase when stacked. -->
-    <string name="onboarding_title_lead">اعرف من</string>
-    <string name="onboarding_title_accent">يتصل بك</string>
-    <string name="onboarding_title_2_lead">أوقف مكالمات الاحتيال</string>
-    <string name="onboarding_title_2_accent">تمامًا</string>
-    <string name="onboarding_title_3_lead">ابحث عن أي</string>
-    <string name="onboarding_title_3_accent">رقم</string>
-    <string name="onboarding_hero_incoming">مكالمة واردة</string>
-    <string name="onboarding_hero_blocked">مكالمة محظورة</string>
-    <string name="onboarding_hero_unknown">رقم غير معروف</string>
-    <string name="onboarding_hero_spam_tag">مزعج · مكالمة آلية</string>
-    <string name="onboarding_hero_verified">شركة · موثّقة</string>
     <string name="splash_card_verified">موثّق</string>
     <string name="home_protection_on_line">الحماية مفعّلة — يتم حظر المكالمات المزعجة</string>
     <string name="home_protection_off_line">الحماية متوقفة — ستصلك المكالمات المزعجة</string>

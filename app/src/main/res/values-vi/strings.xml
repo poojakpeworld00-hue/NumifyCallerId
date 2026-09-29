@@ -31,12 +31,6 @@
     <!-- Onboarding -->
     <string name="onboarding_skip">Bỏ qua</string>
     <string name="onboarding_next">Tiếp theo</string>
-    <string name="onboarding_title">Biết ai đang gọi</string>
-    <string name="onboarding_desc">Xem tên, công ty và khu vực của số lạ trước khi bạn nghe máy.</string>
-    <string name="onboarding_title_2">Chặn đứng cuộc gọi lừa đảo</string>
-    <string name="onboarding_desc_2">Cuộc gọi tự động, lừa đảo và tiếp thị được phát hiện và chặn tự động.</string>
-    <string name="onboarding_title_3">Tra cứu mọi số</string>
-    <string name="onboarding_desc_3">Nhập dãy số và nhận lại chủ thuê bao, khu vực mạng và doanh nghiệp trong vài giây.</string>
     <string name="onboarding_get_started">Bắt đầu</string>
 
     <!-- Home -->
@@ -152,8 +146,6 @@
     <string name="overlay_guide_desc">Tìm Contacts trong danh sách bên dưới và bật công tắc.</string>
     <string name="overlay_guide_row_hint">Nhấn để bật</string>
     <string name="overlay_guide_dismiss">Nhấn vào bất kỳ đâu để đóng</string>
-    <string name="onboarding_spam_id">ID spam</string>
-    <string name="onboarding_caller_id">ID người gọi</string>
     <string name="number_lookup">Tra cứu số</string>
     <string name="enter_a_number">Nhập số điện thoại</string>
     <string name="search_global_caller_db">Tìm trong CSDL người gọi toàn cầu</string>
@@ -742,17 +734,6 @@
 
     <!-- Onboarding headlines. Each slide is one sentence split across two lines,
          the second coloured, so lead + accent must read as a phrase when stacked. -->
-    <string name="onboarding_title_lead">Biết ai</string>
-    <string name="onboarding_title_accent">đang gọi</string>
-    <string name="onboarding_title_2_lead">Chặn cuộc gọi lừa đảo</string>
-    <string name="onboarding_title_2_accent">tận gốc</string>
-    <string name="onboarding_title_3_lead">Tra cứu mọi</string>
-    <string name="onboarding_title_3_accent">số điện thoại</string>
-    <string name="onboarding_hero_incoming">Cuộc gọi đến</string>
-    <string name="onboarding_hero_blocked">Cuộc gọi đã chặn</string>
-    <string name="onboarding_hero_unknown">Số không xác định</string>
-    <string name="onboarding_hero_spam_tag">Spam · Gọi tự động</string>
-    <string name="onboarding_hero_verified">Doanh nghiệp · Đã xác minh</string>
     <string name="splash_card_verified">Đã xác minh</string>
     <string name="home_protection_on_line">Bảo vệ đang bật — cuộc gọi spam bị chặn</string>
     <string name="home_protection_off_line">Bảo vệ đang tắt — cuộc gọi spam vẫn đổ chuông</string>

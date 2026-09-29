@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_find_it_in">ดูได้ที่</string>
+    <string name="intro_lookup_lead">ค้นหา</string>
+    <string name="intro_lookup_accent">ทุกหมายเลข</string>
+    <string name="intro_lookup_desc">พิมพ์หมายเลขในแป้นโทร แล้วแตะค้นหาเพื่อดูประเทศ ผู้ให้บริการ และประเภทสาย</string>
+    <string name="intro_lookup_note">หรือ ล่าสุด › ระบุ</string>
+    <string name="intro_block_lead">บล็อกผู้โทร</string>
+    <string name="intro_block_accent">ในแตะเดียว</string>
+    <string name="intro_block_desc">เปิดสายใดก็ได้หรือหมายเลขที่ค้นหา แล้วแตะบล็อก สายต่อไปจากหมายเลขนั้นจะถูกปฏิเสธอัตโนมัติ</string>
+    <string name="intro_block_path_any">สายใดก็ได้</string>
+    <string name="intro_block_note">จัดการได้ในตั้งค่า</string>
+    <string name="intro_contacts_lead">รายชื่อทั้งหมด</string>
+    <string name="intro_contacts_accent">เป็นระเบียบ</string>
+    <string name="intro_contacts_desc">ค้นหา เพิ่ม และตั้งรายการโปรดได้จากแท็บรายชื่อ สลับบัญชี และดูตามกลุ่มหรือ A–Z</string>
+    <string name="intro_contacts_path">แท็บรายชื่อ</string>
+    <string name="intro_contacts_note">ค้นหา · เพิ่ม · รายการโปรด · กลุ่ม</string>
+    <string name="intro_hero_lookup_cd">แป้นโทรที่พิมพ์หมายเลขไว้และปุ่มค้นหาที่ไฮไลต์ ข้างรายละเอียดของหมายเลขนั้น</string>
+    <string name="intro_hero_block_cd">รายละเอียดสายสแปมพร้อมปุ่มบล็อกที่ไฮไลต์ ข้างรายการบล็อก</string>
+    <string name="intro_hero_contacts_cd">แท็บรายชื่อที่ไฮไลต์ปุ่มเพิ่ม ข้างกลุ่มรายชื่อของคุณ</string>
+    <string name="intro_art_number_details">รายละเอียดหมายเลข</string>
+    <string name="intro_art_united_states">สหรัฐอเมริกา</string>
+    <string name="intro_art_mobile">มือถือ</string>
+    <string name="intro_art_spam_robocall">สแปม · สายอัตโนมัติ</string>
+    <string name="intro_art_missed">ไม่ได้รับ · 0:00</string>
+    <string name="intro_art_mon">จ.</string>
+    <string name="intro_art_auto_rejected">ปฏิเสธสายอัตโนมัติ</string>
+    <string name="intro_art_blocked">บล็อกแล้ว</string>
+    <string name="intro_art_number_blocked">บล็อกหมายเลขแล้ว</string>
+    <string name="intro_art_family">ครอบครัว</string>
+    <string name="intro_art_work">ที่ทำงาน</string>
+    <string name="intro_art_friends">เพื่อน</string>
+    <string name="intro_art_favorites_pinned">ปักหมุดรายการโปรด 4 รายการ</string>
+</resources>
