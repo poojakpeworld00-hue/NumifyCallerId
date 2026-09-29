@@ -839,4 +839,81 @@
         <item name="android:textColor">@color/ds_ink_muted</item>
         <item name="android:includeFontPadding">false</item>
     </style>
+
+    <!-- Uninstall flow (Claude Design "Uninstall Flow Redesign") -->
+    <style name="UnFixTile">
+        <item name="android:layout_width">42dp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:padding">10.5dp</item>
+        <item name="android:background">@drawable/bg_un_tile</item>
+        <item name="android:contentDescription">@null</item>
+    </style>
+
+    <style name="UnFixTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/un_ink</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="UnFixSub">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:fontFamily">@font/mulish_semibold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingMultiplier">1.15</item>
+        <item name="android:textColor">@color/un_muted</item>
+        <item name="android:textSize">11.5sp</item>
+    </style>
+
+    <style name="UnFixButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">34dp</item>
+        <item name="android:background">@drawable/bg_un_btn_strong</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:paddingStart">13dp</item>
+        <item name="android:paddingEnd">13dp</item>
+        <item name="android:textColor">@color/un_strong_fg</item>
+        <item name="android:textSize">12.5sp</item>
+    </style>
+
+    <style name="UnFixCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_un_card</item>
+        <item name="android:elevation">1dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">9dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="UnStepText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:fontFamily">@font/mulish_bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/un_step_idle_text</item>
+        <item name="android:textSize">12.5sp</item>
+    </style>
+
+    <style name="UnAdCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
+        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:background">@drawable/bg_un_ad_card</item>
+        <item name="android:clipToOutline">true</item>
+        <item name="android:elevation">2dp</item>
+    </style>
 </resources>

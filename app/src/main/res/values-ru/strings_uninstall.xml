@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="un_shortcut">Удалить</string>
+    <string name="un_sorry_title">Извините за неудобства</string>
+    <string name="un_sorry_sub">Что-то мешает? Возможно, мы сможем это исправить.</string>
+    <string name="un_fix">Исправить</string>
+    <string name="un_try">Попробовать</string>
+    <string name="un_dont_uninstall">Пока не удалять</string>
+    <string name="un_still_uninstall">Всё равно удалить</string>
+    <string name="un_reason_title">Почему вы хотите удалить приложение?</string>
+    <string name="un_reason_sub">Ваш ответ поможет нам улучшить приложение.</string>
+    <string name="un_reason_1">Определитель не показывает имена</string>
+    <string name="un_reason_2">Слишком много окон или уведомлений</string>
+    <string name="un_reason_3">Редко пользуюсь приложением</string>
+    <string name="un_reason_4">Слишком много рекламы</string>
+    <string name="un_reason_5">Тратит много батареи или памяти</string>
+    <string name="un_reason_6">Нашёл приложение лучше</string>
+    <string name="un_uninstall">Удалить</string>
+    <string name="un_thanks_title">Спасибо за отзыв!</string>
+    <string name="un_thanks_sub">Открываем сведения о приложении, где можно завершить удаление.</string>
+    <string name="un_continue">Продолжить</string>
+    <string name="un_progress_title">Подготовка к удалению %1$s…</string>
+    <string name="un_progress_sub">Затем нажмите «Удалить» на экране сведений о приложении.</string>
+    <string name="un_progress_ready">Готово. Нажмите «Удалить» на следующем экране</string>
+    <string name="un_quick_fixes">Быстрые решения</string>
+    <string name="un_fix1_title">Определитель не работает</string>
+    <string name="un_fix1_sub">Имена не видны при входящих звонках</string>
+    <string name="un_fix2_title">Не знаете, кто звонил</string>
+    <string name="un_fix2_sub">Найдите любой неизвестный номер</string>
+    <string name="un_fix3_title">Беспорядок в контактах</string>
+    <string name="un_fix3_sub">Удалите дубликаты и находите быстро</string>
+    <string name="un_keep_app">Оставить</string>
+    <string name="un_tip_overlay_title">Разрешите «Поверх других приложений».</string>
+    <string name="un_tip_overlay_text">Это нужно определителю, чтобы показывать имена при звонках.</string>
+    <string name="un_tip_overlay_btn">Исправить</string>
+    <string name="un_tip_notif_title">Лучше отключите уведомления.</string>
+    <string name="un_tip_notif_text">Отключите их в настройках системы. Определитель продолжит работать.</string>
+    <string name="un_tip_notif_btn">Настройки</string>
+    <string name="un_you_said">Ваш ответ: %1$s</string>
+    <string name="un_progress_done">Готово к удалению</string>
+    <string name="un_step_1">Сохраняем ваш отзыв</string>
+    <string name="un_step_2">Готовим сведения о приложении</string>
+    <string name="un_step_3">Открываем сведения о приложении</string>
+    <string name="un_tip_premium_title">Уберите рекламу с Premium.</string>
+    <string name="un_tip_premium_text">Никакой рекламы, безлимитный поиск и Ask AI.</string>
+    <string name="un_tip_premium_btn">Тарифы</string>
+</resources>

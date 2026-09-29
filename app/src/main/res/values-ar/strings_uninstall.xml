@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="un_shortcut">إلغاء التثبيت</string>
+    <string name="un_sorry_title">نأسف للإزعاج</string>
+    <string name="un_sorry_sub">هل هناك ما يزعجك؟ قد نتمكن من إصلاحه.</string>
+    <string name="un_fix">إصلاح</string>
+    <string name="un_try">جرّب</string>
+    <string name="un_dont_uninstall">لا تُلغِ التثبيت الآن</string>
+    <string name="un_still_uninstall">ما زلت أريد إلغاء التثبيت</string>
+    <string name="un_reason_title">لماذا تريد إلغاء التثبيت؟</string>
+    <string name="un_reason_sub">إجابتك تساعدنا على تحسين التطبيق.</string>
+    <string name="un_reason_1">هوية المتصل لا تعرض الأسماء</string>
+    <string name="un_reason_2">نوافذ منبثقة أو إشعارات كثيرة جدًا</string>
+    <string name="un_reason_3">لا أستخدم التطبيق كثيرًا</string>
+    <string name="un_reason_4">إعلانات كثيرة جدًا</string>
+    <string name="un_reason_5">يستهلك الكثير من البطارية أو المساحة</string>
+    <string name="un_reason_6">وجدت تطبيقًا أفضل</string>
+    <string name="un_uninstall">إلغاء التثبيت</string>
+    <string name="un_thanks_title">شكرًا على ملاحظاتك!</string>
+    <string name="un_thanks_sub">جارٍ فتح معلومات التطبيق حيث يمكنك إكمال إلغاء التثبيت.</string>
+    <string name="un_continue">متابعة</string>
+    <string name="un_progress_title">جارٍ التحضير لإلغاء تثبيت %1$s…</string>
+    <string name="un_progress_sub">بعد ذلك، اضغط إلغاء التثبيت في شاشة معلومات التطبيق.</string>
+    <string name="un_progress_ready">جاهز. اضغط إلغاء التثبيت في الشاشة التالية</string>
+    <string name="un_quick_fixes">إصلاحات سريعة</string>
+    <string name="un_fix1_title">هوية المتصل لا تعمل</string>
+    <string name="un_fix1_sub">الأسماء لا تظهر في المكالمات الواردة</string>
+    <string name="un_fix2_title">لا أعرف من اتصل</string>
+    <string name="un_fix2_sub">ابحث عن أي رقم غير معروف</string>
+    <string name="un_fix3_title">جهات الاتصال غير منظّمة</string>
+    <string name="un_fix3_sub">نظّف التكرارات واعثر على الأشخاص بسرعة</string>
+    <string name="un_keep_app">الاحتفاظ بالتطبيق</string>
+    <string name="un_tip_overlay_title">امنح إذن \"الظهور فوق التطبيقات\".</string>
+    <string name="un_tip_overlay_text">تحتاجه هوية المتصل لعرض الأسماء في المكالمات الواردة.</string>
+    <string name="un_tip_overlay_btn">إصلاح</string>
+    <string name="un_tip_notif_title">أوقف الإشعارات بدلًا من ذلك.</string>
+    <string name="un_tip_notif_text">أوقفها من إعدادات النظام. ستستمر هوية المتصل في العمل.</string>
+    <string name="un_tip_notif_btn">الإعدادات</string>
+    <string name="un_you_said">قلت: %1$s</string>
+    <string name="un_progress_done">جاهز لإلغاء التثبيت</string>
+    <string name="un_step_1">جارٍ حفظ ملاحظاتك</string>
+    <string name="un_step_2">جارٍ تجهيز معلومات التطبيق</string>
+    <string name="un_step_3">جارٍ فتح معلومات التطبيق</string>
+    <string name="un_tip_premium_title">تخلّص من الإعلانات مع Premium.</string>
+    <string name="un_tip_premium_text">بلا إعلانات في أي مكان، مع بحث وAsk AI غير محدودين.</string>
+    <string name="un_tip_premium_btn">عرض الخطط</string>
+</resources>

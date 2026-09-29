@@ -367,12 +367,14 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
 
         // "Identify this number" from Call Details drops the user directly on Lookup.
         handleLookupIntent(intent)
+        handleOpenTarget(intent)
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
         handleLookupIntent(intent)
+        handleOpenTarget(intent)
     }
 
     /**
@@ -389,6 +391,25 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         val number = intent?.getStringExtra(EXTRA_LOOKUP_NUMBER)?.takeIf { it.isNotBlank() } ?: return
         intent.removeExtra(EXTRA_LOOKUP_NUMBER)
         showLookup(number)
+    }
+
+    /**
+     * Honours [EXTRA_OPEN_TARGET] - where a caller outside the shell wants the user
+     * to land. The uninstall funnel's quick fixes use it: "Contacts are messy" opens
+     * Contacts, "Can't tell who called" opens Lookup, and "Caller ID not working"
+     * starts the overlay grant, which is what makes names show on incoming calls.
+     * Consumed on the way through, like the lookup extra, so a configuration
+     * change cannot replay it.
+     */
+    private fun handleOpenTarget(intent: Intent?) {
+        val target = intent?.getStringExtra(EXTRA_OPEN_TARGET) ?: return
+        intent.removeExtra(EXTRA_OPEN_TARGET)
+        when (target) {
+            TARGET_CONTACTS -> tabs.indexOfFirst { it.fragment is ContactListFragment }
+                .takeIf { it >= 0 }?.let { select(it) }
+            TARGET_LOOKUP -> showLookup()
+            TARGET_OVERLAY -> startOverlayPermissionFlow()
+        }
     }
 
     // --- Permission priming (bottom sheet) ---
@@ -964,5 +985,11 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
 
         /** Intent extra carrying a number to identify; opens the Lookup screen. */
         const val EXTRA_LOOKUP_NUMBER = "extra_shell_lookup_number"
+
+        /** Where to land on open: one of [TARGET_CONTACTS], [TARGET_LOOKUP], [TARGET_OVERLAY]. */
+        const val EXTRA_OPEN_TARGET = "extra_shell_open_target"
+        const val TARGET_CONTACTS = "contacts"
+        const val TARGET_LOOKUP = "lookup"
+        const val TARGET_OVERLAY = "overlay"
     }
 }

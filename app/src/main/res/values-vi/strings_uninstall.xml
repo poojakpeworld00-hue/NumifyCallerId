@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="un_shortcut">Gỡ cài đặt</string>
+    <string name="un_sorry_title">Xin lỗi vì sự bất tiện</string>
+    <string name="un_sorry_sub">Có điều gì làm bạn khó chịu? Có thể chúng tôi khắc phục được.</string>
+    <string name="un_fix">Sửa</string>
+    <string name="un_try">Thử</string>
+    <string name="un_dont_uninstall">Chưa gỡ cài đặt</string>
+    <string name="un_still_uninstall">Vẫn muốn gỡ cài đặt</string>
+    <string name="un_reason_title">Vì sao bạn muốn gỡ cài đặt?</string>
+    <string name="un_reason_sub">Câu trả lời của bạn giúp chúng tôi cải thiện ứng dụng.</string>
+    <string name="un_reason_1">ID người gọi không hiện tên</string>
+    <string name="un_reason_2">Quá nhiều cửa sổ bật lên hoặc thông báo</string>
+    <string name="un_reason_3">Tôi không dùng ứng dụng thường xuyên</string>
+    <string name="un_reason_4">Quá nhiều quảng cáo</string>
+    <string name="un_reason_5">Tốn quá nhiều pin hoặc bộ nhớ</string>
+    <string name="un_reason_6">Tôi đã tìm được ứng dụng tốt hơn</string>
+    <string name="un_uninstall">Gỡ cài đặt</string>
+    <string name="un_thanks_title">Cảm ơn phản hồi của bạn!</string>
+    <string name="un_thanks_sub">Đang mở Thông tin ứng dụng, nơi bạn có thể hoàn tất gỡ cài đặt.</string>
+    <string name="un_continue">Tiếp tục</string>
+    <string name="un_progress_title">Đang chuẩn bị gỡ cài đặt %1$s…</string>
+    <string name="un_progress_sub">Tiếp theo, nhấn Gỡ cài đặt trên màn hình Thông tin ứng dụng.</string>
+    <string name="un_progress_ready">Sẵn sàng. Nhấn Gỡ cài đặt ở màn hình tiếp theo</string>
+    <string name="un_quick_fixes">Khắc phục nhanh</string>
+    <string name="un_fix1_title">ID người gọi không hoạt động</string>
+    <string name="un_fix1_sub">Không hiện tên khi có cuộc gọi đến</string>
+    <string name="un_fix2_title">Không biết ai đã gọi</string>
+    <string name="un_fix2_sub">Tra cứu bất kỳ số lạ nào</string>
+    <string name="un_fix3_title">Danh bạ lộn xộn</string>
+    <string name="un_fix3_sub">Xóa trùng lặp và tìm nhanh</string>
+    <string name="un_keep_app">Giữ ứng dụng</string>
+    <string name="un_tip_overlay_title">Cấp quyền \"Hiển thị trên ứng dụng khác\".</string>
+    <string name="un_tip_overlay_text">ID người gọi cần quyền này để hiện tên khi có cuộc gọi.</string>
+    <string name="un_tip_overlay_btn">Sửa</string>
+    <string name="un_tip_notif_title">Hãy tắt thông báo thay vào đó.</string>
+    <string name="un_tip_notif_text">Tắt trong cài đặt hệ thống. ID người gọi vẫn hoạt động.</string>
+    <string name="un_tip_notif_btn">Cài đặt</string>
+    <string name="un_you_said">Bạn đã chọn: %1$s</string>
+    <string name="un_progress_done">Sẵn sàng gỡ cài đặt</string>
+    <string name="un_step_1">Đang lưu phản hồi của bạn</string>
+    <string name="un_step_2">Đang chuẩn bị Thông tin ứng dụng</string>
+    <string name="un_step_3">Đang mở Thông tin ứng dụng</string>
+    <string name="un_tip_premium_title">Tắt quảng cáo với Premium.</string>
+    <string name="un_tip_premium_text">Không quảng cáo ở bất cứ đâu, cùng tra cứu và Ask AI không giới hạn.</string>
+    <string name="un_tip_premium_btn">Xem các gói</string>
+</resources>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Uninstall flow · 3b thank-you: glowing red heart tile with a pulse ring, the
+     "You said" chip echoing the picked reason, dark Continue button, native ad. -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/un_page"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingStart="26dp"
+        android:paddingEnd="26dp">
+
+        <FrameLayout
+            android:layout_width="130dp"
+            android:layout_height="130dp">
+
+            <View
+                android:id="@+id/heartGlow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_un_heart_glow" />
+
+            <View
+                android:id="@+id/heartRing"
+                android:layout_width="98dp"
+                android:layout_height="98dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_un_heart_ring" />
+
+            <FrameLayout
+                android:id="@+id/heartTile"
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_un_heart_tile"
+                android:elevation="10dp">
+
+                <ImageView
+                    android:id="@+id/ivHeart"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_un_heart"
+                    app:tint="#FFFFFFFF" />
+            </FrameLayout>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/space_grotesk_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/un_thanks_title"
+            android:textColor="@color/un_ink"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/tvSub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/mulish_semibold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lineSpacingMultiplier="1.3"
+            android:text="@string/un_thanks_sub"
+            android:textColor="@color/un_muted"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:id="@+id/chipSaid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_un_card"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_un_g_chat"
+                app:tint="@color/un_tip_fg" />
+
+            <TextView
+                android:id="@+id/tvSaid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:fontFamily="@font/mulish_bold"
+                android:includeFontPadding="false"
+                android:textColor="@color/un_muted"
+                android:textSize="12sp"
+                tools:text="You said: Too many ads" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnContinue"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_un_btn_strong_lg"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mulish_bold"
+            android:includeFontPadding="false"
+            android:text="@string/un_continue"
+            android:textColor="@color/un_strong_fg"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="7dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_un_g_arrow_forward"
+            app:tint="@color/un_strong_fg" />
+    </LinearLayout>
+
+    <FrameLayout style="@style/UnAdCard">
+
+        <FrameLayout
+            android:id="@+id/adNativeFrame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/adShimmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/admob_big_native" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </FrameLayout>
+    </FrameLayout>
+</LinearLayout>
+</layout>

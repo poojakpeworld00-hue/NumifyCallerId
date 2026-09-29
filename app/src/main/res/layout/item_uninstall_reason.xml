@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One exit-survey row: tinted icon tile, label, radio ring + dot. Selection is the
+     row's `selected` state (drives the row and ring backgrounds). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:background="@drawable/bg_un_reason_row"
+    android:gravity="center_vertical"
+    android:minHeight="46dp"
+    android:orientation="horizontal"
+    android:paddingStart="10dp"
+    android:paddingTop="7dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="7dp">
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_un_tile_sm"
+        android:contentDescription="@null"
+        android:padding="6dp"
+        tools:backgroundTint="@color/un_tile_red_bg"
+        tools:src="@drawable/ic_un_g_person_off"
+        tools:tint="@color/un_tile_red_fg" />
+
+    <TextView
+        android:id="@+id/tvLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginEnd="11dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/mulish_semibold"
+        android:includeFontPadding="false"
+        android:textColor="@color/un_ink"
+        android:textSize="13.5sp"
+        tools:text="Caller ID doesn't show names" />
+
+    <FrameLayout
+        android:id="@+id/radio"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/bg_un_radio"
+        android:duplicateParentState="true">
+
+        <View
+            android:id="@+id/radioDot"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_un_radio_dot"
+            android:visibility="invisible" />
+    </FrameLayout>
+</LinearLayout>

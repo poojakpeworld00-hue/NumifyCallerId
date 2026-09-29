@@ -120,6 +120,25 @@
             android:name=".feature.premium.PremiumActivity"
             android:exported="false" />
 
+        <!-- Uninstall funnel, entered from the dynamic launcher "Uninstall" shortcut
+             (feature/uninstall/UninstallFlow). Ends on the system App-info page. -->
+        <activity
+            android:name=".feature.uninstall.UninstallSorryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".feature.uninstall.UninstallReasonActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".feature.uninstall.UninstallThanksActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".feature.uninstall.UninstallProgressActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
         <!-- Contact search. adjustResize so the results list shortens for the
              keyboard instead of scrolling underneath it, and stateVisible because
              the screen exists to be typed into — arriving with the keyboard down

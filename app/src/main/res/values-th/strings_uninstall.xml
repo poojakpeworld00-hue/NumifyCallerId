@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="un_shortcut">ถอนการติดตั้ง</string>
+    <string name="un_sorry_title">ขออภัยในความไม่สะดวก</string>
+    <string name="un_sorry_sub">มีอะไรกวนใจอยู่หรือเปล่า เราอาจช่วยแก้ไขได้</string>
+    <string name="un_fix">แก้ไข</string>
+    <string name="un_try">ลองใช้</string>
+    <string name="un_dont_uninstall">ยังไม่ถอนการติดตั้ง</string>
+    <string name="un_still_uninstall">ยังต้องการถอนการติดตั้ง</string>
+    <string name="un_reason_title">ทำไมคุณถึงต้องการถอนการติดตั้ง</string>
+    <string name="un_reason_sub">คำตอบของคุณช่วยให้เราปรับปรุงแอปได้</string>
+    <string name="un_reason_1">หมายเลขผู้โทรไม่แสดงชื่อ</string>
+    <string name="un_reason_2">ป๊อปอัปหรือการแจ้งเตือนมากเกินไป</string>
+    <string name="un_reason_3">ไม่ค่อยได้ใช้แอป</string>
+    <string name="un_reason_4">โฆษณามากเกินไป</string>
+    <string name="un_reason_5">ใช้แบตเตอรี่หรือพื้นที่มากเกินไป</string>
+    <string name="un_reason_6">เจอแอปที่ดีกว่า</string>
+    <string name="un_uninstall">ถอนการติดตั้ง</string>
+    <string name="un_thanks_title">ขอบคุณสำหรับความคิดเห็น</string>
+    <string name="un_thanks_sub">กำลังเปิดข้อมูลแอป ซึ่งคุณสามารถถอนการติดตั้งให้เสร็จได้</string>
+    <string name="un_continue">ดำเนินการต่อ</string>
+    <string name="un_progress_title">กำลังเตรียมถอนการติดตั้ง %1$s…</string>
+    <string name="un_progress_sub">จากนั้นแตะถอนการติดตั้งในหน้าข้อมูลแอป</string>
+    <string name="un_progress_ready">พร้อมแล้ว แตะถอนการติดตั้งในหน้าถัดไป</string>
+    <string name="un_quick_fixes">แก้ไขด่วน</string>
+    <string name="un_fix1_title">หมายเลขผู้โทรไม่ทำงาน</string>
+    <string name="un_fix1_sub">ไม่แสดงชื่อเมื่อมีสายเรียกเข้า</string>
+    <string name="un_fix2_title">ไม่รู้ว่าใครโทรมา</string>
+    <string name="un_fix2_sub">ค้นหาหมายเลขที่ไม่รู้จัก</string>
+    <string name="un_fix3_title">รายชื่อยุ่งเหยิง</string>
+    <string name="un_fix3_sub">ลบรายชื่อซ้ำและค้นหาได้รวดเร็ว</string>
+    <string name="un_keep_app">เก็บแอปไว้</string>
+    <string name="un_tip_overlay_title">อนุญาต \"แสดงทับแอปอื่น\"</string>
+    <string name="un_tip_overlay_text">หมายเลขผู้โทรต้องใช้สิทธิ์นี้เพื่อแสดงชื่อเมื่อมีสายเข้า</string>
+    <string name="un_tip_overlay_btn">แก้ไข</string>
+    <string name="un_tip_notif_title">ปิดการแจ้งเตือนแทน</string>
+    <string name="un_tip_notif_text">ปิดได้ในการตั้งค่าระบบ หมายเลขผู้โทรยังทำงานต่อ</string>
+    <string name="un_tip_notif_btn">การตั้งค่า</string>
+    <string name="un_you_said">คุณตอบว่า: %1$s</string>
+    <string name="un_progress_done">พร้อมถอนการติดตั้ง</string>
+    <string name="un_step_1">กำลังบันทึกความคิดเห็น</string>
+    <string name="un_step_2">กำลังเตรียมข้อมูลแอป</string>
+    <string name="un_step_3">กำลังเปิดข้อมูลแอป</string>
+    <string name="un_tip_premium_title">ปิดโฆษณาด้วย Premium</string>
+    <string name="un_tip_premium_text">ไม่มีโฆษณาเลย พร้อมค้นหาและ Ask AI ไม่จำกัด</string>
+    <string name="un_tip_premium_btn">ดูแพ็กเกจ</string>
+</resources>

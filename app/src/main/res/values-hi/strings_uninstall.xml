@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="un_shortcut">अनइंस्टॉल</string>
+    <string name="un_sorry_title">असुविधा के लिए खेद है</string>
+    <string name="un_sorry_sub">क्या कुछ परेशान कर रहा है? शायद हम इसे ठीक कर सकें।</string>
+    <string name="un_fix">ठीक करें</string>
+    <string name="un_try">आज़माएँ</string>
+    <string name="un_dont_uninstall">अभी अनइंस्टॉल न करें</string>
+    <string name="un_still_uninstall">फिर भी अनइंस्टॉल करना है</string>
+    <string name="un_reason_title">आप अनइंस्टॉल क्यों करना चाहते हैं?</string>
+    <string name="un_reason_sub">आपका जवाब ऐप को बेहतर बनाने में मदद करता है।</string>
+    <string name="un_reason_1">कॉलर आईडी नाम नहीं दिखाती</string>
+    <string name="un_reason_2">बहुत ज़्यादा पॉप-अप या सूचनाएँ</string>
+    <string name="un_reason_3">मैं ऐप अक्सर इस्तेमाल नहीं करता</string>
+    <string name="un_reason_4">बहुत ज़्यादा विज्ञापन</string>
+    <string name="un_reason_5">बहुत ज़्यादा बैटरी या स्टोरेज लेता है</string>
+    <string name="un_reason_6">मुझे बेहतर ऐप मिल गया</string>
+    <string name="un_uninstall">अनइंस्टॉल</string>
+    <string name="un_thanks_title">आपकी प्रतिक्रिया के लिए धन्यवाद!</string>
+    <string name="un_thanks_sub">ऐप जानकारी खुल रही है, जहाँ आप अनइंस्टॉल पूरा कर सकते हैं।</string>
+    <string name="un_continue">जारी रखें</string>
+    <string name="un_progress_title">%1$s को अनइंस्टॉल करने की तैयारी…</string>
+    <string name="un_progress_sub">इसके बाद, ऐप जानकारी स्क्रीन पर अनइंस्टॉल दबाएँ।</string>
+    <string name="un_progress_ready">तैयार। अगली स्क्रीन पर अनइंस्टॉल दबाएँ</string>
+    <string name="un_quick_fixes">त्वरित समाधान</string>
+    <string name="un_fix1_title">कॉलर आईडी काम नहीं कर रही</string>
+    <string name="un_fix1_sub">आने वाली कॉल पर नाम नहीं दिखते</string>
+    <string name="un_fix2_title">पता नहीं किसने कॉल किया</string>
+    <string name="un_fix2_sub">कोई भी अनजान नंबर खोजें</string>
+    <string name="un_fix3_title">संपर्क बिखरे हुए हैं</string>
+    <string name="un_fix3_sub">डुप्लिकेट हटाएँ और जल्दी खोजें</string>
+    <string name="un_keep_app">ऐप रखें</string>
+    <string name="un_tip_overlay_title">\"अन्य ऐप्स के ऊपर दिखाएँ\" की अनुमति दें।</string>
+    <string name="un_tip_overlay_text">कॉल पर नाम दिखाने के लिए कॉलर आईडी को इसकी ज़रूरत है।</string>
+    <string name="un_tip_overlay_btn">ठीक करें</string>
+    <string name="un_tip_notif_title">इसके बजाय सूचनाएँ बंद करें।</string>
+    <string name="un_tip_notif_text">सिस्टम सेटिंग में इन्हें बंद करें। कॉलर आईडी काम करती रहेगी।</string>
+    <string name="un_tip_notif_btn">सेटिंग</string>
+    <string name="un_you_said">आपने कहा: %1$s</string>
+    <string name="un_progress_done">अनइंस्टॉल के लिए तैयार</string>
+    <string name="un_step_1">आपकी प्रतिक्रिया सहेजी जा रही है</string>
+    <string name="un_step_2">ऐप जानकारी तैयार की जा रही है</string>
+    <string name="un_step_3">ऐप जानकारी खोली जा रही है</string>
+    <string name="un_tip_premium_title">Premium से विज्ञापन हटाएँ।</string>
+    <string name="un_tip_premium_text">कहीं भी विज्ञापन नहीं, साथ में असीमित खोज और Ask AI।</string>
+    <string name="un_tip_premium_btn">प्लान देखें</string>
+</resources>

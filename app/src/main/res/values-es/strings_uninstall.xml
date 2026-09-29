@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="un_shortcut">Desinstalar</string>
+    <string name="un_sorry_title">Sentimos las molestias</string>
+    <string name="un_sorry_sub">¿Algo te molesta? Quizá podamos solucionarlo.</string>
+    <string name="un_fix">Arreglar</string>
+    <string name="un_try">Probar</string>
+    <string name="un_dont_uninstall">No desinstalar todavía</string>
+    <string name="un_still_uninstall">Aun así quiero desinstalar</string>
+    <string name="un_reason_title">¿Por qué quieres desinstalar?</string>
+    <string name="un_reason_sub">Tu respuesta nos ayuda a mejorar la app.</string>
+    <string name="un_reason_1">El identificador no muestra nombres</string>
+    <string name="un_reason_2">Demasiadas ventanas o notificaciones</string>
+    <string name="un_reason_3">No uso la app a menudo</string>
+    <string name="un_reason_4">Demasiados anuncios</string>
+    <string name="un_reason_5">Usa demasiada batería o almacenamiento</string>
+    <string name="un_reason_6">Encontré una app mejor</string>
+    <string name="un_uninstall">Desinstalar</string>
+    <string name="un_thanks_title">¡Gracias por tus comentarios!</string>
+    <string name="un_thanks_sub">Abriendo Información de la app, donde puedes terminar de desinstalar.</string>
+    <string name="un_continue">Continuar</string>
+    <string name="un_progress_title">Preparando la desinstalación de %1$s…</string>
+    <string name="un_progress_sub">Después, toca Desinstalar en Información de la app.</string>
+    <string name="un_progress_ready">Listo. Toca Desinstalar en la siguiente pantalla</string>
+    <string name="un_quick_fixes">Soluciones rápidas</string>
+    <string name="un_fix1_title">El identificador no funciona</string>
+    <string name="un_fix1_sub">No se ven los nombres en las llamadas</string>
+    <string name="un_fix2_title">No sabes quién llamó</string>
+    <string name="un_fix2_sub">Busca cualquier número desconocido</string>
+    <string name="un_fix3_title">Contactos desordenados</string>
+    <string name="un_fix3_sub">Elimina duplicados y encuentra a cualquiera</string>
+    <string name="un_keep_app">Conservar app</string>
+    <string name="un_tip_overlay_title">Activa \"Mostrar sobre otras apps\".</string>
+    <string name="un_tip_overlay_text">El identificador lo necesita para mostrar nombres en las llamadas.</string>
+    <string name="un_tip_overlay_btn">Arreglar</string>
+    <string name="un_tip_notif_title">Silencia las notificaciones.</string>
+    <string name="un_tip_notif_text">Desactívalas en los ajustes del sistema. El identificador sigue funcionando.</string>
+    <string name="un_tip_notif_btn">Ajustes</string>
+    <string name="un_you_said">Dijiste: %1$s</string>
+    <string name="un_progress_done">Listo para desinstalar</string>
+    <string name="un_step_1">Guardando tus comentarios</string>
+    <string name="un_step_2">Preparando Información de la app</string>
+    <string name="un_step_3">Abriendo Información de la app</string>
+    <string name="un_tip_premium_title">Quita los anuncios con Premium.</string>
+    <string name="un_tip_premium_text">Sin anuncios en ningún sitio, con búsquedas y Ask AI ilimitados.</string>
+    <string name="un_tip_premium_btn">Ver planes</string>
+</resources>

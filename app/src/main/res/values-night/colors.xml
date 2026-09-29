@@ -201,4 +201,42 @@
          raised surface with a light glyph. -->
     <color name="premium_close_bg">#1C2231</color>
     <color name="premium_close_icon">#C9CFDD</color>
+    <!-- Uninstall funnel, dark. -->
+    <color name="un_page">#0E1117</color>
+    <color name="un_surface">#171B24</color>
+    <color name="un_ink">#F2F4FA</color>
+    <color name="un_muted">#8A93A8</color>
+    <color name="un_border">#222834</color>
+    <color name="un_radio_idle">#3A4256</color>
+    <color name="un_row_selected">#16233B</color>
+    <color name="un_strong_bg">#E9EDF5</color>
+    <color name="un_strong_fg">#12172B</color>
+    <color name="un_success">#22C55E</color>
+    <color name="un_step_idle">#3A4256</color>
+    <color name="un_step_idle_text">#6A7285</color>
+    <color name="un_tip_bg">#16233B</color>
+    <color name="un_tip_border">#24365A</color>
+    <color name="un_tip_fg">#8CB2FF</color>
+    <color name="un_danger_border">#4A2226</color>
+    <color name="un_danger_fg">#F87171</color>
+    <color name="un_toast_check">#15803D</color>
+    <color name="un_heart_start">#F26A6E</color>
+    <color name="un_heart_end">#D12F35</color>
+    <color name="un_heart_glow">#40E5484D</color>
+    <color name="un_heart_ring">#66E5484D</color>
+    <color name="un_ready_bg">#0F2E22</color>
+    <color name="un_ready_fg">#4ADE80</color>
+    <color name="un_tile_blue_bg">#1A2A4A</color>
+    <color name="un_tile_blue_fg">#8CB2FF</color>
+    <color name="un_tile_green_bg">#0F2E22</color>
+    <color name="un_tile_green_fg">#4ADE80</color>
+    <color name="un_tile_purple_bg">#2A1F4A</color>
+    <color name="un_tile_purple_fg">#B69CFF</color>
+    <color name="un_tile_amber_bg">#3A2A12</color>
+    <color name="un_tile_amber_fg">#FBBF24</color>
+    <color name="un_tile_red_bg">#3A1A1C</color>
+    <color name="un_tile_red_fg">#F87171</color>
+    <color name="un_tile_grey_bg">#222834</color>
+    <color name="un_tile_grey_fg">#C9CED8</color>
+
 </resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="un_shortcut">Kaldır</string>
+    <string name="un_sorry_title">Rahatsızlık için üzgünüz</string>
+    <string name="un_sorry_sub">Sizi rahatsız eden bir şey mi var? Belki düzeltebiliriz.</string>
+    <string name="un_fix">Düzelt</string>
+    <string name="un_try">Dene</string>
+    <string name="un_dont_uninstall">Henüz kaldırma</string>
+    <string name="un_still_uninstall">Yine de kaldırmak istiyorum</string>
+    <string name="un_reason_title">Neden kaldırmak istiyorsunuz?</string>
+    <string name="un_reason_sub">Yanıtınız uygulamayı geliştirmemize yardımcı olur.</string>
+    <string name="un_reason_1">Arayan kimliği isimleri göstermiyor</string>
+    <string name="un_reason_2">Çok fazla açılır pencere veya bildirim</string>
+    <string name="un_reason_3">Uygulamayı sık kullanmıyorum</string>
+    <string name="un_reason_4">Çok fazla reklam</string>
+    <string name="un_reason_5">Çok fazla pil veya depolama kullanıyor</string>
+    <string name="un_reason_6">Daha iyi bir uygulama buldum</string>
+    <string name="un_uninstall">Kaldır</string>
+    <string name="un_thanks_title">Geri bildiriminiz için teşekkürler!</string>
+    <string name="un_thanks_sub">Uygulama bilgileri açılıyor; kaldırma işlemini orada tamamlayabilirsiniz.</string>
+    <string name="un_continue">Devam</string>
+    <string name="un_progress_title">%1$s kaldırılmaya hazırlanıyor…</string>
+    <string name="un_progress_sub">Ardından Uygulama bilgileri ekranında Kaldır\'a dokunun.</string>
+    <string name="un_progress_ready">Hazır. Sonraki ekranda Kaldır\'a dokunun</string>
+    <string name="un_quick_fixes">Hızlı çözümler</string>
+    <string name="un_fix1_title">Arayan kimliği çalışmıyor</string>
+    <string name="un_fix1_sub">Gelen aramalarda isimler görünmüyor</string>
+    <string name="un_fix2_title">Kimin aradığını bilmiyor musunuz</string>
+    <string name="un_fix2_sub">Bilinmeyen numarayı arayın</string>
+    <string name="un_fix3_title">Kişiler dağınık</string>
+    <string name="un_fix3_sub">Kopyaları temizleyin, hızla bulun</string>
+    <string name="un_keep_app">Uygulamayı tut</string>
+    <string name="un_tip_overlay_title">\"Diğer uygulamaların üzerinde göster\" izni verin.</string>
+    <string name="un_tip_overlay_text">Arayan kimliğinin aramalarda isim göstermesi için gerekir.</string>
+    <string name="un_tip_overlay_btn">Düzelt</string>
+    <string name="un_tip_notif_title">Bunun yerine bildirimleri kapatın.</string>
+    <string name="un_tip_notif_text">Sistem ayarlarından kapatın. Arayan kimliği çalışmaya devam eder.</string>
+    <string name="un_tip_notif_btn">Ayarlar</string>
+    <string name="un_you_said">Yanıtınız: %1$s</string>
+    <string name="un_progress_done">Kaldırmaya hazır</string>
+    <string name="un_step_1">Geri bildiriminiz kaydediliyor</string>
+    <string name="un_step_2">Uygulama bilgileri hazırlanıyor</string>
+    <string name="un_step_3">Uygulama bilgileri açılıyor</string>
+    <string name="un_tip_premium_title">Premium ile reklamlardan kurtul.</string>
+    <string name="un_tip_premium_text">Hiçbir yerde reklam yok, üstelik sınırsız sorgulama ve Ask AI.</string>
+    <string name="un_tip_premium_btn">Planları gör</string>
+</resources>

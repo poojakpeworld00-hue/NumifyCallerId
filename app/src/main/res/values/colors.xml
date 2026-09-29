@@ -403,4 +403,42 @@
     <color name="paywall_badge_shadow">#402E5FE8</color>
     <color name="paywall_crown_shadow">#66D98315</color>
     <color name="paywall_continue">#5B6378</color>
+    <!-- Uninstall funnel (ported from CallerIDNumReveal's "Uninstall Flow Redesign"). -->
+    <color name="un_page">#F6F8FC</color>
+    <color name="un_surface">#FFFFFF</color>
+    <color name="un_ink">#12172B</color>
+    <color name="un_muted">#5E6478</color>
+    <color name="un_border">#E9EDF5</color>
+    <color name="un_radio_idle">#C9CED8</color>
+    <color name="un_row_selected">#F5F8FF</color>
+    <color name="un_strong_bg">#12172B</color>
+    <color name="un_strong_fg">#FFFFFF</color>
+    <color name="un_success">#12B76A</color>
+    <color name="un_step_idle">#C9D3E8</color>
+    <color name="un_step_idle_text">#8A91A6</color>
+    <color name="un_tip_bg">#EEF4FF</color>
+    <color name="un_tip_border">#D6E3FC</color>
+    <color name="un_tip_fg">#1D4ED8</color>
+    <color name="un_danger_border">#F5C2C2</color>
+    <color name="un_danger_fg">#B42318</color>
+    <color name="un_toast_check">#8FEFC0</color>
+    <color name="un_heart_start">#F26A6E</color>
+    <color name="un_heart_end">#D12F35</color>
+    <color name="un_heart_glow">#2EE5484D</color>
+    <color name="un_heart_ring">#59E5484D</color>
+    <color name="un_ready_bg">#E7F7EE</color>
+    <color name="un_ready_fg">#067647</color>
+    <color name="un_tile_blue_bg">#EEF4FF</color>
+    <color name="un_tile_blue_fg">#1D4ED8</color>
+    <color name="un_tile_green_bg">#E7F7EE</color>
+    <color name="un_tile_green_fg">#067647</color>
+    <color name="un_tile_purple_bg">#F1ECFE</color>
+    <color name="un_tile_purple_fg">#6D28D9</color>
+    <color name="un_tile_amber_bg">#FEF3E2</color>
+    <color name="un_tile_amber_fg">#B45309</color>
+    <color name="un_tile_red_bg">#FDECEC</color>
+    <color name="un_tile_red_fg">#B42318</color>
+    <color name="un_tile_grey_bg">#F1F4F9</color>
+    <color name="un_tile_grey_fg">#3A4050</color>
+
 </resources>

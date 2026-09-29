@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="un_shortcut">卸载</string>
+    <string name="un_sorry_title">抱歉给您带来不便</string>
+    <string name="un_sorry_sub">遇到什么问题了吗？我们也许能帮您解决。</string>
+    <string name="un_fix">修复</string>
+    <string name="un_try">试试</string>
+    <string name="un_dont_uninstall">暂不卸载</string>
+    <string name="un_still_uninstall">仍要卸载</string>
+    <string name="un_reason_title">您为什么要卸载？</string>
+    <string name="un_reason_sub">您的回答有助于我们改进应用。</string>
+    <string name="un_reason_1">来电显示不显示名字</string>
+    <string name="un_reason_2">弹窗或通知太多</string>
+    <string name="un_reason_3">我不常使用这个应用</string>
+    <string name="un_reason_4">广告太多</string>
+    <string name="un_reason_5">耗电或占用存储太多</string>
+    <string name="un_reason_6">我找到了更好的应用</string>
+    <string name="un_uninstall">卸载</string>
+    <string name="un_thanks_title">感谢您的反馈！</string>
+    <string name="un_thanks_sub">正在打开应用信息，您可以在那里完成卸载。</string>
+    <string name="un_continue">继续</string>
+    <string name="un_progress_title">正在准备卸载 %1$s…</string>
+    <string name="un_progress_sub">接下来，请在应用信息页面点按“卸载”。</string>
+    <string name="un_progress_ready">已就绪。请在下一页点按“卸载”</string>
+    <string name="un_quick_fixes">快速解决</string>
+    <string name="un_fix1_title">来电显示不工作</string>
+    <string name="un_fix1_sub">来电时不显示名字</string>
+    <string name="un_fix2_title">不知道是谁打来的</string>
+    <string name="un_fix2_sub">查询任何陌生号码</string>
+    <string name="un_fix3_title">联系人太乱</string>
+    <string name="un_fix3_sub">清理重复项，快速找到联系人</string>
+    <string name="un_keep_app">保留应用</string>
+    <string name="un_tip_overlay_title">授予“显示在其他应用上层”权限。</string>
+    <string name="un_tip_overlay_text">来电显示需要它才能在来电时显示名字。</string>
+    <string name="un_tip_overlay_btn">修复</string>
+    <string name="un_tip_notif_title">改为关闭通知。</string>
+    <string name="un_tip_notif_text">在系统设置中关闭通知，来电显示仍可使用。</string>
+    <string name="un_tip_notif_btn">设置</string>
+    <string name="un_you_said">您的选择：%1$s</string>
+    <string name="un_progress_done">已准备好卸载</string>
+    <string name="un_step_1">正在保存您的反馈</string>
+    <string name="un_step_2">正在准备应用信息</string>
+    <string name="un_step_3">正在打开应用信息</string>
+    <string name="un_tip_premium_title">开通 Premium，去除广告。</string>
+    <string name="un_tip_premium_text">全程无广告，还能无限次查询和使用 Ask AI。</string>
+    <string name="un_tip_premium_btn">查看方案</string>
+</resources>

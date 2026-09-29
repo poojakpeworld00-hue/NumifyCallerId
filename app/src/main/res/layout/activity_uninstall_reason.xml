@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Uninstall flow · 2b exit survey: icon rows with a radio, a contextual tip under the
+     list when a setting would solve the picked reason, "Keep app" leads, "Uninstall"
+     is the quieter red outline. Rows are inflated from item_uninstall_reason. -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/un_page"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="16dp">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_un_back"
+            android:contentDescription="@string/action_back"
+            android:padding="9dp"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/un_ink" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/space_grotesk_bold"
+            android:includeFontPadding="false"
+            android:text="@string/un_reason_title"
+            android:textColor="@color/un_ink"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:fontFamily="@font/mulish_semibold"
+                android:includeFontPadding="false"
+                android:text="@string/un_reason_sub"
+                android:textColor="@color/un_muted"
+                android:textSize="12.5sp" />
+
+            <LinearLayout
+                android:id="@+id/reasonList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/tipCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_un_tip"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="10dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="8dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_un_g_lightbulb"
+                    app:tint="@color/un_tip_fg" />
+
+                <TextView
+                    android:id="@+id/tvTip"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/mulish_semibold"
+                    android:includeFontPadding="false"
+                    android:lineSpacingMultiplier="1.2"
+                    android:textColor="@color/un_ink"
+                    android:textSize="12sp"
+                    tools:text="Grant Display over apps. Caller ID needs it." />
+
+                <TextView
+                    android:id="@+id/btnTip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/bg_un_tip_btn"
+                    android:fontFamily="@font/mulish_bold"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:textColor="@color/un_tip_fg"
+                    android:textSize="11.5sp"
+                    tools:text="Fix" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/btnKeepApp"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="1.3"
+            android:background="@drawable/bg_un_btn_primary"
+            android:elevation="6dp"
+            android:fontFamily="@font/mulish_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/un_keep_app"
+            android:textColor="@color/on_primary"
+            android:textSize="14.5sp" />
+
+        <LinearLayout
+            android:id="@+id/btnUninstall"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_un_btn_danger"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_un_g_delete"
+                app:tint="@color/un_danger_fg" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:fontFamily="@font/mulish_bold"
+                android:includeFontPadding="false"
+                android:text="@string/un_uninstall"
+                android:textColor="@color/un_danger_fg"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout style="@style/UnAdCard">
+
+        <FrameLayout
+            android:id="@+id/adNativeFrame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/adShimmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/admob_mid_native_two" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </FrameLayout>
+    </FrameLayout>
+</LinearLayout>
+</layout>

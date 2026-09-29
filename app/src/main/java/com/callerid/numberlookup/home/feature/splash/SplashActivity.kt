@@ -7,6 +7,10 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
+import com.callerid.numberlookup.home.feature.language.LanguagePickerActivity
+import com.callerid.numberlookup.home.feature.uninstall.UninstallFlow
+import com.callerid.numberlookup.home.feature.uninstall.UninstallSorryActivity
+import com.callerid.numberlookup.home.monetize.strategy.recordEvent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
@@ -124,6 +128,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         // launcher, hand off to the rich-push activity and skip the splash flow.
         if (LightHouseRichPush.handleFromSplash(this, binding.root)) return
 
+        // Keep the launcher "Uninstall" shortcut in step with the last fetched
+        // config, and note a launch that came from it.
+        UninstallFlow.syncShortcut(this)
+        if (uninstallLaunch) recordEvent("uninstall_shortcut_open")
+
         // One session = one cold start. Bump before nextScreen() so the intro
         // `app_launches` frequency counts this launch.
         prefs.appLaunchCount = prefs.appLaunchCount + 1
@@ -196,8 +205,12 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         // Hand off to the ad module. It runs consent + SDK init + runtime
         // permission prompts + native/banner/interstitial preloads, then
         // fires one of the two callbacks below when it's time to move on.
-        getData(this, true, object : ResultCallback {
+        // From the Uninstall shortcut the splash ad only plays on the `advance`
+        // route, and only where its config asks for it.
+        val isSplash = !uninstallLaunch || (UninstallFlow.isAdvanced() && UninstallFlow.showSplashAd())
+        getData(this, isSplash, object : ResultCallback {
             override fun onSuccess() {
+                UninstallFlow.syncShortcut(this@SplashActivity)
                 Log.d(SPLASH_FLOW_TAG, "getData onSuccess → dataReady")
                 AppOpenAdManager.loadAd(this@SplashActivity)
                 dataReady.set(true)
@@ -283,10 +296,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         LightHouse.ensureDataDisclosure(this) {
             if (isFinishing || isDestroyed) return@ensureDataDisclosure
             LightHouse.subscribeAsync()
-            val next = nextScreen()
-            Log.d(SPLASH_FLOW_TAG, "ensureDataDisclosure done → launching ${next.simpleName}")
+            // The Uninstall shortcut skips onboarding and Home for the funnel.
+            val intent = if (uninstallLaunch) uninstallIntent() else Intent(this, nextScreen())
+            Log.d(SPLASH_FLOW_TAG, "ensureDataDisclosure done → launching ${intent.component?.shortClassName}")
             // Splash → onboarding/main — no interstitial on the very first launch.
-            openActivity(Intent(this, next), isShowAd = false)
+            openActivity(intent, isShowAd = false)
             finish()
         }
     }
@@ -512,6 +526,21 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
      * screen's own `isEnable`, `session` and country gate decide whether it really
      * appears, or [MainShellActivity] once every entry is spent or ineligible.
      */
+    /** Launched from the launcher's "Uninstall" shortcut. */
+    private val uninstallLaunch by lazy { UninstallFlow.isUninstallLaunch(intent) }
+
+    /**
+     * The uninstall funnel's first screen: the language screen on the `advance`
+     * route, straight to "Sorry for the trouble" on the `simple` one.
+     */
+    private fun uninstallIntent(): Intent =
+        if (UninstallFlow.isAdvanced()) {
+            Intent(this, LanguagePickerActivity::class.java)
+                .putExtra(LanguagePickerActivity.EXTRA_FROM_UNINSTALL, true)
+        } else {
+            UninstallSorryActivity.newIntent(this, advanced = false)
+        }
+
     private fun nextScreen(): Class<*> {
         val key = OnboardingStepConfig.firstEligible(this) ?: return MainShellActivity::class.java
         return OnboardingStepConfig.classFor(key)

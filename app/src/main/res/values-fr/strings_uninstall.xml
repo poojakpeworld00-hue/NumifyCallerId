@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="un_shortcut">Désinstaller</string>
+    <string name="un_sorry_title">Désolé pour le désagrément</string>
+    <string name="un_sorry_sub">Quelque chose vous gêne ? Nous pouvons peut-être le régler.</string>
+    <string name="un_fix">Réparer</string>
+    <string name="un_try">Essayer</string>
+    <string name="un_dont_uninstall">Ne pas désinstaller</string>
+    <string name="un_still_uninstall">Désinstaller quand même</string>
+    <string name="un_reason_title">Pourquoi voulez-vous désinstaller ?</string>
+    <string name="un_reason_sub">Votre réponse nous aide à améliorer l\'app.</string>
+    <string name="un_reason_1">L\'identification n\'affiche pas les noms</string>
+    <string name="un_reason_2">Trop de pop-ups ou de notifications</string>
+    <string name="un_reason_3">Je n\'utilise pas souvent l\'app</string>
+    <string name="un_reason_4">Trop de publicités</string>
+    <string name="un_reason_5">Consomme trop de batterie ou d\'espace</string>
+    <string name="un_reason_6">J\'ai trouvé une meilleure app</string>
+    <string name="un_uninstall">Désinstaller</string>
+    <string name="un_thanks_title">Merci pour votre avis !</string>
+    <string name="un_thanks_sub">Ouverture des infos de l\'app, où vous pourrez terminer la désinstallation.</string>
+    <string name="un_continue">Continuer</string>
+    <string name="un_progress_title">Préparation de la désinstallation de %1$s…</string>
+    <string name="un_progress_sub">Ensuite, appuyez sur Désinstaller dans les infos de l\'app.</string>
+    <string name="un_progress_ready">Prêt. Appuyez sur Désinstaller à l\'écran suivant</string>
+    <string name="un_quick_fixes">Solutions rapides</string>
+    <string name="un_fix1_title">L\'identification ne marche pas</string>
+    <string name="un_fix1_sub">Les noms ne s\'affichent pas lors des appels</string>
+    <string name="un_fix2_title">Vous ne savez pas qui a appelé</string>
+    <string name="un_fix2_sub">Recherchez n\'importe quel numéro inconnu</string>
+    <string name="un_fix3_title">Contacts en désordre</string>
+    <string name="un_fix3_sub">Supprimez les doublons et trouvez vite</string>
+    <string name="un_keep_app">Garder l\'app</string>
+    <string name="un_tip_overlay_title">Autorisez \"Superposition\".</string>
+    <string name="un_tip_overlay_text">L\'identification en a besoin pour afficher les noms lors des appels.</string>
+    <string name="un_tip_overlay_btn">Réparer</string>
+    <string name="un_tip_notif_title">Coupez plutôt les notifications.</string>
+    <string name="un_tip_notif_text">Désactivez-les dans les paramètres. L\'identification continue de fonctionner.</string>
+    <string name="un_tip_notif_btn">Paramètres</string>
+    <string name="un_you_said">Votre réponse : %1$s</string>
+    <string name="un_progress_done">Prêt à désinstaller</string>
+    <string name="un_step_1">Enregistrement de votre avis</string>
+    <string name="un_step_2">Préparation des infos de l\'app</string>
+    <string name="un_step_3">Ouverture des infos de l\'app</string>
+    <string name="un_tip_premium_title">Supprimez les pubs avec Premium.</string>
+    <string name="un_tip_premium_text">Aucune publicité, plus des recherches et Ask AI illimités.</string>
+    <string name="un_tip_premium_btn">Voir les offres</string>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="un_shortcut">アンインストール</string>
+    <string name="un_sorry_title">ご不便をおかけしました</string>
+    <string name="un_sorry_sub">何かお困りですか？解決できるかもしれません。</string>
+    <string name="un_fix">修正</string>
+    <string name="un_try">試す</string>
+    <string name="un_dont_uninstall">まだアンインストールしない</string>
+    <string name="un_still_uninstall">それでもアンインストールする</string>
+    <string name="un_reason_title">アンインストールする理由は？</string>
+    <string name="un_reason_sub">回答はアプリの改善に役立ちます。</string>
+    <string name="un_reason_1">発信者IDに名前が表示されない</string>
+    <string name="un_reason_2">ポップアップや通知が多すぎる</string>
+    <string name="un_reason_3">あまりアプリを使わない</string>
+    <string name="un_reason_4">広告が多すぎる</string>
+    <string name="un_reason_5">バッテリーやストレージを使いすぎる</string>
+    <string name="un_reason_6">もっと良いアプリを見つけた</string>
+    <string name="un_uninstall">アンインストール</string>
+    <string name="un_thanks_title">フィードバックありがとうございます！</string>
+    <string name="un_thanks_sub">アプリ情報を開きます。そこでアンインストールを完了できます。</string>
+    <string name="un_continue">続ける</string>
+    <string name="un_progress_title">%1$s のアンインストールを準備中…</string>
+    <string name="un_progress_sub">次に、アプリ情報画面で「アンインストール」をタップしてください。</string>
+    <string name="un_progress_ready">準備完了。次の画面で「アンインストール」をタップ</string>
+    <string name="un_quick_fixes">クイック解決</string>
+    <string name="un_fix1_title">発信者IDが動作しない</string>
+    <string name="un_fix1_sub">着信時に名前が表示されない</string>
+    <string name="un_fix2_title">誰からの電話かわからない</string>
+    <string name="un_fix2_sub">知らない番号を検索</string>
+    <string name="un_fix3_title">連絡先が整理されていない</string>
+    <string name="un_fix3_sub">重複を削除してすぐに検索</string>
+    <string name="un_keep_app">アプリを残す</string>
+    <string name="un_tip_overlay_title">「他のアプリの上に重ねて表示」を許可。</string>
+    <string name="un_tip_overlay_text">着信時に名前を表示するために必要です。</string>
+    <string name="un_tip_overlay_btn">修正</string>
+    <string name="un_tip_notif_title">代わりに通知をオフに。</string>
+    <string name="un_tip_notif_text">システム設定で通知をオフにしても発信者IDは動作します。</string>
+    <string name="un_tip_notif_btn">設定</string>
+    <string name="un_you_said">あなたの回答：%1$s</string>
+    <string name="un_progress_done">アンインストールの準備完了</string>
+    <string name="un_step_1">フィードバックを保存中</string>
+    <string name="un_step_2">アプリ情報を準備中</string>
+    <string name="un_step_3">アプリ情報を開いています</string>
+    <string name="un_tip_premium_title">Premium で広告なしに。</string>
+    <string name="un_tip_premium_text">広告は一切なし。検索と Ask AI も使い放題。</string>
+    <string name="un_tip_premium_btn">プランを見る</string>
+</resources>

@@ -32,6 +32,8 @@ import com.callerid.numberlookup.home.common.WindowInsetsHelper
 import kotlinx.coroutines.launch
 import java.util.Locale
 import com.callerid.numberlookup.home.common.followAdContainer
+import com.callerid.numberlookup.home.feature.uninstall.UninstallSorryActivity
+import com.callerid.numberlookup.home.monetize.strategy.ScreenPlacementPlan
 
 class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
 
@@ -46,6 +48,9 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
     /** True when opened from Settings to change language (vs. the first-run flow). */
     private val standalone by lazy { intent.getBooleanExtra(EXTRA_STANDALONE, false) }
 
+    /** True as the first step of the uninstall funnel's `advance` route. */
+    private val fromUninstall by lazy { intent.getBooleanExtra(EXTRA_FROM_UNINSTALL, false) }
+
     // Two lists share one selection: a compact "Suggested" group and the full
     // "All languages" group. Both adapters observe the same selectedTag.
     private lateinit var suggestedAdapter: LanguageAdapter
@@ -59,7 +64,7 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
     override fun initView() {
         // Count this as an intro show only in the first-run flow (not when opened
         // from Settings to change language) — drives the once/count frequency gate.
-        if (!standalone) OnboardingStepConfig.markShown(this, OnboardingStepConfig.LANGUAGE_KEY)
+        if (!standalone && !fromUninstall) OnboardingStepConfig.markShown(this, OnboardingStepConfig.LANGUAGE_KEY)
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.languageRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -78,15 +83,22 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
         // that should read as a heading. The layout carries the string now, so
         // it needs no code at all.
 
-        // Mid native ad shown above the Continue button.
-        OnboardingFooterAd.render(
-            activity = this,
-            screenKey = OnboardingStepConfig.LANGUAGE_KEY,
-            container = binding.adNativeFrame,
-            shimmer = binding.adShimmer,
-            divider = binding.adNativeDivider,
-            fallbackType = "BigNative",
-        )
+        // Mid native ad shown above the Continue button. The uninstall route has
+        // its own ScreenAds entry, so its ad can be tuned apart from onboarding's.
+        if (fromUninstall) {
+            binding.buttonBack.visibility = View.GONE
+            ScreenPlacementPlan.showAd(UNINSTALL_SCREEN_KEY, this, binding.adNativeFrame, binding.adShimmer)
+            binding.adNativeDivider.followAdContainer(binding.adNativeFrame)
+        } else {
+            OnboardingFooterAd.render(
+                activity = this,
+                screenKey = OnboardingStepConfig.LANGUAGE_KEY,
+                container = binding.adNativeFrame,
+                shimmer = binding.adShimmer,
+                divider = binding.adNativeDivider,
+                fallbackType = "BigNative",
+            )
+        }
 
         // 1) Resolve the region FIRST, before the lists exist. The device seed is
         //    synchronous, so viewModel.suggested/others already hold the correct,
@@ -134,7 +146,7 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
         // callback stays enabled so back never falls through to BaseActivity's exit
         // handler; `forwarding` blocks re-entry) or is left to behave normally
         // (false). Standalone (opened from Settings) always keeps normal back = return.
-        if (!standalone && (step?.onBackPerformNext ?: true)) {
+        if (fromUninstall || (!standalone && (step?.onBackPerformNext ?: true))) {
             onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (forwarding) return
@@ -147,7 +159,7 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
         // `screen.language.autonext` (seconds, 0 = disabled): auto-advance exactly
         // like Continue if the user hasn't interacted by then.
         val autonextSec = step?.autonextSec ?: 0
-        if (!standalone && autonextSec > 0) {
+        if (!standalone && !fromUninstall && autonextSec > 0) {
             autonextHandler.postDelayed({
                 if (forwarding) return@postDelayed
                 forwarding = true
@@ -252,6 +264,17 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
             return
         }
 
+        // Uninstall route: interstitial, then "Sorry for the trouble".
+        if (fromUninstall) {
+            val proceed: () -> Unit = {
+                LanguageRepository.apply(tag)
+                startActivity(UninstallSorryActivity.newIntent(this, advanced = true))
+                finish()
+            }
+            TransitionInterstitialAd().showInterstitial(this) { proceed() }
+            return
+        }
+
         // First-run flow. Show the permission(s) FIRST, then apply the locale and
         // navigate in the completion callback. Applying the locale recreates this
         // Activity, and finishing it early tears it down — either one aborts an
@@ -288,6 +311,8 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
         /** Rows in the "Suggested" card, which the second list's stagger follows on from. */
         private const val SUGGESTED_ROW_COUNT = 2
         private const val EXTRA_STANDALONE = "extra_standalone"
+        const val EXTRA_FROM_UNINSTALL = "extra_from_uninstall"
+        private const val UNINSTALL_SCREEN_KEY = "UninstallLanguageActivity"
 
 
 
