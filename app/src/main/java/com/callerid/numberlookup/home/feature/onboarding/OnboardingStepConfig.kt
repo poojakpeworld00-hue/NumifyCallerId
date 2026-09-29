@@ -34,6 +34,12 @@ object OnboardingStepConfig {
         val key: String,
         val isEnable: Boolean,
         val session: String,
+        /**
+         * `min_launch` - the first app launch this screen may show on (1 = the
+         * first, the default). With `session: "once"` it moves the one showing
+         * later: `min_launch: 2` is "only on the second launch".
+         */
+        val minLaunch: Int,
         val autonextSec: Int,
         val isSkipShow: Boolean,
         val countryCheckEnabled: Boolean,
@@ -124,6 +130,7 @@ object OnboardingStepConfig {
             key = key,
             isEnable = obj.optBoolean("isEnable", true),
             session = obj.optString("session", "every"),
+            minLaunch = obj.optInt("min_launch", 1).coerceAtLeast(1),
             autonextSec = obj.optInt("autonext", 0),
             isSkipShow = obj.optBoolean("isSkipShow", false),
             countryCheckEnabled = obj.optBoolean("is_screenListCountryCheck", false),
@@ -239,6 +246,9 @@ object OnboardingStepConfig {
         val step = stepConfig(context, key) ?: return key == PERMISSION_SHEET_KEY
         if (!step.isEnable) return false
         if (!isCountryAllowed(context, step.countryCheckEnabled, step.excludedCountries)) return false
+        // Not before its launch. The splash bumps appLaunchCount before it asks,
+        // so launch N sees N here.
+        if (SettingsRepository(context).appLaunchCount < step.minLaunch) return false
         return sessionGatePasses(context, key, step.session)
     }
 
