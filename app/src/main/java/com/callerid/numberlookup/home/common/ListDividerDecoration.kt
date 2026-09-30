@@ -46,6 +46,10 @@ class ListDividerDecoration(
             val nextPos = parent.getChildAdapterPosition(next)
             if (rowPos == RecyclerView.NO_POSITION || nextPos == RecyclerView.NO_POSITION) continue
             if (isHeader(rowPos) || isHeader(nextPos)) continue
+            // A change animation (notifyItemChanged) keeps the old and new copy of
+            // a row attached and stacked on each other while they crossfade; a
+            // "boundary" between them would land mid-row as a line through it.
+            if (next.top < row.bottom) continue
 
             val y = (row.bottom + next.top) / 2f
             canvas.drawLine(row.left.toFloat(), y, row.right.toFloat(), y, paint)

@@ -21,6 +21,7 @@ import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.callerid.numberlookup.home.R
 import com.callerid.numberlookup.home.common.ListDividerDecoration
 import com.callerid.numberlookup.home.common.openActivity
@@ -94,7 +95,17 @@ class ContactSearchActivity : BaseActivity<ActivityContactSearchBinding>() {
     override fun initView() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.searchRoot) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.updatePadding(left = bars.left, top = bars.top, right = bars.right, bottom = bars.bottom)
+            // Edge-to-edge turns adjustResize off, so the keyboard has to be padded
+            // for by hand. Without it the list keeps its full height behind the
+            // keyboard: a short result list then "fits" and cannot be scrolled,
+            // while half its rows sit out of sight under the keys.
+            val ime = insets.getInsets(WindowInsetsCompat.Type.ime())
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+                bottom = maxOf(bars.bottom, ime.bottom),
+            )
             insets
         }
 
@@ -103,6 +114,16 @@ class ContactSearchActivity : BaseActivity<ActivityContactSearchBinding>() {
         binding.listResults.addItemDecoration(
             ListDividerDecoration(binding.listResults) { adapter.isHeader(it) }
         )
+        // Scrolling the results means the user is done typing: drop the keyboard
+        // so the list gets the whole screen, as the stock Contacts apps do.
+        binding.listResults.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    hideKeyboard()
+                    binding.inputSearch.clearFocus()
+                }
+            }
+        })
 
         binding.buttonBack.setOnClickListener { goBack() }
         binding.buttonClearSearch.setOnClickListener { binding.inputSearch.setText("") }
