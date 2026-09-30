@@ -218,6 +218,18 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
         binding.listBlocklist.addItemDecoration(
             ListDividerDecoration(binding.listBlocklist)
         )
+        // Room under the last row for the add button, only once the card reaches
+        // down to it. A fixed 80sdp here put a band of empty white at the foot of
+        // a short list, where the button is nowhere near the rows. Posted, since
+        // padding cannot change in the middle of the layout pass that saw it.
+        val fabClearance = resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._80sdp)
+        binding.listBlocklist.addOnLayoutChangeListener { list, _, _, _, _, _, _, _, _ ->
+            val fab = binding.fabAdd
+            val pad = if (fab.visibility == View.VISIBLE && list.bottom > fab.top) fabClearance else 0
+            if (list.paddingBottom != pad) {
+                list.post { list.setPadding(list.paddingLeft, list.paddingTop, list.paddingRight, pad) }
+            }
+        }
 
         // With nothing blocked yet, the empty state IS the add form — no menu in
         // front of it. The FAB opens the same form in a dialog.

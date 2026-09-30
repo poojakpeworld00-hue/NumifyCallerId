@@ -32,7 +32,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/mulish_semibold"
         android:includeFontPadding="false"
-        android:textColor="@color/ds_ink_strong"
+        android:textColor="@color/ds_ink"
         android:textSize="12.5sp"
         tools:text="Today" />
 
