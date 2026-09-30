@@ -400,6 +400,7 @@ class ContactRepository(private val context: Context) {
                     ContactsContract.Groups.TITLE,
                     ContactsContract.Groups.SYSTEM_ID,
                     ContactsContract.Groups.AUTO_ADD,
+                    ContactsContract.Groups.FAVORITES,
                 ),
                 "${ContactsContract.Groups.DELETED} = 0",
                 null,
@@ -409,12 +410,19 @@ class ContactRepository(private val context: Context) {
                 val titleIdx = cursor.getColumnIndex(ContactsContract.Groups.TITLE)
                 val systemIdx = cursor.getColumnIndex(ContactsContract.Groups.SYSTEM_ID)
                 val autoIdx = cursor.getColumnIndex(ContactsContract.Groups.AUTO_ADD)
+                val favIdx = cursor.getColumnIndex(ContactsContract.Groups.FAVORITES)
                 if (idIdx < 0 || titleIdx < 0) return@use
                 while (cursor.moveToNext()) {
                     if (autoIdx >= 0 && cursor.getInt(autoIdx) == 1) continue
+                    // Google's "Starred in Android" mirrors the starred flag, so
+                    // it is the Favourites tab again under another name. It has
+                    // no system id; the provider marks it FAVORITES instead.
+                    if (favIdx >= 0 && cursor.getInt(favIdx) == 1) continue
                     val systemId = if (systemIdx >= 0) cursor.getString(systemIdx) else null
                     if (systemId == SYSTEM_GROUP_ALL) continue
-                    val title = cursor.getString(titleIdx)?.trim().orEmpty()
+                    val rawTitle = cursor.getString(titleIdx)?.trim().orEmpty()
+                    if (rawTitle == STARRED_GROUP_TITLE) continue
+                    val title = rawTitle
                         .removePrefix(SYSTEM_GROUP_PREFIX)
                         .trim()
                         .ifEmpty { systemId.orEmpty() }
@@ -470,5 +478,8 @@ class ContactRepository(private val context: Context) {
 
         /** How Google titles its built-in groups in the provider. */
         const val SYSTEM_GROUP_PREFIX = "System Group:"
+
+        /** Title of Google's starred mirror, for providers that do not flag it FAVORITES. */
+        const val STARRED_GROUP_TITLE = "Starred in Android"
     }
 }
