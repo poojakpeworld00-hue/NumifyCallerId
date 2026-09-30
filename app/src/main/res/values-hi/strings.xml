@@ -914,4 +914,8 @@
         <item quantity="one">%1$d कोशिश</item>
         <item quantity="other">%1$d कोशिशें</item>
     </plurals>
+    <plurals name="contacts_group_count">
+        <item quantity="one">%1$d संपर्क</item>
+        <item quantity="other">%1$d संपर्क</item>
+    </plurals>
 </resources>

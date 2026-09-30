@@ -867,4 +867,7 @@
     <plurals name="blocklist_attempts">
         <item quantity="other">%1$d 次尝试</item>
     </plurals>
+    <plurals name="contacts_group_count">
+        <item quantity="other">%1$d 位联系人</item>
+    </plurals>
 </resources>

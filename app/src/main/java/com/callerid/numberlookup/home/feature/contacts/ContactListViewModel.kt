@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.callerid.numberlookup.home.repository.ContactAccount
+import com.callerid.numberlookup.home.repository.ContactGroup
 import com.callerid.numberlookup.home.repository.ContactRecord
 import com.callerid.numberlookup.home.repository.ContactRepository
 import kotlinx.coroutines.Dispatchers
@@ -86,9 +87,29 @@ class ContactListViewModel(app: Application) : AndroidViewModel(app) {
         rebuild()
     }
 
+    /**
+     * The group opened on the Groups tab, or null while its list of groups shows.
+     * The fragment watches it to decide whether Back closes the group.
+     */
+    private val _openGroup = MutableLiveData<String?>(null)
+    val openGroup: LiveData<String?> = _openGroup
+
     fun applyFilter(filter: ContactFilter) {
-        if (_filter.value == filter) return
+        // Tapping Groups again while inside one goes back to the list of groups.
+        if (_filter.value == filter && _openGroup.value == null) return
         _filter.value = filter
+        _openGroup.value = null
+        rebuild()
+    }
+
+    fun openGroup(title: String) {
+        _openGroup.value = title
+        rebuild()
+    }
+
+    fun closeGroup() {
+        if (_openGroup.value == null) return
+        _openGroup.value = null
         rebuild()
     }
 
@@ -114,6 +135,11 @@ class ContactListViewModel(app: Application) : AndroidViewModel(app) {
 
         // Both passes preserve the incoming name order, so alpha grouping and
         // fast-scroll stay valid downstream.
+        if (tab == ContactFilter.GROUPS) {
+            _rows.value = groupRows(needle)
+            return
+        }
+
         val visible = allContacts
             .filter { inSelectedAccount(it) }
             .filter { tab.accepts(it) }
@@ -137,7 +163,34 @@ class ContactListViewModel(app: Application) : AndroidViewModel(app) {
         ContactFilter.ALL -> true
         ContactFilter.FAVORITES -> contact.starred
         ContactFilter.RECENTS -> contact.lastContacted > 0L
-        ContactFilter.GROUPS -> contact.inGroup
+        ContactFilter.GROUPS -> contact.groups.isNotEmpty()
+    }
+
+    /**
+     * The Groups tab: its groups with a count each, or the open group's members.
+     *
+     * Counted over the contacts the list can show — this account, with a phone
+     * number — so a group never promises more people than opening it produces.
+     * A group with none of those is left off rather than shown as "0 contacts".
+     */
+    private fun groupRows(needle: String): List<ContactRowUi> {
+        val pool = allContacts.filter { inSelectedAccount(it) }
+        val groups = pool
+            .flatMap { it.groups }
+            .groupingBy { it }
+            .eachCount()
+            .map { (title, count) -> ContactGroup(title, count) }
+            .sortedBy { it.title.lowercase(Locale.getDefault()) }
+
+        val open = _openGroup.value?.let { title -> groups.firstOrNull { it.title == title } }
+        if (open == null) {
+            // Gone since it was opened (emptied, or the account switched away
+            // from it): fall back to the list rather than an empty page.
+            if (_openGroup.value != null) _openGroup.value = null
+            return groups.map { ContactRowUi.Group(it) }
+        }
+        val members = pool.filter { open.title in it.groups && it.matches(needle) }
+        return listOf(ContactRowUi.GroupHead(open)) + withInitialHeaders(members)
     }
 
     private fun ContactRecord.matches(needle: String): Boolean =

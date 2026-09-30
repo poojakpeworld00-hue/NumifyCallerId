@@ -322,7 +322,7 @@ class ContactRepository(private val context: Context) {
     }
 
     fun getContacts(): List<ContactRecord> {
-        val groupContactIds = queryGroupContactIds()
+        val groups = groupsByContactId()
         val emails = emailByContactId()
         val accounts = accountByContactId()
         val lastCalls = lastCallByNumber()
@@ -371,7 +371,7 @@ class ContactRepository(private val context: Context) {
                     photoUri = if (photoIdx >= 0) cursor.getString(photoIdx) else null,
                     starred = starredIdx >= 0 && cursor.getInt(starredIdx) == 1,
                     lastContacted = lastCall,
-                    inGroup = groupContactIds.contains(contactId),
+                    groups = groups[contactId].orEmpty(),
                     email = emails[contactId],
                     accountName = accounts[contactId],
                 )
@@ -380,28 +380,95 @@ class ContactRepository(private val context: Context) {
         return byName.values.toList()
     }
 
-    /** Contact IDs that belong to at least one contact group. */
-    private fun queryGroupContactIds(): Set<Long> {
-        val ids = HashSet<Long>()
+    /**
+     * The user's groups, by group row id, with the names people know them by.
+     *
+     * Automatic groups are left out. Google files every synced contact under
+     * "My Contacts" (AUTO_ADD, system id "Contacts"), so counting it made the
+     * Groups tab list nearly the whole address book. Google's other system
+     * groups — Friends, Family, Coworkers — are real groups the user fills by
+     * hand, but the provider titles them "System Group: Family"; the prefix is
+     * dropped so they read like any other.
+     */
+    private fun userGroupTitles(): Map<Long, String> {
+        val out = HashMap<Long, String>()
+        runCatching {
+            context.contentResolver.query(
+                ContactsContract.Groups.CONTENT_URI,
+                arrayOf(
+                    ContactsContract.Groups._ID,
+                    ContactsContract.Groups.TITLE,
+                    ContactsContract.Groups.SYSTEM_ID,
+                    ContactsContract.Groups.AUTO_ADD,
+                ),
+                "${ContactsContract.Groups.DELETED} = 0",
+                null,
+                null
+            )?.use { cursor ->
+                val idIdx = cursor.getColumnIndex(ContactsContract.Groups._ID)
+                val titleIdx = cursor.getColumnIndex(ContactsContract.Groups.TITLE)
+                val systemIdx = cursor.getColumnIndex(ContactsContract.Groups.SYSTEM_ID)
+                val autoIdx = cursor.getColumnIndex(ContactsContract.Groups.AUTO_ADD)
+                if (idIdx < 0 || titleIdx < 0) return@use
+                while (cursor.moveToNext()) {
+                    if (autoIdx >= 0 && cursor.getInt(autoIdx) == 1) continue
+                    val systemId = if (systemIdx >= 0) cursor.getString(systemIdx) else null
+                    if (systemId == SYSTEM_GROUP_ALL) continue
+                    val title = cursor.getString(titleIdx)?.trim().orEmpty()
+                        .removePrefix(SYSTEM_GROUP_PREFIX)
+                        .trim()
+                        .ifEmpty { systemId.orEmpty() }
+                    if (title.isNotEmpty()) out[cursor.getLong(idIdx)] = title
+                }
+            }
+        }
+        return out
+    }
+
+    /**
+     * Which of the user's groups each contact is in, by contact id.
+     *
+     * Groups are named per account, so "Family" in two Google accounts is two
+     * rows in the provider. Keyed by title, they become one group here, which is
+     * how the user thinks of them.
+     */
+    private fun groupsByContactId(): Map<Long, Set<String>> {
+        val titles = userGroupTitles()
+        if (titles.isEmpty()) return emptyMap()
+        val out = HashMap<Long, MutableSet<String>>()
         runCatching {
             context.contentResolver.query(
                 ContactsContract.Data.CONTENT_URI,
-                arrayOf(ContactsContract.Data.CONTACT_ID),
+                arrayOf(
+                    ContactsContract.Data.CONTACT_ID,
+                    ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID,
+                ),
                 "${ContactsContract.Data.MIMETYPE} = ?",
                 arrayOf(ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE),
                 null
             )?.use { cursor ->
                 val idIdx = cursor.getColumnIndex(ContactsContract.Data.CONTACT_ID)
+                val groupIdx = cursor.getColumnIndex(
+                    ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID
+                )
+                if (idIdx < 0 || groupIdx < 0) return@use
                 while (cursor.moveToNext()) {
-                    if (idIdx >= 0) ids.add(cursor.getLong(idIdx))
+                    val title = titles[cursor.getLong(groupIdx)] ?: continue
+                    out.getOrPut(cursor.getLong(idIdx)) { HashSet() }.add(title)
                 }
             }
         }
-        return ids
+        return out
     }
 
     private companion object {
         /** Compare on the last N digits, the rule the whole app matches numbers by. */
         const val MATCH_DIGITS = 10
+
+        /** Google's "My Contacts": every synced contact, so not a group anyone made. */
+        const val SYSTEM_GROUP_ALL = "Contacts"
+
+        /** How Google titles its built-in groups in the provider. */
+        const val SYSTEM_GROUP_PREFIX = "System Group:"
     }
 }

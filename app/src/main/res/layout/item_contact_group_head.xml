@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The top of an open group: a back arrow, the group's name and its count.
+     The whole row is the way back to the list of groups, as the system Back
+     is — the arrow alone would be a small target for the only action here. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:contentDescription="@string/action_back"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="10dp">
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:contentDescription="@null"
+        android:padding="6dp"
+        android:src="@drawable/ic_arrow_back"
+        app:tint="@color/ds_ink" />
+
+    <TextView
+        android:id="@+id/textGroupHeadName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:fontFamily="@font/mulish_bold"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/ds_ink"
+        android:textSize="15.5sp"
+        tools:text="Family" />
+
+    <TextView
+        android:id="@+id/textGroupHeadCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/mulish_semibold"
+        android:includeFontPadding="false"
+        android:textColor="@color/ds_ink_muted"
+        android:textSize="12sp"
+        tools:text="8 contacts" />
+</LinearLayout>

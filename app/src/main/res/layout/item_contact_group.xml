@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One group on the Contacts > Groups tab: its name over how many contacts it
+     holds, and a chevron because the row opens the group rather than acting.
+
+     Same frame as item_contact — 44dp leading disc, 14.5sp name over a 12sp
+     line, 16dp sides — so the list of groups and the members inside one read
+     as the same list. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:minHeight="70dp"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="11dp">
+
+    <ImageView
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/bg_ds_avatar_circle"
+        android:backgroundTint="@color/ds_selected_tint"
+        android:contentDescription="@null"
+        android:padding="12dp"
+        android:src="@drawable/ic_group"
+        app:tint="@color/ds_accent" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textGroupName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/mulish_bold"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/ds_ink"
+            android:textSize="14.5sp"
+            tools:text="Family" />
+
+        <TextView
+            android:id="@+id/textGroupCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/mulish_semibold"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/ds_ink_muted"
+            android:textSize="12sp"
+            tools:text="8 contacts" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_ds_chevron_right"
+        app:tint="@color/ds_ink_muted" />
+</LinearLayout>

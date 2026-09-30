@@ -918,4 +918,8 @@
         <item quantity="one">%1$d intento</item>
         <item quantity="other">%1$d intentos</item>
     </plurals>
+    <plurals name="contacts_group_count">
+        <item quantity="one">%1$d contacto</item>
+        <item quantity="other">%1$d contactos</item>
+    </plurals>
 </resources>

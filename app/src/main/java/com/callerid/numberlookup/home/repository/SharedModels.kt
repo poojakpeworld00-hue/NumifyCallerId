@@ -20,7 +20,12 @@ data class ContactRecord(
     val photoUri: String? = null,
     val starred: Boolean = false,
     val lastContacted: Long = 0L,
-    val inGroup: Boolean = false,
+    /**
+     * Names of the user's own groups this contact is in ("Family", "Work").
+     * Automatic groups such as Google's "My Contacts" are left out; see
+     * ContactRepository.groupsByContactId.
+     */
+    val groups: Set<String> = emptySet(),
     /**
      * The contact's first email address, or null when they have none.
      *
@@ -44,6 +49,12 @@ data class ContactRecord(
  */
 data class ContactAccount(
     val name: String?,
+    val count: Int,
+)
+
+/** One row on the Groups tab: a group's name and how many listed contacts it holds. */
+data class ContactGroup(
+    val title: String,
     val count: Int,
 )
 

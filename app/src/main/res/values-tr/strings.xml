@@ -874,4 +874,8 @@
         <item quantity="one">%1$d deneme</item>
         <item quantity="other">%1$d deneme</item>
     </plurals>
+    <plurals name="contacts_group_count">
+        <item quantity="one">%1$d kişi</item>
+        <item quantity="other">%1$d kişi</item>
+    </plurals>
 </resources>

@@ -1000,4 +1000,8 @@
     <string name="settings_pro_days_fmt">Day %1$d of %2$d · %3$d days left</string>
     <string name="settings_pro_active">Premium is active</string>
     <string name="premium_go_to_app">Go to app</string>
+    <plurals name="contacts_group_count">
+        <item quantity="one">%1$d contact</item>
+        <item quantity="other">%1$d contacts</item>
+    </plurals>
 </resources>

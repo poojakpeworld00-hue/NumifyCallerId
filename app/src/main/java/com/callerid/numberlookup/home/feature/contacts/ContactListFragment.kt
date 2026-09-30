@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -44,7 +45,31 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
     override val screenAdFormat = ScreenAdFormat.NATIVE_BANNER
 
     private val viewModel: ContactListViewModel by viewModels()
-    private val adapter = ContactListAdapter(::dialNumber, ::openDetail)
+    private val adapter = ContactListAdapter(
+        onCall = ::dialNumber,
+        onOpen = ::openDetail,
+        onOpenGroup = { title -> viewModel.openGroup(title) },
+        onCloseGroup = { viewModel.closeGroup() },
+    )
+
+    /**
+     * Back inside an open group returns to the list of groups instead of leaving
+     * the tab. Enabled only while a group is open AND this tab is the one
+     * showing: the shell hides tabs rather than removing them, and a live
+     * callback on a hidden tab would swallow Back on whichever tab is in front.
+     */
+    private val closeGroupOnBack = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() = viewModel.closeGroup()
+    }
+
+    private fun syncBackCallback() {
+        closeGroupOnBack.isEnabled = !isHidden && viewModel.openGroup.value != null
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        syncBackCallback()
+    }
     private val favoritesAdapter = SpeedDialStripAdapter(::openDetail)
     private lateinit var layoutManager: LinearLayoutManager
 
@@ -99,6 +124,8 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
         binding.tabFavorites.setOnClickListener { viewModel.applyFilter(ContactFilter.FAVORITES) }
         binding.tabRecents.setOnClickListener { viewModel.applyFilter(ContactFilter.RECENTS) }
         binding.tabGroups.setOnClickListener { viewModel.applyFilter(ContactFilter.GROUPS) }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, closeGroupOnBack)
 
         setupAlphaIndexTouch()
         binding.buttonGrant.setOnClickListener {
@@ -159,6 +186,12 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
                     else -> binding.tabAll
                 }
             )
+        }
+        viewModel.openGroup.observe(viewLifecycleOwner) {
+            syncBackCallback()
+            // Opening or leaving a group is a new page; start it at the top
+            // rather than wherever the previous list was scrolled to.
+            layoutManager.scrollToPositionWithOffset(0, 0)
         }
         viewModel.rows.observe(viewLifecycleOwner) { rows ->
             adapter.submit(rows)

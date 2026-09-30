@@ -874,4 +874,8 @@
         <item quantity="one">%1$d tentative</item>
         <item quantity="other">%1$d tentatives</item>
     </plurals>
+    <plurals name="contacts_group_count">
+        <item quantity="one">%1$d contact</item>
+        <item quantity="other">%1$d contacts</item>
+    </plurals>
 </resources>

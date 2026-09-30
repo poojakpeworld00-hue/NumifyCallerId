@@ -928,4 +928,8 @@
         <item quantity="many">%1$d محاولة</item>
         <item quantity="other">%1$d محاولة</item>
     </plurals>
+    <plurals name="contacts_group_count">
+        <item quantity="one">%1$d جهة اتصال</item>
+        <item quantity="other">%1$d جهات اتصال</item>
+    </plurals>
 </resources>
