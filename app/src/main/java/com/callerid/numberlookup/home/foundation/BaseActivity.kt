@@ -119,8 +119,12 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
      */
     protected open val appliesAppTextScale: Boolean = true
 
+    /** The saved language this screen was built in; see [onResume]. */
+    private var builtForLanguage: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         applyLocale()
+        builtForLanguage = PreferenceStore.selectedLanguage(this)
         applyTheme(PreferenceStore.selectedTheme(this).ifEmpty { THEME_LIGHT })
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutId)
@@ -385,6 +389,18 @@ abstract class BaseActivity<DB : ViewDataBinding> : AdAwareActivity() {
     override fun onResume() {
         super.onResume()
         applyLocale()
+        // The language was changed on a screen above this one. AppCompat is meant
+        // to recreate every activity for it, but one waiting in the back stack
+        // does not reliably get that, and applyLocale() cannot force it: the
+        // locale is already the application's, so setting it again is a no-op.
+        // Left alone, Settings came back still in the old language, with the old
+        // one named on its Language tile, until it was opened again. Compared
+        // against what this screen was built with, so the rebuilt one does not
+        // recreate again.
+        if (PreferenceStore.selectedLanguage(this) != builtForLanguage) {
+            recreate()
+            return
+        }
         TransitionInterstitialAd.handleSettingsReturn(this)
         // NOTE: no LightHouse.syncPermissionsAsync() here — the SDK syncs
         // permissions internally (≥0.6.4), so an explicit call is redundant.
