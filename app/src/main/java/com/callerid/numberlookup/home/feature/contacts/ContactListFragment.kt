@@ -177,7 +177,9 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
             buildAlphaIndex()
 
             val hasData = rows.isNotEmpty()
-            binding.alphaIndex.visibility = if (hasData) View.VISIBLE else View.GONE
+            // No letters to jump to on Recents, which is ordered by time.
+            binding.alphaIndex.visibility =
+                if (hasData && sectionLetters.isNotEmpty()) View.VISIBLE else View.GONE
             val showEmpty = !hasData && hasContactsPermission()
             if (showEmpty) showEmptyFor(viewModel.filter.value ?: ContactFilter.ALL)
             binding.textEmpty.visibility = if (showEmpty) View.VISIBLE else View.GONE

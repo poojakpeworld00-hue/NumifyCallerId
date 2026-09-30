@@ -3,6 +3,7 @@ package com.callerid.numberlookup.home.repository
 import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
+import android.provider.CallLog
 import android.provider.ContactsContract
 import com.callerid.numberlookup.home.feature.widgets.CallActionHandler
 
@@ -288,10 +289,43 @@ class ContactRepository(private val context: Context) {
         return out
     }
 
+    /**
+     * The newest call per number, keyed by its last [MATCH_DIGITS] digits.
+     *
+     * This is where "last contacted" comes from. The provider's own
+     * LAST_TIME_CONTACTED has been frozen at 0 since Android 10, which left the
+     * Recents filter matching nobody. Empty without READ_CALL_LOG.
+     */
+    private fun lastCallByNumber(): Map<String, Long> {
+        val out = HashMap<String, Long>()
+        runCatching {
+            context.contentResolver.query(
+                CallLog.Calls.CONTENT_URI,
+                arrayOf(CallLog.Calls.NUMBER, CallLog.Calls.DATE),
+                null,
+                null,
+                "${CallLog.Calls.DATE} DESC"
+            )?.use { cursor ->
+                val numberIdx = cursor.getColumnIndex(CallLog.Calls.NUMBER)
+                val dateIdx = cursor.getColumnIndex(CallLog.Calls.DATE)
+                if (numberIdx < 0 || dateIdx < 0) return@use
+                while (cursor.moveToNext()) {
+                    val tail = cursor.getString(numberIdx).orEmpty()
+                        .filter(Char::isDigit)
+                        .takeLast(MATCH_DIGITS)
+                    // Newest first, so the first date seen per number is its latest.
+                    if (tail.isNotEmpty()) out.putIfAbsent(tail, cursor.getLong(dateIdx))
+                }
+            }
+        }
+        return out
+    }
+
     fun getContacts(): List<ContactRecord> {
         val groupContactIds = queryGroupContactIds()
         val emails = emailByContactId()
         val accounts = accountByContactId()
+        val lastCalls = lastCallByNumber()
 
         // Keyed by display name to collapse multiple numbers of the same contact.
         val byName = LinkedHashMap<String, ContactRecord>()
@@ -301,7 +335,6 @@ class ContactRepository(private val context: Context) {
             ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
             ContactsContract.CommonDataKinds.Phone.PHOTO_THUMBNAIL_URI,
             ContactsContract.Contacts.STARRED,
-            ContactsContract.Contacts.LAST_TIME_CONTACTED
         )
 
         context.contentResolver.query(
@@ -316,12 +349,20 @@ class ContactRepository(private val context: Context) {
             val idIdx = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID)
             val photoIdx = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_THUMBNAIL_URI)
             val starredIdx = cursor.getColumnIndex(ContactsContract.Contacts.STARRED)
-            val lastIdx = cursor.getColumnIndex(ContactsContract.Contacts.LAST_TIME_CONTACTED)
 
             while (cursor.moveToNext()) {
                 val name = cursor.getString(nameIdx)?.trim().orEmpty()
-                if (name.isEmpty() || byName.containsKey(name)) continue
+                if (name.isEmpty()) continue
                 val number = cursor.getString(numberIdx)?.trim().orEmpty()
+                val lastCall = lastCalls[number.filter(Char::isDigit).takeLast(MATCH_DIGITS)] ?: 0L
+                // A contact's second or third number still counts towards when
+                // they were last called, even though the row shows the first.
+                byName[name]?.let { existing ->
+                    if (lastCall > existing.lastContacted) {
+                        byName[name] = existing.copy(lastContacted = lastCall)
+                    }
+                    continue
+                }
                 val contactId = if (idIdx >= 0) cursor.getLong(idIdx) else -1L
                 byName[name] = ContactRecord(
                     name = name,
@@ -329,7 +370,7 @@ class ContactRepository(private val context: Context) {
                     initials = CallActionHandler.initials(name, number),
                     photoUri = if (photoIdx >= 0) cursor.getString(photoIdx) else null,
                     starred = starredIdx >= 0 && cursor.getInt(starredIdx) == 1,
-                    lastContacted = if (lastIdx >= 0) cursor.getLong(lastIdx) else 0L,
+                    lastContacted = lastCall,
                     inGroup = groupContactIds.contains(contactId),
                     email = emails[contactId],
                     accountName = accounts[contactId],

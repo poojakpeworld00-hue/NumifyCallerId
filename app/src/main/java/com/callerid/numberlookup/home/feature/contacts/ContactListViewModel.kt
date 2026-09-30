@@ -119,7 +119,13 @@ class ContactListViewModel(app: Application) : AndroidViewModel(app) {
             .filter { tab.accepts(it) }
             .filter { it.matches(needle) }
 
-        _rows.value = withInitialHeaders(visible)
+        // Recents reads newest first, like a call log; letter headers over a
+        // list that is not alphabetical would only mislabel it.
+        _rows.value = if (tab == ContactFilter.RECENTS) {
+            visible.sortedByDescending { it.lastContacted }.map { ContactRowUi.Item(it) }
+        } else {
+            withInitialHeaders(visible)
+        }
     }
 
     private companion object {
