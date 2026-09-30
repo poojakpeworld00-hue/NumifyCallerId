@@ -777,6 +777,7 @@
     <string name="dialer_grid_whatsapp">WhatsApp</string>
     <string name="dialer_grid_ai">Hỏi AI</string>
     <string name="dialer_number_not_saved">Không có trong danh bạ</string>
+    <string name="dialer_service_code">Mã dịch vụ · nhấn Gọi để chạy</string>
     <string name="dialer_send_message">Gửi tin nhắn</string>
     <string name="dialer_lookup_number">Tra cứu số này</string>
     <string name="dialer_send_whatsapp">Nhắn tin qua WhatsApp</string>

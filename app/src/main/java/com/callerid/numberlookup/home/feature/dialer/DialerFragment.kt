@@ -309,7 +309,8 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         val ctx = context ?: return
 
         // Parsed once and shared: this runs on every keystroke.
-        val dialable = hasNumber && DialedNumberCheck.isLookupable(ctx, number)
+        val serviceCode = viewModel.isServiceCode(number)
+        val dialable = hasNumber && !serviceCode && DialedNumberCheck.isLookupable(ctx, number)
         // The whole number belongs to a saved contact: the card heads with that
         // contact instead of the digits, and takes the place of the one-row
         // match list that would otherwise repeat it underneath.
@@ -320,6 +321,10 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         binding.textDialActionsNumber.text = savedName ?: number
         if (saved != null) {
             binding.textDialActionsStatus.text = saved.number
+        } else if (serviceCode) {
+            // A code is run, not saved or looked up: say so instead of
+            // "Not in your contacts", which reads as if a search came up empty.
+            binding.textDialActionsStatus.setText(R.string.dialer_service_code)
         } else {
             binding.textDialActionsStatus.setText(R.string.dialer_number_not_saved)
         }
@@ -328,7 +333,7 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         binding.textDialHeadAvatar.text = CallActionHandler.initials(savedName.orEmpty(), number)
         binding.textDialHeadAvatar.backgroundTintList =
             AvatarPalette.tintFor(ctx, savedName ?: number)
-        binding.rowAddContact.isVisible = saved == null
+        binding.rowAddContact.isVisible = saved == null && !serviceCode
         binding.rowDialMessage.isVisible = dialable
         // A saved contact is someone the user already knows: the card offers only
         // the two ways to reach them, not identifying them or asking about them.
@@ -369,11 +374,19 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
             place(binding.rowDialMessage, one, 0)
             place(binding.rowDialWhatsApp, one, 1)
         } else {
-            place(binding.rowAddContact, one, 0)
-            place(binding.rowDialMessage, one, 1)
-            place(binding.rowDialLookup, two, 0)
-            place(binding.rowDialWhatsApp, two, 1)
-            place(binding.rowDialAskAi, binding.gridRowThree, 0)
+            // Visible cells flow into the rows two at a time, in their usual
+            // order, and hidden ones go to the back. Fixed slots left a hole
+            // wherever a cell was hidden: with no WhatsApp installed, Lookup and
+            // Ask AI each sat alone on a row of their own.
+            val cells = listOf(
+                binding.rowAddContact,
+                binding.rowDialMessage,
+                binding.rowDialLookup,
+                binding.rowDialWhatsApp,
+                binding.rowDialAskAi,
+            ).sortedBy { !it.isVisible }
+            val rows = listOf(one, two, binding.gridRowThree)
+            cells.forEachIndexed { i, cell -> place(cell, rows[i / 2], i % 2) }
         }
     }
 

@@ -777,6 +777,7 @@
     <string name="dialer_grid_whatsapp">WhatsApp</string>
     <string name="dialer_grid_ai">AIに質問</string>
     <string name="dialer_number_not_saved">連絡先にありません</string>
+    <string name="dialer_service_code">サービスコード・［発信］をタップして実行</string>
     <string name="dialer_send_message">メッセージを送信</string>
     <string name="dialer_lookup_number">この番号を検索</string>
     <string name="dialer_send_whatsapp">WhatsAppで送信</string>

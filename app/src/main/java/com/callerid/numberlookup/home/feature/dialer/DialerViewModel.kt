@@ -60,9 +60,13 @@ class DialerViewModel(app: Application) : AndroidViewModel(app) {
      * whose whole job is to respond to keypresses.
      */
     fun savedContact(number: String): com.callerid.numberlookup.home.repository.ContactPhone? {
+        if (isServiceCode(number)) return null
         val key = number.digitsKey()
         return if (key.isEmpty()) null else savedDigits[key]
     }
+
+    /** Typed input carrying "*" or "#": a USSD/MMI code, which no saved number is. */
+    fun isServiceCode(text: String): Boolean = text.any { it == '*' || it == '#' }
 
     /**
      * Rebuilds the searchable pool from the call log **and** the address book.
@@ -146,6 +150,13 @@ class DialerViewModel(app: Application) : AndroidViewModel(app) {
                 .take(TOP_LIMIT)
                 .map { it.item }
                 .toList()
+            return
+        }
+        // "*", "#" make it a service code (*#06#, *123#), not a number. Searching
+        // its digits alone turned "9*8" into "98" and listed every contact with
+        // a 98 in it.
+        if (isServiceCode(query)) {
+            _frequent.value = emptyList()
             return
         }
         val digits = query.filter(Char::isDigit)

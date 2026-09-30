@@ -826,6 +826,7 @@
     <string name="dialer_grid_whatsapp">WhatsApp</string>
     <string name="dialer_grid_ai">Preguntar a la IA</string>
     <string name="dialer_number_not_saved">No está en tus contactos</string>
+    <string name="dialer_service_code">Código de servicio · toca Llamar para ejecutarlo</string>
     <string name="dialer_send_message">Enviar mensaje</string>
     <string name="dialer_lookup_number">Buscar este número</string>
     <string name="dialer_send_whatsapp">Escribir por WhatsApp</string>

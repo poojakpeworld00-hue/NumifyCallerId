@@ -828,6 +828,7 @@
     <string name="dialer_grid_whatsapp">WhatsApp</string>
     <string name="dialer_grid_ai">اسأل الذكاء الاصطناعي</string>
     <string name="dialer_number_not_saved">غير موجود في جهات اتصالك</string>
+    <string name="dialer_service_code">رمز خدمة · اضغط على اتصال لتشغيله</string>
     <string name="dialer_send_message">إرسال رسالة</string>
     <string name="dialer_lookup_number">ابحث عن هذا الرقم</string>
     <string name="dialer_send_whatsapp">مراسلة عبر WhatsApp</string>

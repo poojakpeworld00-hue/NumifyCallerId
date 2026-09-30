@@ -834,6 +834,7 @@
     <string name="dialer_grid_whatsapp">WhatsApp</string>
     <string name="dialer_grid_ai">Спросить ИИ</string>
     <string name="dialer_number_not_saved">Нет в ваших контактах</string>
+    <string name="dialer_service_code">Сервисный код · нажмите «Вызов», чтобы выполнить</string>
     <string name="dialer_send_message">Отправить сообщение</string>
     <string name="dialer_lookup_number">Найти этот номер</string>
     <string name="dialer_send_whatsapp">Написать в WhatsApp</string>

@@ -822,6 +822,7 @@
     <string name="dialer_grid_whatsapp">WhatsApp</string>
     <string name="dialer_grid_ai">AI से पूछें</string>
     <string name="dialer_number_not_saved">आपके संपर्कों में नहीं है</string>
+    <string name="dialer_service_code">सर्विस कोड · चलाने के लिए कॉल पर टैप करें</string>
     <string name="dialer_send_message">संदेश भेजें</string>
     <string name="dialer_lookup_number">इस नंबर की जानकारी देखें</string>
     <string name="dialer_send_whatsapp">WhatsApp पर संदेश भेजें</string>
