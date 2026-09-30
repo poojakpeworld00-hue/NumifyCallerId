@@ -60,13 +60,23 @@ class DialerViewModel(app: Application) : AndroidViewModel(app) {
      * whose whole job is to respond to keypresses.
      */
     fun savedContact(number: String): com.callerid.numberlookup.home.repository.ContactPhone? {
-        if (isServiceCode(number)) return null
+        if (isServiceCode(number)) return savedCodes[number.codeKey()]
         val key = number.digitsKey()
         return if (key.isEmpty()) null else savedDigits[key]
     }
 
-    /** Typed input carrying "*" or "#": a USSD/MMI code, which no saved number is. */
+    /**
+     * Typed input carrying "*" or "#": a USSD/MMI code. It is compared as typed
+     * against the codes people save as contacts ("Account Info" as *199#), never
+     * by its digits against phone numbers.
+     */
     fun isServiceCode(text: String): Boolean = text.any { it == '*' || it == '#' }
+
+    /** Saved contacts whose "number" is itself a service code, keyed by [codeKey]. */
+    private var savedCodes: Map<String, com.callerid.numberlookup.home.repository.ContactPhone> = emptyMap()
+
+    /** A code as typed, less the spaces a saved one may carry. */
+    private fun String.codeKey(): String = filterNot(Char::isWhitespace)
 
     /**
      * Rebuilds the searchable pool from the call log **and** the address book.
@@ -113,10 +123,14 @@ class DialerViewModel(app: Application) : AndroidViewModel(app) {
                     // count = 0: never called, so it sorts below everything in
                     // the call log and carries no false "frequently used" weight.
                     .map { FavoriteNumber(name = it.name, number = it.number, count = 0) }
-                Loaded((called + fromContacts).map { it.toEntry() }, byKey)
+                val codes = phones
+                    .filter { isServiceCode(it.number) }
+                    .associateBy { it.number.codeKey() }
+                Loaded((called + fromContacts).map { it.toEntry() }, byKey, codes)
             }
             all = loaded.entries
             savedDigits = loaded.savedDigits
+            savedCodes = loaded.savedCodes
             applyFilter()
         }
     }
@@ -124,6 +138,7 @@ class DialerViewModel(app: Application) : AndroidViewModel(app) {
     private class Loaded(
         val entries: List<Entry>,
         val savedDigits: Map<String, com.callerid.numberlookup.home.repository.ContactPhone>,
+        val savedCodes: Map<String, com.callerid.numberlookup.home.repository.ContactPhone>,
     )
 
     fun filter(text: String) {
@@ -154,9 +169,15 @@ class DialerViewModel(app: Application) : AndroidViewModel(app) {
         }
         // "*", "#" make it a service code (*#06#, *123#), not a number. Searching
         // its digits alone turned "9*8" into "98" and listed every contact with
-        // a 98 in it.
+        // a 98 in it. Only contacts saved under a code match, by what was typed
+        // so far, so "*19" already offers the "*199#" someone saved.
         if (isServiceCode(query)) {
-            _frequent.value = emptyList()
+            val typed = query.codeKey()
+            _frequent.value = all.asSequence()
+                .filter { isServiceCode(it.item.number) && it.item.number.codeKey().startsWith(typed) }
+                .take(MATCH_LIMIT)
+                .map { it.item }
+                .toList()
             return
         }
         val digits = query.filter(Char::isDigit)

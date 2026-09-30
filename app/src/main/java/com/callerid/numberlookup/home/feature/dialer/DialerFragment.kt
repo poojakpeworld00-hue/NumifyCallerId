@@ -350,6 +350,13 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         binding.gridRowOne.isVisible = hasVisibleCell(binding.gridRowOne)
         binding.gridRowTwo.isVisible = hasVisibleCell(binding.gridRowTwo)
         binding.gridRowThree.isVisible = hasVisibleCell(binding.gridRowThree)
+        // No actions at all, as for a service code: drop the grid's padding and
+        // the rule over it too, or a divider sits under the heading with
+        // nothing beneath it.
+        val anyAction = binding.gridRowOne.isVisible || binding.gridRowTwo.isVisible ||
+            binding.gridRowThree.isVisible
+        binding.gridDialActions.isVisible = anyAction
+        binding.dividerDialActions.isVisible = anyAction
 
         binding.columnDialActions.isVisible = unknown || saved != null
         val showMatches = hasFrequent && saved == null

@@ -191,6 +191,7 @@
                     </LinearLayout>
 
                     <View
+                        android:id="@+id/dividerDialActions"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginHorizontal="16dp"
@@ -205,13 +206,14 @@
                         three rows instead of five, at a readable 12.5sp, because
                         this screen has width to spend and no height at all.
 
-                        Rows are fixed rather than reflowed, so the pairs stay
-                        paired. DialerFragment hides a row whose cells have both
-                        gone — WhatsApp with no WhatsApp installed, Ask AI with
-                        the assistant switched off — otherwise an empty row would
-                        hold open space for nothing.
+                        DialerFragment flows the visible cells into the rows two
+                        at a time, so a hidden one (WhatsApp not installed, Ask AI
+                        switched off) leaves no hole, and hides a row left empty.
+                        With no actions at all (a service code) the grid and the
+                        rule above it go too, leaving just the heading.
                     -->
                     <LinearLayout
+                        android:id="@+id/gridDialActions"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
