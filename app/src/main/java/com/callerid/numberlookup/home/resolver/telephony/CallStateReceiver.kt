@@ -104,15 +104,23 @@ class CallStateReceiver : BroadcastReceiver() {
                 }
 
                 // Debounce duplicate IDLE broadcasts (manifest + dynamic registration).
+                // Two different calls ending within two seconds of each other are
+                // two calls, and the second used to be dropped as a duplicate and
+                // never got its call-back screen - so a repeat only counts as one
+                // when it is for the same number, or carries no call at all (the
+                // first copy already reset the state, so the duplicate arrives
+                // with no number and would otherwise read as a withheld call).
                 val now = System.currentTimeMillis()
-                if (now - lastTime < 2000) {
+                val phoneNumber = lastNumber ?: PRIVATE_NUMBER
+                val repeat = lastNumber == null || phoneNumber == lastIdleNumber
+                if (now - lastTime < 2000 && repeat) {
                     Log.d(TAG, "duplicate IDLE skipped")
                     resetState()
                     return
                 }
                 lastTime = now
+                lastIdleNumber = phoneNumber
 
-                val phoneNumber = lastNumber ?: PRIVATE_NUMBER
                 val endTime = Date()
                 val startTime = if (callStartTime > 0) Date(callStartTime) else endTime
                 val callType = when {
@@ -325,6 +333,8 @@ class CallStateReceiver : BroadcastReceiver() {
 
         // Cross-broadcast call-state tracking (receiver instances are short-lived).
         private var lastTime = 0L
+        /** The number the last handled IDLE was for; see the debounce. */
+        private var lastIdleNumber: String? = null
         private var callStartTime = 0L
         private var lastNumber: String? = null
         private var wasRinging = false

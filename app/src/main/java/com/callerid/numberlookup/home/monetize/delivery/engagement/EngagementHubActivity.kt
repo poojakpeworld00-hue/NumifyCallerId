@@ -44,6 +44,7 @@ import com.callerid.numberlookup.home.repository.assistant.CallSummary
 import com.callerid.numberlookup.home.resolver.telephony.CallStateReceiver
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -94,10 +95,43 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
             BottomSheetNativeAds().displayBannerAd(this, binding.adContainer)
         }
 
+        setupClickListeners()
+        bindCall()
+
+        // One pane, so back has nowhere to retreat to and closes the screen.
+        onBackPressedDispatcher.addCallback(this) { finish() }
+    }
+
+    /** Background work filling in the current call: the name lookup and the AI summary. */
+    private val callJobs = mutableListOf<Job>()
+
+    /**
+     * Fills the screen in for the call in the current intent.
+     *
+     * Runs on create and again from [onNewIntent]. The activity is singleInstance
+     * and is launched SINGLE_TOP, so when a second call ends while this screen is
+     * still alive (left with Home, under the lock screen, behind the dialer) the
+     * same instance is handed the new call. This used to run in initView only,
+     * so that second call came up showing the first caller's name, type,
+     * duration and time - and, through a cached number, its Call, Message,
+     * WhatsApp and Block acted on the first caller too.
+     *
+     * The previous call's lookups are cancelled first: the network name lookup
+     * can take seconds, and one finishing late would write the first caller's
+     * name over the second's.
+     */
+    private fun bindCall() {
+        callJobs.forEach { it.cancel() }
+        callJobs.clear()
+
         val phone = intent.getStringExtra("phone") ?: CallStateReceiver.PRIVATE_NUMBER
         val startTimeMillis = intent.getLongExtra("start_time", 0L)
         val endTimeMillis = intent.getLongExtra("end_time", 0L)
         val callType = intent.getStringExtra("call_type") ?: "UNKNOWN"
+
+        // Nothing of the previous caller may survive into this one.
+        paintAvatar(name = null, photoUri = null, number = phone)
+        binding.cardCallSummary.visibility = View.GONE
 
         bindCallerName(phone)
         binding.labelCallType.text = getCallTypeText(callType)
@@ -117,16 +151,13 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
             if (endTimeMillis > 0) endTimeMillis else System.currentTimeMillis(),
         )
 
-        // The call list is what this screen shows below the actions - it is the
-        // content, not one tab of four, so it is put up once and stays.
+        // The call list below the actions. Put up again for each call so the
+        // call that just ended is in it; it reads the log once when created.
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, CallTimelineFragment())
             .commit()
 
-        setupClickListeners()
-
-        // One pane, so back has nowhere to retreat to and closes the screen.
-        onBackPressedDispatcher.addCallback(this) { finish() }
+        updateBlockState()
     }
 
     private fun getCallTypeText(type: String): String = when (type.uppercase()) {
@@ -162,6 +193,8 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
         val withheld = phone.equals(CallStateReceiver.PRIVATE_NUMBER, ignoreCase = true)
         if (withheld || phone.isBlank()) {
             binding.labelCallerName.text = getString(R.string.caller_private_number)
+            // A previous call's lookup may have been cut off mid-shimmer.
+            showNameShimmer(false)
             return
         }
 
@@ -172,7 +205,7 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
         binding.labelCallerName.text = phone
         showNameShimmer(true)
 
-        lifecycleScope.launch {
+        callJobs += lifecycleScope.launch {
             val saved = withContext(Dispatchers.IO) {
                 runCatching {
                     ContactRepository(this@EngagementHubActivity).savedCallerByNumber(phone)
@@ -238,13 +271,16 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
         else binding.shimmerCallerName.stopShimmer()
     }
 
-    /** The caller's number from the launching intent, or null for private/unknown. */
-    private val callerNumber: String? by lazy {
-        intent.getStringExtra("phone")?.trim()
+    /**
+     * The caller's number from the current intent, or null for private/unknown.
+     * Read each time, not cached: a second call is delivered to this same
+     * instance, and a cached number kept the action buttons on the first caller.
+     */
+    private val callerNumber: String?
+        get() = intent.getStringExtra("phone")?.trim()
             ?.takeIf {
                 it.isNotEmpty() && !it.equals(CallStateReceiver.PRIVATE_NUMBER, ignoreCase = true)
             }
-    }
 
     /**
      * Places a direct outgoing call through the shared CALL_PHONE flow: it
@@ -391,7 +427,9 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
-        handleRichPushIfQueued()
+        if (handleRichPushIfQueued()) return
+        // Another call ended while this screen was still alive: show that one.
+        if (intent.hasExtra("phone")) bindCall()
     }
 
     /**
@@ -444,7 +482,7 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
         if (!AiFeatureConfig.isEnabled(this)) return
         if (!SettingsRepository(this).aiCallSummaryEnabled) return
 
-        lifecycleScope.launch {
+        callJobs += lifecycleScope.launch {
             val line = withContext(Dispatchers.IO) {
                 runCatching {
                     val tail = phone.filter(Char::isDigit).takeLast(9)
