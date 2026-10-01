@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<style>
+@font-face{font-family:"Mulish";font-weight:600;src:url(fonts/mulish_semibold.ttf)}
+@font-face{font-family:"Mulish";font-weight:700;src:url(fonts/mulish_bold.ttf)}
+@font-face{font-family:"Space Grotesk";font-weight:700;src:url(fonts/space_grotesk_bold.ttf)}
+body{margin:0;background:#E9ECF3;font-family:"Mulish",sans-serif;color:#12172B;-webkit-font-smoothing:antialiased}
+a{color:#2E5FE8;text-decoration:none}a:hover{color:#1F3FAE;text-decoration:underline}
+@keyframes pwGlow{0%,100%{box-shadow:0 10px 24px rgba(46,95,232,.34)}50%{box-shadow:0 12px 30px rgba(46,95,232,.55)}}
+@keyframes pwShine{0%{transform:translateX(-120%) skewX(-20deg)}60%,100%{transform:translateX(320%) skewX(-20deg)}}
+@keyframes pwFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes pwPop{0%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:none}}
+@keyframes pwSpin{to{transform:rotate(360deg)}}
+@keyframes pwPing{0%{transform:scale(.6);opacity:.6}100%{transform:scale(1.6);opacity:0}}
+@keyframes pwTilt{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(-4deg) translateY(-5px)}}
+@keyframes pwTilt2{0%,100%{transform:rotate(3deg) translateY(0)}50%{transform:rotate(3deg) translateY(4px)}}
+</style>
+</helmet>
+
+<div style="width:1320px;padding:64px 72px 96px;box-sizing:border-box;display:flex;flex-direction:column;gap:48px">
+  <header style="display:flex;flex-direction:column;gap:10px;max-width:860px">
+    <div style="font-size:13px;font-weight:700;letter-spacing:.12em;color:#8A91A6">CONTACTS · PremiumActivity redesign</div>
+    <div style="font-family:'Space Grotesk';font-size:48px;line-height:1.05;letter-spacing:-.02em">Paywall with weekly-normalised pricing</div>
+    <div style="font-size:16px;line-height:1.55;color:#5B6378;font-weight:600">Every plan leads with its price per week so the three compare directly. The real charge sits under each plan name and in the fine print, and it updates with the selection. Tap a plan to try it.</div>
+  </header>
+
+  <!-- ============ TURN 2 · VARIANTS ============ -->
+  <section id="turn2" style="display:flex;flex-direction:column;gap:20px">
+    <div style="font-family:'Space Grotesk';font-size:28px">Paywall variants</div>
+    <div style="display:flex;gap:36px;flex-wrap:wrap;align-items:flex-start">
+
+      <!-- 2a -->
+      <div id="2a" style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:center;gap:10px"><span style="padding:4px 10px;border-radius:8px;background:#12172B;font-size:12px;font-weight:700;color:#fff">2a</span><span style="font-size:15px;font-weight:700">Light caller cards · plan columns</span></div>
+        <div style="width:380px;height:820px;border-radius:46px;background:#0E1220;padding:10px;box-sizing:border-box;box-shadow:0 30px 60px rgba(14,18,32,.25)">
+          <div style="width:360px;height:800px;border-radius:36px;overflow:hidden;background:#FFFFFF;display:flex;flex-direction:column;position:relative">
+            <div style="position:relative;height:300px;background:radial-gradient(110% 90% at 40% 30%,#E3EBFE 0%,#F1F4FD 60%,#FFFFFF 100%);overflow:hidden;flex-shrink:0">
+              <div style="position:absolute;left:40px;top:40px;width:280px;height:280px;border-radius:50%;border:1px dashed rgba(5,72,255,.18)"></div>
+              <div style="position:absolute;left:90px;top:90px;width:180px;height:180px;border-radius:50%;border:1px solid rgba(5,72,255,.12)"></div>
+              <div style="position:relative;height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-size:12px;font-weight:700"><span>9:41</span><span style="width:14px;height:9px;border-radius:2px;border:1.5px solid #12172B;box-sizing:border-box"></span></div>
+              <span style="position:absolute;left:18px;top:40px;width:36px;height:36px;border-radius:12px;background:#fff;box-shadow:0 4px 12px rgba(20,30,60,.1);display:flex;align-items:center;justify-content:center"><span style="width:13px;height:13px;background:#3A4050;-webkit-mask:url(icons/ic_premium_close.svg) center/contain no-repeat;mask:url(icons/ic_premium_close.svg) center/contain no-repeat"></span></span>
+              <!-- identified caller -->
+              <div style="position:absolute;left:62px;top:64px;width:230px;padding:12px;border-radius:18px;background:#fff;box-shadow:0 16px 32px rgba(20,30,60,.14);display:flex;align-items:center;gap:10px;animation:pwTilt 5s ease-in-out infinite">
+                <span style="width:40px;height:40px;border-radius:13px;background:linear-gradient(150deg,#0548FF,#0230B8);color:#fff;font-family:'Space Grotesk';font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0">MJ</span>
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:8.5px;font-weight:700;letter-spacing:.1em;color:#0548FF">INCOMING CALL</span><span style="font-family:'Space Grotesk';font-size:13.5px">Michael Johnson</span><span style="display:flex;align-items:center;gap:3px;font-size:9px;font-weight:700;color:#3A6BFF"><span style="width:9px;height:9px;background:#3A6BFF;-webkit-mask:url(icons/ic_shield_check.svg) center/contain no-repeat;mask:url(icons/ic_shield_check.svg) center/contain no-repeat"></span>Identified · San Francisco</span></div>
+                <span style="width:28px;height:28px;border-radius:50%;background:#1E9E5A;display:flex;align-items:center;justify-content:center"><span style="width:12px;height:12px;background:#fff;-webkit-mask:url(icons/ic_ds_phone.svg) center/contain no-repeat;mask:url(icons/ic_ds_phone.svg) center/contain no-repeat"></span></span>
+              </div>
+              <!-- spam blocked -->
+              <div style="position:absolute;right:18px;top:152px;width:190px;padding:10px 12px;border-radius:16px;background:#fff;box-shadow:0 16px 32px rgba(60,20,30,.14);border:1px solid #FADADA;display:flex;align-items:center;gap:9px;animation:pwTilt2 5.6s ease-in-out infinite">
+                <span style="width:32px;height:32px;border-radius:50%;background:#FDE2E2;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="width:14px;height:14px;background:#E5484D;-webkit-mask:url(icons/ic_ds_block_slash.svg) center/contain no-repeat;mask:url(icons/ic_ds_block_slash.svg) center/contain no-repeat"></span></span>
+                <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Space Grotesk';font-size:12px">+1 202 555 0148</span><span style="font-size:9px;font-weight:700;color:#E5484D">Spam · Blocked automatically</span></div>
+              </div>
+              <!-- lookup field -->
+              <div style="position:absolute;left:30px;top:224px;width:220px;height:40px;border-radius:20px;background:#fff;border:1.5px solid #DCE4F7;display:flex;align-items:center;gap:8px;padding:0 5px 0 14px;box-sizing:border-box;box-shadow:0 10px 20px rgba(20,30,60,.08)">
+                <span style="width:13px;height:13px;background:#0548FF;-webkit-mask:url(icons/ic_ds_search.svg) center/contain no-repeat;mask:url(icons/ic_ds_search.svg) center/contain no-repeat"></span>
+                <span style="flex:1;font-size:11.5px;font-weight:700;color:#12172B">+1 415 555 0132</span>
+                <span style="height:30px;padding:0 12px;border-radius:15px;background:#0548FF;color:#fff;font-size:10.5px;font-weight:700;display:flex;align-items:center">Lookup</span>
+              </div>
+            </div>
+            <div style="padding:6px 20px 0;display:flex;flex-direction:column;gap:6px">
+              <span style="align-self:flex-start;padding:3px 9px;border-radius:8px;background:#F2A93B;color:#fff;font-size:10px;font-weight:700;letter-spacing:.08em">PREMIUM</span>
+              <span style="font-family:'Space Grotesk';font-size:26px;line-height:1.1">Know every caller.<br>Block every scam.</span>
+              <span style="font-size:13px;font-weight:600;color:#7B8398;line-height:1.45">Unlimited lookups, unlimited blocking, and no ads.</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:16px 20px 0">
+              <sc-for list="{{ aPlans }}" as="p" hint-placeholder-count="3">
+                <div onClick="{{ p.select }}" style="position:relative;cursor:pointer;padding:16px 4px 10px;border-radius:16px;border:2px solid {{ p.border }};background:{{ p.bg }};box-shadow:{{ p.shadow }};display:flex;flex-direction:column;align-items:center;gap:2px;transition:all .18s ease">
+                  <sc-if value="{{ p.suggested }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:-9px;padding:2px 7px;border-radius:7px;background:#0548FF;color:#fff;font-size:8px;font-weight:700;letter-spacing:.06em;white-space:nowrap">{{ p.saveTxt }}</span></sc-if>
+                  <span style="font-size:12px;font-weight:700">{{ p.name }}</span>
+                  <span style="font-family:'Space Grotesk';font-size:21px;margin-top:2px">{{ p.perWeek }}</span>
+                  <span style="font-size:9.5px;font-weight:700;color:#8A91A6">per week</span>
+                  <span style="margin-top:5px;font-size:9.5px;font-weight:700;color:#3A4050">{{ p.totalLine }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;padding:14px 22px 0;font-size:12px;font-weight:700;color:#3A4050">
+              <span style="display:flex;gap:7px;align-items:center"><span style="color:#1E9E5A">✓</span>Reveal any caller name instantly</span>
+              <span style="display:flex;gap:7px;align-items:center"><span style="color:#1E9E5A">✓</span>Unlimited Ask AI, no ads anywhere</span>
+            </div>
+            <div style="flex:1"></div>
+            <div style="padding:0 20px 8px;display:flex;flex-direction:column;gap:9px">
+              <div style="height:54px;border-radius:18px;background:linear-gradient(135deg,#0548FF,#0230B8);color:#fff;font-size:15.5px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 22px rgba(5,72,255,.32);cursor:pointer">{{ aCta }}</div>
+              <span style="text-align:center;font-size:11px;font-weight:600;color:#8A91A6">{{ aFine }}</span>
+              <div style="display:flex;justify-content:center;gap:16px;font-size:11px;font-weight:700;color:#0548FF"><span>Restore</span><span>Terms</span><span>Privacy</span></div>
+            </div>
+            <div style="height:14px;display:flex;justify-content:center"><span style="width:108px;height:4px;border-radius:2px;background:#12172B;opacity:.85"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2b -->
+      <div id="2b" style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:center;gap:10px"><span style="padding:4px 10px;border-radius:8px;background:#12172B;font-size:12px;font-weight:700;color:#fff">2b</span><span style="font-size:15px;font-weight:700">Brand gradient · Free vs Premium table</span></div>
+        <div style="width:380px;height:820px;border-radius:46px;background:#0E1220;padding:10px;box-sizing:border-box;box-shadow:0 30px 60px rgba(14,18,32,.25)">
+          <div style="width:360px;height:800px;border-radius:36px;overflow:hidden;background:linear-gradient(165deg,#0548FF 0%,#0D2B9C 55%,#0A1852 100%);display:flex;flex-direction:column;position:relative">
+            <div style="position:absolute;right:-120px;top:-60px;width:320px;height:320px;border-radius:50%;border:1px solid rgba(255,255,255,.14)"></div>
+            <div style="position:absolute;right:-60px;top:0;width:200px;height:200px;border-radius:50%;border:1px solid rgba(255,255,255,.1)"></div>
+            <div style="position:relative;height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-size:12px;font-weight:700;color:#fff"><span>9:41</span><span style="width:14px;height:9px;border-radius:2px;border:1.5px solid #fff;box-sizing:border-box"></span></div>
+            <div style="position:relative;display:flex;justify-content:space-between;align-items:center;padding:8px 18px 0">
+              <span style="width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center"><span style="width:13px;height:13px;background:#fff;-webkit-mask:url(icons/ic_premium_close.svg) center/contain no-repeat;mask:url(icons/ic_premium_close.svg) center/contain no-repeat"></span></span>
+              <span style="font-size:13px;font-weight:700;color:rgba(255,255,255,.85)">Restore</span>
+            </div>
+            <div style="position:relative;padding:16px 22px 0;display:flex;flex-direction:column;gap:8px">
+              <span style="font-family:'Space Grotesk';font-size:30px;line-height:1.08;color:#fff">Search more.<br>Block more.</span>
+              <span style="font-size:13px;font-weight:600;color:rgba(255,255,255,.8)">Premium lifts every daily limit.</span>
+            </div>
+            <div style="position:relative;margin:16px 18px 0;border-radius:18px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);overflow:hidden">
+              <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;padding:9px 14px;background:rgba(255,255,255,.08);font-size:10.5px;font-weight:700"><span></span><span style="color:rgba(255,255,255,.7);text-align:center">Free</span><span style="color:#FFD166;text-align:center">Premium</span></div>
+              <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;padding:10px 14px;border-top:1px solid rgba(255,255,255,.12);font-size:11.5px;font-weight:700;color:#fff"><span>Number lookup</span><span style="text-align:center;color:rgba(255,255,255,.75)">5 / day</span><span style="text-align:center">∞</span></div>
+              <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;padding:10px 14px;border-top:1px solid rgba(255,255,255,.12);font-size:11.5px;font-weight:700;color:#fff"><span>Block numbers</span><span style="text-align:center;color:rgba(255,255,255,.75)">Limited</span><span style="text-align:center">∞</span></div>
+              <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;padding:10px 14px;border-top:1px solid rgba(255,255,255,.12);font-size:11.5px;font-weight:700;color:#fff"><span>Ask AI</span><span style="text-align:center;color:rgba(255,255,255,.75)">Ad only</span><span style="text-align:center">∞</span></div>
+              <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;padding:10px 14px;border-top:1px solid rgba(255,255,255,.12);font-size:11.5px;font-weight:700;color:#fff"><span>Ads</span><span style="text-align:center;color:rgba(255,255,255,.75)">Shown</span><span style="text-align:center">None</span></div>
+            </div>
+            <div style="flex:1"></div>
+            <div style="position:relative;background:#fff;border-radius:28px 28px 0 0;padding:18px 16px 0;display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{ bPlans }}" as="p" hint-placeholder-count="3">
+                <div onClick="{{ p.select }}" style="cursor:pointer;display:flex;align-items:center;gap:11px;padding:0 14px;height:54px;border-radius:14px;border:2px solid {{ p.border }};background:{{ p.bg }};box-sizing:border-box;transition:all .18s ease">
+                  <span style="width:20px;height:20px;border-radius:50%;border:2px solid {{ p.radioBorder }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="width:10px;height:10px;border-radius:50%;background:#0548FF;opacity:{{ p.dot }}"></span></span>
+                  <span style="font-size:14px;font-weight:700">{{ p.name }}</span>
+                  <sc-if value="{{ p.suggested }}" hint-placeholder-val="{{ false }}"><span style="padding:2px 6px;border-radius:6px;background:#FFD166;color:#5A3A00;font-size:8.5px;font-weight:700;letter-spacing:.05em">{{ p.saveTxt }}</span></sc-if>
+                  <span style="flex:1"></span>
+                  <div style="display:flex;flex-direction:column;align-items:flex-end"><span style="font-family:'Space Grotesk';font-size:16px">{{ p.perWeek }}<span style="font-family:Mulish;font-size:10px;font-weight:700;color:#8A91A6">/wk</span></span><span style="font-size:9.5px;font-weight:700;color:#8A91A6">{{ p.totalLine }}</span></div>
+                </div>
+              </sc-for>
+              <div style="margin-top:4px;height:54px;border-radius:16px;background:linear-gradient(135deg,#0548FF,#0230B8);color:#fff;font-size:15.5px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 10px 22px rgba(5,72,255,.3)">Upgrade now</div>
+              <span style="text-align:center;font-size:10.5px;font-weight:600;color:#8A91A6;padding:2px 0 6px">{{ bFine }}</span>
+              <div style="height:14px;display:flex;justify-content:center"><span style="width:108px;height:4px;border-radius:2px;background:#12172B;opacity:.85"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2c -->
+      <div id="2c" style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:center;gap:10px"><span style="padding:4px 10px;border-radius:8px;background:#12172B;font-size:12px;font-weight:700;color:#fff">2c</span><span style="font-size:15px;font-weight:700">Night radar · segmented plans</span></div>
+        <div style="width:380px;height:820px;border-radius:46px;background:#0E1220;padding:10px;box-sizing:border-box;box-shadow:0 30px 60px rgba(14,18,32,.25)">
+          <div style="width:360px;height:800px;border-radius:36px;overflow:hidden;background:linear-gradient(180deg,#141B3A 0%,#0B1022 60%,#080B18 100%);display:flex;flex-direction:column;position:relative">
+            <div style="position:relative;height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-size:12px;font-weight:700;color:#fff"><span>9:41</span><span style="width:14px;height:9px;border-radius:2px;border:1.5px solid #fff;box-sizing:border-box"></span></div>
+            <div style="display:flex;justify-content:flex-end;padding:8px 18px 0"><span style="width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center"><span style="width:13px;height:13px;background:#fff;-webkit-mask:url(icons/ic_premium_close.svg) center/contain no-repeat;mask:url(icons/ic_premium_close.svg) center/contain no-repeat"></span></span></div>
+            <!-- radar -->
+            <div style="position:relative;height:230px;display:flex;align-items:center;justify-content:center">
+              <div style="position:absolute;width:220px;height:220px;border-radius:50%;border:1px solid rgba(110,151,255,.16)"></div>
+              <div style="position:absolute;width:160px;height:160px;border-radius:50%;border:1px solid rgba(110,151,255,.24)"></div>
+              <div style="position:absolute;width:220px;height:220px;border-radius:50%;background:conic-gradient(from 0deg,rgba(52,102,240,0) 0deg,rgba(52,102,240,0) 290deg,rgba(52,102,240,.35) 360deg);animation:pwSpin 4s linear infinite"></div>
+              <div style="position:absolute;width:120px;height:120px;border-radius:50%;border:2px solid rgba(110,151,255,.5);animation:pwPing 2.4s ease-out infinite"></div>
+              <span style="position:absolute;left:92px;top:58px;width:8px;height:8px;border-radius:50%;background:#FF8A85;box-shadow:0 0 10px #FF8A85"></span>
+              <span style="position:absolute;right:86px;top:150px;width:7px;height:7px;border-radius:50%;background:#5BD79A;box-shadow:0 0 10px #5BD79A"></span>
+              <div style="position:relative;width:84px;height:84px;border-radius:26px;background:linear-gradient(150deg,#F2A93B,#D98315);display:flex;align-items:center;justify-content:center;box-shadow:0 14px 36px rgba(217,131,21,.45)"><span style="width:38px;height:38px;background:#fff;-webkit-mask:url(icons/ic_premium_crown.svg) center/contain no-repeat;mask:url(icons/ic_premium_crown.svg) center/contain no-repeat"></span></div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 30px;text-align:center">
+              <span style="font-family:'Space Grotesk';font-size:28px;color:#fff">Go unlimited</span>
+              <span style="font-size:13px;font-weight:600;color:rgba(255,255,255,.7);line-height:1.45">Identify every caller and block every scam. No daily limits, no ads.</span>
+            </div>
+            <div style="margin:20px 18px 0;padding:4px;border-radius:16px;background:rgba(255,255,255,.07);display:grid;grid-template-columns:repeat(3,1fr);gap:4px">
+              <sc-for list="{{ cPlans }}" as="p" hint-placeholder-count="3">
+                <span onClick="{{ p.select }}" style="cursor:pointer;height:40px;border-radius:12px;background:{{ p.bg }};color:{{ p.ink }};font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all .18s ease">{{ p.name }}</span>
+              </sc-for>
+            </div>
+            <div style="margin:12px 18px 0;padding:16px;border-radius:18px;border:1px solid rgba(110,151,255,.35);background:rgba(110,151,255,.08);display:flex;align-items:center;gap:10px">
+              <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+                <div style="display:flex;align-items:center;gap:6px"><span style="font-size:15px;font-weight:700;color:#fff">{{ cCur.name }}</span><sc-if value="{{ cCur.saveTxt }}" hint-placeholder-val="{{ false }}"><span style="padding:2px 6px;border-radius:6px;background:#5BD79A;color:#0B3A22;font-size:8.5px;font-weight:700;letter-spacing:.05em">{{ cCur.saveTxt }}</span></sc-if></div>
+                <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.65)">{{ cCur.billedLine }}</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end"><span style="font-family:'Space Grotesk';font-size:26px;color:#fff">{{ cCur.perWeek }}</span><span style="font-size:10.5px;font-weight:700;color:rgba(255,255,255,.6)">/ week</span></div>
+            </div>
+            <div style="text-align:center;padding-top:10px;font-size:11px;font-weight:700;color:rgba(255,255,255,.55);white-space:pre">{{ cOthers }}</div>
+            <div style="flex:1"></div>
+            <div style="padding:0 18px 8px;display:flex;flex-direction:column;gap:10px">
+              <div style="height:54px;border-radius:18px;background:linear-gradient(135deg,#3466F0,#1F3FAE);color:#fff;font-size:15.5px;font-weight:700;display:flex;align-items:center;justify-content:center;animation:pwGlow 2.4s ease-in-out infinite;cursor:pointer">Start Premium</div>
+              <span style="text-align:center;font-size:10.5px;font-weight:600;color:rgba(255,255,255,.5)">Cancel anytime · Restore · Terms · Privacy</span>
+            </div>
+            <div style="height:14px;display:flex;justify-content:center"><span style="width:108px;height:4px;border-radius:2px;background:#fff;opacity:.6"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:13px;font-weight:600;color:#6A7285;max-width:1100px;line-height:1.5">All three use the same prices, shown per week: Year $2.88/wk ($149.99), Month $4.61/wk ($19.99), Week $9.99. Year is preselected and carries the saving. Tap plans to switch. The billed total stays visible next to every price and near each CTA. Turn 1 (<a href="#1a">1a</a>) is below.</div>
+  </section>
+
+  <section style="display:flex;gap:48px;align-items:flex-start">
+    <!-- PHONE -->
+    <div id="1a" style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="padding:4px 10px;border-radius:8px;background:#2E5FE8;font-size:12px;font-weight:700;color:#fff">1a</span><span style="font-size:15px;font-weight:700">Paywall · interactive</span></div>
+      <div style="width:380px;height:820px;border-radius:46px;background:#0E1220;padding:10px;box-sizing:border-box;box-shadow:0 30px 60px rgba(14,18,32,.25)">
+        <div style="width:360px;height:800px;border-radius:36px;overflow:hidden;background:#F6F8FC;display:flex;flex-direction:column;position:relative">
+
+          <!-- hero -->
+          <div style="position:relative;background:linear-gradient(160deg,#2A2154 0%,#12172B 78%);border-radius:0 0 32px 32px;padding:0 20px 20px;overflow:hidden">
+            <div style="position:absolute;right:-80px;top:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(110,151,255,.35) 0%,rgba(110,151,255,0) 70%)"></div>
+            <div style="position:absolute;left:-90px;bottom:-110px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(169,139,255,.25) 0%,rgba(169,139,255,0) 70%)"></div>
+            <div style="position:relative;height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 2px;font-size:12px;font-weight:700;color:#fff"><span>9:41</span><span style="width:14px;height:9px;border-radius:2px;border:1.5px solid #fff;box-sizing:border-box"></span></div>
+            <div style="position:relative;display:flex;align-items:center;justify-content:space-between;padding-top:8px">
+              <sc-if value="{{ closeReady }}" hint-placeholder-val="{{ false }}">
+                <span onClick="{{ replayClose }}" style="cursor:pointer;width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);box-sizing:border-box;display:flex;align-items:center;justify-content:center;animation:pwPop .28s cubic-bezier(.2,.8,.2,1) both"><span style="width:14px;height:14px;background:#fff;-webkit-mask:url(icons/ic_premium_close.svg) center/contain no-repeat;mask:url(icons/ic_premium_close.svg) center/contain no-repeat"></span></span>
+              </sc-if>
+              <sc-if value="{{ closeCounting }}" hint-placeholder-val="{{ true }}">
+                <span style="position:relative;width:36px;height:36px;display:flex;align-items:center;justify-content:center">
+                  <span style="position:absolute;inset:0;border-radius:50%;background:conic-gradient(rgba(255,255,255,.85) {{ closeDeg }}deg,rgba(255,255,255,.14) 0);-webkit-mask:radial-gradient(circle,transparent 15px,#000 15.5px);mask:radial-gradient(circle,transparent 15px,#000 15.5px)"></span>
+                  <span style="font-family:'Space Grotesk';font-size:14px;color:#fff">{{ closeLeft }}</span>
+                </span>
+              </sc-if>
+              <span style="font-size:13px;font-weight:700;color:rgba(255,255,255,.75)">Restore</span>
+            </div>
+            <div style="position:relative;display:flex;align-items:center;gap:14px;margin-top:14px">
+              <div style="width:56px;height:56px;border-radius:18px;background:linear-gradient(150deg,#F2A93B,#D98315);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 22px rgba(217,131,21,.4);position:relative;overflow:hidden;animation:pwFloat 5s ease-in-out infinite">
+                <span style="width:28px;height:28px;background:#fff;-webkit-mask:url(icons/ic_premium_crown.svg) center/contain no-repeat;mask:url(icons/ic_premium_crown.svg) center/contain no-repeat"></span>
+                <span style="position:absolute;top:0;left:0;width:18px;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.5),rgba(255,255,255,0));animation:pwShine 3.2s 1s ease-in-out infinite"></span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:3px">
+                <span style="font-family:'Space Grotesk';font-size:25px;line-height:1.05;color:#fff">Contacts <span style="background:linear-gradient(90deg,#6E97FF,#A98BFF);-webkit-background-clip:text;background-clip:text;color:transparent">Premium</span></span>
+                <span style="font-size:12.5px;font-weight:600;color:rgba(255,255,255,.72)">Every limit lifted. No ads, anywhere.</span>
+              </div>
+            </div>
+            <div style="position:relative;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px">
+              <div style="display:flex;align-items:center;gap:8px;padding:10px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)"><span style="width:26px;height:26px;border-radius:8px;background:rgba(110,151,255,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="width:13px;height:13px;background:#9DB8FF;-webkit-mask:url(icons/ic_ds_nav_lookup.svg) center/contain no-repeat;mask:url(icons/ic_ds_nav_lookup.svg) center/contain no-repeat"></span></span><span style="font-size:11.5px;font-weight:700;color:#fff;line-height:1.2">Unlimited lookups</span></div>
+              <div style="display:flex;align-items:center;gap:8px;padding:10px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)"><span style="width:26px;height:26px;border-radius:8px;background:rgba(255,138,133,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="width:13px;height:13px;background:#FF8A85;-webkit-mask:url(icons/ic_ds_block_slash.svg) center/contain no-repeat;mask:url(icons/ic_ds_block_slash.svg) center/contain no-repeat"></span></span><span style="font-size:11.5px;font-weight:700;color:#fff;line-height:1.2">Block any number</span></div>
+              <div style="display:flex;align-items:center;gap:8px;padding:10px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)"><span style="width:26px;height:26px;border-radius:8px;background:rgba(169,139,255,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="width:13px;height:13px;background:#C3B2FF;-webkit-mask:url(icons/ic_ai_sparkle.svg) center/contain no-repeat;mask:url(icons/ic_ai_sparkle.svg) center/contain no-repeat"></span></span><span style="font-size:11.5px;font-weight:700;color:#fff;line-height:1.2">Unlimited Ask AI</span></div>
+              <div style="display:flex;align-items:center;gap:8px;padding:10px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)"><span style="width:26px;height:26px;border-radius:8px;background:rgba(91,215,154,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="width:13px;height:13px;background:#5BD79A;-webkit-mask:url(icons/ic_shield_check.svg) center/contain no-repeat;mask:url(icons/ic_shield_check.svg) center/contain no-repeat"></span></span><span style="font-size:11.5px;font-weight:700;color:#fff;line-height:1.2">Zero ads</span></div>
+            </div>
+          </div>
+
+          <!-- plans -->
+          <div style="display:flex;justify-content:space-between;align-items:baseline;padding:18px 20px 0">
+            <span style="font-size:10.5px;font-weight:700;letter-spacing:.12em;color:#8A91A6">CHOOSE YOUR PLAN</span>
+            <span style="font-size:11px;font-weight:700;color:#AAB0C0">Prices per week</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;padding:12px 20px 0">
+            <sc-for list="{{ plans }}" as="p" hint-placeholder-count="3">
+              <div onClick="{{ p.select }}" style="position:relative;cursor:pointer;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:18px;background:{{ p.bg }};border:2px solid {{ p.border }};box-shadow:{{ p.shadow }};transition:all .18s ease">
+                <sc-if value="{{ p.badge }}" hint-placeholder-val="{{ false }}">
+                  <span style="position:absolute;top:-10px;right:14px;padding:3px 9px;border-radius:8px;background:{{ p.badgeBg }};color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.06em;box-shadow:0 4px 10px rgba(46,95,232,.25)">{{ p.badge }}</span>
+                </sc-if>
+                <span style="width:22px;height:22px;border-radius:50%;box-sizing:border-box;border:2px solid {{ p.radioBorder }};background:{{ p.radioBg }};display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="width:11px;height:11px;background:{{ p.checkBg }};opacity:{{ p.checkOpacity }};-webkit-mask:url(icons/ic_premium_radio_check.svg) center/contain no-repeat;mask:url(icons/ic_premium_radio_check.svg) center/contain no-repeat"></span></span>
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0">
+                  <div style="display:flex;align-items:center;gap:6px"><span style="font-size:15px;font-weight:700;color:{{ p.nameInk }}">{{ p.name }}</span>
+                    <sc-if value="{{ p.save }}" hint-placeholder-val="{{ false }}"><span style="padding:2px 6px;border-radius:6px;background:{{ p.chipBg }};color:{{ p.chipInk }};font-size:9.5px;font-weight:700">{{ p.save }}</span></sc-if>
+                  </div>
+                  <span style="font-size:11.5px;font-weight:600;color:{{ p.subInk }}">{{ p.total }}</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0">
+                  <sc-if value="{{ p.was }}" hint-placeholder-val="{{ false }}"><span style="font-size:10.5px;font-weight:700;color:{{ p.wasInk }};text-decoration:line-through">{{ p.was }}</span></sc-if>
+                  <div style="display:flex;align-items:baseline;gap:2px"><span style="font-family:'Space Grotesk';font-size:20px;color:{{ p.priceInk }}">{{ p.perWeek }}</span><span style="font-size:11px;font-weight:700;color:{{ p.subInk }}">/wk</span></div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="flex:1"></div>
+          <!-- footer -->
+          <div style="padding:0 20px 8px;display:flex;flex-direction:column;gap:10px">
+            <div style="text-align:center;font-size:12px;font-weight:600;color:#8A91A6">{{ aboveCta }}</div>
+            <div style="position:relative;overflow:hidden;height:56px;border-radius:28px;background:linear-gradient(135deg,#3466F0,#1F3FAE);display:flex;align-items:center;justify-content:center;gap:9px;color:#fff;animation:pwGlow 2.4s ease-in-out infinite;cursor:pointer">
+              <span style="width:17px;height:17px;background:#fff;-webkit-mask:url(icons/ic_premium_sparkle.svg) center/contain no-repeat;mask:url(icons/ic_premium_sparkle.svg) center/contain no-repeat"></span>
+              <span style="font-size:16px;font-weight:700">{{ cta }}</span>
+              <span style="position:absolute;top:0;left:0;width:40px;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.28),rgba(255,255,255,0));animation:pwShine 3.6s 1.6s ease-in-out infinite"></span>
+            </div>
+            <div style="text-align:center;font-size:13px;font-weight:700;line-height:1.5;color:#5B6378;cursor:pointer;text-decoration:underline;text-underline-offset:3px">Continue without Premium</div>
+            <div style="display:flex;justify-content:center;align-items:center;gap:14px;font-size:11.5px;font-weight:700;color:#8A91A6"><span>Terms of service</span><span style="width:1px;height:11px;background:#D6DAE5"></span><span>Privacy policy</span></div>
+          </div>
+          <div style="height:14px;display:flex;justify-content:center"><span style="width:108px;height:4px;border-radius:2px;background:#12172B;opacity:.85"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPEC -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:20px;min-width:0">
+      <div style="background:#fff;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#8A91A6">PRICE LOGIC</span>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;font-size:13.5px;font-weight:600;color:#3A4050">
+          <div style="padding:8px 0;border-bottom:1px solid #E1E5EE;font-size:11px;font-weight:700;letter-spacing:.08em;color:#8A91A6">PLAN</div><div style="padding:8px 0;border-bottom:1px solid #E1E5EE;font-size:11px;font-weight:700;letter-spacing:.08em;color:#8A91A6">CHARGED</div><div style="padding:8px 0;border-bottom:1px solid #E1E5EE;font-size:11px;font-weight:700;letter-spacing:.08em;color:#8A91A6">PER WEEK</div><div style="padding:8px 0;border-bottom:1px solid #E1E5EE;font-size:11px;font-weight:700;letter-spacing:.08em;color:#8A91A6">VS WEEKLY</div>
+          <div style="padding:10px 0;border-bottom:1px solid #F0F2F7;font-weight:700;color:#12172B">Yearly · P1Y</div><div style="padding:10px 0;border-bottom:1px solid #F0F2F7">$149.99</div><div style="padding:10px 0;border-bottom:1px solid #F0F2F7">149.99 ÷ 52 = <b>$2.88</b></div><div style="padding:10px 0;border-bottom:1px solid #F0F2F7;color:#177A45;font-weight:700">Save 71%</div>
+          <div style="padding:10px 0;border-bottom:1px solid #F0F2F7;font-weight:700;color:#12172B">1 month · P1M</div><div style="padding:10px 0;border-bottom:1px solid #F0F2F7">$19.99</div><div style="padding:10px 0;border-bottom:1px solid #F0F2F7">19.99 × 12 ÷ 52 = <b>$4.61</b></div><div style="padding:10px 0;border-bottom:1px solid #F0F2F7;color:#177A45;font-weight:700">Save 53%</div>
+          <div style="padding:10px 0;font-weight:700;color:#12172B">Weekly · P1W</div><div style="padding:10px 0">$9.99</div><div style="padding:10px 0"><b>$9.99</b></div><div style="padding:10px 0;color:#8A91A6">baseline</div>
+        </div>
+        <div style="font-size:13px;line-height:1.55;color:#6A7285;font-weight:600">Per-week prices round <b>down</b> to the cent and savings round down to a whole percent, so the screen never overstates a discount. Weekly is the baseline because it's the plan being compared against. Google Play policy requires the full billed amount to be shown more prominently than any breakdown near the purchase button. The CTA's fine print carries it ("then $149.99/year"), and each row's second line repeats it.</div>
+      </div>
+
+      <div style="background:#fff;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:12px;font-size:13.5px;line-height:1.55;color:#3A4050;font-weight:600">
+        <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#8A91A6">WHAT CHANGED</span>
+        <div>• Free-vs-Premium table replaced with four benefit tiles inside a full-bleed dark hero (same premium_hero_start / _end gradient, gold crown tile).</div>
+        <div>• Plan order: Yearly (preselected, Best Value), 1 month, Weekly. The badge moves from Lifetime to Yearly and adds the saving.</div>
+        <div>• Each row: radio · name + saving chip · billed total · struck weekly price · <b>$/wk</b> in Space Grotesk 20sp.</div>
+        <div>• CTA label and fine print follow the selected plan. Everything fits on a 360×800 screen without scrolling. On shorter screens the plan list scrolls and the footer stays pinned (existing premiumScroll / premiumFooter).</div>
+      </div>
+
+      <div style="background:#12172B;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:10px">
+        <span style="color:#fff;font-weight:700;font-size:14px">PremiumActivity.kt · per-week from Play offer</span>
+        <pre style="margin:0;color:#C9D1E6;font-size:12px;line-height:1.55;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace">private fun weeksIn(period: String) = when (period) {
+    "P1W" -&gt; 1.0
+    "P1M" -&gt; 52.0 / 12.0
+    "P1Y" -&gt; 52.0
+    else  -&gt; 1.0
+}
+private fun perWeekMicros(o: PlanOffer) =
+    (o.priceAmountMicros / weeksIn(o.billingPeriod)).toLong()
+
+val weekly = offers.first { it.billingPeriod == "P1W" }
+fun savePct(o: PlanOffer) =
+    floor((1 - perWeekMicros(o).toDouble() / weekly.priceAmountMicros) * 100).toInt()
+
+fun money(micros: Long, code: String) =
+    NumberFormat.getCurrencyInstance().apply {
+        currency = Currency.getInstance(code)
+        roundingMode = RoundingMode.DOWN
+    }.format(micros / 1_000_000.0)</pre>
+      </div>
+
+      <div style="background:#12172B;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:10px">
+        <span style="color:#fff;font-weight:700;font-size:14px">item_premium_plan.xml · new ids</span>
+        <pre style="margin:0;color:#C9D1E6;font-size:12px;line-height:1.55;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace">rowPlan (existing, bg_premium_plan, r18, 2dp stroke)
+ ├ radioPlan 22dp
+ ├ LinearLayout vertical, weight 1
+ │   ├ textPlanTitle   mulish_bold 15sp  + textPlanSave chip
+ │   └ textPlanTotal   mulish_semibold 11.5sp premium_ink_muted
+ │                     "$149.99 billed yearly"
+ └ LinearLayout vertical, gravity end
+     ├ textPlanWas     11sp strike, premium_price_muted (yearly/monthly)
+     └ textPlanPrice   space_grotesk_bold 20sp + "/wk" 11sp
+badgeBestValue → text "BEST VALUE · SAVE 71%", on yearly
+
+strings: premium_per_week "/wk", premium_billed_weekly "Billed weekly",
+premium_billed_monthly "%1$s billed monthly",
+premium_billed_yearly "%1$s billed yearly", premium_save "Save %1$d%%",
+premium_fine_trial "3 days free, then %1$s. Cancel anytime in Google Play."</pre>
+      </div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultPlan&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;yearly&quot;,&quot;monthly&quot;,&quot;weekly&quot;],&quot;default&quot;:&quot;weekly&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;trial&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;closeDelay&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:0,&quot;max&quot;:10,&quot;step&quot;:1,&quot;unit&quot;:&quot;s&quot;,&quot;default&quot;:5,&quot;tsType&quot;:&quot;number&quot;}}">
+class Component extends DCLogic {
+  state = { sel: null, closeMs: 5000 };
+  componentDidMount() { this.startClose(); }
+  componentWillUnmount() { clearInterval(this._ct); }
+  startClose() {
+    clearInterval(this._ct);
+    const t0 = Date.now(), total = (this.props.closeDelay ?? 5) * 1000;
+    this.setState({ closeMs: total });
+    this._ct = setInterval(() => {
+      const left = Math.max(0, total - (Date.now() - t0));
+      this.setState({ closeMs: left });
+      if (!left) clearInterval(this._ct);
+    }, 50);
+  }
+  renderVals() {
+    const trial = this.props.trial ?? true;
+    const sel = this.state.sel ?? (this.props.defaultPlan ?? "weekly");
+    const W = 9.99;
+    const defs = [
+      { id: "yearly", name: "Yearly", price: 149.99, weeks: 52, unit: "year", billed: "billed yearly" },
+      { id: "monthly", name: "1 month", price: 19.99, weeks: 52 / 12, unit: "month", billed: "billed monthly" },
+      { id: "weekly", name: "Weekly", price: 9.99, weeks: 1, unit: "week", billed: "" },
+    ];
+    const fmt = n => "$" + (Math.floor(n * 100 + 1e-6) / 100).toFixed(2);
+    const plans = defs.map(d => {
+      const on = d.id === sel;
+      const pw = d.price / d.weeks;
+      const save = d.id === "weekly" ? 0 : Math.floor((1 - pw / W) * 100);
+      return {
+        name: d.name,
+        total: d.id === "weekly" ? "Billed weekly" : `${fmt(d.price)} ${d.billed}`,
+        perWeek: fmt(pw),
+        was: d.id === "weekly" ? "" : fmt(W),
+        save: d.id === "monthly" ? `Save ${save}%` : (d.id === "weekly" && trial ? "3 days free" : ""),
+        saveBg: d.id === "weekly" ? "#EAEEFE" : "#EAF6EF",
+        saveInk: d.id === "weekly" ? "#2E5FE8" : "#177A45",
+        badge: d.id === "yearly" ? `BEST VALUE · SAVE ${save}%` : (d.id === "weekly" ? "MOST POPULAR" : ""),
+        badgeBg: d.id === "weekly" ? "linear-gradient(135deg,#3466F0,#7A5AF0)" : "#F2A93B",
+        bg: on ? "linear-gradient(135deg,#3466F0 0%,#1F3FAE 100%)" : "#FFFFFF",
+        border: on ? "#3466F0" : "#E1E5EE",
+        shadow: on ? "0 14px 30px rgba(46,95,232,.38)" : "none",
+        priceInk: on ? "#FFFFFF" : "#12172B",
+        nameInk: on ? "#FFFFFF" : "#12172B",
+        subInk: on ? "rgba(255,255,255,.78)" : "#8A91A6",
+        wasInk: on ? "rgba(255,255,255,.6)" : "#AAB0C0",
+        chipBg: on ? "rgba(255,255,255,.2)" : (d.id === "weekly" ? "#EAEEFE" : "#EAF6EF"),
+        chipInk: on ? "#FFFFFF" : (d.id === "weekly" ? "#2E5FE8" : "#177A45"),
+        radioBorder: on ? "#FFFFFF" : "#D6DAE5",
+        radioBg: on ? "#FFFFFF" : "#FFFFFF",
+        checkBg: on ? "#2E5FE8" : "#FFFFFF",
+        checkOpacity: on ? 1 : 0,
+        select: () => this.setState({ sel: d.id }),
+      };
+    });
+    const d = defs.find(x => x.id === sel);
+    const total = `${fmt(d.price)}/${d.unit}`;
+    const short = { yearly: "1 Year", monthly: "1 Month", weekly: "1 Week" };
+    const unitShort = { yearly: "yr", monthly: "mo", weekly: "wk" };
+    const mk = (key, dark) => {
+      const s = this.state[key] ?? "yearly";
+      const list = defs.map(dd => {
+        const on = dd.id === s, pw = dd.price / dd.weeks;
+        const save = dd.id === "weekly" ? 0 : Math.floor((1 - pw / W) * 100);
+        return {
+          id: dd.id, name: short[dd.id], perWeek: fmt(pw), total: fmt(dd.price),
+          totalLine: dd.id === "weekly" ? "billed weekly" : `${fmt(dd.price)}/${unitShort[dd.id]}`,
+          billedLine: dd.id === "weekly" ? "Billed weekly · cancel anytime" : `Billed ${fmt(dd.price)} ${dd.id === "yearly" ? "yearly" : "monthly"} · cancel anytime`,
+          suggested: dd.id === "yearly", saveTxt: save ? `SAVE ${save}%` : "",
+          on,
+          border: on ? (dark ? "#6E97FF" : "#0548FF") : (dark ? "rgba(255,255,255,.12)" : "#E1E5EE"),
+          bg: on ? (dark ? "#FFFFFF" : "#EFF3FF") : (dark ? "transparent" : "#FFFFFF"),
+          ink: on && dark ? "#12172B" : (dark ? "rgba(255,255,255,.72)" : "#12172B"),
+          shadow: on ? "0 10px 22px rgba(5,72,255,.16)" : "none",
+          radioBorder: on ? "#0548FF" : "#D6DAE5",
+          dot: on ? 1 : 0,
+          select: () => this.setState({ [key]: dd.id }),
+        };
+      });
+      const cur = list.find(x => x.id === s);
+      const others = list.filter(x => x.id !== s).map(x => `${x.name.replace("1 ", "")} ${x.perWeek}/wk`).join("   ·   ");
+      return { list, cur, others };
+    };
+    const A = mk("selA"), B = mk("selB"), C = mk("selC", true);
+    return {
+      aPlans: A.list, aCta: `Continue · ${A.cur.perWeek} / week`, aFine: A.cur.id === "weekly" ? "Renews weekly. Cancel anytime in Google Play." : `Billed ${A.cur.total} ${A.cur.id === "yearly" ? "yearly" : "monthly"}. Cancel anytime in Google Play.`,
+      bPlans: B.list, bFine: `${B.cur.id === "weekly" ? "$9.99 billed weekly" : B.cur.billedLine.split(" · ")[0]} · Cancel anytime in Google Play`,
+      cPlans: C.list, cCur: C.cur, cOthers: C.others,
+      plans,
+      closeReady: this.state.closeMs <= 0,
+      closeCounting: this.state.closeMs > 0,
+      closeLeft: Math.ceil(this.state.closeMs / 1000),
+      closeDeg: Math.round(360 * (1 - this.state.closeMs / ((this.props.closeDelay ?? 5) * 1000))),
+      replayClose: () => this.startClose(),
+      aboveCta: trial ? `${fmt(d.price / d.weeks)}/week after FREE 3-day trial` : `${fmt(d.price / d.weeks)}/week · billed ${total}`,
+      cta: trial ? "Start 3-day free trial" : `Continue · ${total}`,
+      fine: trial ? `3 days free, then ${total}. Cancel anytime in Google Play.` : `${total}, renews automatically. Cancel anytime in Google Play.`,
+    };
+  }
+}
+</script>
+</body>
+</html>
+

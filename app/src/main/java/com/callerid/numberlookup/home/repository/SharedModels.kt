@@ -27,14 +27,19 @@ data class ContactRecord(
      */
     val groups: Set<String> = emptySet(),
     /**
-     * The contact's first email address, or null when they have none.
-     *
-     * Carried so search can match on it: people look each other up by address as
-     * readily as by name, and a contact saved from a mail app may have nothing
-     * else worth typing. It is not part of [detail] — that is the row's phone
-     * number and the thing the row dials.
+     * Every email address the contact has, for search to match on: people look
+     * each other up by address as readily as by name, and not always by the
+     * first one saved. Not part of [detail], which is what the row shows.
      */
-    val email: String? = null,
+    val emails: List<String> = emptyList(),
+    /** The provider's contact id, for opening the contact in the system app. */
+    val contactId: Long = -1L,
+    /**
+     * False for a contact saved with an email and no phone number. Search lists
+     * them — an address is all they have to be found by — with the address in
+     * [detail], no call button, and a tap opening the system contact card.
+     */
+    val hasPhone: Boolean = true,
     /**
      * The account this contact is stored under — a Google address, "SIM", the
      * device itself — or null when the provider reports none (a local-only

@@ -18,6 +18,19 @@ class ContactListViewModel(app: Application) : AndroidViewModel(app) {
 
     private val repository = ContactRepository(app)
     private var allContacts: List<ContactRecord> = emptyList()
+
+    /** Group members with no phone number: Groups tab only, never the main list. */
+    private var phonelessGroupMembers: List<ContactRecord> = emptyList()
+
+    /**
+     * Whether the phone has any group with someone in it, across every account.
+     * The Groups chip shows only then: a tab that can only ever say "No groups
+     * yet" is one tap wasted. Across all accounts, not the selected one, so the
+     * chip does not blink in and out as the account filter changes; an account
+     * without groups gets the tab's empty state instead.
+     */
+    private val _hasGroups = MutableLiveData(false)
+    val hasGroups: LiveData<Boolean> = _hasGroups
     private var query: String = ""
 
     private val _rows = MutableLiveData<List<ContactRowUi>>(emptyList())
@@ -47,7 +60,19 @@ class ContactListViewModel(app: Application) : AndroidViewModel(app) {
 
     fun load() {
         viewModelScope.launch {
-            allContacts = withContext(Dispatchers.IO) { repository.getContacts() }
+            withContext(Dispatchers.IO) {
+                allContacts = repository.getContacts()
+                phonelessGroupMembers = repository.phonelessGroupMembers()
+            }
+            val anyGroup = allContacts.any { it.groups.isNotEmpty() } ||
+                phonelessGroupMembers.isNotEmpty()
+            _hasGroups.value = anyGroup
+            // The chip is going away under the user: leave its tab for All
+            // rather than strand them on a tab they can no longer see.
+            if (!anyGroup && _filter.value == ContactFilter.GROUPS) {
+                _filter.value = ContactFilter.ALL
+                _openGroup.value = null
+            }
             refreshFavorites()
             _accounts.value = buildAccounts()
             rebuild()
@@ -169,12 +194,17 @@ class ContactListViewModel(app: Application) : AndroidViewModel(app) {
     /**
      * The Groups tab: its groups with a count each, or the open group's members.
      *
-     * Counted over the contacts the list can show — this account, with a phone
-     * number — so a group never promises more people than opening it produces.
-     * A group with none of those is left off rather than shown as "0 contacts".
+     * Counted over the members opening it produces — this account's, with or
+     * without a phone number — so the count and the list agree. A group with
+     * nobody in it is left off rather than shown as "0 contacts".
      */
     private fun groupRows(needle: String): List<ContactRowUi> {
-        val pool = allContacts.filter { inSelectedAccount(it) }
+        // Phoneless members count too: a group of people saved by name or email
+        // is still a group. Re-sorted, since the two lists arrive separately and
+        // the members' letter headers need one name order.
+        val pool = (allContacts + phonelessGroupMembers)
+            .filter { inSelectedAccount(it) }
+            .sortedBy { it.name.lowercase(Locale.getDefault()) }
         val groups = pool
             .flatMap { it.groups }
             .groupingBy { it }

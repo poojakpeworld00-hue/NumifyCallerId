@@ -1,7 +1,10 @@
 package com.callerid.numberlookup.home.repository
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.provider.CallLog
+import androidx.core.content.ContextCompat
 
 /** A single entry from the system call log. */
 data class CallRecord(
@@ -74,6 +77,11 @@ class CallLogRepository(private val context: Context) {
      */
     fun getCalls(limit: Int = 500, types: IntArray? = null): List<CallRecord> {
         val result = mutableListOf<CallRecord>()
+        // Without READ_CALL_LOG the provider throws rather than returning
+        // nothing, and a dozen screens reach this from a background load — the
+        // dialer's pool among them, which crashed the app for anyone who had
+        // declined the permission. No permission reads as an empty log.
+        if (!hasCallLogPermission()) return result
         val projection = arrayOf(
             CallLog.Calls.CACHED_NAME,
             CallLog.Calls.NUMBER,
@@ -86,18 +94,26 @@ class CallLogRepository(private val context: Context) {
             ?.let { "${CallLog.Calls.TYPE} IN (${it.joinToString(",") { "?" }})" }
         val args = types?.takeIf { it.isNotEmpty() }?.map { it.toString() }?.toTypedArray()
 
-        context.contentResolver.query(
-            CallLog.Calls.CONTENT_URI,
-            projection,
-            selection,
-            args,
-            "${CallLog.Calls.DATE} DESC"
-        )?.use { cursor ->
+        // Still caught: the permission can be revoked between the check and the
+        // query, which also throws.
+        val queried = try {
+            context.contentResolver.query(
+                CallLog.Calls.CONTENT_URI,
+                projection,
+                selection,
+                args,
+                "${CallLog.Calls.DATE} DESC"
+            )
+        } catch (e: SecurityException) {
+            null
+        }
+        queried?.use { cursor ->
             val nameIdx = cursor.getColumnIndex(CallLog.Calls.CACHED_NAME)
             val numberIdx = cursor.getColumnIndex(CallLog.Calls.NUMBER)
             val typeIdx = cursor.getColumnIndex(CallLog.Calls.TYPE)
             val dateIdx = cursor.getColumnIndex(CallLog.Calls.DATE)
             val durationIdx = cursor.getColumnIndex(CallLog.Calls.DURATION)
+            val currentNames = currentContactNames()
 
             while (cursor.moveToNext() && result.size < limit) {
                 val type = when (cursor.getInt(typeIdx)) {
@@ -108,10 +124,13 @@ class CallLogRepository(private val context: Context) {
                     CallLog.Calls.BLOCKED_TYPE -> CallType.SPAM
                     else -> CallType.INCOMING
                 }
+                val number = cursor.getString(numberIdx).orEmpty().ifBlank { "Unknown" }
+                val cachedName = cursor.getString(nameIdx)
                 result.add(
                     CallRecord(
-                        name = cursor.getString(nameIdx),
-                        number = cursor.getString(numberIdx).orEmpty().ifBlank { "Unknown" },
+                        name = if (currentNames == null) cachedName
+                        else currentNames[number.filter(Char::isDigit).takeLast(MATCH_TAIL)],
+                        number = number,
                         type = type,
                         date = cursor.getLong(dateIdx),
                         durationSec = cursor.getLong(durationIdx)
@@ -120,6 +139,34 @@ class CallLogRepository(private val context: Context) {
             }
         }
         return result
+    }
+
+    private fun hasCallLogPermission(): Boolean = ContextCompat.checkSelfPermission(
+        context, Manifest.permission.READ_CALL_LOG
+    ) == PackageManager.PERMISSION_GRANTED
+
+    /**
+     * Every saved number's name as the address book has it now, keyed by the
+     * last [MATCH_TAIL] digits; null when contacts cannot be read.
+     *
+     * The call log's own CACHED_NAME is the name at the time of the call, and
+     * only the system dialer keeps it up to date. Saving an unknown caller, or
+     * renaming someone in the Contacts app, left Recents and every screen fed
+     * from here showing the number or the old name. The address book is the
+     * truth: a number it no longer has goes back to showing as a number.
+     */
+    private fun currentContactNames(): Map<String, String>? {
+        val granted = ContextCompat.checkSelfPermission(
+            context, Manifest.permission.READ_CONTACTS
+        ) == PackageManager.PERMISSION_GRANTED
+        if (!granted) return null
+        val out = HashMap<String, String>()
+        ContactRepository(context).phoneEntries().forEach { phone ->
+            val name = phone.name ?: return@forEach
+            val tail = phone.number.filter(Char::isDigit).takeLast(MATCH_TAIL)
+            if (tail.isNotEmpty()) out.putIfAbsent(tail, name)
+        }
+        return out
     }
 
     /**

@@ -26,6 +26,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import io.lighthouse.push.Attribution
 import io.lighthouse.push.LightHouse
 import io.lighthouse.push.extended.LightHouseRichPush
 import com.callerid.numberlookup.home.monetize.model.ResultCallback
@@ -293,8 +294,23 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         // middle of the first-launch flow. Suppress it for this one trip (the
         // splash's own splash-ad path already handles any intended splash ad).
         AppOpenAdManager.skipNextAppOpenAd = true
-        LightHouse.ensureDataDisclosure(this) {
-            if (isFinishing || isDestroyed) return@ensureDataDisclosure
+        // The WithAttribution variant hands back LightHouse's install verdict
+        // once the disclosure is settled — before the next screen is chosen.
+        // nextScreen() and the onboarding behind it read their audience block
+        // (marketing / organic) through OnMaketing, which AdAwareActivity only
+        // writes later from its own resolveAttribution. On a first launch that
+        // meant onboarding was picked for the default (organic) audience even
+        // for a paid install. Recorded here, the first screen already sees it.
+        LightHouse.ensureDataDisclosureWithAttribution(this) { attribution ->
+            if (isFinishing || isDestroyed) return@ensureDataDisclosureWithAttribution
+            // UNKNOWN means not resolved yet (no referrer, timed out): leave the
+            // stored value alone rather than write "organic" as if it were known.
+            // AdAwareActivity's later resolveAttribution still settles it.
+            if (attribution.isResolved) {
+                AdPreferenceStore.getInstance(this)
+                    .putBoolean("OnMaketing", attribution == Attribution.PAID)
+            }
+            Log.d(SPLASH_FLOW_TAG, "ensureDataDisclosure attribution=$attribution")
             LightHouse.subscribeAsync()
             // The Uninstall shortcut skips onboarding and Home for the funnel.
             val intent = if (uninstallLaunch) uninstallIntent() else Intent(this, nextScreen())

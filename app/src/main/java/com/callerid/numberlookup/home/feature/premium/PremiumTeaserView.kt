@@ -4,6 +4,7 @@ import android.animation.AnimatorInflater
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
+import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -61,8 +62,14 @@ class PremiumTeaserView @JvmOverloads constructor(
         clipToOutline = true
 
         elevation = dp(ELEVATION_DP)
-        outlineAmbientShadowColor = ContextCompat.getColor(context, R.color.premium_hero_shadow)
-        outlineSpotShadowColor = ContextCompat.getColor(context, R.color.premium_hero_shadow)
+        // Shadow colour is API 28. Below it these setters do not exist and threw
+        // NoSuchMethodError from the constructor, which took Settings down on
+        // Android 7–8; there the card simply keeps the default grey shadow.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val shadow = ContextCompat.getColor(context, R.color.premium_hero_shadow)
+            outlineAmbientShadowColor = shadow
+            outlineSpotShadowColor = shadow
+        }
 
         isClickable = true
         isFocusable = true

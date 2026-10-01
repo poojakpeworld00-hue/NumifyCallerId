@@ -1,6 +1,7 @@
 package com.callerid.numberlookup.home.feature.tools
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -216,7 +217,13 @@ class TimerActivity : BaseActivity<ActivityTimerBinding>() {
 
     private fun vibrate() {
         val vibrator = ContextCompat.getSystemService(this, Vibrator::class.java) ?: return
-        vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
+        // VibrationEffect is API 26; on Android 7.x it threw as the timer ended.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            @Suppress("DEPRECATION")
+            vibrator.vibrate(500)
+        }
     }
 
     // ─────────────────────────────── metrics ───────────────────────────────

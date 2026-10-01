@@ -10,8 +10,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginEnd">8dp</item>
         <item name="android:background">@drawable/bg_ds_chip</item>
-        <item name="android:paddingHorizontal">14dp</item>
-        <item name="android:paddingVertical">7dp</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:paddingEnd">14dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">7dp</item>
         <item name="android:textColor">@color/selector_ds_chip_text</item>
         <item name="android:textSize">12.5sp</item>
         <item name="android:fontFamily">@font/mulish_bold</item>
@@ -85,7 +87,8 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:minHeight">52dp</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
     </style>
 
     <style name="DialerGridIcon">
@@ -125,7 +128,8 @@
         <item name="android:gravity">center</item>
         <item name="android:minHeight">48dp</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:paddingVertical">6dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
     </style>
 
     <!-- A rounded square, not a disc. The circular tiles read as avatars on a
@@ -147,8 +151,10 @@
         <item name="android:background">@drawable/bg_ds_hero_tile</item>
         <item name="android:gravity">center</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:paddingHorizontal">8dp</item>
-        <item name="android:paddingVertical">10dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
     </style>
 
     <style name="DetailHeroStatValue">
@@ -230,7 +236,8 @@
         <item name="android:focusable">true</item>
         <item name="android:gravity">center</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:paddingVertical">@dimen/_12sdp</item>
+        <item name="android:paddingTop">@dimen/_12sdp</item>
+        <item name="android:paddingBottom">@dimen/_12sdp</item>
     </style>
 
     <style name="TimerPresetValue">
@@ -266,8 +273,10 @@
         <item name="android:outlineSpotShadowColor">@color/ds_card_shadow</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:paddingHorizontal">6dp</item>
-        <item name="android:paddingVertical">12dp</item>
+        <item name="android:paddingStart">6dp</item>
+        <item name="android:paddingEnd">6dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
     </style>
 
     <style name="SpeedStatIcon">
@@ -399,8 +408,10 @@
         <item name="android:outlineSpotShadowColor">@color/ds_card_shadow</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:paddingHorizontal">16dp</item>
-        <item name="android:paddingVertical">14dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
     </style>
 
     <style name="NetRowIcon">
@@ -576,7 +587,8 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:layout_marginHorizontal">@dimen/_2sdp</item>
+        <item name="android:layout_marginStart">@dimen/_2sdp</item>
+        <item name="android:layout_marginEnd">@dimen/_2sdp</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:orientation">vertical</item>
     </style>
@@ -630,8 +642,10 @@
         <item name="android:background">@drawable/bg_ds_fact_tile</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:paddingHorizontal">6dp</item>
-        <item name="android:paddingVertical">10dp</item>
+        <item name="android:paddingStart">6dp</item>
+        <item name="android:paddingEnd">6dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
     </style>
 
     <style name="LookupFactTileLabel">
@@ -660,7 +674,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:paddingVertical">@dimen/_9sdp</item>
+        <item name="android:paddingTop">@dimen/_9sdp</item>
+        <item name="android:paddingBottom">@dimen/_9sdp</item>
     </style>
 
     <style name="LookupFactIcon">
@@ -741,8 +756,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/bg_btn_outline</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
-        <item name="android:paddingHorizontal">@dimen/_14sdp</item>
-        <item name="android:paddingVertical">@dimen/_8sdp</item>
+        <item name="android:paddingStart">@dimen/_14sdp</item>
+        <item name="android:paddingEnd">@dimen/_14sdp</item>
+        <item name="android:paddingTop">@dimen/_8sdp</item>
+        <item name="android:paddingBottom">@dimen/_8sdp</item>
         <item name="android:textColor">@color/on_surface</item>
         <item name="android:textSize">@dimen/_9ssp</item>
         <item name="android:textStyle">bold</item>
@@ -757,8 +774,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/bg_ai_suggestion</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
-        <item name="android:paddingHorizontal">@dimen/_12sdp</item>
-        <item name="android:paddingVertical">@dimen/_8sdp</item>
+        <item name="android:paddingStart">@dimen/_12sdp</item>
+        <item name="android:paddingEnd">@dimen/_12sdp</item>
+        <item name="android:paddingTop">@dimen/_8sdp</item>
+        <item name="android:paddingBottom">@dimen/_8sdp</item>
         <item name="android:textColor">@color/on_surface_variant</item>
         <item name="android:textSize">@dimen/_9ssp</item>
         <item name="android:includeFontPadding">false</item>
@@ -776,8 +795,10 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:outlineAmbientShadowColor">@color/ds_card_shadow</item>
         <item name="android:outlineSpotShadowColor">@color/ds_card_shadow</item>
-        <item name="android:paddingHorizontal">12dp</item>
-        <item name="android:paddingVertical">8dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
     </style>
 
     <style name="SplashChipIcon">

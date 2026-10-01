@@ -114,6 +114,8 @@ class ContactListAdapter(
             binding.textName.text = c.name
             binding.textNumber.text = c.detail
             loadContactPhoto(c)
+            // An email-only contact (search) has nothing to dial.
+            binding.buttonCall.visibility = if (c.hasPhone) View.VISIBLE else View.INVISIBLE
             binding.buttonCall.setOnClickListener { onCall(c.detail) }
             binding.root.setOnClickListener { onOpen(c) }
         }

@@ -1,10 +1,14 @@
 package com.callerid.numberlookup.home.repository
 
+import android.Manifest
 import android.content.ContentValues
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.CallLog
 import android.provider.ContactsContract
+import androidx.core.content.ContextCompat
+import com.callerid.numberlookup.home.R
 import com.callerid.numberlookup.home.feature.widgets.CallActionHandler
 
 /** One saved phone number and the contact it belongs to. */
@@ -12,6 +16,11 @@ data class ContactPhone(val name: String?, val number: String)
 
 /** Reads device contacts via the [ContactsContract] provider. */
 class ContactRepository(private val context: Context) {
+
+    /** READ_CONTACTS is held; without it every read here comes back empty. */
+    fun canRead(): Boolean = ContextCompat.checkSelfPermission(
+        context, Manifest.permission.READ_CONTACTS
+    ) == PackageManager.PERMISSION_GRANTED
 
     /**
      * Reverse-lookup a phone number against the device contacts.
@@ -214,19 +223,19 @@ class ContactRepository(private val context: Context) {
     }
 
     /**
-     * First email address per contact id.
+     * Every email address per contact id.
      *
      * One query for the whole address book, joined by id below, rather than a
      * per-contact lookup inside the cursor loop — the same bulk shape
      * [photoUriByNumber] uses, and for the same reason: a query per row turns a
      * 2,000-contact load into 2,000 content-provider round trips.
      *
-     * First one wins. A contact with a work and a personal address gets one of
-     * them in search; matching every address would mean a second collection and
-     * a list-valued field for a case the row has no room to show anyway.
+     * All of them, not the first: keeping one meant a contact with a work and a
+     * personal address could only be found by whichever the provider listed
+     * first, and searching the other found nothing.
      */
-    private fun emailByContactId(): Map<Long, String> {
-        val out = HashMap<Long, String>()
+    private fun emailsByContactId(): Map<Long, List<String>> {
+        val out = HashMap<Long, MutableList<String>>()
         runCatching {
             context.contentResolver.query(
                 ContactsContract.CommonDataKinds.Email.CONTENT_URI,
@@ -243,7 +252,123 @@ class ContactRepository(private val context: Context) {
                 if (idIdx < 0 || addressIdx < 0) return@use
                 while (cursor.moveToNext()) {
                     val address = cursor.getString(addressIdx)?.trim().orEmpty()
-                    if (address.isNotEmpty()) out.putIfAbsent(cursor.getLong(idIdx), address)
+                    if (address.isEmpty()) continue
+                    val list = out.getOrPut(cursor.getLong(idIdx)) { ArrayList() }
+                    if (list.none { it.equals(address, ignoreCase = true) }) list.add(address)
+                }
+            }
+        }
+        return out
+    }
+
+    /**
+     * Contacts saved with an email address and no phone number, for search.
+     *
+     * [getContacts] reads the phone table, so these never reached it and could
+     * not be found by anything — including the email address that is all they
+     * have. The row carries the first address as its [ContactRecord.detail].
+     */
+    fun emailOnlyContacts(): List<ContactRecord> {
+        val byId = LinkedHashMap<Long, ContactRecord>()
+        runCatching {
+            context.contentResolver.query(
+                ContactsContract.CommonDataKinds.Email.CONTENT_URI,
+                arrayOf(
+                    ContactsContract.CommonDataKinds.Email.CONTACT_ID,
+                    ContactsContract.CommonDataKinds.Email.DISPLAY_NAME,
+                    ContactsContract.CommonDataKinds.Email.ADDRESS,
+                    ContactsContract.CommonDataKinds.Email.PHOTO_THUMBNAIL_URI,
+                ),
+                "${ContactsContract.CommonDataKinds.Email.HAS_PHONE_NUMBER} = 0",
+                null,
+                "${ContactsContract.CommonDataKinds.Email.DISPLAY_NAME} COLLATE LOCALIZED ASC"
+            )?.use { cursor ->
+                val idIdx = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.CONTACT_ID)
+                val nameIdx = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DISPLAY_NAME)
+                val addressIdx = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)
+                val photoIdx = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.PHOTO_THUMBNAIL_URI)
+                if (idIdx < 0 || addressIdx < 0) return@use
+                while (cursor.moveToNext()) {
+                    val address = cursor.getString(addressIdx)?.trim().orEmpty()
+                    if (address.isEmpty()) continue
+                    val id = cursor.getLong(idIdx)
+                    val existing = byId[id]
+                    if (existing != null) {
+                        byId[id] = existing.copy(emails = existing.emails + address)
+                        continue
+                    }
+                    val name = (if (nameIdx >= 0) cursor.getString(nameIdx) else null)
+                        ?.trim().orEmpty().ifEmpty { address }
+                    byId[id] = ContactRecord(
+                        name = name,
+                        detail = address,
+                        initials = CallActionHandler.initials(name, address),
+                        photoUri = if (photoIdx >= 0) cursor.getString(photoIdx) else null,
+                        emails = listOf(address),
+                        contactId = id,
+                        hasPhone = false,
+                    )
+                }
+            }
+        }
+        return byId.values.toList()
+    }
+
+    /**
+     * Members of the user's groups who have no phone number, for the Groups tab.
+     *
+     * [getContacts] reads the phone table, so a group of people saved by name or
+     * email alone counted as empty and the tab said "No groups yet" over groups
+     * the user had made and filled. These rows join only the Groups tab: the
+     * address book list stays a list of people you can call. No call button
+     * (no [ContactRecord.hasPhone]); the detail line is their first email, and a
+     * contact saved with nothing at all reads as "Unknown".
+     */
+    fun phonelessGroupMembers(): List<ContactRecord> {
+        val groups = groupsByContactId()
+        if (groups.isEmpty()) return emptyList()
+        val emails = emailsByContactId()
+        val accounts = accountByContactId()
+        val unnamed = context.getString(R.string.common_unknown)
+        val out = mutableListOf<ContactRecord>()
+        runCatching {
+            context.contentResolver.query(
+                ContactsContract.Contacts.CONTENT_URI,
+                arrayOf(
+                    ContactsContract.Contacts._ID,
+                    ContactsContract.Contacts.DISPLAY_NAME_PRIMARY,
+                    ContactsContract.Contacts.PHOTO_THUMBNAIL_URI,
+                    ContactsContract.Contacts.STARRED,
+                ),
+                "${ContactsContract.Contacts.HAS_PHONE_NUMBER} = 0 AND " +
+                    "${ContactsContract.Contacts._ID} IN (${groups.keys.joinToString(",")})",
+                null,
+                null
+            )?.use { cursor ->
+                val idIdx = cursor.getColumnIndex(ContactsContract.Contacts._ID)
+                val nameIdx = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_PRIMARY)
+                val photoIdx = cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_THUMBNAIL_URI)
+                val starredIdx = cursor.getColumnIndex(ContactsContract.Contacts.STARRED)
+                if (idIdx < 0) return@use
+                while (cursor.moveToNext()) {
+                    val id = cursor.getLong(idIdx)
+                    val addresses = emails[id].orEmpty()
+                    val name = (if (nameIdx >= 0) cursor.getString(nameIdx) else null)
+                        ?.trim().orEmpty()
+                        .ifEmpty { addresses.firstOrNull() ?: unnamed }
+                    val detail = addresses.firstOrNull().orEmpty()
+                    out += ContactRecord(
+                        name = name,
+                        detail = detail,
+                        initials = CallActionHandler.initials(name, detail),
+                        photoUri = if (photoIdx >= 0) cursor.getString(photoIdx) else null,
+                        starred = starredIdx >= 0 && cursor.getInt(starredIdx) == 1,
+                        groups = groups[id].orEmpty(),
+                        emails = addresses,
+                        contactId = id,
+                        accountName = accounts[id],
+                        hasPhone = false,
+                    )
                 }
             }
         }
@@ -323,7 +448,7 @@ class ContactRepository(private val context: Context) {
 
     fun getContacts(): List<ContactRecord> {
         val groups = groupsByContactId()
-        val emails = emailByContactId()
+        val emails = emailsByContactId()
         val accounts = accountByContactId()
         val lastCalls = lastCallByNumber()
 
@@ -355,15 +480,23 @@ class ContactRepository(private val context: Context) {
                 if (name.isEmpty()) continue
                 val number = cursor.getString(numberIdx)?.trim().orEmpty()
                 val lastCall = lastCalls[number.filter(Char::isDigit).takeLast(MATCH_DIGITS)] ?: 0L
+                val contactId = if (idIdx >= 0) cursor.getLong(idIdx) else -1L
                 // A contact's second or third number still counts towards when
                 // they were last called, even though the row shows the first.
+                // Two separate contacts under one name collapse into this row
+                // too, so the second one's addresses have to come along or
+                // searching for them finds nothing.
                 byName[name]?.let { existing ->
-                    if (lastCall > existing.lastContacted) {
-                        byName[name] = existing.copy(lastContacted = lastCall)
+                    val moreEmails = emails[contactId].orEmpty()
+                        .filter { address -> existing.emails.none { it.equals(address, ignoreCase = true) } }
+                    if (lastCall > existing.lastContacted || moreEmails.isNotEmpty()) {
+                        byName[name] = existing.copy(
+                            lastContacted = maxOf(lastCall, existing.lastContacted),
+                            emails = existing.emails + moreEmails,
+                        )
                     }
                     continue
                 }
-                val contactId = if (idIdx >= 0) cursor.getLong(idIdx) else -1L
                 byName[name] = ContactRecord(
                     name = name,
                     detail = number,
@@ -372,7 +505,8 @@ class ContactRepository(private val context: Context) {
                     starred = starredIdx >= 0 && cursor.getInt(starredIdx) == 1,
                     lastContacted = lastCall,
                     groups = groups[contactId].orEmpty(),
-                    email = emails[contactId],
+                    emails = emails[contactId].orEmpty(),
+                    contactId = contactId,
                     accountName = accounts[contactId],
                 )
             }

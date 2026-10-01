@@ -90,15 +90,21 @@ class DialerViewModel(app: Application) : AndroidViewModel(app) {
      * follow, and any already present from the call log are skipped so a contact
      * you call often does not appear twice.
      *
-     * One load at a time: a second call while one is in flight is dropped rather
-     * than queued, so flicking between tabs cannot stack reads of two content
-     * providers on top of each other.
+     * One load at a time: a second call while one is in flight does not start
+     * another read, so flicking between tabs cannot stack reads of two content
+     * providers on top of each other. It is remembered instead, and one more load
+     * runs once the current one lands — dropping it outright lost a contact saved
+     * while the pool was loading, and the number stayed unnamed.
      *
      * Safe without READ_CONTACTS or READ_CALL_LOG: each side is read inside
      * runCatching / a null-checked cursor and contributes nothing when denied.
      */
     fun load() {
-        if (loadJob?.isActive == true) return
+        if (loadJob?.isActive == true) {
+            reloadPending = true
+            return
+        }
+        reloadPending = false
         loadJob = viewModelScope.launch {
             val loaded = withContext(Dispatchers.IO) {
                 val phones = contacts.phoneEntries()
@@ -118,6 +124,25 @@ class DialerViewModel(app: Application) : AndroidViewModel(app) {
                         val saved = byKey[record.number.digitsKey()] ?: return@map record
                         record.copy(name = saved.name ?: record.name, number = saved.number)
                     }
+                // Without READ_CONTACTS the address book reads as empty, and every
+                // number looked unsaved — even one the user had just saved from
+                // this screen, since that goes through the system editor and needs
+                // no permission. The dialer then dropped the contact card, its
+                // Message / WhatsApp actions and the tap through to the detail
+                // page, while the match list underneath showed the name anyway.
+                // The call log's cached name is the only evidence left, so it
+                // stands in. Only then: with contacts readable the address book is
+                // the truth, and a cached name can outlive the contact.
+                if (!contacts.canRead()) {
+                    called.forEach { record ->
+                        val name = record.name?.takeIf(String::isNotBlank) ?: return@forEach
+                        val key = record.number.digitsKey().takeIf(String::isNotEmpty) ?: return@forEach
+                        byKey.putIfAbsent(
+                            key,
+                            com.callerid.numberlookup.home.repository.ContactPhone(name = name, number = record.number)
+                        )
+                    }
+                }
                 val fromContacts = phones
                     .filter { seen.add(it.number.digitsKey()) }
                     // count = 0: never called, so it sorts below everything in
@@ -133,7 +158,15 @@ class DialerViewModel(app: Application) : AndroidViewModel(app) {
             savedCodes = loaded.savedCodes
             applyFilter()
         }
+        // On completion, not inside the job: in there it still counts as active
+        // and the reload would be swallowed by the check above.
+        loadJob?.invokeOnCompletion { cause ->
+            if (cause == null && reloadPending) load()
+        }
     }
+
+    /** A load was asked for while one was running; see [load]. */
+    private var reloadPending = false
 
     private class Loaded(
         val entries: List<Entry>,

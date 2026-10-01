@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.telephony.TelephonyManager
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
@@ -171,6 +172,20 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
     override fun onDestroy() {
         super.onDestroy()
         autonextHandler.removeCallbacksAndMessages(null)
+    }
+
+    /**
+     * Any touch cancels autonext — "if the user hasn't interacted by then".
+     * It used to fire regardless, so someone scrolling for their language was
+     * pulled to the next screen mid-choice, and the tap they were making landed
+     * on whatever sat under their finger there (the Recents sort button, under
+     * Continue). Once they have touched the screen, they leave it themselves.
+     */
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (ev.actionMasked == MotionEvent.ACTION_DOWN) {
+            autonextHandler.removeCallbacksAndMessages(null)
+        }
+        return super.dispatchTouchEvent(ev)
     }
 
     override fun initObservers() {

@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<style>
+@font-face{font-family:"Mulish";font-weight:500;src:url(fonts/mulish_medium.ttf)}
+@font-face{font-family:"Mulish";font-weight:600;src:url(fonts/mulish_semibold.ttf)}
+@font-face{font-family:"Mulish";font-weight:700;src:url(fonts/mulish_bold.ttf)}
+@font-face{font-family:"Space Grotesk";font-weight:700;src:url(fonts/space_grotesk_bold.ttf)}
+body{margin:0;background:#E9ECF3;font-family:"Mulish",sans-serif;color:#12172B;-webkit-font-smoothing:antialiased}
+a{color:#0548FF;text-decoration:none}a:hover{color:#0230B8;text-decoration:underline}
+@keyframes obPulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.85);opacity:0}}
+@keyframes obFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes obSlide{0%{opacity:0;transform:translate(18px,8px) scale(.94)}100%{opacity:1;transform:none}}
+@keyframes obTap{0%,55%{opacity:0;transform:scale(1.4)}65%{opacity:1;transform:scale(1)}78%{opacity:1;transform:scale(.72)}92%,100%{opacity:0;transform:scale(.72)}}
+@keyframes obToast{0%,35%{opacity:0;transform:translateY(10px)}45%,88%{opacity:1;transform:none}100%{opacity:0;transform:translateY(4px)}}
+@keyframes obFadeUp{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:none}}
+[data-motion="off"] *{animation:none!important}
+</style>
+</helmet>
+
+<div data-motion="{{ motion }}" style="width:1720px;padding:64px 72px 96px;box-sizing:border-box;display:flex;flex-direction:column;gap:72px">
+
+<header style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
+  <div style="display:flex;flex-direction:column;gap:10px;max-width:880px">
+    <div style="font-size:13px;font-weight:700;letter-spacing:.12em;color:#8A91A6;text-transform:uppercase">Contacts: Dialer &amp; Caller ID · IntroActivity redesign</div>
+    <div style="font-family:'Space Grotesk';font-size:52px;line-height:1.05;letter-spacing:-.02em">Onboarding that shows where each feature lives</div>
+    <div style="font-size:17px;line-height:1.55;color:#5B6378;font-weight:600;text-wrap:pretty">Three pages, one per core feature. Each hero is a cropped, working-looking slice of the real screen the feature sits on, with the exact control spotlighted and a "Find it in" path underneath. Tokens, fonts and icons are the app's own (<span style="font-family:monospace">ds_*</span> colors, Mulish + Space Grotesk, <span style="font-family:monospace">ic_ds_*</span> vectors).</div>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+    <a href="#screens" style="padding:9px 14px;border-radius:12px;background:#fff;font-size:13px;font-weight:700;color:#12172B">Screens</a>
+    <a href="#flow" style="padding:9px 14px;border-radius:12px;background:#fff;font-size:13px;font-weight:700;color:#12172B">Flow</a>
+    <a href="#mapping" style="padding:9px 14px;border-radius:12px;background:#fff;font-size:13px;font-weight:700;color:#12172B">Feature map</a>
+    <a href="#specs" style="padding:9px 14px;border-radius:12px;background:#fff;font-size:13px;font-weight:700;color:#12172B">Specs</a>
+    <a href="#motion" style="padding:9px 14px;border-radius:12px;background:#fff;font-size:13px;font-weight:700;color:#12172B">Motion</a>
+    <a href="#xml" style="padding:9px 14px;border-radius:12px;background:#fff;font-size:13px;font-weight:700;color:#12172B">Android XML</a>
+  </div>
+</header>
+
+<!-- ============ SCREENS ============ -->
+<section id="screens" style="display:flex;gap:44px;align-items:flex-start">
+
+  <!-- CURRENT -->
+  <div id="current" style="display:flex;flex-direction:column;gap:16px;opacity:.9">
+    <div style="display:flex;align-items:center;gap:10px"><span style="padding:4px 10px;border-radius:8px;background:#D6DAE5;font-size:12px;font-weight:700;color:#3A4050">Current</span><span style="font-size:13px;font-weight:600;color:#8A91A6">activity_onboarding + illustration_welcome_caller</span></div>
+    <div style="width:380px;height:820px;border-radius:46px;background:#0E1220;padding:10px;box-sizing:border-box;box-shadow:0 30px 60px rgba(14,18,32,.25)">
+      <div style="width:360px;height:800px;border-radius:36px;overflow:hidden;background:#F6F8FC;display:flex;flex-direction:column;position:relative">
+        <div style="height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-size:12px;font-weight:700;color:#12172B"><span>9:41</span><span style="display:flex;gap:4px;align-items:center"><span style="width:14px;height:9px;border-radius:2px;border:1.5px solid #12172B;box-sizing:border-box"></span></span></div>
+        <div style="display:flex;align-items:center;gap:18px;padding:18px 22px 0">
+          <div style="flex:1;display:flex;gap:6px"><span style="flex:1;height:4px;border-radius:2px;background:#0548FF"></span><span style="flex:1;height:4px;border-radius:2px;background:#D6DAE5"></span><span style="flex:1;height:4px;border-radius:2px;background:#D6DAE5"></span></div>
+          <span style="font-size:14px;font-weight:700;color:#8A91A6">Skip</span>
+        </div>
+        <div style="margin:34px 20px 0;padding:16px;border-radius:22px;background:linear-gradient(155deg,#EAF0FE,#F6F8FC);border:1px solid #E1E9FB;display:flex;align-items:center;gap:14px">
+          <div style="width:56px;height:56px;border-radius:18px;background:linear-gradient(150deg,#0548FF,#0230B8);color:#fff;font-family:'Space Grotesk';font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(5,72,255,.35)">JA</div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+            <span style="font-size:10.5px;font-weight:700;letter-spacing:.095em;color:#0548FF">Incoming call</span>
+            <span style="font-family:'Space Grotesk';font-size:16.5px">John Anderson</span>
+            <span style="display:flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:#3A6BFF"><span style="width:11px;height:11px;background:#3A6BFF;-webkit-mask:url(icons/ic_shield_check.svg) center/contain no-repeat;mask:url(icons/ic_shield_check.svg) center/contain no-repeat"></span>Business · Verified</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="width:38px;height:38px;border-radius:50%;background:#1E9E5A;display:flex;align-items:center;justify-content:center"><span style="width:16px;height:16px;background:#fff;-webkit-mask:url(icons/ic_ds_phone.svg) center/contain no-repeat;mask:url(icons/ic_ds_phone.svg) center/contain no-repeat"></span></span>
+            <span style="width:38px;height:38px;border-radius:50%;background:#FDE2E2;display:flex;align-items:center;justify-content:center"><span style="width:16px;height:16px;background:#E5484D;transform:rotate(135deg);-webkit-mask:url(icons/ic_ds_phone.svg) center/contain no-repeat;mask:url(icons/ic_ds_phone.svg) center/contain no-repeat"></span></span>
+          </div>
+        </div>
+        <div style="margin:34px 24px 0;font-family:'Space Grotesk';font-size:30px;line-height:1.15">Know who's<br><span style="color:#0548FF">calling</span></div>
+        <div style="margin:14px 24px 0;max-width:260px;font-size:14.5px;font-weight:600;line-height:1.55;color:#7B8398">See the name, company and region behind an unknown number before you pick up.</div>
+        <div style="flex:1"></div>
+        <sc-if value="{{ showAd }}" hint-placeholder-val="{{ true }}">
+          <div style="height:1px;background:rgba(0,0,0,.12)"></div>
+          <div style="height:112px;background:#EEF1F7;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#AAB0C0;letter-spacing:.08em">NATIVE AD · admob_mid_native_two</div>
+        </sc-if>
+        <div style="display:flex;justify-content:flex-end;padding:16px 20px 22px">
+          <span style="display:flex;align-items:center;gap:8px;padding:14px 26px;border-radius:20px;background:linear-gradient(135deg,#0548FF,#0230B8);color:#fff;font-size:15.5px;font-weight:700;box-shadow:0 8px 18px rgba(5,72,255,.35)">Next<span style="width:16px;height:16px;background:#fff;-webkit-mask:url(icons/ic_ds_chevron_right.svg) center/contain no-repeat;mask:url(icons/ic_ds_chevron_right.svg) center/contain no-repeat"></span></span>
+        </div>
+        <div style="height:14px;display:flex;justify-content:center"><span style="width:108px;height:4px;border-radius:2px;background:#12172B;opacity:.85"></span></div>
+      </div>
+    </div>
+    <div style="max-width:380px;font-size:13px;line-height:1.5;color:#6A7285;font-weight:600">Today's pages describe outcomes (caller ID, scam blocking, search) but never show where the user goes to do them. Page 1 promotes an incoming-call overlay that the intro can't demonstrate, and none of the pages mention Contacts.</div>
+  </div>
+
+  <div style="width:1px;align-self:stretch;background:#D6DAE5"></div>
+
+  <!-- ===== NEW 01 LOOKUP ===== -->
+  <div id="01" style="display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;align-items:center;gap:10px"><span style="padding:4px 10px;border-radius:8px;background:#0548FF;font-size:12px;font-weight:700;color:#fff">01</span><span style="font-size:15px;font-weight:700">Number Lookup</span><span style="font-size:13px;font-weight:600;color:#8A91A6">accent ds_accent #0548FF</span></div>
+    <div style="width:380px;height:820px;border-radius:46px;background:#0E1220;padding:10px;box-sizing:border-box;box-shadow:0 30px 60px rgba(14,18,32,.25)">
+      <div style="width:360px;height:800px;border-radius:36px;overflow:hidden;background:#F6F8FC;display:flex;flex-direction:column;position:relative">
+        <div style="height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-size:12px;font-weight:700"><span>9:41</span><span style="width:14px;height:9px;border-radius:2px;border:1.5px solid #12172B;box-sizing:border-box"></span></div>
+        <div style="display:flex;align-items:center;gap:18px;padding:14px 20px 0;height:40px;box-sizing:border-box">
+          <div style="flex:1;display:flex;gap:6px;align-items:center"><span style="flex:2;height:4px;border-radius:2px;background:#0548FF"></span><span style="flex:1;height:4px;border-radius:2px;background:#D6DAE5"></span><span style="flex:1;height:4px;border-radius:2px;background:#D6DAE5"></span></div>
+          <span style="font-size:14px;font-weight:700;color:#8A91A6">Skip</span>
+        </div>
+        <!-- hero -->
+        <div style="margin:14px 16px 0;height:268px;border-radius:28px;background:radial-gradient(120% 90% at 30% 20%,#E3EBFE 0%,#F1F4FD 55%,#F6F8FC 100%);border:1px solid #E1E9FB;position:relative;overflow:hidden">
+          <div style="position:absolute;left:-60px;top:-40px;width:300px;height:300px;border-radius:50%;border:1px solid rgba(5,72,255,.10)"></div>
+          <div style="position:absolute;left:-10px;top:10px;width:200px;height:200px;border-radius:50%;border:1px dashed rgba(5,72,255,.18)"></div>
+          <!-- mini dialer -->
+          <div style="position:absolute;left:18px;top:20px;width:178px;height:262px;border-radius:22px;background:#fff;border:1px solid #E1E5EE;box-shadow:0 14px 30px rgba(20,30,60,.12);overflow:hidden">
+            <div style="padding:16px 12px 0;display:flex;flex-direction:column;align-items:center;gap:3px">
+              <span style="font-family:'Space Grotesk';font-size:15px;letter-spacing:.01em">+1 415 555 0132</span>
+              <span style="font-size:8.5px;font-weight:700;color:#8A91A6">Not in your contacts</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:12px 12px 0">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:44px"><span style="width:30px;height:30px;border-radius:10px;background:#EEF1F7;display:flex;align-items:center;justify-content:center"><span style="width:14px;height:14px;background:#3A4050;-webkit-mask:url(icons/ic_person_add.svg) center/contain no-repeat;mask:url(icons/ic_person_add.svg) center/contain no-repeat"></span></span><span style="font-size:7.5px;font-weight:700;color:#8A91A6">Add contact</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:44px"><span style="width:30px;height:30px;border-radius:10px;background:#EEF1F7;display:flex;align-items:center;justify-content:center"><span style="width:14px;height:14px;background:#3A4050;-webkit-mask:url(icons/ic_ds_message.svg) center/contain no-repeat;mask:url(icons/ic_ds_message.svg) center/contain no-repeat"></span></span><span style="font-size:7.5px;font-weight:700;color:#8A91A6">Message</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:44px;position:relative">
+                <span style="position:absolute;top:0;left:7px;width:30px;height:30px;border-radius:10px;border:2px solid #0548FF;box-sizing:border-box;animation:obPulse 1.8s ease-out infinite"></span>
+                <span style="width:30px;height:30px;border-radius:10px;background:linear-gradient(135deg,#0548FF,#0230B8);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 12px rgba(5,72,255,.35)"><span style="width:14px;height:14px;background:#fff;-webkit-mask:url(icons/ic_ds_nav_lookup.svg) center/contain no-repeat;mask:url(icons/ic_ds_nav_lookup.svg) center/contain no-repeat"></span></span>
+                <span style="font-size:7.5px;font-weight:700;color:#0548FF">Lookup</span>
+                <span style="position:absolute;top:14px;left:24px;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.85);border:2px solid #12172B;box-sizing:border-box;animation:obTap 3s ease-in-out infinite"></span>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px 0;padding:14px 18px 0;font-family:'Space Grotesk';font-size:14px;color:#C3C8D6;text-align:center"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+            <div style="position:absolute;left:0;right:0;bottom:0;height:40px;background:#fff;border-top:1px solid #E1E5EE;display:grid;grid-template-columns:repeat(4,1fr)">
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px"><span style="width:12px;height:2px;border-radius:1px;background:#0548FF"></span><span style="width:12px;height:12px;background:#0548FF;-webkit-mask:url(icons/ic_ds_nav_dialer.svg) center/contain no-repeat;mask:url(icons/ic_ds_nav_dialer.svg) center/contain no-repeat"></span><span style="font-size:7px;font-weight:700;color:#0548FF">Dialer</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px"><span style="width:12px;height:2px"></span><span style="width:12px;height:12px;background:#AAB0C0;-webkit-mask:url(icons/ic_ds_nav_recents.svg) center/contain no-repeat;mask:url(icons/ic_ds_nav_recents.svg) center/contain no-repeat"></span><span style="font-size:7px;font-weight:600;color:#AAB0C0">Recents</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px"><span style="width:12px;height:2px"></span><span style="width:12px;height:12px;background:#AAB0C0;-webkit-mask:url(icons/ic_ds_nav_contacts.svg) center/contain no-repeat;mask:url(icons/ic_ds_nav_contacts.svg) center/contain no-repeat"></span><span style="font-size:7px;font-weight:600;color:#AAB0C0">Contacts</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px"><span style="width:12px;height:2px"></span><span style="width:12px;height:12px;background:#AAB0C0;-webkit-mask:url(icons/ic_ds_nav_tools.svg) center/contain no-repeat;mask:url(icons/ic_ds_nav_tools.svg) center/contain no-repeat"></span><span style="font-size:7px;font-weight:600;color:#AAB0C0">Tools</span></div>
+            </div>
+          </div>
+          <!-- result card -->
+          <div style="position:absolute;right:14px;top:62px;width:156px;animation:obSlide .6s .5s cubic-bezier(.2,.8,.2,1) both">
+            <div style="background:#fff;border-radius:18px;padding:12px;box-shadow:0 18px 36px rgba(20,30,60,.16);border:1px solid #E1E9FB;display:flex;flex-direction:column;gap:9px;animation:obFloat 5.2s 1.4s ease-in-out infinite">
+              <span style="font-size:7.5px;font-weight:700;letter-spacing:.1em;color:#0548FF">NUMBER DETAILS</span>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="width:30px;height:30px;border-radius:10px;background:linear-gradient(150deg,#0548FF,#0230B8);color:#fff;font-family:'Space Grotesk';font-size:11px;display:flex;align-items:center;justify-content:center">MJ</span>
+                <div style="display:flex;flex-direction:column;gap:1px"><span style="font-family:'Space Grotesk';font-size:11.5px">Michael Johnson</span><span style="font-size:8.5px;font-weight:700;color:#8A91A6">San Francisco, CA</span></div>
+              </div>
+              <div style="height:1px;background:#F0F2F7"></div>
+              <div style="display:flex;justify-content:space-between;font-size:8.5px;font-weight:700"><span style="color:#8A91A6">Country</span><span>United States</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:8.5px;font-weight:700"><span style="color:#8A91A6">Carrier</span><span>Verizon</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:8.5px;font-weight:700"><span style="color:#8A91A6">Line type</span><span>Mobile</span></div>
+            </div>
+          </div>
+        </div>
+        <!-- find it in -->
+        <div style="padding:16px 20px 0;display:flex;flex-direction:column;gap:7px;animation:obFadeUp .45s .35s cubic-bezier(.2,.8,.2,1) both">
+          <span style="font-size:10px;font-weight:700;letter-spacing:.12em;color:#8A91A6">FIND IT IN</span>
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+            <span style="height:26px;padding:0 10px;border-radius:13px;background:#fff;border:1px solid #E1E5EE;display:flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700"><span style="width:12px;height:12px;background:#0548FF;-webkit-mask:url(icons/ic_ds_nav_dialer.svg) center/contain no-repeat;mask:url(icons/ic_ds_nav_dialer.svg) center/contain no-repeat"></span>Dialer</span>
+            <span style="width:10px;height:10px;background:#C3C8D6;-webkit-mask:url(icons/ic_ds_chevron_right.svg) center/contain no-repeat;mask:url(icons/ic_ds_chevron_right.svg) center/contain no-repeat"></span>
+            <span style="height:26px;padding:0 10px;border-radius:13px;background:#EAEEFE;display:flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:#0548FF"><span style="width:12px;height:12px;background:#0548FF;-webkit-mask:url(icons/ic_ds_nav_lookup.svg) center/contain no-repeat;mask:url(icons/ic_ds_nav_lookup.svg) center/contain no-repeat"></span>Lookup</span>
+            <span style="font-size:11px;font-weight:700;color:#AAB0C0;padding-left:4px">or Recents › Identify</span>
+          </div>
+        </div>
+        <div style="margin:14px 20px 0;font-family:'Space Grotesk';font-size:28px;line-height:1.12;letter-spacing:-.01em;animation:obFadeUp .45s .45s cubic-bezier(.2,.8,.2,1) both">Look up<br><span style="color:#0548FF">any number</span></div>
+        <div style="margin:8px 20px 0;max-width:290px;font-size:14px;font-weight:600;line-height:1.5;color:#7B8398;text-wrap:pretty;animation:obFadeUp .45s .55s cubic-bezier(.2,.8,.2,1) both">Type a number in the Dialer and tap Lookup to see its country, carrier and line type.</div>
+        <div style="flex:1"></div>
+        <sc-if value="{{ showAd }}" hint-placeholder-val="{{ true }}">
+          <div style="height:1px;background:rgba(0,0,0,.12)"></div>
+          <div style="height:104px;background:#EEF1F7;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#AAB0C0;letter-spacing:.08em">NATIVE AD · adNativeFrame</div>
+        </sc-if>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px 16px">
+          <span style="font-family:'Space Grotesk';font-size:13px;color:#AAB0C0"><span style="color:#12172B">01</span> / 03</span>
+          <span style="display:flex;align-items:center;gap:8px;height:52px;padding:0 24px 0 28px;border-radius:26px;background:linear-gradient(135deg,#0548FF,#0230B8);color:#fff;font-size:15.5px;font-weight:700;box-shadow:0 8px 18px rgba(5,72,255,.35)">Next<span style="width:16px;height:16px;background:#fff;-webkit-mask:url(icons/ic_ds_chevron_right.svg) center/contain no-repeat;mask:url(icons/ic_ds_chevron_right.svg) center/contain no-repeat"></span></span>
+        </div>
+        <div style="height:14px;display:flex;justify-content:center"><span style="width:108px;height:4px;border-radius:2px;background:#12172B;opacity:.85"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NEW 02 BLOCK ===== -->
+  <div id="02" style="display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;align-items:center;gap:10px"><span style="padding:4px 10px;border-radius:8px;background:#E5484D;font-size:12px;font-weight:700;color:#fff">02</span><span style="font-size:15px;font-weight:700">Block Numbers</span><span style="font-size:13px;font-weight:600;color:#8A91A6">accent ds_danger #E5484D</span></div>
+    <div style="width:380px;height:820px;border-radius:46px;background:#0E1220;padding:10px;box-sizing:border-box;box-shadow:0 30px 60px rgba(14,18,32,.25)">
+      <div style="width:360px;height:800px;border-radius:36px;overflow:hidden;background:#F6F8FC;display:flex;flex-direction:column;position:relative">
+        <div style="height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-size:12px;font-weight:700"><span>9:41</span><span style="width:14px;height:9px;border-radius:2px;border:1.5px solid #12172B;box-sizing:border-box"></span></div>
+        <div style="display:flex;align-items:center;gap:18px;padding:14px 20px 0;height:40px;box-sizing:border-box">
+          <div style="flex:1;display:flex;gap:6px;align-items:center"><span style="flex:1;height:4px;border-radius:2px;background:#0548FF"></span><span style="flex:2;height:4px;border-radius:2px;background:#0548FF"></span><span style="flex:1;height:4px;border-radius:2px;background:#D6DAE5"></span></div>
+          <span style="font-size:14px;font-weight:700;color:#8A91A6">Skip</span>
+        </div>
+        <div style="margin:14px 16px 0;height:268px;border-radius:28px;background:radial-gradient(120% 90% at 30% 20%,#FCE4E4 0%,#FBF1F2 55%,#F6F8FC 100%);border:1px solid #FADADA;position:relative;overflow:hidden">
+          <div style="position:absolute;left:-60px;top:-40px;width:300px;height:300px;border-radius:50%;border:1px solid rgba(229,72,77,.10)"></div>
+          <div style="position:absolute;left:-10px;top:10px;width:200px;height:200px;border-radius:50%;border:1px dashed rgba(229,72,77,.2)"></div>
+          <!-- mini call details -->
+          <div style="position:absolute;left:18px;top:20px;width:178px;height:262px;border-radius:22px;background:#F6F8FC;border:1px solid #E1E5EE;box-shadow:0 14px 30px rgba(20,30,60,.12);overflow:hidden">
+            <div style="display:flex;align-items:center;gap:6px;padding:10px 10px 8px">
+              <span style="width:18px;height:18px;border-radius:6px;background:#EEF1F7;display:flex;align-items:center;justify-content:center"><span style="width:9px;height:9px;background:#12172B;-webkit-mask:url(icons/ic_ds_chevron_left.svg) center/contain no-repeat;mask:url(icons/ic_ds_chevron_left.svg) center/contain no-repeat"></span></span>
+              <span style="font-size:9.5px;font-weight:700">Call Details</span>
+            </div>
+            <div style="margin:0 8px;border-radius:14px;padding:10px;background:linear-gradient(155deg,#2A2154,#12172B);display:flex;flex-direction:column;align-items:center;gap:5px">
+              <span style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Space Grotesk';font-size:13px">?</span>
+              <span style="font-family:'Space Grotesk';font-size:11.5px;color:#fff">+1 202 555 0148</span>
+              <span style="display:flex;align-items:center;gap:3px;padding:2px 7px;border-radius:8px;background:rgba(255,255,255,.1);font-size:7.5px;font-weight:700;color:#FF8A85"><span style="width:8px;height:8px;background:#FF8A85;-webkit-mask:url(icons/ic_warning.svg) center/contain no-repeat;mask:url(icons/ic_warning.svg) center/contain no-repeat"></span>Spam · Robocall</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);margin:8px 8px 0;padding:8px 4px;border-radius:12px;background:#fff">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px"><span style="width:26px;height:26px;border-radius:9px;background:#EAF0FE;display:flex;align-items:center;justify-content:center"><span style="width:12px;height:12px;background:#0548FF;-webkit-mask:url(icons/ic_ds_phone.svg) center/contain no-repeat;mask:url(icons/ic_ds_phone.svg) center/contain no-repeat"></span></span><span style="font-size:7px;font-weight:700;color:#3A4050">Call</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px"><span style="width:26px;height:26px;border-radius:9px;background:#EDE9FB;display:flex;align-items:center;justify-content:center"><span style="width:12px;height:12px;background:#7A5AF0;-webkit-mask:url(icons/ic_ds_message.svg) center/contain no-repeat;mask:url(icons/ic_ds_message.svg) center/contain no-repeat"></span></span><span style="font-size:7px;font-weight:700;color:#3A4050">Message</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;position:relative">
+                <span style="position:absolute;top:0;left:50%;margin-left:-13px;width:26px;height:26px;border-radius:9px;border:2px solid #E5484D;box-sizing:border-box;animation:obPulse 1.8s ease-out infinite"></span>
+                <span style="width:26px;height:26px;border-radius:9px;background:#E5484D;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 12px rgba(229,72,77,.35)"><span style="width:12px;height:12px;background:#fff;-webkit-mask:url(icons/ic_ds_block_slash.svg) center/contain no-repeat;mask:url(icons/ic_ds_block_slash.svg) center/contain no-repeat"></span></span>
+                <span style="font-size:7px;font-weight:700;color:#E5484D">Block</span>
+                <span style="position:absolute;top:12px;left:50%;margin-left:2px;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.85);border:2px solid #12172B;box-sizing:border-box;animation:obTap 3s ease-in-out infinite"></span>
+              </div>
+            </div>
+            <div style="margin:8px 8px 0;border-radius:12px;background:#fff;padding:4px 8px">
+              <div style="display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:1px solid #F0F2F7"><span style="width:6px;height:6px;border-radius:50%;background:#E5484D"></span><span style="flex:1;font-size:7.5px;font-weight:700">Missed · 0:00</span><span style="font-size:7px;color:#8A91A6;font-weight:700">Today</span></div>
+              <div style="display:flex;align-items:center;gap:6px;padding:5px 0"><span style="width:6px;height:6px;border-radius:50%;background:#E5484D"></span><span style="flex:1;font-size:7.5px;font-weight:700">Missed · 0:00</span><span style="font-size:7px;color:#8A91A6;font-weight:700">Mon</span></div>
+            </div>
+          </div>
+          <!-- blocklist card -->
+          <div style="position:absolute;right:14px;top:58px;width:156px;animation:obSlide .6s .5s cubic-bezier(.2,.8,.2,1) both">
+            <div style="background:#fff;border-radius:18px;padding:12px;box-shadow:0 18px 36px rgba(60,20,30,.16);border:1px solid #FADADA;display:flex;flex-direction:column;gap:9px;animation:obFloat 5.2s 1.4s ease-in-out infinite">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="width:28px;height:28px;border-radius:9px;background:#FDE2E2;display:flex;align-items:center;justify-content:center"><span style="width:14px;height:14px;background:#E5484D;-webkit-mask:url(icons/ic_shield_check.svg) center/contain no-repeat;mask:url(icons/ic_shield_check.svg) center/contain no-repeat"></span></span>
+                <div style="display:flex;flex-direction:column;gap:1px"><span style="font-family:'Space Grotesk';font-size:11.5px">Blocklist</span><span style="font-size:7.5px;font-weight:700;color:#8A91A6">Calls auto-rejected</span></div>
+              </div>
+              <div style="height:1px;background:#F0F2F7"></div>
+              <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:8.5px;font-weight:700">+1 202 555 0148</span><span style="padding:2px 6px;border-radius:6px;background:#FDE2E2;color:#E5484D;font-size:7px;font-weight:700">Blocked</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;opacity:.55"><span style="font-size:8.5px;font-weight:700">+1 888 555 0199</span><span style="padding:2px 6px;border-radius:6px;background:#FDE2E2;color:#E5484D;font-size:7px;font-weight:700">Blocked</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;opacity:.3"><span style="font-size:8.5px;font-weight:700">+44 20 7946 0321</span><span style="padding:2px 6px;border-radius:6px;background:#FDE2E2;color:#E5484D;font-size:7px;font-weight:700">Blocked</span></div>
+            </div>
+          </div>
+          <!-- toast -->
+          <div style="position:absolute;right:14px;bottom:14px;display:flex;align-items:center;gap:6px;padding:7px 11px;border-radius:12px;background:#12172B;color:#fff;font-size:9.5px;font-weight:700;box-shadow:0 10px 20px rgba(18,23,43,.25);animation:obToast 3s ease-in-out infinite"><span style="width:10px;height:10px;background:#FF8A85;-webkit-mask:url(icons/ic_ds_block_slash.svg) center/contain no-repeat;mask:url(icons/ic_ds_block_slash.svg) center/contain no-repeat"></span>Number blocked</div>
+        </div>
+        <div style="padding:16px 20px 0;display:flex;flex-direction:column;gap:7px;animation:obFadeUp .45s .35s cubic-bezier(.2,.8,.2,1) both">
+          <span style="font-size:10px;font-weight:700;letter-spacing:.12em;color:#8A91A6">FIND IT IN</span>
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+            <span style="height:26px;padding:0 10px;border-radius:13px;background:#fff;border:1px solid #E1E5EE;display:flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700"><span style="width:12px;height:12px;background:#E5484D;-webkit-mask:url(icons/ic_ds_nav_recents.svg) center/contain no-repeat;mask:url(icons/ic_ds_nav_recents.svg) center/contain no-repeat"></span>Any call</span>
+            <span style="width:10px;height:10px;background:#C3C8D6;-webkit-mask:url(icons/ic_ds_chevron_right.svg) center/contain no-repeat;mask:url(icons/ic_ds_chevron_right.svg) center/contain no-repeat"></span>
+            <span style="height:26px;padding:0 10px;border-radius:13px;background:#FDE2E2;display:flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:#C8363B"><span style="width:12px;height:12px;background:#E5484D;-webkit-mask:url(icons/ic_ds_block_slash.svg) center/contain no-repeat;mask:url(icons/ic_ds_block_slash.svg) center/contain no-repeat"></span>Block</span>
+            <span style="font-size:11px;font-weight:700;color:#AAB0C0;padding-left:4px">manage in Settings</span>
+          </div>
+        </div>
+        <div style="margin:14px 20px 0;font-family:'Space Grotesk';font-size:28px;line-height:1.12;letter-spacing:-.01em;animation:obFadeUp .45s .45s cubic-bezier(.2,.8,.2,1) both">Block callers<br><span style="color:#E5484D">in one tap</span></div>
+        <div style="margin:8px 20px 0;max-width:290px;font-size:14px;font-weight:600;line-height:1.5;color:#7B8398;text-wrap:pretty;animation:obFadeUp .45s .55s cubic-bezier(.2,.8,.2,1) both">Open any call or looked-up number and tap Block. Future calls from it are rejected automatically.</div>
+        <div style="flex:1"></div>
+        <sc-if value="{{ showAd }}" hint-placeholder-val="{{ true }}">
+          <div style="height:1px;background:rgba(0,0,0,.12)"></div>
+          <div style="height:104px;background:#EEF1F7;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#AAB0C0;letter-spacing:.08em">NATIVE AD · adNativeFrame</div>
+        </sc-if>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px 16px">
+          <span style="font-family:'Space Grotesk';font-size:13px;color:#AAB0C0"><span style="color:#12172B">02</span> / 03</span>
+          <span style="display:flex;align-items:center;gap:8px;height:52px;padding:0 24px 0 28px;border-radius:26px;background:linear-gradient(135deg,#0548FF,#0230B8);color:#fff;font-size:15.5px;font-weight:700;box-shadow:0 8px 18px rgba(5,72,255,.35)">Next<span style="width:16px;height:16px;background:#fff;-webkit-mask:url(icons/ic_ds_chevron_right.svg) center/contain no-repeat;mask:url(icons/ic_ds_chevron_right.svg) center/contain no-repeat"></span></span>
+        </div>
+        <div style="height:14px;display:flex;justify-content:center"><span style="width:108px;height:4px;border-radius:2px;background:#12172B;opacity:.85"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NEW 03 CONTACTS ===== -->
+  <div id="03" style="display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;align-items:center;gap:10px"><span style="padding:4px 10px;border-radius:8px;background:#7A5AF0;font-size:12px;font-weight:700;color:#fff">03</span><span style="font-size:15px;font-weight:700">Contact Management</span><span style="font-size:13px;font-weight:600;color:#8A91A6">accent ds_violet #7A5AF0</span></div>
+    <div style="width:380px;height:820px;border-radius:46px;background:#0E1220;padding:10px;box-sizing:border-box;box-shadow:0 30px 60px rgba(14,18,32,.25)">
+      <div style="width:360px;height:800px;border-radius:36px;overflow:hidden;background:#F6F8FC;display:flex;flex-direction:column;position:relative">
+        <div style="height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-size:12px;font-weight:700"><span>9:41</span><span style="width:14px;height:9px;border-radius:2px;border:1.5px solid #12172B;box-sizing:border-box"></span></div>
+        <div style="display:flex;align-items:center;gap:18px;padding:14px 20px 0;height:40px;box-sizing:border-box">
+          <div style="flex:1;display:flex;gap:6px;align-items:center"><span style="flex:1;height:4px;border-radius:2px;background:#0548FF"></span><span style="flex:1;height:4px;border-radius:2px;background:#0548FF"></span><span style="flex:2;height:4px;border-radius:2px;background:#0548FF"></span></div>
+          <span style="font-size:14px;font-weight:700;color:#F6F8FC">Skip</span>
+        </div>
+        <div style="margin:14px 16px 0;height:268px;border-radius:28px;background:radial-gradient(120% 90% at 30% 20%,#E6E0FB 0%,#F1EFFC 55%,#F6F8FC 100%);border:1px solid #E4DEFA;position:relative;overflow:hidden">
+          <div style="position:absolute;left:-60px;top:-40px;width:300px;height:300px;border-radius:50%;border:1px solid rgba(122,90,240,.12)"></div>
+          <div style="position:absolute;left:-10px;top:10px;width:200px;height:200px;border-radius:50%;border:1px dashed rgba(122,90,240,.22)"></div>
+          <!-- mini contacts -->
+          <div style="position:absolute;left:18px;top:20px;width:178px;height:262px;border-radius:22px;background:#F6F8FC;border:1px solid #E1E5EE;box-shadow:0 14px 30px rgba(20,30,60,.12);overflow:hidden">
+            <div style="display:flex;align-items:center;gap:5px;padding:10px 10px 6px">
+              <span style="width:10px;height:10px;background:#0548FF;-webkit-mask:url(icons/ic_group.svg) center/contain no-repeat;mask:url(icons/ic_group.svg) center/contain no-repeat"></span>
+              <span style="flex:1;font-size:9px;font-weight:700">All contacts ▾</span>
+              <span style="width:20px;height:20px;border-radius:7px;background:#fff;border:1px solid #E1E5EE;box-sizing:border-box;display:flex;align-items:center;justify-content:center"><span style="width:9px;height:9px;background:#12172B;-webkit-mask:url(icons/ic_ds_search.svg) center/contain no-repeat;mask:url(icons/ic_ds_search.svg) center/contain no-repeat"></span></span>
+              <span style="position:relative;width:20px;height:20px">
+                <span style="position:absolute;inset:0;border-radius:7px;border:2px solid #7A5AF0;box-sizing:border-box;animation:obPulse 1.8s ease-out infinite"></span>
+                <span style="position:absolute;inset:0;border-radius:7px;background:#7A5AF0;display:flex;align-items:center;justify-content:center"><span style="width:10px;height:10px;background:#fff;-webkit-mask:url(icons/ic_person_add.svg) center/contain no-repeat;mask:url(icons/ic_person_add.svg) center/contain no-repeat"></span></span>
+              </span>
+            </div>
+            <div style="display:flex;gap:4px;padding:0 10px 6px">
+              <span style="padding:3px 7px;border-radius:8px;background:#EAEEFE;color:#0548FF;font-size:7px;font-weight:700">All</span>
+              <span style="padding:3px 7px;border-radius:8px;background:#fff;color:#3A4050;font-size:7px;font-weight:700">Favorites</span>
+              <span style="padding:3px 7px;border-radius:8px;background:#fff;color:#3A4050;font-size:7px;font-weight:700">Recents</span>
+              <span style="padding:3px 7px;border-radius:8px;background:#fff;color:#3A4050;font-size:7px;font-weight:700">Groups</span>
+            </div>
+            <div style="display:flex;gap:8px;padding:2px 10px 8px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px"><span style="width:26px;height:26px;border-radius:50%;background:#2E5FE8;color:#fff;font-size:8.5px;font-weight:700;display:flex;align-items:center;justify-content:center">SM</span><span style="font-size:6.5px;font-weight:700;color:#3A4050">Sara</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px"><span style="width:26px;height:26px;border-radius:50%;background:#F59E0B;color:#fff;font-size:8.5px;font-weight:700;display:flex;align-items:center;justify-content:center">DK</span><span style="font-size:6.5px;font-weight:700;color:#3A4050">Dev</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px"><span style="width:26px;height:26px;border-radius:50%;background:#34D399;color:#fff;font-size:8.5px;font-weight:700;display:flex;align-items:center;justify-content:center">LP</span><span style="font-size:6.5px;font-weight:700;color:#3A4050">Lena</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px"><span style="width:26px;height:26px;border-radius:50%;background:#A78BFA;color:#fff;font-size:8.5px;font-weight:700;display:flex;align-items:center;justify-content:center">RO</span><span style="font-size:6.5px;font-weight:700;color:#3A4050">Ravi</span></div>
+            </div>
+            <div style="margin:0 18px 0 8px;border-radius:12px;background:#fff;padding:4px 8px 30px">
+              <div style="font-size:7px;font-weight:700;color:#8A91A6;padding:3px 0">A</div>
+              <div style="display:flex;align-items:center;gap:6px;padding:3px 0"><span style="width:18px;height:18px;border-radius:50%;background:#EEF1F7;font-size:7px;font-weight:700;display:flex;align-items:center;justify-content:center;color:#3A4050">AM</span><span style="font-size:8.5px;font-weight:700">Aarav Mehta</span></div>
+              <div style="display:flex;align-items:center;gap:6px;padding:3px 0"><span style="width:18px;height:18px;border-radius:50%;background:#EEF1F7;font-size:7px;font-weight:700;display:flex;align-items:center;justify-content:center;color:#3A4050">AB</span><span style="font-size:8.5px;font-weight:700">Alice Brown</span></div>
+              <div style="font-size:7px;font-weight:700;color:#8A91A6;padding:3px 0">B</div>
+              <div style="display:flex;align-items:center;gap:6px;padding:3px 0"><span style="width:18px;height:18px;border-radius:50%;background:#EEF1F7;font-size:7px;font-weight:700;display:flex;align-items:center;justify-content:center;color:#3A4050">BC</span><span style="font-size:8.5px;font-weight:700">Ben Carter</span></div>
+            </div>
+            <div style="position:absolute;right:4px;top:78px;display:flex;flex-direction:column;gap:2px;font-size:6px;font-weight:700;color:#AAB0C0;text-align:center"><span style="color:#0548FF">A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span></div>
+            <div style="position:absolute;left:0;right:0;bottom:0;height:40px;background:#fff;border-top:1px solid #E1E5EE;display:grid;grid-template-columns:repeat(4,1fr)">
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px"><span style="width:12px;height:2px"></span><span style="width:12px;height:12px;background:#AAB0C0;-webkit-mask:url(icons/ic_ds_nav_dialer.svg) center/contain no-repeat;mask:url(icons/ic_ds_nav_dialer.svg) center/contain no-repeat"></span><span style="font-size:7px;font-weight:600;color:#AAB0C0">Dialer</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px"><span style="width:12px;height:2px"></span><span style="width:12px;height:12px;background:#AAB0C0;-webkit-mask:url(icons/ic_ds_nav_recents.svg) center/contain no-repeat;mask:url(icons/ic_ds_nav_recents.svg) center/contain no-repeat"></span><span style="font-size:7px;font-weight:600;color:#AAB0C0">Recents</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px"><span style="width:12px;height:2px;border-radius:1px;background:#0548FF"></span><span style="width:12px;height:12px;background:#0548FF;-webkit-mask:url(icons/ic_ds_nav_contacts.svg) center/contain no-repeat;mask:url(icons/ic_ds_nav_contacts.svg) center/contain no-repeat"></span><span style="font-size:7px;font-weight:700;color:#0548FF">Contacts</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px"><span style="width:12px;height:2px"></span><span style="width:12px;height:12px;background:#AAB0C0;-webkit-mask:url(icons/ic_ds_nav_tools.svg) center/contain no-repeat;mask:url(icons/ic_ds_nav_tools.svg) center/contain no-repeat"></span><span style="font-size:7px;font-weight:600;color:#AAB0C0">Tools</span></div>
+            </div>
+          </div>
+          <!-- groups card -->
+          <div style="position:absolute;right:14px;top:62px;width:150px;animation:obSlide .6s .5s cubic-bezier(.2,.8,.2,1) both">
+            <div style="background:#fff;border-radius:18px;padding:12px;box-shadow:0 18px 36px rgba(40,20,90,.16);border:1px solid #E4DEFA;display:flex;flex-direction:column;gap:8px;animation:obFloat 5.2s 1.4s ease-in-out infinite">
+              <span style="font-size:7.5px;font-weight:700;letter-spacing:.1em;color:#7A5AF0">GROUPS</span>
+              <div style="display:flex;align-items:center;gap:7px"><span style="width:8px;height:8px;border-radius:50%;background:#7A5AF0"></span><span style="flex:1;font-size:9.5px;font-weight:700">Family</span><span style="font-size:8.5px;font-weight:700;color:#8A91A6">8</span></div>
+              <div style="display:flex;align-items:center;gap:7px"><span style="width:8px;height:8px;border-radius:50%;background:#0548FF"></span><span style="flex:1;font-size:9.5px;font-weight:700">Work</span><span style="font-size:8.5px;font-weight:700;color:#8A91A6">23</span></div>
+              <div style="display:flex;align-items:center;gap:7px"><span style="width:8px;height:8px;border-radius:50%;background:#F2A93B"></span><span style="flex:1;font-size:9.5px;font-weight:700">Friends</span><span style="font-size:8.5px;font-weight:700;color:#8A91A6">41</span></div>
+              <div style="height:1px;background:#F0F2F7"></div>
+              <div style="display:flex;align-items:center;gap:6px"><span style="width:11px;height:11px;background:#F2A93B;-webkit-mask:url(icons/ic_star.svg) center/contain no-repeat;mask:url(icons/ic_star.svg) center/contain no-repeat"></span><span style="font-size:8.5px;font-weight:700;color:#3A4050">4 favorites pinned</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:16px 20px 0;display:flex;flex-direction:column;gap:7px;animation:obFadeUp .45s .35s cubic-bezier(.2,.8,.2,1) both">
+          <span style="font-size:10px;font-weight:700;letter-spacing:.12em;color:#8A91A6">FIND IT IN</span>
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+            <span style="height:26px;padding:0 10px;border-radius:13px;background:#EDE9FB;display:flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:#5B3FD6"><span style="width:12px;height:12px;background:#7A5AF0;-webkit-mask:url(icons/ic_ds_nav_contacts.svg) center/contain no-repeat;mask:url(icons/ic_ds_nav_contacts.svg) center/contain no-repeat"></span>Contacts tab</span>
+            <span style="font-size:11px;font-weight:700;color:#AAB0C0;padding-left:4px">Search · Add · Favorites · Groups</span>
+          </div>
+        </div>
+        <div style="margin:14px 20px 0;font-family:'Space Grotesk';font-size:28px;line-height:1.12;letter-spacing:-.01em;animation:obFadeUp .45s .45s cubic-bezier(.2,.8,.2,1) both">Every contact,<br><span style="color:#7A5AF0">in order</span></div>
+        <div style="margin:8px 20px 0;max-width:290px;font-size:14px;font-weight:600;line-height:1.5;color:#7B8398;text-wrap:pretty;animation:obFadeUp .45s .55s cubic-bezier(.2,.8,.2,1) both">Search, add and favorite people from the Contacts tab. Switch accounts and browse by group or A–Z.</div>
+        <div style="flex:1"></div>
+        <sc-if value="{{ showAd }}" hint-placeholder-val="{{ true }}">
+          <div style="height:1px;background:rgba(0,0,0,.12)"></div>
+          <div style="height:104px;background:#EEF1F7;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#AAB0C0;letter-spacing:.08em">NATIVE AD · adNativeFrame</div>
+        </sc-if>
+        <div style="display:flex;align-items:center;padding:14px 20px 16px">
+          <span style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;height:52px;border-radius:26px;background:linear-gradient(135deg,#0548FF,#0230B8);color:#fff;font-size:15.5px;font-weight:700;box-shadow:0 8px 18px rgba(5,72,255,.35)">Continue to PRO<span style="width:16px;height:16px;background:#fff;-webkit-mask:url(icons/ic_ds_chevron_right.svg) center/contain no-repeat;mask:url(icons/ic_ds_chevron_right.svg) center/contain no-repeat"></span></span>
+        </div>
+        <div style="height:14px;display:flex;justify-content:center"><span style="width:108px;height:4px;border-radius:2px;background:#12172B;opacity:.85"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FLOW ============ -->
+<section id="flow" style="display:flex;flex-direction:column;gap:24px;background:#fff;border-radius:28px;padding:40px">
+  <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#8A91A6">SCREEN-TO-SCREEN FLOW</span><span style="font-family:'Space Grotesk';font-size:30px">First run, as ordered by <span style="font-family:monospace;font-size:24px">screen_order</span></span></div>
+  <div style="display:flex;align-items:stretch;gap:0">
+    <div style="flex:1;padding:16px;border-radius:16px;background:#F6F8FC;display:flex;flex-direction:column;gap:4px"><span style="font-weight:700;font-size:15px">Splash</span><span style="font-size:12px;color:#8A91A6;font-weight:600;font-family:monospace">SplashActivity</span></div>
+    <div style="width:36px;display:flex;align-items:center;justify-content:center;color:#C3C8D6;font-size:20px">→</div>
+    <div style="flex:1;padding:16px;border-radius:16px;background:#F6F8FC;display:flex;flex-direction:column;gap:4px"><span style="font-weight:700;font-size:15px">Language</span><span style="font-size:12px;color:#8A91A6;font-weight:600;font-family:monospace">LanguagePickerActivity</span></div>
+    <div style="width:36px;display:flex;align-items:center;justify-content:center;color:#C3C8D6;font-size:20px">→</div>
+    <div style="flex:3.4;padding:16px;border-radius:16px;background:#EAEEFE;border:1.5px solid #0548FF;display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;justify-content:space-between"><span style="font-weight:700;font-size:15px;color:#0548FF">IntroActivity · ViewPager2 (this redesign)</span><span style="font-size:12px;color:#3A6BFF;font-weight:700">swipe or Next · 01 → 02 → 03</span></div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span style="flex:1;padding:10px 12px;border-radius:12px;background:#fff;font-weight:700;font-size:13px">01 Lookup</span><span style="color:#0548FF">→</span>
+        <span style="flex:1;padding:10px 12px;border-radius:12px;background:#fff;font-weight:700;font-size:13px">02 Block</span><span style="color:#0548FF">→</span>
+        <span style="flex:1;padding:10px 12px;border-radius:12px;background:#fff;font-weight:700;font-size:13px">03 Contacts</span>
+      </div>
+      <span style="font-size:12px;color:#3A6BFF;font-weight:700">Skip (any page) and Get started both call finishOnboarding()</span>
+    </div>
+    <div style="width:36px;display:flex;align-items:center;justify-content:center;color:#C3C8D6;font-size:20px">→</div>
+    <div style="flex:1.2;padding:16px;border-radius:16px;background:#F6F8FC;display:flex;flex-direction:column;gap:4px"><span style="font-weight:700;font-size:15px">Permissions</span><span style="font-size:12px;color:#8A91A6;font-weight:600;font-family:monospace">PermissionCoordinator · FSI step</span></div>
+    <div style="width:36px;display:flex;align-items:center;justify-content:center;color:#C3C8D6;font-size:20px">→</div>
+    <div style="flex:1.2;padding:16px;border-radius:16px;background:#12172B;color:#fff;display:flex;flex-direction:column;gap:4px"><span style="font-weight:700;font-size:15px">Main shell</span><span style="font-size:12px;color:rgba(255,255,255,.62);font-weight:600;font-family:monospace">MainShellActivity → Recents</span></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;font-size:13.5px;line-height:1.5;color:#3A4050;font-weight:600">
+    <div><b style="color:#12172B">Order follows the product.</b> Lookup first (the app's main promise), Block second (the action you take after a lookup), Contacts last (daily use).</div>
+    <div><b style="color:#12172B">Back.</b> System back on 02/03 pages back one slide; on 01 it keeps today's behaviour and finishes onboarding (no app exit mid-flow).</div>
+    <div><b style="color:#12172B">Autonext.</b> <span style="font-family:monospace">screen.onboarding.autonext</span> still finishes the flow; while it's counting, the active progress segment fills over that duration.</div>
+    <div><b style="color:#12172B">After intro.</b> On first open of Dialer and Contacts, one coach-mark (existing <span style="font-family:monospace">CoachMarkOverlay</span>) repeats the spotlight from the intro on the real control.</div>
+  </div>
+</section>
+
+<!-- ============ MAPPING ============ -->
+<section id="mapping" style="display:flex;flex-direction:column;gap:24px">
+  <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#8A91A6">FEATURE PLACEMENT</span><span style="font-family:'Space Grotesk';font-size:30px">What each page points to in the app</span></div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px">
+    <div style="background:#fff;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:14px;border-top:4px solid #0548FF">
+      <span style="font-family:'Space Grotesk';font-size:22px">01 · Number Lookup</span>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:13.5px;font-weight:600;color:#3A4050;line-height:1.45">
+        <div><b style="color:#0548FF">Primary:</b> Dialer tab → type number → <b>Lookup</b> tile → <span style="font-family:monospace;font-size:12px">LookupActivity</span> → Number Details (Country, Carrier, Line type, City, Spam type, Also known as)</div>
+        <div><b style="color:#12172B">Also:</b> Recents row → <b>Identify</b> chip (<span style="font-family:monospace;font-size:12px">onIdentify → showLookup</span>)</div>
+        <div><b style="color:#12172B">Also:</b> Call Details → <b>Identify this number</b></div>
+        <div style="font-size:12px;color:#8A91A6">Hero shows: dialer crop with typed number, Lookup tile spotlighted, Number Details card sliding out.</div>
+      </div>
+    </div>
+    <div style="background:#fff;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:14px;border-top:4px solid #E5484D">
+      <span style="font-family:'Space Grotesk';font-size:22px">02 · Block Numbers</span>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:13.5px;font-weight:600;color:#3A4050;line-height:1.45">
+        <div><b style="color:#E5484D">Primary:</b> Recents row → Call Details → <b>Block</b> (<span style="font-family:monospace;font-size:12px">buttonBlock · toggleBlock()</span>)</div>
+        <div><b style="color:#12172B">Also:</b> Number Details (after a lookup) → <b>Block</b> action</div>
+        <div><b style="color:#12172B">Manage:</b> Recents header ⚙ Settings → <b>Blocklist</b> (<span style="font-family:monospace;font-size:12px">BlocklistActivity</span>) · + to add a number or pattern</div>
+        <div style="font-size:12px;color:#8A91A6">Hero shows: Call Details crop with spam verdict, Block tile spotlighted, Blocklist card and "Number blocked" toast.</div>
+      </div>
+    </div>
+    <div style="background:#fff;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:14px;border-top:4px solid #7A5AF0">
+      <span style="font-family:'Space Grotesk';font-size:22px">03 · Contact Management</span>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:13.5px;font-weight:600;color:#3A4050;line-height:1.45">
+        <div><b style="color:#7A5AF0">Primary:</b> Contacts tab (<span style="font-family:monospace;font-size:12px">ContactListFragment</span>)</div>
+        <div><b style="color:#12172B">Inside:</b> Search (<span style="font-family:monospace;font-size:12px">ContactSearchActivity</span>) · Add contact · Account picker "All contacts" (<span style="font-family:monospace;font-size:12px">ContactAccountSheet</span>) · All / Favorites / Recents / Groups chips · A–Z index</div>
+        <div style="font-size:12px;color:#8A91A6">Hero shows: Contacts crop with Add spotlighted, favorites strip, A–Z list and Groups card.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPECS ============ -->
+<section id="specs" style="display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:20px">
+  <div style="background:#fff;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:16px">
+    <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#8A91A6">COLOR · existing tokens + 6 new</span>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;font-size:12px;font-weight:700">
+      <div style="display:flex;gap:10px;align-items:center"><span style="width:34px;height:34px;border-radius:10px;background:#F6F8FC;border:1px solid #E1E5EE"></span><div style="display:flex;flex-direction:column"><span>ds_page</span><span style="color:#8A91A6">#F6F8FC</span></div></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="width:34px;height:34px;border-radius:10px;background:#12172B"></span><div style="display:flex;flex-direction:column"><span>ds_ink</span><span style="color:#8A91A6">#12172B</span></div></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="width:34px;height:34px;border-radius:10px;background:#7B8398"></span><div style="display:flex;flex-direction:column"><span>ds_ink_subtle</span><span style="color:#8A91A6">#7B8398</span></div></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="width:34px;height:34px;border-radius:10px;background:#8A91A6"></span><div style="display:flex;flex-direction:column"><span>ds_ink_muted</span><span style="color:#8A91A6">#8A91A6</span></div></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="width:34px;height:34px;border-radius:10px;background:#0548FF"></span><div style="display:flex;flex-direction:column"><span>ds_accent · CTA, 01</span><span style="color:#8A91A6">#0548FF → #0230B8</span></div></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="width:34px;height:34px;border-radius:10px;background:#E5484D"></span><div style="display:flex;flex-direction:column"><span>ds_danger · 02</span><span style="color:#8A91A6">#E5484D</span></div></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="width:34px;height:34px;border-radius:10px;background:#7A5AF0"></span><div style="display:flex;flex-direction:column"><span>ds_violet · 03</span><span style="color:#8A91A6">#7A5AF0</span></div></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="width:34px;height:34px;border-radius:10px;background:#D6DAE5"></span><div style="display:flex;flex-direction:column"><span>ds_track_idle</span><span style="color:#8A91A6">#D6DAE5</span></div></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="width:34px;height:34px;border-radius:10px;background:#E3EBFE"></span><div style="display:flex;flex-direction:column"><span>intro_wash_lookup <i style="color:#0548FF">new</i></span><span style="color:#8A91A6">#E3EBFE</span></div></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="width:34px;height:34px;border-radius:10px;background:#FCE4E4"></span><div style="display:flex;flex-direction:column"><span>intro_wash_block <i style="color:#0548FF">new</i></span><span style="color:#8A91A6">#FCE4E4</span></div></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="width:34px;height:34px;border-radius:10px;background:#E6E0FB"></span><div style="display:flex;flex-direction:column"><span>intro_wash_contacts <i style="color:#0548FF">new</i></span><span style="color:#8A91A6">#E6E0FB</span></div></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="width:34px;height:34px;border-radius:10px;background:#E4DEFA"></span><div style="display:flex;flex-direction:column"><span>intro_border_contacts <i style="color:#0548FF">new</i></span><span style="color:#8A91A6">#E4DEFA</span></div></div>
+    </div>
+    <span style="font-size:12px;line-height:1.5;color:#8A91A6;font-weight:600">Borders for 01/02 reuse ds_hero_blue_border #E1E9FB and ds_hero_red_border #FADADA. Chip label ink on tint: #C8363B (red) and #5B3FD6 (violet) for 4.5:1 contrast (new: intro_chip_ink_block / _contacts).</span>
+  </div>
+  <div style="background:#fff;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:14px">
+    <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#8A91A6">TYPE</span>
+    <div style="display:flex;flex-direction:column;gap:2px;padding-bottom:10px;border-bottom:1px solid #F0F2F7"><span style="font-family:'Space Grotesk';font-size:28px;line-height:1.12">Look up any number</span><span style="font-size:12px;font-weight:700;color:#8A91A6">Headline · space_grotesk_bold 28sp · lineSpacingMultiplier 1.12 · letterSpacing -0.01</span></div>
+    <div style="display:flex;flex-direction:column;gap:2px;padding-bottom:10px;border-bottom:1px solid #F0F2F7"><span style="font-size:14px;font-weight:600;color:#7B8398;line-height:1.5">Type a number in the Dialer and tap Lookup.</span><span style="font-size:12px;font-weight:700;color:#8A91A6">Body · mulish_semibold 14sp · 1.5 · ds_ink_subtle · max 290dp</span></div>
+    <div style="display:flex;flex-direction:column;gap:2px;padding-bottom:10px;border-bottom:1px solid #F0F2F7"><span style="font-size:10px;font-weight:700;letter-spacing:.12em;color:#8A91A6">FIND IT IN</span><span style="font-size:12px;font-weight:700;color:#8A91A6">Eyebrow · mulish_bold 10sp · letterSpacing 0.12 · caps</span></div>
+    <div style="display:flex;flex-direction:column;gap:2px;padding-bottom:10px;border-bottom:1px solid #F0F2F7"><span style="font-size:11.5px;font-weight:700">Dialer › Lookup</span><span style="font-size:12px;font-weight:700;color:#8A91A6">Path chip · mulish_bold 11.5sp</span></div>
+    <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15.5px;font-weight:700">Next · Get started</span><span style="font-size:12px;font-weight:700;color:#8A91A6">CTA · mulish_bold 15.5sp · ds_on_accent</span></div>
+  </div>
+  <div style="background:#fff;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:12px;font-size:13px;font-weight:600;color:#3A4050;line-height:1.45">
+    <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#8A91A6">SPACING &amp; COMPONENTS (dp)</span>
+    <div style="display:flex;justify-content:space-between;border-bottom:1px solid #F0F2F7;padding-bottom:8px"><span>Screen side margin</span><b>20</b></div>
+    <div style="display:flex;justify-content:space-between;border-bottom:1px solid #F0F2F7;padding-bottom:8px"><span>Hero card margin · radius</span><b>16 · 28</b></div>
+    <div style="display:flex;justify-content:space-between;border-bottom:1px solid #F0F2F7;padding-bottom:8px"><span>Hero height</span><b>34% of page · 220–300</b></div>
+    <div style="display:flex;justify-content:space-between;border-bottom:1px solid #F0F2F7;padding-bottom:8px"><span>Mini-screen card</span><b>178w · r22 · elev 10</b></div>
+    <div style="display:flex;justify-content:space-between;border-bottom:1px solid #F0F2F7;padding-bottom:8px"><span>Floating result card</span><b>150–156w · r18 · pad 12</b></div>
+    <div style="display:flex;justify-content:space-between;border-bottom:1px solid #F0F2F7;padding-bottom:8px"><span>Progress segment</span><b>4h · r2 · gap 6 · active weight 2</b></div>
+    <div style="display:flex;justify-content:space-between;border-bottom:1px solid #F0F2F7;padding-bottom:8px"><span>Path chip</span><b>26h · r13 · pad 10 · icon 12</b></div>
+    <div style="display:flex;justify-content:space-between;border-bottom:1px solid #F0F2F7;padding-bottom:8px"><span>Hero → eyebrow → title → body</span><b>16 · 7 · 14 · 8</b></div>
+    <div style="display:flex;justify-content:space-between;border-bottom:1px solid #F0F2F7;padding-bottom:8px"><span>Next pill</span><b>52h · r26 · pad 28/24</b></div>
+    <div style="display:flex;justify-content:space-between"><span>Get started</span><b>full width · 52h</b></div>
+  </div>
+</section>
+
+<!-- ============ MOTION ============ -->
+<section id="motion" style="background:#fff;border-radius:28px;padding:40px;display:flex;flex-direction:column;gap:20px">
+  <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#8A91A6">ANIMATION &amp; MICRO-INTERACTIONS</span><span style="font-family:'Space Grotesk';font-size:30px">Entrance once per page, then one slow loop</span></div>
+  <div style="display:grid;grid-template-columns:1.2fr 1fr .8fr 1.6fr;gap:0;font-size:13px;font-weight:600;color:#3A4050">
+    <div style="padding:10px 0;border-bottom:1px solid #E1E5EE;font-size:11px;font-weight:700;letter-spacing:.1em;color:#8A91A6">ELEMENT</div><div style="padding:10px 0;border-bottom:1px solid #E1E5EE;font-size:11px;font-weight:700;letter-spacing:.1em;color:#8A91A6">MOTION</div><div style="padding:10px 0;border-bottom:1px solid #E1E5EE;font-size:11px;font-weight:700;letter-spacing:.1em;color:#8A91A6">TIMING</div><div style="padding:10px 0;border-bottom:1px solid #E1E5EE;font-size:11px;font-weight:700;letter-spacing:.1em;color:#8A91A6">ANDROID</div>
+    <div style="padding:12px 0;border-bottom:1px solid #F0F2F7">Hero card + mini screen</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7">popIn 0.92 → 1, fade</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7">450ms @120ms</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7;font-family:monospace;font-size:12px">IntroAnimations.popIn · DesignEasing.entrance</div>
+    <div style="padding:12px 0;border-bottom:1px solid #F0F2F7">Eyebrow, path chips, title, body</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7">fadeUp 12dp, staggered</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7">450ms @350/450/550</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7;font-family:monospace;font-size:12px">existing headlineIn(), add pathRow</div>
+    <div style="padding:12px 0;border-bottom:1px solid #F0F2F7">Floating result card</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7">slide from +18dp x, scale .94 → 1</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7">600ms @500ms</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7;font-family:monospace;font-size:12px">translationX/scale ObjectAnimator · overshoot 1.2</div>
+    <div style="padding:12px 0;border-bottom:1px solid #F0F2F7">Spotlight ring on target control</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7">scale 1 → 1.85, alpha .55 → 0, loop</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7">1800ms infinite</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7;font-family:monospace;font-size:12px">reuse RippleIconView / bg_ds_nav_pulse</div>
+    <div style="padding:12px 0;border-bottom:1px solid #F0F2F7">Tap dot</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7">appear, press to .72, fade</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7">3000ms loop</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7;font-family:monospace;font-size:12px">AnimatorSet, repeat via onAnimationEnd</div>
+    <div style="padding:12px 0;border-bottom:1px solid #F0F2F7">Result card idle</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7">float ±5dp</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7">2600ms half-cycle @1400</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7;font-family:monospace;font-size:12px">existing FLOAT_UNITS / FLOAT_HALF_CYCLE_MS</div>
+    <div style="padding:12px 0;border-bottom:1px solid #F0F2F7">02 "Number blocked" toast</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7">rise 10dp + fade, synced after tap</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7">3000ms loop</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7;font-family:monospace;font-size:12px">same clock as tap dot</div>
+    <div style="padding:12px 0;border-bottom:1px solid #F0F2F7">Progress segment</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7">weight 1 → 2 + color</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7">300ms on page select</div><div style="padding:12px 0;border-bottom:1px solid #F0F2F7;font-family:monospace;font-size:12px">ValueAnimator on LayoutParams.weight</div>
+    <div style="padding:12px 0">Next → Get started</div><div style="padding:12px 0">pill widens to full width, label crossfade</div><div style="padding:12px 0">280ms</div><div style="padding:12px 0;font-family:monospace;font-size:12px">TransitionManager.beginDelayedTransition(ChangeBounds)</div>
+  </div>
+  <div style="font-size:13px;color:#6A7285;font-weight:600;line-height:1.5">Cancel all loops in <span style="font-family:monospace">onViewRecycled</span> / off-screen pages (already done via the returned animator list). Respect <span style="font-family:monospace">Settings.Global.ANIMATOR_DURATION_SCALE == 0</span>: show the final frame only. Press state on CTA: scale 0.97, 90ms (reuse <span style="font-family:monospace">premium_plan_press</span> animator). Haptic <span style="font-family:monospace">CLOCK_TICK</span> on page change.</div>
+</section>
+
+<!-- ============ XML ============ -->
+<section id="xml" style="display:flex;flex-direction:column;gap:20px">
+  <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#8A91A6">IMPLEMENTATION · ANDROID VIEWS / XML</span><span style="font-family:'Space Grotesk';font-size:30px">What changes in the codebase</span></div>
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px">
+
+    <div style="background:#12172B;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:10px">
+      <span style="color:#fff;font-weight:700;font-size:14px">1 · IntroSlide.kt — add path + hero per feature</span>
+      <pre style="margin:0;color:#C9D1E6;font-size:12px;line-height:1.55;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace">data class IntroSlide(
+    @StringRes val titleLeadRes: Int,
+    @StringRes val titleAccentRes: Int,
+    @StringRes val descRes: Int,
+    @ColorRes  val accentColorRes: Int,
+    @DrawableRes val heroBgRes: Int,       // bg_intro_hero_*
+    @LayoutRes val customArtRes: Int,      // illustration_intro_*
+    val path: List&lt;PathStep&gt;,             // "Find it in" chips
+    @StringRes val pathNoteRes: Int = 0    // trailing grey note
+)
+data class PathStep(@DrawableRes val icon: Int, @StringRes val label: Int, val highlighted: Boolean)
+
+IntroSlide(R.string.intro_lookup_lead, R.string.intro_lookup_accent,
+    R.string.intro_lookup_desc, R.color.ds_accent,
+    R.drawable.bg_intro_hero_lookup, R.layout.illustration_intro_lookup,
+    listOf(PathStep(R.drawable.ic_ds_nav_dialer, R.string.nav_dialer, false),
+           PathStep(R.drawable.ic_ds_nav_lookup, R.string.dialer_grid_lookup, true)),
+    R.string.intro_lookup_note)   // "or Recents › Identify"</pre>
+    </div>
+
+    <div style="background:#12172B;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:10px">
+      <span style="color:#fff;font-weight:700;font-size:14px">2 · item_onboarding.xml — new page skeleton</span>
+      <pre style="margin:0;color:#C9D1E6;font-size:12px;line-height:1.55;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace">&lt;ConstraintLayout match_parent × match_parent&gt;
+  &lt;FrameLayout android:id="@+id/artContainer"
+      layout_width="0dp" layout_height="0dp"
+      layout_marginHorizontal="16dp"
+      app:layout_constraintHeight_percent="0.34"
+      app:layout_constraintHeight_min="220dp"
+      app:layout_constraintHeight_max="300dp"
+      android:clipToOutline="true"
+      android:background="@drawable/bg_intro_hero_lookup"/&gt;
+
+  &lt;TextView android:id="@+id/textPathLabel"  "FIND IT IN"
+      style="@style/IntroEyebrow" marginTop="16dp"/&gt;
+  &lt;com.google.android.material.chip.ChipGroup
+      android:id="@+id/pathRow" marginTop="7dp"
+      app:chipSpacingHorizontal="6dp" app:singleLine="false"/&gt;
+
+  &lt;TextView android:id="@+id/textTitle"
+      fontFamily="@font/space_grotesk_bold" textSize="28sp"
+      lineSpacingMultiplier="1.12" letterSpacing="-0.01"
+      marginTop="14dp" marginHorizontal="20dp"/&gt;
+  &lt;TextView android:id="@+id/textDesc"
+      fontFamily="@font/mulish_semibold" textSize="14sp"
+      lineSpacingMultiplier="1.5" textColor="@color/ds_ink_subtle"
+      app:layout_constraintWidth_max="290dp" marginTop="8dp"/&gt;
+&lt;/ConstraintLayout&gt;</pre>
+    </div>
+
+    <div style="background:#12172B;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:10px">
+      <span style="color:#fff;font-weight:700;font-size:14px">3 · Drawables</span>
+      <pre style="margin:0;color:#C9D1E6;font-size:12px;line-height:1.55;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace">&lt;!-- bg_intro_hero_lookup.xml (radial wash + hairline) --&gt;
+&lt;layer-list&gt;
+  &lt;item&gt;&lt;shape&gt;&lt;solid android:color="@color/ds_page"/&gt;
+    &lt;corners android:radius="28dp"/&gt;&lt;/shape&gt;&lt;/item&gt;
+  &lt;item&gt;&lt;shape&gt;
+    &lt;gradient android:type="radial"
+      android:centerX="0.3" android:centerY="0.2"
+      android:gradientRadius="260dp"
+      android:startColor="@color/intro_wash_lookup"
+      android:endColor="@color/ds_page"/&gt;
+    &lt;stroke android:width="1dp" android:color="@color/ds_hero_blue_border"/&gt;
+    &lt;corners android:radius="28dp"/&gt;&lt;/shape&gt;&lt;/item&gt;
+&lt;/layer-list&gt;
+
+&lt;!-- bg_intro_path_chip.xml --&gt;
+&lt;shape&gt;&lt;solid android:color="@color/ds_surface"/&gt;
+  &lt;stroke android:width="1dp" android:color="@color/ds_rule"/&gt;
+  &lt;corners android:radius="13dp"/&gt;&lt;/shape&gt;
+&lt;!-- highlighted chip: solid = accent tint, no stroke --&gt;
+
+&lt;!-- bg_intro_spot_ring.xml: stroke 2dp accent, r10, transparent --&gt;
+&lt;!-- bg_intro_cta_full.xml: bg_ds_next_pill with r26 --&gt;</pre>
+    </div>
+
+    <div style="background:#12172B;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:10px">
+      <span style="color:#fff;font-weight:700;font-size:14px">4 · Hero art layouts (illustration_intro_*.xml)</span>
+      <pre style="margin:0;color:#C9D1E6;font-size:12px;line-height:1.55;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace">&lt;FrameLayout android:id="@+id/heroCard" match_parent
+    android:clipChildren="false"&gt;
+  &lt;!-- decorative rings: 2 Views, oval stroke 1dp accent @10–20% --&gt;
+  &lt;com.google.android.material.card.MaterialCardView
+      android:id="@+id/heroScreen"
+      layout_width="@dimen/intro_screen_w"   178dp / 150dp compact
+      layout_height="match_parent"
+      layout_marginStart="18dp" layout_marginTop="20dp"
+      layout_marginBottom="-24dp"            bleeds off the bottom
+      app:cardCornerRadius="22dp" app:cardElevation="10dp"
+      app:strokeColor="@color/ds_rule" app:strokeWidth="1dp"&gt;
+      &lt;include layout="@layout/intro_mini_dialer"/&gt;
+  &lt;/MaterialCardView&gt;
+  &lt;!-- spotlight: bg_intro_spot_ring View + tap dot View,
+       positioned over the target tile with translationX/Y --&gt;
+  &lt;MaterialCardView android:id="@+id/heroResult"
+      layout_width="@dimen/intro_result_w" layout_gravity="end"
+      layout_marginEnd="14dp" layout_marginTop="62dp"
+      app:cardCornerRadius="18dp" app:cardElevation="14dp"/&gt;
+&lt;/FrameLayout&gt;
+
+Mini screens use the real icons (ic_ds_nav_*, ic_ds_block_slash,
+ic_person_add, ic_ds_search) and real tokens, scaled ~0.6×.
+Mark all hero children importantForAccessibility="no";
+heroCard gets a contentDescription describing the path.</pre>
+    </div>
+
+    <div style="background:#12172B;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:10px">
+      <span style="color:#fff;font-weight:700;font-size:14px">5 · activity_onboarding.xml — footer</span>
+      <pre style="margin:0;color:#C9D1E6;font-size:12px;line-height:1.55;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace">Keep: dots (now weighted segments), buttonSkip, viewPager,
+adNativeDivider, adNativeFrame — ids unchanged so
+IntroActivity / OnboardingFooterAd keep working.
+
+Add a footer row under the ad:
+&lt;LinearLayout android:id="@+id/footerRow" horizontal
+    paddingHorizontal="20dp" paddingTop="14dp" paddingBottom="16dp"&gt;
+  &lt;TextView android:id="@+id/textPageCount"  "01 / 03"
+      fontFamily="@font/space_grotesk_bold" textSize="13sp"
+      layout_weight="1"/&gt;
+  &lt;TextView android:id="@+id/buttonNext"
+      layout_height="52dp" minWidth="120dp"
+      background="@drawable/bg_intro_cta_full"/&gt;
+&lt;/LinearLayout&gt;
+
+Last page: textPageCount → GONE, buttonNext → width 0dp,
+weight 1 (inside beginDelayedTransition). Skip → INVISIBLE.</pre>
+    </div>
+
+    <div style="background:#12172B;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:10px">
+      <span style="color:#fff;font-weight:700;font-size:14px">6 · Screen sizes</span>
+      <pre style="margin:0;color:#C9D1E6;font-size:12px;line-height:1.55;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace">values/dimens.xml            (≥360dp wide, default)
+  intro_screen_w   178dp   intro_result_w  156dp
+  intro_title      28sp
+
+values-w320dp-h600dp … use values-h640dp as the break:
+values/  (short phones, &lt;640dp tall)
+  hero percent 0.30, min 200dp; hide result card rows 3+;
+  title 24sp; body maxLines 3
+values-w400dp/  (Pixel 8 Pro, S24+)
+  intro_screen_w 196dp  intro_result_w 170dp
+values-sw600dp/  (foldables / tablets)
+  cap page content at 420dp, centred; hero max 340dp
+
+Ad: when OnboardingFooterAd renders nothing, adNativeFrame
+is GONE and the column's spacer absorbs the height — the
+hero percent is of the pager, so it grows naturally.</pre>
+    </div>
+  </div>
+  <div style="background:#fff;border-radius:22px;padding:24px 28px;font-size:13.5px;line-height:1.55;color:#3A4050;font-weight:600">
+    <b style="color:#12172B">New strings</b> (values/strings.xml, translate in all locales): intro_lookup_lead "Look up", intro_lookup_accent "any number", intro_lookup_desc, intro_lookup_note "or Recents › Identify"; intro_block_lead "Block callers", intro_block_accent "in one tap", intro_block_desc, intro_block_path_any "Any call", intro_block_note "manage in Settings"; intro_contacts_lead "Every contact,", intro_contacts_accent "in order", intro_contacts_desc, intro_contacts_path "Contacts tab", intro_contacts_note "Search · Add · Favorites · Groups"; intro_find_it_in "Find it in". Path chip labels reuse nav_dialer, dialer_grid_lookup, action_block, nav_contacts. The old onboarding_* strings and illustration_welcome_* layouts can be deleted once the new pages ship.
+  </div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Preview&quot;},&quot;showAd&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Preview&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      motion: (this.props.motion ?? true) ? "on" : "off",
+      showAd: this.props.showAd ?? true,
+    };
+  }
+}
+</script>
+</body>
+</html>
+

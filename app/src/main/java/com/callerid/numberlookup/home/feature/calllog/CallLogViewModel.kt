@@ -1,6 +1,11 @@
 package com.callerid.numberlookup.home.feature.calllog
 
 import android.app.Application
+import android.database.ContentObserver
+import android.os.Handler
+import android.os.Looper
+import android.provider.CallLog
+import android.provider.ContactsContract
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,6 +17,7 @@ import com.callerid.numberlookup.home.repository.CallLogTotals
 import com.callerid.numberlookup.home.repository.CallType
 import com.callerid.numberlookup.home.repository.ContactRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Calendar
@@ -61,7 +67,10 @@ class CallLogViewModel(app: Application) : AndroidViewModel(app) {
      */
     fun load() {
         val types = (_filter.value ?: CallLogFilter.ALL).providerTypes
-        viewModelScope.launch {
+        // Latest wins: a load started for another tab, or before the address
+        // book changed, must not land on top of the one that replaced it.
+        loadJob?.cancel()
+        loadJob = viewModelScope.launch {
             val (calls, totals, photos) = withContext(Dispatchers.IO) {
                 Triple(
                     repository.getCalls(types = types),
@@ -73,6 +82,47 @@ class CallLogViewModel(app: Application) : AndroidViewModel(app) {
             _totals.value = totals
             _photos.value = photos
             rebuild()
+        }
+    }
+
+    private var loadJob: Job? = null
+
+    /**
+     * Reloads when the call log or the address book changes.
+     *
+     * Reloading on resume alone missed names saved from the dialer. "Save" hands
+     * the number to the system Contacts editor, which writes the contact in the
+     * background after its screen closes — so the resume reload usually read the
+     * address book a moment before the new name was in it, and Recents kept
+     * showing the bare number until something else happened to reload it.
+     *
+     * Debounced: one save or sync touches the provider several times in a row,
+     * and each of those would otherwise be a full re-read of the log.
+     */
+    private val reloadHandler = Handler(Looper.getMainLooper())
+    private val reload = Runnable { load() }
+    private val dataObserver = object : ContentObserver(reloadHandler) {
+        override fun onChange(selfChange: Boolean) {
+            reloadHandler.removeCallbacks(reload)
+            reloadHandler.postDelayed(reload, RELOAD_DEBOUNCE_MS)
+        }
+    }
+
+    init {
+        runCatching {
+            val resolver = app.contentResolver
+            resolver.registerContentObserver(CallLog.Calls.CONTENT_URI, true, dataObserver)
+            resolver.registerContentObserver(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI, true, dataObserver
+            )
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        reloadHandler.removeCallbacks(reload)
+        runCatching {
+            getApplication<Application>().contentResolver.unregisterContentObserver(dataObserver)
         }
     }
 
@@ -192,5 +242,6 @@ class CallLogViewModel(app: Application) : AndroidViewModel(app) {
 
     companion object {
         private const val DAY_MS = 24L * 60 * 60 * 1000
+        private const val RELOAD_DEBOUNCE_MS = 300L
     }
 }

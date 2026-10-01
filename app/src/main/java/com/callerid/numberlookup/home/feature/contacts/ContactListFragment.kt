@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.viewModels
@@ -79,7 +80,12 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentContactsBinding.inflate(inflater, container, false)
 
+    /** Recents' own end margin from its style, restored when Groups comes back. */
+    private var recentsChipEndMargin = 0
+
     override fun initView() {
+        recentsChipEndMargin =
+            (binding.tabRecents.layoutParams as? ViewGroup.MarginLayoutParams)?.marginEnd ?: 0
         // Hero bleeds under the status bar; pad its content down by the inset.
         val baseTop = binding.heroHeader.paddingTop
         ViewCompat.setOnApplyWindowInsetsListener(binding.heroHeader) { v, insets ->
@@ -186,6 +192,14 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
                     else -> binding.tabAll
                 }
             )
+        }
+        viewModel.hasGroups.observe(viewLifecycleOwner) { has ->
+            binding.tabGroups.isVisible = has
+            // Groups is the last chip and the only one without a trailing gap;
+            // while it is hidden Recents ends the row and takes that role.
+            binding.tabRecents.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                marginEnd = if (has) recentsChipEndMargin else 0
+            }
         }
         viewModel.openGroup.observe(viewLifecycleOwner) {
             syncBackCallback()
@@ -448,6 +462,19 @@ class ContactListFragment : BaseFragment<FragmentContactsBinding>() {
     private fun dialNumber(number: String) = placeCall(number)
 
     private fun openDetail(contact: com.callerid.numberlookup.home.repository.ContactRecord) {
+        // A group member with no number has no call history for the detail
+        // screen to show; open their card in the system Contacts app instead,
+        // as search does for an email-only contact.
+        if (!contact.hasPhone) {
+            val uri = android.content.ContentUris.withAppendedId(
+                ContactsContract.Contacts.CONTENT_URI, contact.contactId
+            )
+            runCatching { startActivity(Intent(Intent.ACTION_VIEW, uri)) }
+                .onFailure {
+                    Toast.makeText(requireContext(), R.string.app_unavailable, Toast.LENGTH_SHORT).show()
+                }
+            return
+        }
         requireActivity().openActivity(CallDetailsActivity.newIntent(requireContext(), contact.detail, contact.name, R.string.contact_detail_title))
     }
 

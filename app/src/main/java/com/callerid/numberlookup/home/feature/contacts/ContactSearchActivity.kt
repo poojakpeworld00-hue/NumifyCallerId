@@ -165,7 +165,12 @@ class ContactSearchActivity : BaseActivity<ActivityContactSearchBinding>() {
         ) return
 
         lifecycleScope.launch {
-            pool = withContext(Dispatchers.IO) { ContactRepository(this@ContactSearchActivity).getContacts() }
+            pool = withContext(Dispatchers.IO) {
+                val repo = ContactRepository(this@ContactSearchActivity)
+                // Email-only contacts too: an address is all they can be found by.
+                (repo.getContacts() + repo.emailOnlyContacts())
+                    .sortedBy { it.name.lowercase(Locale.getDefault()) }
+            }
             // The user may well have typed while the read was in flight.
             applyQuery(binding.inputSearch.text?.toString().orEmpty(), force = true)
         }
@@ -213,8 +218,8 @@ class ContactSearchActivity : BaseActivity<ActivityContactSearchBinding>() {
      */
     private fun ContactRecord.matches(needle: String, digits: String): Boolean =
         name.lowercase(Locale.getDefault()).contains(needle) ||
-            email?.lowercase(Locale.getDefault())?.contains(needle) == true ||
-            (digits.isNotEmpty() && detail.filter(Char::isDigit).contains(digits))
+            emails.any { it.lowercase(Locale.getDefault()).contains(needle) } ||
+            (hasPhone && digits.isNotEmpty() && detail.filter(Char::isDigit).contains(digits))
 
     /** The resting state: nothing typed yet. */
     private fun showPrompt() {
@@ -262,6 +267,16 @@ class ContactSearchActivity : BaseActivity<ActivityContactSearchBinding>() {
     private fun dialNumber(number: String) = placeCall(number)
 
     private fun openDetail(contact: ContactRecord) {
+        // No number means no call history for the detail screen to show: hand
+        // an email-only contact to the system contact card instead.
+        if (!contact.hasPhone) {
+            val uri = android.content.ContentUris.withAppendedId(
+                android.provider.ContactsContract.Contacts.CONTENT_URI, contact.contactId
+            )
+            runCatching { startActivity(Intent(Intent.ACTION_VIEW, uri)) }
+                .onFailure { Toast.makeText(this, R.string.app_unavailable, Toast.LENGTH_SHORT).show() }
+            return
+        }
         openActivity(CallDetailsActivity.newIntent(this, contact.detail, contact.name, R.string.contact_detail_title))
     }
 

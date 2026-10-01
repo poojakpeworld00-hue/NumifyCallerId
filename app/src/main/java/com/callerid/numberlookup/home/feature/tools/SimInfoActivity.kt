@@ -106,7 +106,8 @@ class SimInfoActivity : BaseActivity<ActivitySimInfoBinding>() {
 
     private fun signalDbm(): Int? {
         if (!hasPhonePermission()) return null
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) return null
+        // getCellSignalStrengths is API 29, a release after getSignalStrength.
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) return null
         return runCatching { tm.signalStrength?.cellSignalStrengths?.firstOrNull()?.dbm }
             .getOrNull()
     }

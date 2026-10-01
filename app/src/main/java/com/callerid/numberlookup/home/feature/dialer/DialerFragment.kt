@@ -28,6 +28,7 @@ import com.callerid.numberlookup.home.common.openActivity
 import com.callerid.numberlookup.home.R
 import com.callerid.numberlookup.home.foundation.BaseFragment
 import com.callerid.numberlookup.home.feature.assistant.AiHubActivity
+import com.callerid.numberlookup.home.feature.calldetails.CallDetailsActivity
 import com.callerid.numberlookup.home.feature.finder.LookupActivity
 import com.callerid.numberlookup.home.feature.widgets.CallActionHandler
 import com.callerid.numberlookup.home.repository.SettingsRepository
@@ -80,6 +81,19 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         // The head row is the number itself; its one button is the one action
         // that should not sit below four others.
         binding.buttonDialHeadCall.setOnClickListener { placeCall(dialedNumber()) }
+        // Headed by a saved contact, the row opens that contact, as a row on the
+        // Contacts tab does. Only then: an unknown number has Lookup below it,
+        // and a code saved as a contact has no call history to show.
+        binding.rowDialNumberHead.setOnClickListener {
+            val number = dialedNumber()
+            if (viewModel.isServiceCode(number)) return@setOnClickListener
+            val saved = viewModel.savedContact(number) ?: return@setOnClickListener
+            requireActivity().openActivity(
+                CallDetailsActivity.newIntent(
+                    requireContext(), saved.number, saved.name, R.string.contact_detail_title
+                )
+            )
+        }
 
         // What to do with the number, beyond calling it.
         binding.rowAddContact.setOnClickListener { addToContacts(dialedNumber()) }
@@ -92,6 +106,7 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         binding.rowDialWhatsApp.setOnClickListener {
             openWhatsApp(viewModel.savedContact(dialedNumber())?.number ?: dialedNumber())
         }
+        binding.buttonContactsPermission.setOnClickListener { askForContacts() }
         binding.rowDialAskAi.setOnClickListener {
             requireActivity().openActivity(AiHubActivity.newIntent(requireContext()))
         }
@@ -141,6 +156,7 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
     override fun onResume() {
         super.onResume()
         if (!isHidden) claimSoftInput()
+        syncContactsPermission()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -149,7 +165,47 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
             releaseSoftInput()
         } else {
             claimSoftInput()
+            syncContactsPermission()
         }
+    }
+
+    /** Last known READ_CONTACTS state, so a grant made elsewhere triggers one reload. */
+    private var hadContacts: Boolean? = null
+
+    private fun hasContactsPermission(): Boolean = context?.let {
+        ContextCompat.checkSelfPermission(it, Manifest.permission.READ_CONTACTS) ==
+            PackageManager.PERMISSION_GRANTED
+    } == true
+
+    /**
+     * Picks up contacts access granted outside this tab — on Contacts, from the
+     * permission sheet, or in system Settings. Granting a permission changes no
+     * data, so the content observer never fires, and the pool would go on
+     * treating every saved number as unknown until something else reloaded it.
+     */
+    private fun syncContactsPermission() {
+        if (view == null) return
+        val has = hasContactsPermission()
+        if (hadContacts == false && has) viewModel.load()
+        hadContacts = has
+        applyZeroState()
+    }
+
+    /**
+     * The card's "Turn on". Android stops showing the dialog after the second
+     * refusal and the request then fails silently, so in that case this goes
+     * straight to the app's Settings page instead of a button that does nothing.
+     */
+    private fun askForContacts() {
+        val ctx = context ?: return
+        val permission = Manifest.permission.READ_CONTACTS
+        val blocked = SettingsRepository(ctx).hasRequestedPermission(permission) &&
+            !shouldShowRequestPermissionRationale(permission)
+        if (blocked) {
+            openAppSettings()
+            return
+        }
+        requestPermissionChain(listOf(permission)) { syncContactsPermission() }
     }
 
     override fun onPause() {
@@ -319,6 +375,9 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         val unknown = hasNumber && saved == null && !hasNamedMatch
 
         binding.textDialActionsNumber.text = savedName ?: number
+        // Tappable (and so rippling) only when it leads somewhere; see the
+        // listener in initView.
+        binding.rowDialNumberHead.isClickable = saved != null && !serviceCode
         if (saved != null) {
             binding.textDialActionsStatus.text = saved.number
         } else if (serviceCode) {
@@ -420,7 +479,12 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
      * have dialled.
      */
     private fun applyZeroState() {
-        binding.textEmpty.isVisible = dialedNumber().isEmpty() && !hasFrequent
+        val untouched = dialedNumber().isEmpty()
+        // The contacts prompt shares the untouched band, and over it the
+        // invitation to dial would sit under a card asking for something else.
+        val askContacts = untouched && !hasContactsPermission()
+        binding.cardContactsPermission.isVisible = askContacts
+        binding.textEmpty.isVisible = untouched && !hasFrequent && !askContacts
     }
 
     /**
