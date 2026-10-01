@@ -256,6 +256,32 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
             highlightTab(binding.tabIncoming, active == CallLogFilter.INCOMING)
             highlightTab(binding.tabOutgoing, active == CallLogFilter.OUTGOING)
             highlightTab(binding.tabMissed, active == CallLogFilter.MISSED)
+            revealTab(
+                when (active) {
+                    CallLogFilter.INCOMING -> binding.tabIncoming
+                    CallLogFilter.OUTGOING -> binding.tabOutgoing
+                    CallLogFilter.MISSED -> binding.tabMissed
+                    else -> binding.tabAll
+                }
+            )
+        }
+    }
+
+    /**
+     * Scrolls the chip row so the active chip is fully on screen, as the
+     * Contacts tab does - "Missed" sits half off the right edge, and tapping it
+     * used to leave it there.
+     */
+    private fun revealTab(tab: View) {
+        val scroll = binding.tabScroll
+        scroll.post {
+            // Chip bounds are relative to the row, which sits inside the padding.
+            val left = tab.left
+            val right = tab.right + scroll.paddingLeft + scroll.paddingRight - scroll.width
+            when {
+                left < scroll.scrollX -> scroll.smoothScrollTo(left, 0)
+                right > scroll.scrollX -> scroll.smoothScrollTo(right, 0)
+            }
         }
     }
 

@@ -154,6 +154,7 @@
              It lives in Tools now, with the other assistant entry points, and the
              filters have the row to themselves. -->
         <HorizontalScrollView
+            android:id="@+id/tabScroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
@@ -243,10 +244,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listRecents"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginBottom="20dp"
             android:background="@drawable/bg_ds_card"
             android:clipToOutline="true"
             android:clipToPadding="false"
@@ -254,7 +254,8 @@
             android:outlineAmbientShadowColor="@color/ds_card_shadow"
             android:outlineSpotShadowColor="@color/ds_card_shadow"
             android:overScrollMode="never"
-            android:paddingBottom="@dimen/_76sdp"
+            android:paddingBottom="12dp"
+            android:layout_marginBottom="@dimen/_76sdp"
             tools:listitem="@layout/item_call" />
 
         <com.callerid.numberlookup.home.feature.widgets.EmptyStateView

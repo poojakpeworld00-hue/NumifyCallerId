@@ -58,7 +58,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listHistory"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintVertical_bias="0"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="@dimen/_6sdp"
             android:layout_marginBottom="20dp"
