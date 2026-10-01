@@ -504,7 +504,18 @@ open class AdAwareActivity : AppCompatActivity() {
                                     // Splash ad disabled from Remote Config → skip entirely
                                     Log.w(APPOPEN_TAG, "screen.splash.ad_type=none → skipping splash ad entirely, continuing to app")
                                     onGetData?.onSuccess()
+                                } else if (!OnboardingStepConfig.isSplashAdDue(activity)) {
+                                    // screen.splash.show_from_launch / session say not this launch
+                                    // (e.g. show_from_launch 2: never on the very first open).
+                                    val splash = OnboardingStepConfig.splashConfig(activity)
+                                    Log.w(
+                                        APPOPEN_TAG,
+                                        "screen.splash show_from_launch=${splash.showFromLaunch} session=${splash.session} " +
+                                            "→ not due this launch, skipping splash ad"
+                                    )
+                                    onGetData?.onSuccess()
                                 } else {
+                                    OnboardingStepConfig.markSplashAdShown(activity)
                                     // Ads ON + splash enabled + gate passed → preload → show → continue
                                     prefetchAds(adsPreference, activity) {
                                         showPreloadedAd(activity, adsPreference) {

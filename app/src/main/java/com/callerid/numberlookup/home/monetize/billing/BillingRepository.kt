@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.monetize.billing
 
+import com.callerid.numberlookup.home.BuildConfig
 import android.app.Activity
 import android.content.Context
 import android.util.Log
@@ -155,6 +156,15 @@ class BillingRepository private constructor(context: Context) : PurchasesUpdated
 
             val owned = (subs + inApp).filter { it.isEntitling() }
             Log.d(TAG, "restore: ${owned.size} entitling purchase(s)")
+            // Which purchase it is, so a test order can be found and revoked in
+            // Play Console → Order management (searchable by order id). Debug only.
+            if (BuildConfig.DEBUG) owned.forEach {
+                Log.d(
+                    TAG,
+                    "restore: owned orderId=${it.orderId} products=${it.products} " +
+                        "purchaseTime=${it.purchaseTime} acknowledged=${it.isAcknowledged}"
+                )
+            }
 
             PremiumStore.setPremium(appContext, owned.isNotEmpty())
             // What is behind the entitlement, so Settings can say something more
@@ -195,6 +205,16 @@ class BillingRepository private constructor(context: Context) : PurchasesUpdated
 
             querySubscriptions()?.let { offers += it }
             queryLifetime()?.let { offers += it }
+            // What Play actually returned, plan by plan — a plan missing from the
+            // paywall is one Play did not send (inactive, not in this country,
+            // or not yet published to this testing track). Debug only.
+            if (BuildConfig.DEBUG) offers.forEach {
+                Log.d(
+                    TAG,
+                    "offer: product=${it.productId} plan=${it.title} period=${it.billingPeriod} " +
+                        "price=${it.price} trial=${it.freeTrialPeriod} lifetime=${it.isLifetime}"
+                )
+            }
 
             if (offers.isEmpty()) {
                 Log.w(

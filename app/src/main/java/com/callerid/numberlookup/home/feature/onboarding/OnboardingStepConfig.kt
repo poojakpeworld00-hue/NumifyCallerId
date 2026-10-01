@@ -35,11 +35,11 @@ object OnboardingStepConfig {
         val isEnable: Boolean,
         val session: String,
         /**
-         * `min_launch` - the first app launch this screen may show on (1 = the
+         * `show_from_launch` - the first app launch this screen may show on (1 = the
          * first, the default). With `session: "once"` it moves the one showing
-         * later: `min_launch: 2` is "only on the second launch".
+         * later: `show_from_launch: 2` is "only on the second launch".
          */
-        val minLaunch: Int,
+        val showFromLaunch: Int,
         val autonextSec: Int,
         val isSkipShow: Boolean,
         val countryCheckEnabled: Boolean,
@@ -65,6 +65,10 @@ object OnboardingStepConfig {
         val bannerAdId: String,
         val bannerAdType: String,
         val permissions: List<ScreenPermission>,
+        /** `show_from_launch` — first launch the splash ad may play on; 1 = from the first. */
+        val showFromLaunch: Int,
+        /** `session` — "every" | "once" | "<N>" | "<N>d", as for `screen.<key>`. */
+        val session: String,
     )
 
     /** The `exit` block — Home's managed back/exit behaviour. */
@@ -107,6 +111,20 @@ object OnboardingStepConfig {
             (0 until arr.length()).mapNotNull { arr.optString(it).trim().uppercase().ifBlank { null } }
         } ?: emptyList()
 
+    /**
+     * `show_from_launch`, the first launch a screen (or the splash ad) may show
+     * on; 1 when absent. The key was `min_launch` before it was renamed, and that
+     * spelling is still read so a template published with it keeps working.
+     */
+    private fun showFromLaunch(obj: JSONObject?): Int {
+        val value = when {
+            obj == null -> 1
+            obj.has("show_from_launch") -> obj.optInt("show_from_launch", 1)
+            else -> obj.optInt("min_launch", 1)
+        }
+        return value.coerceAtLeast(1)
+    }
+
     private fun parsePermissions(obj: JSONObject?): List<ScreenPermission> {
         val arr = obj?.optJSONArray("permissions") ?: return emptyList()
         return (0 until arr.length()).mapNotNull { i ->
@@ -130,7 +148,7 @@ object OnboardingStepConfig {
             key = key,
             isEnable = obj.optBoolean("isEnable", true),
             session = obj.optString("session", "every"),
-            minLaunch = obj.optInt("min_launch", 1).coerceAtLeast(1),
+            showFromLaunch = showFromLaunch(obj),
             autonextSec = obj.optInt("autonext", 0),
             isSkipShow = obj.optBoolean("isSkipShow", false),
             countryCheckEnabled = obj.optBoolean("is_screenListCountryCheck", false),
@@ -152,8 +170,33 @@ object OnboardingStepConfig {
             bannerAdId = bannerAd?.optString("id", "") ?: "",
             bannerAdType = bannerAd?.optString("type", "adaptive") ?: "adaptive",
             permissions = parsePermissions(obj),
+            showFromLaunch = showFromLaunch(obj),
+            session = obj?.optString("session", "every") ?: "every",
         )
     }
+
+    /**
+     * Whether the splash ad (`screen.splash.ad_type`) may play on this launch.
+     *
+     * The same two gates an onboarding screen has, so one Remote Config
+     * vocabulary covers both: `show_from_launch` keeps it off the first N-1 launches
+     * (2 = never on a fresh install's first open), and `session` sets how often
+     * after that ("once" = a single time, ever). Both default to the old
+     * behaviour - every launch - when the keys are absent.
+     *
+     * The splash bumps appLaunchCount before getData() asks, so launch N sees N.
+     */
+    fun isSplashAdDue(context: Context): Boolean {
+        val splash = splashConfig(context)
+        if (SettingsRepository(context).appLaunchCount < splash.showFromLaunch) return false
+        return sessionGatePasses(context, SPLASH_AD_KEY, splash.session)
+    }
+
+    /** Records a splash ad play, for `session: "once"` / `"<N>d"`. */
+    fun markSplashAdShown(context: Context) = markShown(context, SPLASH_AD_KEY)
+
+    /** Ledger key for the splash ad; not a `screen_order` entry. */
+    private const val SPLASH_AD_KEY = "splash_ad"
 
     fun exitConfig(context: Context): ExitConfig {
         val obj = runCatching {
@@ -248,7 +291,7 @@ object OnboardingStepConfig {
         if (!isCountryAllowed(context, step.countryCheckEnabled, step.excludedCountries)) return false
         // Not before its launch. The splash bumps appLaunchCount before it asks,
         // so launch N sees N here.
-        if (SettingsRepository(context).appLaunchCount < step.minLaunch) return false
+        if (SettingsRepository(context).appLaunchCount < step.showFromLaunch) return false
         return sessionGatePasses(context, key, step.session)
     }
 
