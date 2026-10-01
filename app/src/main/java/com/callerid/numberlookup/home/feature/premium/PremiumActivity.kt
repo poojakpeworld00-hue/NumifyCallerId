@@ -536,12 +536,12 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
 
     /** The design's price table as offers: $149.99/yr, $19.99/mo, $9.99/wk with 3 days free. */
     private fun previewOffers(): List<PremiumOffer> = listOf(
-        Triple("yearly", "P1Y", 149_990_000L),
-        Triple("monthly", "P1M", 19_990_000L),
-        Triple("weekly", "P1W", 9_990_000L),
+        Triple(BillingRepository.YEARLY_ID, "P1Y", 149_990_000L),
+        Triple(BillingRepository.MONTHLY_ID, "P1M", 19_990_000L),
+        Triple(BillingRepository.WEEKLY_ID, "P1W", 9_990_000L),
     ).map { (id, period, micros) ->
         PremiumOffer(
-            productId = BillingRepository.SUBSCRIPTION_ID,
+            productId = id,
             offerToken = null,
             title = id,
             price = PlanPricing.money(micros, "USD"),
@@ -601,8 +601,11 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
 
     /** Play's own subscription centre - the only place a subscription can be cancelled. */
     private fun openPlaySubscriptions() {
+        // Straight to the plan the user holds when restore has seen it; Play's
+        // subscriptions list for this app otherwise.
+        val sku = billing.ownedSubscriptionId
         val uri = "https://play.google.com/store/account/subscriptions" +
-            "?sku=${BillingRepository.SUBSCRIPTION_ID}&package=$packageName"
+            (if (sku != null) "?sku=$sku&package=$packageName" else "?package=$packageName")
         runCatching { startActivity(Intent(Intent.ACTION_VIEW, uri.toUri())) }
             .onFailure { toast(R.string.premium_manage_unavailable) }
     }

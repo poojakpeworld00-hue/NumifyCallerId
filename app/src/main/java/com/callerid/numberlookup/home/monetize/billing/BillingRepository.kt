@@ -73,6 +73,14 @@ class BillingRepository private constructor(context: Context) : PurchasesUpdated
         )
         .build()
 
+    /**
+     * The product id of the subscription this account holds, from the last
+     * restore; null when none. Manage subscription deep-links to it.
+     */
+    @Volatile
+    var ownedSubscriptionId: String? = null
+        private set
+
     private val _products = MutableStateFlow<List<PremiumOffer>>(emptyList())
 
     /** Live, localised offers to show on the paywall. Empty until Play answers. */
@@ -148,6 +156,8 @@ class BillingRepository private constructor(context: Context) : PurchasesUpdated
                 QueryPurchasesParams.newBuilder()
                     .setProductType(BillingClient.ProductType.SUBS).build()
             ).purchasesList
+            ownedSubscriptionId = subs.filter { it.isEntitling() }
+                .flatMap { it.products }.firstOrNull()
 
             val inApp = client.queryPurchasesAsync(
                 QueryPurchasesParams.newBuilder()
@@ -227,39 +237,49 @@ class BillingRepository private constructor(context: Context) : PurchasesUpdated
         }
     }
 
+    /**
+     * One subscription product per plan — [SUBSCRIPTION_IDS] — queried together.
+     * A product missing from Play (not created, inactive, not in this country)
+     * simply contributes no row; the others still show.
+     */
     private suspend fun querySubscriptions(): List<PremiumOffer>? {
         val result = client.queryProductDetails(
             QueryProductDetailsParams.newBuilder().setProductList(
-                listOf(
+                SUBSCRIPTION_IDS.map { id ->
                     QueryProductDetailsParams.Product.newBuilder()
-                        .setProductId(SUBSCRIPTION_ID)
+                        .setProductId(id)
                         .setProductType(BillingClient.ProductType.SUBS)
                         .build()
-                )
+                }
             ).build()
         )
-        val details = result.productDetailsList?.firstOrNull() ?: return null
+        val products = result.productDetailsList.orEmpty()
+        if (products.isEmpty()) return null
+        return products.flatMap { offersOf(it) }
+    }
 
-        // One Play subscription product carries many base plans (monthly,
-        // yearly, …), each with its own offer token. The token is what the
-        // purchase flow actually needs — a subscription cannot be bought by
-        // product id alone.
+    private fun offersOf(details: ProductDetails): List<PremiumOffer> {
+        // A product's base plans each carry their own offer token. The token is
+        // what the purchase flow actually needs — a subscription cannot be
+        // bought by product id alone.
         //
         // Play lists a base plan once on its own and again under every offer
         // attached to it (a free trial is an offer), so the list is grouped by
         // base plan: one row per plan, carrying the trial offer where this user
         // is eligible for one. Play only returns offers the account qualifies
         // for, so a trial that shows here is a trial the user will get.
-        return details.subscriptionOfferDetails
-            ?.groupBy { it.basePlanId }
-            ?.map { (basePlanId, offers) ->
+        return details.subscriptionOfferDetails.orEmpty()
+            .groupBy { it.basePlanId }
+            .map { (basePlanId, offers) ->
                 val offer = offers.firstOrNull { it.freeTrialPeriod() != null } ?: offers.first()
                 // The recurring phase is the last one; a trial or intro price comes first.
                 val phase = offer.pricingPhases.pricingPhaseList.last()
                 PremiumOffer(
                     productId = details.productId,
                     offerToken = offer.offerToken,
-                    title = basePlanId,
+                    // Unique across products: the paywall keeps the user's
+                    // choice across a price refresh by matching on this.
+                    title = "${details.productId}/$basePlanId",
                     price = phase.formattedPrice,
                     billingPeriod = phase.billingPeriod,
                     isLifetime = false,
@@ -383,12 +403,20 @@ class BillingRepository private constructor(context: Context) : PurchasesUpdated
          * is the single most common way this integration appears broken.
          *
          * Create in Play Console → Monetise:
-         *  - Subscriptions → a subscription with id [SUBSCRIPTION_ID], and one
-         *    base plan per price you want to offer (e.g. `monthly`, `yearly`).
-         *    Base plan ids are read back at runtime, so they are not listed here.
+         *  - Subscriptions → one subscription per plan: [WEEKLY_ID], [MONTHLY_ID],
+         *    [YEARLY_ID], each with an auto-renewing base plan of that length
+         *    (the weekly one with its free-trial offer). The paywall names a row
+         *    by its billing period, not its id.
          *  - In-app products → a **non-consumable** product with id [LIFETIME_ID].
+         *
+         * The old single product, `contacts_premium_sub`, is no longer offered,
+         * but anyone holding it stays Premium: restore entitles any owned
+         * subscription, whatever its id.
          */
-        const val SUBSCRIPTION_ID = "contacts_premium_sub"
+        const val WEEKLY_ID = "contacts_premium_weekly"
+        const val MONTHLY_ID = "contacts_premium_monthly"
+        const val YEARLY_ID = "contacts_premium_yearly"
+        val SUBSCRIPTION_IDS = listOf(WEEKLY_ID, MONTHLY_ID, YEARLY_ID)
         const val LIFETIME_ID = "contacts_premium_lifetime"
 
         @Volatile
