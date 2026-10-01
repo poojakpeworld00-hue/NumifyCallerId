@@ -776,6 +776,8 @@
     <string name="dialer_grid_lookup">ค้นหา</string>
     <string name="dialer_grid_whatsapp">WhatsApp</string>
     <string name="dialer_grid_ai">ถาม AI</string>
+    <string name="dialer_grid_favourite">รายการโปรด</string>
+    <string name="dialer_grid_unfavourite">เลิกโปรด</string>
     <string name="dialer_number_not_saved">ไม่มีในรายชื่อของคุณ</string>
     <string name="dialer_service_code">รหัสบริการ · แตะโทรเพื่อเรียกใช้</string>
     <string name="dialer_send_message">ส่งข้อความ</string>

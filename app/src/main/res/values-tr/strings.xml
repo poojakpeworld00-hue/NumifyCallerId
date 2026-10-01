@@ -781,6 +781,8 @@
     <string name="dialer_grid_lookup">Ara</string>
     <string name="dialer_grid_whatsapp">WhatsApp</string>
     <string name="dialer_grid_ai">Yapay zekâya sor</string>
+    <string name="dialer_grid_favourite">Favori</string>
+    <string name="dialer_grid_unfavourite">Favoriden çıkar</string>
     <string name="dialer_number_not_saved">Kişilerinizde yok</string>
     <string name="dialer_service_code">Servis kodu · çalıştırmak için Ara\'ya dokunun</string>
     <string name="dialer_send_message">Mesaj gönder</string>

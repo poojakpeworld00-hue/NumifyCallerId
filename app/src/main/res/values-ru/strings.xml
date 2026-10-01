@@ -833,6 +833,8 @@
     <string name="dialer_grid_lookup">Поиск</string>
     <string name="dialer_grid_whatsapp">WhatsApp</string>
     <string name="dialer_grid_ai">Спросить ИИ</string>
+    <string name="dialer_grid_favourite">В избранное</string>
+    <string name="dialer_grid_unfavourite">Из избранного</string>
     <string name="dialer_number_not_saved">Нет в ваших контактах</string>
     <string name="dialer_service_code">Сервисный код · нажмите «Вызов», чтобы выполнить</string>
     <string name="dialer_send_message">Отправить сообщение</string>

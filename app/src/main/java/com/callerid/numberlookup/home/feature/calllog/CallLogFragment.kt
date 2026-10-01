@@ -10,13 +10,10 @@ import android.os.Build
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.inputmethod.InputMethodManager
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -25,6 +22,7 @@ import androidx.core.view.updatePadding
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.viewModels
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.callerid.numberlookup.home.R
 import com.callerid.numberlookup.home.monetize.delivery.NativeBannerPresenter
@@ -85,7 +83,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         binding.buttonRecentsDial.setOnClickListener {
             (activity as? MainShellActivity)?.showDialer()
         }
-        binding.buttonRecentsFilter.setOnClickListener { showSortMenu(it) }
+        setupSearch()
         bindPremiumBadge()
         binding.buttonSettings.setOnClickListener {
             requireActivity().openActivity<SettingsActivity>()
@@ -125,12 +123,6 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
             }
         }
 
-        // The field that used to sit at the top of this screen typed a number for
-        // the Lookup screen AND filtered the call log as you typed. It has moved to
-        // Tools, which takes the call-log filter with it — the four chips below
-        // (All / Incoming / Outgoing / Missed) are what narrows this list now.
-        // viewModel.applyQuery is still there for whoever wants to put a
-        // list-filter back, and is simply never called from here.
 
         if (hasCallLogPermission()) onPermissionGranted() else showPermissionState()
         refreshPermissionHint()
@@ -139,6 +131,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
     /** Re-evaluates when this tab becomes visible again (show/hide keeps the fragment resumed). */
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
+        if (hidden && view != null && binding.rowRecentsSearch.isVisible) closeSearch()
         if (!hidden && view != null) {
             if (hasCallLogPermission()) onPermissionGranted() else showPermissionState()
             refreshPermissionHint()
@@ -282,7 +275,8 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
      * counts them instead and the header describes what is actually in view.
      */
     private fun showCounts(rows: List<HistoryRowUi>) {
-        val filtering = (viewModel.filter.value ?: CallLogFilter.ALL) != CallLogFilter.ALL
+        val filtering = (viewModel.filter.value ?: CallLogFilter.ALL) != CallLogFilter.ALL ||
+            !binding.inputRecentsSearch.text.isNullOrBlank()
 
         val (total, missed) = if (filtering) {
             val calls = rows.filterIsInstance<HistoryRowUi.Call>()
@@ -324,46 +318,46 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         ) == PackageManager.PERMISSION_GRANTED
 
     /**
-     * Custom sort popup: a styled card anchored under the filter button that changes the
-     * list order (date / name). Type filtering stays on the tabs.
+     * The header search button opens a field over the chips that filters the
+     * list by name or number as you type, within the selected call type.
+     *
+     * It took the slot of the sort menu, which only reordered the list. Closing
+     * the field (the cross on an empty field, or switching tabs away) clears
+     * the query, so the list never stays filtered behind a field you cannot see.
      */
-    private fun showSortMenu(anchor: View) {
-        val options = listOf(
-            R.string.sort_newest to CallLogSort.NEWEST,
-            R.string.sort_oldest to CallLogSort.OLDEST,
-            R.string.sort_name_asc to CallLogSort.NAME_ASC,
-            R.string.sort_name_desc to CallLogSort.NAME_DESC
-        )
-        val current = viewModel.sort.value ?: CallLogSort.NEWEST
-
-        val inflater = LayoutInflater.from(requireContext())
-        val content = inflater.inflate(R.layout.popup_sort, null) as LinearLayout
-        val container = content.findViewById<LinearLayout>(R.id.sortContainer)
-
-        val popup = PopupWindow(
-            content,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
+    private fun setupSearch() {
+        binding.buttonRecentsSearch.setOnClickListener {
+            if (binding.rowRecentsSearch.isVisible) closeSearch() else openSearch()
+        }
+        binding.inputRecentsSearch.doAfterTextChanged { viewModel.applyQuery(it?.toString().orEmpty()) }
+        binding.inputRecentsSearch.setOnEditorActionListener { v, _, _ ->
+            hideKeyboard(v)
             true
-        ).apply {
-            elevation = 8f * resources.displayMetrics.density
-            setBackgroundDrawable(android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
         }
-
-        options.forEach { (titleRes, sort) ->
-            val row = inflater.inflate(R.layout.item_sort_option, container, false)
-            row.findViewById<TextView>(R.id.textSortLabel).setText(titleRes)
-            row.findViewById<ImageView>(R.id.imageSortCheck).visibility =
-                if (sort == current) View.VISIBLE else View.INVISIBLE
-            row.setOnClickListener {
-                viewModel.applySort(sort)
-                popup.dismiss()
-            }
-            container.addView(row)
+        binding.buttonRecentsSearchClose.setOnClickListener {
+            if (binding.inputRecentsSearch.text.isNullOrEmpty()) closeSearch()
+            else binding.inputRecentsSearch.setText("")
         }
+    }
 
-        val yOffset = (4f * resources.displayMetrics.density).toInt()
-        popup.showAsDropDown(anchor, 0, yOffset, Gravity.END)
+    private fun openSearch() {
+        binding.rowRecentsSearch.isVisible = true
+        binding.appBarRecents.setExpanded(true, true)
+        binding.inputRecentsSearch.requestFocus()
+        val imm = requireContext().getSystemService(InputMethodManager::class.java)
+        imm?.showSoftInput(binding.inputRecentsSearch, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    private fun closeSearch() {
+        binding.inputRecentsSearch.setText("")
+        hideKeyboard(binding.inputRecentsSearch)
+        binding.inputRecentsSearch.clearFocus()
+        binding.rowRecentsSearch.isVisible = false
+    }
+
+    private fun hideKeyboard(view: View) {
+        requireContext().getSystemService(InputMethodManager::class.java)
+            ?.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun onPermissionGranted() {

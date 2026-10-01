@@ -781,6 +781,8 @@
     <string name="dialer_grid_lookup">Rechercher</string>
     <string name="dialer_grid_whatsapp">WhatsApp</string>
     <string name="dialer_grid_ai">Demander à l\'IA</string>
+    <string name="dialer_grid_favourite">Favori</string>
+    <string name="dialer_grid_unfavourite">Retirer favori</string>
     <string name="dialer_number_not_saved">Absent de vos contacts</string>
     <string name="dialer_service_code">Code de service · appuyez sur Appeler pour l\'exécuter</string>
     <string name="dialer_send_message">Envoyer un message</string>

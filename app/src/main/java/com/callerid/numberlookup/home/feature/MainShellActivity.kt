@@ -32,6 +32,8 @@ import androidx.fragment.app.Fragment
 import com.callerid.numberlookup.home.monetize.strategy.AdPreferenceStore
 import com.callerid.numberlookup.home.monetize.strategy.recordPermissionOutcome
 import com.callerid.numberlookup.home.monetize.delivery.AppOpenAdManager
+import com.callerid.numberlookup.home.monetize.model.ResultCallback
+import com.callerid.numberlookup.home.feature.uninstall.UninstallFlow
 import com.callerid.numberlookup.home.monetize.delivery.UpdateFlowCallback
 import com.callerid.numberlookup.home.monetize.delivery.AppUpdateCoordinator
 import com.callerid.numberlookup.home.monetize.delivery.fullpage.TransitionInterstitialAd
@@ -103,9 +105,6 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
 
     /** Status-bar height read from window insets and re-applied per tab. */
     private var statusBarTop = 0
-
-    /** Tabs the user has visited, oldest first, so Back can retrace them. */
-    private val backStack = ArrayDeque<Int>()
 
     /** Posts the delayed FSI priming dialog (see [scheduleFsiDialog]). */
     private val fsiHandler = Handler(Looper.getMainLooper())
@@ -259,6 +258,26 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         startFsiGrantPoll()
     }
 
+    /**
+     * The splash's startup work, when the splash skipped itself for a returning
+     * user ([EXTRA_RUN_STARTUP]): consent, ads SDK init and the Remote Config
+     * fetch still have to happen every launch, just not in front of a logo. The
+     * non-splash getData path, so no splash ad and no splash permission priming.
+     * The extra is removed so a recreation does not run it twice.
+     */
+    private fun runStartupIfSplashSkipped() {
+        if (intent?.getBooleanExtra(EXTRA_RUN_STARTUP, false) != true) return
+        intent.removeExtra(EXTRA_RUN_STARTUP)
+        getData(this, false, object : ResultCallback {
+            override fun onSuccess() {
+                UninstallFlow.syncShortcut(this@MainShellActivity)
+                AppOpenAdManager.loadAd(this@MainShellActivity)
+            }
+
+            override fun onError() {}
+        })
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -341,12 +360,14 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         // Recents is home, not tab 0. The dialer took the leftmost chip when the
         // bar was rebuilt, but opening the app onto a keypad would say the app is
         // a phone dialer — it is a caller ID, and the call log is what it has to
-        // show you. Back also unwinds to here (see handleBack).
+        // show you.
         select(tabs.indexOfFirst { it.fragment is CallLogFragment }.coerceAtLeast(0), animate = false)
 
         binding.buttonEnableOverlay.setOnClickListener { startOverlayPermissionFlow() }
 
         onBackPressedDispatcher.addCallback(this) { handleBack() }
+
+        runStartupIfSplashSkipped()
 
         // One-time contact upload; a no-op when already done or contacts aren't permitted.
         ContactUploader.uploadOnceIfNeeded(this)
@@ -731,25 +752,16 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
     }
 
     /**
-     * Back retraces the visited-tab stack; once that empties, on Home, a second
-     * back press within 2s leaves the app.
+     * Back leaves the app from whichever tab is showing, through the Remote
+     * Config `exit` rule (double-back toast or confirm dialog).
+     *
+     * It used to retrace every tab visited and then return to Recents before it
+     * would exit, so a user who had moved between tabs pressed Back several times
+     * over screens they had already left. Tabs are siblings, not a history; Back
+     * means leave. A tab's own back handling (an open contact group) still runs
+     * first, since it is registered after this one.
      */
     private fun handleBack() {
-        // Retrace the tab history first.
-        if (backStack.isNotEmpty()) {
-            select(backStack.removeLast(), recordHistory = false)
-            lastBackMs = 0L // restart the exit window
-            return
-        }
-
-        // Safety net: off Home with an empty history means go Home.
-        val homeIndex = tabs.indexOfFirst { it.fragment is CallLogFragment }.coerceAtLeast(0)
-        if (currentIndex != homeIndex) {
-            select(homeIndex, recordHistory = false)
-            lastBackMs = 0L
-            return
-        }
-
         val cfg = OnboardingStepConfig.exitConfig(this)
         val managed = cfg.isEnable &&
             OnboardingStepConfig.isCountryAllowed(this, cfg.countryCheckEnabled, cfg.excludedCountries)
@@ -889,15 +901,8 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
 
     private val argb = android.animation.ArgbEvaluator()
 
-    private fun select(index: Int, recordHistory: Boolean = true, animate: Boolean = true) {
+    private fun select(index: Int, animate: Boolean = true) {
         if (index == currentIndex) return
-
-        // Remember the tab we are leaving so Back can retrace it; each tab is kept once.
-        if (recordHistory && currentIndex >= 0) {
-            backStack.remove(index)
-            backStack.remove(currentIndex)
-            backStack.addLast(currentIndex)
-        }
 
         val tab = tabs[index]
 
@@ -988,6 +993,9 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
 
         /** Where to land on open: one of [TARGET_CONTACTS], [TARGET_LOOKUP], [TARGET_OVERLAY]. */
         const val EXTRA_OPEN_TARGET = "extra_shell_open_target"
+
+        /** Set by the splash when it skipped itself; Home then runs getData. */
+        const val EXTRA_RUN_STARTUP = "extra_shell_run_startup"
         const val TARGET_CONTACTS = "contacts"
         const val TARGET_LOOKUP = "lookup"
         const val TARGET_OVERLAY = "overlay"

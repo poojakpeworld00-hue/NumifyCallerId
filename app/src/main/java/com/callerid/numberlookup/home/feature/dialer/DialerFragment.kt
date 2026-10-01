@@ -32,6 +32,9 @@ import com.callerid.numberlookup.home.feature.calldetails.CallDetailsActivity
 import com.callerid.numberlookup.home.feature.finder.LookupActivity
 import com.callerid.numberlookup.home.feature.widgets.CallActionHandler
 import com.callerid.numberlookup.home.repository.SettingsRepository
+import com.callerid.numberlookup.home.repository.BlocklistRepository
+import com.callerid.numberlookup.home.repository.ContactRepository
+import com.callerid.numberlookup.home.feature.blocklist.BlockReward
 import com.callerid.numberlookup.home.repository.assistant.AiFeatureConfig
 import com.callerid.numberlookup.home.databinding.ActivityDialerBinding
 import kotlinx.coroutines.launch
@@ -54,7 +57,10 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
     override val screenKey: String get() = "DialerFragment"
 
     private val viewModel: DialerViewModel by viewModels()
-    private val adapter = SpeedDialAdapter(onClick = ::setDial, onCall = ::fillAndDial)
+    // A row's call button calls at once. It used to type the number into the
+    // keypad first, which left whatever had been typed replaced by it and made
+    // a one-tap call look like two steps. Tapping the row still fills the keypad.
+    private val adapter = SpeedDialAdapter(onClick = ::setDial, onCall = { placeCall(it) })
 
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
         ActivityDialerBinding.inflate(inflater, container, false)
@@ -107,6 +113,8 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
             openWhatsApp(viewModel.savedContact(dialedNumber())?.number ?: dialedNumber())
         }
         binding.buttonContactsPermission.setOnClickListener { askForContacts() }
+        binding.rowDialFavourite.setOnClickListener { toggleFavourite() }
+        binding.rowDialBlock.setOnClickListener { toggleBlock() }
         binding.rowDialAskAi.setOnClickListener {
             requireActivity().openActivity(AiHubActivity.newIntent(requireContext()))
         }
@@ -400,20 +408,25 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         binding.rowDialWhatsApp.isVisible = dialable && whatsAppPackage() != null
         binding.rowDialAskAi.isVisible = dialable && saved == null &&
             AiFeatureConfig.isEnabled(ctx) && SettingsRepository(ctx).aiHomeButtonEnabled
+        // A contact can be starred; a number with no contact behind it cannot.
+        binding.rowDialFavourite.isVisible = saved != null && !serviceCode
+        // Block for any whole number, saved or not. Half a number is not one
+        // anyone means to block.
+        binding.rowDialBlock.isVisible = !serviceCode && (dialable || saved != null)
+        if (binding.rowDialBlock.isVisible) paintBlock(blockTarget(number, saved))
+        if (saved != null && !serviceCode) syncFavourite(saved.number) else favouriteFor = null
 
         arrangeGrid(savedContact = saved != null)
 
         // The grid's rows are fixed pairs, so a row whose cells have both gone
         // would otherwise hold open 52dp of nothing — which is exactly what
         // happens on a phone with no WhatsApp and the assistant switched off.
-        binding.gridRowOne.isVisible = hasVisibleCell(binding.gridRowOne)
-        binding.gridRowTwo.isVisible = hasVisibleCell(binding.gridRowTwo)
-        binding.gridRowThree.isVisible = hasVisibleCell(binding.gridRowThree)
+        val rows = gridRows()
+        rows.forEach { it.isVisible = hasVisibleCell(it) }
         // No actions at all, as for a service code: drop the grid's padding and
         // the rule over it too, or a divider sits under the heading with
         // nothing beneath it.
-        val anyAction = binding.gridRowOne.isVisible || binding.gridRowTwo.isVisible ||
-            binding.gridRowThree.isVisible
+        val anyAction = rows.any { it.isVisible }
         binding.gridDialActions.isVisible = anyAction
         binding.dividerDialActions.isVisible = anyAction
 
@@ -423,36 +436,145 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         binding.listFrequent.isVisible = showMatches
     }
 
+    private fun gridRows(): List<ViewGroup> = listOf(
+        binding.gridRowOne, binding.gridRowTwo, binding.gridRowThree, binding.gridRowFour,
+    )
+
     /**
      * Lays the action cells out for the card's two headings.
      *
-     * A saved contact has no "Add", and leaving its slot empty put "Send
-     * message" alone on the first row with a hole beside it. So for a contact
-     * WhatsApp moves up beside Message - the only two actions a contact gets -
-     * and for an unknown number the cells go back to the original order.
-     * Every cell shares one style, so moving one between rows keeps its size.
-     * Only moves a cell that is out of place, since this runs on every keystroke.
+     * Visible cells flow into the rows two at a time, in the heading's order,
+     * and hidden ones go to the back. Fixed slots left a hole wherever a cell
+     * was hidden: with no WhatsApp installed, Lookup and Ask AI each sat alone
+     * on a row of their own. A saved contact leads with the ways to reach them
+     * (Message, WhatsApp), then Favourite and Block; an unknown number keeps
+     * Add first and Block last. Every cell shares one style, so moving one
+     * between rows keeps its size, and only a cell out of place is moved, since
+     * this runs on every keystroke.
      */
     private fun arrangeGrid(savedContact: Boolean) {
-        val one = binding.gridRowOne
-        val two = binding.gridRowTwo
-        if (savedContact) {
-            place(binding.rowDialMessage, one, 0)
-            place(binding.rowDialWhatsApp, one, 1)
+        val order = if (savedContact) {
+            listOf(
+                binding.rowDialMessage, binding.rowDialWhatsApp,
+                binding.rowDialFavourite, binding.rowDialBlock,
+                binding.rowAddContact, binding.rowDialLookup, binding.rowDialAskAi,
+            )
         } else {
-            // Visible cells flow into the rows two at a time, in their usual
-            // order, and hidden ones go to the back. Fixed slots left a hole
-            // wherever a cell was hidden: with no WhatsApp installed, Lookup and
-            // Ask AI each sat alone on a row of their own.
-            val cells = listOf(
-                binding.rowAddContact,
-                binding.rowDialMessage,
-                binding.rowDialLookup,
-                binding.rowDialWhatsApp,
-                binding.rowDialAskAi,
-            ).sortedBy { !it.isVisible }
-            val rows = listOf(one, two, binding.gridRowThree)
-            cells.forEachIndexed { i, cell -> place(cell, rows[i / 2], i % 2) }
+            listOf(
+                binding.rowAddContact, binding.rowDialMessage,
+                binding.rowDialLookup, binding.rowDialWhatsApp,
+                binding.rowDialAskAi, binding.rowDialBlock,
+                binding.rowDialFavourite,
+            )
+        }
+        val rows = gridRows()
+        order.sortedBy { !it.isVisible }
+            .forEachIndexed { i, cell -> place(cell, rows[i / 2], i % 2) }
+    }
+
+    // ── Favourite / Block ───────────────────────────────────────────────────
+
+    /** Contact number whose star [favouriteStarred] describes; null = unknown. */
+    private var favouriteFor: String? = null
+    private var favouriteStarred = false
+
+    /**
+     * Reads the star for [number] once per contact, off the main thread: this
+     * is called on every keystroke, and the star is a provider query.
+     */
+    private fun syncFavourite(number: String) {
+        if (favouriteFor == number) return
+        favouriteFor = number
+        paintFavourite(false)
+        viewLifecycleOwner.lifecycleScope.launch {
+            val starred = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                ContactRepository(requireContext()).isStarred(number)
+            }
+            if (favouriteFor == number) paintFavourite(starred)
+        }
+    }
+
+    private fun paintFavourite(starred: Boolean) {
+        favouriteStarred = starred
+        binding.textDialFavourite.setText(
+            if (starred) R.string.dialer_grid_unfavourite else R.string.dialer_grid_favourite
+        )
+        binding.rowDialFavourite.contentDescription = getString(
+            if (starred) R.string.action_unfavourite else R.string.action_favourite
+        )
+    }
+
+    /**
+     * Stars or unstars the contact, the same write Call Details makes
+     * (Contacts.STARRED, so the system app and our Favourites agree). Needs
+     * contacts read and write; asked for on the first tap, not before.
+     */
+    private fun toggleFavourite() {
+        val saved = viewModel.savedContact(dialedNumber()) ?: return
+        val needed = listOf(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS)
+        val ctx = context ?: return
+        if (needed.any { ContextCompat.checkSelfPermission(ctx, it) != PackageManager.PERMISSION_GRANTED }) {
+            requestPermissionChain(needed) {
+                if (needed.all {
+                        ContextCompat.checkSelfPermission(ctx, it) == PackageManager.PERMISSION_GRANTED
+                    }
+                ) toggleFavourite()
+            }
+            return
+        }
+        val wanted = !favouriteStarred
+        viewLifecycleOwner.lifecycleScope.launch {
+            val ok = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                ContactRepository(ctx).setStarred(saved.number, wanted)
+            }
+            if (!ok) {
+                Toast.makeText(ctx, R.string.favourite_needs_contact, Toast.LENGTH_SHORT).show()
+                return@launch
+            }
+            favouriteFor = saved.number
+            paintFavourite(wanted)
+            Toast.makeText(
+                ctx, if (wanted) R.string.favourite_added else R.string.favourite_removed,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    /** The saved contact's own number when there is one, else what was typed. */
+    private fun blockTarget(
+        typed: String,
+        saved: com.callerid.numberlookup.home.repository.ContactPhone?,
+    ): String = saved?.number ?: typed
+
+    /** Red "Block", or green "Unblock" once the number is on the blocklist. */
+    private fun paintBlock(number: String) {
+        val ctx = context ?: return
+        val blocked = BlocklistRepository(ctx).isNumberBlocked(number)
+        val label = if (blocked) R.string.action_unblock else R.string.action_block
+        binding.textDialBlock.setText(label)
+        binding.imageDialBlock.imageTintList = android.content.res.ColorStateList.valueOf(
+            ContextCompat.getColor(ctx, if (blocked) R.color.ds_success else R.color.ds_danger)
+        )
+    }
+
+    /**
+     * Blocks or unblocks, as Call Details does: only blocking goes through the
+     * reward gate, since unblocking hands a slot back and must never cost an ad.
+     */
+    private fun toggleBlock() {
+        val number = blockTarget(dialedNumber(), viewModel.savedContact(dialedNumber()))
+        if (number.isBlank()) return
+        val blocklist = BlocklistRepository(requireContext())
+        if (blocklist.isNumberBlocked(number)) {
+            blocklist.remove(number)
+            paintBlock(number)
+            Toast.makeText(requireContext(), R.string.blocklist_removed, Toast.LENGTH_SHORT).show()
+            return
+        }
+        BlockReward.allow(requireActivity(), number) {
+            blocklist.add(number)
+            if (view != null) paintBlock(number)
+            context?.let { Toast.makeText(it, R.string.blocklist_added, Toast.LENGTH_SHORT).show() }
         }
     }
 
@@ -544,11 +666,6 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         }
     }
 
-    /** Shows a row's number in the dial display, then dials it. */
-    private fun fillAndDial(number: String) {
-        setDial(number)
-        placeCall(number)
-    }
 
     private fun addToContacts(number: String) {
         if (number.isBlank()) return

@@ -55,15 +55,17 @@
             android:layout_height="40dp"
             android:layout_marginEnd="10dp" />
 
+        <!-- Search in the slot the sort filter had: the chips below already
+             narrow by call type, and finding one caller is the commoner need. -->
         <ImageView
-            android:id="@+id/buttonRecentsFilter"
+            android:id="@+id/buttonRecentsSearch"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/bg_ds_header_chip"
-            android:contentDescription="@string/filter_all"
+            android:contentDescription="@string/recents_search_hint"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:padding="11dp"
-            android:src="@drawable/ic_filter_list"
+            android:padding="10dp"
+            android:src="@drawable/ic_ds_search"
             app:tint="@color/ds_ink" />
 
         <ImageView
@@ -99,7 +101,59 @@
             android:orientation="vertical"
             app:layout_scrollFlags="scroll">
 
+        <!-- Opened by the search button in the header; filters the list by name
+             or number as you type, within the call-type chip below. -->
+        <LinearLayout
+            android:id="@+id/rowRecentsSearch"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/bg_ds_search_field"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingEnd="4dp"
+            android:visibility="gone"
+            tools:visibility="visible">
 
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_ds_search"
+                app:tint="@color/ds_ink_muted" />
+
+            <EditText
+                android:id="@+id/inputRecentsSearch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:fontFamily="@font/mulish_semibold"
+                android:hint="@string/recents_search_hint"
+                android:imeOptions="actionSearch"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/ds_ink"
+                android:textColorHint="@color/ds_placeholder"
+                android:textCursorDrawable="@null"
+                android:textSize="15sp" />
+
+            <!-- Clears the text; with nothing typed it closes the bar. -->
+            <ImageView
+                android:id="@+id/buttonRecentsSearchClose"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/contacts_search_clear"
+                android:padding="10dp"
+                android:src="@drawable/ic_close"
+                app:tint="@color/ds_ink_muted" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/columnPermHint"

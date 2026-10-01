@@ -827,6 +827,8 @@
     <string name="dialer_grid_lookup">بحث</string>
     <string name="dialer_grid_whatsapp">WhatsApp</string>
     <string name="dialer_grid_ai">اسأل الذكاء الاصطناعي</string>
+    <string name="dialer_grid_favourite">المفضلة</string>
+    <string name="dialer_grid_unfavourite">إزالة من المفضلة</string>
     <string name="dialer_number_not_saved">غير موجود في جهات اتصالك</string>
     <string name="dialer_service_code">رمز خدمة · اضغط على اتصال لتشغيله</string>
     <string name="dialer_send_message">إرسال رسالة</string>

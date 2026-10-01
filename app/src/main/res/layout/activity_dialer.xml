@@ -298,6 +298,7 @@
 
                         <LinearLayout
                             android:id="@+id/gridRowOne"
+                            android:weightSum="2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:baselineAligned="false"
@@ -334,6 +335,7 @@
 
                         <LinearLayout
                             android:id="@+id/gridRowTwo"
+                            android:weightSum="2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:baselineAligned="false"
@@ -370,6 +372,7 @@
 
                         <LinearLayout
                             android:id="@+id/gridRowThree"
+                            android:weightSum="2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:baselineAligned="false"
@@ -388,14 +391,50 @@
                                     style="@style/DialerGridLabel"
                                     android:text="@string/dialer_grid_ai" />
                             </LinearLayout>
+                        </LinearLayout>
 
-                            <!-- The odd one out keeps its half of the row rather
-                                 than stretching across it, so the left column
-                                 stays a column all the way down. -->
-                            <View
-                                android:layout_width="0dp"
-                                android:layout_height="1dp"
-                                android:layout_weight="1" />
+                        <!-- Favourite and Block. The rows are weightSum 2, so a row
+                             left with one visible action keeps it at half width
+                             instead of stretching it across the card. -->
+                        <LinearLayout
+                            android:id="@+id/gridRowFour"
+                            android:weightSum="2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:baselineAligned="false"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:id="@+id/rowDialFavourite"
+                                style="@style/DialerGridAction">
+
+                                <ImageView
+                                    android:id="@+id/imageDialFavourite"
+                                    style="@style/DialerGridIcon"
+                                    android:contentDescription="@null"
+                                    android:src="@drawable/ic_star" />
+
+                                <TextView
+                                    android:id="@+id/textDialFavourite"
+                                    style="@style/DialerGridLabel"
+                                    android:text="@string/dialer_grid_favourite" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/rowDialBlock"
+                                style="@style/DialerGridAction">
+
+                                <ImageView
+                                    android:id="@+id/imageDialBlock"
+                                    style="@style/DialerGridIcon"
+                                    android:contentDescription="@null"
+                                    android:src="@drawable/ic_block" />
+
+                                <TextView
+                                    android:id="@+id/textDialBlock"
+                                    style="@style/DialerGridLabel"
+                                    android:text="@string/action_block" />
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>

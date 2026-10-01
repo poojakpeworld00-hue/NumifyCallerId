@@ -138,6 +138,13 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         // `app_launches` frequency counts this launch.
         prefs.appLaunchCount = prefs.appLaunchCount + 1
 
+        // A returning user with nothing for the splash to do goes straight to
+        // Home; Home runs the startup work (getData) behind its own screen.
+        if (canSkipSplash()) {
+            openHomeDirect()
+            return
+        }
+
         // The bars are transparent so the page colour and its bloom run under
         // them edge to edge.
         //
@@ -306,17 +313,65 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
             // UNKNOWN means not resolved yet (no referrer, timed out): leave the
             // stored value alone rather than write "organic" as if it were known.
             // AdAwareActivity's later resolveAttribution still settles it.
-            if (attribution.isResolved) {
-                AdPreferenceStore.getInstance(this)
-                    .putBoolean("OnMaketing", attribution == Attribution.PAID)
-            }
-            Log.d(SPLASH_FLOW_TAG, "ensureDataDisclosure attribution=$attribution")
+            recordAttribution(attribution)
             LightHouse.subscribeAsync()
             // The Uninstall shortcut skips onboarding and Home for the funnel.
             val intent = if (uninstallLaunch) uninstallIntent() else Intent(this, nextScreen())
             Log.d(SPLASH_FLOW_TAG, "ensureDataDisclosure done → launching ${intent.component?.shortClassName}")
             // Splash → onboarding/main — no interstitial on the very first launch.
             openActivity(intent, isShowAd = false)
+            finish()
+        }
+    }
+
+    private fun recordAttribution(attribution: Attribution) {
+        if (attribution.isResolved) {
+            AdPreferenceStore.getInstance(this)
+                .putBoolean("OnMaketing", attribution == Attribution.PAID)
+        }
+        Log.d(SPLASH_FLOW_TAG, "ensureDataDisclosure attribution=$attribution")
+    }
+
+    /**
+     * Whether this launch can open Home without the splash at all.
+     *
+     * Only for a returning user, and only when the splash would have nothing to
+     * show: the disclosure is already acknowledged, no onboarding screen is due,
+     * no update redirect is pending, and no splash ad is due this launch
+     * (`screen.splash.ad_type` / `show_from_launch` / `session`), so a splash ad
+     * set to play on launch 2 still gets its splash.
+     *
+     * Read from the config the last launch stored: this one has not fetched
+     * yet, and waiting for it is exactly the wait being skipped.
+     */
+    private fun canSkipSplash(): Boolean {
+        if (uninstallLaunch || prefs.appLaunchCount <= 1) return false
+        if (!LightHouse.isDataDisclosureAcknowledged(this)) return false
+        val ads = AdPreferenceStore.getInstance(this)
+        if (!ads.getString("In_App_Update_Link").isNullOrEmpty()) return false
+        if (OnboardingStepConfig.firstEligible(this) != null) return false
+        val splashAdDue = ads.getBoolean("IsAdsON") &&
+            !OnboardingStepConfig.splashConfig(this).adType.equals("none", ignoreCase = true) &&
+            OnboardingStepConfig.isSplashAdDue(this)
+        return !splashAdDue
+    }
+
+    /** Home at once, with no splash frame and no transition; Home runs getData. */
+    private fun openHomeDirect() {
+        Log.d(SPLASH_FLOW_TAG, "returning user, nothing due → Home direct, skipping splash")
+        binding.root.visibility = View.INVISIBLE
+        // Acknowledged already, so this returns at once; it still hands back the
+        // attribution and is where LightHouse expects subscribeAsync to follow.
+        LightHouse.ensureDataDisclosureWithAttribution(this) { attribution ->
+            if (isFinishing || isDestroyed) return@ensureDataDisclosureWithAttribution
+            recordAttribution(attribution)
+            LightHouse.subscribeAsync()
+            startActivity(
+                Intent(this, MainShellActivity::class.java)
+                    .putExtra(MainShellActivity.EXTRA_RUN_STARTUP, true)
+            )
+            @Suppress("DEPRECATION")
+            overridePendingTransition(0, 0)
             finish()
         }
     }

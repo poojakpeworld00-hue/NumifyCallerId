@@ -308,6 +308,8 @@
     <string name="dialer_grid_lookup">Lookup</string>
     <string name="dialer_grid_whatsapp">WhatsApp</string>
     <string name="dialer_grid_ai">Ask AI</string>
+    <string name="dialer_grid_favourite">Favourite</string>
+    <string name="dialer_grid_unfavourite">Unfavourite</string>
     <string name="dialer_number_not_saved">Not in your contacts</string>
     <string name="dialer_service_code">Service code · tap Call to run it</string>
     <string name="dialer_send_message">Send message</string>
