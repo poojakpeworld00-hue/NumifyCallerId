@@ -101,6 +101,7 @@
 
     <!-- Contacts -->
     <string name="contacts_search_hint">Поиск контактов</string>
+    <string name="search_suggested">Рекомендуемые</string>
     <string name="contacts_empty">Контакты не найдены</string>
     <string name="perm_contacts_title">Свяжите имена с номерами</string>
     <string name="perm_contacts_message">Contacts читает контакты, чтобы показывать сохранённых людей по имени, а не номером.</string>

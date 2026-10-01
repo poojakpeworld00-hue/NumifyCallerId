@@ -109,6 +109,7 @@
 
     <!-- Contacts -->
     <string name="contacts_search_hint">Rechercher des contacts</string>
+    <string name="search_suggested">Suggestions</string>
     <string name="contacts_empty">Aucun contact trouvé</string>
     <string name="perm_contacts_title">Associer les noms aux numéros</string>
     <string name="perm_contacts_message">Contacts lit vos contacts pour afficher par leur nom les personnes déjà enregistrées.</string>

@@ -113,6 +113,9 @@ class ContactListAdapter(
                 AvatarPalette.tintFor(binding.root.context, c.name.ifEmpty { c.detail })
             binding.textName.text = c.name
             binding.textNumber.text = c.detail
+            // An unsaved caller (search suggestions) is named by its number;
+            // the same digits again underneath say nothing.
+            binding.textNumber.visibility = if (c.detail == c.name) View.GONE else View.VISIBLE
             loadContactPhoto(c)
             // An email-only contact (search) has nothing to dial.
             binding.buttonCall.visibility = if (c.hasPhone) View.VISIBLE else View.INVISIBLE

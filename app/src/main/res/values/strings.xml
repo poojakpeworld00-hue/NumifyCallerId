@@ -553,6 +553,7 @@
 
     <!-- Contacts -->
     <string name="contacts_search_hint">Search contacts</string>
+    <string name="search_suggested">Suggested</string>
     <!-- Contact search screen. The prompt names all three fields it matches,
          because email is the one nobody expects a phone app to search. -->
     <string name="contacts_search_prompt_title">Search your contacts</string>

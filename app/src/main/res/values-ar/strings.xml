@@ -109,6 +109,7 @@
 
     <!-- Contacts -->
     <string name="contacts_search_hint">ابحث في جهات الاتصال</string>
+    <string name="search_suggested">مقترحة</string>
     <string name="contacts_empty">لم يتم العثور على جهات اتصال</string>
     <string name="perm_contacts_title">اربط الأسماء بالأرقام</string>
     <string name="perm_contacts_message">يقرأ Contacts جهات اتصالك ليعرض من حفظتهم بالاسم بدلًا من الرقم.</string>

@@ -101,6 +101,7 @@
 
     <!-- Contacts -->
     <string name="contacts_search_hint">Kişilerde ara</string>
+    <string name="search_suggested">Önerilen</string>
     <string name="contacts_empty">Kişi bulunamadı</string>
     <string name="perm_contacts_title">Adları numaralarla eşleştirin</string>
     <string name="perm_contacts_message">Contacts, kayıtlı kişileri numara yerine adla göstermek için kişilerinizi okur.</string>

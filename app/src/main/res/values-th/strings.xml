@@ -101,6 +101,7 @@
 
     <!-- Contacts -->
     <string name="contacts_search_hint">ค้นหารายชื่อ</string>
+    <string name="search_suggested">แนะนำ</string>
     <string name="contacts_empty">ไม่พบรายชื่อ</string>
     <string name="perm_contacts_title">จับคู่ชื่อกับเบอร์</string>
     <string name="perm_contacts_message">Contacts อ่านรายชื่อติดต่อเพื่อแสดงคนที่บันทึกไว้เป็นชื่อแทนเบอร์</string>

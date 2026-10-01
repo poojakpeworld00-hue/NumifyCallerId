@@ -101,6 +101,7 @@
 
     <!-- Contacts -->
     <string name="contacts_search_hint">連絡先を検索</string>
+    <string name="search_suggested">おすすめ</string>
     <string name="contacts_empty">連絡先が見つかりません</string>
     <string name="perm_contacts_title">番号に名前を結び付ける</string>
     <string name="perm_contacts_message">保存済みの相手を番号ではなく名前で表示するため、Contacts は連絡先を読み取ります。</string>

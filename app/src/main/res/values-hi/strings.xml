@@ -109,6 +109,7 @@
 
     <!-- Contacts -->
     <string name="contacts_search_hint">संपर्क खोजें</string>
+    <string name="search_suggested">सुझाए गए</string>
     <string name="contacts_empty">कोई संपर्क नहीं मिला</string>
     <string name="perm_contacts_title">नामों को नंबरों से जोड़ें</string>
     <string name="perm_contacts_message">सहेजे गए लोगों को नंबर की जगह नाम से दिखाने के लिए Contacts आपके संपर्क पढ़ता है।</string>

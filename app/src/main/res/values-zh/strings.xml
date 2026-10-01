@@ -101,6 +101,7 @@
 
     <!-- Contacts -->
     <string name="contacts_search_hint">搜索联系人</string>
+    <string name="search_suggested">建议</string>
     <string name="contacts_empty">未找到联系人</string>
     <string name="perm_contacts_title">为号码匹配姓名</string>
     <string name="perm_contacts_message">Contacts 读取通讯录，用姓名而不是号码显示已保存的联系人。</string>

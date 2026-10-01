@@ -101,6 +101,7 @@
 
     <!-- Contacts -->
     <string name="contacts_search_hint">Tìm danh bạ</string>
+    <string name="search_suggested">Gợi ý</string>
     <string name="contacts_empty">Không tìm thấy liên hệ</string>
     <string name="perm_contacts_title">Ghép tên với số</string>
     <string name="perm_contacts_message">Contacts đọc danh bạ để hiển thị những người đã lưu bằng tên thay vì số.</string>

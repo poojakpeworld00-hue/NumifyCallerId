@@ -29,6 +29,8 @@ import com.callerid.numberlookup.home.databinding.ActivityContactSearchBinding
 import com.callerid.numberlookup.home.feature.calldetails.CallDetailsActivity
 import com.callerid.numberlookup.home.foundation.BaseActivity
 import com.callerid.numberlookup.home.repository.ContactRecord
+import com.callerid.numberlookup.home.repository.CallLogRepository
+import com.callerid.numberlookup.home.feature.widgets.CallActionHandler
 import com.callerid.numberlookup.home.repository.ContactRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -148,6 +150,40 @@ class ContactSearchActivity : BaseActivity<ActivityContactSearchBinding>() {
         showPrompt()
         openKeyboard()
         loadPool()
+        if (intent.getBooleanExtra(EXTRA_SUGGEST, false)) loadSuggestions()
+    }
+
+    /** Recent callers, shown under "Suggested" before anything is typed. */
+    private var suggestions: List<ContactRecord> = emptyList()
+
+    /**
+     * The people last in the call log, newest first and each once — what Google's
+     * dialer offers the moment its search opens, so the person you are about to
+     * look for is usually already there before a letter is typed. Saved callers
+     * carry their contact name and photo; strangers show as their number.
+     */
+    private fun loadSuggestions() {
+        lifecycleScope.launch {
+            suggestions = withContext(Dispatchers.IO) {
+                val photos = runCatching {
+                    ContactRepository(this@ContactSearchActivity).photoUriByNumber()
+                }.getOrDefault(emptyMap())
+                CallLogRepository(this@ContactSearchActivity).getCalls(limit = SUGGEST_SCAN)
+                    .filter { it.number.any(Char::isDigit) }
+                    .distinctBy { it.number.filter(Char::isDigit).takeLast(MATCH_TAIL) }
+                    .take(SUGGEST_COUNT)
+                    .map { call ->
+                        val name = call.name?.takeIf { it.isNotBlank() } ?: call.number
+                        ContactRecord(
+                            name = name,
+                            detail = call.number,
+                            initials = CallActionHandler.initials(call.name.orEmpty(), call.number),
+                            photoUri = photos[call.number.filter(Char::isDigit).takeLast(MATCH_TAIL)],
+                        )
+                    }
+            }
+            if (query.isEmpty()) showPrompt()
+        }
     }
 
     override fun initObservers() = Unit
@@ -223,6 +259,15 @@ class ContactSearchActivity : BaseActivity<ActivityContactSearchBinding>() {
 
     /** The resting state: nothing typed yet. */
     private fun showPrompt() {
+        if (suggestions.isNotEmpty()) {
+            adapter.submit(
+                listOf<ContactRowUi>(ContactRowUi.Header(getString(R.string.search_suggested))) +
+                    suggestions.map { ContactRowUi.Item(it) }
+            )
+            binding.listResults.isVisible = true
+            binding.emptyState.isVisible = false
+            return
+        }
         binding.listResults.isVisible = false
         binding.emptyState.isVisible = true
         binding.textEmptyTitle.setText(R.string.contacts_search_prompt_title)
@@ -281,7 +326,19 @@ class ContactSearchActivity : BaseActivity<ActivityContactSearchBinding>() {
     }
 
     companion object {
-        fun newIntent(context: Context): Intent =
+        /** Show recent callers as suggestions before a query (Recents' search). */
+        private const val EXTRA_SUGGEST = "extra_suggest_recent"
+        private const val SUGGEST_COUNT = 8
+        private const val SUGGEST_SCAN = 200
+        private const val MATCH_TAIL = 10
+
+        /**
+         * [suggestRecent]: open on the people last in the call log, as Google's
+         * dialer search does. Off for Contacts' own search, which opens on its
+         * prompt.
+         */
+        fun newIntent(context: Context, suggestRecent: Boolean = false): Intent =
             Intent(context, ContactSearchActivity::class.java)
+                .putExtra(EXTRA_SUGGEST, suggestRecent)
     }
 }

@@ -11,7 +11,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import android.view.LayoutInflater
-import android.view.inputmethod.InputMethodManager
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -22,13 +21,13 @@ import androidx.core.view.updatePadding
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.viewModels
 import androidx.core.view.isVisible
-import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.callerid.numberlookup.home.R
 import com.callerid.numberlookup.home.monetize.delivery.NativeBannerPresenter
 import com.callerid.numberlookup.home.foundation.BaseFragment
 import com.callerid.numberlookup.home.common.ListDividerDecoration
 import com.callerid.numberlookup.home.common.openActivity
+import com.callerid.numberlookup.home.feature.contacts.ContactSearchActivity
 import com.callerid.numberlookup.home.databinding.FragmentRecentsBinding
 import com.callerid.numberlookup.home.feature.MainShellActivity
 import com.callerid.numberlookup.home.feature.calldetails.CallDetailsActivity
@@ -131,7 +130,6 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
     /** Re-evaluates when this tab becomes visible again (show/hide keeps the fragment resumed). */
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        if (hidden && view != null && binding.rowRecentsSearch.isVisible) closeSearch()
         if (!hidden && view != null) {
             if (hasCallLogPermission()) onPermissionGranted() else showPermissionState()
             refreshPermissionHint()
@@ -275,8 +273,7 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
      * counts them instead and the header describes what is actually in view.
      */
     private fun showCounts(rows: List<HistoryRowUi>) {
-        val filtering = (viewModel.filter.value ?: CallLogFilter.ALL) != CallLogFilter.ALL ||
-            !binding.inputRecentsSearch.text.isNullOrBlank()
+        val filtering = (viewModel.filter.value ?: CallLogFilter.ALL) != CallLogFilter.ALL
 
         val (total, missed) = if (filtering) {
             val calls = rows.filterIsInstance<HistoryRowUi.Call>()
@@ -318,46 +315,17 @@ class CallLogFragment : BaseFragment<FragmentRecentsBinding>() {
         ) == PackageManager.PERMISSION_GRANTED
 
     /**
-     * The header search button opens a field over the chips that filters the
-     * list by name or number as you type, within the selected call type.
-     *
-     * It took the slot of the sort menu, which only reordered the list. Closing
-     * the field (the cross on an empty field, or switching tabs away) clears
-     * the query, so the list never stays filtered behind a field you cannot see.
+     * The header search button opens the search page, as Google’s dialer does:
+     * recent callers under "Suggested" at once, then every contact matching
+     * what is typed - name, number or email. The call-type chips stay this
+     * screen’s own filter.
      */
     private fun setupSearch() {
         binding.buttonRecentsSearch.setOnClickListener {
-            if (binding.rowRecentsSearch.isVisible) closeSearch() else openSearch()
+            requireActivity().openActivity(
+                ContactSearchActivity.newIntent(requireContext(), suggestRecent = true)
+            )
         }
-        binding.inputRecentsSearch.doAfterTextChanged { viewModel.applyQuery(it?.toString().orEmpty()) }
-        binding.inputRecentsSearch.setOnEditorActionListener { v, _, _ ->
-            hideKeyboard(v)
-            true
-        }
-        binding.buttonRecentsSearchClose.setOnClickListener {
-            if (binding.inputRecentsSearch.text.isNullOrEmpty()) closeSearch()
-            else binding.inputRecentsSearch.setText("")
-        }
-    }
-
-    private fun openSearch() {
-        binding.rowRecentsSearch.isVisible = true
-        binding.appBarRecents.setExpanded(true, true)
-        binding.inputRecentsSearch.requestFocus()
-        val imm = requireContext().getSystemService(InputMethodManager::class.java)
-        imm?.showSoftInput(binding.inputRecentsSearch, InputMethodManager.SHOW_IMPLICIT)
-    }
-
-    private fun closeSearch() {
-        binding.inputRecentsSearch.setText("")
-        hideKeyboard(binding.inputRecentsSearch)
-        binding.inputRecentsSearch.clearFocus()
-        binding.rowRecentsSearch.isVisible = false
-    }
-
-    private fun hideKeyboard(view: View) {
-        requireContext().getSystemService(InputMethodManager::class.java)
-            ?.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun onPermissionGranted() {
