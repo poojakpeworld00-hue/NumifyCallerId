@@ -108,6 +108,12 @@ class ContactSearchActivity : BaseActivity<ActivityContactSearchBinding>() {
                 right = bars.right,
                 bottom = maxOf(bars.bottom, ime.bottom),
             )
+            // The ad belongs at the foot of the screen. Padded with the rest it
+            // rode up on top of the keyboard and dropped back when it closed;
+            // left alone it would sit covered by the keyboard, which AdMob
+            // treats as an obscured ad. So it steps aside while typing and
+            // returns, in place, when the keyboard goes.
+            binding.adSlot.isVisible = !insets.isVisible(WindowInsetsCompat.Type.ime())
             insets
         }
 

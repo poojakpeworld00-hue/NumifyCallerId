@@ -278,6 +278,33 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         })
     }
 
+    /** The bottom banner and its hairline, hidden for the keyboard; restored after. */
+    private val adHiddenForKeyboard = mutableListOf<View>()
+
+    /**
+     * Edge-to-edge means the window is not resized for the keyboard, so the
+     * bottom banner stays put and the keyboard covers it while someone types in
+     * a tab's search field (Tools). A covered banner is an obscured ad to
+     * AdMob, so it steps aside while the keyboard is up and comes back after.
+     * Only views that were showing are hidden and restored: the ad code keeps
+     * an empty slot GONE, and this must not bring that back.
+     */
+    private fun stepAdAsideForKeyboard(imeVisible: Boolean) {
+        if (imeVisible) {
+            if (adHiddenForKeyboard.isNotEmpty()) return
+            listOfNotNull(
+                findViewById<View>(R.id.bannerAdFrame),
+                findViewById<View>(R.id.adBannerDivider),
+            ).filter { it.visibility == View.VISIBLE }.forEach {
+                it.visibility = View.INVISIBLE
+                adHiddenForKeyboard += it
+            }
+        } else {
+            adHiddenForKeyboard.forEach { it.visibility = View.VISIBLE }
+            adHiddenForKeyboard.clear()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -314,6 +341,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
             // Every tab applies its own top inset in [applyTopInsetForTab].
             v.setPadding(bars.left, 0, bars.right, bars.bottom)
             applyTopInsetForTab(currentIndex)
+            stepAdAsideForKeyboard(insets.isVisible(WindowInsetsCompat.Type.ime()))
             insets
         }
 
