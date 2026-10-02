@@ -1,26 +1,17 @@
 package com.callerid.numberlookup.home.feature.blocklist
 
 import android.Manifest
-import android.animation.Animator
-import android.animation.ArgbEvaluator
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.telephony.TelephonyManager
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.DecelerateInterpolator
-import android.view.animation.OvershootInterpolator
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
@@ -29,7 +20,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.callerid.numberlookup.home.R
 import com.callerid.numberlookup.home.foundation.BaseFragment
 import com.callerid.numberlookup.home.repository.BlockedNumber
@@ -41,13 +31,10 @@ import com.callerid.numberlookup.home.databinding.ActivityBlocklistBinding
 import com.callerid.numberlookup.home.databinding.DialogBlockAddBinding
 import com.callerid.numberlookup.home.databinding.DialogBlockDetailsBinding
 import com.callerid.numberlookup.home.databinding.DialogBlockRecentsBinding
-import com.callerid.numberlookup.home.databinding.DialogEnableCallerIdBinding
 import com.callerid.numberlookup.home.databinding.IncludeBlockAddFormBinding
-import com.callerid.numberlookup.home.common.CallerIdCoordinator
 import com.callerid.numberlookup.home.common.ListDividerDecoration
 import com.callerid.numberlookup.home.feature.finder.CountryCatalog
 import com.callerid.numberlookup.home.feature.finder.CountryPickerActivity
-import com.callerid.numberlookup.home.monetize.delivery.AppOpenAdManager
 import com.callerid.numberlookup.home.monetize.delivery.RewardedAdPresenter
 import java.text.DateFormat
 import java.util.Date
@@ -70,27 +57,8 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
         onRowClick = { entry -> requireCallerId { showDetails(entry) } }
     )
 
-    /** The single live "Enable Caller ID" dialog, if any (prevents duplicates). */
-    private var enableCallerIdDialog: Dialog? = null
-
-    /**
-     * The block action the user attempted while Caller ID was still off - "Add
-     * number", for example. It is held so that the moment the role is granted we
-     * resume *that* action by opening its dialog, rather than leaving the user
-     * stranded on the list.
-     */
-    private var pendingCallerIdAction: (() -> Unit)? = null
-
-    /** Looping/entrance animators for the enable dialog; cancelled on dismiss. */
-    private val enableDialogAnimators = mutableListOf<Animator>()
-
-    /**
-     * Re-checks Caller ID after the system role dialog returns and closes the
-     * enable-prompt once the role is held.
-     */
-    private val callerIdRoleLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { refreshCallerIdGate() }
+    /** Block management needs Caller ID; see [CallerIdGate]. Shared with the dialer. */
+    private val callerIdGate = CallerIdGate(this)
 
     /**
      * Where a number picked from contacts or recents should end up. Null means
@@ -424,210 +392,12 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
 
     // --- Caller-ID gate (all block management requires the CallScreening role) ---
 
-    /**
-     * Runs [action] only when Caller ID is enabled; otherwise prompts the user to
-     * enable it. Single funnel for every block-management entry point.
-     */
-    private fun requireCallerId(action: () -> Unit) {
-        if (CallerIdCoordinator.isCallerIdEnabled(requireContext())) {
-            action()
-        } else {
-            pendingCallerIdAction = action
-            showEnableCallerIdDialog()
-        }
-    }
-
-    /**
-     * Animated bottom-sheet prompt shown when a block action is attempted while
-     * Caller ID is off. Guarded so rapid taps can't stack copies.
-     */
-    private fun showEnableCallerIdDialog() {
-        if (enableCallerIdDialog?.isShowing == true) return
-
-        val view = DialogEnableCallerIdBinding.inflate(layoutInflater)
-        val dialog = Dialog(requireContext()).apply {
-            setContentView(view.root)
-            window?.apply {
-                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                setGravity(Gravity.BOTTOM)
-                setWindowAnimations(R.style.SheetSlideAnimation)
-                setDimAmount(0.55f)
-            }
-        }
-
-        view.buttonNotNow.setOnClickListener {
-            pendingCallerIdAction = null
-            dialog.dismiss()
-        }
-        view.buttonEnable.setOnClickListener {
-            dialog.dismiss()
-            requestEnableCallerId()
-        }
-        dialog.setOnDismissListener {
-            cancelEnableDialogAnimators()
-            if (enableCallerIdDialog === dialog) enableCallerIdDialog = null
-        }
-        enableCallerIdDialog = dialog
-        dialog.show()
-        animateEnableCallerIdDialog(view)
-    }
-
-    /**
-     * Drives the dialog's motion once it is on screen: the shield pops in with an
-     * overshoot, a ring pulses outward, the checkmark draws itself as an AVD, the
-     * hint strip reveals, the CTA breathes, and the demo toggle loops off to on.
-     */
-    private fun animateEnableCallerIdDialog(v: DialogEnableCallerIdBinding) {
-        v.shieldTile.alpha = 0f
-        v.shieldTile.scaleX = 0.4f
-        v.shieldTile.scaleY = 0.4f
-        v.shieldTile.animate()
-            .alpha(1f).scaleX(1f).scaleY(1f)
-            .setStartDelay(80L).setDuration(440L)
-            .setInterpolator(OvershootInterpolator(2.4f))
-            .start()
-
-        AnimatedVectorDrawableCompat.create(requireContext(), R.drawable.motion_shield)?.let { avd ->
-            v.shieldIcon.setImageDrawable(avd)
-            avd.start()
-        }
-
-        v.shieldRing.alpha = 0f
-        loopAnimator(v.shieldRing, View.SCALE_X, 0.7f, 1.5f, 1500L, 220L, DecelerateInterpolator())
-        loopAnimator(v.shieldRing, View.SCALE_Y, 0.7f, 1.5f, 1500L, 220L, DecelerateInterpolator())
-        loopAnimator(v.shieldRing, View.ALPHA, 0.7f, 0f, 1500L, 220L, DecelerateInterpolator())
-
-        v.hintStrip.alpha = 0f
-        v.hintStrip.translationY = 10f * resources.displayMetrics.density
-        v.hintStrip.animate()
-            .alpha(1f).translationY(0f)
-            .setStartDelay(620L).setDuration(340L)
-            .setInterpolator(DecelerateInterpolator())
-            .start()
-
-        loopAnimator(
-            v.buttonEnable, View.SCALE_X, 1f, 1.03f, 1300L, 900L,
-            AccelerateDecelerateInterpolator(), ValueAnimator.REVERSE
-        )
-        loopAnimator(
-            v.buttonEnable, View.SCALE_Y, 1f, 1.03f, 1300L, 900L,
-            AccelerateDecelerateInterpolator(), ValueAnimator.REVERSE
-        )
-
-        v.flipTrack.post { if (isAdded && view != null) startToggleDemo(v) }
-    }
-
-    /** Starts one infinite [ObjectAnimator], registering it for later cancellation. */
-    private fun loopAnimator(
-        target: View,
-        property: android.util.Property<View, Float>,
-        from: Float,
-        to: Float,
-        duration: Long,
-        startDelay: Long,
-        interpolator: android.view.animation.Interpolator,
-        repeatMode: Int = ValueAnimator.RESTART
-    ) {
-        ObjectAnimator.ofFloat(target, property, from, to).apply {
-            this.duration = duration
-            this.startDelay = startDelay
-            this.interpolator = interpolator
-            this.repeatCount = ValueAnimator.INFINITE
-            this.repeatMode = repeatMode
-            enableDialogAnimators.add(this)
-            start()
-        }
-    }
-
-    /**
-     * Loops the illustrative toggle in the hint strip: track fades grey→green, the
-     * thumb slides across with a tap ripple, holds, then resets.
-     */
-    private fun startToggleDemo(v: DialogEnableCallerIdBinding) {
-        val marginStart = (v.flipThumb.layoutParams as? ViewGroup.MarginLayoutParams)?.marginStart ?: 0
-        val travel = (v.flipTrack.width - v.flipThumb.width - 2 * marginStart).toFloat()
-        if (travel <= 0f) return
-
-        val offColor = ContextCompat.getColor(requireContext(), R.color.cid_toggle_off)
-        val onColor = ContextCompat.getColor(requireContext(), R.color.online_green)
-        val argb = ArgbEvaluator()
-
-        ValueAnimator.ofFloat(0f, 1f).apply {
-            duration = 2600L
-            repeatCount = ValueAnimator.INFINITE
-            interpolator = null // linear; phase timing is handled below
-            addUpdateListener { anim ->
-                val t = anim.animatedValue as Float
-
-                val on = when {
-                    t < 0.30f -> 0f
-                    t < 0.40f -> ease((t - 0.30f) / 0.10f)
-                    t < 0.86f -> 1f
-                    t < 0.96f -> 1f - ease((t - 0.86f) / 0.10f)
-                    else -> 0f
-                }
-                v.flipTrack.backgroundTintList =
-                    ColorStateList.valueOf(argb.evaluate(on, offColor, onColor) as Int)
-                v.flipThumb.translationX = on * travel
-
-                val r = when {
-                    t < 0.30f -> -1f
-                    t < 0.52f -> (t - 0.30f) / 0.22f
-                    else -> -1f
-                }
-                if (r in 0f..1f) {
-                    v.flipRipple.alpha = (1f - r) * 0.8f
-                    val s = 0.4f + r * 1.7f
-                    v.flipRipple.scaleX = s
-                    v.flipRipple.scaleY = s
-                } else {
-                    v.flipRipple.alpha = 0f
-                }
-            }
-            enableDialogAnimators.add(this)
-            start()
-        }
-    }
-
-    /** Decelerating ease for the toggle demo (1-(1-x)^2). */
-    private fun ease(x: Float): Float = 1f - (1f - x) * (1f - x)
-
-    /** Cancels & clears every tracked enable-dialog animator (idempotent). */
-    private fun cancelEnableDialogAnimators() {
-        enableDialogAnimators.forEach { it.cancel() }
-        enableDialogAnimators.clear()
-    }
-
-    /** Launches the system CallScreening role request (no-op if already held/unavailable). */
-    private fun requestEnableCallerId() {
-        val intent = CallerIdCoordinator.buildEnableIntent(requireContext()) ?: run {
-            refreshCallerIdGate(); return
-        }
-        // We're leaving to a system page — don't let the return trip trigger an App Open ad.
-        AppOpenAdManager.skipNextAppOpenAd = true
-        runCatching { callerIdRoleLauncher.launch(intent) }
-    }
-
-    /**
-     * Re-evaluates the gate. Once Caller ID is on, the enable prompt is dismissed
-     * and block management becomes usable again immediately. Called after the role
-     * round-trip and on every resume.
-     */
-    private fun refreshCallerIdGate() {
-        if (view == null) return
-        if (!CallerIdCoordinator.isCallerIdEnabled(requireContext())) return
-        enableCallerIdDialog?.dismiss()
-        enableCallerIdDialog = null
-
-        val resume = pendingCallerIdAction ?: return
-        pendingCallerIdAction = null
-        binding.root.post { if (isAdded && view != null) resume() }
-    }
+    /** Runs [action] only when Caller ID is enabled; otherwise asks to enable it first. */
+    private fun requireCallerId(action: () -> Unit) = callerIdGate.require(action)
 
     override fun onResume() {
         super.onResume()
-        refreshCallerIdGate()
+        callerIdGate.refresh()
         // Warm the rewarded ad that BlockReward shows once the free slots are
         // gone. Without this every gated block falls through to the fallback and
         // the gate never actually shows an ad.
@@ -637,15 +407,12 @@ class BlockedNumbersFragment : BaseFragment<ActivityBlocklistBinding>() {
     /** Re-checks the gate when this tab becomes visible again (show/hide keeps it resumed). */
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        if (!hidden) refreshCallerIdGate()
+        if (!hidden) callerIdGate.refresh()
     }
 
     override fun onDestroyView() {
         // Avoid leaking the dialog window / animators across view recreation.
-        cancelEnableDialogAnimators()
-        enableCallerIdDialog?.dismiss()
-        enableCallerIdDialog = null
-        pendingCallerIdAction = null
+        callerIdGate.release()
         super.onDestroyView()
     }
 

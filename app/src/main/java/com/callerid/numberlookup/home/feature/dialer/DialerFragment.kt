@@ -35,6 +35,7 @@ import com.callerid.numberlookup.home.repository.SettingsRepository
 import com.callerid.numberlookup.home.repository.BlocklistRepository
 import com.callerid.numberlookup.home.repository.ContactRepository
 import com.callerid.numberlookup.home.feature.blocklist.BlockReward
+import com.callerid.numberlookup.home.feature.blocklist.CallerIdGate
 import com.callerid.numberlookup.home.repository.assistant.AiFeatureConfig
 import com.callerid.numberlookup.home.databinding.ActivityDialerBinding
 import kotlinx.coroutines.launch
@@ -61,6 +62,13 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
     // keypad first, which left whatever had been typed replaced by it and made
     // a one-tap call look like two steps. Tapping the row still fills the keypad.
     private val adapter = SpeedDialAdapter(onClick = ::setDial, onCall = { placeCall(it) })
+
+    /**
+     * Block and Unblock need Caller ID, as on the Blocklist tab: with it off,
+     * the same "Enable Caller ID" sheet asks first, and the block goes through
+     * by itself once it is granted.
+     */
+    private val callerIdGate = CallerIdGate(this)
 
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
         ActivityDialerBinding.inflate(inflater, container, false)
@@ -114,7 +122,7 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         }
         binding.buttonContactsPermission.setOnClickListener { askForContacts() }
         binding.rowDialFavourite.setOnClickListener { toggleFavourite() }
-        binding.rowDialBlock.setOnClickListener { toggleBlock() }
+        binding.rowDialBlock.setOnClickListener { callerIdGate.require { toggleBlock() } }
         binding.rowDialAskAi.setOnClickListener {
             requireActivity().openActivity(AiHubActivity.newIntent(requireContext()))
         }
@@ -165,6 +173,7 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         super.onResume()
         if (!isHidden) claimSoftInput()
         syncContactsPermission()
+        callerIdGate.refresh()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -174,7 +183,13 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         } else {
             claimSoftInput()
             syncContactsPermission()
+            callerIdGate.refresh()
         }
+    }
+
+    override fun onDestroyView() {
+        callerIdGate.release()
+        super.onDestroyView()
     }
 
     /** Last known READ_CONTACTS state, so a grant made elsewhere triggers one reload. */
