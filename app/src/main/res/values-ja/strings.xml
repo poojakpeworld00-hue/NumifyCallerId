@@ -834,7 +834,8 @@
     <string name="data_deletion_dialog_body">このアプリが保存しているあなたに関するデータを削除します。端末の連絡先と通話履歴には影響しません。元に戻すことはできません。</string>
     <string name="data_deletion_confirm">削除</string>
     <string name="data_deletion_cancel">キャンセル</string>
-    <string name="data_deletion_done">削除リクエストを送信しました</string>
+    <string name="data_deletion_done">データを削除しました</string>
+    <string name="data_deletion_failed">データを削除できませんでした。接続を確認して、もう一度お試しください。</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">広告とすべての制限をなくす</string>
     <string name="contact_detail_title">詳細</string>

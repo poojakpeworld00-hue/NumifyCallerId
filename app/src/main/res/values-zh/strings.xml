@@ -834,7 +834,8 @@
     <string name="data_deletion_dialog_body">这将删除本应用保存的关于您的数据。手机上的联系人和通话记录不受影响。此操作无法撤销。</string>
     <string name="data_deletion_confirm">删除</string>
     <string name="data_deletion_cancel">取消</string>
-    <string name="data_deletion_done">删除请求已发送</string>
+    <string name="data_deletion_done">你的数据已删除</string>
+    <string name="data_deletion_failed">无法删除你的数据。请检查网络连接后重试。</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">去除广告和所有限制</string>
     <string name="contact_detail_title">详情</string>

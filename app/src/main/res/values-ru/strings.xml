@@ -891,7 +891,8 @@
     <string name="data_deletion_dialog_body">Это удалит данные, которые приложение хранит о вас. Контакты и история звонков на телефоне не затрагиваются. Отменить будет нельзя.</string>
     <string name="data_deletion_confirm">Удалить</string>
     <string name="data_deletion_cancel">Отмена</string>
-    <string name="data_deletion_done">Запрос на удаление отправлен</string>
+    <string name="data_deletion_done">Ваши данные удалены</string>
+    <string name="data_deletion_failed">Не удалось удалить ваши данные. Проверьте подключение и повторите попытку.</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">Убрать рекламу и все ограничения</string>
     <string name="contact_detail_title">Сведения</string>

@@ -1,5 +1,8 @@
 package com.callerid.numberlookup.home.feature.settings
 
+import com.callerid.numberlookup.home.resolver.ContactUploader
+import kotlinx.coroutines.launch
+import androidx.lifecycle.lifecycleScope
 import android.app.role.RoleManager
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -242,7 +245,7 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
             .setNegativeButton(DataDeletionConfig.cancel(this)) { d, _ -> d.dismiss() }
             .setPositiveButton(DataDeletionConfig.confirm(this)) { d, _ ->
                 d.dismiss()
-                Toast.makeText(this, DataDeletionConfig.toast(this), Toast.LENGTH_LONG).show()
+                deleteUploadedData()
             }
             .create()
 
@@ -251,6 +254,26 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
                 .setTextColor(ContextCompat.getColor(this, R.color.danger))
         }
         dialog.show()
+    }
+
+    /**
+     * Deletes the contacts this install uploaded (`DELETE /android/upload/contacts`)
+     * and stops further uploads.
+     *
+     * The confirmation toast used to show on the tap alone, with nothing sent
+     * anywhere - "Deletion request sent" for a request that never left the
+     * phone. It now waits for the server, and a failure says so, so the user
+     * knows to try again rather than believing it is done.
+     */
+    private fun deleteUploadedData() {
+        binding.columnDataDeletion.root.isEnabled = false
+        lifecycleScope.launch {
+            val result = ContactUploader.deleteUploaded(this@SettingsActivity)
+            binding.columnDataDeletion.root.isEnabled = true
+            val message = if (result.isSuccess) DataDeletionConfig.toast(this@SettingsActivity)
+            else getString(R.string.data_deletion_failed)
+            Toast.makeText(this@SettingsActivity, message, Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun chipIcon(view: ImageView, @DrawableRes chip: Int, @ColorRes tint: Int) {

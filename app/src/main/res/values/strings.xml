@@ -991,7 +991,8 @@
     <string name="data_deletion_dialog_body">This removes the data this app has stored about you. The contacts and call history on your phone are not affected. This cannot be undone.</string>
     <string name="data_deletion_confirm">Delete</string>
     <string name="data_deletion_cancel">Cancel</string>
-    <string name="data_deletion_done">Deletion request sent</string>
+    <string name="data_deletion_done">Your data has been deleted</string>
+    <string name="data_deletion_failed">Couldn\'t delete your data. Check your connection and try again.</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">Remove ads and all limits</string>
     <string name="history_locked_cta">Unlock Premium</string>

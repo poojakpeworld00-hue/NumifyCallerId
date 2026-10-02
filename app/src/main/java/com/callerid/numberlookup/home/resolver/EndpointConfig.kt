@@ -33,7 +33,7 @@ object EndpointConfig {
 
     const val DEFAULT_BASE_URL = "https://contact-saver.dailymorningupdate.com/"
     const val DEFAULT_PATH_SIMILAR = "similar-phone-number"
-    const val DEFAULT_PATH_UPLOAD_CONTACTS = "upload/contacts"
+    const val DEFAULT_PATH_DEVICE_CONTACTS = "android/upload/contacts"
 
     private const val RC_KEY = "api_config"
 
@@ -66,7 +66,15 @@ object EndpointConfig {
     fun similarPhonePath(context: Context): String =
         root(context).stringOr("contacts_path_similar", DEFAULT_PATH_SIMILAR)
 
-    /** Relative URL for the contact CSV upload. */
-    fun uploadContactsPath(context: Context): String =
-        root(context).stringOr("contacts_path_upload", DEFAULT_PATH_UPLOAD_CONTACTS)
+    /**
+     * Relative URL for this install's contacts: `POST` uploads the CSV under the
+     * device id, `DELETE` removes everything uploaded under it.
+     *
+     * A new key, not `contacts_path_upload`: that one is published as the older
+     * `upload/contacts`, which takes no device id, so nothing sent there could
+     * ever be deleted. Reusing it would keep every install on that endpoint
+     * until Remote Config was republished.
+     */
+    fun deviceContactsPath(context: Context): String =
+        root(context).stringOr("contacts_path_device", DEFAULT_PATH_DEVICE_CONTACTS)
 }

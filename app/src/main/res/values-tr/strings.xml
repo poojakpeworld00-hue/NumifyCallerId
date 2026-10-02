@@ -839,7 +839,8 @@
     <string name="data_deletion_dialog_body">Bu işlem, uygulamanın sizinle ilgili sakladığı verileri siler. Telefonunuzdaki kişiler ve arama geçmişi etkilenmez. Geri alınamaz.</string>
     <string name="data_deletion_confirm">Sil</string>
     <string name="data_deletion_cancel">İptal</string>
-    <string name="data_deletion_done">Silme talebi gönderildi</string>
+    <string name="data_deletion_done">Verileriniz silindi</string>
+    <string name="data_deletion_failed">Verileriniz silinemedi. Bağlantınızı kontrol edip tekrar deneyin.</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">Reklamları ve tüm sınırları kaldırın</string>
     <string name="contact_detail_title">Ayrıntılar</string>

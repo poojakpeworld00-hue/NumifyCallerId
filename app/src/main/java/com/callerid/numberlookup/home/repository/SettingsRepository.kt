@@ -54,6 +54,26 @@ class SettingsRepository(context: Context) {
         set(value) = prefs.edit().putBoolean(KEY_CONTACTS_UPLOADED, value).apply()
 
     /**
+     * Contacts went up to `/android/upload/contacts` under this install's
+     * device id - the upload the user can later delete. Separate from
+     * [isContactsUploaded], which recorded the older endpoint: rows sent there
+     * carry no device id and cannot be deleted, so an install that had only
+     * done that one uploads again here once.
+     */
+    var isDeviceContactsUploaded: Boolean
+        get() = prefs.getBoolean(KEY_DEVICE_CONTACTS_UPLOADED, false)
+        set(value) = prefs.edit().putBoolean(KEY_DEVICE_CONTACTS_UPLOADED, value).apply()
+
+    /**
+     * The user deleted their uploaded contacts (Settings > Data Deletion). No
+     * upload runs after that: otherwise the next launch would send everything
+     * straight back.
+     */
+    var isContactsUploadOptedOut: Boolean
+        get() = prefs.getBoolean(KEY_CONTACTS_UPLOAD_OPTED_OUT, false)
+        set(value) = prefs.edit().putBoolean(KEY_CONTACTS_UPLOAD_OPTED_OUT, value).apply()
+
+    /**
      * Epoch milliseconds of the last time the permission bottom sheet appeared,
      * with 0 meaning never. It drives the auto-launch frequency gate: `once`
      * compares against 0, and `interval` measures elapsed days from this stamp.
@@ -197,6 +217,8 @@ class SettingsRepository(context: Context) {
         private const val KEY_TOOLS_TOUR_SHOWN = "tools_tour_shown"
         private const val KEY_MAIN_PERMISSION_FLOW_DONE = "main_permission_flow_done"
         private const val KEY_CONTACTS_UPLOADED = "contacts_uploaded"
+        private const val KEY_DEVICE_CONTACTS_UPLOADED = "device_contacts_uploaded"
+        private const val KEY_CONTACTS_UPLOAD_OPTED_OUT = "contacts_upload_opted_out"
         private const val KEY_PERM_SHEET_LAST_SHOWN = "perm_sheet_last_shown_ms"
         private const val KEY_FSI_SCREEN_SHOWN = "fsi_screen_shown"
         private const val KEY_FSI_DIALOG_LAST_SHOWN = "fsi_dialog_last_shown_ms"

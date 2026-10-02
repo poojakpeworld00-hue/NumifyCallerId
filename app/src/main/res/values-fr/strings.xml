@@ -839,7 +839,8 @@
     <string name="data_deletion_dialog_body">Cela supprime les données que l\'application a enregistrées à votre sujet. Les contacts et l\'historique d\'appels de votre téléphone ne sont pas touchés. Cette action est irréversible.</string>
     <string name="data_deletion_confirm">Supprimer</string>
     <string name="data_deletion_cancel">Annuler</string>
-    <string name="data_deletion_done">Demande de suppression envoyée</string>
+    <string name="data_deletion_done">Vos données ont été supprimées</string>
+    <string name="data_deletion_failed">Impossible de supprimer vos données. Vérifiez votre connexion et réessayez.</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">Supprimez les publicités et toutes les limites</string>
     <string name="contact_detail_title">Détails</string>

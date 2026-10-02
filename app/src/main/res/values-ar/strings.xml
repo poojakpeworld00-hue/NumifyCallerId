@@ -885,7 +885,8 @@
     <string name="data_deletion_dialog_body">يؤدي هذا إلى حذف البيانات التي يخزّنها التطبيق عنك. لن تتأثر جهات الاتصال وسجل المكالمات على هاتفك. ولا يمكن التراجع عن ذلك.</string>
     <string name="data_deletion_confirm">حذف</string>
     <string name="data_deletion_cancel">إلغاء</string>
-    <string name="data_deletion_done">تم إرسال طلب الحذف</string>
+    <string name="data_deletion_done">تم حذف بياناتك</string>
+    <string name="data_deletion_failed">تعذّر حذف بياناتك. تحقّق من اتصالك وحاول مرة أخرى.</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">أزل الإعلانات وكل القيود</string>
     <string name="contact_detail_title">التفاصيل</string>

@@ -834,7 +834,8 @@
     <string name="data_deletion_dialog_body">Thao tác này xoá dữ liệu mà ứng dụng đã lưu về bạn. Danh bạ và nhật ký cuộc gọi trên máy không bị ảnh hưởng. Không thể hoàn tác.</string>
     <string name="data_deletion_confirm">Xoá</string>
     <string name="data_deletion_cancel">Huỷ</string>
-    <string name="data_deletion_done">Đã gửi yêu cầu xoá</string>
+    <string name="data_deletion_done">Đã xoá dữ liệu của bạn</string>
+    <string name="data_deletion_failed">Không thể xóa dữ liệu của bạn. Hãy kiểm tra kết nối và thử lại.</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">Bỏ quảng cáo và mọi giới hạn</string>
     <string name="contact_detail_title">Chi tiết</string>

@@ -879,7 +879,8 @@
     <string name="data_deletion_dialog_body">इससे वह डेटा हट जाता है जो यह ऐप आपके बारे में रखता है। आपके फ़ोन के संपर्क और कॉल इतिहास पर कोई असर नहीं पड़ता। इसे वापस नहीं लिया जा सकता।</string>
     <string name="data_deletion_confirm">हटाएँ</string>
     <string name="data_deletion_cancel">रद्द करें</string>
-    <string name="data_deletion_done">हटाने का अनुरोध भेज दिया गया</string>
+    <string name="data_deletion_done">आपका डेटा हटा दिया गया है</string>
+    <string name="data_deletion_failed">आपका डेटा हटाया नहीं जा सका। अपना कनेक्शन जाँचें और फिर से कोशिश करें।</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">विज्ञापन और सभी सीमाएँ हटाएँ</string>
     <string name="contact_detail_title">विवरण</string>

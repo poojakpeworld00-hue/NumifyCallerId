@@ -883,7 +883,8 @@
     <string name="data_deletion_dialog_body">Esto elimina los datos que la app ha guardado sobre ti. Los contactos y el historial de llamadas de tu teléfono no se ven afectados. No se puede deshacer.</string>
     <string name="data_deletion_confirm">Eliminar</string>
     <string name="data_deletion_cancel">Cancelar</string>
-    <string name="data_deletion_done">Solicitud de eliminación enviada</string>
+    <string name="data_deletion_done">Se han eliminado tus datos</string>
+    <string name="data_deletion_failed">No se pudieron eliminar tus datos. Revisa tu conexión e inténtalo de nuevo.</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">Quita los anuncios y todos los límites</string>
     <string name="contact_detail_title">Detalles</string>

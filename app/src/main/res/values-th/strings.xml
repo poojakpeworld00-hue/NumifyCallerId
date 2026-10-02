@@ -834,7 +834,8 @@
     <string name="data_deletion_dialog_body">การทำเช่นนี้จะลบข้อมูลที่แอปเก็บไว้เกี่ยวกับคุณ รายชื่อและประวัติการโทรในเครื่องจะไม่ได้รับผลกระทบ และไม่สามารถย้อนกลับได้</string>
     <string name="data_deletion_confirm">ลบ</string>
     <string name="data_deletion_cancel">ยกเลิก</string>
-    <string name="data_deletion_done">ส่งคำขอลบข้อมูลแล้ว</string>
+    <string name="data_deletion_done">ลบข้อมูลของคุณแล้ว</string>
+    <string name="data_deletion_failed">ไม่สามารถลบข้อมูลของคุณได้ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง</string>
     <string name="settings_premium">Contacts Premium</string>
     <string name="settings_premium_sub">ปิดโฆษณาและปลดทุกข้อจำกัด</string>
     <string name="contact_detail_title">รายละเอียด</string>
