@@ -163,10 +163,11 @@ class ContactSearchActivity : BaseActivity<ActivityContactSearchBinding>() {
     private var suggestions: List<ContactRecord> = emptyList()
 
     /**
-     * The people last in the call log, newest first and each once — what Google's
-     * dialer offers the moment its search opens, so the person you are about to
-     * look for is usually already there before a letter is typed. Saved callers
-     * carry their contact name and photo; strangers show as their number.
+     * The dialer's "Frequently called" list, under the title "Suggested": the
+     * numbers called most, busiest first, so the person about to be looked for is
+     * usually there before a letter is typed. The same source as the dialer
+     * (CallLogRepository.getMostUsed), so the two lists never disagree. Saved
+     * callers carry their contact name and photo; strangers show as their number.
      */
     private fun loadSuggestions() {
         lifecycleScope.launch {
@@ -174,17 +175,14 @@ class ContactSearchActivity : BaseActivity<ActivityContactSearchBinding>() {
                 val photos = runCatching {
                     ContactRepository(this@ContactSearchActivity).photoUriByNumber()
                 }.getOrDefault(emptyMap())
-                CallLogRepository(this@ContactSearchActivity).getCalls(limit = SUGGEST_SCAN)
-                    .filter { it.number.any(Char::isDigit) }
-                    .distinctBy { it.number.filter(Char::isDigit).takeLast(MATCH_TAIL) }
-                    .take(SUGGEST_COUNT)
-                    .map { call ->
-                        val name = call.name?.takeIf { it.isNotBlank() } ?: call.number
+                CallLogRepository(this@ContactSearchActivity).getMostUsed(limit = SUGGEST_COUNT)
+                    .map { frequent ->
+                        val name = frequent.name?.takeIf { it.isNotBlank() } ?: frequent.number
                         ContactRecord(
                             name = name,
-                            detail = call.number,
-                            initials = CallActionHandler.initials(call.name.orEmpty(), call.number),
-                            photoUri = photos[call.number.filter(Char::isDigit).takeLast(MATCH_TAIL)],
+                            detail = frequent.number,
+                            initials = CallActionHandler.initials(frequent.name.orEmpty(), frequent.number),
+                            photoUri = photos[frequent.number.filter(Char::isDigit).takeLast(MATCH_TAIL)],
                         )
                     }
             }
@@ -334,8 +332,8 @@ class ContactSearchActivity : BaseActivity<ActivityContactSearchBinding>() {
     companion object {
         /** Show recent callers as suggestions before a query (Recents' search). */
         private const val EXTRA_SUGGEST = "extra_suggest_recent"
-        private const val SUGGEST_COUNT = 8
-        private const val SUGGEST_SCAN = 200
+        /** As many as the dialer's Frequently called list shows. */
+        private const val SUGGEST_COUNT = 20
         private const val MATCH_TAIL = 10
 
         /**
