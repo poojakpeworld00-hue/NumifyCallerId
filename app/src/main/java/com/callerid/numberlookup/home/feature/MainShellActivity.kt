@@ -790,6 +790,12 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
      * first, since it is registered after this one.
      */
     private fun handleBack() {
+        // Tools has its own back button to Recents; the system Back does the same.
+        if (tabs.getOrNull(currentIndex)?.fragment is ToolboxFragment) {
+            showRecents()
+            return
+        }
+
         val cfg = OnboardingStepConfig.exitConfig(this)
         val managed = cfg.isEnable &&
             OnboardingStepConfig.isCountryAllowed(this, cfg.countryCheckEnabled, cfg.excludedCountries)

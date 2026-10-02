@@ -13,11 +13,59 @@
         android:background="@color/ds_page"
         android:orientation="vertical">
 
-        <!-- No title bar: the bottom nav chip already says which tab this is, and
-             a "Tools" heading over it only repeats that while costing the search
-             field and the first rail their place on screen. The back button that
-             used to sit here went with it — this is a tab, and the shell owns
-             the back stack. -->
+        <!-- Title bar, as on Recents: back to Recents, the page name, and the
+             Premium and Settings actions. Back goes to the Recents tab, the
+             same as the system Back on this tab (MainShellActivity.handleBack). -->
+        <LinearLayout
+            android:id="@+id/toolsHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:id="@+id/buttonToolsBack"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/action_back"
+                android:padding="10dp"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/ds_ink" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/space_grotesk_bold"
+                android:includeFontPadding="false"
+                android:text="@string/nav_tools"
+                android:textColor="@color/ds_ink"
+                android:textSize="24sp" />
+
+            <!-- Hidden once Premium is held - see ToolboxFragment.bindPremiumBadge. -->
+            <com.callerid.numberlookup.home.feature.premium.PremiumBadgeView
+                android:id="@+id/buttonToolsPremium"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp" />
+
+            <ImageView
+                android:id="@+id/buttonToolsSettings"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_ds_header_chip"
+                android:contentDescription="@string/nav_settings"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:padding="11dp"
+                android:src="@drawable/ic_settings"
+                app:tint="@color/ds_ink" />
+        </LinearLayout>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -38,72 +86,6 @@
                 android:orientation="vertical"
                 app:layout_scrollFlags="scroll">
 
-                <!-- Tools has no header action cluster to join, so the badge
-                     shares the search row and the field takes what is left. -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="14dp"
-                    android:baselineAligned="false"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/searchBar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_ds_outlined_field"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="14dp"
-                    android:paddingVertical="10dp">
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:contentDescription="@string/tools_search_hint"
-                        android:src="@drawable/ic_ds_search"
-                        app:tint="@color/ds_ink_muted" />
-
-                    <EditText
-                        android:id="@+id/inputSearch"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:fontFamily="@font/mulish_bold"
-                        android:hint="@string/tools_search_hint"
-                        android:imeOptions="actionSearch"
-                        android:includeFontPadding="false"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="@color/ds_ink"
-                        android:textColorHint="@color/ds_placeholder"
-                        android:textCursorDrawable="@null"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:id="@+id/buttonClearSearch"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="@string/tools_clear_search"
-                        android:padding="@dimen/_3sdp"
-                        android:src="@drawable/ic_close"
-                        android:visibility="gone"
-                        app:tint="@color/ds_ink_muted" />
-                </LinearLayout>
-
-                    <com.callerid.numberlookup.home.feature.premium.PremiumBadgeView
-                        android:id="@+id/buttonToolsPremium"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="10dp" />
-                </LinearLayout>
 
                 <FrameLayout
                     android:id="@+id/adNativeFrame"

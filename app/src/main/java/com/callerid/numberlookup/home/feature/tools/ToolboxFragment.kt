@@ -15,7 +15,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.view.inputmethod.EditorInfo
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +24,7 @@ import com.callerid.numberlookup.home.foundation.BaseFragment
 import com.callerid.numberlookup.home.databinding.ActivityToolsBinding
 import com.callerid.numberlookup.home.common.openActivity
 import com.callerid.numberlookup.home.feature.MainShellActivity
+import com.callerid.numberlookup.home.feature.settings.SettingsActivity
 import com.callerid.numberlookup.home.feature.widgets.CoachMarkOverlay
 import com.callerid.numberlookup.home.feature.finder.CountryCatalog
 import com.callerid.numberlookup.home.feature.finder.CountryPickerActivity
@@ -180,7 +180,13 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
         binding.listTools.layoutManager = LinearLayoutManager(requireContext())
         binding.listTools.adapter = adapter
 
-        setupSearch()
+        // Back returns to Recents, as the system Back does on this tab.
+        binding.buttonToolsBack.setOnClickListener {
+            (activity as? MainShellActivity)?.showRecents()
+        }
+        binding.buttonToolsSettings.setOnClickListener {
+            requireActivity().openActivity<SettingsActivity>()
+        }
         applyQuery("")
         maybeShowTour()
     }
@@ -307,31 +313,9 @@ class ToolboxFragment : BaseFragment<ActivityToolsBinding>() {
         return rail.findViewHolderForAdapterPosition(column)?.itemView
     }
 
-    private fun setupSearch() {
-        binding.inputSearch.doAfterTextChanged { text ->
-            val query = text?.toString().orEmpty()
-            binding.buttonClearSearch.visibility = if (query.isEmpty()) View.GONE else View.VISIBLE
-            updateSearchChrome(query)
-            applyQuery(query)
-        }
-        binding.inputSearch.setOnFocusChangeListener { _, _ ->
-            updateSearchChrome(binding.inputSearch.text?.toString().orEmpty())
-        }
-        binding.buttonClearSearch.setOnClickListener { binding.inputSearch.setText("") }
-        binding.buttonResetSearch.setOnClickListener { binding.inputSearch.setText("") }
-    }
-
-    /** Accent ring on the search pill while focused or typing. */
-    private fun updateSearchChrome(query: String) {
-        val active = query.isNotEmpty() || binding.inputSearch.hasFocus()
-        binding.searchBar.setBackgroundResource(
-            if (active) R.drawable.bg_search_bar_active else R.drawable.bg_search_bar
-        )
-    }
-
-    /** Re-runs the current filter, picking up anything that changed while away. */
+    /** Rebuilds the rails, picking up anything that changed while away. */
     private fun refreshTools() {
-        if (view != null) applyQuery(binding.inputSearch.text?.toString().orEmpty())
+        if (view != null) applyQuery("")
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
