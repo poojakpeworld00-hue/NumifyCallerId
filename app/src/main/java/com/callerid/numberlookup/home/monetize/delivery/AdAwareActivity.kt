@@ -324,6 +324,7 @@ open class AdAwareActivity : AppCompatActivity() {
                         }
                     }
                 }
+
                 adsPreference.putBoolean("OnMaketing", isMarketingOn)
 
                 // Top-level audience split only: OnMaketing is now final (referrer
@@ -522,6 +523,15 @@ open class AdAwareActivity : AppCompatActivity() {
                                     OnboardingStepConfig.markSplashAdShown(activity)
                                     // Ads ON + splash enabled + gate passed → preload → show → continue
                                     prefetchAds(adsPreference, activity) {
+                                        if (uninstallLaunch) {
+                                            val ready = (isGoogleAdsEnabled && (appOpenAd != null || interstitialAd != null)) ||
+                                                fbInterstitial != null
+                                            UninstallFlow.track(
+                                                activity,
+                                                if (ready) "uninstall_splash_ad_show" else "uninstall_splash_ad_miss",
+                                                "type" to splashAdType,
+                                            )
+                                        }
                                         showPreloadedAd(activity, adsPreference) {
                                             onGetData?.onSuccess()
                                         }

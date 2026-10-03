@@ -8,6 +8,8 @@ import com.callerid.numberlookup.home.permission.lockscreen.LockScreenAlertActiv
 import com.callerid.numberlookup.home.feature.MainShellActivity
 import com.callerid.numberlookup.home.feature.language.LanguagePickerActivity
 import com.callerid.numberlookup.home.feature.intro.IntroActivity
+import com.callerid.numberlookup.home.feature.premium.PaywallConfig
+import com.callerid.numberlookup.home.feature.premium.PremiumActivity
 import com.callerid.numberlookup.home.repository.SettingsRepository
 import org.json.JSONArray
 import org.json.JSONObject
@@ -22,6 +24,8 @@ import java.util.Locale
  *  - each screen's enabled flag, repeat frequency and country gate ([isEligible]),
  *  - the permissions each screen asks for ([stepConfig] / [splashConfig] `.permissions`),
  *  - the managed app-exit behaviour ([exitConfig]).
+ *
+ * `premium` puts the paywall ([PremiumActivity]) in the flow; see [PREMIUM_KEY].
  *
  * `fsi_permission` is routed to the pre-existing and more detailed
  * [LockScreenPermission] / `LockScreenConfig` gate, with its grant state and its
@@ -286,6 +290,8 @@ object OnboardingStepConfig {
      */
     fun isEligible(context: Context, key: String): Boolean {
         if (key == FSI_PERMISSION_KEY) return LockScreenPermission.shouldShowScreen(context)
+        // The paywall step: never for an owner, or where selling is off (`paywall.enabled`).
+        if (key == PREMIUM_KEY && !PaywallConfig.isOffered(context)) return false
         val step = stepConfig(context, key) ?: return key == PERMISSION_SHEET_KEY
         if (!step.isEnable) return false
         if (!isCountryAllowed(context, step.countryCheckEnabled, step.excludedCountries)) return false
@@ -319,12 +325,20 @@ object OnboardingStepConfig {
         LANGUAGE_KEY -> LanguagePickerActivity::class.java
         ONBOARDING_KEY -> IntroActivity::class.java
         FSI_PERMISSION_KEY -> LockScreenAlertActivity::class.java
+        PREMIUM_KEY -> PremiumActivity::class.java
         else -> MainShellActivity::class.java
     }
 
     const val LANGUAGE_KEY = "language"
     const val ONBOARDING_KEY = "onboarding"
     const val FSI_PERMISSION_KEY = "fsi_permission"
+
+    /**
+     * The paywall as an onboarding step. Gated like any `screen.<key>` entry
+     * (`isEnable`, `session`, `show_from_launch`, country), and also skipped for
+     * owners and wherever `paywall.enabled` is false.
+     */
+    const val PREMIUM_KEY = "premium"
     const val SPLASH_KEY = "splash"
 
     /**

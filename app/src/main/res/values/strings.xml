@@ -643,6 +643,8 @@
     <string name="settings_blocklist">Block list</string>
     <string name="call_screening">Caller ID Overlay</string>
     <string name="call_screening_desc">Show caller information during calls</string>
+    <string name="incoming_popup">Incoming call pop-up</string>
+    <string name="incoming_popup_desc">Show who is calling while the phone rings</string>
     <string name="call_screening_hint_tip">Turn this on to see who\'s calling and block spam</string>
     <string name="settings_blocklist_sub">Numbers you blocked</string>
     <string name="settings_protection">Spam protection</string>

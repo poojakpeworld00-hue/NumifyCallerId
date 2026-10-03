@@ -315,6 +315,8 @@
     <string name="call_duration_label">通話時間:</string>
     <string name="call_screening">発信者IDオーバーレイ</string>
     <string name="call_screening_desc">通話中に発信者情報を表示</string>
+    <string name="incoming_popup">着信ポップアップ</string>
+    <string name="incoming_popup_desc">着信中に発信者を表示します</string>
     <string name="call_type_outgoing">発信</string>
     <string name="cancel">キャンセル</string>
     <string name="compass_activity_title">コンパス</string>

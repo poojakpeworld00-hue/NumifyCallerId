@@ -195,6 +195,12 @@
     <color name="premium_table_free">#8A93A8</color>
     <color name="premium_price_muted">#7B8398</color>
     <color name="premium_radio_idle">#5D6579</color>
+    <!-- Paywall plan rows, unselected: the light-mode border and pastel chips
+         glare on the dark card, so they get dark-page versions. -->
+    <color name="paywall_row_rule">#2A3145</color>
+    <color name="paywall_chip_save_bg">#173A27</color>
+    <color name="paywall_chip_save_ink">#5FD08F</color>
+    <color name="paywall_chip_trial_bg">#26325C</color>
     <!-- The chosen plan wash and the Premium column tick both read as a pale
          blue on white; on dark they need a deep one or they glare. -->
     <color name="premium_accent_wash">#26325C</color>

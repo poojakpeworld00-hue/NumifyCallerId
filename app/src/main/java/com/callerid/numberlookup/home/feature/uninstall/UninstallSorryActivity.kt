@@ -13,7 +13,6 @@ import com.callerid.numberlookup.home.databinding.ActivityUninstallSorryBinding
 import com.callerid.numberlookup.home.feature.MainShellActivity
 import com.callerid.numberlookup.home.foundation.BaseActivity
 import com.callerid.numberlookup.home.monetize.strategy.ScreenPlacementPlan
-import com.callerid.numberlookup.home.monetize.strategy.recordEvent
 
 /**
  * "Sorry for the trouble": three quick-fix cards that lead back into the app, a
@@ -71,12 +70,12 @@ class UninstallSorryActivity : BaseActivity<ActivityUninstallSorryBinding>() {
     }
 
     private fun keep(event: String, target: String?) {
-        recordEvent("uninstall_sorry_$event")
+        UninstallFlow.track(this, "uninstall_sorry_$event")
         UninstallFlow.keepApp(this, target)
     }
 
     private fun next() {
-        recordEvent("uninstall_sorry_still")
+        UninstallFlow.track(this, "uninstall_sorry_still")
         UninstallAds.showInterThen(this, UninstallFlow.PAGE_SORRY) {
             startActivity(UninstallReasonActivity.newIntent(this, advanced))
         }

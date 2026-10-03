@@ -26,7 +26,6 @@ import com.callerid.numberlookup.home.foundation.BaseActivity
 import com.callerid.numberlookup.home.feature.premium.PaywallConfig
 import com.callerid.numberlookup.home.monetize.delivery.AppOpenAdManager
 import com.callerid.numberlookup.home.monetize.strategy.ScreenPlacementPlan
-import com.callerid.numberlookup.home.monetize.strategy.recordEvent
 
 /**
  * The exit survey. The first reason is preselected so Uninstall always has
@@ -116,13 +115,13 @@ class UninstallReasonActivity : BaseActivity<ActivityUninstallReasonBinding>() {
 
         binding.ivBack.setOnClickListener { finish() }
         binding.btnKeepApp.setOnClickListener {
-            recordEvent("uninstall_reason_keep")
+            UninstallFlow.track(this, "uninstall_reason_keep")
             UninstallFlow.keepApp(this)
         }
         binding.btnUninstall.setOnClickListener { next() }
         binding.btnTip.setOnClickListener {
             val tip = shownTip ?: return@setOnClickListener
-            recordEvent("uninstall_tip_${tip.event}")
+            UninstallFlow.track(this, "uninstall_tip_${tip.event}")
             tip.action(this)
         }
         onBackPressedDispatcher.addCallback(this) { next() }
@@ -208,7 +207,7 @@ class UninstallReasonActivity : BaseActivity<ActivityUninstallReasonBinding>() {
     }
 
     private fun next() {
-        recordEvent("uninstall_reason_${selected + 1}")
+        UninstallFlow.track(this, "uninstall_reason_${selected + 1}")
         val reason = getString(reasons[selected].label)
         // Advance: the progress ring first, then the thank-you. Simple has no ring.
         val next = if (advanced) UninstallProgressActivity.newIntent(this, reason)

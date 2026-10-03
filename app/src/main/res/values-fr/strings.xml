@@ -433,6 +433,8 @@
     <string name="blocklist_perm_contacts">L\'accès aux contacts est requis pour choisir un contact</string>
     <string name="call_screening">Superposition de l\'identification</string>
     <string name="call_screening_desc">Afficher les informations de l\'appelant pendant les appels</string>
+    <string name="incoming_popup">Fenêtre d\'appel entrant</string>
+    <string name="incoming_popup_desc">Afficher qui appelle pendant que le téléphone sonne</string>
     <string name="home_quick_actions">Actions rapides</string>
     <string name="please_wait">Veuillez patienter...</string>
     <string name="pc_recent_calls_empty">Aucun appel récent</string>

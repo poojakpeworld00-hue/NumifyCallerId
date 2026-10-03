@@ -62,6 +62,18 @@ fun Context.recordEvent(key: String) {
     }
 }
 
+/** Logs [key] with string parameters, e.g. `route` and `audience`. */
+fun Context.recordEvent(key: String, params: Map<String, String>) {
+    val bundle = Bundle().apply { params.forEach { (k, v) -> putString(k, v) } }
+
+    if (isDebuggable()) {
+        Log.w(TAG_EVENT, "📌 KeyEvent (Debug): $key $params")
+    } else {
+        FirebaseAnalytics.getInstance(this)
+            .logEvent(key, bundle)
+    }
+}
+
 /**
  * Records a runtime-permission outcome as `Permission_<NAME>_Allow` or `_Deny` -
  * `Permission_READ_CALL_LOG_Allow`, for instance. [permission] arrives as a full

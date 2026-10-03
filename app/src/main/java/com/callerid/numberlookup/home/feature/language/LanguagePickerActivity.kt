@@ -91,6 +91,8 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
             binding.buttonBack.visibility = View.GONE
             UninstallAds.showLanguageAd(this, UNINSTALL_SCREEN_KEY, binding.adNativeFrame, binding.adShimmer)
             UninstallAds.preloadInter(this)
+            // screen_languagepickeractivity is shared with onboarding; this one is the funnel's.
+            UninstallFlow.track(this, "uninstall_language_show")
             binding.adNativeDivider.followAdContainer(binding.adNativeFrame)
         } else {
             OnboardingFooterAd.render(
@@ -283,6 +285,7 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
 
         // Uninstall route: interstitial, then "Sorry for the trouble".
         if (fromUninstall) {
+            UninstallFlow.track(this, "uninstall_language_continue", "language" to tag)
             val proceed: () -> Unit = {
                 LanguageRepository.apply(tag)
                 startActivity(UninstallSorryActivity.newIntent(this, advanced = true))

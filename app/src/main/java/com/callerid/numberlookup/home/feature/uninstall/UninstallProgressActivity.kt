@@ -23,7 +23,6 @@ import com.callerid.numberlookup.home.R
 import com.callerid.numberlookup.home.databinding.ActivityUninstallProgressBinding
 import com.callerid.numberlookup.home.foundation.BaseActivity
 import com.callerid.numberlookup.home.monetize.strategy.ScreenPlacementPlan
-import com.callerid.numberlookup.home.monetize.strategy.recordEvent
 
 /**
  * The advance route's step after the survey: a ring fills 0→100 around a shaking

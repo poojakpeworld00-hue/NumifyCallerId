@@ -356,6 +356,8 @@
     <string name="blocklist_perm_contacts">ต้องเข้าถึงรายชื่อเพื่อเลือกผู้ติดต่อ</string>
     <string name="call_screening">โอเวอร์เลย์ระบุผู้โทร</string>
     <string name="call_screening_desc">แสดงข้อมูลผู้โทรระหว่างการโทร</string>
+    <string name="incoming_popup">ป๊อปอัปสายเรียกเข้า</string>
+    <string name="incoming_popup_desc">แสดงว่าใครโทรมาขณะโทรศัพท์ดัง</string>
     <string name="please_wait">โปรดรอสักครู่...</string>
     <string name="pc_recent_calls_empty">ไม่มีสายล่าสุด</string>
     <string name="recent">ล่าสุด</string>

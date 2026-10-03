@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import com.callerid.numberlookup.home.monetize.strategy.recordEvent
 import com.callerid.numberlookup.home.feature.premium.PremiumActivity
 import com.callerid.numberlookup.home.monetize.billing.PremiumStore
 import com.callerid.numberlookup.home.monetize.strategy.AdPreferenceStore
@@ -69,10 +70,18 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
 
     private val prefs by lazy { SettingsRepository(this) }
 
-    /** Re-syncs the call-screening switch after the role-request dialog returns. */
+    /**
+     * Re-syncs the call-screening switch after the role-request dialog returns.
+     * Caller ID turned on from here is for the caller-ID card itself, so the
+     * incoming-call pop-up starts on (enabled from a Block prompt it starts off;
+     * see CallerIdGate).
+     */
     private val screeningLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
-    ) { refreshCallScreeningCard() }
+    ) {
+        if (CallerIdCoordinator.isCallerIdEnabled(this)) prefs.isIncomingPopupEnabled = true
+        refreshCallScreeningCard()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -294,22 +303,21 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
 
     // ── Call Screening (Android 10+ CallScreening role) ───────────────────
 
-    /** Wires the switch, hiding the whole card where the role isn't available. */
+    /**
+     * Wires both rows of the Caller protection card: "turn Caller ID on" while
+     * the role is not held, and the incoming-call pop-up switch once it is.
+     */
     private fun setupCallScreening() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            showCallScreeningSection(false)
-            return
-        }
-        val rm = getSystemService(RoleManager::class.java)
-        if (rm == null || !rm.isRoleAvailable(RoleManager.ROLE_CALL_SCREENING)) {
-            showCallScreeningSection(false)
-            return
-        }
-        refreshCallScreeningCard()
         binding.switchCallScreening.setOnCheckedChangeListener { _, isChecked ->
             if (isProgrammatic) return@setOnCheckedChangeListener
             if (isChecked) requestCallScreening() else openDefaultAppsSettings()
         }
+        binding.switchIncomingPopup.setOnCheckedChangeListener { _, isChecked ->
+            if (isProgrammatic) return@setOnCheckedChangeListener
+            prefs.isIncomingPopupEnabled = isChecked
+            recordEvent(if (isChecked) "settings_incoming_popup_on" else "settings_incoming_popup_off")
+        }
+        refreshCallScreeningCard()
     }
 
     /**
@@ -344,35 +352,29 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
     }
 
     /**
-     * Brings the CallScreening card in line with the current role state. The
-     * switch reflects whether the role is held, and once Caller ID is enabled the
-     * card disappears entirely, there being nothing left to manage. It is on
-     * screen only while Caller ID is still off, and stays hidden wherever the role
-     * is unavailable.
+     * Brings the Caller protection card in line with the role. While Caller ID
+     * is off (and can be turned on) the card offers that; once it is on - or on
+     * a device without the role, where it counts as on - the card holds the
+     * incoming-call pop-up switch instead. Turning the role off is the system's
+     * Default apps page, not a switch here.
      */
     private fun refreshCallScreeningCard() {
-        if (!CallerIdCoordinator.isRoleAvailable(this)) {
-            showCallScreeningSection(false)
-            return
-        }
         val enabled = CallerIdCoordinator.isCallerIdEnabled(this)
-        showCallScreeningSection(!enabled)
+        val offerRole = !enabled && CallerIdCoordinator.isRoleAvailable(this)
+        showCallScreeningSection(true)
+        binding.cardCallScreening.isVisible = offerRole
+        binding.cardIncomingPopup.isVisible = enabled
         isProgrammatic = true
         binding.switchCallScreening.isChecked = enabled
+        binding.switchIncomingPopup.isChecked = prefs.isIncomingPopupEnabled
         isProgrammatic = false
     }
 
-    /**
-     * Shows or hides the entire "Caller protection" section - its heading row and
-     * the group card together, not merely the row inside. The card holds the
-     * section's only row, so hiding just that row would leave the heading sitting
-     * above an empty white card.
-     */
+    /** Shows or hides the "Caller protection" heading and its card together. */
     private fun showCallScreeningSection(show: Boolean) {
         val visibility = if (show) View.VISIBLE else View.GONE
         binding.secCallHeader.visibility = visibility
         binding.secCallCard.visibility = visibility
-        binding.cardCallScreening.visibility = visibility
     }
 
     /** Launches the system role-request dialog for call screening. */

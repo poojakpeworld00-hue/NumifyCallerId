@@ -356,6 +356,8 @@
     <string name="blocklist_perm_contacts">Cần quyền truy cập danh bạ để chọn một liên hệ</string>
     <string name="call_screening">Lớp phủ nhận diện người gọi</string>
     <string name="call_screening_desc">Hiển thị thông tin người gọi trong khi gọi</string>
+    <string name="incoming_popup">Cửa sổ cuộc gọi đến</string>
+    <string name="incoming_popup_desc">Hiển thị người gọi khi điện thoại đổ chuông</string>
     <string name="please_wait">Vui lòng đợi...</string>
     <string name="pc_recent_calls_empty">Không có cuộc gọi gần đây</string>
     <string name="recent">Gần đây</string>

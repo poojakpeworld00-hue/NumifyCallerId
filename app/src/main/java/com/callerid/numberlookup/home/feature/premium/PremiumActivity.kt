@@ -1,6 +1,9 @@
 package com.callerid.numberlookup.home.feature.premium
 
 import com.callerid.numberlookup.home.feature.MainShellActivity
+import com.callerid.numberlookup.home.feature.onboarding.OnboardingStepConfig
+import com.callerid.numberlookup.home.monetize.strategy.recordEvent
+import androidx.activity.addCallback
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
@@ -113,6 +116,40 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
 
     private val argb = ArgbEvaluator()
 
+    /**
+     * Opened as the `premium` step of `screen_order` rather than from a chip or
+     * a lock inside the app: every way off the page then continues the flow.
+     * In-app launches all come through [newIntent], which marks them.
+     */
+    private val fromOnboarding by lazy { !intent.hasExtra(EXTRA_IN_APP) }
+
+    private var leaving = false
+
+    /** `screen.premium.autonext`: moves the flow on by itself; onboarding only. */
+    private val autonextHandler = android.os.Handler(android.os.Looper.getMainLooper())
+
+    /** The timer ran out while Play's purchase sheet (or anything else) was on top. */
+    private var autonextPending = false
+
+    /**
+     * Off the page. In-app it simply closes. As an onboarding step it moves on to
+     * the next eligible screen in `screen_order`, or Home.
+     */
+    private fun leave() {
+        if (!fromOnboarding) {
+            finish()
+            return
+        }
+        if (leaving) return
+        leaving = true
+        val nextKey = OnboardingStepConfig.nextEligibleAfter(this, OnboardingStepConfig.PREMIUM_KEY)
+        val nextClass = nextKey?.let { OnboardingStepConfig.classFor(it) } ?: MainShellActivity::class.java
+        startActivity(
+            Intent(this, nextClass).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        )
+        finish()
+    }
+
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         // The hero is full bleed under a transparent status bar.
         enableEdgeToEdge()
@@ -125,8 +162,33 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
         // nothing to see; an owner still gets the "You're Premium" page.
         val preview = BuildConfig.DEBUG && intent.getBooleanExtra(EXTRA_PREVIEW, false)
         if (!preview && !PaywallConfig.isEnabled() && !PremiumStore.isPremium(this)) {
-            finish()
+            leave()
             return
+        }
+
+        // As an onboarding step: counted for `screen.premium.session`, and Back
+        // continues the flow - the task has nothing under this page to return to.
+        if (fromOnboarding) {
+            OnboardingStepConfig.markShown(this, OnboardingStepConfig.PREMIUM_KEY)
+            recordEvent("onboarding_paywall_show")
+            onBackPressedDispatcher.addCallback(this) { leave() }
+
+            // `screen.premium.autonext` (seconds, 0 = off): on with the flow if the
+            // user has not touched the page by then. Never mid-purchase: with Play's
+            // sheet on top it waits until the page is back in front.
+            val autonextSec = OnboardingStepConfig.stepConfig(this, OnboardingStepConfig.PREMIUM_KEY)
+                ?.autonextSec ?: 0
+            if (autonextSec > 0) {
+                autonextHandler.postDelayed({
+                    if (isFinishing || isDestroyed) return@postDelayed
+                    if (lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.RESUMED)) {
+                        recordEvent("onboarding_paywall_autonext")
+                        leave()
+                    } else {
+                        autonextPending = true
+                    }
+                }, autonextSec * 1000L)
+            }
         }
 
         // The hero runs under the status bar, so only the sides and the bottom
@@ -157,15 +219,17 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
             )
         }
         binding.closeCountdown.start(closeDelay * 1000L)
-        binding.buttonClose.setOnClickListener { finish() }
+        binding.buttonClose.setOnClickListener { leave() }
         binding.buttonContinueFree.paintFlags =
             binding.buttonContinueFree.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-        binding.buttonContinueFree.setOnClickListener { finish() }
+        binding.buttonContinueFree.setOnClickListener { leave() }
 
         // Back to a rebuilt app rather than to whatever was underneath: screens
         // already on the stack were built while ads were on and are holding ad
-        // views they have no reason to drop.
+        // views they have no reason to drop. In onboarding: on with the flow,
+        // which clears the task the same way.
         binding.buttonGoToApp.setOnClickListener {
+            if (fromOnboarding) return@setOnClickListener leave()
             startActivity(
                 Intent(this, MainShellActivity::class.java).addFlags(
                     Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -261,7 +325,8 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
             alpha = 0f
             scaleX = CLOSE_POP_FROM
             scaleY = CLOSE_POP_FROM
-            animate().alpha(1f).scaleX(1f).scaleY(1f)
+            // Pops in to Remote Config's `paywall.close_opacity`, not always solid.
+            animate().alpha(PaywallConfig.closeOpacity()).scaleX(1f).scaleY(1f)
                 .setDuration(CLOSE_POP_MS).setInterpolator(popCurve).start()
         }
     }
@@ -335,7 +400,9 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
         private val stroke = dp(2f).toInt()
         private val base = GradientDrawable().apply {
             cornerRadius = radius
-            setColor(color(R.color.white))
+            // premium_card, not white: in dark mode the row's ink turns light,
+            // and on a white card the unselected plans read as blank.
+            setColor(color(R.color.premium_card))
             setStroke(stroke, color(R.color.paywall_row_rule))
         }
         private val chosen = GradientDrawable(
@@ -383,6 +450,9 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
                 argb.evaluate(t, chipBg, color(R.color.paywall_row_on_chip)) as Int
             )
             chip.setTextColor(argb.evaluate(t, chipInk, color(R.color.white)) as Int)
+            // Card-coloured ring when idle (a white disc glares in dark mode),
+            // white behind the tick when chosen.
+            radioShape.setColor(mix(R.color.premium_card, R.color.white, t))
             radioShape.setStroke(stroke, mix(R.color.premium_radio_idle, R.color.white, t))
             check.imageTintList = ColorStateList.valueOf(color(R.color.premium_accent))
             check.alpha = t
@@ -641,6 +711,30 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
         // Catches a purchase or cancellation made in the Play app while this
         // screen sat in the background.
         billing.refreshPurchases()
+        // A purchase just completed shows the owned page; let the user see it
+        // rather than move on underneath them.
+        if (autonextPending && !PremiumStore.isPremium(this)) {
+            autonextPending = false
+            recordEvent("onboarding_paywall_autonext")
+            leave()
+        }
+    }
+
+    /**
+     * Any touch stops autonext, as on the language screen: someone choosing a
+     * plan must not be moved on mid-choice.
+     */
+    override fun dispatchTouchEvent(ev: android.view.MotionEvent): Boolean {
+        if (ev.actionMasked == android.view.MotionEvent.ACTION_DOWN) {
+            autonextHandler.removeCallbacksAndMessages(null)
+            autonextPending = false
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+    override fun onDestroy() {
+        autonextHandler.removeCallbacksAndMessages(null)
+        super.onDestroy()
     }
 
     companion object {
@@ -668,6 +762,10 @@ class PremiumActivity : BaseActivity<ActivityPremiumBinding>() {
         private const val PLAN_GAP_DP = 10f
         private const val PLAN_SELECTED_ELEVATION_DP = 14f
 
-        fun newIntent(context: Context): Intent = Intent(context, PremiumActivity::class.java)
+        /** Set on every in-app launch; its absence means an onboarding step. */
+        private const val EXTRA_IN_APP = "paywall_in_app"
+
+        fun newIntent(context: Context): Intent =
+            Intent(context, PremiumActivity::class.java).putExtra(EXTRA_IN_APP, true)
     }
 }

@@ -434,6 +434,8 @@
     <string name="contacts_tab_groups">Gruplar</string>
     <string name="call_screening">Arayan Kimliği Yer Paylaşımı</string>
     <string name="call_screening_desc">Aramalar sırasında arayan bilgilerini göster</string>
+    <string name="incoming_popup">Gelen arama açılır penceresi</string>
+    <string name="incoming_popup_desc">Telefon çalarken arayanı gösterir</string>
     <string name="please_wait">Lütfen Bekleyin...</string>
     <string name="pc_recent_calls_empty">Son arama yok</string>
     <string name="recent">Son</string>

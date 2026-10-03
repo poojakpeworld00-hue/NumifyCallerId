@@ -20,7 +20,6 @@ import com.callerid.numberlookup.home.R
 import com.callerid.numberlookup.home.databinding.ActivityUninstallThanksBinding
 import com.callerid.numberlookup.home.foundation.BaseActivity
 import com.callerid.numberlookup.home.monetize.strategy.ScreenPlacementPlan
-import com.callerid.numberlookup.home.monetize.strategy.recordEvent
 
 /**
  * Thank-you, echoing the picked reason - the last in-app screen on both routes
@@ -55,18 +54,18 @@ class UninstallThanksActivity : BaseActivity<ActivityUninstallThanksBinding>() {
         ScreenPlacementPlan.showAd(screenKey, this, binding.adNativeFrame, binding.adShimmer)
         UninstallAds.preloadInter(this)
 
-        binding.btnContinue.setOnClickListener { leave() }
-        onBackPressedDispatcher.addCallback(this) { leave() }
+        binding.btnContinue.setOnClickListener { leave("continue") }
+        onBackPressedDispatcher.addCallback(this) { leave("back") }
 
         handler.postDelayed({
             // An ad click may have taken the user elsewhere: wait until they are back.
-            if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) leave() else pendingLeave = true
+            if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) leave("auto") else pendingLeave = true
         }, UninstallFlow.thanksDelayMs())
     }
 
     override fun onResume() {
         super.onResume()
-        if (pendingLeave) leave()
+        if (pendingLeave) leave("auto")
     }
 
     /** The tile pops in, then the heart beats; the glow breathes and a ring pulses out. */
@@ -131,19 +130,21 @@ class UninstallThanksActivity : BaseActivity<ActivityUninstallThanksBinding>() {
             .setInterpolator(DecelerateInterpolator()).start()
     }
 
-    private fun leave() {
+    /** [how]: `continue`, `back` or `auto` (the thanks_delay timer), for analytics. */
+    private fun leave(how: String) {
         if (left || isFinishing || isDestroyed) return
         left = true
         handler.removeCallbacksAndMessages(null)
+        UninstallFlow.track(this, "uninstall_thanks_$how")
         // Last screen on both routes: the advance route's progress ring has
         // already run before this one.
         UninstallAds.showInterThen(this, UninstallFlow.PAGE_THANKS) {
             if (advanced) {
                 // Advance never opens App info: the app closes and leaves Recents.
-                recordEvent("uninstall_app_close")
+                UninstallFlow.track(this, "uninstall_app_close")
                 UninstallFlow.closeApp(this)
             } else {
-                recordEvent("uninstall_app_info_open")
+                UninstallFlow.track(this, "uninstall_app_info_open")
                 UninstallFlow.openAppInfo(this)
             }
         }

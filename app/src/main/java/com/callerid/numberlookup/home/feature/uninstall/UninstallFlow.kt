@@ -17,7 +17,9 @@ import com.callerid.numberlookup.home.R
 import com.callerid.numberlookup.home.feature.MainShellActivity
 import com.callerid.numberlookup.home.feature.splash.SplashActivity
 import com.callerid.numberlookup.home.monetize.delivery.AppOpenAdManager
+import com.callerid.numberlookup.home.monetize.strategy.AdPreferenceStore
 import com.callerid.numberlookup.home.monetize.strategy.AudienceConfig
+import com.callerid.numberlookup.home.monetize.strategy.recordEvent
 import org.json.JSONObject
 
 /**
@@ -277,6 +279,25 @@ object UninstallFlow {
         runCatching { am?.appTasks?.forEach { it.finishAndRemoveTask() } }
             .onFailure { Log.w(TAG, "closeApp: appTasks failed", it) }
         activity.finishAndRemoveTask()
+    }
+
+    // ── Analytics ───────────────────────────────────────────────────────────
+
+    /**
+     * Logs an uninstall-funnel event with the parameters every one of them
+     * carries: `route` (simple | advance) and `audience` (paid | organic), plus
+     * any [extra] ones. One place, so the funnel can be split both ways in
+     * Firebase.
+     */
+    fun track(context: Context, event: String, vararg extra: Pair<String, String>) {
+        val paid = AdPreferenceStore.getOrNull()?.getBoolean("OnMaketing") ?: false
+        context.recordEvent(
+            event,
+            mapOf(
+                "route" to if (isAdvanced()) "advance" else "simple",
+                "audience" to if (paid) "paid" else "organic",
+            ) + extra
+        )
     }
 
     /** Pads a funnel screen clear of the status bar and the gesture area. */

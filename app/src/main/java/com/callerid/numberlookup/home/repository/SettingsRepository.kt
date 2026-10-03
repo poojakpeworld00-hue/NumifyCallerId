@@ -33,6 +33,15 @@ class SettingsRepository(context: Context) {
         get() = prefs.getBoolean(KEY_SEARCH_HINT_SHOWN, false)
         set(value) = prefs.edit().putBoolean(KEY_SEARCH_HINT_SHOWN, value).apply()
 
+    /**
+     * The caller-ID card while a call rings - floating, or full screen when
+     * locked. On by default; Settings turns it off without touching the Caller
+     * ID role, so blocking keeps working.
+     */
+    var isIncomingPopupEnabled: Boolean
+        get() = prefs.getBoolean(KEY_INCOMING_POPUP, true)
+        set(value) = prefs.edit().putBoolean(KEY_INCOMING_POPUP, value).apply()
+
     /** True once the first-run Tools page tour has been shown (one-time). */
     var isToolsTourShown: Boolean
         get() = prefs.getBoolean(KEY_TOOLS_TOUR_SHOWN, false)
@@ -213,6 +222,7 @@ class SettingsRepository(context: Context) {
         private const val KEY_ONBOARDING_DONE = "onboarding_done"
         private const val KEY_OVERLAY_TUTORIAL_SHOWN = "overlay_tutorial_shown"
         private const val KEY_SEARCH_HINT_SHOWN = "search_hint_shown"
+        private const val KEY_INCOMING_POPUP = "incoming_popup_enabled"
         private const val KEY_CALL_SCREENING_HINT_SHOWN = "call_screening_hint_shown"
         private const val KEY_TOOLS_TOUR_SHOWN = "tools_tour_shown"
         private const val KEY_MAIN_PERMISSION_FLOW_DONE = "main_permission_flow_done"

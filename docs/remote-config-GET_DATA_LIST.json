@@ -273,7 +273,8 @@
     "screen_order": [
       "language",
       "onboarding",
-      "fsi_permission"
+      "fsi_permission",
+      "premium"
     ],
     "screen": {
       "splash": {
@@ -367,6 +368,13 @@
       "permission_sheet": {
         "isEnable": true,
         "session": "every"
+      },
+      "premium": {
+        "isEnable": true,
+        "session": "every",
+        "show_from_launch": 1,
+        "is_screenListCountryCheck": false,
+        "screen_excluded_countries": []
       }
     },
     "exit": {
@@ -727,7 +735,8 @@
     "screen_order": [
       "language",
       "onboarding",
-      "fsi_permission"
+      "fsi_permission",
+      "premium"
     ],
     "screen": {
       "splash": {
@@ -812,6 +821,13 @@
       "permission_sheet": {
         "isEnable": true,
         "session": "every"
+      },
+      "premium": {
+        "isEnable": true,
+        "session": "every",
+        "show_from_launch": 1,
+        "is_screenListCountryCheck": false,
+        "screen_excluded_countries": []
       }
     },
     "exit": {

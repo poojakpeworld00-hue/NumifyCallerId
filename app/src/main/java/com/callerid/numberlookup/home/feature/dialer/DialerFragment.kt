@@ -39,6 +39,9 @@ import com.callerid.numberlookup.home.feature.blocklist.CallerIdGate
 import com.callerid.numberlookup.home.repository.assistant.AiFeatureConfig
 import com.callerid.numberlookup.home.databinding.ActivityDialerBinding
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import com.callerid.numberlookup.home.repository.CallLogRepository
 
 /**
  * Dialer. The on-screen keypad assembles the number displayed in
@@ -90,7 +93,7 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
         // Keypad builds the dialed number display.
         binding.buttonBackspace.setOnClickListener { backspaceDial() }
         binding.buttonBackspace.setOnLongClickListener { setDial(""); true }
-        binding.buttonDialCall.setOnClickListener { placeCall(dialedNumber()) }
+        binding.buttonDialCall.setOnClickListener { onCallPressed() }
 
         // The head row is the number itself; its one button is the one action
         // that should not sit below four others.
@@ -286,6 +289,32 @@ class DialerFragment : BaseFragment<ActivityDialerBinding>() {
     }
 
     private fun dialedNumber(): String = binding.textDialNumber.text?.toString().orEmpty()
+
+    /**
+     * The keypad's call button. With a number typed it calls it. With the field
+     * empty it does what the stock dialer does: puts the last number the user
+     * called into the field, ready to check and press call again. Nothing is
+     * dialled from an empty field.
+     */
+    private fun onCallPressed() {
+        val typed = dialedNumber()
+        if (typed.isNotBlank()) {
+            placeCall(typed)
+            return
+        }
+        val ctx = context ?: return
+        viewLifecycleOwner.lifecycleScope.launch {
+            val last = withContext(Dispatchers.IO) {
+                CallLogRepository(ctx)
+                    .getCalls(limit = 1, types = intArrayOf(android.provider.CallLog.Calls.OUTGOING_TYPE))
+                    .firstOrNull()?.number
+            }
+            // "Unknown" is the repository's stand-in for a blank number. The view
+            // lifecycle's scope is cancelled with the view, so binding is live here.
+            if (last.isNullOrBlank() || last == "Unknown") return@launch
+            if (dialedNumber().isBlank()) setDial(last)
+        }
+    }
 
     /**
      * Types [text] at the cursor, replacing any selection.

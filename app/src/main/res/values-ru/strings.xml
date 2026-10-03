@@ -478,6 +478,8 @@
     <!-- Settings -->
     <string name="call_screening">Наложение определителя номера</string>
     <string name="call_screening_desc">Показывать информацию о звонящем во время вызовов</string>
+    <string name="incoming_popup">Окно входящего вызова</string>
+    <string name="incoming_popup_desc">Показывать, кто звонит, пока телефон звонит</string>
     <string name="settings_section_call">Защита от звонков</string>
 
     <!-- Call states -->

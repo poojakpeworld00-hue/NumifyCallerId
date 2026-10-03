@@ -452,6 +452,8 @@
     <!-- Settings -->
     <string name="call_screening">Superposición de identificador</string>
     <string name="call_screening_desc">Mostrar la información del llamante durante las llamadas</string>
+    <string name="incoming_popup">Ventana de llamada entrante</string>
+    <string name="incoming_popup_desc">Muestra quién llama mientras suena el teléfono</string>
     <string name="settings_section_call">Protección de llamadas</string>
 
     <!-- Blocklist -->

@@ -468,6 +468,8 @@
     <!-- Settings -->
     <string name="call_screening">Sobreposição do identificador</string>
     <string name="call_screening_desc">Mostrar informações do chamador durante as chamadas</string>
+    <string name="incoming_popup">Pop-up de chamada recebida</string>
+    <string name="incoming_popup_desc">Mostra quem está ligando enquanto o telefone toca</string>
     <string name="settings_section_call">Proteção do chamador</string>
 
     <!-- Call states -->

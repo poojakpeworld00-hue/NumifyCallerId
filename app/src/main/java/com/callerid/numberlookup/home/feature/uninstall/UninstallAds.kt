@@ -97,6 +97,7 @@ object UninstallAds {
         val ad = inter
         if (ad == null) {
             if (BuildConfig.DEBUG) Log.d(TAG, "no inter ready on leaving '$page' — moving on")
+            UninstallFlow.track(activity, "uninstall_inter_miss_$page")
             preloadInter(activity)
             return next()
         }
@@ -125,7 +126,7 @@ object UninstallAds {
                 finish()
             }
         }
-        activity.recordEvent("uninstall_inter_show_$page")
+        UninstallFlow.track(activity, "uninstall_inter_show_$page")
         runCatching { ad.show(activity) }.onFailure { finish() }
     }
 

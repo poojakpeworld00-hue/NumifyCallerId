@@ -21,6 +21,7 @@ import com.callerid.numberlookup.home.monetize.delivery.engagement.EngagementHub
 import com.callerid.numberlookup.home.monetize.delivery.engagement.background.EngagementSyncService.Companion.NOTIFICATION_ID
 import com.callerid.numberlookup.home.R
 import com.callerid.numberlookup.home.repository.BlocklistRepository
+import com.callerid.numberlookup.home.repository.SettingsRepository
 import com.callerid.numberlookup.home.common.CallerIdCoordinator
 import com.callerid.numberlookup.home.feature.assistant.MissedCallNotifier
 import com.callerid.numberlookup.home.feature.incomingcall.IncomingCallActivity
@@ -80,6 +81,11 @@ class CallStateReceiver : BroadcastReceiver() {
 
                     !CallerIdCoordinator.isCallerIdEnabled(context) ->
                         Log.d(TAG, "Caller ID not enabled — skipping caller-ID card")
+
+                    // Settings → Incoming call pop-up. Only the card: the role,
+                    // and the blocking above, are untouched.
+                    !SettingsRepository(context).isIncomingPopupEnabled ->
+                        Log.d(TAG, "incoming pop-up turned off — skipping caller-ID card")
 
                     !Settings.canDrawOverlays(context) ->
                         Log.d(TAG, "no overlay permission — skipping caller-ID card")

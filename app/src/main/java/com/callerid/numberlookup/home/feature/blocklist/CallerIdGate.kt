@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.callerid.numberlookup.home.R
 import com.callerid.numberlookup.home.common.CallerIdCoordinator
+import com.callerid.numberlookup.home.repository.SettingsRepository
 import com.callerid.numberlookup.home.databinding.DialogEnableCallerIdBinding
 import com.callerid.numberlookup.home.monetize.delivery.AppOpenAdManager
 
@@ -45,10 +46,24 @@ class CallerIdGate(private val fragment: Fragment) {
     /** Every looping animator the open sheet started, so it can stop them all. */
     private val animators = mutableListOf<Animator>()
 
-    /** The system role request; whatever it returns, re-check the gate. */
+    /**
+     * The system role request; whatever it returns, re-check the gate.
+     *
+     * Granted from here, Caller ID was turned on to *block*, so the ringing
+     * pop-up starts off - the user asked for blocking, not a card on every call.
+     * Settings' "Incoming call pop-up" turns it on; enabling Caller ID from
+     * Settings itself starts it on.
+     */
     private val roleLauncher = fragment.registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
-    ) { refresh() }
+    ) {
+        fragment.context?.let { ctx ->
+            if (CallerIdCoordinator.isCallerIdEnabled(ctx)) {
+                SettingsRepository(ctx).isIncomingPopupEnabled = false
+            }
+        }
+        refresh()
+    }
 
     /** Runs [action] now when Caller ID is on; otherwise asks first and runs it after. */
     fun require(action: () -> Unit) {

@@ -132,7 +132,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         // Keep the launcher "Uninstall" shortcut in step with the last fetched
         // config, and note a launch that came from it.
         UninstallFlow.syncShortcut(this)
-        if (uninstallLaunch) recordEvent("uninstall_shortcut_open")
+        if (uninstallLaunch) UninstallFlow.track(this, "uninstall_shortcut_open")
 
         // One session = one cold start. Bump before nextScreen() so the intro
         // `app_launches` frequency counts this launch.

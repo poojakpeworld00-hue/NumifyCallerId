@@ -429,6 +429,8 @@
     <string name="blocklist_perm_contacts">选择联系人需要联系人访问权限</string>
     <string name="call_screening">来电识别悬浮窗</string>
     <string name="call_screening_desc">在通话期间显示来电者信息</string>
+    <string name="incoming_popup">来电弹窗</string>
+    <string name="incoming_popup_desc">电话响铃时显示来电者</string>
     <string name="please_wait">请稍候…</string>
     <string name="pc_recent_calls_empty">没有最近通话</string>
     <string name="recent">最近</string>
