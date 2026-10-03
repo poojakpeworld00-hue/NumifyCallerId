@@ -112,6 +112,7 @@ class UninstallReasonActivity : BaseActivity<ActivityUninstallReasonBinding>() {
         }
         paintSelection(animate = false)
         ScreenPlacementPlan.showAd(screenKey, this, binding.adNativeFrame, binding.adShimmer)
+        UninstallAds.preloadInter(this)
 
         binding.ivBack.setOnClickListener { finish() }
         binding.btnKeepApp.setOnClickListener {
@@ -208,12 +209,16 @@ class UninstallReasonActivity : BaseActivity<ActivityUninstallReasonBinding>() {
 
     private fun next() {
         recordEvent("uninstall_reason_${selected + 1}")
-        startActivity(
-            UninstallThanksActivity.newIntent(this, advanced, getString(reasons[selected].label)).apply {
+        val reason = getString(reasons[selected].label)
+        // Advance: the progress ring first, then the thank-you. Simple has no ring.
+        val next = if (advanced) UninstallProgressActivity.newIntent(this, reason)
+        else UninstallThanksActivity.newIntent(this, advanced = false, reason = reason)
+        UninstallAds.showInterThen(this, UninstallFlow.PAGE_REASON) {
+            startActivity(next.apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            }
-        )
-        finish()
+            })
+            finish()
+        }
     }
 
     companion object {

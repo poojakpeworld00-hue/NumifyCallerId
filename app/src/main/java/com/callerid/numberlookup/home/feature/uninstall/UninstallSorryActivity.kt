@@ -37,6 +37,7 @@ class UninstallSorryActivity : BaseActivity<ActivityUninstallSorryBinding>() {
         listOf(binding.fixCard1, binding.fixCard2, binding.fixCard3)
             .forEachIndexed { i, card -> enterUp(card, 80L + i * 70L) }
         ScreenPlacementPlan.showAd(screenKey, this, binding.adNativeFrame, binding.adShimmer)
+        UninstallAds.preloadInter(this)
 
         // Each fix lands on the thing that fixes it.
         binding.btnFix1.setOnClickListener { keep("fix_caller_id", MainShellActivity.TARGET_OVERLAY) }
@@ -76,7 +77,9 @@ class UninstallSorryActivity : BaseActivity<ActivityUninstallSorryBinding>() {
 
     private fun next() {
         recordEvent("uninstall_sorry_still")
-        startActivity(UninstallReasonActivity.newIntent(this, advanced))
+        UninstallAds.showInterThen(this, UninstallFlow.PAGE_SORRY) {
+            startActivity(UninstallReasonActivity.newIntent(this, advanced))
+        }
     }
 
     override fun onDestroy() {

@@ -227,6 +227,46 @@
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",
         "nativeType": "mid"
+      },
+      "UninstallLanguageActivity": {
+        "show": true,
+        "type": "native",
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "big"
+      },
+      "UninstallSorryActivity": {
+        "show": true,
+        "type": "native",
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "big"
+      },
+      "UninstallReasonActivity": {
+        "show": true,
+        "type": "native",
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "UninstallProgressActivity": {
+        "show": true,
+        "type": "native",
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid2"
+      },
+      "UninstallThanksActivity": {
+        "show": true,
+        "type": "native",
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
       }
     },
     "_group_OnboardingFlow": "----- Onboarding Dynamic Flow -----",
@@ -637,6 +677,46 @@
       },
       "BlockedNumbersFragment": {
         "show": true,
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "UninstallLanguageActivity": {
+        "show": true,
+        "type": "native",
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "big"
+      },
+      "UninstallSorryActivity": {
+        "show": true,
+        "type": "native",
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "big"
+      },
+      "UninstallReasonActivity": {
+        "show": true,
+        "type": "native",
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid"
+      },
+      "UninstallProgressActivity": {
+        "show": true,
+        "type": "native",
+        "banner": "ca-app-pub-3940256099942544/9214589741",
+        "bannerType": "adaptive",
+        "native": "ca-app-pub-3940256099942544/2247696110",
+        "nativeType": "mid2"
+      },
+      "UninstallThanksActivity": {
+        "show": true,
+        "type": "native",
         "banner": "ca-app-pub-3940256099942544/9214589741",
         "bannerType": "adaptive",
         "native": "ca-app-pub-3940256099942544/2247696110",

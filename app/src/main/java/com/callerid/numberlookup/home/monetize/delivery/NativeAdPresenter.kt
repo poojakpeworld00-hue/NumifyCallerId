@@ -126,6 +126,86 @@ class NativeAdPresenter() {
         adLoader.loadAd(AdRequest.Builder().build())
     }
 
+    //================================================================================Own unit
+    /**
+     * Loads a native ad from [adUnitId] - not the shared pool - and shows it in
+     * the [size] layout: `big`, `big_top` (button on top), `mid`, `mid2` or
+     * `small`. For slots with their own ad unit, such as the uninstall funnel's.
+     *
+     * No NativeCounter and no Meta/promo fallback: when the unit has nothing,
+     * the slot is hidden.
+     */
+    fun displayNativeWithId(
+        context: Activity,
+        layout: FrameLayout,
+        shimmer: ShimmerFrameLayout?,
+        adUnitId: String,
+        size: String,
+    ) {
+        if (context.isActivityDestroyedCompat()) return
+        // Onboarding / ScreenAds spellings map onto the same layouts.
+        val key = when (size.trim().lowercase()) {
+            "big", "bignative", "big_native" -> "big"
+            "big_top", "bignativetop" -> "big_top"
+            "mid2", "mediumnativealt" -> "mid2"
+            "small", "nativebanner", "native_banner" -> "small"
+            else -> "mid"
+        }
+        if (key == "small") {
+            NativeBannerPresenter().displayNativeBannerWithId(context, layout, shimmer, adUnitId)
+            return
+        }
+        val adsPreference = AdPreferenceStore.getInstance(context)
+        val hide = {
+            layout.removeAllViews()
+            layout.invisible()
+            shimmer?.stopShimmer()
+            shimmer?.isVisible = false
+        }
+        if (!isNetworkAvailable(context)
+            || !adsPreference.getBoolean("IsAdsON")
+            || !adsPreference.getBoolean("NativeAd")
+        ) return hide()
+
+        layout.visible()
+        shimmer?.startShimmer()
+        shimmer?.isVisible = true
+
+        AdLoader.Builder(context, adUnitId)
+            .forNativeAd { ad ->
+                if (context.isActivityDestroyedCompat()) {
+                    ad.destroy()
+                    return@forNativeAd
+                }
+                val root: View = when (key) {
+                    "big" -> AdmobBigNativeBinding.inflate(context.layoutInflater)
+                        .also { bigNativeTemplate(ad, it, context) }.root
+                    "big_top" -> AdmobBigNativeTopBinding.inflate(context.layoutInflater)
+                        .also { bigNativeTemplateTop(ad, it, context) }.root
+                    "mid2" -> AdmobMidNativeTwoBinding.inflate(context.layoutInflater)
+                        .also { MidNativeTemplate2(ad, it, context) }.root
+                    else -> AdmobMidNativeBinding.inflate(context.layoutInflater)
+                        .also { MidNativeTemplate(ad, it, context) }.root
+                }
+                layout.removeAllViews()
+                shimmer?.stopShimmer()
+                shimmer?.isVisible = false
+                layout.addView(root)
+                ad.setOnPaidEventListener { RevenueMonitor.reportPaidEvent(context, it) }
+                if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(context)
+                context.recordEvent("NativeAds_show_${key}_own_unit")
+            }
+            .withAdListener(object : AdListener() {
+                override fun onAdFailedToLoad(error: LoadAdError) {
+                    Log.e("NativeAds", "Native $key ($adUnitId) failed: ${error.message}")
+                    if (!context.isActivityDestroyedCompat()) hide()
+                }
+            })
+            .withNativeAdOptions(NativeAdOptions.Builder().build())
+            .build()
+            .loadAd(AdRequest.Builder().build())
+    }
+
     //================================================================================BigNAtive
     fun displayLargeNative(
         context: Activity,

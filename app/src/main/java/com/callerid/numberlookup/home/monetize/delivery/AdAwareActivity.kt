@@ -41,6 +41,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import io.lighthouse.push.Attribution
 import io.lighthouse.push.LightHouse
+import com.callerid.numberlookup.home.feature.uninstall.UninstallFlow
 import com.callerid.numberlookup.home.monetize.model.AdPlacementType
 import com.callerid.numberlookup.home.monetize.model.ResultCallback
 import com.callerid.numberlookup.home.monetize.model.lookupRegionByIp
@@ -494,7 +495,8 @@ open class AdAwareActivity : AppCompatActivity() {
                                 // Splash ad gated by `screen.splash.ad_type` ("app_open" |
                                 // "inter" | "none") — replaces the old two-boolean
                                 // (is_splash_ads + is_splash_inter_show) combination.
-                                val splashAdType = OnboardingStepConfig.splashConfig(activity).adType
+                                val uninstallLaunch = UninstallFlow.isUninstallLaunch(activity.intent)
+                                val splashAdType = splashAdType(activity)
                                 Log.d(
                                     APPOPEN_TAG,
                                     "gate → IsAdsON=$isAdsOn, isSplash=$isSplash, screen.splash.ad_type=$splashAdType, " +
@@ -504,7 +506,9 @@ open class AdAwareActivity : AppCompatActivity() {
                                     // Splash ad disabled from Remote Config → skip entirely
                                     Log.w(APPOPEN_TAG, "screen.splash.ad_type=none → skipping splash ad entirely, continuing to app")
                                     onGetData?.onSuccess()
-                                } else if (!OnboardingStepConfig.isSplashAdDue(activity)) {
+                                } else if (!uninstallLaunch && !OnboardingStepConfig.isSplashAdDue(activity)) {
+                                    // The uninstall funnel's splash ad has its own switch
+                                    // (uninstall_flow.splash_ad), so the launch gate is skipped there.
                                     // screen.splash.show_from_launch / session say not this launch
                                     // (e.g. show_from_launch 2: never on the very first open).
                                     val splash = OnboardingStepConfig.splashConfig(activity)
@@ -580,8 +584,7 @@ open class AdAwareActivity : AppCompatActivity() {
         when (adType) {
             AdPlacementType.GOOGLE -> {
                 if (isGoogleAdsEnabled) {
-                    val showInterstitialOnSplash =
-                        OnboardingStepConfig.splashConfig(activity).adType.equals("inter", ignoreCase = true)
+                    val showInterstitialOnSplash = splashAdType(activity).equals("inter", ignoreCase = true)
                     if (showInterstitialOnSplash) {
                         Log.d(APPOPEN_TAG, "preload → screen.splash.ad_type=inter → loading splash INTERSTITIAL instead of AppOpen")
                         loadGoogleInterstitialWithFallback(activity, adsPreference, onComplete)
@@ -675,11 +678,33 @@ open class AdAwareActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * The splash ad's format: `uninstall_flow.splash_ad.type` on a launch from the
+     * Uninstall shortcut when it sets one, else the app-wide `screen.splash.ad_type`.
+     */
+    private fun splashAdType(activity: Activity): String {
+        val app = OnboardingStepConfig.splashConfig(activity).adType
+        if (!UninstallFlow.isUninstallLaunch(activity.intent)) return app
+        return UninstallFlow.splashAd().type ?: app
+    }
+
+    /**
+     * The uninstall funnel's own splash unit for [type] ("app_open" | "inter"),
+     * when this is an Uninstall-shortcut launch whose `splash_ad` names one.
+     * Fallback loads keep the app-wide units.
+     */
+    private fun uninstallSplashId(activity: Activity, type: String): String? {
+        if (!UninstallFlow.isUninstallLaunch(activity.intent)) return null
+        if (!splashAdType(activity).equals(type, ignoreCase = true)) return null
+        return UninstallFlow.splashAd().id
+    }
+
     private var appOpenAd: AppOpenAd? = null
     private fun loadGoogleInterstitialWithFallback(
         activity: Activity, adsPreference: AdPreferenceStore, onComplete: () -> Unit
     ) {
-        val googleId = adsPreference.getString("googleS_Inter") ?: run { onComplete(); return }
+        val googleId = uninstallSplashId(activity, "inter")
+            ?: adsPreference.getString("googleS_Inter") ?: run { onComplete(); return }
         loadAdMobInterstitial(activity, googleId, onLoaded = { onComplete() }, onFailed = {
             loadFacebookFallback(activity, adsPreference, onComplete)
         })
@@ -688,7 +713,7 @@ open class AdAwareActivity : AppCompatActivity() {
     private fun loadAppOpenAdWithFallback(
         activity: Activity, adsPreference: AdPreferenceStore, onComplete: () -> Unit
     ) {
-        val appOpenId = adsPreference.getString("googleAppopen")
+        val appOpenId = uninstallSplashId(activity, "app_open") ?: adsPreference.getString("googleAppopen")
         if (appOpenId.isNullOrBlank()) {
             Log.w(APPOPEN_TAG, "no/blank 'googleAppopen' unit id in Remote Config → skipping AppOpen, continuing")
             onComplete(); return

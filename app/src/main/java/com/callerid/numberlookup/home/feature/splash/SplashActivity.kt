@@ -213,9 +213,9 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         // Hand off to the ad module. It runs consent + SDK init + runtime
         // permission prompts + native/banner/interstitial preloads, then
         // fires one of the two callbacks below when it's time to move on.
-        // From the Uninstall shortcut the splash ad only plays on the `advance`
-        // route, and only where its config asks for it.
-        val isSplash = !uninstallLaunch || (UninstallFlow.isAdvanced() && UninstallFlow.showSplashAd())
+        // From the Uninstall shortcut the splash ad plays on either route when
+        // `uninstall_flow.splash_ad` asks for it.
+        val isSplash = !uninstallLaunch || UninstallFlow.showSplashAd()
         getData(this, isSplash, object : ResultCallback {
             override fun onSuccess() {
                 UninstallFlow.syncShortcut(this@SplashActivity)

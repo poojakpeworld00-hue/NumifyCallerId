@@ -33,8 +33,9 @@ import com.callerid.numberlookup.home.common.WindowInsetsHelper
 import kotlinx.coroutines.launch
 import java.util.Locale
 import com.callerid.numberlookup.home.common.followAdContainer
+import com.callerid.numberlookup.home.feature.uninstall.UninstallAds
+import com.callerid.numberlookup.home.feature.uninstall.UninstallFlow
 import com.callerid.numberlookup.home.feature.uninstall.UninstallSorryActivity
-import com.callerid.numberlookup.home.monetize.strategy.ScreenPlacementPlan
 
 class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
 
@@ -88,7 +89,8 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
         // its own ScreenAds entry, so its ad can be tuned apart from onboarding's.
         if (fromUninstall) {
             binding.buttonBack.visibility = View.GONE
-            ScreenPlacementPlan.showAd(UNINSTALL_SCREEN_KEY, this, binding.adNativeFrame, binding.adShimmer)
+            UninstallAds.showLanguageAd(this, UNINSTALL_SCREEN_KEY, binding.adNativeFrame, binding.adShimmer)
+            UninstallAds.preloadInter(this)
             binding.adNativeDivider.followAdContainer(binding.adNativeFrame)
         } else {
             OnboardingFooterAd.render(
@@ -286,7 +288,7 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
                 startActivity(UninstallSorryActivity.newIntent(this, advanced = true))
                 finish()
             }
-            TransitionInterstitialAd().showInterstitial(this) { proceed() }
+            UninstallAds.showInterThen(this, UninstallFlow.PAGE_LANGUAGE, proceed)
             return
         }
 

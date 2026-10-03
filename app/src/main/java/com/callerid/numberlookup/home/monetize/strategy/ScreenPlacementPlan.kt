@@ -12,6 +12,7 @@ import com.callerid.numberlookup.home.monetize.delivery.BannerLifecycleObserver
 import com.callerid.numberlookup.home.monetize.delivery.BannerAdPresenter
 import com.callerid.numberlookup.home.monetize.delivery.BannerDimension
 import com.callerid.numberlookup.home.monetize.delivery.BannerVariant
+import com.callerid.numberlookup.home.monetize.delivery.NativeAdPresenter
 import com.callerid.numberlookup.home.monetize.delivery.NativeBannerPresenter
 import com.callerid.numberlookup.home.BuildConfig
 import org.json.JSONObject
@@ -40,7 +41,9 @@ object ScreenPlacementPlan {
         val bannerId: String,
         val bannerType: String,
         val nativeId: String,
-        val nativeType: String
+        val nativeType: String,
+        /** `banner` (banner first, native banner as fallback) or `native`. */
+        val adType: String = "banner"
     )
 
     /** Resolves the on-load ad config for [screenName] (logs the decision in DEBUG). */
@@ -92,7 +95,8 @@ object ScreenPlacementPlan {
                 bannerId = bannerRaw.ifBlank { globalBanner },
                 bannerType = entry.optString("bannerType").ifBlank { "adaptive" },
                 nativeId = nativeRaw.ifBlank { globalNative },
-                nativeType = entry.optString("nativeType").ifBlank { "mid" }
+                nativeType = entry.optString("nativeType").ifBlank { "mid" },
+                adType = if (entry.optString("type").equals("native", ignoreCase = true)) "native" else "banner"
             )
             source = when {
                 useDefault -> "ScreenAds.default"
@@ -103,7 +107,7 @@ object ScreenPlacementPlan {
 
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "resolve($screenName)  screen_wise_ad=$screenWise  screen_wise_default=$useDefault")
-            Log.d(TAG, "   source = $source   |   show = ${result.show}")
+            Log.d(TAG, "   source = $source   |   show = ${result.show}   |   type = ${result.adType}")
             Log.d(
                 TAG,
                 "   banner = ${result.bannerId}  type=${result.bannerType}  " +
@@ -175,6 +179,20 @@ object ScreenPlacementPlan {
             if (BuildConfig.DEBUG) {
                 Log.d(TAG, "showAd($screenName) -> HIDDEN  IsAdsON=$adsOn  show=${resolved.show}")
             }
+            return
+        }
+
+        // `type: native` - the entry's native unit in its `nativeType` layout
+        // (big, big_top, mid, mid2, small), no banner. The slot is hidden if it
+        // has nothing.
+        if (resolved.adType == "native" && resolved.nativeId.isNotBlank()) {
+            container.minimumHeight = 0
+            if (BuildConfig.DEBUG) {
+                Log.d(TAG, "showAd($screenName) -> LOAD native  id=${resolved.nativeId}  nativeType=${resolved.nativeType}")
+            }
+            NativeAdPresenter().displayNativeWithId(
+                activity, container, shimmer, resolved.nativeId, resolved.nativeType
+            )
             return
         }
 

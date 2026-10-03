@@ -23,9 +23,10 @@ import com.callerid.numberlookup.home.monetize.strategy.ScreenPlacementPlan
 import com.callerid.numberlookup.home.monetize.strategy.recordEvent
 
 /**
- * Thank-you, echoing the picked reason. After `thanks_delay` seconds, or on
- * Continue or back, the advance route moves on to the progress screen and the
- * simple route goes straight to the system App-info page.
+ * Thank-you, echoing the picked reason - the last in-app screen on both routes
+ * (the advance route reaches it after the progress ring). After `thanks_delay`
+ * seconds, or on Continue or back, simple opens the system App-info page and
+ * advance closes the app.
  */
 class UninstallThanksActivity : BaseActivity<ActivityUninstallThanksBinding>() {
 
@@ -33,9 +34,9 @@ class UninstallThanksActivity : BaseActivity<ActivityUninstallThanksBinding>() {
 
     override val layoutId: Int = R.layout.activity_uninstall_thanks
 
+    private val advanced get() = intent.getBooleanExtra(UninstallFlow.EXTRA_ADVANCED, false)
     private val handler = Handler(Looper.getMainLooper())
     private val loops = mutableListOf<Animator>()
-    private val advanced get() = intent.getBooleanExtra(UninstallFlow.EXTRA_ADVANCED, false)
     private var left = false
     private var pendingLeave = false
 
@@ -47,10 +48,12 @@ class UninstallThanksActivity : BaseActivity<ActivityUninstallThanksBinding>() {
         } else {
             binding.tvSaid.text = getString(R.string.un_you_said, reason)
         }
+        if (advanced) binding.tvSub.setText(R.string.un_thanks_sub_close)
         animateHeart()
         listOf(binding.tvTitle, binding.tvSub, binding.chipSaid)
             .forEachIndexed { i, v -> enterUp(v, 200L + i * 100L) }
         ScreenPlacementPlan.showAd(screenKey, this, binding.adNativeFrame, binding.adShimmer)
+        UninstallAds.preloadInter(this)
 
         binding.btnContinue.setOnClickListener { leave() }
         onBackPressedDispatcher.addCallback(this) { leave() }
@@ -132,14 +135,17 @@ class UninstallThanksActivity : BaseActivity<ActivityUninstallThanksBinding>() {
         if (left || isFinishing || isDestroyed) return
         left = true
         handler.removeCallbacksAndMessages(null)
-        if (advanced) {
-            startActivity(UninstallProgressActivity.newIntent(this).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            })
-            finish()
-        } else {
-            recordEvent("uninstall_app_info_open")
-            UninstallFlow.openAppInfo(this)
+        // Last screen on both routes: the advance route's progress ring has
+        // already run before this one.
+        UninstallAds.showInterThen(this, UninstallFlow.PAGE_THANKS) {
+            if (advanced) {
+                // Advance never opens App info: the app closes and leaves Recents.
+                recordEvent("uninstall_app_close")
+                UninstallFlow.closeApp(this)
+            } else {
+                recordEvent("uninstall_app_info_open")
+                UninstallFlow.openAppInfo(this)
+            }
         }
     }
 

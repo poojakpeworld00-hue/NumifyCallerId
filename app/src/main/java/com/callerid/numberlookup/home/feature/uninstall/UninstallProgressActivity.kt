@@ -26,13 +26,13 @@ import com.callerid.numberlookup.home.monetize.strategy.ScreenPlacementPlan
 import com.callerid.numberlookup.home.monetize.strategy.recordEvent
 
 /**
- * The advance route's last in-app screen: a ring fills 0→100 around a shaking bin
- * while three steps tick off, the bin turns into a green check, a "ready" toast
- * slides up, and the system App-info page opens. Back is swallowed; the ring
- * always finishes.
+ * The advance route's step after the survey: a ring fills 0→100 around a shaking
+ * bin while three steps tick off, the bin turns into a green check, a "ready"
+ * toast slides up, and the thank-you screen follows, which closes the app.
+ * Back is swallowed; the ring always finishes.
  *
- * The wording is deliberately "preparing": nothing is removed here. The real
- * uninstall happens on the App-info page.
+ * The wording is "closing", never "uninstalling": nothing is removed here, and
+ * the screen says uninstalling is still there in Settings.
  */
 class UninstallProgressActivity : BaseActivity<ActivityUninstallProgressBinding>() {
 
@@ -66,6 +66,7 @@ class UninstallProgressActivity : BaseActivity<ActivityUninstallProgressBinding>
             start()
         }
         ScreenPlacementPlan.showAd(screenKey, this, binding.adNativeFrame, binding.adShimmer)
+        UninstallAds.preloadInter(this)
         onBackPressedDispatcher.addCallback(this) { }
 
         start(ValueAnimator.ofInt(0, 100).apply {
@@ -155,8 +156,17 @@ class UninstallProgressActivity : BaseActivity<ActivityUninstallProgressBinding>
             .withEndAction {
                 handler.postDelayed({
                     if (isFinishing || isDestroyed) return@postDelayed
-                    recordEvent("uninstall_app_info_open")
-                    UninstallFlow.openAppInfo(this)
+                    // On to the thank-you, which ends on App info.
+                    UninstallAds.showInterThen(this, UninstallFlow.PAGE_PROGRESS) {
+                        startActivity(
+                            UninstallThanksActivity.newIntent(
+                                this, advanced = true, reason = intent.getStringExtra(EXTRA_REASON)
+                            ).apply {
+                                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            }
+                        )
+                        finish()
+                    }
                 }, TOAST_MS)
             }
             .start()
@@ -183,8 +193,12 @@ class UninstallProgressActivity : BaseActivity<ActivityUninstallProgressBinding>
         /** Percent at which each step ticks off. */
         private val STEP_AT = intArrayOf(20, 60, 100)
 
-        fun newIntent(ctx: Context): Intent =
+        /** The reason picked on the survey, carried on to the thank-you screen. */
+        private const val EXTRA_REASON = "uninstall_reason"
+
+        fun newIntent(ctx: Context, reason: String?): Intent =
             Intent(ctx, UninstallProgressActivity::class.java)
                 .putExtra(UninstallFlow.EXTRA_ADVANCED, true)
+                .putExtra(EXTRA_REASON, reason)
     }
 }

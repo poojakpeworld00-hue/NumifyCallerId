@@ -21,10 +21,11 @@
     <string name="un_uninstall">Uninstall</string>
     <string name="un_thanks_title">Thanks for your feedback!</string>
     <string name="un_thanks_sub">Opening App info, where you can finish uninstalling.</string>
+    <string name="un_thanks_sub_close">The app will close now. You can uninstall it anytime from Settings.</string>
     <string name="un_continue">Continue</string>
-    <string name="un_progress_title">Preparing to uninstall %1$s…</string>
-    <string name="un_progress_sub">Next, tap Uninstall on the App info screen.</string>
-    <string name="un_progress_ready">Ready. Tap Uninstall on the next screen</string>
+    <string name="un_progress_title">Closing %1$s…</string>
+    <string name="un_progress_sub">You can uninstall anytime from your phone\'s Settings.</string>
+    <string name="un_progress_ready">Done. Closing the app</string>
     <string name="un_quick_fixes">Quick fixes</string>
     <string name="un_fix1_title">Caller ID not working</string>
     <string name="un_fix1_sub">Names don\'t show on incoming calls</string>
@@ -40,10 +41,10 @@
     <string name="un_tip_notif_text">Turn them off in system settings. Caller ID keeps working.</string>
     <string name="un_tip_notif_btn">Settings</string>
     <string name="un_you_said">You said: %1$s</string>
-    <string name="un_progress_done">Ready to uninstall</string>
+    <string name="un_progress_done">All done</string>
     <string name="un_step_1">Saving your feedback</string>
-    <string name="un_step_2">Getting App info ready</string>
-    <string name="un_step_3">Opening App info</string>
+    <string name="un_step_2">Wrapping up</string>
+    <string name="un_step_3">Closing the app</string>
     <string name="un_percent" translatable="false">%1$d%%</string>
     <string name="un_tip_premium_title">Go ad-free with Premium.</string>
     <string name="un_tip_premium_text">No ads anywhere, plus unlimited lookups and Ask AI.</string>

@@ -177,6 +177,55 @@ class NativeBannerPresenter {
         }
     }
 
+    /**
+     * A native banner from a given ad unit, loaded on the spot and shown in
+     * [layout] — for a placement that has its own unit (the uninstall funnel's
+     * `language_ad`) rather than the shared, preloaded `googleNative` one.
+     *
+     * Same look and logging as [displayNativeBanner]. No MidNativeCounter: a
+     * placement with its own unit is meant to show each time. The slot is hidden
+     * when ads are off, offline, or the load fails.
+     */
+    fun displayNativeBannerWithId(
+        context: Activity, layout: FrameLayout, shimmer: ShimmerFrameLayout?, adUnitId: String
+    ) {
+        if (context.isFinishing || context.isDestroyed) return
+        val adsPref = AdPreferenceStore.getInstance(context)
+        val hide = {
+            layout.removeAllViews()
+            layout.invisible()
+            shimmer?.stopShimmer()
+            shimmer?.isVisible = false
+        }
+        if (!isNetworkAvailable(context) || !adsPref.getBoolean("IsAdsON")) return hide()
+
+        layout.visible()
+        shimmer?.startShimmer()
+        shimmer?.isVisible = true
+
+        AdLoader.Builder(context, adUnitId)
+            .forNativeAd { ad ->
+                if (context.isFinishing || context.isDestroyed) {
+                    ad.destroy()
+                    return@forNativeAd
+                }
+                val binding = AdmobSmallNativeBinding.inflate(context.layoutInflater)
+                bindGoogleNativeAd(ad, binding, context)
+                layout.removeAllViews()
+                shimmer?.stopShimmer()
+                shimmer?.isVisible = false
+                layout.addView(binding.root)
+            }
+            .withAdListener(object : AdListener() {
+                override fun onAdFailedToLoad(error: LoadAdError) {
+                    Log.e("NativeBannerPresenter", "Native ($adUnitId) failed: ${error.message}")
+                    if (!context.isFinishing && !context.isDestroyed) hide()
+                }
+            })
+            .build()
+            .loadAd(AdRequest.Builder().build())
+    }
+
     private fun bindGoogleNativeAd(
         nativeAd: NativeAd, binding: AdmobSmallNativeBinding, context: Activity
     ) {

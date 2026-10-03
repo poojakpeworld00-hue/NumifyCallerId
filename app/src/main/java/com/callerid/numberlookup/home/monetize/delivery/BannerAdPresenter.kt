@@ -202,6 +202,7 @@ class BannerAdPresenter {
                 container.removeAllViews()
 
                 container.addView(googleBanner)
+                flattenSlot(container)
                 container.visibility = View.VISIBLE
                 observer?.onAdLoaded()
 
@@ -323,6 +324,7 @@ class BannerAdPresenter {
                         container.removeAllViews()
 
                         container.addView(facebookBanner)
+                        flattenSlot(container)
                         container.visibility = View.VISIBLE
                         observer?.onAdLoaded()
                         activity.recordEvent("facebook_banner_load")
@@ -385,6 +387,41 @@ class BannerAdPresenter {
     private fun hide(container: FrameLayout) {
         container.removeAllViews()
         container.visibility = View.GONE
+    }
+
+    // -----------------------------
+    // FLAT SLOT
+    // -----------------------------
+    /**
+     * A banner sits edge to edge: no card, rounded corners, shadow, padding or
+     * margin. Screens wrap their ad slot in a card styled for native ads, so the
+     * slot and every wrapper above it that holds nothing but the ad (a single
+     * child) are flattened. The climb stops at the first parent with other
+     * content - the screen itself.
+     */
+    private fun flattenSlot(container: FrameLayout) {
+        var view: View = container
+        while (true) {
+            view.background = null
+            view.elevation = 0f
+            view.clipToOutline = false
+            view.setPadding(0, 0, 0, 0)
+            if (view is androidx.cardview.widget.CardView) {
+                view.radius = 0f
+                view.cardElevation = 0f
+                view.useCompatPadding = false
+                view.setContentPadding(0, 0, 0, 0)
+            }
+            (view.layoutParams as? android.view.ViewGroup.MarginLayoutParams)?.let { lp ->
+                lp.setMargins(0, 0, 0, 0)
+                lp.marginStart = 0
+                lp.marginEnd = 0
+                view.layoutParams = lp
+            }
+            val parent = view.parent as? android.view.ViewGroup ?: break
+            if (parent.childCount != 1 || parent.id == android.R.id.content) break
+            view = parent
+        }
     }
 
 }
