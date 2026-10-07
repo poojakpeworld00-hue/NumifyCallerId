@@ -62,7 +62,7 @@ class ContactsApplication : Application() , Application.ActivityLifecycleCallbac
          * Same shape as [com.callerid.numberlookup.home.repository.RegionDetector]'s
          * country pin, and set back to null the same way when you are done.
          */
-        private val DEBUG_FORCE_INSTALL_SOURCE: String? = null
+        private val DEBUG_FORCE_INSTALL_SOURCE: String? = ""
 
         /**
          * TEST ONLY — pins LightHouse's bot verdict. A flagged install is reported
@@ -71,7 +71,7 @@ class ContactsApplication : Application() , Application.ActivityLifecycleCallbac
          *
          * Release-stripped exactly as above.
          */
-        private val DEBUG_FORCE_FLAGGED: Boolean? = null
+        private val DEBUG_FORCE_FLAGGED: Boolean? = false
     }
 
     override fun onCreate() {
@@ -118,12 +118,10 @@ class ContactsApplication : Application() , Application.ActivityLifecycleCallbac
             splashActivity = SplashActivity::class.java,
             richPushActivity = EngagementHubActivity::class.java,
         )
-        // Before initialize, so the forced verdict is in place for the very first
-        // classification rather than overwriting one already taken.
-        if (BuildConfig.DEBUG) {
-            DEBUG_FORCE_INSTALL_SOURCE?.let { LightHouse.debugForceInstallSource(it) }
-            DEBUG_FORCE_FLAGGED?.let { LightHouse.debugForceFlagged(it) }
-        }
+
+
+
+
         LightHouse.initialize(
             context = this,
             config = LightHouseConfig(
@@ -133,6 +131,15 @@ class ContactsApplication : Application() , Application.ActivityLifecycleCallbac
                 onRemoteConfigSync = { RemoteConfigSync.apply(this) },
             ),
         )
+        // Before initialize, so the forced verdict is in place for the very first
+        // classification rather than overwriting one already taken.
+        if (BuildConfig.DEBUG) {
+            DEBUG_FORCE_INSTALL_SOURCE?.let { LightHouse.debugForceInstallSource(it) }
+            DEBUG_FORCE_FLAGGED?.let { LightHouse.debugForceFlagged(it) }
+        }
+//        DEBUG_FORCE_INSTALL_SOURCE?.let { LightHouse.debugForceInstallSource(it) }
+//        DEBUG_FORCE_FLAGGED?.let { LightHouse.debugForceFlagged(it) }
+
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 FirebaseApp.initializeApp(this@ContactsApplication)
