@@ -105,6 +105,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         // runtime permission prompt for that session (requested next launch).
         const val WATCHDOG_TIMEOUT_MS = 20_000L
 
+        // Grace after the splash comes back in front with the watchdog already
+        // due (see [watchdog]): enough for the chain to finish once the user has
+        // answered a dialog, short enough that a genuinely hung chain still ends.
+        const val WATCHDOG_REARM_MS = 8_000L
+
         // The design frame's content box is 396 units wide. Distances authored
         // against it are converted through this, so a "16 unit" rise is the same
         // fraction of the screen here as it is in the design.
@@ -244,12 +249,52 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         //
         // Safe to double up with the real callback: proceedNow() is guarded by a
         // compareAndSet, so whichever arrives second does nothing.
-        handler.postDelayed({
-            if (!proceeded.get()) {
-                Log.w(SPLASH_FLOW_TAG, "watchdog fired after ${WATCHDOG_TIMEOUT_MS}ms — forcing navigation")
-                proceedNow()
-            }
-        }, WATCHDOG_TIMEOUT_MS)
+        handler.postDelayed(watchdog, WATCHDOG_TIMEOUT_MS)
+    }
+
+    /**
+     * Set when the watchdog came due while the splash was not the thing on
+     * screen - a runtime-permission dialog, the consent form or the splash ad on
+     * top, or the app sent to the background.
+     */
+    private var watchdogDeferred = false
+
+    /**
+     * Forces navigation only while the splash is in front with focus.
+     *
+     * The timer used to fire regardless. It starts at launch, so a user still
+     * reading the notification dialog at 14 s had the phone-state dialog pulled
+     * away 4 s after it appeared: the splash left with the request unanswered,
+     * and the tap meant for "Allow" landed on the Language screen's native ad -
+     * an accidental click. Pressing Home during the splash likewise had it start
+     * the next screen from the background. While something else is in front the
+     * chain is waiting on the user, not hung, so the watchdog stands down and
+     * re-arms, with a short grace, once the splash has focus again.
+     */
+    private val watchdog = Runnable {
+        if (proceeded.get()) return@Runnable
+        if (!isSplashInFront()) {
+            Log.w(SPLASH_FLOW_TAG, "watchdog due but the splash is not in front — waiting for it to return")
+            watchdogDeferred = true
+            return@Runnable
+        }
+        Log.w(SPLASH_FLOW_TAG, "watchdog fired — forcing navigation")
+        proceedNow()
+    }
+
+    private fun isSplashInFront(): Boolean =
+        lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.RESUMED) && hasWindowFocus()
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        // Back in front after a dialog, the consent form, an ad or the
+        // background: give the chain a moment to carry on before forcing it.
+        if (hasFocus && watchdogDeferred && !proceeded.get()) {
+            watchdogDeferred = false
+            Log.d(SPLASH_FLOW_TAG, "splash back in front — watchdog re-armed for ${WATCHDOG_REARM_MS}ms")
+            handler.removeCallbacks(watchdog)
+            handler.postDelayed(watchdog, WATCHDOG_REARM_MS)
+        }
     }
 
     /** Navigate only once BOTH gates are met: data ready AND the intro has played. */

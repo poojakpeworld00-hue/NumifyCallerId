@@ -73,13 +73,16 @@
             </intent-filter>
         </activity>
 
-        <!-- locale|layoutDirection: picking a language applies it app-wide on
-             Continue, and this screen leaves straight after. Handling the change
-             itself stops AppCompat recreating it on the way out (the blink). -->
+        <!-- locale|layoutDirection|screenLayout: picking a language applies it
+             app-wide on Continue, and this screen leaves straight after. Handling
+             the change itself stops it being recreated on the way out (the
+             blink). screenLayout too: Samsung's Android 16 reports a locale switch
+             as LOCALE + SCREEN_LAYOUT + LAYOUT_DIRECTION, and the one undeclared
+             bit was enough to rebuild it. -->
         <activity
             android:screenOrientation="portrait"
             android:name=".feature.language.LanguagePickerActivity"
-            android:configChanges="locale|layoutDirection"
+            android:configChanges="locale|layoutDirection|screenLayout"
             android:exported="false" />
 
         <activity
@@ -101,6 +104,12 @@
         <!-- Auto-return watcher: pulls the app back when the FSI toggle flips on. -->
         <service
             android:name=".permission.lockscreen.LockScreenWatchService"
+            android:exported="false" />
+
+        <!-- Keeps the process unfrozen while the user is on the "Display over
+             other apps" page, so the shell's grant poll can bring them back. -->
+        <service
+            android:name=".feature.overlay.OverlayWatchService"
             android:exported="false" />
 
         <activity

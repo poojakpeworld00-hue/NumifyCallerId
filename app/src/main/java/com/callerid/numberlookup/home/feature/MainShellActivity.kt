@@ -64,6 +64,7 @@ import com.callerid.numberlookup.home.feature.blocklist.BlocklistActivity
 import com.callerid.numberlookup.home.feature.tools.ToolboxFragment
 import com.callerid.numberlookup.home.feature.overlay.OverlayAskPolicy
 import com.callerid.numberlookup.home.feature.overlay.OverlayPermissionUtils
+import com.callerid.numberlookup.home.feature.overlay.OverlayWatchService
 import com.callerid.numberlookup.home.feature.overlay.ToolOverlayGate
 
 /**
@@ -718,12 +719,16 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         overlayPollDeadline = SystemClock.elapsedRealtime() + OVERLAY_GRANT_POLL_TIMEOUT_MS
         overlayGrantPollHandler.removeCallbacks(overlayGrantPoll)
         overlayGrantPollHandler.postDelayed(overlayGrantPoll, OVERLAY_GRANT_POLL_MS)
+        // Behind Settings this Activity is stopped and, on Android 14+, the
+        // process is frozen - this poll would never run. The watcher keeps it live.
+        OverlayWatchService.start(this)
     }
 
     private fun stopOverlayGrantPoll() {
         overlayGrantPolling = false
         awaitingOverlaySettings = false
         overlayGrantPollHandler.removeCallbacks(overlayGrantPoll)
+        OverlayWatchService.stop(this)
     }
 
     /**
