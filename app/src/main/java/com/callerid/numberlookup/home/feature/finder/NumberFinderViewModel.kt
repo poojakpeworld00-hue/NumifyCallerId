@@ -9,7 +9,7 @@ import android.util.Log
 import com.callerid.numberlookup.home.repository.ContactRepository
 import com.callerid.numberlookup.home.repository.finder.SearchHistoryRepository
 import com.callerid.numberlookup.home.repository.finder.OfflineNumberIndex
-import com.callerid.numberlookup.home.entity.CallerFacts
+import com.callerid.numberlookup.home.entity.LookupPayload
 import com.callerid.numberlookup.home.resolver.EndpointConfig
 import com.callerid.numberlookup.home.resolver.CredentialProvider
 import com.callerid.numberlookup.home.resolver.NetworkClientFactory
@@ -65,32 +65,33 @@ class NumberFinderViewModel(app: Application) : AndroidViewModel(app) {
             val data = withContext(Dispatchers.IO) {
                 val contactName = contactsRepository.lookupNameByNumber(normalized)
                 val offline = OfflineNumberIndex.lookup(normalized, region) // libphonenumber, no network
-                val apiList = fetchFromApi(normalized)
-                Triple(contactName, offline, apiList)
+                val payload = fetchFromApi(normalized)
+                Triple(contactName, offline, payload)
             }
             delay(SHIMMER_MIN_MS)
             if (token != searchToken) return@launch // a newer query superseded this one
 
-            val (contactName, offline, apiList) = data
-            val api = apiList.firstOrNull()
+            val (contactName, offline, payload) = data
+            val apiList = payload?.data.orEmpty()
             // Prefer the community/network name so a saved contact shows how OTHERS
             // identify this number (not the name you already gave it). Fall back to
             // your own contact name only when the network has no name at all.
-            val apiPrimary = api?.name?.trim()?.takeIf { it.isNotBlank() }
+            // primaryName() skips the junk rows the endpoint returns (the number
+            // itself, fragments of it, "Llllll").
+            val apiPrimary = payload?.primaryName()
             val displayName = apiPrimary ?: contactName
 
-            // Pull each enrichment field from whichever backend record has it,
-            // then fall back to the offline (libphonenumber) result.
+            // Country, city and the spam verdict are top-level in the response, not
+            // per row - read them from the payload, then fall back to the offline
+            // (libphonenumber) result. Carrier and line type are per-row when sent.
             val apiCarrier = apiList.firstNotNullOfOrNull { it.carrierOrNull }
-            val apiCountry = apiList.firstNotNullOfOrNull { it.country?.takeIf { c -> c.isNotBlank() } }
+            val apiCountry = payload?.countryName
             val apiLineType = apiList.firstNotNullOfOrNull { it.lineTypeOrNull }
-            val apiCity = apiList.firstNotNullOfOrNull { it.city?.takeIf { c -> c.isNotBlank() } }
+            val apiCity = payload?.city
 
             // "Also known as": distinct network names, excluding the primary shown name
             // AND your own saved contact name — so your own name is never echoed here.
-            val nicknames = apiList
-                .mapNotNull { it.name?.trim()?.takeIf { n -> n.isNotBlank() } }
-                .distinct()
+            val nicknames = payload?.meaningfulNames().orEmpty()
                 .filter {
                     !it.equals(displayName, ignoreCase = true) &&
                         !it.equals(contactName, ignoreCase = true)
@@ -108,8 +109,8 @@ class NumberFinderViewModel(app: Application) : AndroidViewModel(app) {
                 lineType = apiLineType ?: offline?.lineType,
                 valid = offline?.valid,
                 city = apiCity ?: offline?.location,
-                isSpam = api?.is_spam == true || api?.is_user_spam == true,
-                spamType = api?.spamType,
+                isSpam = payload?.isSpam == true,
+                spamType = apiList.firstNotNullOfOrNull { it.spamType?.takeIf { t -> t.isNotBlank() } },
                 nicknames = nicknames
             )
             Log.d(TAG, "carrier: api=$apiCarrier offline=${offline?.carrier} → ${result.carrier}")
@@ -119,19 +120,19 @@ class NumberFinderViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    /** Queries the caller-ID API for this number; returns all matching records (may be empty). */
-    private suspend fun fetchFromApi(phone: String): List<CallerFacts> = runCatching {
+    /** Queries the caller-ID API for this number; null when it failed or was unreachable. */
+    private suspend fun fetchFromApi(phone: String): LookupPayload? = runCatching {
         val response = NetworkClientFactory.api.checkPhoneNumber(
             url = EndpointConfig.similarPhonePath(getApplication()),
             phone = phone
         )
         if (response.isSuccessful) {
-            response.body()?.data.orEmpty()
+            response.body()
         } else {
             Log.e(TAG, "checkPhoneNumber failed (${response.code()})")
-            emptyList()
+            null
         }
-    }.onFailure { Log.e(TAG, "checkPhoneNumber error: ${it.message}") }.getOrDefault(emptyList())
+    }.onFailure { Log.e(TAG, "checkPhoneNumber error: ${it.message}") }.getOrNull()
 
     private fun saveToHistory(result: LookupVerdict) {
         val subtitle = result.country

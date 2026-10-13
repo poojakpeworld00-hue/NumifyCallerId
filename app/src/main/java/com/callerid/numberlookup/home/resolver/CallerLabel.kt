@@ -252,12 +252,12 @@ object CallerLabel {
                     phone = number
                 )
                 if (!response.isSuccessful) return@withTimeoutOrNull null
-                // The endpoint is "similar-phone-number", so it can answer with
-                // several rows. Prefer the first that actually carries a name;
-                // fall back to the first row so a nameless spam verdict is still
-                // applied rather than silently dropped.
-                val rows = response.body()?.data.orEmpty()
-                rows.firstOrNull { !it.name.isNullOrBlank() } ?: rows.firstOrNull()
+                // The endpoint is "similar-phone-number": the spam verdict, city and
+                // country are top-level, and the rows are only names (junk among
+                // them). toFacts() folds it into one CallerFacts with the best name
+                // and the top-level verdict merged in, so a spammer the network has
+                // flagged is flagged on the card even when it has no name.
+                response.body()?.toFacts()
             }
         }.getOrNull()
     }
