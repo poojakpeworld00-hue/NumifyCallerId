@@ -234,17 +234,23 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
 
     /**
      * The grant arrived while the user was on the FSI Settings page, so dismiss
-     * the priming dialog and reorder the existing MainShellActivity to the front
-     * of the same task. The NO_HISTORY Settings page falls away, onResume and the
-     * launcher both see the grant, and the permission-sheet follow-up runs there.
+     * the priming dialog and bring the existing MainShellActivity back to the
+     * front of the same task, clearing the Settings page off the top of it.
+     * onResume and the launcher both see the grant, and the permission-sheet
+     * follow-up runs there.
+     *
+     * CLEAR_TOP + SINGLE_TOP, as [onOverlayGranted] and LockScreenReturnWatcher.
+     * This used to add NEW_TASK | CLEAR_TASK as well, which wiped our whole task
+     * and built a fresh shell - losing the current tab and the launcher callback
+     * the follow-up waits on - and, being a new-task start, is the kind the
+     * background-activity-start rules block. CLEAR_TOP stays in-task.
      */
     private fun onFsiGranted() {
         LockScreenPrimingDialog.dismissIfShowing()
         runCatching {
             startActivity(
                 Intent(this, MainShellActivity::class.java).addFlags(
-                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or
-                    Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                 )
             )
         }
@@ -722,11 +728,19 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
 
     /**
      * The overlay grant arrived while the user was on the "display over other
-     * apps" page, so refresh the banner and reorder the existing Activity to the
-     * front of the same task. The NO_HISTORY Settings page falls away and the
-     * user lands back on their current tab without pressing Back. An in-task
-     * reorder is not a background-activity-start, so no BAL privilege is needed
-     * on Android 12+/16.
+     * apps" page, so refresh the banner and bring the existing Activity back to
+     * the front of the same task, clearing the Settings page off the top of it.
+     * The user lands back on their current tab without pressing Back. Starting
+     * an Activity in our own foreground task is not a background-activity-start,
+     * so no BAL privilege is needed on Android 12+/16.
+     *
+     * CLEAR_TOP, not REORDER_TO_FRONT. The page runs in our task (for-result,
+     * without NO_HISTORY - see OverlayPermissionUtils), and a reorder only lifted
+     * the shell above it: the Settings page stayed in the task underneath. Back
+     * from Home then landed on it again, and once the app exited it was the only
+     * thing left in our task - so Recents showed "Display over other apps" as
+     * this app's card, and tapping that card reopened it. CLEAR_TOP finishes it
+     * (and the guide over it); SINGLE_TOP keeps this instance and its tab state.
      */
     private fun onOverlayGranted() {
         updateOverlayBanner()
@@ -737,11 +751,11 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         runCatching {
             startActivity(
                 Intent(this, MainShellActivity::class.java).addFlags(
-                    Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                 )
             )
         }
-        // After the reorder, so the tool lands on top of the shell rather than
+        // After the shell is back on top, so the tool lands above it rather than
         // under it.
         resumePendingTool()
     }
