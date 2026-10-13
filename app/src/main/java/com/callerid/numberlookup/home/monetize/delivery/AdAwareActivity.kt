@@ -466,6 +466,16 @@ open class AdAwareActivity : AppCompatActivity() {
                             Log.d(APPOPEN_TAG, "isSplash=false → BS Native path (splash AppOpen is NOT attempted here)")
                             launch(Dispatchers.Main) {
                                 BottomSheetNativeAds().loadSheetNativeAds(activity)
+                                // The same preloads as the splash path below. A returning
+                                // user who skips the splash lands here instead, and used
+                                // to get only the sheet native - so Home's first native,
+                                // native banner and interstitial all started from nothing.
+                                if (isGoogleAdsEnabled) {
+                                    NativeAdPresenter().loadNativeAds(activity)
+                                    NativeBannerPresenter().loadNativeBannerAds(activity)
+                                    TransitionInterstitialAd().loadInterstitials(activity)
+                                    ExitInterstitialAd().loadExitInterstitials(activity)
+                                }
                                 onGetData?.onSuccess()
                             }
                             return@withContext

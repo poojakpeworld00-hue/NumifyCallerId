@@ -5,6 +5,8 @@ import android.app.Activity
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -50,6 +52,73 @@ class NativeAdPresenter() {
 
     companion object {
         private var nativeAd: NativeAd? = null
+
+        /** True while a shared-pool load is in flight, so a second one is not started. */
+        private var isLoading = false
+        private var loadStartedAt = 0L
+
+        /** A load with no callback by now is treated as lost, so it cannot block loads forever. */
+        private const val LOAD_STALE_MS = 30_000L
+
+        private val loadInFlight: Boolean
+            get() = isLoading && System.currentTimeMillis() - loadStartedAt < LOAD_STALE_MS
+
+        /**
+         * Screens that asked to show a native before the shared one had landed.
+         * Each runs at most once: when an ad loads (one waiter per ad, in order),
+         * when the load fails (all of them, to fall back), or on [NATIVE_WAIT_MS].
+         */
+        private val waiters = ArrayList<Pair<Activity, () -> Unit>>()
+
+        private val mainHandler = Handler(Looper.getMainLooper())
+
+        /** How long a slot keeps its shimmer up waiting for the ad before falling back. */
+        private const val NATIVE_WAIT_MS = 8_000L
+
+        /**
+         * Hands the fresh ad to the oldest waiter whose screen is still up; the
+         * rest keep waiting for the refill. A screen that closed while waiting is
+         * dropped, so it cannot swallow the ad meant for the next one.
+         */
+        private fun releaseOneWaiter() {
+            while (waiters.isNotEmpty()) {
+                val (activity, show) = waiters.removeAt(0)
+                if (activity.isFinishing || activity.isDestroyed) continue
+                show()
+                return
+            }
+        }
+
+        /** Load failed or cannot start: every waiter falls back now rather than at the timeout. */
+        private fun releaseAllWaiters() {
+            val pending = ArrayList(waiters)
+            waiters.clear()
+            pending.forEach { it.second.invoke() }
+        }
+    }
+
+    /**
+     * Runs [show] once the shared native is ready, or once it is clear it will not
+     * be - [show] itself still checks `nativeAd` and falls back when it is null.
+     *
+     * The display functions used to look at the cache once and fall back at once.
+     * Splash only *starts* the load and moves on, so the first screen after it -
+     * Language, on a fresh install - nearly always got there first, found nothing,
+     * showed the (usually empty) fallback, and the ad that landed a second later
+     * was only parked for some later screen. Now the slot keeps its shimmer and
+     * waits for that load, starting one if none is running.
+     */
+    private fun whenNativeReady(context: Activity, show: () -> Unit) {
+        if (nativeAd != null) {
+            show()
+            return
+        }
+        val entry = context to show
+        waiters += entry
+        mainHandler.postDelayed({
+            if (waiters.remove(entry)) show()
+        }, NATIVE_WAIT_MS)
+        if (!loadInFlight) loadNativeAds(context)
     }
 
     private fun Activity.isActivityDestroyedCompat(): Boolean {
@@ -62,19 +131,27 @@ class NativeAdPresenter() {
         // Ads toggle and type check
         if (!adsPreference.getBoolean("IsAdsON") || AdPlacementType.fromString(adsPreference.getString("IsAdType")) != AdPlacementType.GOOGLE) {
             observer?.onNativeAdFailed()
+            releaseAllWaiters()
             return
         }
         // Firebase "NativeBannerPresenter" master switch — disable native ad loading
         if (!adsPreference.getBoolean("NativeAd")) {
             observer?.onNativeAdFailed()
+            releaseAllWaiters()
             return
         }
         // Screen-wise aware: resolves to ScreenAds.default native id, or the
         // global googleNative when screen_wise_ad is off.
         val adUnit = ScreenPlacementPlan.nativeAdUnitId(context)
         if (adUnit.isEmpty()) {
+            releaseAllWaiters()
             return
         }
+        // One shared load at a time. Every show already starts the refill, so a
+        // second request here would only replace the first ad before anyone saw it.
+        if (loadInFlight && observer == null) return
+        isLoading = true
+        loadStartedAt = System.currentTimeMillis()
         val adLoader =
             AdLoader.Builder(context, adUnit)
                 .forNativeAd { nativeAds ->
@@ -88,6 +165,10 @@ class NativeAdPresenter() {
                     // destroyed, and every subsequent show found null.
                     nativeAd?.destroy()
                     nativeAd = nativeAds
+                    isLoading = false
+                    // A screen may be waiting with its shimmer up — even when the
+                    // activity that started this load is long gone.
+                    releaseOneWaiter()
 
                     if (context.isActivityDestroyedCompat()) {
                         // Originating activity is gone — cache only, skip
@@ -107,6 +188,8 @@ class NativeAdPresenter() {
                 .withAdListener(object : AdListener() {
                     override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                         super.onAdFailedToLoad(loadAdError)
+                        isLoading = false
+                        releaseAllWaiters()
                         if (context.isActivityDestroyedCompat()) return
                         observer?.onNativeAdFailed()
                         Log.e(
@@ -258,9 +341,9 @@ class NativeAdPresenter() {
 
         when (AdPlacementType.fromString(adsPreference.getString("IsAdType"))) {
             AdPlacementType.GOOGLE -> {
-                layout.post {  // 🔥 UI thread safe
+                layout.post { whenNativeReady(context) {  // 🔥 UI thread safe
                     try {
-                        if (context.isFinishing || context.isDestroyed) return@post
+                        if (context.isFinishing || context.isDestroyed) return@whenNativeReady
 
                         if (nativeAd != null) {
 
@@ -296,7 +379,7 @@ class NativeAdPresenter() {
                             nativeAd = null
                             loadNativeAds(context)
 
-                            return@post
+                            return@whenNativeReady
                         }
 
                         // 🔥 GOOGLE FAIL → fallback
@@ -318,7 +401,7 @@ class NativeAdPresenter() {
                     } catch (e: Exception) {
                         Log.e("NativeAds", "Google BigNative crash", e)
                     }
-                }
+                } }
             }
 
             AdPlacementType.FACEBOOK -> {
@@ -615,9 +698,9 @@ class NativeAdPresenter() {
 
         when (AdPlacementType.fromString(adsPref.getString("IsAdType"))) {
             AdPlacementType.GOOGLE -> {
-                layout.post {
+                layout.post { whenNativeReady(context) {
                     try {
-                        if (context.isFinishing || context.isDestroyed) return@post
+                        if (context.isFinishing || context.isDestroyed) return@whenNativeReady
                         if (nativeAd != null) {
                             val binding = AdmobMidNativeBinding.inflate(context.layoutInflater)
                             MidNativeTemplate(
@@ -643,7 +726,7 @@ class NativeAdPresenter() {
 
                             nativeAd = null
                             loadNativeAds(context) // preload next Google ad
-                            return@post
+                            return@whenNativeReady
                         }
                         // Google failed → fallback
                         if (adsPref.getBoolean("IsFail_FB")) {
@@ -661,7 +744,7 @@ class NativeAdPresenter() {
                     } catch (e: Exception) {
                         Log.e("MidNativeAds", "Google MidNative failed: ${e.message}")
                     }
-                }
+                } }
 
 
             }
@@ -923,9 +1006,9 @@ class NativeAdPresenter() {
         layout.visible()
         when (AdPlacementType.fromString(adsPref.getString("IsAdType"))) {
             GOOGLE -> {
-                layout.post {
+                layout.post { whenNativeReady(context) {
                     try {
-                        if (context.isFinishing || context.isDestroyed) return@post
+                        if (context.isFinishing || context.isDestroyed) return@whenNativeReady
                         if (Companion.nativeAd != null) {
                             val binding = AdmobMidNativeTwoBinding.inflate(context.layoutInflater)
                             MidNativeTemplate2(
@@ -951,7 +1034,7 @@ class NativeAdPresenter() {
 
                             nativeAd = null
                             loadNativeAds(context) // preload next Google ad
-                            return@post
+                            return@whenNativeReady
                         }
                         // Google failed → fallback
                         layout.removeAllViews()
@@ -965,7 +1048,7 @@ class NativeAdPresenter() {
                     } catch (e: Exception) {
                         Log.e("MidNativeAds", "Google MidNative failed: ${e.message}")
                     }
-                }
+                } }
 
 
             }

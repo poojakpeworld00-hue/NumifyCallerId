@@ -3,6 +3,8 @@ package com.callerid.numberlookup.home.monetize.delivery
 import android.app.Activity
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -35,22 +37,92 @@ import com.google.android.gms.ads.nativead.NativeAdOptions
 class NativeBannerPresenter {
     companion object {
         private var nativeAdBanner: NativeAd? = null
+
+        /** True while a load is in flight, so a second one is not started. */
+        private var isLoading = false
+        private var loadStartedAt = 0L
+
+        /** A load with no callback by now is treated as lost, so it cannot block loads forever. */
+        private const val LOAD_STALE_MS = 30_000L
+
+        private val loadInFlight: Boolean
+            get() = isLoading && System.currentTimeMillis() - loadStartedAt < LOAD_STALE_MS
+
+        /**
+         * Slots that asked to show a native banner before one had landed. Each runs
+         * at most once: when an ad loads (one waiter per ad, oldest first), when the
+         * load fails or cannot start (all of them, to fall back), or on
+         * [BANNER_WAIT_MS]. Same mechanism as NativeAdPresenter's shared pool.
+         */
+        private val waiters = ArrayList<Pair<Activity, () -> Unit>>()
+
+        private val mainHandler = Handler(Looper.getMainLooper())
+
+        /** How long a slot keeps its shimmer up waiting for the ad before falling back. */
+        private const val BANNER_WAIT_MS = 8_000L
+
+        /** Hands the fresh ad to the oldest waiter whose screen is still up. */
+        private fun releaseOneWaiter() {
+            while (waiters.isNotEmpty()) {
+                val (activity, show) = waiters.removeAt(0)
+                if (activity.isFinishing || activity.isDestroyed) continue
+                show()
+                return
+            }
+        }
+
+        /** Load failed or cannot start: every waiter falls back now rather than at the timeout. */
+        private fun releaseAllWaiters() {
+            val pending = ArrayList(waiters)
+            waiters.clear()
+            pending.forEach { it.second.invoke() }
+        }
+    }
+
+    /**
+     * Runs [show] once a native banner is ready, or once it is clear it will not
+     * be - [show] itself still checks `nativeAdBanner` and falls back when null.
+     *
+     * displayNativeBanner used to look at the cache once and fall back at once,
+     * and only a *successful* show started the next load. So a slot that arrived
+     * before the splash preload landed stayed empty - and if that preload failed,
+     * or never ran (returning users skip the splash), nothing ever loaded one
+     * again that session. Now the slot waits, starting a load if none is running.
+     */
+    private fun whenBannerReady(context: Activity, show: () -> Unit) {
+        if (nativeAdBanner != null) {
+            show()
+            return
+        }
+        val entry = context to show
+        waiters += entry
+        mainHandler.postDelayed({
+            if (waiters.remove(entry)) show()
+        }, BANNER_WAIT_MS)
+        if (!loadInFlight) loadNativeBannerAds(context)
     }
 
     fun loadNativeBannerAds(activity: Activity) {
         val adsPref = AdPreferenceStore.getInstance(activity)
-        if (!adsPref.getBoolean("IsAdsON")) return
+        if (!adsPref.getBoolean("IsAdsON")) return releaseAllWaiters()
         // Firebase "NativeBannerPresenter" master switch — disable native banner loading
-        if (!adsPref.getBoolean("NativeBannerPresenter")) return
+        if (!adsPref.getBoolean("NativeBannerPresenter")) return releaseAllWaiters()
 
 
         when (AdPlacementType.fromString(adsPref.getString("IsAdType"))) {
             AdPlacementType.GOOGLE -> {
-                val adUnitId = adsPref.getString("googleNative") ?: return
+                val adUnitId = adsPref.getString("googleNative")
+                if (adUnitId.isNullOrEmpty()) return releaseAllWaiters()
+                // One load at a time; a second would only replace the first unseen.
+                if (loadInFlight) return
+                isLoading = true
+                loadStartedAt = System.currentTimeMillis()
 
                 val adLoader = AdLoader.Builder(activity, adUnitId).forNativeAd { ad ->
                     nativeAdBanner?.destroy()
                     nativeAdBanner = ad
+                    isLoading = false
+                    releaseOneWaiter()
                     try {
                         activity.recordEvent("NativeBanner_Load")
                     } catch (e: Exception) {
@@ -61,7 +133,9 @@ class NativeBannerPresenter {
                     override fun onAdFailedToLoad(error: LoadAdError) {
                         Log.e("NativeBannerPresenter", "Ad failed to load: ${error.message}")
                         nativeAdBanner = null
-                        // No retry logic
+                        isLoading = false
+                        // No retry here; the next slot that asks starts a fresh load.
+                        releaseAllWaiters()
 
                         try {
                             activity.recordEvent("NativeBanner_fail")
@@ -76,13 +150,13 @@ class NativeBannerPresenter {
             AdPlacementType.FACEBOOK -> {
                 // FB ad type → directly try FB
                 Log.e(TAG_EVENT, "AdPlacementType FaceBook NOt Pre load Google Native")
-                return
+                return releaseAllWaiters()
             }
 
             AdPlacementType.UNKNOWN, AdPlacementType.CUSTOM -> {
                 // Custom ad type
                 Log.e(TAG_EVENT, "AdPlacementType Custom NOt Pre load Google Native")
-                return
+                return releaseAllWaiters()
             }
         }
 
@@ -128,9 +202,9 @@ class NativeBannerPresenter {
         when (AdPlacementType.fromString(adsPref.getString("IsAdType"))) {
             AdPlacementType.GOOGLE -> {
 
-                layout.post {
+                layout.post { whenBannerReady(context) {
                     try {
-                        if (context.isFinishing || context.isDestroyed) return@post
+                        if (context.isFinishing || context.isDestroyed) return@whenBannerReady
                         if (nativeAdBanner != null) {
                             val binding = AdmobSmallNativeBinding.inflate(context.layoutInflater)
                             bindGoogleNativeAd(nativeAdBanner!!, binding, context)
@@ -142,7 +216,7 @@ class NativeBannerPresenter {
                             layout.addView(binding.root)
                             nativeAdBanner = null
                             loadNativeBannerAds(context)
-                            return@post
+                            return@whenBannerReady
                         } else {
                             // Google failed → FB fallback or Custom
                             if (adsPref.getBoolean("IsFail_FB")) {
@@ -159,7 +233,7 @@ class NativeBannerPresenter {
                     } catch (e: Exception) {
                         Log.e("NativeBannerPresenter", "Google NativeBannerPresenter failed: ${e.message}")
                     }
-                }
+                } }
             }
 
             AdPlacementType.FACEBOOK -> {
