@@ -1010,4 +1010,13 @@
         <item quantity="one">%1$d contact</item>
         <item quantity="other">%1$d contacts</item>
     </plurals>
+    <string name="reward_not_earned">Watch the whole ad to unlock.</string>
+    <string name="reward_retry_title">Ad not ready</string>
+    <string name="reward_retry_body">We couldn\'t load the ad. Please try again.</string>
+    <string name="reward_retry">Retry</string>
+    <string name="reward_wait_title">Almost ready to unlock</string>
+    <string name="reward_wait_body">We\'re getting this ready for you. Stay with us — you can unlock it in just a moment.</string>
+    <string name="reward_wait_ready_title">All set!</string>
+    <string name="reward_wait_ready">Tap Unlock now to continue.</string>
+    <string name="reward_wait_unlock">Unlock now</string>
 </resources>

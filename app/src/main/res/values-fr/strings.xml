@@ -884,4 +884,13 @@
         <item quantity="one">%1$d contact</item>
         <item quantity="other">%1$d contacts</item>
     </plurals>
+    <string name="reward_not_earned">Regardez la publicité en entier pour débloquer.</string>
+    <string name="reward_retry_title">Publicité indisponible</string>
+    <string name="reward_retry_body">Impossible de charger la publicité. Veuillez réessayer.</string>
+    <string name="reward_retry">Réessayer</string>
+    <string name="reward_wait_title">Presque prêt à débloquer</string>
+    <string name="reward_wait_body">Nous préparons tout pour vous. Restez avec nous : vous pourrez débloquer dans un instant.</string>
+    <string name="reward_wait_ready_title">Tout est prêt !</string>
+    <string name="reward_wait_ready">Appuyez sur Débloquer maintenant pour continuer.</string>
+    <string name="reward_wait_unlock">Débloquer maintenant</string>
 </resources>

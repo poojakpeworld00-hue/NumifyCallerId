@@ -924,4 +924,13 @@
         <item quantity="one">%1$d संपर्क</item>
         <item quantity="other">%1$d संपर्क</item>
     </plurals>
+    <string name="reward_not_earned">अनलॉक करने के लिए पूरा विज्ञापन देखें।</string>
+    <string name="reward_retry_title">विज्ञापन तैयार नहीं है</string>
+    <string name="reward_retry_body">हम विज्ञापन लोड नहीं कर सके। कृपया फिर से कोशिश करें।</string>
+    <string name="reward_retry">फिर से कोशिश करें</string>
+    <string name="reward_wait_title">अनलॉक करने के लिए लगभग तैयार</string>
+    <string name="reward_wait_body">हम इसे आपके लिए तैयार कर रहे हैं। हमारे साथ बने रहें — आप इसे कुछ ही पल में अनलॉक कर सकेंगे।</string>
+    <string name="reward_wait_ready_title">सब तैयार है!</string>
+    <string name="reward_wait_ready">जारी रखने के लिए अभी अनलॉक करें पर टैप करें।</string>
+    <string name="reward_wait_unlock">अभी अनलॉक करें</string>
 </resources>

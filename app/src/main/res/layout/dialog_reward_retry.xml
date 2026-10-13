@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- "Ad not ready" - the rewarded ad didn't load while online: Retry, or Cancel
+     (stays locked). Same card, type and CTA as dialog_reward_unlock. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_ds_reward_dialog"
+        android:clipToOutline="true"
+        android:elevation="24dp"
+        android:orientation="vertical"
+        android:outlineAmbientShadowColor="@color/ds_scrim_shadow"
+        android:outlineSpotShadowColor="@color/ds_scrim_shadow"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/textRetryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/space_grotesk_bold"
+            android:includeFontPadding="false"
+            android:text="@string/reward_retry_title"
+            android:textColor="@color/ds_ink"
+            android:textSize="21sp" />
+
+        <TextView
+            android:id="@+id/textRetryBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/mulish_semibold"
+            android:lineSpacingMultiplier="1.35"
+            android:text="@string/reward_retry_body"
+            android:textColor="@color/ds_ink_subtle"
+            android:textSize="13.5sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/buttonRetryCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:fontFamily="@font/mulish_bold"
+                android:gravity="center"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:paddingHorizontal="6dp"
+                android:text="@string/action_cancel"
+                android:textColor="@color/ds_ink_muted"
+                android:textSize="14.5sp" />
+
+            <TextView
+                android:id="@+id/buttonRetry"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_ds_identify_cta"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/mulish_bold"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minHeight="48dp"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="15dp"
+                android:text="@string/reward_retry"
+                android:textColor="@color/ds_on_accent"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -942,4 +942,13 @@
         <item quantity="many">%1$d контактов</item>
         <item quantity="other">%1$d контактов</item>
     </plurals>
+    <string name="reward_not_earned">Досмотрите рекламу до конца, чтобы разблокировать.</string>
+    <string name="reward_retry_title">Реклама не готова</string>
+    <string name="reward_retry_body">Не удалось загрузить рекламу. Повторите попытку.</string>
+    <string name="reward_retry">Повторить</string>
+    <string name="reward_wait_title">Почти готово к разблокировке</string>
+    <string name="reward_wait_body">Мы всё подготавливаем. Оставайтесь с нами — разблокировать можно будет через мгновение.</string>
+    <string name="reward_wait_ready_title">Всё готово!</string>
+    <string name="reward_wait_ready">Нажмите «Разблокировать сейчас», чтобы продолжить.</string>
+    <string name="reward_wait_unlock">Разблокировать сейчас</string>
 </resources>

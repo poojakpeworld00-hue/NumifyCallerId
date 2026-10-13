@@ -876,4 +876,13 @@
     <plurals name="contacts_group_count">
         <item quantity="other">%1$d 件の連絡先</item>
     </plurals>
+    <string name="reward_not_earned">ロックを解除するには広告を最後まで視聴してください。</string>
+    <string name="reward_retry_title">広告の準備ができていません</string>
+    <string name="reward_retry_body">広告を読み込めませんでした。もう一度お試しください。</string>
+    <string name="reward_retry">再試行</string>
+    <string name="reward_wait_title">まもなくロック解除できます</string>
+    <string name="reward_wait_body">準備を進めています。このままお待ちください。まもなくロックを解除できます。</string>
+    <string name="reward_wait_ready_title">準備完了！</string>
+    <string name="reward_wait_ready">「今すぐロック解除」をタップして続行してください。</string>
+    <string name="reward_wait_unlock">今すぐロック解除</string>
 </resources>

@@ -928,4 +928,13 @@
         <item quantity="one">%1$d contacto</item>
         <item quantity="other">%1$d contactos</item>
     </plurals>
+    <string name="reward_not_earned">Mira el anuncio completo para desbloquear.</string>
+    <string name="reward_retry_title">Anuncio no disponible</string>
+    <string name="reward_retry_body">No pudimos cargar el anuncio. Inténtalo de nuevo.</string>
+    <string name="reward_retry">Reintentar</string>
+    <string name="reward_wait_title">Casi listo para desbloquear</string>
+    <string name="reward_wait_body">Lo estamos preparando para ti. Quédate con nosotros: podrás desbloquearlo en un momento.</string>
+    <string name="reward_wait_ready_title">¡Todo listo!</string>
+    <string name="reward_wait_ready">Toca Desbloquear ahora para continuar.</string>
+    <string name="reward_wait_unlock">Desbloquear ahora</string>
 </resources>

@@ -876,4 +876,13 @@
     <plurals name="contacts_group_count">
         <item quantity="other">%1$d รายชื่อ</item>
     </plurals>
+    <string name="reward_not_earned">ดูโฆษณาจนจบเพื่อปลดล็อก</string>
+    <string name="reward_retry_title">โฆษณายังไม่พร้อม</string>
+    <string name="reward_retry_body">เราโหลดโฆษณาไม่ได้ โปรดลองอีกครั้ง</string>
+    <string name="reward_retry">ลองอีกครั้ง</string>
+    <string name="reward_wait_title">ใกล้พร้อมปลดล็อกแล้ว</string>
+    <string name="reward_wait_body">เรากำลังเตรียมให้คุณ อยู่กับเราอีกนิด — คุณจะปลดล็อกได้ในอีกสักครู่</string>
+    <string name="reward_wait_ready_title">พร้อมแล้ว!</string>
+    <string name="reward_wait_ready">แตะปลดล็อกเลยเพื่อดำเนินการต่อ</string>
+    <string name="reward_wait_unlock">ปลดล็อกเลย</string>
 </resources>

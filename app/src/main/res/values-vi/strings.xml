@@ -876,4 +876,13 @@
     <plurals name="contacts_group_count">
         <item quantity="other">%1$d liên hệ</item>
     </plurals>
+    <string name="reward_not_earned">Xem hết quảng cáo để mở khóa.</string>
+    <string name="reward_retry_title">Quảng cáo chưa sẵn sàng</string>
+    <string name="reward_retry_body">Không tải được quảng cáo. Vui lòng thử lại.</string>
+    <string name="reward_retry">Thử lại</string>
+    <string name="reward_wait_title">Sắp mở khóa được rồi</string>
+    <string name="reward_wait_body">Chúng tôi đang chuẩn bị cho bạn. Hãy chờ một chút — bạn sẽ mở khóa được ngay thôi.</string>
+    <string name="reward_wait_ready_title">Đã sẵn sàng!</string>
+    <string name="reward_wait_ready">Nhấn Mở khóa ngay để tiếp tục.</string>
+    <string name="reward_wait_unlock">Mở khóa ngay</string>
 </resources>

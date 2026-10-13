@@ -938,4 +938,13 @@
         <item quantity="one">%1$d جهة اتصال</item>
         <item quantity="other">%1$d جهات اتصال</item>
     </plurals>
+    <string name="reward_not_earned">شاهد الإعلان بالكامل لفتح القفل.</string>
+    <string name="reward_retry_title">الإعلان غير جاهز</string>
+    <string name="reward_retry_body">تعذّر تحميل الإعلان. يُرجى المحاولة مرة أخرى.</string>
+    <string name="reward_retry">إعادة المحاولة</string>
+    <string name="reward_wait_title">أوشكنا على فتح القفل</string>
+    <string name="reward_wait_body">نجهّز هذا من أجلك. ابقَ معنا — يمكنك فتحه بعد لحظات.</string>
+    <string name="reward_wait_ready_title">كل شيء جاهز!</string>
+    <string name="reward_wait_ready">اضغط على افتح الآن للمتابعة.</string>
+    <string name="reward_wait_unlock">افتح الآن</string>
 </resources>

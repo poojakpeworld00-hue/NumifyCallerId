@@ -876,4 +876,13 @@
     <plurals name="contacts_group_count">
         <item quantity="other">%1$d 位联系人</item>
     </plurals>
+    <string name="reward_not_earned">完整观看广告即可解锁。</string>
+    <string name="reward_retry_title">广告尚未就绪</string>
+    <string name="reward_retry_body">无法加载广告，请重试。</string>
+    <string name="reward_retry">重试</string>
+    <string name="reward_wait_title">即将解锁</string>
+    <string name="reward_wait_body">我们正在为你准备，请稍候——马上就能解锁。</string>
+    <string name="reward_wait_ready_title">准备就绪！</string>
+    <string name="reward_wait_ready">点按“立即解锁”继续。</string>
+    <string name="reward_wait_unlock">立即解锁</string>
 </resources>

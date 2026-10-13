@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.callerid.numberlookup.home.R
@@ -29,7 +30,9 @@ import com.callerid.numberlookup.home.monetize.strategy.AdPreferenceStore
  *
  * [show] is the whole contract: with ads off it grants immediately and shows
  * nothing; with ads on it runs the dialog, then [RewardedAdPresenter], then the
- * callback once the reward is earned. Cancelling grants nothing.
+ * callback once its result is EARNED (which includes the no-internet, no-fill
+ * "free" and Retry-exhausted unlocks - see RewardedAdPresenter). Cancelling, a
+ * skipped ad, or "Not now" on its own dialogs grant nothing.
  */
 object RewardPrompt {
 
@@ -119,7 +122,16 @@ object RewardPrompt {
 
         binding.buttonWatchAd.setOnClickListener {
             dialog.dismiss()
-            RewardedAdPresenter().show(activity) { onGranted() }
+            RewardedAdPresenter().show(activity) { result ->
+                when (result) {
+                    RewardedAdPresenter.Result.EARNED -> onGranted()
+                    // Closed before the reward: say why nothing unlocked.
+                    RewardedAdPresenter.Result.NOT_EARNED -> if (!activity.isFinishing && !activity.isDestroyed) {
+                        Toast.makeText(activity, R.string.reward_not_earned, Toast.LENGTH_SHORT).show()
+                    }
+                    RewardedAdPresenter.Result.CANCELED -> Unit
+                }
+            }
         }
         binding.buttonCancel.setOnClickListener { dialog.dismiss() }
         dialog.show()

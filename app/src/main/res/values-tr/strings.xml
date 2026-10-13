@@ -884,4 +884,13 @@
         <item quantity="one">%1$d kişi</item>
         <item quantity="other">%1$d kişi</item>
     </plurals>
+    <string name="reward_not_earned">Kilidi açmak için reklamın tamamını izleyin.</string>
+    <string name="reward_retry_title">Reklam hazır değil</string>
+    <string name="reward_retry_body">Reklam yüklenemedi. Lütfen tekrar deneyin.</string>
+    <string name="reward_retry">Tekrar dene</string>
+    <string name="reward_wait_title">Kilidi açmaya neredeyse hazır</string>
+    <string name="reward_wait_body">Bunu sizin için hazırlıyoruz. Bizimle kalın — birazdan kilidi açabileceksiniz.</string>
+    <string name="reward_wait_ready_title">Her şey hazır!</string>
+    <string name="reward_wait_ready">Devam etmek için Şimdi kilidi aç\'a dokunun.</string>
+    <string name="reward_wait_unlock">Şimdi kilidi aç</string>
 </resources>

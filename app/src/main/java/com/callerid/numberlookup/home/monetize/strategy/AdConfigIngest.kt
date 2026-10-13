@@ -80,7 +80,9 @@ object AdConfigIngest {
                 // review reads, and it has to change without a release.
                 "data_deletion",
                 // Base URL of the AI proxy. Blank keeps the assistant on-device.
-                "ai_assistant_endpoint"
+                "ai_assistant_endpoint",
+                // Rewarded no-fill handling: cooldown, free / wait mode, Retry limit (RewardedConfig).
+                "rewarded"
             ).forEach { key -> if (root.has(key)) putString(key, root.optString(key, "")) }
 
             // screen_order is a JSON array, stored as text like the objects above
