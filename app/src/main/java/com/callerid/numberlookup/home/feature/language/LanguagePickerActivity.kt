@@ -273,12 +273,10 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
 
     private fun onContinue() {
         val tag = viewModel.selectedTag.value ?: PreferenceStore.LANGUAGE_DEFAULT
-        PreferenceStore.setLanguage(this, tag)  // source of truth for Splash + BaseActivity.applyLocale
-        prefs.isLanguageSelected = true
 
         // Opened from Settings: just apply and return; don't drive the first-run flow.
         if (standalone) {
-            LanguageRepository.apply(tag) // recreates activities with the new locale
+            commitLanguage(tag)
             finish()
             return
         }
@@ -287,7 +285,7 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
         if (fromUninstall) {
             UninstallFlow.track(this, "uninstall_language_continue", "language" to tag)
             val proceed: () -> Unit = {
-                LanguageRepository.apply(tag)
+                commitLanguage(tag)
                 startActivity(UninstallSorryActivity.newIntent(this, advanced = true))
                 finish()
             }
@@ -295,11 +293,11 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
             return
         }
 
-        // First-run flow. Show the permission(s) FIRST, then apply the locale and
-        // navigate in the completion callback. Applying the locale recreates this
-        // Activity, and finishing it early tears it down — either one aborts an
-        // in-flight permission request (that's why nothing showed and the app
-        // closed). So we defer BOTH until the engine reports it's done.
+        // First-run flow. Show the permission(s) FIRST, then save + apply the
+        // locale and navigate in the completion callback. Finishing early tears
+        // this Activity down and aborts an in-flight permission request (that's
+        // why nothing showed and the app closed), so everything waits for the
+        // engine to report it's done.
         PermissionCoordinator.checkScreenPermissions(this, OnboardingStepConfig.LANGUAGE_KEY) {
             // Next screen: the first eligible entry in screen_order after "language"
             // (walks straight past a disabled/ineligible fsi_permission etc.), else Home.
@@ -307,14 +305,13 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
             val nextClass = nextKey?.let { OnboardingStepConfig.classFor(it) } ?: MainShellActivity::class.java
             val intent = Intent(this, nextClass)
             val proceed: () -> Unit = {
-                LanguageRepository.apply(tag) // recreates activities with the new locale
+                commitLanguage(tag)
                 startActivity(intent)
                 finish()
             }
             // Permission done → show the interstitial (only when
             // `screen.language.isInterShow` is on) → THEN apply the locale and
-            // navigate. LanguageRepository.apply recreates this Activity, so it must run
-            // after the ad (doing it earlier would tear the ad down).
+            // navigate.
             val isInterShow = OnboardingStepConfig.stepConfig(this, OnboardingStepConfig.LANGUAGE_KEY)
                 ?.isInterShow ?: false
             if (isInterShow) {
@@ -323,6 +320,27 @@ class LanguagePickerActivity : BaseActivity<ActivityLanguageBinding>() {
                 proceed()
             }
         }
+    }
+
+    /**
+     * Saves [tag] and switches the app to it - the last step before leaving.
+     *
+     * Saving waits until here on purpose. BaseActivity.onResume recreates any
+     * screen whose saved language no longer matches the one it was built in, and
+     * this screen resumes mid-flow: after the permission dialog and after the
+     * interstitial. Saved any earlier, Continue rebuilt the whole screen at that
+     * point - the blink, a second footer-ad render that ate the ad the next
+     * screen was meant to get, and a second markShown for the frequency gate.
+     *
+     * The apply itself no longer rebuilds this screen either: the manifest gives
+     * it `configChanges="locale|layoutDirection"`, so AppCompat hands it the new
+     * configuration instead of recreating it. Only the next screen, created
+     * after this, is built in the new language - which is all the user sees.
+     */
+    private fun commitLanguage(tag: String) {
+        PreferenceStore.setLanguage(this, tag)  // source of truth for Splash + BaseActivity.applyLocale
+        prefs.isLanguageSelected = true
+        LanguageRepository.apply(tag)
     }
 
     companion object {
