@@ -89,6 +89,7 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
         )
         binding.buttonFavourite.setOnClickListener { toggleFavourite() }
         binding.buttonEditContact.setOnClickListener { editContact() }
+        binding.buttonAddContact.setOnClickListener { addToContacts() }
 
         binding.buttonCall.setOnClickListener { placeCall(number) }
         binding.buttonMessage.setOnClickListener { message() }
@@ -345,6 +346,7 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
             this@CallDetailsActivity.contactId = contactId
             binding.buttonFavourite.isVisible = contactId != null
             binding.buttonEditContact.isVisible = contactId != null
+            binding.buttonAddContact.isVisible = contactId == null && number.isNotBlank()
             paintFavourite(starred)
         }
     }
@@ -369,6 +371,24 @@ class CallDetailsActivity : BaseActivity<ActivityCallDetailBinding>() {
         if (!launch(edit) && !launch(Intent(Intent.ACTION_VIEW, uri))) {
             toast(R.string.edit_contact_unavailable)
         }
+    }
+
+    /**
+     * Saves [number] through the system Contacts app.
+     *
+     * INSERT_OR_EDIT rather than INSERT: the system shows its own "Create new
+     * contact / Add to existing" chooser, so a second number for someone already
+     * saved does not end up as a duplicate person. The number arrives pre-filled.
+     * Once saved, onResume finds the contact, swaps this button for Edit and the
+     * star, and picks up the new name.
+     */
+    private fun addToContacts() {
+        if (number.isBlank()) return
+        val insert = Intent(Intent.ACTION_INSERT_OR_EDIT)
+            .setType(ContactsContract.Contacts.CONTENT_ITEM_TYPE)
+            .putExtra(ContactsContract.Intents.Insert.PHONE, number)
+            .putExtra("finishActivityOnSaveCompleted", true)
+        if (!launch(insert)) toast(R.string.toast_no_contacts_app)
     }
 
     /** Filled and brand-coloured when starred, outline and muted when not. */

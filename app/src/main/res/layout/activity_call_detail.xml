@@ -68,6 +68,22 @@
                 android:textColor="@color/ds_ink"
                 android:textSize="22sp" />
 
+            <!-- Add to contacts. The opposite case to Edit and the star: shown
+                 only while the number is NOT a saved contact, and hands it to the
+                 system Contacts app's "create new / add to existing" chooser. -->
+            <ImageView
+                android:id="@+id/buttonAddContact"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_ds_back_chip"
+                android:contentDescription="@string/add_to_contacts"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                android:src="@drawable/ic_person_add"
+                android:visibility="gone"
+                app:tint="@color/ds_ink_muted"
+                tools:visibility="visible" />
+
             <!-- Edit. Hands the contact to the system Contacts editor. Hidden
                  with the star, for the same reason: no contact, nothing to edit. -->
             <ImageView
