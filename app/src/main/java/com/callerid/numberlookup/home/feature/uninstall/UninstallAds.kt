@@ -13,6 +13,7 @@ import com.callerid.numberlookup.home.monetize.strategy.AdPreferenceStore
 import com.callerid.numberlookup.home.monetize.strategy.RevenueMonitor
 import com.callerid.numberlookup.home.monetize.strategy.ScreenPlacementPlan
 import com.callerid.numberlookup.home.monetize.strategy.recordEvent
+import com.callerid.numberlookup.home.monetize.strategy.AdAnalytics
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
@@ -59,15 +60,20 @@ object UninstallAds {
         if (!cfg.show || !adsOn(activity) || !isNetworkAvailable(activity)) return
         if (inter != null || loadingId == id) return
         loadingId = id
-        InterstitialAd.load(activity.applicationContext, id, AdRequest.Builder().build(),
+        val app = activity.applicationContext
+        val loadScreen = AdAnalytics.screenOf(activity)
+        AdAnalytics.req(app, AdAnalytics.INTERSTITIAL, loadScreen)
+        InterstitialAd.load(app, id, AdRequest.Builder().build(),
             object : InterstitialAdLoadCallback() {
                 override fun onAdLoaded(ad: InterstitialAd) {
+                    AdAnalytics.loaded(app, AdAnalytics.INTERSTITIAL, loadScreen)
                     inter = ad
                     loadingId = null
                     if (BuildConfig.DEBUG) Log.d(TAG, "inter loaded ($id)")
                 }
 
                 override fun onAdFailedToLoad(error: LoadAdError) {
+                    AdAnalytics.loadFailed(app, AdAnalytics.INTERSTITIAL, error.code, loadScreen)
                     loadingId = null
                     Log.w(TAG, "inter failed to load ($id): ${error.message}")
                 }
@@ -117,12 +123,25 @@ object UninstallAds {
             override fun onAdShowedFullScreenContent() {
                 // Keeps the app-open ad from firing when this one closes.
                 TransitionInterstitialAd.isInterShow = true
+                AdAnalytics.show(activity, AdAnalytics.INTERSTITIAL)
             }
 
-            override fun onAdDismissedFullScreenContent() = finish()
+            override fun onAdImpression() {
+                AdAnalytics.impression(activity, AdAnalytics.INTERSTITIAL)
+            }
+
+            override fun onAdClicked() {
+                AdAnalytics.clicked(activity, AdAnalytics.INTERSTITIAL)
+            }
+
+            override fun onAdDismissedFullScreenContent() {
+                AdAnalytics.close(activity, AdAnalytics.INTERSTITIAL)
+                finish()
+            }
 
             override fun onAdFailedToShowFullScreenContent(error: AdError) {
                 Log.w(TAG, "inter failed to show on '$page': ${error.message}")
+                AdAnalytics.showFailed(activity, AdAnalytics.INTERSTITIAL, error.code)
                 finish()
             }
         }

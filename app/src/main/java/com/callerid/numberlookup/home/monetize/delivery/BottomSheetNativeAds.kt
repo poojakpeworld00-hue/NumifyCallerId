@@ -1,4 +1,5 @@
 package com.callerid.numberlookup.home.monetize.delivery
+import com.callerid.numberlookup.home.monetize.strategy.AdAnalytics
 import android.app.Activity
 import android.content.Context
 import android.content.res.ColorStateList
@@ -129,6 +130,7 @@ class BottomSheetNativeAds {
             adListener = object : AdListener() {
 
                 override fun onAdLoaded() {
+                    AdAnalytics.loaded(activity, AdAnalytics.BANNER)
                     if (activity.isActivityDestroyedCompat()) return
                     adContainer.post {
                         if (activity.isActivityDestroyedCompat()) return@post
@@ -152,12 +154,15 @@ class BottomSheetNativeAds {
                         adContainer.findFocus()?.clearFocus()
                         adContainer.addView(this@apply)
                         adContainer.visibility = View.VISIBLE
+                        AdAnalytics.shown(activity, AdAnalytics.BANNER)
                         onResult(true)
                         Log.d("GoogleBanner", "Loaded")
                     }
                 }
 
                 override fun onAdFailedToLoad(error: LoadAdError) {
+                    // This failure used to log nothing at all.
+                    AdAnalytics.loadFailed(activity, AdAnalytics.BANNER, error.code)
                     if (activity.isActivityDestroyedCompat()) return
                     adContainer.post {
                         if (activity.isActivityDestroyedCompat()) return@post
@@ -173,6 +178,11 @@ class BottomSheetNativeAds {
                         activity.recordEvent("BS_banner_clicked")
                     } catch (_: Exception) {
                     }
+                    AdAnalytics.clicked(activity, AdAnalytics.BANNER)
+                }
+
+                override fun onAdImpression() {
+                    AdAnalytics.impression(activity, AdAnalytics.BANNER)
                 }
 
                 override fun onAdOpened() {
@@ -193,6 +203,7 @@ class BottomSheetNativeAds {
             AdRequest.Builder().build()
         }
 
+        AdAnalytics.req(activity, AdAnalytics.BANNER)
         bannerAdView.loadAd(adRequest)
     }
 
@@ -214,6 +225,8 @@ class BottomSheetNativeAds {
 
         val fbBanner =
             com.facebook.ads.AdView(activity, fbId, com.facebook.ads.AdSize.BANNER_HEIGHT_50)
+        val fb = AdAnalytics.FACEBOOK
+        AdAnalytics.req(activity, AdAnalytics.BANNER, network = fb)
 
         fbBanner.loadAd(
             fbBanner.buildLoadAdConfig()
@@ -221,6 +234,7 @@ class BottomSheetNativeAds {
 
                     override fun onError(ad: Ad?, err: AdError?) {
                         Log.e("FBBanner", "Fail:${err?.errorMessage}")
+                        AdAnalytics.loadFailed(activity, AdAnalytics.BANNER, err?.errorCode ?: -1, network = fb)
                         PromoAdManager().loadPromoAd(
                             activity,
                             layout,
@@ -229,6 +243,7 @@ class BottomSheetNativeAds {
                     }
 
                     override fun onAdLoaded(ad: Ad?) {
+                        AdAnalytics.loaded(activity, AdAnalytics.BANNER, network = fb)
                         if (activity.isActivityDestroyedCompat()) return
                         layout.post {
                             if (activity.isActivityDestroyedCompat()) return@post
@@ -236,11 +251,16 @@ class BottomSheetNativeAds {
                             layout.removeAllViews()
                             layout.addView(fbBanner)
                             layout.visibility = View.VISIBLE
+                            AdAnalytics.shown(activity, AdAnalytics.BANNER, network = fb)
                         }
                     }
 
-                    override fun onAdClicked(ad: Ad?) {}
-                    override fun onLoggingImpression(ad: Ad?) {}
+                    override fun onAdClicked(ad: Ad?) {
+                        AdAnalytics.clicked(activity, AdAnalytics.BANNER, network = fb)
+                    }
+                    override fun onLoggingImpression(ad: Ad?) {
+                        AdAnalytics.impression(activity, AdAnalytics.BANNER, network = fb)
+                    }
                 }).build()
         )
     }
@@ -279,6 +299,7 @@ class BottomSheetNativeAds {
                     }
                     BCnativeAd?.destroy()
                     BCnativeAd = nativeAds
+                    AdAnalytics.loaded(context, AdAnalytics.NATIVE)
                     try {
                         context.recordEvent("NativeAds_BS_load")
                     } catch (e: Exception) {
@@ -296,6 +317,7 @@ class BottomSheetNativeAds {
                             context.recordEvent("NativeAds_BS_Fail")
                         } catch (e: Exception) {
                         }
+                        AdAnalytics.loadFailed(context, AdAnalytics.NATIVE, loadAdError.code)
                         BCnativeAd = null
                     }
                 })
@@ -303,6 +325,7 @@ class BottomSheetNativeAds {
                 .build()
         }
 
+        if (adLoader != null) AdAnalytics.req(context, AdAnalytics.NATIVE)
         adLoader?.loadAd(AdRequest.Builder().build())
     }
 
@@ -360,6 +383,7 @@ class BottomSheetNativeAds {
                             }
 //                            BCnativeAd?.destroy()
 //                            BCnativeAd = nativeAds
+                            AdAnalytics.loaded(context, AdAnalytics.NATIVE)
                             try {
                                 val binding = AdmobBigNativeBinding.inflate(context.layoutInflater)
                                 bigNativeTemplate(nativeAds, binding, context)
@@ -368,6 +392,7 @@ class BottomSheetNativeAds {
                                     layout.findFocus()?.clearFocus()
                                     layout.removeAllViews()
                                     layout.addView(binding.root)
+                                    AdAnalytics.shown(context, AdAnalytics.NATIVE)
                                 }
 
                                 // Revenue callback
@@ -412,6 +437,7 @@ class BottomSheetNativeAds {
                         .withAdListener(object : AdListener() {
                             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                                 super.onAdFailedToLoad(loadAdError)
+                                AdAnalytics.loadFailed(context, AdAnalytics.NATIVE, loadAdError.code)
                                 if (context.isActivityDestroyedCompat()) return
                                 Log.e(
                                     "987654321",
@@ -439,11 +465,20 @@ class BottomSheetNativeAds {
                                 } catch (e: Exception) {
                                 }
                             }
+
+                            override fun onAdImpression() {
+                                AdAnalytics.impression(context, AdAnalytics.NATIVE)
+                            }
+
+                            override fun onAdClicked() {
+                                AdAnalytics.clicked(context, AdAnalytics.NATIVE)
+                            }
                         })
                         .withNativeAdOptions(NativeAdOptions.Builder().build())
                         .build()
                 }
 
+                if (adLoader != null) AdAnalytics.req(context, AdAnalytics.NATIVE)
                 adLoader?.loadAd(AdRequest.Builder().build())
             }
 
@@ -544,6 +579,8 @@ class BottomSheetNativeAds {
         }
 
         val fbNative = com.facebook.ads.NativeAd(context, fbId)
+        val fb = AdAnalytics.FACEBOOK
+        AdAnalytics.req(context, AdAnalytics.NATIVE, network = fb)
         fbNative.loadAd(
             fbNative.buildLoadAdConfig().withAdListener(object : NativeAdListener {
                 override fun onMediaDownloaded(ad: Ad?) {
@@ -553,10 +590,12 @@ class BottomSheetNativeAds {
                         layout.findFocus()?.clearFocus()
                         layout.removeAllViews()
                         bindMetaNative(fbNative, layout, context)
+                        AdAnalytics.shown(context, AdAnalytics.NATIVE, network = fb)
                     }
                 }
 
                 override fun onError(ad: Ad?, adError: AdError?) {
+                    AdAnalytics.loadFailed(context, AdAnalytics.NATIVE, adError?.errorCode ?: -1, network = fb)
                     if (context.isActivityDestroyedCompat()) return
                     Log.e("NativeAds", "FB ad failed: ${adError?.errorMessage}")
                     // fallback to Custom
@@ -572,12 +611,17 @@ class BottomSheetNativeAds {
 
                 override fun onAdLoaded(ad: Ad?) {
                     if (fbNative !== ad) return
+                    AdAnalytics.loaded(context, AdAnalytics.NATIVE, network = fb)
                     context.recordEvent("NativeAds_showBigNative_FB_Load")
                     fbNative.downloadMedia()
                 }
 
-                override fun onAdClicked(ad: Ad?) {}
-                override fun onLoggingImpression(ad: Ad?) {}
+                override fun onAdClicked(ad: Ad?) {
+                    AdAnalytics.clicked(context, AdAnalytics.NATIVE, network = fb)
+                }
+                override fun onLoggingImpression(ad: Ad?) {
+                    AdAnalytics.impression(context, AdAnalytics.NATIVE, network = fb)
+                }
             }).build()
         )
     }

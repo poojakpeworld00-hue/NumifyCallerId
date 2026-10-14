@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.monetize.delivery
 
+import com.callerid.numberlookup.home.monetize.strategy.AdAnalytics
 import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
@@ -317,14 +318,14 @@ open class AdAwareActivity : AppCompatActivity() {
                 // coroutine here, so this suspends rather than blocking the main thread.
                 // The result is persisted so every other reader of OnMaketing (FSI /
                 // intro / permission audience split) sees the same value.
-                val isMarketingOn = suspendCancellableCoroutine { continuation ->
+                /*val isMarketingOn = suspendCancellableCoroutine { continuation ->
                     LightHouse.resolveAttribution { attribution ->
                         if (continuation.isActive) {
                             continuation.resume(attribution == Attribution.PAID)
                         }
                     }
-                }
-
+                }*/
+                val isMarketingOn = true
                 adsPreference.putBoolean("OnMaketing", isMarketingOn)
 
                 // Top-level audience split only: OnMaketing is now final (referrer
@@ -767,6 +768,7 @@ open class AdAwareActivity : AppCompatActivity() {
         onFailed: (() -> Unit)? = null
     ) {
         Log.d(APPOPEN_TAG, "load() → requesting AppOpen, id=$adUnitId")
+        AdAnalytics.req(activity, AdAnalytics.APP_OPEN)
         AppOpenAd.load(
             activity,
             adUnitId,
@@ -779,6 +781,7 @@ open class AdAwareActivity : AppCompatActivity() {
                         "load FAILED → code=${loadAdError.code}, domain=${loadAdError.domain}, " +
                             "message=${loadAdError.message}"
                     )
+                    AdAnalytics.loadFailed(activity, AdAnalytics.APP_OPEN, loadAdError.code)
                     appOpenAd = null
                     AppOpenAdManager.isShowingAd = false
                     onFailed?.invoke()
@@ -786,6 +789,7 @@ open class AdAwareActivity : AppCompatActivity() {
 
                 override fun onAdLoaded(ad: AppOpenAd) {
                     Log.d(APPOPEN_TAG, "load SUCCESS → AppOpen ad is ready to show")
+                    AdAnalytics.loaded(activity, AdAnalytics.APP_OPEN)
                     appOpenAd = ad
                     onLoaded?.invoke()
                 }
@@ -797,16 +801,27 @@ open class AdAwareActivity : AppCompatActivity() {
             Log.d(APPOPEN_TAG, "show() → displaying AppOpen ad")
             ad.fullScreenContentCallback = object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
+                    AdAnalytics.close(activity, AdAnalytics.APP_OPEN)
                     onDismissed?.invoke()
                     AppOpenAdManager.isShowingAd = false
                 }
 
                 override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                    AdAnalytics.showFailed(activity, AdAnalytics.APP_OPEN, adError.code)
                     onDismissed?.invoke()
                 }
 
                 override fun onAdShowedFullScreenContent() {
+                    AdAnalytics.show(activity, AdAnalytics.APP_OPEN)
                     AppOpenAdManager.isShowingAd = true
+                }
+
+                override fun onAdImpression() {
+                    AdAnalytics.impression(activity, AdAnalytics.APP_OPEN)
+                }
+
+                override fun onAdClicked() {
+                    AdAnalytics.clicked(activity, AdAnalytics.APP_OPEN)
                 }
             }
             // Log load
@@ -836,14 +851,17 @@ open class AdAwareActivity : AppCompatActivity() {
         onLoaded: (() -> Unit)? = null,
         onFailed: (() -> Unit)? = null
     ) {
+        AdAnalytics.req(activity, AdAnalytics.INTERSTITIAL)
         InterstitialAd.load(
             activity, adUnitId, AdRequest.Builder().build(), object : InterstitialAdLoadCallback() {
                 override fun onAdLoaded(ad: InterstitialAd) {
+                    AdAnalytics.loaded(activity, AdAnalytics.INTERSTITIAL)
                     interstitialAd = ad
                     onLoaded?.invoke()
                 }
 
                 override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                    AdAnalytics.loadFailed(activity, AdAnalytics.INTERSTITIAL, loadAdError.code)
                     interstitialAd = null
                     onFailed?.invoke()
                 }
@@ -854,14 +872,25 @@ open class AdAwareActivity : AppCompatActivity() {
         interstitialAd?.let { ad ->
             ad.fullScreenContentCallback = object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
+                    AdAnalytics.close(activity, AdAnalytics.INTERSTITIAL)
                     onDismissed?.invoke()
                 }
 
                 override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                    AdAnalytics.showFailed(activity, AdAnalytics.INTERSTITIAL, adError.code)
                     onDismissed?.invoke()
                 }
 
                 override fun onAdShowedFullScreenContent() {
+                    AdAnalytics.show(activity, AdAnalytics.INTERSTITIAL)
+                }
+
+                override fun onAdImpression() {
+                    AdAnalytics.impression(activity, AdAnalytics.INTERSTITIAL)
+                }
+
+                override fun onAdClicked() {
+                    AdAnalytics.clicked(activity, AdAnalytics.INTERSTITIAL)
                 }
             }
 
@@ -890,23 +919,34 @@ open class AdAwareActivity : AppCompatActivity() {
         onDismissed: (() -> Unit)? = null // Added parameter
     ) {
         fbInterstitial = com.facebook.ads.InterstitialAd(activity, adUnitId)
+        val fb = AdAnalytics.FACEBOOK
+        AdAnalytics.req(activity, AdAnalytics.INTERSTITIAL, network = fb)
         fbInterstitial?.loadAd(
             fbInterstitial!!.buildLoadAdConfig().withAdListener(object : InterstitialAdListener {
-                override fun onInterstitialDisplayed(ad: Ad?) {}
+                override fun onInterstitialDisplayed(ad: Ad?) {
+                    AdAnalytics.show(activity, AdAnalytics.INTERSTITIAL, network = fb)
+                }
                 override fun onInterstitialDismissed(ad: Ad?) {
+                    AdAnalytics.close(activity, AdAnalytics.INTERSTITIAL, network = fb)
                     onDismissed?.invoke()
                 }
 
                 override fun onError(ad: Ad?, adError: com.facebook.ads.AdError?) {
+                    AdAnalytics.loadFailed(activity, AdAnalytics.INTERSTITIAL, adError?.errorCode ?: -1, network = fb)
                     onFailed?.invoke()
                 }
 
                 override fun onAdLoaded(ad: Ad?) {
+                    AdAnalytics.loaded(activity, AdAnalytics.INTERSTITIAL, network = fb)
                     onLoaded?.invoke()
                 }
 
-                override fun onAdClicked(ad: Ad?) {}
-                override fun onLoggingImpression(ad: Ad?) {}
+                override fun onAdClicked(ad: Ad?) {
+                    AdAnalytics.clicked(activity, AdAnalytics.INTERSTITIAL, network = fb)
+                }
+                override fun onLoggingImpression(ad: Ad?) {
+                    AdAnalytics.impression(activity, AdAnalytics.INTERSTITIAL, network = fb)
+                }
             }).build()
         )
     }

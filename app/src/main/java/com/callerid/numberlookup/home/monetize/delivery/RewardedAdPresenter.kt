@@ -25,6 +25,9 @@ import com.callerid.numberlookup.home.databinding.DialogRewardWaitBinding
 import com.callerid.numberlookup.home.monetize.delivery.fullpage.InterstitialAdCache
 import com.callerid.numberlookup.home.monetize.delivery.fullpage.TransitionInterstitialAd
 import com.callerid.numberlookup.home.monetize.strategy.AdPreferenceStore
+import com.callerid.numberlookup.home.monetize.strategy.AdAnalytics
+import com.callerid.numberlookup.home.monetize.strategy.RevenueMonitor
+import com.callerid.numberlookup.home.BuildConfig
 import com.callerid.numberlookup.home.monetize.strategy.RewardedConfig
 import com.callerid.numberlookup.home.monetize.strategy.RewardedCooldown
 import com.callerid.numberlookup.home.monetize.strategy.recordEvent
@@ -103,6 +106,8 @@ class RewardedAdPresenter {
             isLoading = true
             loadStartedAt = System.currentTimeMillis()
             Log.d(TAG, "Preloading…")
+            val loadScreen = AdAnalytics.screenOf(context)
+            AdAnalytics.req(app, AdAnalytics.REWARDED, loadScreen)
 
             RewardedAd.load(
                 app,
@@ -113,6 +118,7 @@ class RewardedAdPresenter {
                         loadedAd = ad
                         isLoading = false
                         RewardedCooldown.reset(app)
+                        AdAnalytics.loaded(app, AdAnalytics.REWARDED, loadScreen)
                         Log.d(TAG, "Preloaded OK")
                         flushWaiting()
                     }
@@ -121,6 +127,7 @@ class RewardedAdPresenter {
                         loadedAd = null
                         isLoading = false
                         Log.e(TAG, "Preload failed (${error.code}): ${error.message}")
+                        AdAnalytics.loadFailed(app, AdAnalytics.REWARDED, error.code, loadScreen)
                         if (error.code in NO_FILL_CODES) {
                             app.recordEvent("reward_nofill")
                             RewardedCooldown.start(app)
@@ -230,14 +237,33 @@ class RewardedAdPresenter {
         // Set by the SDK's reward callback, which arrives before the dismiss.
         var earned = false
 
+        // Revenue: rewarded impressions were never reported before.
+        if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(activity)
+        ad.setOnPaidEventListener { RevenueMonitor.reportPaidEvent(activity, it) }
+
         ad.fullScreenContentCallback = object : FullScreenContentCallback() {
+            override fun onAdShowedFullScreenContent() {
+                AdAnalytics.show(activity, AdAnalytics.REWARDED)
+            }
+
+            override fun onAdImpression() {
+                AdAnalytics.impression(activity, AdAnalytics.REWARDED)
+            }
+
+            override fun onAdClicked() {
+                AdAnalytics.clicked(activity, AdAnalytics.REWARDED)
+            }
+
             override fun onAdDismissedFullScreenContent() {
                 Log.d(TAG, "Dismissed, earned=$earned")
+                AdAnalytics.close(activity, AdAnalytics.REWARDED)
+                AdAnalytics.rewardOutcome(activity, earned)
                 preload(activity)
                 onDone(if (earned) Result.EARNED else Result.NOT_EARNED)
             }
 
             override fun onAdFailedToShowFullScreenContent(error: AdError) {
+                AdAnalytics.showFailed(activity, AdAnalytics.REWARDED, error.code)
                 Log.e(TAG, "Show failed: ${error.message} — showing DirectLink fallback")
                 preload(activity)
                 showDirectLinkFallback(activity) { onDone(Result.EARNED) }

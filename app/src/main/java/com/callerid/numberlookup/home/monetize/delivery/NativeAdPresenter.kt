@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.monetize.delivery
 
+import com.callerid.numberlookup.home.monetize.strategy.AdAnalytics
 import android.R.attr.visibility
 import android.app.Activity
 import android.content.res.ColorStateList
@@ -74,6 +75,22 @@ class NativeAdPresenter() {
 
         /** How long a slot keeps its shimmer up waiting for the ad before falling back. */
         private const val NATIVE_WAIT_MS = 8_000L
+
+        /**
+         * The screen each pooled ad was shown on. A pooled ad is loaded by one
+         * screen and shown by another; its impression and click callbacks are
+         * wired at load time, so they look it up here to report the screen the
+         * user actually saw it on.
+         */
+        private val shownOn = java.util.WeakHashMap<NativeAd, String>()
+
+        /** Records that [ad] went on screen in [activity]: `ad_native_shown`. */
+        private fun markShown(activity: Activity, ad: NativeAd?) {
+            ad ?: return
+            val screen = AdAnalytics.screenOf(activity)
+            shownOn[ad] = screen
+            AdAnalytics.shown(activity, AdAnalytics.NATIVE, screen)
+        }
 
         /**
          * Hands the fresh ad to the oldest waiter whose screen is still up; the
@@ -152,9 +169,15 @@ class NativeAdPresenter() {
         if (loadInFlight && observer == null) return
         isLoading = true
         loadStartedAt = System.currentTimeMillis()
+        AdAnalytics.req(context, AdAnalytics.NATIVE)
+        // The ad this load produced, for its impression/click callbacks below.
+        var loadedAd: NativeAd? = null
+        fun displayScreen() = loadedAd?.let { shownOn[it] } ?: AdAnalytics.screenOf(context)
         val adLoader =
             AdLoader.Builder(context, adUnit)
                 .forNativeAd { nativeAds ->
+                    loadedAd = nativeAds
+                    AdAnalytics.loaded(context, AdAnalytics.NATIVE)
                     // Always cache the ad — even when the activity that
                     // triggered this load is destroyed by the time the ad
                     // lands. The cache is a static field; it survives
@@ -189,6 +212,7 @@ class NativeAdPresenter() {
                     override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                         super.onAdFailedToLoad(loadAdError)
                         isLoading = false
+                        AdAnalytics.loadFailed(context, AdAnalytics.NATIVE, loadAdError.code)
                         releaseAllWaiters()
                         if (context.isActivityDestroyedCompat()) return
                         observer?.onNativeAdFailed()
@@ -201,6 +225,16 @@ class NativeAdPresenter() {
                         } catch (e: Exception) {
                         }
                         nativeAd = null
+                    }
+
+                    // Not overridden before, so no counted impression or click was
+                    // ever logged for a Google native.
+                    override fun onAdImpression() {
+                        AdAnalytics.impression(context, AdAnalytics.NATIVE, displayScreen())
+                    }
+
+                    override fun onAdClicked() {
+                        AdAnalytics.clicked(context, AdAnalytics.NATIVE, displayScreen())
                     }
                 })
                 .withNativeAdOptions(NativeAdOptions.Builder().build())
@@ -254,8 +288,10 @@ class NativeAdPresenter() {
         shimmer?.startShimmer()
         shimmer?.isVisible = true
 
+        AdAnalytics.req(context, AdAnalytics.NATIVE)
         AdLoader.Builder(context, adUnitId)
             .forNativeAd { ad ->
+                AdAnalytics.loaded(context, AdAnalytics.NATIVE)
                 if (context.isActivityDestroyedCompat()) {
                     ad.destroy()
                     return@forNativeAd
@@ -277,11 +313,21 @@ class NativeAdPresenter() {
                 ad.setOnPaidEventListener { RevenueMonitor.reportPaidEvent(context, it) }
                 if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(context)
                 context.recordEvent("NativeAds_show_${key}_own_unit")
+                AdAnalytics.shown(context, AdAnalytics.NATIVE)
             }
             .withAdListener(object : AdListener() {
                 override fun onAdFailedToLoad(error: LoadAdError) {
                     Log.e("NativeAds", "Native $key ($adUnitId) failed: ${error.message}")
+                    AdAnalytics.loadFailed(context, AdAnalytics.NATIVE, error.code)
                     if (!context.isActivityDestroyedCompat()) hide()
+                }
+
+                override fun onAdImpression() {
+                    AdAnalytics.impression(context, AdAnalytics.NATIVE)
+                }
+
+                override fun onAdClicked() {
+                    AdAnalytics.clicked(context, AdAnalytics.NATIVE)
                 }
             })
             .withNativeAdOptions(NativeAdOptions.Builder().build())
@@ -367,6 +413,7 @@ class NativeAdPresenter() {
                             layout.addView(rootView)
 
                             context.recordEvent("NativeAds_showBigNative_Google")
+                            markShown(context, nativeAd)
 
                             if (BuildConfig.DEBUG) {
                                 RevenueMonitor.logDebugRevenue(context)
@@ -542,6 +589,8 @@ class NativeAdPresenter() {
         }
 
         val fbNative = com.facebook.ads.NativeAd(context, fbId)
+        val fb = AdAnalytics.FACEBOOK
+        AdAnalytics.req(context, AdAnalytics.NATIVE, network = fb)
 
         fbNative.loadAd(
             fbNative.buildLoadAdConfig().withAdListener(object : NativeAdListener {
@@ -554,10 +603,12 @@ class NativeAdPresenter() {
                         layout.findFocus()?.clearFocus()
                         layout.removeAllViews()
                         bindMetaNative(fbNative, layout, context)
+                        AdAnalytics.shown(context, AdAnalytics.NATIVE, network = fb)
                     }
                 }
 
                 override fun onError(ad: Ad?, adError: AdError?) {
+                    AdAnalytics.loadFailed(context, AdAnalytics.NATIVE, adError?.errorCode ?: -1, network = fb)
                     if (context.isActivityDestroyedCompat()) return
                     layout.post {
                         if (context.isActivityDestroyedCompat()) return@post
@@ -575,12 +626,17 @@ class NativeAdPresenter() {
 
                 override fun onAdLoaded(ad: Ad?) {
                     if (fbNative !== ad) return
+                    AdAnalytics.loaded(context, AdAnalytics.NATIVE, network = fb)
                     context.recordEvent("NativeAds_showBigNative_FB_Load")
                     fbNative.downloadMedia()
                 }
 
-                override fun onAdClicked(ad: Ad?) {}
-                override fun onLoggingImpression(ad: Ad?) {}
+                override fun onAdClicked(ad: Ad?) {
+                    AdAnalytics.clicked(context, AdAnalytics.NATIVE, network = fb)
+                }
+                override fun onLoggingImpression(ad: Ad?) {
+                    AdAnalytics.impression(context, AdAnalytics.NATIVE, network = fb)
+                }
             }).build()
         )
     }
@@ -717,6 +773,7 @@ class NativeAdPresenter() {
 
                             // Log load
                             context.recordEvent("NativeAds_showMidNative_Google")
+                            markShown(context, nativeAd)
 
                             if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(context)
 
@@ -789,6 +846,8 @@ class NativeAdPresenter() {
         }
 
         val fbNative = com.facebook.ads.NativeAd(context, fbId)
+        val fb = AdAnalytics.FACEBOOK
+        AdAnalytics.req(context, AdAnalytics.NATIVE, network = fb)
         fbNative.loadAd(
             fbNative.buildLoadAdConfig().withAdListener(object : NativeAdListener {
                 override fun onMediaDownloaded(ad: Ad?) {
@@ -801,10 +860,12 @@ class NativeAdPresenter() {
                         shimmer?.isVisible = false
                         bindMetaMediumNative(fbNative, layout, context)
                         context.recordEvent("NativeAds_showMid_FB")
+                        AdAnalytics.shown(context, AdAnalytics.NATIVE, network = fb)
                     }
                 }
 
                 override fun onError(ad: Ad?, adError: AdError?) {
+                    AdAnalytics.loadFailed(context, AdAnalytics.NATIVE, adError?.errorCode ?: -1, network = fb)
                     if (context.isActivityDestroyedCompat()) return
                     layout.post {
                         if (context.isActivityDestroyedCompat()) return@post
@@ -823,11 +884,16 @@ class NativeAdPresenter() {
 
                 override fun onAdLoaded(ad: Ad?) {
                     if (fbNative !== ad) return
+                    AdAnalytics.loaded(context, AdAnalytics.NATIVE, network = fb)
                     fbNative.downloadMedia()
                 }
 
-                override fun onAdClicked(ad: Ad?) {}
-                override fun onLoggingImpression(ad: Ad?) {}
+                override fun onAdClicked(ad: Ad?) {
+                    AdAnalytics.clicked(context, AdAnalytics.NATIVE, network = fb)
+                }
+                override fun onLoggingImpression(ad: Ad?) {
+                    AdAnalytics.impression(context, AdAnalytics.NATIVE, network = fb)
+                }
             }).build()
         )
     }
@@ -1025,6 +1091,7 @@ class NativeAdPresenter() {
 
                             // Log load
                             context.recordEvent("NativeAds_showMidNative2_Google")
+                            markShown(context, Companion.nativeAd)
 
                             if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(context)
 

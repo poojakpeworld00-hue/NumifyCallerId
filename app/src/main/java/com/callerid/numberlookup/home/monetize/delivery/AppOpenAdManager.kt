@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.monetize.delivery
 
+import com.callerid.numberlookup.home.monetize.strategy.AdAnalytics
 import android.app.Activity
 import android.content.Context
 import android.util.Log
@@ -54,6 +55,7 @@ object AppOpenAdManager {
 
             if (adsPreference.getString("IsAdType").equals("Google", true)) {
                 AdPreferenceStore.getInstance(context).getString("googleAppopen")?.let { adUnitId ->
+                    AdAnalytics.req(context, AdAnalytics.APP_OPEN)
                     AppOpenAd.load(
                         context, adUnitId, request, object : AppOpenAdLoadCallback() {
                             override fun onAdLoaded(ad: AppOpenAd) {
@@ -62,6 +64,7 @@ object AppOpenAdManager {
                                     context.recordEvent("appopen_ad_loaded")
                                 } catch (e: Exception) {
                                 }
+                                AdAnalytics.loaded(context, AdAnalytics.APP_OPEN)
 
                                 Log.d(LOG_TAG, "Ad was loaded.")
                                 appOpenAd = ad
@@ -77,6 +80,7 @@ object AppOpenAdManager {
                                     context.recordEvent("appopen_ad_fail")
                                 } catch (e: Exception) {
                                 }
+                                AdAnalytics.loadFailed(context, AdAnalytics.APP_OPEN, loadAdError.code)
                                 isLoadingAd = false
                             }
                         })
@@ -148,6 +152,7 @@ object AppOpenAdManager {
                     activity.recordEvent("appopen_ad_dismissed")
                 } catch (_: Exception) {
                 }
+                AdAnalytics.close(activity, AdAnalytics.APP_OPEN)
 
                 appOpenAd = null
                 isShowingAd = false
@@ -166,6 +171,7 @@ object AppOpenAdManager {
                     activity.recordEvent("appopen_ad_fail")
                 } catch (_: Exception) {
                 }
+                AdAnalytics.showFailed(activity, AdAnalytics.APP_OPEN, adError.code)
                 appOpenAd = null
                 isShowingAd = false
                 onShowAdCompleteListener.onShowAdComplete()
@@ -178,6 +184,15 @@ object AppOpenAdManager {
                 Log.e(
                     LOG_TAG, "Ad showed fullscreen content."
                 )
+                AdAnalytics.show(activity, AdAnalytics.APP_OPEN)
+            }
+
+            override fun onAdImpression() {
+                AdAnalytics.impression(activity, AdAnalytics.APP_OPEN)
+            }
+
+            override fun onAdClicked() {
+                AdAnalytics.clicked(activity, AdAnalytics.APP_OPEN)
             }
         }
 

@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.monetize.delivery.fullpage
 
+import com.callerid.numberlookup.home.monetize.strategy.AdAnalytics
 import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
@@ -73,31 +74,48 @@ class TransitionInterstitialAd {
             val fbId = pref.getString("faceB_InterAds") ?: return
             isFbPreloading = true
             val inter = com.facebook.ads.InterstitialAd(context, fbId)
+            val fb = AdAnalytics.FACEBOOK
+            // Shown later, on whatever screen asks: show/impression/click/close
+            // carry that screen (fbShowScreen), not the one that preloaded it.
+            fun shownOn() = fbShowScreen ?: AdAnalytics.screenOf(context)
+            AdAnalytics.req(context, AdAnalytics.INTERSTITIAL, network = fb)
             inter.loadAd(
                 inter.buildLoadAdConfig()
                     .withAdListener(object : com.facebook.ads.InterstitialAdListener {
                         override fun onAdLoaded(ad: com.facebook.ads.Ad?) {
+                            AdAnalytics.loaded(context, AdAnalytics.INTERSTITIAL, network = fb)
                             preloadedFbAd = inter
                             isFbPreloading = false
                         }
                         override fun onError(ad: com.facebook.ads.Ad?, e: com.facebook.ads.AdError?) {
+                            AdAnalytics.loadFailed(context, AdAnalytics.INTERSTITIAL, e?.errorCode ?: -1, network = fb)
                             isFbPreloading = false
                             fbOnFail?.invoke()
                             fbOnFail = null
                             fbOnDismissed = null
                         }
                         override fun onInterstitialDismissed(ad: com.facebook.ads.Ad?) {
+                            AdAnalytics.close(context, AdAnalytics.INTERSTITIAL, shownOn(), fb)
                             prefetchMetaAd(context)   // replenish
                             fbOnDismissed?.invoke()
                             fbOnDismissed = null
                             fbOnFail = null
                         }
-                        override fun onInterstitialDisplayed(ad: com.facebook.ads.Ad?) {}
-                        override fun onAdClicked(ad: com.facebook.ads.Ad?) {}
-                        override fun onLoggingImpression(ad: com.facebook.ads.Ad?) {}
+                        override fun onInterstitialDisplayed(ad: com.facebook.ads.Ad?) {
+                            AdAnalytics.show(context, AdAnalytics.INTERSTITIAL, shownOn(), fb)
+                        }
+                        override fun onAdClicked(ad: com.facebook.ads.Ad?) {
+                            AdAnalytics.clicked(context, AdAnalytics.INTERSTITIAL, shownOn(), fb)
+                        }
+                        override fun onLoggingImpression(ad: com.facebook.ads.Ad?) {
+                            AdAnalytics.impression(context, AdAnalytics.INTERSTITIAL, shownOn(), fb)
+                        }
                     }).build()
             )
         }
+
+        /** Screen a preloaded Meta interstitial is being shown on; set in showPreloadedFbAd. */
+        private var fbShowScreen: String? = null
 
         fun openDirectLink(context: Activity, onClosed: () -> Unit) {
             val url = AdPreferenceStore.getInstance(context).getString("DirectLink")
@@ -203,16 +221,19 @@ class TransitionInterstitialAd {
         if (adType == AdPlacementType.GOOGLE) {
             activity.safeLog("google_inter_load_start")
             val id = pref.getString("googleInter") ?: return
+            AdAnalytics.req(activity, AdAnalytics.INTERSTITIAL)
             InterstitialAd.load(
                 activity, id, AdRequest.Builder().build(),
                 object : InterstitialAdLoadCallback() {
                     override fun onAdFailedToLoad(error: LoadAdError) {
                         googleInterAd = null
+                        AdAnalytics.loadFailed(activity, AdAnalytics.INTERSTITIAL, error.code)
                         activity.safeLog("google_inter_load_failed_${error.code}")
                         Log.e("TransitionInterstitialAd", "Load Failed: ${error.message}")
                     }
                     override fun onAdLoaded(ad: InterstitialAd) {
                         googleInterAd = ad
+                        AdAnalytics.loaded(activity, AdAnalytics.INTERSTITIAL)
                         activity.safeLog("google_inter_loaded")
                         Log.d("TransitionInterstitialAd", "Google inter loaded")
                     }
@@ -341,11 +362,21 @@ class TransitionInterstitialAd {
             override fun onAdShowedFullScreenContent() {
                 super.onAdShowedFullScreenContent()
                 isInterShow = true
+                AdAnalytics.show(activity, AdAnalytics.INTERSTITIAL)
+            }
+
+            override fun onAdImpression() {
+                AdAnalytics.impression(activity, AdAnalytics.INTERSTITIAL)
+            }
+
+            override fun onAdClicked() {
+                AdAnalytics.clicked(activity, AdAnalytics.INTERSTITIAL)
             }
 
             override fun onAdDismissedFullScreenContent() {
                 isInterShow = false
                 googleInterAd = null
+                AdAnalytics.close(activity, AdAnalytics.INTERSTITIAL)
                 activity.safeLog("google_inter_dismiss")
                 closeQuietly("google_dismiss")
                 if (pref.getBoolean("is_preload_ads")) loadInterstitials(activity)
@@ -353,6 +384,7 @@ class TransitionInterstitialAd {
 
             override fun onAdFailedToShowFullScreenContent(error: AdError) {
                 googleInterAd = null
+                AdAnalytics.showFailed(activity, AdAnalytics.INTERSTITIAL, error.code)
                 activity.safeLog("google_inter_failed_show_${error.code}")
                 handleGoogleFail(activity, pref, closeQuietly)
                 if (pref.getBoolean("is_preload_ads")) loadInterstitials(activity)
@@ -381,6 +413,7 @@ class TransitionInterstitialAd {
         val isLoader = pref.getBoolean("isLoaderForFB")
 
         activity.safeLog("google_inter_ondemand_load_start")
+        AdAnalytics.req(activity, AdAnalytics.INTERSTITIAL)
         InterstitialAdCache.show(activity, isLoader)
 
         InterstitialAd.load(
@@ -389,12 +422,14 @@ class TransitionInterstitialAd {
                 override fun onAdLoaded(ad: InterstitialAd) {
                     InterstitialAdCache.hide()
                     googleInterAd = ad
+                    AdAnalytics.loaded(activity, AdAnalytics.INTERSTITIAL)
                     activity.safeLog("google_inter_ondemand_loaded")
                     showAdMobInterstitial(activity, pref, closeQuietly)
                 }
                 override fun onAdFailedToLoad(error: LoadAdError) {
                     InterstitialAdCache.hide()
                     googleInterAd = null
+                    AdAnalytics.loadFailed(activity, AdAnalytics.INTERSTITIAL, error.code)
                     activity.safeLog("google_inter_ondemand_fail_${error.code}")
                     handleGoogleFail(activity, pref, closeQuietly)
                 }
@@ -420,6 +455,7 @@ class TransitionInterstitialAd {
         // Wire forwarding callbacks (listener was set at load time in prefetchMetaAd)
         fbOnDismissed = onDismissed
         fbOnFail = onFail
+        fbShowScreen = AdAnalytics.screenOf(activity)
         try {
             ad.show()
             activity.safeLog("fb_preloaded_show")
@@ -474,6 +510,8 @@ class TransitionInterstitialAd {
         val fbId = pref.getString("faceB_InterAds") ?: return onFail()
 
         context.safeLog("facebook_inter_load_start")
+        val fb = AdAnalytics.FACEBOOK
+        AdAnalytics.req(context, AdAnalytics.INTERSTITIAL, network = fb)
 
         val inter = com.facebook.ads.InterstitialAd(context, fbId)
 
@@ -486,6 +524,7 @@ class TransitionInterstitialAd {
                 .withAdListener(object : InterstitialAdListener {
 
                     override fun onAdLoaded(ad: Ad?) {
+                        AdAnalytics.loaded(context, AdAnalytics.INTERSTITIAL, network = fb)
                         context.safeLog("facebook_inter_loaded")
                         if (context is Activity) InterstitialAdCache.hide()
                         try {
@@ -498,28 +537,33 @@ class TransitionInterstitialAd {
                     }
 
                     override fun onError(ad: Ad?, error: com.facebook.ads.AdError?) {
+                        AdAnalytics.loadFailed(context, AdAnalytics.INTERSTITIAL, error?.errorCode ?: -1, network = fb)
                         context.safeLog("facebook_inter_error_${error?.errorCode}")
                         if (context is Activity) InterstitialAdCache.hide()
                         onFail()
                     }
 
                     override fun onInterstitialDismissed(ad: Ad?) {
+                        AdAnalytics.close(context, AdAnalytics.INTERSTITIAL, network = fb)
                         context.safeLog("facebook_inter_dismiss")
                         if (context is Activity) InterstitialAdCache.hide()
                         onDismissed()
                     }
 
                     override fun onInterstitialDisplayed(ad: Ad?) {
+                        AdAnalytics.show(context, AdAnalytics.INTERSTITIAL, network = fb)
                         context.safeLog("facebook_inter_displayed")
 
                         if (context is Activity) InterstitialAdCache.hide()
                     }
 
                     override fun onAdClicked(ad: Ad?) {
+                        AdAnalytics.clicked(context, AdAnalytics.INTERSTITIAL, network = fb)
                         context.safeLog("facebook_inter_clicked")
                     }
 
                     override fun onLoggingImpression(ad: Ad?) {
+                        AdAnalytics.impression(context, AdAnalytics.INTERSTITIAL, network = fb)
                         context.safeLog("facebook_inter_impression")
                     }
 

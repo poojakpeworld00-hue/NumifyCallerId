@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.monetize.delivery
 
+import com.callerid.numberlookup.home.monetize.strategy.AdAnalytics
 import android.app.Activity
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -61,6 +62,12 @@ class NativeBannerPresenter {
         /** How long a slot keeps its shimmer up waiting for the ad before falling back. */
         private const val BANNER_WAIT_MS = 8_000L
 
+        /**
+         * The screen each pooled ad was shown on, so its impression and click -
+         * wired at load time - report where the user saw it, not who loaded it.
+         */
+        private val shownOn = java.util.WeakHashMap<NativeAd, String>()
+
         /** Hands the fresh ad to the oldest waiter whose screen is still up. */
         private fun releaseOneWaiter() {
             while (waiters.isNotEmpty()) {
@@ -117,8 +124,13 @@ class NativeBannerPresenter {
                 if (loadInFlight) return
                 isLoading = true
                 loadStartedAt = System.currentTimeMillis()
+                AdAnalytics.req(activity, AdAnalytics.NATIVE_BANNER)
+                var loadedAd: NativeAd? = null
+                fun displayScreen() = loadedAd?.let { shownOn[it] } ?: AdAnalytics.screenOf(activity)
 
                 val adLoader = AdLoader.Builder(activity, adUnitId).forNativeAd { ad ->
+                    loadedAd = ad
+                    AdAnalytics.loaded(activity, AdAnalytics.NATIVE_BANNER)
                     nativeAdBanner?.destroy()
                     nativeAdBanner = ad
                     isLoading = false
@@ -132,6 +144,7 @@ class NativeBannerPresenter {
                 }.withAdListener(object : AdListener() {
                     override fun onAdFailedToLoad(error: LoadAdError) {
                         Log.e("NativeBannerPresenter", "Ad failed to load: ${error.message}")
+                        AdAnalytics.loadFailed(activity, AdAnalytics.NATIVE_BANNER, error.code)
                         nativeAdBanner = null
                         isLoading = false
                         // No retry here; the next slot that asks starts a fresh load.
@@ -141,6 +154,14 @@ class NativeBannerPresenter {
                             activity.recordEvent("NativeBanner_fail")
                         } catch (e: Exception) {
                         }
+                    }
+
+                    override fun onAdImpression() {
+                        AdAnalytics.impression(activity, AdAnalytics.NATIVE_BANNER, displayScreen())
+                    }
+
+                    override fun onAdClicked() {
+                        AdAnalytics.clicked(activity, AdAnalytics.NATIVE_BANNER, displayScreen())
                     }
                 }).withNativeAdOptions(NativeAdOptions.Builder().build()).build()
 
@@ -277,8 +298,10 @@ class NativeBannerPresenter {
         shimmer?.startShimmer()
         shimmer?.isVisible = true
 
+        AdAnalytics.req(context, AdAnalytics.NATIVE_BANNER)
         AdLoader.Builder(context, adUnitId)
             .forNativeAd { ad ->
+                AdAnalytics.loaded(context, AdAnalytics.NATIVE_BANNER)
                 if (context.isFinishing || context.isDestroyed) {
                     ad.destroy()
                     return@forNativeAd
@@ -293,7 +316,16 @@ class NativeBannerPresenter {
             .withAdListener(object : AdListener() {
                 override fun onAdFailedToLoad(error: LoadAdError) {
                     Log.e("NativeBannerPresenter", "Native ($adUnitId) failed: ${error.message}")
+                    AdAnalytics.loadFailed(context, AdAnalytics.NATIVE_BANNER, error.code)
                     if (!context.isFinishing && !context.isDestroyed) hide()
+                }
+
+                override fun onAdImpression() {
+                    AdAnalytics.impression(context, AdAnalytics.NATIVE_BANNER)
+                }
+
+                override fun onAdClicked() {
+                    AdAnalytics.clicked(context, AdAnalytics.NATIVE_BANNER)
                 }
             })
             .build()
@@ -305,6 +337,10 @@ class NativeBannerPresenter {
     ) {
         // Log load
         context.recordEvent("NativeBanner_Show_Google")
+        // Both the pooled and the own-unit path bind here: the moment it is shown.
+        val screen = AdAnalytics.screenOf(context)
+        shownOn[nativeAd] = screen
+        AdAnalytics.shown(context, AdAnalytics.NATIVE_BANNER, screen)
 
         if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(context)
 
@@ -404,6 +440,8 @@ class NativeBannerPresenter {
         }
 
         val fbNative = com.facebook.ads.NativeAd(context, fbId)
+        val fb = AdAnalytics.FACEBOOK
+        AdAnalytics.req(context, AdAnalytics.NATIVE_BANNER, network = fb)
         fbNative.loadAd(
             fbNative.buildLoadAdConfig().withAdListener(object : NativeAdListener {
                 override fun onMediaDownloaded(ad: Ad?) {
@@ -412,9 +450,11 @@ class NativeBannerPresenter {
                     layout.removeAllViews()
                     bindMetaNativeBanner(fbNative, layout, context)
                     context.recordEvent("NativeBAnner_FB")
+                    AdAnalytics.shown(context, AdAnalytics.NATIVE_BANNER, network = fb)
                 }
 
                 override fun onError(ad: Ad?, adError: AdError?) {
+                    AdAnalytics.loadFailed(context, AdAnalytics.NATIVE_BANNER, adError?.errorCode ?: -1, network = fb)
                     shimmer?.stopShimmer()
                     shimmer?.isVisible = false
                     Log.e("NativeAds", "FB MidNative failed: ${adError?.errorMessage}")
@@ -425,11 +465,16 @@ class NativeBannerPresenter {
 
                 override fun onAdLoaded(ad: Ad?) {
                     if (fbNative !== ad) return
+                    AdAnalytics.loaded(context, AdAnalytics.NATIVE_BANNER, network = fb)
                     fbNative.downloadMedia()
                 }
 
-                override fun onAdClicked(ad: Ad?) {}
-                override fun onLoggingImpression(ad: Ad?) {}
+                override fun onAdClicked(ad: Ad?) {
+                    AdAnalytics.clicked(context, AdAnalytics.NATIVE_BANNER, network = fb)
+                }
+                override fun onLoggingImpression(ad: Ad?) {
+                    AdAnalytics.impression(context, AdAnalytics.NATIVE_BANNER, network = fb)
+                }
             }).build()
         )
     }

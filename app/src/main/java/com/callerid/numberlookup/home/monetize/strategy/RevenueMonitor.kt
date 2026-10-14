@@ -52,7 +52,9 @@ object RevenueMonitor {
 
 /** Log general key events */
 fun Context.recordEvent(key: String) {
-    val bundle = Bundle().apply { putString(key, key) }
+    // No params. It used to send the event's own name as a parameter of the same
+    // name, which said nothing and spent one of the event's 25 parameter slots.
+    val bundle = Bundle()
 
     if (isDebuggable()) {
         Log.w(TAG_EVENT, "📌 KeyEvent (Debug): $key")

@@ -1,4 +1,5 @@
 package com.callerid.numberlookup.home.monetize.delivery
+import com.callerid.numberlookup.home.monetize.strategy.AdAnalytics
 import android.app.Activity
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -189,6 +190,7 @@ class BannerAdPresenter {
                 )
                 // Log load
                 activity.recordEvent("Banner_Load")
+                AdAnalytics.loaded(activity, AdAnalytics.BANNER)
 
                 if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(activity)
 
@@ -204,6 +206,7 @@ class BannerAdPresenter {
                 container.addView(googleBanner)
                 flattenSlot(container)
                 container.visibility = View.VISIBLE
+                AdAnalytics.shown(activity, AdAnalytics.BANNER)
                 observer?.onAdLoaded()
 
             }
@@ -215,6 +218,7 @@ class BannerAdPresenter {
                     activity.recordEvent("Banner_fail_Load")
                 } catch (_: Exception) {
                 }
+                AdAnalytics.loadFailed(activity, AdAnalytics.BANNER, error.code)
                 Log.e("BannerAdPresenter", "Google Banner Failed: ${error.message}")
                 observer?.onAdFailed()
                 if (!disableInternalFallback) {
@@ -223,7 +227,13 @@ class BannerAdPresenter {
             }
 
             override fun onAdClicked() {
+                // Legacy name kept for existing reports; it is a click.
                 activity.recordEvent("google_banner")
+                AdAnalytics.clicked(activity, AdAnalytics.BANNER)
+            }
+
+            override fun onAdImpression() {
+                AdAnalytics.impression(activity, AdAnalytics.BANNER)
             }
         }
 
@@ -233,6 +243,7 @@ class BannerAdPresenter {
             AdRequest.Builder().addNetworkExtrasBundle(AdMobAdapter::class.java, extras).build()
         } else AdRequest.Builder().build()
 
+        AdAnalytics.req(activity, AdAnalytics.BANNER)
         googleBanner?.loadAd(request)
     }
 
@@ -314,11 +325,14 @@ class BannerAdPresenter {
         if (facebookBanner == null) facebookBanner =
             FbAdView(activity, fbId, com.facebook.ads.AdSize.BANNER_HEIGHT_50)
 
+        val fb = AdAnalytics.FACEBOOK
+        AdAnalytics.req(activity, AdAnalytics.BANNER, network = fb)
         facebookBanner?.loadAd(
             facebookBanner!!.buildLoadAdConfig()
                 .withAdListener(object : com.facebook.ads.AdListener {
 
                     override fun onAdLoaded(ad: Ad?) {
+                        AdAnalytics.loaded(activity, AdAnalytics.BANNER, network = fb)
                         shimmer?.stopShimmer()
                         shimmer?.visibility = View.GONE
                         container.removeAllViews()
@@ -328,6 +342,7 @@ class BannerAdPresenter {
                         container.visibility = View.VISIBLE
                         observer?.onAdLoaded()
                         activity.recordEvent("facebook_banner_load")
+                        AdAnalytics.shown(activity, AdAnalytics.BANNER, network = fb)
                     }
 
                     override fun onError(
@@ -338,6 +353,7 @@ class BannerAdPresenter {
                         shimmer?.visibility = View.GONE
                         observer?.onAdFailed()
                         Log.e("BannerAdPresenter", "FB Banner Failed: ${error?.errorMessage}")
+                        AdAnalytics.loadFailed(activity, AdAnalytics.BANNER, error?.errorCode ?: -1, network = fb)
                         if (!disableInternalFallback) {
                             PromoAdManager().loadPromoAd(
                                 activity,
@@ -348,9 +364,12 @@ class BannerAdPresenter {
                     }
 
                     override fun onAdClicked(ad: Ad?) {
+                        AdAnalytics.clicked(activity, AdAnalytics.BANNER, network = fb)
                     }
 
-                    override fun onLoggingImpression(ad: Ad?) {}
+                    override fun onLoggingImpression(ad: Ad?) {
+                        AdAnalytics.impression(activity, AdAnalytics.BANNER, network = fb)
+                    }
                 })
                 .build()
         )
