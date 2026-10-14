@@ -251,8 +251,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         runCatching {
             startActivity(
                 Intent(this, MainShellActivity::class.java).addFlags(
-                    Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-                )
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK )
             )
         }
     }
@@ -756,7 +755,7 @@ class MainShellActivity : BaseActivity<ActivityMainShellBinding>() {
         runCatching {
             startActivity(
                 Intent(this, MainShellActivity::class.java).addFlags(
-                    Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 )
             )
         }

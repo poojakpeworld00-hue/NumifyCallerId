@@ -62,7 +62,7 @@ class ContactsApplication : Application() , Application.ActivityLifecycleCallbac
          * Same shape as [com.callerid.numberlookup.home.repository.RegionDetector]'s
          * country pin, and set back to null the same way when you are done.
          */
-        private val DEBUG_FORCE_INSTALL_SOURCE: String? = "paid"
+        private val DEBUG_FORCE_INSTALL_SOURCE: String? = ""
 
         /**
          * TEST ONLY — pins LightHouse's bot verdict. A flagged install is reported

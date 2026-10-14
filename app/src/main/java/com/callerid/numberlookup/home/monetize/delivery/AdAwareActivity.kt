@@ -318,14 +318,15 @@ open class AdAwareActivity : AppCompatActivity() {
                 // coroutine here, so this suspends rather than blocking the main thread.
                 // The result is persisted so every other reader of OnMaketing (FSI /
                 // intro / permission audience split) sees the same value.
-                /*val isMarketingOn = suspendCancellableCoroutine { continuation ->
+
+                val isMarketingOn = suspendCancellableCoroutine { continuation ->
                     LightHouse.resolveAttribution { attribution ->
                         if (continuation.isActive) {
                             continuation.resume(attribution == Attribution.PAID)
                         }
                     }
-                }*/
-                val isMarketingOn = true
+                }
+
                 adsPreference.putBoolean("OnMaketing", isMarketingOn)
 
                 // Top-level audience split only: OnMaketing is now final (referrer
