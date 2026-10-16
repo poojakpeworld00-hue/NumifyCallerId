@@ -935,4 +935,14 @@
     <string name="reward_wait_ready_title">Tudo pronto!</string>
     <string name="reward_wait_ready">Toque em Desbloquear agora para continuar.</string>
     <string name="reward_wait_unlock">Desbloquear agora</string>
+    <string name="lookup_status_no_match">Nenhum nome encontrado para este número ainda.</string>
+    <string name="lookup_status_offline">Você está offline. Mostrando apenas informações básicas.</string>
+    <string name="lookup_status_server">Não foi possível acessar o identificador de chamadas agora. Mostrando informações básicas.</string>
+    <string name="lookup_status_rate_limited">Muitas pesquisas. Tente novamente em um minuto.</string>
+    <string name="lookup_status_unavailable">O identificador de chamadas está temporariamente indisponível. Estamos trabalhando nisso.</string>
+    <string name="caller_label_offline">Offline</string>
+    <string name="caller_label_unavailable">Identificador indisponível</string>
+    <string name="lookup_outage_title">O identificador de chamadas não está funcionando agora</string>
+    <string name="lookup_outage_body">Você ainda pode pesquisar números. Nomes e denúncias de spam voltarão em breve.</string>
+    <string name="lookup_outage_continue">Continuar</string>
 </resources>

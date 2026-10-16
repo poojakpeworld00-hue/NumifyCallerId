@@ -1019,4 +1019,14 @@
     <string name="reward_wait_ready_title">All set!</string>
     <string name="reward_wait_ready">Tap Unlock now to continue.</string>
     <string name="reward_wait_unlock">Unlock now</string>
+    <string name="lookup_status_no_match">No name found for this number yet.</string>
+    <string name="lookup_status_offline">You\'re offline. Showing basic info only.</string>
+    <string name="lookup_status_server">Couldn\'t reach caller ID right now. Showing basic info.</string>
+    <string name="lookup_status_rate_limited">Too many searches. Please try again in a minute.</string>
+    <string name="lookup_status_unavailable">Caller ID is temporarily unavailable. We\'re working on it.</string>
+    <string name="caller_label_offline">Offline</string>
+    <string name="caller_label_unavailable">Caller ID unavailable</string>
+    <string name="lookup_outage_title">Caller ID isn\'t working right now</string>
+    <string name="lookup_outage_body">You can still search numbers. Names and spam reports will be back soon.</string>
+    <string name="lookup_outage_continue">Continue</string>
 </resources>

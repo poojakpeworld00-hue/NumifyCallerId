@@ -885,4 +885,14 @@
     <string name="reward_wait_ready_title">Đã sẵn sàng!</string>
     <string name="reward_wait_ready">Nhấn Mở khóa ngay để tiếp tục.</string>
     <string name="reward_wait_unlock">Mở khóa ngay</string>
+    <string name="lookup_status_no_match">Chưa tìm thấy tên cho số này.</string>
+    <string name="lookup_status_offline">Bạn đang ngoại tuyến. Chỉ hiển thị thông tin cơ bản.</string>
+    <string name="lookup_status_server">Hiện không thể kết nối dịch vụ nhận dạng cuộc gọi. Đang hiển thị thông tin cơ bản.</string>
+    <string name="lookup_status_rate_limited">Bạn đã tìm kiếm quá nhiều. Vui lòng thử lại sau một phút.</string>
+    <string name="lookup_status_unavailable">Dịch vụ nhận dạng cuộc gọi tạm thời không khả dụng. Chúng tôi đang khắc phục.</string>
+    <string name="caller_label_offline">Ngoại tuyến</string>
+    <string name="caller_label_unavailable">Không nhận dạng được</string>
+    <string name="lookup_outage_title">Dịch vụ nhận dạng cuộc gọi hiện không hoạt động</string>
+    <string name="lookup_outage_body">Bạn vẫn có thể tìm số. Tên và báo cáo spam sẽ sớm trở lại.</string>
+    <string name="lookup_outage_continue">Tiếp tục</string>
 </resources>

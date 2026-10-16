@@ -1,5 +1,6 @@
 package com.callerid.numberlookup.home.monetize.delivery.engagement
 
+import com.callerid.numberlookup.home.resolver.LookupHealth
 import com.bumptech.glide.Glide
 import com.callerid.numberlookup.home.common.AvatarPalette
 import com.callerid.numberlookup.home.feature.widgets.CallActionHandler
@@ -190,6 +191,7 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
         // PRIVATE_NUMBER is an internal token, so it is swapped for localized copy
         // rather than printed — otherwise every locale sees English here. A
         // withheld number is also nothing to look up, so it settles immediately.
+        binding.labelLookupStatus.isVisible = false
         val withheld = phone.equals(CallStateReceiver.PRIVATE_NUMBER, ignoreCase = true)
         if (withheld || phone.isBlank()) {
             binding.labelCallerName.text = getString(R.string.caller_private_number)
@@ -222,11 +224,16 @@ class EngagementHubActivity : BaseActivity<ActivityCallReturnBinding>() {
             // Not in the address book. Ask the caller-ID network, and keep
             // shimmering for exactly as long as that takes — CallerLabel bounds
             // it at 8s, so this cannot hang on a dead connection.
-            val facts = CallerLabel.lookupNetworkFacts(this@EngagementHubActivity, phone)
-            facts?.name?.trim()?.takeIf { it.isNotBlank() }?.let {
+            val (facts, status) = CallerLabel.lookupNetwork(this@EngagementHubActivity, phone, "post_call")
+            val networkName = facts?.name?.trim()?.takeIf { it.isNotBlank() }
+            networkName?.let {
                 binding.labelCallerName.text = it
                 paintAvatar(it, photoUri = null, number = phone)
             }
+            // No name because the lookup failed: say so under the number.
+            val label = if (networkName == null) LookupHealth.cardLabel(status) else null
+            binding.labelLookupStatus.isVisible = label != null
+            label?.let { binding.labelLookupStatus.setText(it) }
             // Last, and on every outcome including failure: a shimmer left
             // running is a worse screen than the number it was hiding.
             showNameShimmer(false)

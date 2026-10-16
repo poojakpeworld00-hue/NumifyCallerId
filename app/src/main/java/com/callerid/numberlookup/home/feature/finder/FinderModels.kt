@@ -1,5 +1,7 @@
 package com.callerid.numberlookup.home.feature.finder
 
+import com.callerid.numberlookup.home.resolver.LookupStatus
+
 /** Result of identifying a phone number (on-device + optional online metadata). */
 data class LookupVerdict(
     val name: String?,        // contact name, or null if unknown
@@ -15,7 +17,9 @@ data class LookupVerdict(
     val city: String? = null,
     val isSpam: Boolean = false,
     val spamType: String? = null,
-    val nicknames: List<String> = emptyList() // alternate names users saved this number under
+    val nicknames: List<String> = emptyList(), // alternate names users saved this number under
+    /** How the caller-ID lookup went: OK, or why there is no network answer. */
+    val apiStatus: LookupStatus = LookupStatus.OK,
 )
 
 /** A persisted recent lookup shown in the history list. */

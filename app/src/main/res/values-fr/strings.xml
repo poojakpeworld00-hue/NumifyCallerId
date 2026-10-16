@@ -893,4 +893,14 @@
     <string name="reward_wait_ready_title">Tout est prêt !</string>
     <string name="reward_wait_ready">Appuyez sur Débloquer maintenant pour continuer.</string>
     <string name="reward_wait_unlock">Débloquer maintenant</string>
+    <string name="lookup_status_no_match">Aucun nom trouvé pour ce numéro pour l\'instant.</string>
+    <string name="lookup_status_offline">Vous êtes hors ligne. Seules les infos de base sont affichées.</string>
+    <string name="lookup_status_server">Impossible de joindre l\'identification de l\'appelant pour le moment. Infos de base affichées.</string>
+    <string name="lookup_status_rate_limited">Trop de recherches. Réessayez dans une minute.</string>
+    <string name="lookup_status_unavailable">L\'identification de l\'appelant est temporairement indisponible. Nous y travaillons.</string>
+    <string name="caller_label_offline">Hors ligne</string>
+    <string name="caller_label_unavailable">Identification indisponible</string>
+    <string name="lookup_outage_title">L\'identification de l\'appelant ne fonctionne pas pour le moment</string>
+    <string name="lookup_outage_body">Vous pouvez toujours rechercher des numéros. Les noms et signalements de spam reviendront bientôt.</string>
+    <string name="lookup_outage_continue">Continuer</string>
 </resources>

@@ -885,4 +885,14 @@
     <string name="reward_wait_ready_title">准备就绪！</string>
     <string name="reward_wait_ready">点按“立即解锁”继续。</string>
     <string name="reward_wait_unlock">立即解锁</string>
+    <string name="lookup_status_no_match">尚未找到此号码的名称。</string>
+    <string name="lookup_status_offline">您处于离线状态，仅显示基本信息。</string>
+    <string name="lookup_status_server">暂时无法连接来电识别服务，正在显示基本信息。</string>
+    <string name="lookup_status_rate_limited">搜索次数过多，请一分钟后再试。</string>
+    <string name="lookup_status_unavailable">来电识别暂时不可用，我们正在处理。</string>
+    <string name="caller_label_offline">离线</string>
+    <string name="caller_label_unavailable">来电识别不可用</string>
+    <string name="lookup_outage_title">来电识别暂时无法使用</string>
+    <string name="lookup_outage_body">您仍可搜索号码。名称和骚扰举报将很快恢复。</string>
+    <string name="lookup_outage_continue">继续</string>
 </resources>

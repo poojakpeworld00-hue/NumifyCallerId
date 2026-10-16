@@ -893,4 +893,14 @@
     <string name="reward_wait_ready_title">Her şey hazır!</string>
     <string name="reward_wait_ready">Devam etmek için Şimdi kilidi aç\'a dokunun.</string>
     <string name="reward_wait_unlock">Şimdi kilidi aç</string>
+    <string name="lookup_status_no_match">Bu numara için henüz bir ad bulunamadı.</string>
+    <string name="lookup_status_offline">Çevrimdışısınız. Yalnızca temel bilgiler gösteriliyor.</string>
+    <string name="lookup_status_server">Arayan kimliğine şu anda ulaşılamıyor. Temel bilgiler gösteriliyor.</string>
+    <string name="lookup_status_rate_limited">Çok fazla arama yapıldı. Lütfen bir dakika sonra tekrar deneyin.</string>
+    <string name="lookup_status_unavailable">Arayan kimliği geçici olarak kullanılamıyor. Üzerinde çalışıyoruz.</string>
+    <string name="caller_label_offline">Çevrimdışı</string>
+    <string name="caller_label_unavailable">Arayan kimliği kullanılamıyor</string>
+    <string name="lookup_outage_title">Arayan kimliği şu anda çalışmıyor</string>
+    <string name="lookup_outage_body">Numara aramaya devam edebilirsiniz. Adlar ve spam bildirimleri yakında geri gelecek.</string>
+    <string name="lookup_outage_continue">Devam</string>
 </resources>

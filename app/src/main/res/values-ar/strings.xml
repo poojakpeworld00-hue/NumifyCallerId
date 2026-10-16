@@ -947,4 +947,14 @@
     <string name="reward_wait_ready_title">كل شيء جاهز!</string>
     <string name="reward_wait_ready">اضغط على افتح الآن للمتابعة.</string>
     <string name="reward_wait_unlock">افتح الآن</string>
+    <string name="lookup_status_no_match">لم يُعثر على اسم لهذا الرقم بعد.</string>
+    <string name="lookup_status_offline">أنت غير متصل. نعرض المعلومات الأساسية فقط.</string>
+    <string name="lookup_status_server">تعذّر الوصول إلى معرّف المتصل الآن. نعرض المعلومات الأساسية.</string>
+    <string name="lookup_status_rate_limited">عمليات بحث كثيرة جدًا. يُرجى المحاولة بعد دقيقة.</string>
+    <string name="lookup_status_unavailable">معرّف المتصل غير متاح مؤقتًا. نعمل على إصلاحه.</string>
+    <string name="caller_label_offline">غير متصل</string>
+    <string name="caller_label_unavailable">معرّف المتصل غير متاح</string>
+    <string name="lookup_outage_title">معرّف المتصل لا يعمل الآن</string>
+    <string name="lookup_outage_body">لا يزال بإمكانك البحث عن الأرقام. ستعود الأسماء وبلاغات الإزعاج قريبًا.</string>
+    <string name="lookup_outage_continue">متابعة</string>
 </resources>

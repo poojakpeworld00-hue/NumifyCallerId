@@ -133,6 +133,25 @@
                             android:background="@drawable/bg_shimmer_placeholder" />
                     </com.facebook.shimmer.ShimmerFrameLayout>
 
+                    <!-- "Offline" / "Caller ID unavailable" when the lookup failed, so
+                         the bare number under the name is not read as "nobody knows
+                         this caller". Gone when the lookup worked. -->
+                    <TextView
+                        android:id="@+id/labelLookupStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:drawablePadding="4dp"
+                        android:fontFamily="@font/mulish_semibold"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/ds_on_hero_dim"
+                        android:textSize="12sp"
+                        android:visibility="gone"
+                        app:drawableStartCompat="@drawable/ic_info"
+                        app:drawableTint="@color/ds_on_hero_dim"
+                        tools:text="Caller ID unavailable"
+                        tools:visibility="visible" />
+
                     <!-- Time and call type on one muted line, where Call Details
                          puts "+91 70164 14568 · Mobile". -->
                     <androidx.appcompat.widget.LinearLayoutCompat

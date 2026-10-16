@@ -951,4 +951,14 @@
     <string name="reward_wait_ready_title">Всё готово!</string>
     <string name="reward_wait_ready">Нажмите «Разблокировать сейчас», чтобы продолжить.</string>
     <string name="reward_wait_unlock">Разблокировать сейчас</string>
+    <string name="lookup_status_no_match">Имя для этого номера пока не найдено.</string>
+    <string name="lookup_status_offline">Нет подключения. Показана только основная информация.</string>
+    <string name="lookup_status_server">Не удалось связаться с сервисом определения номера. Показана основная информация.</string>
+    <string name="lookup_status_rate_limited">Слишком много запросов. Повторите попытку через минуту.</string>
+    <string name="lookup_status_unavailable">Определитель номера временно недоступен. Мы уже работаем над этим.</string>
+    <string name="caller_label_offline">Нет сети</string>
+    <string name="caller_label_unavailable">Определитель недоступен</string>
+    <string name="lookup_outage_title">Определитель номера сейчас не работает</string>
+    <string name="lookup_outage_body">Вы по-прежнему можете искать номера. Имена и жалобы на спам скоро вернутся.</string>
+    <string name="lookup_outage_continue">Продолжить</string>
 </resources>

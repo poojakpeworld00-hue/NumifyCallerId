@@ -9,10 +9,8 @@ import android.util.Log
 import com.callerid.numberlookup.home.repository.ContactRepository
 import com.callerid.numberlookup.home.repository.finder.SearchHistoryRepository
 import com.callerid.numberlookup.home.repository.finder.OfflineNumberIndex
-import com.callerid.numberlookup.home.entity.LookupPayload
-import com.callerid.numberlookup.home.resolver.EndpointConfig
+import com.callerid.numberlookup.home.resolver.LookupHealth
 import com.callerid.numberlookup.home.resolver.CredentialProvider
-import com.callerid.numberlookup.home.resolver.NetworkClientFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -65,13 +63,14 @@ class NumberFinderViewModel(app: Application) : AndroidViewModel(app) {
             val data = withContext(Dispatchers.IO) {
                 val contactName = contactsRepository.lookupNameByNumber(normalized)
                 val offline = OfflineNumberIndex.lookup(normalized, region) // libphonenumber, no network
-                val payload = fetchFromApi(normalized)
-                Triple(contactName, offline, payload)
+                val lookup = LookupHealth.lookup(getApplication(), normalized, "lookup")
+                Triple(contactName, offline, lookup)
             }
             delay(SHIMMER_MIN_MS)
             if (token != searchToken) return@launch // a newer query superseded this one
 
-            val (contactName, offline, payload) = data
+            val (contactName, offline, lookup) = data
+            val payload = lookup.payload
             val apiList = payload?.data.orEmpty()
             // Prefer the community/network name so a saved contact shows how OTHERS
             // identify this number (not the name you already gave it). Fall back to
@@ -111,7 +110,8 @@ class NumberFinderViewModel(app: Application) : AndroidViewModel(app) {
                 city = apiCity ?: offline?.location,
                 isSpam = payload?.isSpam == true,
                 spamType = apiList.firstNotNullOfOrNull { it.spamType?.takeIf { t -> t.isNotBlank() } },
-                nicknames = nicknames
+                nicknames = nicknames,
+                apiStatus = lookup.status,
             )
             Log.d(TAG, "carrier: api=$apiCarrier offline=${offline?.carrier} → ${result.carrier}")
             Log.d(TAG, "result: carrier=${result.carrier}, lineType=${result.lineType}, country=${result.country}")
@@ -120,19 +120,6 @@ class NumberFinderViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    /** Queries the caller-ID API for this number; null when it failed or was unreachable. */
-    private suspend fun fetchFromApi(phone: String): LookupPayload? = runCatching {
-        val response = NetworkClientFactory.api.checkPhoneNumber(
-            url = EndpointConfig.similarPhonePath(getApplication()),
-            phone = phone
-        )
-        if (response.isSuccessful) {
-            response.body()
-        } else {
-            Log.e(TAG, "checkPhoneNumber failed (${response.code()})")
-            null
-        }
-    }.onFailure { Log.e(TAG, "checkPhoneNumber error: ${it.message}") }.getOrNull()
 
     private fun saveToHistory(result: LookupVerdict) {
         val subtitle = result.country

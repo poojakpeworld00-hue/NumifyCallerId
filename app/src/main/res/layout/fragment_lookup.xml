@@ -409,6 +409,26 @@
                                     android:visibility="gone"
                                     app:tint="@color/ds_accent" />
                             </LinearLayout>
+
+                            <!-- Why there is no network name: offline, service down,
+                                 too many searches, or simply no match. Gone when the
+                                 lookup named the caller. See LookupHealth. -->
+                            <TextView
+                                android:id="@+id/textResLookupStatus"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:drawablePadding="@dimen/_4sdp"
+                                android:fontFamily="@font/mulish_semibold"
+                                android:includeFontPadding="false"
+                                android:lineSpacingMultiplier="1.2"
+                                android:textColor="@color/ds_ink_muted"
+                                android:textSize="12sp"
+                                android:visibility="gone"
+                                app:drawableStartCompat="@drawable/ic_warning"
+                                app:drawableTint="@color/ds_warning"
+                                tools:text="Caller ID is temporarily unavailable."
+                                tools:visibility="visible" />
                         </LinearLayout>
 
                         <ImageView

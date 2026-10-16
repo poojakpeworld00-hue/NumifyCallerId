@@ -885,4 +885,14 @@
     <string name="reward_wait_ready_title">พร้อมแล้ว!</string>
     <string name="reward_wait_ready">แตะปลดล็อกเลยเพื่อดำเนินการต่อ</string>
     <string name="reward_wait_unlock">ปลดล็อกเลย</string>
+    <string name="lookup_status_no_match">ยังไม่พบชื่อของหมายเลขนี้</string>
+    <string name="lookup_status_offline">คุณออฟไลน์อยู่ แสดงเฉพาะข้อมูลพื้นฐาน</string>
+    <string name="lookup_status_server">ไม่สามารถเชื่อมต่อระบบระบุผู้โทรได้ในขณะนี้ แสดงข้อมูลพื้นฐาน</string>
+    <string name="lookup_status_rate_limited">ค้นหาบ่อยเกินไป โปรดลองอีกครั้งในอีกหนึ่งนาที</string>
+    <string name="lookup_status_unavailable">ระบบระบุผู้โทรใช้งานไม่ได้ชั่วคราว เรากำลังแก้ไข</string>
+    <string name="caller_label_offline">ออฟไลน์</string>
+    <string name="caller_label_unavailable">ระบุผู้โทรไม่ได้</string>
+    <string name="lookup_outage_title">ระบบระบุผู้โทรใช้งานไม่ได้ในขณะนี้</string>
+    <string name="lookup_outage_body">คุณยังค้นหาหมายเลขได้ ชื่อและรายงานสแปมจะกลับมาเร็วๆ นี้</string>
+    <string name="lookup_outage_continue">ดำเนินการต่อ</string>
 </resources>

@@ -1,5 +1,10 @@
 package com.callerid.numberlookup.home.feature.finder
 
+import com.callerid.numberlookup.home.resolver.LookupStatus
+import com.callerid.numberlookup.home.resolver.LookupResult
+import com.callerid.numberlookup.home.resolver.LookupHealth
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import androidx.core.view.isVisible
 import com.callerid.numberlookup.home.feature.premium.PremiumActivity
 import android.app.Activity
 import android.app.Dialog
@@ -272,6 +277,7 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
         binding.textResName.text = if (hasName) blurName(fullName) else fullName
         binding.imageRevealName.visibility = if (hasName) View.VISIBLE else View.GONE
         binding.textResNumber.text = result.number
+        bindLookupStatus(result, hasName)
 
         when {
             result.isSpam -> bindStatusPill(
@@ -326,6 +332,50 @@ class NumberFinderFragment : BaseFragment<FragmentLookupBinding>() {
         // The dialog, the ads-off short circuit and the ad are all RewardPrompt's
         // now — this used to inflate its own copy of the same dialog.
         NameRevealReward.reveal(act, fullName, result.number) { open() }
+    }
+
+    /**
+     * Says why the network gave no name - offline, service down, too many
+     * searches, or no match - under the number, in place of a bare "Unknown
+     * caller" that read the same in every case. Information only: the card's
+     * offline details (country, carrier, line type) still show, and the user
+     * just carries on. A service outage that repeats also gets the one-time
+     * dialog (see [maybeShowOutageDialog]).
+     */
+    private fun bindLookupStatus(result: LookupVerdict, hasName: Boolean) {
+        val ctx = context ?: return
+        // A name on the card and a healthy lookup: nothing to explain.
+        val message = if (hasName && result.apiStatus == LookupStatus.OK) null
+            else LookupHealth.statusMessage(ctx, LookupResult(null, result.apiStatus))
+        binding.textResLookupStatus.isVisible = message != null
+        binding.textResLookupStatus.text = message
+        // No-match is plain information; anything else is a problem worth the amber icon.
+        val problem = LookupHealth.isProblem(result.apiStatus)
+        binding.textResLookupStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(
+            if (problem) R.drawable.ic_warning else R.drawable.ic_info, 0, 0, 0
+        )
+        TextViewCompat.setCompoundDrawableTintList(
+            binding.textResLookupStatus,
+            ColorStateList.valueOf(
+                ContextCompat.getColor(ctx, if (problem) R.color.ds_warning else R.color.ds_ink_muted)
+            )
+        )
+        if (problem) maybeShowOutageDialog()
+    }
+
+    /**
+     * "Caller ID isn't working right now", once a day, after the service has
+     * failed several searches in a row. One button, Continue, which just closes
+     * it - the user keeps using the app with the offline details.
+     */
+    private fun maybeShowOutageDialog() {
+        val act = activity ?: return
+        if (act.isFinishing || act.isDestroyed || !LookupHealth.takeOutageDialog(act)) return
+        MaterialAlertDialogBuilder(act)
+            .setTitle(R.string.lookup_outage_title)
+            .setMessage(LookupHealth.outageDialogBody(act))
+            .setPositiveButton(R.string.lookup_outage_continue, null)
+            .show()
     }
 
     /** First letter + dots (e.g. "John" → "J•••"). */

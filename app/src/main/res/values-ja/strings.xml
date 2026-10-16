@@ -885,4 +885,14 @@
     <string name="reward_wait_ready_title">準備完了！</string>
     <string name="reward_wait_ready">「今すぐロック解除」をタップして続行してください。</string>
     <string name="reward_wait_unlock">今すぐロック解除</string>
+    <string name="lookup_status_no_match">この番号の名前はまだ見つかっていません。</string>
+    <string name="lookup_status_offline">オフラインです。基本情報のみを表示しています。</string>
+    <string name="lookup_status_server">現在、発信者番号サービスに接続できません。基本情報を表示しています。</string>
+    <string name="lookup_status_rate_limited">検索回数が多すぎます。1分後にもう一度お試しください。</string>
+    <string name="lookup_status_unavailable">発信者番号サービスは一時的に利用できません。対応中です。</string>
+    <string name="caller_label_offline">オフライン</string>
+    <string name="caller_label_unavailable">発信者番号は利用できません</string>
+    <string name="lookup_outage_title">発信者番号サービスは現在利用できません</string>
+    <string name="lookup_outage_body">番号の検索は引き続きご利用いただけます。名前と迷惑電話の報告はまもなく復旧します。</string>
+    <string name="lookup_outage_continue">続ける</string>
 </resources>

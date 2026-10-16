@@ -933,4 +933,14 @@
     <string name="reward_wait_ready_title">सब तैयार है!</string>
     <string name="reward_wait_ready">जारी रखने के लिए अभी अनलॉक करें पर टैप करें।</string>
     <string name="reward_wait_unlock">अभी अनलॉक करें</string>
+    <string name="lookup_status_no_match">इस नंबर के लिए अभी तक कोई नाम नहीं मिला।</string>
+    <string name="lookup_status_offline">आप ऑफ़लाइन हैं। केवल बुनियादी जानकारी दिखाई जा रही है।</string>
+    <string name="lookup_status_server">अभी कॉलर आईडी तक नहीं पहुँच सके। बुनियादी जानकारी दिखाई जा रही है।</string>
+    <string name="lookup_status_rate_limited">बहुत अधिक खोजें। कृपया एक मिनट बाद फिर से कोशिश करें।</string>
+    <string name="lookup_status_unavailable">कॉलर आईडी अस्थायी रूप से उपलब्ध नहीं है। हम इस पर काम कर रहे हैं।</string>
+    <string name="caller_label_offline">ऑफ़लाइन</string>
+    <string name="caller_label_unavailable">कॉलर आईडी उपलब्ध नहीं</string>
+    <string name="lookup_outage_title">कॉलर आईडी अभी काम नहीं कर रहा है</string>
+    <string name="lookup_outage_body">आप अब भी नंबर खोज सकते हैं। नाम और स्पैम रिपोर्ट जल्द ही वापस आएँगी।</string>
+    <string name="lookup_outage_continue">जारी रखें</string>
 </resources>

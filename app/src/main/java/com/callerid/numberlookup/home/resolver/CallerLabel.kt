@@ -241,25 +241,30 @@ object CallerLabel {
      * does not finish inside [TIMEOUT_MS]. Callers must treat null as "leave what
      * is already on screen".
      */
-    suspend fun lookupNetworkFacts(context: Context, number: String): CallerFacts? {
-        if (CredentialProvider.CONTACTS_API_KEY.isBlank()) {
-            return null
-        }
-        return runCatching {
-            withTimeoutOrNull(LOOKUP_TIMEOUT_MS) {
-                val response = NetworkClientFactory.api.checkPhoneNumber(
-                    url = EndpointConfig.similarPhonePath(context),
-                    phone = number
-                )
-                if (!response.isSuccessful) return@withTimeoutOrNull null
-                // The endpoint is "similar-phone-number": the spam verdict, city and
-                // country are top-level, and the rows are only names (junk among
-                // them). toFacts() folds it into one CallerFacts with the best name
-                // and the top-level verdict merged in, so a spammer the network has
-                // flagged is flagged on the card even when it has no name.
-                response.body()?.toFacts()
-            }
-        }.getOrNull()
+    suspend fun lookupNetworkFacts(context: Context, number: String): CallerFacts? =
+        lookupNetwork(context, number, "caller_card").first
+
+    /**
+     * [lookupNetworkFacts] plus why it ended as it did, so a card can say
+     * "Offline" or "Caller ID unavailable" instead of a bare "Unknown" when the
+     * service, not the number, is the reason there is no name. [screen] tags the
+     * `lookup_api_error` event (see [LookupHealth]).
+     *
+     * The endpoint is "similar-phone-number": the spam verdict, city and country
+     * are top-level, and the rows are only names (junk among them). toFacts()
+     * folds it into one CallerFacts with the best name and the top-level verdict
+     * merged in, so a spammer the network has flagged is flagged on the card even
+     * when it has no name. Running past [LOOKUP_TIMEOUT_MS] counts as a server error.
+     */
+    suspend fun lookupNetwork(
+        context: Context,
+        number: String,
+        screen: String,
+    ): Pair<CallerFacts?, LookupStatus> {
+        val result = withTimeoutOrNull(LOOKUP_TIMEOUT_MS) {
+            LookupHealth.lookup(context, number, screen)
+        } ?: LookupResult(null, LookupStatus.SERVER_ERROR)
+        return result.payload?.toFacts() to result.status
     }
 
     /**
@@ -300,8 +305,8 @@ object CallerLabel {
         card: () -> View?,
     ) {
         if (info.known) return
-        val facts = withContext(Dispatchers.IO) { lookupNetworkFacts(context, number) }
-        card()?.let { applyNetworkFacts(context, it, info, facts) }
+        val (facts, status) = withContext(Dispatchers.IO) { lookupNetwork(context, number, "caller_card") }
+        card()?.let { applyNetworkFacts(context, it, info, facts, status) }
     }
 
     /**
@@ -311,7 +316,13 @@ object CallerLabel {
      * network calls that number would be a downgrade, however authoritative it
      * is. This only fills the gap where the card is showing "Unknown".
      */
-    fun applyNetworkFacts(context: Context, root: View, info: Info, facts: CallerFacts?) {
+    fun applyNetworkFacts(
+        context: Context,
+        root: View,
+        info: Info,
+        facts: CallerFacts?,
+        status: LookupStatus = LookupStatus.OK,
+    ) {
         if (info.known) return
 
         // Cleared first and unconditionally. An unreachable API, a timeout and a
@@ -319,6 +330,17 @@ object CallerLabel {
         // running forever is a worse card than the "Unknown" it replaced.
         val named = !facts?.name?.trim().isNullOrBlank()
         clearNameLoading(context, root, revealName = !named)
+        // No name because the service failed, not because nobody knows the
+        // number: say so in the pill - "Offline" / "Caller ID unavailable" -
+        // rather than let "Unknown" read as a verdict. Small and neutral: the
+        // phone is ringing.
+        if (!named) {
+            LookupHealth.cardLabel(status)?.let { label ->
+                root.findViewById<TextView>(R.id.textIncallStatus)?.let { pill ->
+                    stylePill(context, pill, label, R.color.on_surface_variant, R.color.neutral_soft, R.drawable.ic_info)
+                }
+            }
+        }
         if (facts == null) return
 
         val networkName = facts.name?.trim()?.takeIf(String::isNotBlank)

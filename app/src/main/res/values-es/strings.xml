@@ -937,4 +937,14 @@
     <string name="reward_wait_ready_title">¡Todo listo!</string>
     <string name="reward_wait_ready">Toca Desbloquear ahora para continuar.</string>
     <string name="reward_wait_unlock">Desbloquear ahora</string>
+    <string name="lookup_status_no_match">Aún no se encontró ningún nombre para este número.</string>
+    <string name="lookup_status_offline">Sin conexión. Se muestra solo la información básica.</string>
+    <string name="lookup_status_server">No se pudo conectar con el identificador de llamadas. Se muestra la información básica.</string>
+    <string name="lookup_status_rate_limited">Demasiadas búsquedas. Inténtalo de nuevo en un minuto.</string>
+    <string name="lookup_status_unavailable">El identificador de llamadas no está disponible temporalmente. Estamos trabajando en ello.</string>
+    <string name="caller_label_offline">Sin conexión</string>
+    <string name="caller_label_unavailable">Identificador no disponible</string>
+    <string name="lookup_outage_title">El identificador de llamadas no funciona ahora</string>
+    <string name="lookup_outage_body">Puedes seguir buscando números. Los nombres y los reportes de spam volverán pronto.</string>
+    <string name="lookup_outage_continue">Continuar</string>
 </resources>
