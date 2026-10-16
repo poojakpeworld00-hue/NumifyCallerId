@@ -23,7 +23,8 @@ import android.content.ContextWrapper
  * | `close`      | a full-screen ad was dismissed                                  |
  * | `earned` / `not_earned` | rewarded: closed with / without the reward           |
  *
- * Formats: `app_open`, `interstitial`, `native`, `native_banner`, `banner`, `rewarded`.
+ * Formats: `app_open`, `interstitial`, `back_interstitial`, `native`, `native_banner`,
+ * `banner`, `rewarded`.
  *
  * `screen` is where it happened - for a pooled ad, `req`/`loaded` carry the screen
  * that loaded it and `shown`/`impression`/`clicked` the screen that displayed it.
@@ -34,6 +35,9 @@ object AdAnalytics {
 
     const val APP_OPEN = "app_open"
     const val INTERSTITIAL = "interstitial"
+
+    /** The Back-press interstitial (ExitInterstitialAd), kept apart from transition ones. */
+    const val BACK_INTERSTITIAL = "back_interstitial"
     const val NATIVE = "native"
     const val NATIVE_BANNER = "native_banner"
     const val BANNER = "banner"

@@ -12,6 +12,9 @@ import com.callerid.numberlookup.home.monetize.model.AdPlacementType
 import com.callerid.numberlookup.home.monetize.strategy.DisplayCadenceManager.interBackCounter
 import com.callerid.numberlookup.home.monetize.strategy.AdPreferenceStore
 import com.callerid.numberlookup.home.monetize.strategy.recordEvent
+import com.callerid.numberlookup.home.monetize.strategy.AdAnalytics
+import com.callerid.numberlookup.home.monetize.strategy.RevenueMonitor
+import com.callerid.numberlookup.home.BuildConfig
 import com.callerid.numberlookup.home.monetize.delivery.isNetworkAvailable
 
 class ExitInterstitialAd {
@@ -32,19 +35,21 @@ class ExitInterstitialAd {
     fun loadExitInterstitials(activity: Activity) {
         val pref = AdPreferenceStore.getInstance(activity)
 
+        // These were "BackLoad:AdsOFF" and friends - names with a colon, which
+        // Firebase rejects, so not one of them was ever recorded.
         if (!pref.getBoolean("IsAdsON")) {
-            activity.safeLog("BackLoad:AdsOFF")
+            activity.logSkip("ads_off")
             return
         }
 
         // Firebase "InterAds" master switch — back ads are interstitials too
         if (!pref.getBoolean("InterAds")) {
-            activity.safeLog("BackLoad:InterAdsDisabled")
+            activity.logSkip("inter_ads_off")
             return
         }
 
         if (!pref.getBoolean("IsBack")) {
-            activity.safeLog("BackLoad:BackAdsOFF")
+            activity.logSkip("back_ads_off")
             return
         }
 
@@ -52,6 +57,7 @@ class ExitInterstitialAd {
         val req = AdRequest.Builder().build()
 
         if (AdPlacementType.fromString(pref.getString("IsAdType")) == AdPlacementType.GOOGLE) {
+            AdAnalytics.req(activity, AdAnalytics.BACK_INTERSTITIAL)
             InterstitialAd.load(
                 activity, id, req,
                 object : InterstitialAdLoadCallback() {
@@ -60,12 +66,16 @@ class ExitInterstitialAd {
                         googleInterBack = ad
                         Log.d("ExitInterstitialAd", "Back Inter Loaded")
                         activity.safeLog("Back_Inter_Loaded")
+                        AdAnalytics.loaded(activity, AdAnalytics.BACK_INTERSTITIAL)
                     }
 
                     override fun onAdFailedToLoad(err: LoadAdError) {
                         googleInterBack = null
                         Log.e("ExitInterstitialAd", "Back Inter Load Fail: ${err.message}")
-                        activity.safeLog("Back_Inter_Load_FAILED:${err.message}")
+                        // Was "Back_Inter_Load_FAILED:<message>": invalid (colon,
+                        // spaces, often over 40 chars) and so dropped by Firebase.
+                        // no_fill / failed with the error code instead.
+                        AdAnalytics.loadFailed(activity, AdAnalytics.BACK_INTERSTITIAL, err.code)
                     }
                 })
         }
@@ -160,21 +170,38 @@ class ExitInterstitialAd {
         }
         activity.safeLog("google_back_inter_show_attempt")
 
+        // Revenue: back-ad earnings were never reported before.
+        if (BuildConfig.DEBUG) RevenueMonitor.logDebugRevenue(activity)
+        ad.setOnPaidEventListener { RevenueMonitor.reportPaidEvent(activity, it) }
+
+        // `screen` on these is the screen Back was pressed on.
+        val b = AdAnalytics.BACK_INTERSTITIAL
         ad.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdShowedFullScreenContent() {
                 super.onAdShowedFullScreenContent()
                 isInterBAckShow = true
+                AdAnalytics.show(activity, b)
+            }
+
+            override fun onAdImpression() {
+                AdAnalytics.impression(activity, b)
+            }
+
+            override fun onAdClicked() {
+                AdAnalytics.clicked(activity, b)
             }
 
             override fun onAdDismissedFullScreenContent() {
                 googleInterBack = null
                 isInterBAckShow = false
+                AdAnalytics.close(activity, b)
                 closeQuietly("Google_Dismiss")
                 loadExitInterstitials(activity)
             }
 
             override fun onAdFailedToShowFullScreenContent(error: AdError) {
                 googleInterBack = null
+                AdAnalytics.showFailed(activity, b, error.code)
                 handleGoogleFail(activity, pref, closeQuietly)
                 loadExitInterstitials(activity)
             }
@@ -224,15 +251,19 @@ class ExitInterstitialAd {
         val fbId = pref.getString("faceB_InterAds") ?: return onFail()
 
         val fb = com.facebook.ads.InterstitialAd(context, fbId)
+        val b = AdAnalytics.BACK_INTERSTITIAL
+        val meta = AdAnalytics.FACEBOOK
 
         // ⬅ FULLSCREEN LOADER (only if Activity)
         if (context is Activity) InterstitialAdCache.show(context, isLoader)
 
+        AdAnalytics.req(context, b, network = meta)
         fb.loadAd(
             fb.buildLoadAdConfig()
                 .withAdListener(object : InterstitialAdListener {
 
                     override fun onAdLoaded(ad: Ad?) {
+                        AdAnalytics.loaded(context, b, network = meta)
                         if (context is Activity) InterstitialAdCache.hide()
                         try {
                             fb.show()
@@ -242,21 +273,28 @@ class ExitInterstitialAd {
                     }
 
                     override fun onError(ad: Ad?, err: com.facebook.ads.AdError?) {
+                        AdAnalytics.loadFailed(context, b, err?.errorCode ?: -1, network = meta)
                         if (context is Activity) InterstitialAdCache.hide()
                         onFail()
                     }
 
                     override fun onInterstitialDismissed(ad: Ad?) {
+                        AdAnalytics.close(context, b, network = meta)
                         if (context is Activity) InterstitialAdCache.hide()
                         onDismiss()
                     }
 
-                    override fun onLoggingImpression(ad: Ad?) {}
+                    override fun onLoggingImpression(ad: Ad?) {
+                        AdAnalytics.impression(context, b, network = meta)
+                    }
                     override fun onInterstitialDisplayed(ad: Ad?) {
+                        AdAnalytics.show(context, b, network = meta)
                         if (context is Activity) InterstitialAdCache.hide()
                     }
 
-                    override fun onAdClicked(ad: Ad?) {}
+                    override fun onAdClicked(ad: Ad?) {
+                        AdAnalytics.clicked(context, b, network = meta)
+                    }
 
                 }).build()
         )
@@ -371,6 +409,11 @@ class ExitInterstitialAd {
             this.recordEvent(event)
         } catch (_: Exception) {
         }
+    }
+
+    /** `back_load_skip` with why the back interstitial was not loaded. */
+    private fun Context.logSkip(reason: String) {
+        runCatching { recordEvent("back_load_skip", mapOf("reason" to reason)) }
     }
 
 }
